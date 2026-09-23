@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Other Gateways</title>
+<meta name="description" content="Using Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt; with a Gateway Other Than Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt;.">
+<meta property="og:description" content="Using Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt; with a Gateway Other Than Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt;.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Other_Gateways.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Other_Gateways.html">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Gatewayother2532158640.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Gatewayother2532158640.jpg.webp" alt="Gatewayother2532158640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Using Whonix-Workstation with a Gateway Other Than
+Whonix-Gateway.</p>
+<div class="post-intro-p">
+</div>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="Unsupported.html">this</a> for
+potential alternatives.</p>
+</div>
+<h1 id="Potential_Issues_When_using_A_Custom_Gateway">Potential Issues
+When using A Custom Gateway</h1>
+<p>TODO: document</p>
+<ul>
+<li>Gateway IP Change required? See chapter below.</li>
+<li>Tor Control Protocol Access. See chapter below.</li>
+<li>Custom gateway might not provide all the Tor <code>SocksPort</code>s
+that Whonix-Gateway provides. Fixable by adjusting Tor configuration of
+the custom gateway.</li>
+<li>Custom gateway might not provide <a href="Stream_Isolation.html#Transparent_Proxy">transparent
+proxying</a>. This might be intended if the user prefers an <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/IsolatingProxy">IsolatingProxy</a>
+setup.</li>
+</ul>
+<h1 id="Gateway_IP_Change">Gateway IP Change</h1>
+<p><a href="Moved:git.html#grep_Whonix_source_code"><code>grep</code> the Whonix source code</a> for the
+following search term.</p>
+<p><span class="code-select">IP HARDCODED</span></p>
+<p>For example. (Creation of the <code>mygrep</code> script is
+documented in above link.)</p>
+<p><span class="code-select">mygrep -r "IP HARDCODED"</span></p>
+<p>Perhaps IP change can be avoided with some iptables trick?</p>
+<p>Forum discussion:</p>
+<p><a href="https://forums.whonix.org/t/network-changing-the-complete-16/10586">https://forums.whonix.org/t/network-changing-the-complete-16/10586</a></p>
+<h1 id="Tor_Control_Protocol_Access">Tor Control Protocol Access</h1>
+<p>Two options. Either:</p>
+<ul>
+<li>Allow filtered Tor control protocol access through
+onion-grater.</li>
+<li>unfiltered Tor control protocol access. A compromised workstation
+with unfiltered Tor control protocol access can acquire the real
+external cleranet IP. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+<li>No Tor control protocol access. This would break some
+functionality.</li>
+</ul>
+<p>Which applications require Tor control protocol access?</p>
+<ul>
+<li>Tor Browser new identity feature</li>
+<li>A list of applications which are currently require Tor control
+protocol access can be found here: <a href="Special:WhatLinksHere/Template:Control_Port_Filter_Python_Profile_Add.html">Special:WhatLinksHere/Template:Control_Port_Filter_Python_Profile_Add</a></li>
+<li><a href="https://github.com/Whonix/onion-grater/tree/master/usr/share/doc/onion-grater-merger/examples">onion-grater
+example profiles</a></li>
+<li><a href="Sdwdate.html">sdwdate</a>
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li><a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+</ul>
+<h2 id="Filtered_Access_using_onion-grater">Filtered Access using
+onion-grater</h2>
+<p><a href="Unsupported.html">Undocumented</a>.</p>
+<h2 id="Unfiltered_Access_not_using_onion-grater">Unfiltered Access not
+using onion-grater</h2>
+<p>This setting comes from Debian system Tor upstream package default
+file <code>/usr/share/tor/tor-service-defaults-torrc</code>.</p>
+<p><span class="code-select">CookieAuthFile
+/run/tor/control.authcookie</span></p>
+<p>The file location for this file is non-ideal since it will change at
+every boot. By re-configuring Tor on the other gateway to use a
+different file location the contents of this file <u>might</u> be
+constant. Untested.</p>
+<p>On the Whonix-Workstation package anon-ws-disable-stacked-tor script
+<code>/usr/lib/anon-ws-disable-stacked-tor/state-files</code> copies at
+boot
+<code>/usr/share/anon-ws-disable-stacked-tor/control.authcookie</code>
+to the right places.</p>
+<p>By copying the <code>control.authcookie</code> file from the gateway
+to Whonix-Workstation
+<code>/usr/share/anon-ws-disable-stacked-tor/control.authcookie</code>
+one might be able to have Tor cookie authentication. Contents of
+<code>/usr/share/anon-ws-disable-stacked-tor/control.authcookie</code>
+will be overwritten when package anon-ws-disable-stacked-tor is
+upgraded.</p>
+<p>Therefore this exercise might be a bit pointless. A better solution
+might be to use Tor Browser control protocol authentication using a Tor
+control password rather than Tor control auth cookie.</p>
+<p>Open file <code>/etc/profile.d/50_user.sh</code> in an editor with
+administrative ("<a href="Moved:Root.html"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/profile.d/50_user.sh</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/profile.d/50_user.sh</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/profile.d/50_user.sh</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Paste the following contents.</p>
+<p><span class="code-select">## see also
+/usr/lib/anon-ws-disable-stacked-tor/torbrowser.sh</p>
+<ol>
+<li><ol>
+<li>See workstation file
+~/.tb/tor-browser/Browser/start-tor-browser</li>
+<li>or Tor Browser file Browser/start-tor-browser script for
+comment</li>
+<li>why quoting looks weird.</li>
+</ol></li>
+</ol>
+<p>export TOR_CONTROL_PASSWD='"password"'</p>
+<ol>
+<li><ol>
+<li>Overwrite what /usr/lib/anon-ws-disable-stacked-tor/torbrowser.sh
+/</li>
+<li>/etc/profile.d/20_torbrowser.sh is doing.</li>
+</ol></li>
+</ol>
+<p>export
+TOR_CONTROL_IPC_PATH="/run/anon-ws-disable-stacked-tor/127.0.0.1_9151.sock"</span></p>
+<p>Save.</p>
+<p>Ensure the file is executable:</p>
+<p><span class="code-select">chmod +x
+/etc/profile.d/50_user.sh</span></p>
+<p>This would have to be combined with Tor setting
+<code>HashedControlPassword</code> on the other gateway. Untested.</p>
+<h1 id="References">References</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Tor control protocol command <code>GETINFO address</code></li>
+<li id="cite_note-2"><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/onion-grater-merger.d/30_whonix-default.yml">https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/onion-grater-merger.d/30_whonix-default.yml</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

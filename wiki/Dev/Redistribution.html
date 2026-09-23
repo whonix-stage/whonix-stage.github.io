@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Redistribution</title>
+<meta name="description" content="Design and Developer Documentation about Redistribution of Whonix.">
+<meta property="og:description" content="Design and Developer Documentation about Redistribution of Whonix.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Redistribution.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Redistribution.html">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Redistribution</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l2"><a href="#Pre_Building">Pre Building</a></li><li class="toc-l3"><a href="#Major_Upgrade">Major Upgrade</a></li><li class="toc-l3"><a href="#Point_Release">Point Release</a></li><li class="toc-l3"><a href="#Unsorted">Unsorted</a></li><li class="toc-l2"><a href="#Building">Building</a></li><li class="toc-l3"><a href="#Notes">Notes</a></li><li class="toc-l3"><a href="#Build">Build</a></li><li class="toc-l2"><a href="#Post_Building">Post Building</a></li><li class="toc-l3"><a href="#Testing">Testing</a></li><li class="toc-l3"><a href="#Update_Permanent_Links">Update Permanent Links</a></li><li class="toc-l3"><a href="#Git_Tag">Git Tag</a></li><li class="toc-l3"><a href="#Announcement_Text_Creation">Announcement Text Creation</a></li><li class="toc-l3"><a href="#Wiki_Page_Updates">Wiki Page Updates</a></li><li class="toc-l3"><a href="#Misc">Misc</a></li><li class="toc-l3"><a href="#Announcement">Announcement</a></li><li class="toc-l3"><a href="#Cleanup">Cleanup</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Design and Developer Documentation about Redistribution of
+Whonix.</p>
+<div class="post-intro-p">
+</div>
+<h2 id="Introduction">Introduction</h2>
+<p>Developers only!</p>
+<p>These are notes for producing official <a href="../Download.html">downloadable</a> binary Whonix images.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="info" /></span>
+Only required if you want to redistribute (official) Whonix builds.</p>
+</div>
+<h2 id="Pre_Building">Pre Building</h2>
+<h3 id="Major_Upgrade">Major Upgrade</h3>
+<ul>
+<li><u><strong><a href="https://www.kicksecure.com/wiki/Dev/todo#trixie_port">https://www.kicksecure.com/wiki/Dev/todo#trixie_port</a></strong></u></li>
+</ul>
+<p>Check if updates needed:</p>
+<p><strong>1.</strong> <a href="https://github.com/Kicksecure/kicksecure-base-files/blob/master/etc/kicksecure_version">https://github.com/Kicksecure/kicksecure-base-files/blob/master/etc/kicksecure_version</a></p>
+<p><strong>2.</strong> <a href="https://github.com/Kicksecure/dist-base-files/blob/master/usr/share/distro-info/kicksecure.csv">https://github.com/Kicksecure/dist-base-files/blob/master/usr/share/distro-info/kicksecure.csv</a></p>
+<p><strong>3.</strong> <a href="https://github.com/Whonix/whonix-base-files/blob/master/etc/whonix_version">https://github.com/Whonix/whonix-base-files/blob/master/etc/whonix_version</a></p>
+<p><strong>4.</strong>
+live-config-dist/etc/calamares/branding/Whonix-Host/branding.desc</p>
+<h3 id="Point_Release">Point Release</h3>
+<p><strong>1.</strong> package <code>timesanitycheck</code>:
+<code>./usr/share/timesanitycheck/date-minimum-file-create</code></p>
+<p><strong>2.</strong> update VirtualBox download link if a newer is
+available</p>
+<p><a href="https://github.com/derivative-maker/derivative-maker/blob/master/windows/virtualbox/download.txt">https://github.com/derivative-maker/derivative-maker/blob/master/windows/virtualbox/download.txt</a></p>
+<p><strong>3.</strong> update VirtualBox SHA256SUMS file if a newer is
+available</p>
+<p><a href="https://github.com/derivative-maker/derivative-maker/blob/master/windows/virtualbox/SHA256SUMS">https://github.com/derivative-maker/derivative-maker/blob/master/windows/virtualbox/SHA256SUMS</a></p>
+<h3 id="Unsorted">Unsorted</h3>
+<div class="info-box ">
+<p>Clean source code</p>
+<ul>
+<li><sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+<li><sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li>You can get a list of unwanted files with
+<code>git clean -dfxn</code> and remove them with
+<code>git clean -dfx</code>.</li>
+</ul>
+<ul>
+<li>Update Whonix debian package repository.</li>
+</ul>
+<ul>
+<li>add your own <code>default-key</code> to your own
+<code>/home/user/.gnupg/gpg.conf</code>.</li>
+</ul>
+<ul>
+<li>Check that all packages point to a signed git commit and signed git
+tag.</li>
+</ul>
+<p><span class="code-select">dm-packaging-helper-script
+pkg_verify_signed_commit_and_tag</span></p>
+<ul>
+<li>push the source code to github</li>
+</ul>
+<p><span class="code-select">git push origin master</span></p>
+<ul>
+<li>Check, that the current git commit is a signed.
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+</ul>
+<p><span class="code-select">git log --show-signature
+HEAD^..HEAD</span></p>
+<p>Or use the generic makefile as a shortcut.</p>
+<p><span class="code-select">make git-commit-verify</span></p>
+<ul>
+<li>Create an OpenPGP signed git tag. This will also be used as Whonix
+version number.</li>
+</ul>
+<p><span class="code-select">git tag -s version</span></p>
+<ul>
+<li>Make sure the current git head is a signed git commit and signed git
+tag.</li>
+</ul>
+<p>To simplify this, you could use the generic makefile.</p>
+<p><span class="code-select">make git-verify</span></p>
+<ul>
+<li>Push the OpenPGP signed git tag to github.</li>
+</ul>
+<p><span class="code-select">git push origin version</span></p>
+</div>
+<h2 id="Building">Building</h2>
+<h3 id="Notes">Notes</h3>
+<p><strong>1.</strong> <u>Remote Repository:</u> By convention, enable
+Whonix stable repository by default. (<code>--repo true</code>) This is
+already the case below due to
+<code>export dist_build_redistributable=true</code> used below.</p>
+<p><strong>2.</strong> For other options and platforms also see <a href="Build_Documentation.html">build
+documentation</a>.</p>
+<h3 id="Build">Build</h3>
+<p><strong>1.</strong></p>
+<p><span class="code-select">export
+dist_build_redistributable=true</span></p>
+<p><strong>2.</strong> Build Whonix-Gateway<sup>™</sup>. For example
+Whonix-Gateway<sup>™</sup> with LXQt for VirtualBox.</p>
+<p><span class="code-select">./derivative-maker --target virtualbox
+--flavor whonix-gateway-lxqt</span></p>
+<p><strong>3.</strong> Build Whonix-Workstation<sup>™</sup>. For example
+Whonix-Workstation<sup>™</sup> with LXQt for VirtualBox.</p>
+<p><span class="code-select">./derivative-maker --target virtualbox
+--flavor whonix-workstation-lxqt</span></p>
+<h2 id="Post_Building">Post Building</h2>
+<p>Upload the images.</p>
+<p><span class="code-select">dm-upload-images</span></p>
+<h3 id="Testing">Testing</h3>
+<ul>
+<li><span class="code-select">/usr/share/whonix-ws-firewall/unit_tests/stream_isolation_test</span></li>
+<li>At least a few testers should test final releases before posting a
+news. Testers may be found by posting a news.</li>
+<li><a href="Leak_Tests.html">Leak Tests</a>!</li>
+<li><a href="../Moved:Test.html">Test</a> the images before final
+release! (Testers-only releases can be uploaded straight away.)</li>
+</ul>
+<h3 id="Update_Permanent_Links">Update Permanent Links</h3>
+<div class="info-box ">
+<p>Update permalinks.</p>
+<pre><code>sudoedit /etc/nginx/conf.d/download_redirects</code></pre>
+<pre><code>cacheclear-minimal</code></pre>
+<p>(<a href="https://phabricator.whonix.org/T895">ticket</a>)</p>
+</div>
+<h3 id="Git_Tag">Git Tag</h3>
+<p>Create <code>-testers-only</code> or <code>-stable</code> git
+tag.</p>
+<h3 id="Announcement_Text_Creation">Announcement Text Creation</h3>
+<p>Create Changelog and Announcement.</p>
+<p><span class="code-select">dm-packaging-helper-script
+pkg_git_packages_git_log_writer</span></p>
+<h3 id="Wiki_Page_Updates">Wiki Page Updates</h3>
+<div class="info-box ">
+<p><strong>Only required if you want to redistribute (official) Whonix
+builds.</strong></p>
+<div class="info-box ">
+<ul>
+<li>Check, if <a href="../Tor_Browser/Manual_Download.html">Tor
+Browser/Manual Download</a> is still up to date.</li>
+<li>Update <a href="../Download.html">Download Table</a>.</li>
+<li>See if the download table works in Tor Browser using New
+Identity.</li>
+<li>Update <a href="../Known_Issues.html">Known
+Issues</a>.</li>
+<li>See if <a href="../Documentation.html">Documentation</a>
+still makes sense.</li>
+<li>Search the wiki for <a href="../Special:WhatLinksHere/Template:Stable.html">Special:WhatLinksHere/Template:Stable</a> and <a href="../Special:WhatLinksHere/Template:Testing.html">Special:WhatLinksHere/Template:Testing</a> and act
+accordingly.</li>
+<li>Update links on the <a href="Build_Documentation.html">Dev/Build Documentation</a> page.</li>
+<li>Update <a href="../Features.html">Features</a>.</li>
+<li>Update <a href="../Template:VersionNew.html">Template:VersionNew</a>.</li>
+<li>Update <a href="../Template:VersionShort.html">Template:VersionShort</a>.</li>
+<li><a href="../Template:Stable_project_version_based_on_Debian_codename.html">Template:Stable_project_version_based_on_Debian_codename</a></li>
+<li><a href="../Template:Stable_project_version_based_on_Debian_version_short.html">Template:Stable_project_version_based_on_Debian_version_short</a></li>
+<li><a href="../Template:Debian_Codename_Testing.html">Template:Debian_Codename_Testing</a></li>
+<li><a href="../Changelog.html">Changelog</a></li>
+<li>Instructions containing backports.</li>
+</ul>
+</div>
+</div>
+<h3 id="Misc">Misc</h3>
+<div class="info-box ">
+<p><strong>Only required if you want to redistribute (official) Whonix
+builds.</strong></p>
+<div class="info-box ">
+<ul>
+<li>See <a href="https://github.com/Whonix?utf8=%E2%9C%93&amp;q=deprecated&amp;type=&amp;language=">https://github.com/Whonix?utf8=%E2%9C%93&amp;q=deprecated&amp;type=&amp;language=</a>
+for deprecated repositories to be deleted.</li>
+<li><a href="https://www.qubes-os.org/doc/supported-releases/#templates">https://www.qubes-os.org/doc/supported-releases/#templates</a></li>
+<li>ask for an announcement on <a href="https://www.qubes-os.org/news/">https://www.qubes-os.org/news/</a>
+<ul>
+<li>(similar to <a href="https://www.qubes-os.org/news/2018/08/07/whonix-14-has-been-released/">https://www.qubes-os.org/news/2018/08/07/whonix-14-has-been-released/</a>)</li>
+<li>(similar to <a href="https://github.com/QubesOS/qubes-posts/blob/master/2018-08-07-whonix-14-has-been-released.md">https://github.com/QubesOS/qubes-posts/blob/master/2018-08-07-whonix-14-has-been-released.md</a>)</li>
+<li>(similar to <a href="https://github.com/QubesOS/qubes-issues/issues/4193">https://github.com/QubesOS/qubes-issues/issues/4193</a>)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<ul>
+<li><a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/whonix.jinja">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/whonix.jinja</a></li>
+</ul>
+<h3 id="Announcement">Announcement</h3>
+<div class="info-box ">
+<p><strong>Only required if you want to redistribute (official) Whonix
+builds.</strong></p>
+<div class="info-box ">
+<h4 id="Contents">Contents</h4>
+<ul>
+<li>introduction (what is Whonix) (The release announcement may be the
+first thing that new people who learn about Whonix see.)</li>
+<li>similar to <a href="https://forums.whonix.org/t/whonix-14-has-been-released">https://forums.whonix.org/t/whonix-14-has-been-released</a></li>
+<li>deprecation notice of old Whonix version with date of
+deprecation</li>
+</ul>
+<h4 id="Where">Where</h4>
+<ul>
+<li>Finally announce: Post a news. (Not nagging external lists. Common
+sense. Mostly only final releases.)
+<ul>
+<li>In Whonix Important and Feature Blog.</li>
+<li><a href="https://lists.debian.org/debian-derivatives/">https://lists.debian.org/debian-derivatives/</a>
+<ul>
+<li>debian-derivatives@lists.debian.org</li>
+</ul></li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/">https://lists.torproject.org/pipermail/tor-talk/</a>
+<ul>
+<li>tor-talk@lists.torproject.org</li>
+</ul></li>
+<li><a href="https://nmap.org/mailman/listinfo/fulldisclosure">https://nmap.org/mailman/listinfo/fulldisclosure</a>
+<ul>
+<li>fulldisclosure@seclists.org</li>
+</ul></li>
+<li>Also this will do the job as well:
+<ul>
+<li><a href="../Official_Online_Profiles.html#Whonix_Forums_Profiles">Whonix Forums Profiles</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<h3 id="Cleanup">Cleanup</h3>
+<ul>
+<li>any deprecated repositories (none at time of writing)</li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Moved:Maintenance.html">Dev/Maintenance</a></li>
+<li><a href="../Moved:APT_Repository.html">Dev/APT
+Repository</a></li>
+<li><a href="Installation_from_Repository.html#Distro_Morphing_vs_Builds">Distro Morphing vs Builds</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">get rid of .directory files inside the source code:
+<code>thunar</code> -> <code>preferences</code> -> <code>general</code> ->
+<code>behavior</code> ->
+<code>use common view properties for all folders</code></li>
+<li id="cite_note-2">Get rid of <code>~backup</code> files. In other words, get rid of
+files starting with <code>~</code>. <span class="code-select">find ./
+-name '*~' | xargs trash-put</span></li>
+<li id="cite_note-3">You might wish using a <code>git</code> or <code>bash</code> alias
+to safe typing.</li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Moved:Maintenance.html" title="Dev/Maintenance"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Maintenance</span></a><a class="index internal" href="../Design.html" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="Vision.html" title="Dev/Vision"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Vision</span></a><span class="info"><span class="prev">Previous
+page: Dev/Maintenance</span><span class="index">Index page:
+Design</span><span class="next">Next page:
+Dev/Vision</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Development.html">Development</a> <a href="../Category:Design.html">Design</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

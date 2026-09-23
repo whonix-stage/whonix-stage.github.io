@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Default Application Policy</title>
+<meta name="description" content="Design Documentation - How to decide which apps come with Whonix?">
+<meta property="og:description" content="Design Documentation - How to decide which apps come with Whonix?">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Default_Application_Policy.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Default_Application_Policy.html">
+<meta property="og:title" content="Whonix Default Application Policy">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Default Application Policy</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#if_available_from_packages.debian.org">if available from
+packages.debian.org</a></li><li class="toc-l3"><a href="#Important,_hopefully_mostly_objective,_requirements:">Important,
+hopefully mostly objective, requirements:</a></li><li class="toc-l3"><a href="#Less_important,_hopefully_mostly_objective,_requirements:">Less
+important, hopefully mostly objective, requirements:</a></li><li class="toc-l3"><a href="#Contradictions_and_subjective_influences:">Contradictions and
+subjective influences:</a></li><li class="toc-l3"><a href="#Examples:">Examples:</a></li><li class="toc-l2"><a href="#if_not_available_from_packages.debian.org">if not available from
+packages.debian.org</a></li><li class="toc-l2"><a href="#Compiled_Software">Compiled Software</a></li><li class="toc-l3"><a href="#From_APT_Package_Sources">From APT Package Sources</a></li><li class="toc-l3"><a href="#From_Non-APT_Package_Sources">From Non-APT Package Sources</a></li><li class="toc-l3"><a href="#Shipping_Compiled_Software_in_Binary_Packages">Shipping Compiled
+Software in Binary Packages</a></li><li class="toc-l2"><a href="#Source_Package">Source Package</a></li><li class="toc-l3"><a href="#Uploading_Source_Packages_to_deb.whonix.org">Uploading Source
+Packages to deb.whonix.org</a></li><li class="toc-l2"><a href="#guix">guix</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Design Documentation - How to decide which apps come with Whonix?</p>
+<div class="post-intro-p">
+</div>
+<h1 id="How_to_decide_which_apps_come_with_Whonix?">How to decide which
+apps come with Whonix?</h1>
+<h2 id="if_available_from_packages.debian.org">if available from
+packages.debian.org</h2>
+<p>Overall goal: avoid jeopardizing the project due to criticism from
+The Tor Project and/or technical communities based on questionable
+decisions.</p>
+<p>The following points are not listed by priority, only for reference.
+<strong>These are not set in stone!</strong></p>
+<h3 id="Important,_hopefully_mostly_objective,_requirements:">Important,
+hopefully mostly objective, requirements:</h3>
+<ol>
+<li>There must be a reliable upgrade path. Software available via
+<code>stable</code> <code>packages.debian.org</code> is ideal.</li>
+<li>Backports is unsuitable due to <a href="../Moved:APT_Pinning.html">APT Pinning to be avoided</a>.</li>
+<li>Upgrading must not consume significant time from Whonix
+contributors, in order to keep the project maintainable.</li>
+<li><s>If the application generates network activity, there must be a
+way to properly configure it for <a href="../Stream_Isolation.html">Stream Isolation</a>, to keep Tor's TransPort clean for
+the user's own connections.</s> (<a href="https://forums.whonix.org/t/should-strict-stream-isolation-by-a-requirement-in-whonixs-default-application-policy/3940">Deprecated</a>)</li>
+<li>When downloading applications, especially over Tor, strong digital
+signature verification must be supported (e.g. OpenPGP, as used by APT),
+or the download process must be so simple that trusted developers can
+easily audit the code for malicious intent.</li>
+<li>Must be Tor-safe. (Definition: must not be fully <a href="../Tips_on_Remaining_Anonymous.html#Do_not_confuse_Anonymity_with_Pseudonymity.">pseudonymous</a>. No significant protocol leaks. For
+instance, Tor Browser is preferred over Firefox.)</li>
+<li>Must be Freedom Software / Open Source.</li>
+<li>Must not pose a major security risk.</li>
+<li>Must not perform network activity when the application is not in
+use.</li>
+<li>Installing or modifying the application must not overshadow
+discussions about Whonix with controversies related to that application.
+(Example: <a href="../FAQ.html#Does_Whonix_Modify_Tor.3F">No
+Tor modifications.</a>)</li>
+<li>Its default inclusion in Whonix must not cause serious issues with
+The Tor Project.</li>
+</ol>
+<h3 id="Less_important,_hopefully_mostly_objective,_requirements:">Less
+important, hopefully mostly objective, requirements:</h3>
+<ul>
+<li>We believe a fair number of users appreciate it.</li>
+<li>We believe it is usable by a fair number of users.</li>
+<li>A mature, responsive upstream is required, unless the
+application/script is trivial and easy to maintain.</li>
+</ul>
+<h3 id="Contradictions_and_subjective_influences:">Contradictions and
+subjective influences:</h3>
+<ul>
+<li>Perfectly logical, rational, consistent decisions are not always
+possible.</li>
+<li>Discussions about default installed applications often fall into <a href="https://forums.whonix.org/t/law-of-triviality-bikeshed/6739">law
+of triviality / bikeshed</a>.</li>
+<li>The final selection reflects the preferences of the <a href="../Contributors.html">contributors of Whonix</a>.</li>
+<li>Requests from Whonix supporters carry more weight relative to their
+contributions.</li>
+<li>There is some level of arbitrariness involved.</li>
+<li>Disagreements are natural. There are hundreds or even thousands of
+<a href="https://en.wikipedia.org/wiki/Linux_distribution">Linux
+distributions</a>. See <a href="https://upload.wikimedia.org/wikipedia/commons/1/1b/Linux_Distribution_Timeline.svg">this
+diagram</a> for an overview of <a href="https://en.wikipedia.org/wiki/Fork_(software_development)">software
+forks</a>. As a distribution grows in popularity, disagreements and
+forks become more likely.</li>
+</ul>
+<p>Including software that must be manually installed by default would
+be highly problematic, for reasons explained in the <a href="#Others">relevant chapter</a>.</p>
+<h3 id="Examples:">Examples:</h3>
+<p>a) There is no torrent client installed by default in Whonix, because
+none are known to fulfill point number 3. If one that does becomes
+available, this issue should be raised on the tor-talk mailing list to
+seek an official stance, due to <a href="../File_Sharing.html#Updates">previously conflicting statements</a>, in line with
+requirement 10.</p>
+<h2 id="if_not_available_from_packages.debian.org">if not available from
+packages.debian.org</h2>
+<p>The conditions from chapter <a href="#if_available_from_packages.debian.org">#if
+available from packages.debian.org</a> apply. In addition, the following
+conditions must also be met:</p>
+<ul>
+<li>Requires few (security) updates. Must have low maintenance overhead
+and must not consume Whonix contributor time needed to keep the project
+maintainable.</li>
+<li>Must demonstrate significantly higher popular demand compared to
+software available from <code>packages.debian.org</code>.</li>
+<li>Packaging difficulty is a key consideration.
+<ul>
+<li>Example: For <a href="../Electrum.html">electrum</a>, an
+AppImage was available, which is a self-contained binary independent of
+system dependencies. This made it technically easy to add.</li>
+<li>Slightly less likely but possible: Applications from a trusted
+third-party .deb package repository.</li>
+<li>Slightly less likely but possible: Software available for direct
+.deb package download.</li>
+<li>Dependencies: Software with complex or demanding dependencies is
+less likely to be included. Simpler, more forgiving dependencies
+increase the chances.</li>
+<li>Complex software not yet packaged has the lowest chance of being
+included.</li>
+</ul></li>
+<li>Security: Upstream developers must digitally sign their software
+(i.e., support <a href="../Moved:Verifying_Software_Signatures.html">Verifying Software Signatures</a>). An exception may be
+made for software with minimal or simple source code that can be easily
+reviewed by the Whonix project.</li>
+</ul>
+<p>See also the <a href="https://github.com/Kicksecure/binaries-freedom"><code>binaries-freedom</code></a>
+package and the related forum discussion: <a href="https://forums.whonix.org/t/policy-for-inclusion-of-compiled-software/6635">Policy
+for Inclusion of Compiled Software</a>.</p>
+<h1 id="Package_Origin">Package Origin</h1>
+<p><span class="manually-placed-anchor " id="Binary_Software"></span></p>
+<h2 id="Compiled_Software">Compiled Software</h2>
+<p><span class="manually-placed-anchor " id="From_APT_Package_Source"></span></p>
+<h3 id="From_APT_Package_Sources">From APT Package Sources</h3>
+<h4 id="packages.debian.org">packages.debian.org</h4>
+<p><code>packages.debian.org</code> gives us:</p>
+<ul>
+<li>Always stable, not breaking stable, a contributor testing the
+package with Debian.</li>
+<li>Some vetting that the package does not contain an obvious
+backdoor.</li>
+<li>Easily installable without much long-term time sunk from developer
+side, just add once to anon-meta-packages and be done with it.</li>
+<li>No extra repository signing keys (that have the ability to replace
+any package on the system). If we theoretically added something like
+deb.gnunet.org, and it was compromised, all Whonix users would be
+compromised at once through a malicious upgrade. That's how Debian
+works. All packages have full system access, with no sandboxing.</li>
+<li>No need to follow up on security issues of the package, no quick
+security fix uploads, all done by Debian.</li>
+<li>No time sunk as in reuploading new packages to
+<code>deb.whonix.org</code>.
+<ul>
+<li>No download from the vendor's website.</li>
+<li>No verification of signature from the vendor's website.</li>
+<li>No upload/install test from developer's repository (a broken package
+could break the whole system, not in malicious ways, but for example
+broken connectivity that cannot be restored without hacking commands
+into a console).</li>
+<li>No upload/install test from tester's repository, allowing more
+people to run into such issues.</li>
+<li>No migration to stable repository.</li>
+<li>No need to remember the state, bug reports, or check if it was
+actually tested in the whole process.</li>
+<li>While technically not very difficult, it is demanding on mental
+resources and time. Without a dedicated release manager, it is better to
+pick fewer "special" packages from other sources than
+<code>packages.debian.org</code>.</li>
+</ul></li>
+</ul>
+<h4 id="deb.torproject.org">deb.torproject.org</h4>
+<p>The <code>tor</code> <sup class="reference"><a href="#cite_note-1">[1]</a></sup> package is downloaded from
+<code>deb.torproject.org</code> and uploaded to
+<code>deb.whonix.org</code> by Whonix developers. <sup class="reference"><a href="#cite_note-2">[2]</a></sup>
+Reasons:</p>
+<ul>
+<li>One of the most crucial components of Whonix.</li>
+<li>Compatibility with latest stable version of Tor Browser. Why
+compatibility with Tor Browser is a goal is documented in <a href="Default_Application_Policy.html#dist.torproject.org">this chapter</a>.</li>
+<li><a href="Tor.html#Tor_Version">Other
+reasons</a>.</li>
+</ul>
+<p>A maintenance-intensive task.</p>
+<p><span class="manually-placed-anchor " id="From_Non-APT_Package_Source"></span></p>
+<h3 id="From_Non-APT_Package_Sources">From Non-APT Package Sources</h3>
+<h4 id="Summary">Summary</h4>
+<p>There are issues with security as well as maintenance overhead.</p>
+<p>Security issues are mentioned in chapter <a href="../Install_Software.html#Best_Practices">Best
+Practices</a> which include:</p>
+<ul>
+<li>Prefer APT</li>
+<li>Avoid Third Party Package Managers</li>
+<li>Avoid Manual Software Installation</li>
+<li>Always Verify Signatures</li>
+<li>Prefer Packages from Debian Stable Repository</li>
+</ul>
+<p>All of the above are explained in greater detail in chapter <a href="../Install_Software.html#Best_Practices">Best
+Practices</a>.</p>
+<h4 id="dist.torproject.org">dist.torproject.org</h4>
+<p><strong>Tor Browser</strong></p>
+<p>Anonymous web browsing is one of the most, if not the most, popular
+tasks when using Whonix or Tor. For usability and crucial anonymity
+reasons, it is required to easily make the latest stable version of Tor
+Browser available in Whonix. The <a href="../Tor_Browser.html">Tor Browser</a> page describes this in greater detail.
+Due to issues outside of the control of Whonix, there is no APT package
+source providing Tor Browser. See this <a href="../Tor_Browser/Advanced_Users.html#Linux_Generally">chapter</a> for more details on that.</p>
+<p>Therefore <a href="https://github.com/Kicksecure/tb-updater">tb-updater</a> is being
+used to install Tor Browser by default in Whonix from
+<code>dist.torproject.org</code>.</p>
+<p>It can be easily kept up to date by Tor Browser's internal updater as
+well as Tor Browser Updater (Whonix), as documented on the <a href="../Tor_Browser.html">Tor Browser</a> page.</p>
+<p>Historically, this has been one of the biggest sources of development
+work because tb-updater broke as Tor Project applied changes to Tor
+Browser and its download location, making it one of the biggest sources
+of support requests.</p>
+<h4 id="Others">Others</h4>
+<p>Installing software other than Tor Browser (as documented above) from
+non-APT package sources by default would be a nightmare, because:</p>
+<ul>
+<li>Users wouldn't know how it was installed and would not update
+it.</li>
+<li>Updating would be left to the user.</li>
+<li>It is better if the whole process of download, verification,
+install, upgrade notification, and upgrade is up to the user.</li>
+</ul>
+<p>Experiences made with tb-updater and Tor Browser (see above chapter)
+further discourage this.</p>
+<h3 id="Shipping_Compiled_Software_in_Binary_Packages">Shipping Compiled
+Software in Binary Packages</h3>
+<p>Forum discussion: <a href="https://forums.whonix.org/t/policy-for-inclusion-of-compiled-software/6635">https://forums.whonix.org/t/policy-for-inclusion-of-compiled-software/6635</a></p>
+<p>Currently:</p>
+<ul>
+<li>none</li>
+</ul>
+<p>Future candidates for inclusion in <code>binaries-freedom</code>
+package:</p>
+<ul>
+<li><a href="https://git.openprivacy.ca/cwtch.im/cwtch/issues/314">https://git.openprivacy.ca/cwtch.im/cwtch/issues/314</a></li>
+<li><a href="https://git.openprivacy.ca/cwtch.im/cwtch/issues/312">https://git.openprivacy.ca/cwtch.im/cwtch/issues/312</a></li>
+<li><a href="https://github.com/HelloZeroNet/ZeroBundle/issues/17">https://github.com/HelloZeroNet/ZeroBundle/issues/17</a></li>
+</ul>
+<h2 id="Source_Package">Source Package</h2>
+<h3 id="Uploading_Source_Packages_to_deb.whonix.org">Uploading Source
+Packages to deb.whonix.org</h3>
+<p>Usability-wise, not very useful. Users could download and compile
+source packages. As far as I know, there is no install/upgrade mechanism
+for source packages. Even if there was, they would not auto compile and
+upgrade. Would require quite some documentation: `apt source pkg-name`,
+`cd pkg-name`, install build dependencies, install dependencies, build,
+install. More support overhead. Plus almost the same issues as for
+binary packages.</p>
+<h2 id="guix">guix</h2>
+<p>GNU Guix is a compromise between tracking/maintaining the dependency
+hell of a non-Debian program or completely excluding them for that
+reason.</p>
+<p>By including and maintaining Guix as a gateway, we cut down the
+effort needed to obtain external programs for us and for the program
+devs too.</p>
+<p>Brief Intro: In addition to standard package management features,
+Guix supports transactional upgrades and roll-backs, unprivileged
+package management, per-user profiles, and garbage collection (more
+details in the manual). <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><strong>Where to download? How to verify? How to install? (Any
+compilation required?)</strong></p>
+<p>Download here: <a href="https://www.gnu.org/software/guix/download/">https://www.gnu.org/software/guix/download/</a></p>
+<p>Verification and install instructions: <a href="https://guix.gnu.org/manual/en/html_node/Binary-Installation.html">https://guix.gnu.org/manual/en/html_node/Binary-Installation.html</a></p>
+<p>No compilation required. A signed binary tarball is distributed. The
+binary installation tarball can be (re)produced and verified simply by
+running the following command in the Guix source tree:</p>
+<pre><code>make guix-binary.system.tar.xz</code></pre>
+<p>Full manual: <a href="https://www.gnu.org/software/guix/manual/guix.html">https://www.gnu.org/software/guix/manual/guix.html</a></p>
+<p>There is also an installation script:</p>
+<p><a href="https://git.savannah.gnu.org/cgit/guix.git/plain/etc/guix-install.sh">https://git.savannah.gnu.org/cgit/guix.git/plain/etc/guix-install.sh</a></p>
+<p>At time of writing, the installation script does not pass the <a href="https://www.updateframework.com"><em><span>TUF
+(The Update Framework)</span></em></a> (<a href="https://github.com/theupdateframework/python-tuf">github</a>)
+threat model. <sup class="reference"><a href="#cite_note-4">[4]</a></sup> <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p><strong>Installable from packages.debian.org using APT?</strong></p>
+<p>Not yet. Maybe in Debian <code>bullseye</code>:</p>
+<p><a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=850644#95">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=850644#95</a></p>
+<p><a href="https://packages.debian.org/experimental/guix">https://packages.debian.org/experimental/guix</a></p>
+<p><strong>Any ready-made repositories available that we can start
+using? Like, if one manages to install Guix on Debian or Whonix, what
+packages can be installed? How does that work in practice?</strong></p>
+<p>The Guix library consists of ~5K packages. They carry Libre packages
+only: <a href="https://www.gnu.org/software/guix/packages/">https://www.gnu.org/software/guix/packages/</a></p>
+<p>Packages are installed with:</p>
+<pre><code>guix package -i hello</code></pre>
+<p><strong>Any onion repositories?</strong></p>
+<p>No. I think they might be open to running one. I can talk with them
+and the Tor people to make it happen.</p>
+<p>Update: Planned with serious discussions happening around this topic.
+<a href="https://lists.gnu.org/archive/html/guix-devel/2017-03/msg00189.html">https://lists.gnu.org/archive/html/guix-devel/2017-03/msg00189.html</a></p>
+<p><strong>Does it pass TUF's threat model?</strong></p>
+<p>Not yet, but being worked towards and should be there by v.1.0</p>
+<p><a href="https://lists.gnu.org/archive/html/guix-devel/2017-03/msg00192.html">https://lists.gnu.org/archive/html/guix-devel/2017-03/msg00192.html</a></p>
+<p>Update: Was this done?</p>
+<p><strong>Socks proxy support or can torsocks work?</strong></p>
+<p>Package configuration definitions include support for defining
+network access including redirecting traffic to Tor. Manual example:</p>
+<p>Scheme Procedure: tor-service [config-file] [#:tor tor]</p>
+<p><code>   Return a service to run the Tor anonymous networking daemon.</code></p>
+<p><code>   The daemon runs as the tor unprivileged user. It is passed config-file, a file-like object, with an additional User tor line and lines for onion services added via tor-hidden-service. Run man tor for information about the configuration file.</code></p>
+<p><a href="https://www.gnu.org/software/guix/manual/guix.html#Networking-Services">https://www.gnu.org/software/guix/manual/guix.html#Networking-Services</a></p>
+<p><strong>How does its sandboxing work and why is it
+secure?</strong></p>
+<p>Not sandboxing as in Apparmor isolation but the ability to
+build/install/upgrade software without requiring root ever. Guix
+packages can also be shared among unprivileged user profiles.</p>
+<p><strong>Any example packages?</strong></p>
+<p>There is the hello package as an example or any of the ones listed in
+the directory mentioned above(?)</p>
+<p>Info on making packages:</p>
+<p><a href="https://www.gnu.org/software/guix/manual/guix.html#Packaging-Guidelines">https://www.gnu.org/software/guix/manual/guix.html#Packaging-Guidelines</a></p>
+<p><strong>How to create a repository?</strong></p>
+<p>In the manual there is support for fetching source from git
+repositories and building that. So potentially any git repo can act as a
+decentralized package hosting. Edit: I can confirm that all packages in
+their package list are indeed git repos hosted on savannah.</p>
+<p>All packages and their dependencies are available in the Guix main
+collection.</p>
+<p>Interesting reading: <a href="https://arxiv.org/pdf/1305.4584.pdf">https://arxiv.org/pdf/1305.4584.pdf</a></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">binary and source package</li>
+<li id="cite_note-2">Function <code>get_tpo_packages</code> in <a href="https://github.com/Whonix/derivative-maker/blob/master/build-steps.d/2100_create-debian-packages">https://github.com/Whonix/derivative-maker/blob/master/build-steps.d/2100_create-debian-packages</a></li>
+<li id="cite_note-3"><a href="https://lists.gnu.org/archive/html/gnu-system-discuss/2012-11/msg00000.html">https://lists.gnu.org/archive/html/gnu-system-discuss/2012-11/msg00000.html</a></li>
+<li id="cite_note-4"><em><span>The Update Framework
+(TUF) - Threat Model - Attacks and Weaknesses</span></em> - <a href="https://theupdateframework.io/security/">https://theupdateframework.io/security/</a>
+-</li>
+<li id="cite_note-5">The following source code using gpg for verification of software
+signature is vulnerable to rollback attacks and indefinite freeze
+attacks.
+<pre><code> gpg --verify &quot;${bin_ver}.tar.xz.sig&quot; &gt;/dev/null 2&gt;&amp;1 if [[ &quot;$?&quot; -eq 0 ]]; then _msg &quot;${PAS}Signature is valid.&quot; popd &gt;/dev/null else _err &quot;${ERR}could not verify the signature.&quot; exit 1 fi </code></pre>
+<p>See also <a href="https://github.com/Kicksecure/gpg-bash-lib">gpg-bash-lib</a>. The
+installation script is also vulnerable to endless data attacks and slow
+retrieval attacks. Minor: It uses wget, which has a <a href="https://lists.gnu.org/archive/html/bug-wget/2012-07/msg00015.html">buggy
+TLS certificate verification</a> instead of <a href="../Moved:Secure_Downloads.html">secure curl</a>.</p></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Design.html">Design</a> <a href="../Category:Development.html">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

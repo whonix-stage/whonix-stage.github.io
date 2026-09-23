@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>RetoSwap</title>
+<meta name="description" content="How to set up RetoSwap (previously Haveno-reto) - a P2P decentralized exchange (DEX) based on Monero - in Whonix">
+<meta property="og:description" content="How to set up RetoSwap (previously Haveno-reto) - a P2P decentralized exchange (DEX) based on Monero - in Whonix">
+<link rel="canonical" href="https://www.whonix.org/wiki/RetoSwap.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/RetoSwap.html">
+<meta property="og:title" content="RetoSwap (previously Haveno-reto), a P2P Monero DEX">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Name">Name</a></li><li class="toc-l2"><a href="#Background">Background</a></li><li class="toc-l2"><a href="#Links">Links</a></li><li class="toc-l3"><a href="#RetoSwap_Links">RetoSwap Links</a></li><li class="toc-l3"><a href="#Haveno_(Haveno_DEX)_Links">Haveno (Haveno DEX) Links</a></li><li class="toc-l3"><a href="#Other_Guides">Other Guides</a></li><li class="toc-l2"><a href="#System_Requirements">System Requirements</a></li><li class="toc-l2"><a href="#Downloading_&amp;_Installing_RetoSwap">Downloading &amp; Installing
+RetoSwap</a></li><li class="toc-l2"><a href="#Setting_Up_the_Tor_Hidden_Service">Setting Up the Tor Hidden
+Service</a></li><li class="toc-l2"><a href="#Setting_Up_the_Firewall">Setting Up the Firewall</a></li><li class="toc-l2"><a href="#Setting_Up_RetoSwap">Setting Up RetoSwap</a></li><li class="toc-l2"><a href="#Troubleshooting">Troubleshooting</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Monero.html">Monero</a></li>
+<li><a href="Monero/Manual_Instructions.html">Monero Manual
+Instructions</a></li>
+<li><a href="Monero_Multisig.html">Monero Multisig</a></li>
+<li><a href="Monero_Offline_Wallet.html">Monero Offline
+Wallet</a></li>
+<li><a href="RetoSwap.html">RetoSwap</a></li>
+<li><a href="UnstoppableSwap.html">UnstoppableSwap</a></li>
+</ul>
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>How to set up RetoSwap (previously Haveno-reto) - a P2P decentralized
+exchange (DEX) based on Monero - in Whonix</p>
+<div class="post-intro-p">
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="Community_Support.html">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<h1 id="Introduction">Introduction</h1>
+<h2 id="Name">Name</h2>
+<p>The name of the app was changed from <strong>Haveno-reto</strong> to
+<strong>RetoSwap</strong> on 22 November 2024<sup class="reference"><a href="#cite_note-1">[1]</a></sup>, but the
+old name can still be seen when launching the app, and people online may
+variously refer to it as either name or even as plain "Haveno"
+(technically, Haveno or Haveno DEX is the name of the upstream
+project).</p>
+<h2 id="Background">Background</h2>
+<p>RetoSwap is a fork of Haveno (Haveno DEX), which is itself a fork of
+<a href="Bisq.html">Bisq</a>.</p>
+<p>RetoSwap is a peer-to-peer (P2P) decentralized exchange (DEX),
+meaning that each user who runs the RetoSwap software is running their
+own server (built into the software) for trades; there is no central
+server where trades are coordinated.</p>
+<p>RetoSwap has a built-in Monero (currency code: XMR) wallet and uses
+Monero as the base pair for all trades on its platform.</p>
+<p>Haveno (Haveno DEX) is the upstream (parent) project of RetoSwap and
+does not feature any actual live trading with real cryptocurrencies (it
+only has testnet or stagenet trading).</p>
+<p>Bisq is the project that Haveno was forked from. It is a P2P DEX with
+a built-in Bitcoin (BTC) wallet and uses Bitcoin as the base pair for
+all trades on its platform.</p>
+<h2 id="Links">Links</h2>
+<h3 id="RetoSwap_Links">RetoSwap Links</h3>
+<p>RetoSwap official website: <a href="https://retoswap.com/">https://retoswap.com/</a></p>
+<p>RetoSwap official X/Twitter account: <a href="https://x.com/RetoSwap/">https://x.com/RetoSwap/</a></p>
+<p>RetoSwap GitHub project homepage: <a href="https://github.com/retoaccess1/haveno-reto">https://github.com/retoaccess1/haveno-reto</a></p>
+<p>RetoSwap GitHub project releases page (downloads available here): <a href="https://github.com/retoaccess1/haveno-reto/releases/">https://github.com/retoaccess1/haveno-reto/releases/</a></p>
+<p>RetoSwap old homepage (redirects to retoswap.com): <a href="https://haveno-reto.com">https://haveno-reto.com</a></p>
+<h3 id="Haveno_(Haveno_DEX)_Links">Haveno (Haveno DEX) Links</h3>
+<p>Haveno official website: <a href="https://haveno.exchange/">https://haveno.exchange/</a></p>
+<p>Haveno official FAQ: <a href="https://haveno.exchange/faq/">https://haveno.exchange/faq/</a></p>
+<p>Haveno GitHub project homepage: <a href="https://github.com/haveno-dex/haveno">https://github.com/haveno-dex/haveno</a></p>
+<p>Haveno GitHub project issues page (issues with RetoSwap can generally
+be reported there): <a href="https://github.com/haveno-dex/haveno/issues">https://github.com/haveno-dex/haveno/issues</a></p>
+<h3 id="Other_Guides">Other Guides</h3>
+<p>boldsucks's Haveno Documentation: <a href="https://boldsuck.codeberg.page/haveno-docs/">https://boldsuck.codeberg.page/haveno-docs/</a></p>
+<p>boldsucks's guide to setting up RetoSwap on Whonix: <a href="https://boldsuck.codeberg.page/haveno-reto-docs/tor-config/DirectBindTor/#whonix">https://boldsuck.codeberg.page/haveno-reto-docs/tor-config/DirectBindTor/#whonix</a></p>
+<p>RetoSwap official redirect (Github mirror): <a href="https://docs.retoswap.com/tor-config/DirectBindTor/#whonix">https://docs.retoswap.com/tor-config/DirectBindTor/#whonix</a></p>
+<h1 id="Installation">Installation</h1>
+<p>{{#iconbulletlist:item=fa-solid fa-info cs-blue,This guide was
+created in February 2025 and is based on Whonix 17.2.8.5 and RetoSwap
+v1.0.18. As the app's name was recently changed from Haveno-reto, some
+file paths referenced below use the name <code>haveno</code> or
+<code>haveno-reto</code>. This may change in the future. }}</p>
+<h2 id="System_Requirements">System Requirements</h2>
+<p>Generally, RetoSwap does not use a lot of system resources, as it
+connects to remote Monero nodes by default and does not download any
+full blockchains to the user's computer. It can also be set up to use a
+local Monero node, but that is beyond the scope of this guide.</p>
+<p>Generally, the storage space used by RetoSwap will be under 100
+MB.</p>
+<h2 id="Downloading_&_Installing_RetoSwap">Downloading &amp; Installing
+RetoSwap</h2>
+<ul>
+<li><i class="fa-solid fa-info cs-blue"></i><span>All of the steps for
+downloading and installing the RetoSwap .deb file take place on
+Whonix-Workstation.</span></li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Download RetoSwap.</p>
+<p>Download the latest .deb release of RetoSwap from:</p>
+<p><a href="https://github.com/retoaccess1/haveno-reto/releases/">https://github.com/retoaccess1/haveno-reto/releases/</a></p>
+<p>(For example, for RetoSwap v1.0.18, download <a href="https://github.com/retoaccess1/haveno-reto/releases/download/v1.0.18/haveno-linux-deb.zip">https://github.com/retoaccess1/haveno-reto/releases/download/v1.0.18/haveno-linux-deb.zip</a>).</p>
+<p>You can also go to the official RetoSwap website's download
+section:</p>
+<p><a href="https://retoswap.com/#download">https://retoswap.com/#download</a></p>
+<p>and under "RetoSwap for Linux," click the <code>.deb</code>
+button.</p>
+<p>It should download automatically to:</p>
+<p><code>/home/user/.tb/tor-browser/Browser/Downloads/</code></p>
+<p>Related: <a href="Tor_Browser.html#Navigating_Tor_Browser_Downloads">Navigating Tor Browser Downloads</a></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Note.</p>
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="Advanced_Users.html"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="Moved:Verifying_Software_Signatures.html"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Verify the signature.</p>
+<p>RetoSwap releases on <a href="https://github.com/retoaccess1/haveno-reto/releases">the releases
+page</a> are accompanied by a signed hash list
+(<code>.hashes</code> and a detached OpenPGP signature
+<code>.hashes.sig</code>) and a detached signature of the
+<code>.deb</code> installer (<code>...installer.deb.sig</code>).</p>
+<p>The signature is made by an OpenPGP key with the fingerprint:</p>
+<pre><code>DAA2 4D87 8B8D 36C9 0120  A897 CA02 DAC1 2DAE 2D0F</code></pre>
+<p>The key carries only the unverified user ID <code>reto</code> and can
+be retrieved from the public keyservers (for example
+<code>keys.openpgp.org</code> or <code>keyserver.ubuntu.com</code>).</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Extract the archive.</p>
+<p>Right-click on the downloaded .zip (e.g.,
+<code>/home/user/.tb/tor-browser/Browser/Downloads/haveno-linux-deb.zip</code>)
+and click <code>Extract Here</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Install the .deb.</p>
+<p>Open the newly extracted folder (e.g.,
+<code>/home/user/.tb/tor-browser/Browser/Downloads/haveno-linux-deb/</code>)
+and in a terminal window type (with a trailing space):</p>
+<p><span class="code-select">sudo dpkg -i</span></p>
+<p>Then, drag the .deb installer from the folder into the terminal to
+complete the file path (e.g., for RetoSwap v1.0.18, it should read:</p>
+<p><code>sudo dpkg -i '/home/user/.tb/tor-browser/Browser/Downloads/haveno-linux-deb/haveno-v1.0.18-linux-x86_64-installer.deb'</code>)</p>
+<p>Press enter.</p>
+<p>RetoSwap should be installed to <code>/opt/haveno/</code>.</p>
+<p>If it fails because of missing dependencies, run the command:</p>
+<p><span class="code-select">sudo apt install -f</span></p>
+<p>to download and install the missing dependencies, and then try the
+original <code>sudo dpkg -i '[...].deb'</code> command again.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Create a desktop shortcut.</p>
+<p>Optional. Copy (or drag)
+<code>/opt/haveno/lib/haveno-Haveno.desktop</code> to your desktop.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Done.</p>
+<p>RetoSwap download and installation steps have been completed.</p>
+<h2 id="Setting_Up_the_Tor_Hidden_Service">Setting Up the Tor Hidden
+Service</h2>
+<ul>
+<li><i class="fa-solid fa-info cs-blue"></i><span>All of the steps for
+setting up the Tor hidden service take place on
+Whonix-Gateway.</span></li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Create the Tor hidden service.</p>
+<p>Open file <code>/usr/local/etc/torrc.d/50_user.conf</code> in an
+editor with administrative ("<a href="Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Edit the file to add the following:<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<pre><code># RetoSwap (Haveno-reto) incoming anonymity connections
+HiddenServiceDir /var/lib/tor/haveno/
+HiddenServicePort 9999 10.152.152.11:9999</code></pre>
+<p>Save and close the file.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="Qubes.html">Qubes-Whonix<sup>™</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Service</code> ->
+<code>Whonix-Gateway</code><sup><code>™</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+-> <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> -> <code>System Tools</code> ->
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Get your hidden service address.</p>
+<p>Retrieve the newly generated hidden service .onion address:</p>
+<p><span class="code-select">sudo cat
+/var/lib/tor/haveno/hostname</span></p>
+<p>It should look something like:</p>
+<p><code>exampleonionaddress52rck2vv4rvmdlkiu3zzui5du4xyclen53wid.onion</code></p>
+<p>Copy and keep your <code>.onion</code> address handy for the next
+steps.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Done.</p>
+<p>Tor hidden service setup steps have been completed.</p>
+<h2 id="Setting_Up_the_Firewall">Setting Up the Firewall</h2>
+<ul>
+<li><i class="fa-solid fa-info cs-blue"></i><span>All of the steps for
+setting up the firewall take place on Whonix-Workstation.</span></li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Open the firewall port.</p>
+<p><strong>Modify Whonix-Workstation User Firewall Settings</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/etc/whonix_firewall.d/50_user.conf</code> appears empty (because
+it does not exist). This is expected.</p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, you must boot into this mode before these steps will work.</p>
+<p>Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_USER_Session">Graphical
+Whonix-Workstation USER Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>System Tools</code> ->
+<code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session">Graphical
+Whonix-Workstation SYSMAINT Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>System Maintenance Panel</code> -> <code>Open Terminal</code> ->
+run <code>/usr/libexec/whonix-firewall/firewall50user</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix-Workstation"><a href="Qubes.html">Qubes-Whonix-Workstation</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Workstation App Qube (commonly called </code><em><span><code>anon-whonix</code></span></em><code>)</code>
+-> <code>QTerminal</code> -> run
+<code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Workstation">Terminal Whonix-Workstation</h4>
+</div>
+<div class="tcc-content">
+<p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
+with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Learn More on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>.</p>
+<p>The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>Also see: <a href="Moved:Configuration_Files.html">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="Qubes.html">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Template</code> -> <code>whonix-workstation-18</code> ->
+<code>QTerminal</code> -> run
+<code>nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf</code></p>
+<p><u>If using a graphical Whonix-Workstation</u>, complete these
+steps.</p>
+<p><code>Start Menu</code> -> <code>System Tools</code> ->
+<code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Workstation</u>, complete these
+steps.</p>
+<p>In Whonix-Workstation, view the global firewall configuration file in
+an editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Edit the file to add the following: <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<pre><code># RetoSwap (Haveno-reto) firewall TCP port 9999
+EXTERNAL_OPEN_PORTS+=&quot; 9999 &quot;</code></pre>
+<p>Save and close the file.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Reload the firewall.</p>
+<p><strong>Reload Whonix-Workstation Firewall.</strong></p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, and you are not booted into it, reboot the VM to reload the
+firewall.</p>
+<p>Platform-specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_USER_Session_2">Graphical
+Whonix-Workstation USER Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>System Tools</code> ->
+<code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_2">Graphical
+Whonix-Workstation SYSMAINT Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>System Maintenance Panel</code> -> <code>Open Terminal</code> ->
+run <code>sudo whonix_firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Workstation_2">Terminal Whonix-Workstation</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix-Workstation_2"><a href="Qubes.html">Qubes-Whonix-Workstation</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> ->
+<code>QTerminal</code> -> run <code>sudo whonix_firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Done.</p>
+<p>Firewall configuration steps have been completed.</p>
+<h2 id="Setting_Up_RetoSwap">Setting Up RetoSwap</h2>
+<ul>
+<li><i class="fa-solid fa-info cs-blue"></i><span>All of the steps for
+setting up RetoSwap take place on Whonix-Workstation.</span></li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Set your hidden service address.</p>
+<p>Open the file
+<code>/home/user/.local/share/Haveno-reto/haveno.properties</code> in an
+editor.</p>
+<ul>
+<li><i class="fa-solid fa-info"></i><span>This filepath uses the old
+name "Haveno-reto"; this might change in a future update of
+RetoSwap.</span></li>
+</ul>
+<p>Edit the file to add the following:</p>
+<pre><code>hiddenServiceAddress=</code></pre>
+<p>followed by your hidden service .onion address from the section
+"Setting Up the Tor Hidden Service."</p>
+<p>It should look something like this:</p>
+<pre><code>hiddenServiceAddress=exampleonionaddress52rck2vv4rvmdlkiu3zzui5du4xyclen53wid.onion</code></pre>
+<p>Save and close the file.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Done.</p>
+<p>RetoSwap hidden service address configuration has been completed.</p>
+<h2 id="Troubleshooting">Troubleshooting</h2>
+<p>If RetoSwap fails to connect or gives errors on startup, try
+launching the app several times. This could be a network issue.</p>
+<p>There is also a forum topic dedicated to setting up RetoSwap on
+Whonix, where you can get support:</p>
+<p><a href="https://forums.whonix.org/t/installing-haveno-in-whonix/20014">https://forums.whonix.org/t/installing-haveno-in-whonix/20014</a></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://x.com/RetoSwap/status/1859903768164532588">https://x.com/RetoSwap/status/1859903768164532588</a></li>
+<li id="cite_note-2">10.152.152.11 refers to the internal IP address of
+Whonix-Workstation. You can verify this by running the command
+<code>ifconfig</code> on Whonix-Workstation. TCP port 9999 is the
+default P2P port for RetoSwap.</li>
+<li id="cite_note-3">TCP port 9999 is the default P2P port for RetoSwap.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

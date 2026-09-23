@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix-Workstation Security Hardening</title>
+<meta name="description" content="Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt; Security Hardening. This page is targeted at users who wish to improve the security of their Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt; to become even more secure.">
+<meta property="og:description" content="Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt; Security Hardening. This page is targeted at users who wish to improve the security of their Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt; to become even more secure.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Whonix-Workstation_Security_Hardening.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Whonix-Workstation_Security_Hardening.html">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Doors-1767563_640.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Doors-1767563_640.jpg.webp" alt="Doors-1767563_640.jpg" />
+<img src="../media/Kicksecure-badge.svg" width="150" alt="Kicksecure-badge.svg" />
+<a href="About.html">Whonix</a> comes with
+[Broken-ExtLink--no-url-was-provided]. Whonix is
+[Broken-ExtLink--no-url-was-provided] hardened by default and also
+provides extensive <a href="Documentation.html">Documentation</a> including a <a href="System_Hardening_Checklist.html">System Hardening
+Checklist</a>. The more you know, the safer you can be.</p>
+<p>This page is targeted at users who wish to improve the security of
+their Whonix-Workstation to become even more secure.</p>
+<h1 id="Introduction">Introduction</h1>
+<p>Whonix is by no means a perfectly hardened system. Additional
+hardening measures are most welcome, but at the same time hardening by
+default is very difficult. Until the Whonix project realizes a
+significant increase in resources or community assistance, extra
+measures will remain out of scope and hardening will be left to the
+upstream operating system. See <a href="Dev/Virtualization_Platform.html">Virtualization Platform</a> for further details.</p>
+<h1 id="AppArmor">AppArmor</h1>
+<p>Learn more about <a href="https://wiki.apparmor.net">AppArmor</a>,
+which helps to protect against vulnerabilities by confining a program's
+file access based upon strict rule-sets. It is recommended to apply the
+available <a href="Moved:AppArmor.html#Installation">Whonix
+AppArmor profiles</a> to contain various applications which are run in
+Whonix-Gateway<sup>™</sup> (<code>sys-whonix</code>) and/or
+Whonix-Workstation (<code>anon-whonix</code>), like Tor, Tor Browser,
+Thunderbird and others.</p>
+<h1 id="Disable_TCP_SACK">Disable TCP SACK</h1>
+<p><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Selective_acknowledgments">TCP
+Selective Acknowledgement (SACK)</a> is a commonly exploited option in
+the TCP protocol and not needed for many people. <sup class="reference"><a href="#cite_note-1">[1]</a></sup> For
+this reason, it is recommended to disable it unless required.</p>
+<p>Open file <code>/etc/sysctl.d/30_security-misc.conf</code> in an
+editor with administrative ("<a href="Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/sysctl.d/30_security-misc.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/sysctl.d/30_security-misc.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/sysctl.d/30_security-misc.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Uncomment all lines starting with <code>net.ipv4</code>.</p>
+<p>This procedure can also be repeated on the Whonix-Gateway.</p>
+<p>TCP SACK is not disabled by default because on some systems it can
+greatly decrease network performance. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<h1 id="Restrict_Hardware_Information_to_Root">Restrict Hardware
+Information to Root</h1>
+<p>See <a href="Moved:Security-misc.html#Restrict_Hardware_Information_to_Root">Restrict Hardware Information to Root</a>.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">For example, it has been used for <a href="https://en.wikipedia.org/wiki/SACK_Panic#SACK_Panic">remote denial
+of service attacks</a> and can even lead to a Linux kernel panic.</li>
+<li id="cite_note-2"><a href="https://forums.whonix.org/t/disabling-tcp-sack-dsack-fack/8109/5">https://forums.whonix.org/t/disabling-tcp-sack-dsack-fack/8109/5</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Redirect Whonix-Workstation Ports or Unix Domain Socket Files to Whonix-Gateway</title>
+<meta name="description" content="Redirect ports or unix domain socket files from Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; localhost to Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt;.">
+<meta property="og:description" content="Redirect ports or unix domain socket files from Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; localhost to Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt;.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway.html">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Redirect12123.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Redirect12123.png.webp" alt="Redirect12123.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Redirect ports or unix domain socket files from Whonix-Workstation
+localhost to Whonix-Gateway.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Port or unix domain socket file redirection could be useful for any
+future applications that expect Tor or the <code>ControlPort</code> to
+listen on any specific port or unix domain socket file that is not (yet)
+added to <a href="Dev/anon-ws-disable-stacked-tor.html">anon-ws-disable-stacked-tor</a> <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator#L20"><u>b</u>uild-ins</a>
+or <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/etc/anon-ws-disable-stacked-tor.d/30_anon-dist.conf">config</a>
+by default, or for any other port or unix domain socket file
+redirections from the workstation to the gateway.</p>
+<h1 id="Instructions">Instructions</h1>
+<p>To create a port or unix domain socket file, it is required to create
+and extend config file
+<code>/etc/anon-ws-disable-stacked-tor.d/50_user.conf</code>.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p><strong>1.</strong> Inside Whonix-Workstation.</p>
+<p><strong>2.</strong> Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix<sup>™</sup>: No special notice.</li>
+<li>Qubes-Whonix<sup>™</sup>: users should use folder
+<code>/etc/anon-ws-disable-stacked-tor.d</code> rather than folder
+<code>/usr/local/etc/anon-ws-disable-stacked-tor.d/</code> and apply
+this in <code>whonix-workstation-18</code> Template.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+</ul>
+<p><strong>3.</strong> Create folder
+<code>/usr/local/etc/anon-ws-disable-stacked-tor.d/</code>.</p>
+<p><span class="code-select">sudo mkdir -p
+/usr/local/etc/anon-ws-disable-stacked-tor.d</span></p>
+<p><strong>4.</strong> Open file
+<code>/usr/local/etc/anon-ws-disable-stacked-tor.d/50_user.conf</code>
+in an editor with administrative ("<a href="Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/anon-ws-disable-stacked-tor.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/anon-ws-disable-stacked-tor.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/anon-ws-disable-stacked-tor.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>5.</strong> Port redirection or unix domain socket file
+redirection.</p>
+<p><strong>A)</strong> Either add a port redirection.</p>
+<p>For example to redirect Whonix-Workstation port <code>9100</code> to
+Whonix-Gateway port <code>9050</code>. Note: adjust the port numbers for
+your needs.</p>
+<p><span class="code-select">file_port_tuples+=" port#9100:9050
+"</span></p>
+<p><strong>B)</strong> Unix domain socket file redirection.</p>
+<p>Create a unix domain socket file
+<code>/var/run/anon-ws-disable-stacked-tor/unix-domain-socket-file.sock</code>
+and have it forwarded to Whonix-Gateway port <code>9050</code>.</p>
+<p><span class="code-select">file_port_tuples+="
+/var/run/anon-ws-disable-stacked-tor/unix-domain-socket-file.sock#9050
+"</span></p>
+<p><strong>6.</strong> Save.</p>
+<p><strong>7.</strong> Run the <code>systemd-socket-proxyd</code>
+<code>systemd-unit-files-generator</code>. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><span class="code-select">sudo
+/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator</span></p>
+<p><strong>8.</strong> Done.</p>
+<p>The process of creating a redirection is now complete.</p>
+<h1 id="Testing">Testing</h1>
+<p>To test
+<code>/var/run/anon-ws-disable-stacked-tor/unix-domain-socket-file.sock</code>,
+you could use:</p>
+<p><span class="code-select">socat -
+UNIX-CONNECT:/var/run/anon-ws-disable-stacked-tor/unix-domain-socket-file.sock</span></p>
+<p>Then type:</p>
+<p><span class="code-select">GET</span></p>
+<p>Then press .</p>
+<p>The expected reply includes
+<code>Tor is not an HTTP Proxy</code>.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/etc/anon-ws-disable-stacked-tor.d/30_anon-dist.conf">https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/etc/anon-ws-disable-stacked-tor.d/30_anon-dist.conf</a></li>
+<li id="cite_note-2">The missing Qubes-Whonix feature is that
+<code>/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator</code>
+doesn't run at boot time and that files generated by
+<code>/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator</code>
+don't persist after reboot of a TemplateBasedVM.</li>
+<li id="cite_note-3"><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator">https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

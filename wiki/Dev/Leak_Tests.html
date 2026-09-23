@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Leak Tests</title>
+<meta name="description" content="Major leak tests for IP/DNS Leaks. How to check if this application is leaking? How likely is that application to be leaking? Unsuitable Tests: Location Detection, Operating System Detection.">
+<meta property="og:description" content="Major leak tests for IP/DNS Leaks. How to check if this application is leaking? How likely is that application to be leaking? Unsuitable Tests: Location Detection, Operating System Detection.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Leak_Tests.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Leak_Tests.html">
+<meta property="og:title" content="Leak Tests">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Leaktest.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Leak Tests</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Online">Online</a></li><li class="toc-l2"><a href="#Deactivate_Host_DNS">Deactivate Host DNS</a></li><li class="toc-l2"><a href="#Deactivate_Qubes_DNS">Deactivate Qubes DNS</a></li><li class="toc-l2"><a href="#Deactivate_Whonix-Gateway_DNS">Deactivate Whonix-Gateway
+DNS</a></li><li class="toc-l2"><a href="#Using_dig">Using dig</a></li><li class="toc-l2"><a href="#Using_nslookup">Using nslookup</a></li><li class="toc-l2"><a href="#Template_Update_Proxy_Leak_Test">Template Update Proxy Leak
+Test</a></li><li class="toc-l2"><a href="#Location_Detection">Location Detection</a></li><li class="toc-l2"><a href="#Operating_System_Detection">Operating System Detection</a></li><li class="toc-l2"><a href="#Nyx">Nyx</a></li><li class="toc-l2"><a href="#Search_Engine_Search_Results">Search Engine Search Results</a></li><li class="toc-l2"><a href="#Others">Others</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../System_Audit.html">System Audit</a></li>
+<li><a href="../Security_Reviews_and_Feedback.html">Security
+Reviews</a></li>
+<li><a href="../Media_Mentions.html">Media Mentions</a></li>
+<li><a href="certification.html">Certification</a></li>
+<li><a href="../Trust.html">Trust</a></li>
+<li><a href="../Whonix_against_Real_Attacks.html">Track Record
+against Real Cyber Attacks</a></li>
+<li><a href="../Reliable_IP_Hiding.html">Reliable IP
+Hiding</a></li>
+<li><a href="../IP_hiding_is_outdated.html">IP Hiding is an
+Outdated Threat Model</a></li>
+<li><a href="Leak_Tests.html">Leak Tests</a></li>
+<li><a href="../Leaks.html">Leaks and Compromise
+Indicators</a></li>
+</ul>
+</div>
+<p><img src="../../media/Leaktest.jpg.webp" width="350" alt="Leaktest.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Major leak tests for IP/DNS Leaks. How to check if this application
+is leaking? How likely is that application to be leaking? Unsuitable
+Tests: Location Detection, Operating System Detection.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>This wiki page lists and documents all major leak tests.</p>
+<p>Common Questions:</p>
+<ul>
+<li>How to check if <code>application</code> is leaking?</li>
+<li>How likely is <code>application</code> to be leaking?
+<ul>
+<li>Note: Replace <code>application</code> in the above question with an
+actual application or activity.</li>
+</ul></li>
+</ul>
+<p>Generic Answer:</p>
+<ul>
+<li>See <a href="../Whonix_against_Real_Attacks.html">Whonix
+against Real Attacks</a> for a list of many past anonymity attacks where
+Whonix kept its users safe.</li>
+<li>See <a href="Technical_Introduction.html#multiple_security_layers">Whonix uses multiple security layers</a> for reasons
+why leaks are highly unlikely.</li>
+<li>See this page <a href="Leak_Tests.html">Leak
+Tests</a> for testing for IP/DNS leaks generally.</li>
+<li>Chapter <a href="#Application_Specific_Leak_Tests">Application Specific Leak Tests</a>.</li>
+<li>See <a href="../Security_Reviews_and_Feedback.html">Security Reviews and Feedback</a> for a list of notable
+reviews and feedback about the security of Whonix.</li>
+<li>Consider using <a href="../Corridor.html">corridor</a>, a
+Tor traffic whitelisting gateway.</li>
+<li>See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for how users (cannot) verify the
+system is configured as intended.</li>
+<li>This might also be related to asking "How secure is Whonix?". -> <a href="Technical_Introduction.html">Technical
+Introduction</a></li>
+</ul>
+<p>Unfortunately, leak testing is as complicated as programming. One
+cannot learn it in a short period of time, and it is highly unlikely to
+find an online volunteer teacher. It is infeasible for the Whonix
+project to educate everyone in the depths of networking.</p>
+<h1 id="Knowledge_Assumed">Knowledge Assumed</h1>
+<ul>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/build/BuildSignoff#expected-issues-with-popular-test-pages">Expected
+issues with popular test pages</a></li>
+<li>Search for previous discussions before reporting.</li>
+</ul>
+<h1 id="Leak_Testing_Websites">Leak Testing Websites</h1>
+<p>Read first! -> <a href="../Browser_Tests.html">Browser
+Tests</a></p>
+<p>There are too many websites for leak testing. (Some are offline.)</p>
+<ul>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/build/BuildSignoff#test-pages-to-use">List
+1</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/Testing/Tools#sites">List
+2</a></li>
+</ul>
+<p>None of the Leak Testing Websites running inside
+Whonix-Workstation<sup>™</sup> are able to determine the real external
+clearnet IP address, no matter if plugins, Flash, and/or Java are
+activated.</p>
+<h1 id="DNS_Leak_Tests">DNS Leak Tests</h1>
+<h2 id="Online">Online</h2>
+<ul>
+<li><a href="https://www.dnsleaktest.com/">DNS leak test.com</a></li>
+<li><a href="https://dnsleak.com/">DNS Leak Test</a></li>
+<li><a href="https://browserleaks.com/ip">Browser Leaks</a></li>
+<li><a href="https://anonymster.com/dns-leak-test/">Anonymster DNS leak
+test</a></li>
+<li><a href="https://www.purevpn.com/dns-leak-test">PureVPN DNS leak
+test</a></li>
+<li><a href="https://surfshark.com/dns-leak-test">Surfshark DNS leak
+test</a></li>
+</ul>
+<h2 id="Deactivate_Host_DNS">Deactivate Host DNS</h2>
+<p>Deactivating the DNS on your host should result in not being able to
+use <code>nslookup</code> anymore, but Whonix-Workstation
+<code>nslookup</code> should still be functional.</p>
+<p>Theoretical background: Whonix-Workstation requests should always be
+resolved by Whonix-Gateway<sup>™</sup>. In the case of a DNS leak, the
+host operating system is resolving DNS queries for the
+Whonix-Workstation. Deactivating the host's DNS would make
+Whonix-Workstation DNS queries non-functional, breaking functionality.
+This confirms a DNS leak.</p>
+<h2 id="Deactivate_Qubes_DNS">Deactivate Qubes DNS</h2>
+<p>Platform-specific.</p>
+<ul>
+<li>Non-Qubes-Whonix<sup>™</sup>: Inapplicable. Use <a href="#Deactivate_Host_DNS">Deactivate Host DNS</a>
+instead.</li>
+<li>Qubes-Whonix<sup>™</sup>: See below.</li>
+</ul>
+<p>This is similar to <a href="#Deactivate_Host_DNS">Deactivate Host DNS</a>. Instead of disabling host DNS,
+in Qubes terms, that would be "disable Qubes dom0 DNS." But since Qubes
+dom0 is non-networked by default, that is also inapplicable.</p>
+<p>For Qubes-Whonix, instead, a leak test could include disabling DNS
+from any or all VMs that are upstream of <code>sys-whonix</code>. By
+default, <code>sys-whonix</code> is connected to
+<code>sys-firewall</code>, which is connected to <code>sys-net</code>.
+Therefore, to have a test equivalent to <a href="#Deactivate_Host_DNS">Deactivate Host DNS</a>, the user could disable DNS in
+<code>sys-firewall</code> and in <code>sys-net</code>.</p>
+<h2 id="Deactivate_Whonix-Gateway_DNS">Deactivate Whonix-Gateway
+DNS</h2>
+<p>This is already the default. For details, see <a href="../Whonix-Gateway_System_DNS.html">Whonix-Gateway System
+DNS</a>.</p>
+<p>On the Whonix-Gateway.</p>
+<p>Open file <code>/etc/resolv.conf</code> in an editor with
+administrative ("<a href="../Moved:Root.html"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Comment out everything (# before every line so everything is
+ignored).</p>
+<pre><code>#nameserver 127.0.0.1</code></pre>
+<p>As a test result, the DNS requests in the Whonix-Workstation should
+still work, while the DNS requests in the Whonix-Gateway no longer
+work.</p>
+<h2 id="Using_dig">Using dig</h2>
+<p>Another very basic leak test: Because Tor's DNS resolver does not
+handle AAAA records, this will not return any Google hostnames if run on
+Whonix-Workstation and DNS requests aren't leaking. Running:</p>
+<pre><code>dig AAAA check.torproject.org</code></pre>
+<p>Should reply:</p>
+<pre><code>; &lt;&lt;&gt;&gt; DiG 9.8.1-P1 &lt;&lt;&gt;&gt; AAAA check.torproject.org
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOTIMP, id: 42383
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;check.torproject.org.          IN      AAAA
+
+;; Query time: 0 msec
+;; SERVER: 10.152.152.10#53(10.152.152.10)
+;; WHEN: [date]
+;; MSG SIZE  rcvd: 38</code></pre>
+<p>Tor also does not support DNSSEC yet. Running:</p>
+<pre><code>dig +multiline . DNSKEY</code></pre>
+<p>It should now show DNS cryptographic keys. <a href="../Alternative_DNS_Resolver.html#DNSSec">See example
+output from here</a>.</p>
+<h2 id="Using_nslookup">Using nslookup</h2>
+<p>Running:</p>
+<pre><code>nslookup -type=mx check.torproject.org</code></pre>
+<p>Should reply:</p>
+<pre><code>Server:         10.152.152.10
+Address:        10.152.152.10#53
+
+** server can&#39;t find check.torproject.org: NOTIMP</code></pre>
+<p>Running:</p>
+<pre><code>nslookup -type=AAAA check.torproject.org</code></pre>
+<p>Should reply:</p>
+<pre><code>Server:         10.152.152.10
+Address:        10.152.152.10#53
+
+** server can&#39;t find check.torproject.org: NOTIMP</code></pre>
+<h1 id="Leaks_through_the_Host_or_VM">Leaks through the Host or VM</h1>
+<p>Shut down the Whonix-Gateway and start the Whonix-Workstation. The
+Whonix-Workstation shouldn't be able to exchange data with any outside
+target.</p>
+<p>If there's no gateway running, there is nobody the workstation can
+connect to. The workstation's internal network endpoint, being the
+gateway, is simply unavailable.</p>
+<h1 id="Ping_Test">Ping Test</h1>
+<p>First, make sure both VMs are online. Since ICMP is not supported by
+Tor and is filtered by the Whonix firewall, you should not be able to
+ping any servers.</p>
+<h1 id="FIN_ACK_/_RST_ACK_-_Leak_Test">FIN ACK / RST ACK - Leak Test</h1>
+<p>Credit for FIN ACK / RST ACK - Leak Test (coined by
+Whonix): Originally written by Mike Perry on the tor-talk mailing list,
+he found a transparent proxy leak without references to Whonix. (<a href="https://lists.torproject.org/pipermail/tor-talk/2014-March/032503.html">source</a>)
+The test has been adapted for Whonix.</p>
+<p>Note: The following IP, 74.125.28.104, points to www.google.com and
+should be seen as an example.</p>
+<p>On the host:</p>
+<p>Close your browser and cease all other non-Whonix online activity to
+avoid contaminating the following test.</p>
+<p>Install tcpdump.</p>
+<pre><code>sudo apt update
+sudo apt install tcpdump</code></pre>
+<p>Run tcpdump. Replace <code>-i wlan0</code> with your network
+interface. If you use <code>-i any</code>, you will also see
+transproxied packets (which are not normally leaked).</p>
+<pre><code>sudo tcpdump -n -i wlan0 host 74.125.28.104 and tcp port 80</code></pre>
+<p>For testing/learning, connect to 74.125.28.104 (ping, open in a
+browser, use curl, scurl, or similar) and see how it looks when a
+connection to that IP is being made.</p>
+<p>Close the connection. Stop tcpdump. Start tcpdump again.</p>
+<p>In Whonix-Workstation:</p>
+<p>Create a socket connection.</p>
+<pre><code>python
+
+import socket
+
+s = socket.create_connection((&quot;74.125.28.104&quot;, 80))</code></pre>
+<p>On Whonix-Gateway:</p>
+<p>Stop Tor.</p>
+<pre><code>sudo service tor@default stop</code></pre>
+<p>In Whonix-Workstation:</p>
+<p>Close the socket connection.</p>
+<pre><code>s.close()</code></pre>
+<p>On the host:</p>
+<p>Check that you cannot see any connections to 74.125.28.104 in
+tcpdump.</p>
+<p>Variations of this test:</p>
+<ul>
+<li>You could also run tcpdump in Whonix-Workstation or on
+Whonix-Gateway.</li>
+<li>You could also <a href="../Whonix-Gateway_Own_Traffic_Transparent_Proxy.html">enable transparent proxying for Whonix-Gateway's own
+traffic</a> and create the socket connection on Whonix-Gateway.</li>
+</ul>
+<p> Forum discussion:</p>
+<ul>
+<li><a href="https://forums.whonix.org/t/testers-wanted-new-fin-ack-rst-ack-leak-test/229">Part
+1</a></li>
+<li><a href="https://forums.whonix.org/t/testers-wanted-new-fin-ack-rst-ack-leak-test-part-2/313">Part
+2</a></li>
+</ul>
+<p></p>
+<h1 id="Integrated_tshark_Leak_Test">Integrated tshark Leak Test</h1>
+<p>On Whonix-Gateway, start looking for leaks.</p>
+<p>You need to install the anon-gw-leaktest package.</p>
+<pre><code>## Login as user, open a shell as user, or use su user.
+## /usr/bin/leaktest
+sudo leaktest</code></pre>
+<p>On Whonix-Workstation, try to produce a leak.</p>
+<p>You need to install the anon-ws-leaktest package.</p>
+<pre><code>## Login as user, open a shell as user, or use su user.
+## /usr/bin/leaktest
+sudo leaktest</code></pre>
+<p>If you are wondering how this works and what it does, the old article
+<a href="Leak_Tests_Old.html">Dev/Leak Tests Old</a> is
+still being kept.</p>
+<ul>
+<li>Original article.</li>
+<li>As copy-and-paste tutorial.</li>
+<li>For better understanding with more comments.</li>
+<li>Perhaps useful for similar projects.</li>
+<li>Optional additional tests.</li>
+</ul>
+<h1 id="Integrated_systemcheck_Leak_Test">Integrated systemcheck Leak
+Test</h1>
+<p>Please also run <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a> on
+Whonix-Gateway and Whonix-Workstation. systemcheck's Tor
+<code>SocksPort</code> and Tor <code>TransPort</code> test (the latter
+only on Whonix-Workstation <sup class="reference"><a href="#cite_note-1">[1]</a></sup>) also perform leak
+testing. <code>systemcheck</code> would report a big warning if
+check.torproject.org could not detect Tor.</p>
+<p><span class="code-select">systemcheck --leak-tests</span></p>
+<h1 id="Torrent_Leak_Tests">Torrent Leak Tests</h1>
+<ul>
+<li><a href="https://www.doileak.com">https://www.doileak.com</a></li>
+<li><a href="https://ipleak.net">https://ipleak.net</a></li>
+<li>Please add more to the list if you know of other tests.</li>
+</ul>
+<h1 id="UDP_Leak_Tests">UDP Leak Tests</h1>
+<ul>
+<li>Same as above.</li>
+<li>Please add more to the list if you know of other tests.</li>
+</ul>
+<h1 id="Other_Leak_Tests">Other Leak Tests</h1>
+<ul>
+<li><a href="https://forums.whonix.org/t/corridor-a-tor-traffic-whitelisting-gateway-a-clearnet-leak-tester/2765">corridor,
+a Tor traffic whitelisting gateway, a clearnet leak tester</a></li>
+<li><a href="https://forums.whonix.org/t/using-corridor-a-tor-traffic-whitelisting-gateway-with-qubes-whonix/2761">Using
+corridor, a Tor traffic whitelisting gateway with Qubes-Whonix</a></li>
+<li>A similar project published another leak test. Read <a href="https://github.com/ra--/Tor-gateway/wiki/Faq">How can I test if
+there is a leak in the setup respectively all traffic goes through
+Tor?</a>. This has not been tested with Whonix yet. If you do it, please
+share your results.</li>
+</ul>
+<h1 id="Qubes-Specific">Qubes-Specific</h1>
+<h2 id="Template_Update_Proxy_Leak_Test">Template Update Proxy Leak
+Test</h2>
+<p>Start your Whonix-Gateway Template (commonly called
+<code>whonix-gateway-18</code>). <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>In your TemplateVM:</p>
+<p>Start downloading some big<sup class="reference"><a href="#cite_note-3">[3]</a></sup> package.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup> Example:</p>
+<p><span class="code-select">apt download firefox-esr</span></p>
+<p>Now switch to your Whonix-Gateway ProxyVM (commonly called
+<code>sys-whonix</code>) and stop Tor. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p><span class="code-select">sudo service tor@default stop</span></p>
+<p>The <em>expected result</em> in the Template: a functional download
+that stops as soon as Tor is stopped.</p>
+<pre><code>Get:1 https://deb.debian.org/debian {{Stable project version based on Debian codename}}/updates/main firefox-esr amd64 52.5.2esr-1~deb8u1 [44.7 MB]
+Err https://deb.debian.org/debian {{Stable project version based on Debian codename}}/updates/main firefox-esr amd64 52.5.2esr-1~deb8u1
+  500  Unable to connect
+E: Failed to fetch https://deb.debian.org/debian/pool/updates/main/i/firefox/firefox-esr amd64 52.5.2esr-1~deb8u1_amd64.deb  500  Unable to connect</code></pre>
+<p>You can now start Tor in your Whonix-Gateway ProxyVM again.</p>
+<p><span class="code-select">sudo service tor@default start</span></p>
+<p>Repeat this test with your Whonix-Workstation Template (commonly
+called <code>whonix-workstation-18</code>).</p>
+<h1 id="IP_Activity_Log_Test">IP Activity Log Test</h1>
+<p>When logged into some services such as Twitter, there is an IP log
+under <a href="https://twitter.com/settings/your_twitter_data/login_history">Twitter
+<code>/settings/your_twitter_data/login_history</code></a>.</p>
+<ol>
+<li>Find your real external IP address on the host operating system
+using <code>myip.is</code> or any other website of your choice. You may
+use multiple websites for verification.</li>
+<li>Compare it with the Twitter activity log.</li>
+</ol>
+<p>If your real external IP is not in the Twitter activity log, then
+your real IP was not leaked.</p>
+<h1 id="Packet_Analyzer">Packet Analyzer</h1>
+<ul>
+<li>wireshark</li>
+<li>tshark</li>
+</ul>
+<h1 id="Application-Specific_Leak_Tests">Application-Specific Leak
+Tests</h1>
+<p>Sorted roughly by difficulty, from easiest to most difficult.</p>
+<ol>
+<li>Set up a server. For simplicity, consider a server dedicated solely
+for leak testing. Install the server software used by the client
+software you intend to test for leaks. Connect to the self-hosted server
+using the client software in question. Monitor incoming connections to
+your server. While this test is useful, it may not detect all types of
+leaks, such as DNS leaks.</li>
+<li>If the application is open source, review the source code.</li>
+<li>If the application is closed source: <a href="../Moved:Avoid_nonfreedom_software.html">Avoid Non-Freedom
+Software</a> or use reverse engineering techniques.</li>
+<li>Use a <a href="#Packet_Analyzer">Packet
+Analyzer</a>.</li>
+</ol>
+<h1 id="Unsuitable_Tests">Unsuitable Tests</h1>
+<h2 id="Location_Detection">Location Detection</h2>
+<p>As per the default settings of Tor upstream (The Tor Project, the
+original developer), Tor continually changes circuits, especially if a
+circuit breaks.</p>
+<p>Tor exit relays are hosted by volunteers in many different countries,
+and these relays also change frequently, particularly if a previous
+circuit becomes unusable (e.g., due to a Tor relay restart after
+applying operating system updates, which causes the circuit to go down
+and results in a connection reset for the user).</p>
+<p>Location detection can be highly inaccurate. Sometimes clearnet IP
+addresses are detected as being hundreds of miles away from their actual
+location. Source: Personal experience of Whonix developer Patrick. Many
+other users have likely reported similar experiences. Please edit this
+section if you know of more structured research or better sources on
+this topic.</p>
+<h2 id="Operating_System_Detection">Operating System Detection</h2>
+<p>Operating system detection tests can be unreliable.</p>
+<p>In the personal experience of Whonix developer Patrick, for example,
+<a href="https://twitter.com/settings/sessions">Twitter
+<code>/settings/sessions</code></a> incorrectly identified the active
+session as using <code>Windows</code>, when in reality, the browser was
+running on a <code>Linux</code>-based operating system.</p>
+<p>While Twitter <code>/settings/sessions</code> is not explicitly
+labeled as a browser test, it effectively functions as one. Therefore,
+the issues described on the <a href="../Browser_Tests.html">Browser Tests</a> wiki page apply equally.</p>
+<p><a href="../Tor_Browser.html">Tor Browser</a> is configured
+to blend in with the most common user agent on the internet to reduce <a href="../Data_Collection_Techniques.html#Browser_Fingerprinting">Browser Fingerprinting</a>. It mimics a generic Windows
+Firefox browser to prevent websites from uniquely identifying your
+system. This setting is the default implementation by Tor upstream (The
+Tor Project).</p>
+<p>See also:</p>
+<ul>
+<li><a href="../Fingerprint.html">Fingerprint</a></li>
+<li><a href="../Protocol-Leak-Protection_and_Fingerprinting-Protection.html">Protocol Leak and Fingerprinting Protection</a></li>
+</ul>
+<h2 id="Nyx">Nyx</h2>
+<p>The <a href="../Tor_Controller.html">Tor Controller</a> <a href="../Tor_Controller.html#Nyx">Nyx</a> is also unsuitable for leak testing.
+See <a href="../Tor_Controller.html#Nyx_FAQ">Whonix Nyx
+FAQ</a>.</p>
+<h2 id="Search_Engine_Search_Results">Search Engine Search Results</h2>
+<p>Even if Google or another entity had the ability to break Tor or
+Whonix, they would not publicly reveal this capability by displaying
+more relevant search results.</p>
+<h2 id="Others">Others</h2>
+<ul>
+<li><a href="../Tor-ctrl-observer.html">tor-ctrl-observer - Tor
+Connection Destination Viewer</a></li>
+<li><a href="../Tor-control-panel.html">Tor Control
+Panel</a></li>
+<li><a href="../Anon_Connection_Wizard.html">Anon Connection
+Wizard</a></li>
+</ul>
+<p>These tools are <a href="../Troubleshooting.html#Unsuitable_Connectivity_Troubleshooting_Tools">Unsuitable Connectivity Troubleshooting Tools</a>.</p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Browser_Tests.html">Browser Tests</a></li>
+<li><a href="../Moved:Test.html">Test</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/BridgeFirewall">TorifyHOWTO:
+Bridge Firewall</a></li>
+<li><a href="https://github.com/rustybird/corridor">Corridor: Tor
+Traffic Whitelisting Gateway</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Because Whonix-Gateway does not have a <code>TransPort</code> by
+default.</li>
+<li id="cite_note-2">These are assumed to be torified, i.e., having their NetVM set to
+sys-whonix.</li>
+<li id="cite_note-3">With a small package, you would not have a chance to easily and
+quickly disable Tor while it is downloading.</li>
+<li id="cite_note-4">Alternatively, you could also run <code>sudo apt update</code>
+instead of downloading a big package and interrupt that. However, it
+would be less conclusive, because APT updating may only break due to
+broken DNS. A long-running transfer that no longer depends on functional
+DNS resolution would be far easier to spot. (If the download was
+non-torified, it should not matter if we stop Tor during the
+transfer.)</li>
+<li id="cite_note-5">Alternatively, although less conclusive, instead of stopping Tor,
+you could also stop qubes-updates-proxy during the transfer.
+<span class="code-select">sudo service qubes-updates-proxy stop</span>
+This should lead to the same <em>expected result</em>.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Development.html">Development</a> <a href="../Category:Design.html">Design</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

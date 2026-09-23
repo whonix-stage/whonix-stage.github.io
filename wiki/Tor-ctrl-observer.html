@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Tor-ctrl-observer</title>
+<meta name="description" content="Ever wanted to know which information is sent by an application? tor-ctrl-observer shows connection information of applications using Tor.">
+<meta property="og:description" content="Ever wanted to know which information is sent by an application? tor-ctrl-observer shows connection information of applications using Tor.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Tor-ctrl-observer.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Tor-ctrl-observer.html">
+<meta property="og:title" content="tor-ctrl-observer - Tor Connection Destination Viewer">
+<meta property="og:image" content="https://www.whonix.org/media/orig/TorControl12312.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="Tunnel_UDP_over_Tor.html" title="Tunnel UDP over Tor"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tunnel
+UDP over
+Tor</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Whonix-Gateway_Security_Hardening.html" title="Whonix-Gateway Security Hardening"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Whonix-Gateway
+Security
+Hardening</span></a><span class="info"><span class="prev">Previous page:
+Tunnel UDP over Tor</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Whonix-Gateway
+Security Hardening</span></span></span>tor-ctrl-observer - Tor
+Connection Destination Viewer</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Tor.html">Tor</a></li>
+<li><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="Anon_Connection_Wizard.html">Anon Connection
+Wizard</a></li>
+<li><a href="Tor-control-panel.html">tor-control-panel</a></li>
+<li><a href="Why_does_Whonix_use_Tor.html">Why does Whonix
+use Tor?</a></li>
+<li><a href="Tor_Entry_Guards.html">Tor Entry
+Guards</a></li>
+<li><a href="Tor_Myths_and_Misconceptions.html">Tor Myths
+and Misconceptions</a></li>
+<li><a href="Tor_Controller.html">Tor Controller</a></li>
+<li><a href="Tor-ctrl-observer.html">tor-ctrl-observer</a></li>
+<li><a href="Onion-grater.html">onion-grater</a></li>
+<li><a href="Dev/Tor.html">Tor (Developer)</a></li>
+<li><a href="Dev/onion-grater.html">onion-grater
+(Developer)</a></li>
+<li><a href="Dev/anon-ws-disable-stacked-tor.html">anon-ws-disable-stacked-tor (Developer)</a></li>
+</ul>
+</div>
+<p><img src="../media/TorControl12312.png.webp" alt="TorControl12312.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Ever wanted to know which information is sent by an application?
+tor-ctrl-observer shows connection information of applications using
+Tor.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="What_tor-ctrl-observer_is">What tor-ctrl-observer is</h1>
+<p>Ever wanted to know which information is sent by an application?
+<code>tor-ctrl-observer</code> shows connection information of
+applications using Tor.</p>
+<p>Sample printout:</p>
+<pre><code>250-stream-status=1094 SENTCONNECT 20 firefox.settings.services.mozilla.com:443
+250-stream-status=1094 SUCCEEDED 20 18.64.79.82:443</code></pre>
+<p><code>tor-ctrl-observer</code> is especially useful in combination
+with Whonix because:<br />
+All traffic originating from <a href="Whonix-Workstation.html">Whonix-Workstation<sup>™</sup></a> and <a href="Whonix-Gateway.html">Whonix-Gateway<sup>™</sup></a> is
+routed to the <a href="Tor.html">Tor</a> software.</p>
+<div class="toccolours mw-collapsible mw-collapsed mwc-headline-normal-text-size">
+<p>For technical details, click on "Learn More" on the right side.</p>
+<div class="mw-collapsible-content">
+<ul>
+<li><u>Traffic from Whonix-Gateway also routed over Tor:</u> Starting
+from Whonix version <code>0.2.1</code>, traffic from Whonix-Gateway is
+also routed over Tor. This approach conceals the use of Whonix from
+entities monitoring the network.</li>
+<li><u>Gateway's own traffic not essential for anonymity:</u> To
+preserve the anonymity of a user's Whonix-Workstation activities, it is
+not essential to route Whonix-Gateway's own traffic through Tor. (Note:
+The gateway is mainly a tool that helps route traffic; it does not
+typically contain personal activity data.)</li>
+<li><u>DNS configuration on Whonix-Gateway has limited impact:</u>
+Altering DNS settings on Whonix-Gateway in <code>/etc/resolv.conf</code>
+only impacts DNS requests made by Whonix-Gateway's applications that
+utilize the system's default DNS resolver. (DNS is like the internet's
+phonebook - it translates website names to IP addresses.) By default, no
+applications on Whonix-Gateway that generate network traffic use this
+default resolver. All default applications on Whonix-Gateway that
+produce network traffic (like apt, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>, <a href="Sdwdate.html">sdwdate</a>) are explicitly configured,
+or forced by uwt wrappers, to use their dedicated Tor
+<code>SocksPort</code> (refer to <a href="Stream_Isolation.html">Stream Isolation</a>).</li>
+<li><u>Whonix-Workstation DNS requests handled via Tor:</u>
+Whonix-Workstation's default applications are configured to use
+dedicated Tor <code>SocksPorts</code> (see <a href="Stream_Isolation.html">Stream Isolation</a>), avoiding the system's default
+DNS resolver. Any applications in Whonix-Workstation not set up for
+stream isolation - such as <code>nslookup</code> - will use the default
+DNS server configured in Whonix-Workstation (through
+<code>/etc/network/interfaces</code>), which points to Whonix-Gateway.
+These DNS requests are then redirected to Tor's <code>DnsPort</code> by
+the Whonix-Gateway firewall. (This ensures DNS lookups still go through
+Tor even if they use the default method.) Changes in Whonix-Gateway's
+<code>/etc/resolv.conf</code> do not influence Whonix-Workstation's DNS
+queries.</li>
+<li><u>Tor process traffic allowed direct internet access:</u> Traffic
+produced by the Tor process, which by Debian's default operates under
+the account <code>debian-tor</code> and originates from Whonix-Gateway,
+can access the internet directly. This is permitted because the Linux
+user account <code>debian-tor</code> is exempted in the <a href="Whonix-Gateway_Firewall.html">Whonix-Gateway
+Firewall</a> and allowed to use the "regular" internet. (This is
+necessary for Tor to establish its connections.)</li>
+<li><u>Tor mostly uses TCP traffic:</u> As of Tor version
+<code>0.4.5.6</code> (with no changes announced at the time of writing),
+the Tor software predominantly relies on TCP traffic. (TCP is a common
+protocol used for stable internet connections.) For further details, see
+<a href="Tor.html#UDP">Tor wiki page, chapter UDP</a>. For
+DNS, please refer to the next footnote.</li>
+<li><u>Tor's DNS independence and exceptions:</u> Tor does not depend
+on, nor use, a functional (system) DNS for most of its operations. IP
+addresses of Tor directory authorities are hardcoded in the Tor software
+by Tor developers. (That means Tor knows important addresses in advance
+and doesn't need to look them up.) Exceptions include:
+<ul>
+<li><u>Proxy with domain name:</u> Proxy settings that use proxies with
+domain names instead of IP addresses.</li>
+<li><u>Pluggable transport domain resolution:</u> Some Tor pluggable
+transports, such as meek lite, which resolve domains set in
+<code>url=</code> and <code>front=</code> to IP addresses, or
+snowflake's <code>-front</code>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<p>It operates in a secure manner by using Tor's control protocol,
+making visible the information that Tor internally processes and is
+already prepared to share with users upon request.</p>
+<h1 id="tor-ctrl-observer_Advantages">tor-ctrl-observer Advantages</h1>
+<ul>
+<li><u>Application-level leak testing:</u>
+<code>tor-ctrl-observer</code> can be used to observe an application's
+network connections.
+<ul>
+<li>For example, <a href="https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/40788">Tor
+Browser 11.0.4-11.0.6 phoning home</a> (a regression of <a href="https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/31575">Firefox
+phoning home during startup in Tor Browser based on ESR 68</a>) was
+identified and reported to The Tor Project by
+<code>tor-ctrl-observer</code> developer <a href="https://github.com/nyxnor">nyxnor</a>.</li>
+</ul></li>
+</ul>
+<h1 id="Usage">Usage</h1>
+<p>In Whonix-Gateway<sup>™</sup>.</p>
+<p><strong>1.</strong> Open a terminal.</p>
+<p><strong>2.</strong> Run <code>tor-ctrl-observer</code>.</p>
+<p><span class="code-select">tor-ctrl-observer</span></p>
+<p><strong>3.</strong> Terminate <code>tor-ctrl-observer</code> with
+signal <code>SIGINT</code>.</p>
+<p>Press keyboard keys <code>Ctrl</code> + <code>C</code>.</p>
+<h1 id="What_tor-ctrl-observer_is_not">What tor-ctrl-observer is
+not</h1>
+<p><code>tor-ctrl-observer</code> does not attempt to be, is not, and
+cannot be a:</p>
+<ul>
+<li><u>Network-level <a href="Dev/Leak_Tests.html">leak
+test</a> replacement:</u> <code>tor-ctrl-observer</code> only requests
+connection information from Tor itself. While Tor generally provides
+this information, if there were bugs in the Tor control protocol,
+<code>tor-ctrl-observer</code> would not detect them. Similarly, if
+connections bypass Tor, Tor is unaware of them, and therefore
+<code>tor-ctrl-observer</code> cannot observe such connections.</li>
+<li><u>Tor auditor:</u> For the same reason as above,
+<code>tor-ctrl-observer</code> cannot be expected to identify bugs in
+Tor.</li>
+<li><u><a href="Tor_Controller.html">Tor Controller</a>:</u>
+Unlike tools such as <a href="Tor_Controller.html#Nyx">Nyx</a>,
+<code>nyx</code> provides details on Tor circuits (<a href="Bridges.html">Bridges</a>, <a href="Tor_Entry_Guards.html">Tor Entry Guards</a>, and middle or exit relays), but
+does not show final connection destinations. Conversely,
+<code>tor-ctrl-observer</code> displays information about final
+connection destinations.</li>
+</ul>
+<h1 id="Forum_Discussion">Forum Discussion</h1>
+<p><a href="https://forums.whonix.org/t/tor-ctrl-tor-control-port-command-line-tool/8074/41">Tor-ctrl-observer
+discussion on Whonix forums</a></p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Tor_Controller.html">Tor Controller</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Tunnel_UDP_over_Tor.html" title="Tunnel UDP over Tor"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tunnel
+UDP over
+Tor</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Whonix-Gateway_Security_Hardening.html" title="Whonix-Gateway Security Hardening"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Whonix-Gateway
+Security
+Hardening</span></a><span class="info"><span class="prev">Previous page:
+Tunnel UDP over Tor</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Whonix-Gateway
+Security Hardening</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

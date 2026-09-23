@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Wickr</title>
+<meta name="description" content="Using Wickr Me in Whonix over the Tor anonymity network.">
+<meta property="og:description" content="Using Wickr Me in Whonix over the Tor anonymity network.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Wickr.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Wickr.html">
+<meta property="og:title" content="How-to: Use Wickr Me in Whonix">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Wickr12312312.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Overview">Overview</a></li><li class="toc-l2"><a href="#From_wickr.com">From wickr.com</a></li><li class="toc-l2"><a href="#From_Snap">From Snap</a></li><li class="toc-l3"><a href="#Notes">Notes</a></li><li class="toc-l3"><a href="#Instructions">Instructions</a></li><li class="toc-l2"><a href="#snap">snap</a></li><li class="toc-l3"><a href="#error:_snap_wickrme_not_found">error: snap &quot;wickrme&quot; not
+found</a></li><li class="toc-l3"><a href="#read:_connection_refused">read: connection refused</a></li><li class="toc-l3"><a href="#realpath:_No_such_file_or_directory">realpath: No such file or
+directory</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="VoIP.html" title="VoIP"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">VoIP</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Moved:One_Time_Pad.html" title="One Time Pad"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">One
+Time Pad</span></a><span class="info"><span class="prev">Previous page:
+VoIP</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: One Time
+Pad</span></span></span>How-to: Use Wickr Me in Whonix</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Chat.html">Chat</a></li>
+<li><a href="SimpleX.html">SimpleX</a></li>
+<li><a href="Cwtch.html">Cwtch</a></li>
+<li><a href="DeltaChat.html">Delta Chat</a></li>
+<li><a href="OnionShare.html">OnionShare</a></li>
+<li><a href="Signal.html">Signal</a></li>
+<li><a href="Telegram.html">Telegram</a></li>
+<li><a href="VoIP.html">VoIP</a></li>
+<li><a href="E-Mail.html">E-Mail</a></li>
+</ul>
+</div>
+<p><img src="../media/Wickrlogo.png.webp" alt="Wickr Logo" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Using Wickr Me in Whonix over the Tor anonymity network.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Wickr Me can be installed in Debian and provides various
+functionality in addition to end-to-end encrypted messaging:
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p><blockquote><p>With Wickr Me, you can instantly connect with your friends 1:1 or in
+groups - now with fully encrypted voice calling, voice memos - new
+additions to the trusted end-to-end secure sharing of files, images, and
+videos. Take full control over who has access to your content and how
+long it remains accessible.</p></blockquote></p>
+<p>The application touts various privacy and security benefits,
+including: <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<ul>
+<li>no access to messages or contact lists</li>
+<li>users' address books remain private and not stored on Wickr
+servers</li>
+<li>each message being encrypted with a new key</li>
+<li>no phone number or email address registration required</li>
+<li>nil storage of meta-data</li>
+<li>communication in private groups of up to 10 users</li>
+<li>partial open source code <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li>an expiration time can be set on messaging content</li>
+<li>incorporation of perfect forward and backward secrecy for user
+content</li>
+</ul>
+<p>To learn more, refer to the <a href="https://wickr.com/">parent
+website</a>.</p>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="Community_Support.html">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<h1 id="Warning">Warning</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+This software installation might be a security risk. Installation is
+discouraged, following the <a href="Install_Software.html">recommended best practices for software
+installation</a>:</p>
+<p><u>Unsigned software</u>: You cannot follow the usual security advice
+to always <a href="Moved:Verifying_Software_Signatures.html">verify software signatures</a>, because - as far as the
+author of this page knows - at the time of writing, the original
+developer (upstream) does not provide digital signatures for their
+software. Users may wish to check if that has changed or consider
+requesting this feature from the developer.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Wickr Me is considered a security risk and installation is discouraged
+as per <a href="Install_Software.html">software installation
+best practices</a>:</p>
+<ul>
+<li><u>Unsigned software</u>: It is not possible to follow the security
+advice of always <a href="Moved:Verifying_Software_Signatures.html">verifying software signatures</a>, since installation
+is through <code>snap</code> which does not yet verify software
+signatures. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+<li><u>Installation procedure</u>: The third party package manager
+<code>snap</code> is required, which is generally discouraged.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+<li><u><a href="Moved:Avoid_nonfreedom_software.html">Proprietary
+software</a></u>: Only the Wickr Me encryption protocol is open source.
+The rest of the client application source code and other elements remain
+proprietary and unavailable for public scrutiny. <sup class="reference"><a href="#cite_note-5">[5]</a></sup> <a href="Moved:Avoid_nonfreedom_software.html">Avoid non-freedom
+software</a>.</li>
+</ul>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-exclamation cs-red"></i></span></p>
+<div class="cs-red-light">
+<p>AVOID
+<a href="Moved:Avoid_nonfreedom_software.html" class="nonfreedomlink">non-freedom</a>
+SOFTWARE!</p>
+</div>
+<p><strong>See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</strong></p>
+<p>Related: <a href="Policy_On_Nonfreedom_Software.html">Whonix Policy On Non-Freedom Software</a></p>
+</div>
+<p>If proceeding despite the risk, it is recommended to use a <a href="Multiple_Whonix-Workstation.html">separate</a>
+Whonix-Workstation<sup>™</sup> for greater safety.</p>
+<h1 id="Installation">Installation</h1>
+<h2 id="Overview">Overview</h2>
+<p>Choose an installation source. You can install either:</p>
+<ul>
+<li><strong>A)</strong> From wickr.com, <u>or</u></li>
+<li><strong>B)</strong> From Snap.</li>
+</ul>
+<h2 id="From_wickr.com">From wickr.com</h2>
+<p><a href="Unsupported.html">Undocumented</a>. <a href="Unspecific.html">Unspecific to Whonix</a>.</p>
+<p>Probably better than installing from snap.</p>
+<h2 id="From_Snap">From Snap</h2>
+<h3 id="Notes">Notes</h3>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Platform specific notice:</p>
+<ul>
+<li>Non-Qubes-Whonix<sup>™</sup>: Functional.</li>
+<li>Qubes-Whonix<sup>™</sup>: Efforts to persistently install Wickr Me
+in <a href="Qubes.html">Qubes-Whonix<sup>™</sup></a> via <a href="https://www.qubes-os.org/doc/bind-dirs/">bind-dirs</a> or with
+snap proxy settings have proven unsuccessful. This means it needs to be
+<a href="Install_Software.html#Install_Software_in_a_TemplateBasedVM">installed in a TemplateBasedVM</a> on every occasion it
+is required. Efforts to improve this situation are most welcome, see: <a href="https://forums.whonix.org/t/wickr-me-vs-qubes-whonix-persistence/9593">Wickr
+Me vs Qubes-Whonix Persistence</a>.</li>
+</ul>
+</div>
+<p>Currently, attempting to install Wickr Me over snap over Tor will
+result in an error because Wickr developers instructed snap store to
+block downloads over Tor. This is also called <a href="Geo-blocking.html">geo-blocking</a>. (<a href="https://forums.whonix.org/t/wickrme-snap-install-wickrme-error-snap-wickrme-not-found/12678">forum
+discussion</a>) To circumvent this, the only option is to install Wickr
+Me using <code>snap</code> using a mechanism called
+<code>sideloading</code>, in short snap sideloading.</p>
+<p>Workarounds:</p>
+<ul>
+<li><strong>A)</strong> <u>Download snap without (!) Tor method</u>:
+With <u>high anonymity risks</u> is to download the snap package must be
+without Tor, then manually transferred into Whonix-Workstation and
+installed there. <u>Or</u>, alternatively</li>
+<li><strong>B)</strong> <u>Post-Tor Tunnel-link method</u>: A Post-Tor
+Tunnel-link should allow installation from within Whonix-Workstation. To
+learn more about tunnels, see <a href="Tunnels/Introduction.html">Tunnels/Introduction</a>.</li>
+</ul>
+<p>Both workarounds are awful and it would be much better if the user
+found an alternative to Wickr Me.</p>
+<h3 id="Instructions">Instructions</h3>
+<p><u>Note</u>: The following instructions must be run in another Debian
+installation (Kicksecure, Debian, separate physical machine, etc)
+(anonymity risks) or while having set up a Post-Tor Tunnel-link.
+(<code>User</code> -> <code>Tor</code> -> <code>proxy/VPN/SSH</code> ->
+<code>Internet</code>)</p>
+<div class="info-box ">
+<p><strong>1.</strong></p>
+<p><strong>2.</strong> Install dependencies.</p>
+<div class="info-box ">
+<p>Install package(s) <code>snapd</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="Qubes.html">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>snapd</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+snapd</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>snapd</code> is
+complete.</p>
+</div>
+<p><strong>3.</strong> Download wickrme package:</p>
+<p><span class="code-select">snap download wickrme</span></p>
+<p><strong>4.</strong> View the downloaded file names.</p>
+<p>Such as with a file manager of your choice or use the <code>ls</code>
+command.</p>
+<p><span class="code-select">ls</span></p>
+<p>Expected output will include similar file names to the following:</p>
+<pre><code>wickrme*.assert
+wickrme*.snap</code></pre>
+<p><strong>5.</strong> Copy the downloaded files to your
+Whonix-Workstation using your preferred <a href="File_Transfer.html">file transfer method</a>.</p>
+</div>
+<p>Inside your Whonix-Workstation:</p>
+<div class="info-box ">
+<p><strong>1.</strong></p>
+<p><strong>2.</strong> Install dependencies.</p>
+<div class="info-box ">
+<p>Install package(s) <code>snapd</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="Qubes.html">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>snapd</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+snapd</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>snapd</code> is
+complete.</p>
+</div>
+<p><strong>3.</strong> Navigate to where you transferred your files.</p>
+<p>Might be easiest to transfer the files to your home folder.</p>
+<p><strong>4.</strong> Install Wickr Me.</p>
+<p><span class="code-select">sudo snap ack wickrme*.assert</span></p>
+<p><span class="code-select">sudo snap install wickrme*.snap</span></p>
+</div>
+<h1 id="Start_Wickr_Me">Start Wickr Me</h1>
+<p>You launch Wickr Me from the application launcher (under Internet or
+by searching).</p>
+<p>To launch Wickr Me from the commandline, run:</p>
+<p><span class="code-select">wickrme</span></p>
+<p>If you haven't rebooted since installing snap, wickrme might not be
+in your PATH. You can reboot now or run:</p>
+<p><span class="code-select">/snap/bin/wickrme</span></p>
+<p><strong>Figure:</strong> <em>Wicker Me in Whonix</em></p>
+<p><img src="../media/Wickrme.png.webp" alt="Wickrme.png" /></p>
+<h1 id="Troubleshooting">Troubleshooting</h1>
+<h2 id="snap">snap</h2>
+<h3 id="error:_snap_wickrme_not_found">error: snap "wickrme" not
+found</h3>
+<p>As a workaround, try to install any other snap package first.</p>
+<p><span class="code-select">snap install vlc</span></p>
+<p>Then try to install Wickr Me again. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<h3 id="read:_connection_refused">read: connection refused</h3>
+<p>The following error occasionally appears when trying to install Wickr
+Me (<code>snap install wickrme</code>): <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<pre><code>error: cannot install &quot;wickrme&quot;: Post
+       https://api.snapcraft.io/v2/snaps/refresh: dial tcp: lookup
+       api.snapcraft.io on [::1]:53: read udp [::1]:60220-&gt;[::1]:53: read:
+       connection refused</code></pre>
+<p>It is suspected the server sometimes bans certain Tor relays from
+connecting. Try <a href="Tor_Controller.html#Nyx_Usage">changing the Tor circuit</a>, then repeat the
+command.</p>
+<h3 id="realpath:_No_such_file_or_directory">realpath: No such file or
+directory</h3>
+<p>Sometimes running:</p>
+<p><span class="code-select">wickrme</span></p>
+<p>Results in the terminal displaying this message:</p>
+<pre><code>realpath: &#39;&#39;: No such file or directory
+realpath: &#39;&#39;: No such file or directory
+realpath: &#39;&#39;: No such file or directory
+realpath: &#39;&#39;: No such file or directory
+Could not create NETLINK socket: Operation not permitted (1)
+Failed to initialize udev, possibly due to an invalid system configuration. Various device-related browser features may be broken.</code></pre>
+<p>With Wickr Me still starting and showing an error during sign in that
+it could not connect to the Wickr Me Network (attempting to reconnect).
+This might be caused during the original installation of Wickr Me
+through <code>snap install wickrme</code>. Try reinstalling Wickr Me
+with the <code>--devmode</code> flag enabled and it should fix the
+issue. To do that, follow the steps below.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Remove Wickr Me.</p>
+<p><span class="code-select">snap remove wickrme</span></p>
+<p>The command needs to be run twice. The first run will disable the
+"wickrme" package, while the second invocation will remove
+"wickrme".</p>
+<p><span class="code-select">snap remove wickrme</span></p>
+<p><strong>2.</strong> Verify Wickr Me is no longer installed.</p>
+<p>Run.</p>
+<p><span class="code-select">snap list</span></p>
+<p>It should no longer show wickrme.</p>
+<p><strong>3.</strong> Reinstall Wicker Me.</p>
+<p>Use the following command.</p>
+<p><span class="code-select">snap install --devmode wickrme</span></p>
+<p><strong>4.</strong> Relaunch Wicker Me.</p>
+<p>Start "wickrme" again.</p>
+<p><span class="code-select">wickrme</span></p>
+</div>
+<h1 id="Forum_Discussion">Forum Discussion</h1>
+<ul>
+<li><a href="https://forums.whonix.org/t/wickr-problem-help/7552">Wickr
+problem, help</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://snapcraft.io/wickrme">https://snapcraft.io/wickrme</a></li>
+<li id="cite_note-2">The encryption protocol <code>Wickr-Crypto-C</code> source code is
+available on <a href="https://github.com/WickrInc/wickr-crypto-c">GitHub</a>.</li>
+<li id="cite_note-3">For better security and stability, <code>wickr.com</code> could
+provide Debian downloads, or better yet an apt repository for
+Debian.</li>
+<li id="cite_note-4"><a href="https://forums.whonix.org/t/snap-store-snaps-snapcraft-io-a-new-software-source/7631">https://forums.whonix.org/t/snap-store-snaps-snapcraft-io-a-new-software-source/7631</a></li>
+<li id="cite_note-5">By comparison, the Signal protocol, client application and server
+are <a href="https://github.com/signalapp">fully open source</a>.</li>
+<li id="cite_note-6">A bug report was drafted, but could not be submitted to <a href="https://bugs.launchpad.net/snapcraft">https://bugs.launchpad.net/snapcraft</a>
+because of the following error:
+<pre><code> Timeout error Sorry, something just went wrong in Launchpad. We&#39;ve recorded what happened, and we&#39;ll fix it as soon as possible. Apologies for the inconvenience. Trying again in a couple of minutes might work. </code></pre>
+<pre><code> snap install wickrme reports &#39;snap &quot;wickrme&quot; not found&#39; even though &#39;snap find wickrme&#39; had found it </code></pre>
+<pre><code> Actual Result: Debian buster based. sudo apt update sudo apt install snapd snap find wickrme Name Version Publisher Notes Summary wickrme 5.48.9 tleavy - E2E Encrypted Anonymous Messaging snap install wickrme error: snap &quot;wickrme&quot; not found Expected result: wickrme gets installed or shows a better error message than &#39;snap &quot;wickrme&quot; not found&#39; if not available for this system. System information: lsb_release -a No LSB modules are available. Distributor ID: Debian Description: Debian GNU/Linux 10 (buster) Release: 10 Codename: buster dpkg --print-architecture amd64 uname -a Linux host 4.19.94-1.pvops.qubes.x86_64 #1 SMP Sun Jan 12 05:45:26 UTC 2020 x86_64 GNU/Linux </code></pre></li>
+<li id="cite_note-7"><a href="https://forums.whonix.org/t/wickr-problem-help/7552">https://forums.whonix.org/t/wickr-problem-help/7552</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="VoIP.html" title="VoIP"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">VoIP</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Moved:One_Time_Pad.html" title="One Time Pad"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">One
+Time Pad</span></a><span class="info"><span class="prev">Previous page:
+VoIP</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: One Time
+Pad</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

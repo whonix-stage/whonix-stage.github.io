@@ -1,0 +1,1276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Warning</title>
+<meta name="description" content="Things you should know about Whonix and Anonymity in General to stay safe.">
+<meta property="og:description" content="Things you should know about Whonix and Anonymity in General to stay safe.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Warning.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Warning.html">
+<meta property="og:title" content="Whonix and Tor Limitations">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Mitm.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Separation_of_Different_Contextual_Identities">Separation of
+Different Contextual Identities</a></li><li class="toc-l2"><a href="#Protection_Against_Social_Engineering">Protection Against Social
+Engineering</a></li><li class="toc-l2"><a href="#Protection_Against_External_Threats_or_User_Mistakes">Protection
+Against External Threats or User Mistakes</a></li><li class="toc-l2"><a href="#Only_Whonix-Workstation_is_Designed_for_Anonymous_Activity">Only
+Whonix-Workstation is Designed for Anonymous Activity</a></li><li class="toc-l2"><a href="#Man-in-the-middle_Attacks">Man-in-the-middle Attacks</a></li><li class="toc-l3"><a href="#The_Fallible_Certificate_Authority_Model">The Fallible
+Certificate Authority Model</a></li><li class="toc-l3"><a href="#SSL/TLS_Alternatives">SSL/TLS Alternatives</a></li><li class="toc-l2"><a href="#Tor_Network_Attacks">Tor Network Attacks</a></li><li class="toc-l3"><a href="#Confirmation_Attacks">Confirmation Attacks</a></li><li class="toc-l3"><a href="#Traffic_Analysis">Traffic Analysis</a></li><li class="toc-l3"><a href="#Guard_Discovery">Guard Discovery</a></li><li class="toc-l3"><a href="#Tor_Defenses">Tor Defenses</a></li><li class="toc-l2"><a href="#Document_Encryption">Document Encryption</a></li><li class="toc-l2"><a href="#Document_Metadata">Document Metadata</a></li><li class="toc-l2"><a href="#Stylometry">Stylometry</a></li><li class="toc-l3"><a href="#Coding_Style">Coding Style</a></li><li class="toc-l3"><a href="#Linguistic_Style">Linguistic Style</a></li><li class="toc-l2"><a href="#Whonix_Signature">Whonix Signature</a></li><li class="toc-l2"><a href="#Password_Strength">Password Strength</a></li><li class="toc-l2"><a href="#Compromised_Hardware_or_Advanced_Malware">Compromised Hardware
+or Advanced Malware</a></li><li class="toc-l2"><a href="#Host_Security">Host Security</a></li><li class="toc-l2"><a href="#Exit_Relays_can_Eavesdrop_on_Communications">Exit Relays can
+Eavesdrop on Communications</a></li><li class="toc-l2"><a href="#Use_of_Tor_is_Obvious">Use of Tor is Obvious</a></li><li class="toc-l2"><a href="#Persistent_Guard_Relays_can_Enable_Physical_Location_Tracking">Persistent
+Guard Relays can Enable Physical Location Tracking</a></li><li class="toc-l2"><a href="#Guard_Fingerprinting">Guard Fingerprinting</a></li><li class="toc-l2"><a href="#Tor_cannot_Protect_Against_a_Global_Adversary">Tor cannot
+Protect Against a Global Adversary</a></li><li class="toc-l2"><a href="#A_Live_Operating_System_or_Live_Mode_is_not_Configured">A Live
+Operating System or Live Mode
+is not Configured</a></li><li class="toc-l2"><a href="#A_Live_Operating_System_or_Live_Mode_is_Configured">A Live
+Operating System or Live Mode
+is Configured</a></li><li class="toc-l2"><a href="#Live_DVD_/_USB">Live DVD / USB</a></li><li class="toc-l2"><a href="#Missing_Whonix_Features">Missing Whonix Features</a></li><li class="toc-l2"><a href="#Whonix_is_a_Work_in_Progress">Whonix is a Work in Progress</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="Whonix-Workstation_Security.html" title="Whonix-Workstation Security"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Whonix-Workstation
+Security</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Advanced_Security_Guide_Introduction.html" title="Advanced Security Guide Introduction"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Advanced
+Security Guide
+Introduction</span></a><span class="info"><span class="prev">Previous
+page: Whonix-Workstation Security</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Advanced Security
+Guide Introduction</span></span></span>Whonix and Tor Limitations</p>
+</div>
+<p><img src="../media/Mitm.png.webp" alt="Mitm.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Things you should know about Whonix and Anonymity in General to stay
+safe.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p><img src="../media/Kicksecure-badge.svg" width="150" alt="Kicksecure-badge.svg" />
+<a href="About.html">Whonix</a> comes with
+[Broken-ExtLink--no-url-was-provided]. Whonix is
+[Broken-ExtLink--no-url-was-provided] hardened by default and also
+provides extensive <a href="Documentation.html">Documentation</a> including a <a href="System_Hardening_Checklist.html">System Hardening
+Checklist</a>. The more you know, the safer you can be.</p>
+<p>Whonix developers have done their utmost to provide solid tools which
+protect online privacy, <u>but no perfect solution exists to the complex
+anonymity problem.</u> Before deciding whether Whonix is the right
+platform to use, it is crucial that each individual understands the
+limitations of the tools offered and how to make best use of them.</p>
+<p>This wiki page focuses on anonymity and security threats that Whonix
+either cannot, or does not, mitigate at present. These issues are for
+the most part <a href="Unspecific.html">unspecific to
+Whonix</a>. No other anonymity tool has a solution to all of these
+issues.</p>
+<h1 id="Essential_Security_Knowledge">Essential Security Knowledge</h1>
+<p>You cannot be anonymous without being secure. Whonix is based on
+Kicksecure.</p>
+<p>While Whonix aims to anonymize users and Kicksecure works to improve
+the security, it is likely that other less secure or outright insecure
+devices around you could compromise your anonymity. These devices could
+range from mobile phones and tablets to Smart TVs and smart home
+gadgets. These devices can spy on you and break your privacy and
+anonymity. To fully comprehend the scope of potential risks, it is
+highly recommended to study the documentation provided by
+Kicksecure<sup>™</sup>.</p>
+<p><img src="../media/Kicksecure-seal.png.webp" width="130" alt="Kicksecure Hardened" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-info cs-red"></i></span>
+<span class="template-styled-text ">Redirection
+to Kicksecure Documentation </span></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-exclamation-triangle cs-yellow"></i></span>
+<span class="template-styled-text "><u>NOT-SELFCONTAINED:</u>
+This wiki page is not self-contained by design. This It only includes
+details specific to Whonix. For full understanding, please follow the
+link below to the Kicksecure wiki, which provides more complete
+background and instructions. </span></p>
+</div>
+<ul>
+<li><i class="fa-solid fa-circle-info cs-blue"></i><span><u>Introduction</u>:
+&lt;a href="Introduction.html"&gt;Whonix Documentation Introduction,
+User Expectations, Footnotes and References, User Expectations - What
+Documentation Is and What It Is Not&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-link cs-green"></i><span><u>&lt;a
+href="About.html#Based_on_Kicksecure"&gt;Whonix is based on
+Kicksecure<sup>&amp;trade;</sup>&lt;/a&gt;</u>: Whonix is built on top
+of Kicksecure. This means it uses many of the same security tools,
+design concepts, and configurations.</span></li>
+<li><i class="fa-solid fa-server cs-gray"></i><span><u>&lt;a href="<a href="https://www.kicksecure.com/wiki/Based_on_Debian%22%3EKicksecure">https://www.kicksecure.com/wiki/Based_on_Debian"&gt;Kicksecure</a>
+is based on Debian&lt;/a&gt;:</u> Kicksecure is developed using Debian
+as its base. Debian is a widely used, stable, and free Linux operating
+system.</span></li>
+<li><i class="fa-solid fa-arrow-down cs-blue"></i><span><u>Inheritance:</u>
+As a result, Whonix is also &lt;a href="Based_on_Debian.html"&gt;based
+on Debian&lt;/a&gt;.</span></li>
+<li><i class="fa-brands fa-linux cs-black"></i><span><u>Debian is
+GNU/Linux-based:</u> Debian is built using the GNU/Linux operating
+system. GNU provides essential tools and Linux is the system's kernel
+(core).</span></li>
+<li><i class="fa-solid fa-users cs-green"></i><span><u>Shared
+documentation benefits:</u> Since each system is based on the one below
+it, a lot of documentation and guides are shared. This reduces the need
+to duplicate information.</span></li>
+<li><i class="fa-solid fa-file-alt cs-gray"></i><span><u>Inherited
+documentation:</u> Most instructions and explanations are inherited from
+Kicksecure or Debian, unless otherwise specified.</span></li>
+<li><i class="fa-solid fa-check cs-green"></i><span><u>Shared
+principles:</u> The systems share similar security goals and setup
+instructions. In most cases, users can follow Kicksecure documentation
+when using Whonix.</span></li>
+<li><i class="fa-solid fa-thumbs-up cs-blue"></i><span><u>Keep using
+Whonix:</u> This does <u>not</u> mean users should switch to Kicksecure.
+This page only points to related, helpful information.</span></li>
+<li><i class="fa-solid fa-keyboard cs-gray"></i><span><u>Where to apply
+the instructions:</u> Follow the instructions inside Whonix unless
+specifically stated otherwise.</span></li>
+<li><i class="fa-solid fa-pencil cs-orange"></i><span><u>Wiki editors
+notice:</u> This information is pulled from a reusable wiki template:
+&lt;a href="Template:Upstream_wiki.html"&gt;upstream_wiki&lt;/a&gt;.
+(&lt;a href="Special:WhatLinksHere/Template:Upstream_wiki.html"&gt;See
+which pages use this&lt;/a&gt;.)</span></li>
+<li><i class="fa-solid fa-balance-scale cs-blue"></i><span><u>Comparison:</u>
+&lt;a href="Comparison_with_Kicksecure.html"&gt;Whonix versus
+Kicksecure&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-sync-alt cs-gray"></i><span><u>Documentation
+compatibility:</u> Because Whonix is based on Kicksecure, you can often
+follow Kicksecure's instructions as long as you apply them in the right
+place.</span></li>
+<li><i class="fa-solid fa-layer-group cs-gray"></i><span><u>Summary:</u>
+Whonix is built on top of <b>Kicksecure</b>, which itself is based on
+<b>Debian</b>. Debian is a GNU/Linux operating system. This layered
+design means Whonix inherits many features, tools, and documentation
+from both Kicksecure and Debian.</span></li>
+<li><i class="fa-solid fa-mouse-pointer cs-blue"></i><span><u>Click
+here:</u> Visit the related page in the Kicksecure wiki for full
+documentation and background:</span></li>
+</ul>
+<p><span class="template-styled-text "><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] </span></p>
+<ul>
+<li><i class="fa-solid fa-sticky-note cs-yellow"></i><span><u>Note:</u>
+Re-interpretation...</span></li>
+</ul>
+<div class="info-box ib-dark">
+<p>Apply the instructions inside Whonix, <u>not</u> inside
+Kicksecure.</p>
+<p><blockquote><p>Kicksecure: Perform these steps inside Kicksecure.</p></blockquote></p>
+<p>Instead, apply the steps inside Whonix-Workstation.</p>
+<p><blockquote><p>Kicksecure for Qubes: Perform these steps inside Qubes
+<code>kicksecure-18</code> Template.</p></blockquote></p>
+<p>Instead, use the <code>whonix-workstation-18</code> Template for
+these steps.</p>
+</div>
+</div>
+<h1 id="Anonymous_Identities">Anonymous Identities</h1>
+<h2 id="Separation_of_Different_Contextual_Identities">Separation of
+Different Contextual Identities</h2>
+<p>It is usually inadvisable to use the same
+Whonix-Workstation<sup>™</sup> to perform more than one task, or when
+using two (or more) contextual identities that must be kept separate
+from each other. For example, it is poor operational security to use the
+same Whonix-Workstation<sup>™</sup> to check email via Tor, while
+simultaneously publishing an anonymous document.</p>
+<p>The first reason is that Tor tends to reuse the same circuits during
+the same browsing session. The Tor exit relay of a circuit knows both
+the destination server (and possibly the content of the communication if
+not encrypted) and the address of the previous relay it received the
+communication from. This makes it easier to infer that several browsing
+requests which took place on the same circuit are possibly correlated
+and originate from the same person. Global adversaries described later
+are in the perfect position to undertake this form of correlation
+analysis.</p>
+<p>Secondly, if Whonix or one of its applications has a security hole or
+is misused, then information might leak from the Whonix-Workstation.
+That could reveal that the same person was behind the various activities
+conducted inside the Whonix-Workstation.</p>
+<p>To address both threats, better isolation of new identities is
+required <i>on every occasion they are used</i>. It is recommended to
+conduct one activity at a time, and implement one or more of the
+following solutions: <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<ul>
+<li><a href="Whonix-Workstation_Security.html#VM_Snapshots">
+Multiple VM Snapshots</a>.</li>
+<li><a href="Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation</a>.</li>
+<li><a href="Qubes/Disposables.html"> Disposables in
+Qubes-Whonix<sup>™</sup></a>.</li>
+</ul>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<a href="Tor_Controller.html"> Nyx's</a> "New Identity"
+button sends the protocol command "signal newnym" to Tor's ControlPort.
+A new Tor exit relay and a new IP address is likely, <i>but this is not
+guaranteed.</i></p>
+</div>
+<p>Using this feature, Tor may only have replaced the middle relay while
+using the same Tor exit relay. Additionally, "signal newnym" will not
+interfere with long-lived connections like an IRC connection. Apart from
+the Tor circuits, other types of information can reveal past activities,
+for example the cookies stored by the browser. Therefore, this arm
+feature is not a solution for properly separating contextual
+identities.</p>
+<h2 id="Protection_Against_Social_Engineering">Protection Against Social
+Engineering</h2>
+<p>Whonix does not protect against <a href="https://en.wikipedia.org/wiki/Social_engineering_%28security%29">social
+engineering</a> attacks. These attacks rely on human cognitive biases
+and trick people into revealing passwords or other sensitive information
+that allows the compromise of a target system's security.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>Other examples of social engineering include convincing someone to
+send a copy of logs or other information from the
+Whonix-Gateway<sup>™</sup> or host operating system machine. In all
+cases, after trust has been established between the attacker and the
+victim, and sufficient information has been gathered, an exploit will be
+executed to perform harmful actions such as stealing personal or
+financial information, sabotaging the target's system, deanonymizing the
+individual and so on. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>The best tools in maintaining anonymity are the knowledge that comes
+from research and experience, and healthy skepticism towards scenarios
+that pose potential security threats.</p>
+<p>Dedicated wiki page: <a href="Moved:Social_Engineering.html">Social Engineering</a>.</p>
+<h2 id="Protection_Against_External_Threats_or_User_Mistakes">Protection
+Against External Threats or User Mistakes</h2>
+<p>Obviously, Whonix cannot protect against external threats like people
+looking over the user's shoulder or gaining physical access to the
+machine in order to subvert the anonymity features of Tor and
+Whonix.</p>
+<p>Neither can Whonix prevent people from shooting themselves in the
+foot, leading to inadvertent deanonymization. It is strongly encouraged
+to read the <a href="Tips_on_Remaining_Anonymous.html">Tips
+on Remaining Anonymous</a> page to learn about non-technical steps to
+stay anonymous when using Tor, Tor Browser and Whonix. This list
+considers:</p>
+<div>
+<ul>
+<li>Safe use of social networks.</li>
+<li>(Mobile) phone verification.</li>
+<li>Personal websites and links.</li>
+<li>Accounts previously used without Tor.</li>
+<li>Banking / financial provider accounts.</li>
+<li>Modes of anonymity.</li>
+<li>The risks posed by identifying data and online identities.</li>
+<li>When to use bridges.</li>
+<li>How to protect sensitive data and communications.</li>
+<li>Safe Tor networking considerations.</li>
+<li>The danger of random files and links.</li>
+<li>The difference between anonymity and pseudonymity.</li>
+<li>The danger of mixing clearnet and Tor simultaneously.</li>
+<li>The consequences of changing settings.</li>
+<li>Server connections.</li>
+</ul>
+</div>
+<h2 id="Only_Whonix-Workstation_is_Designed_for_Anonymous_Activity">Only
+Whonix-Workstation is Designed for Anonymous Activity</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+All anonymous activity should only take place inside Whonix-Workstation
+and nowhere else.</p>
+</div>
+<p>The host operating system -- the operating system running the
+virtualizer, and the system which was used before downloading Whonix --
+is <u>not</u> "torified". Anonymous tasks should never be performed on
+the host system.</p>
+<p>The Whonix-Gateway is solely designed to run Tor and act as a
+firewall. Any "anonymous" activities <u>should not</u> be conducted on
+the Gateway. Further, in most cases there is no need to modify settings
+on the Whonix-Gateway, except for minor modifications like <a href="Bridges.html">setting up bridges</a> which is already
+documented.</p>
+<h1 id="Attacks">Attacks</h1>
+<h2 id="Man-in-the-middle_Attacks">Man-in-the-middle Attacks</h2>
+<p>A man-in-the-middle attack (MitM) is a where an attacker makes
+independent connections with two parties and secretly relays (and
+potentially alters) messages between them. This is a form of active
+eavesdropping, since the two parties think they are communicating
+directly with each other and are unaware the conversation is being
+controlled by the attacker. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><strong>Figure:</strong> <em>Illustration of a MitM Attack</em></p>
+<p><img src="../media/Mitm.png.webp" alt="Mitm.png" /></p>
+<p>While using Tor, MitM attacks can still happen between the exit relay
+and the destination server. The exit relay itself can also act as a
+man-in-the-middle. For an example of such an attack see <a href="https://web.archive.org/web/20111128081956/http://www.teamfurry.com/wordpress/2007/11/20/tor-exit-node-doing-mitm-attacks">MW-Blog:
+TOR exit-node doing MITM attacks</a>. It is worth reiterating that
+<i>protecting against these attacks requires end-to-end encryption and
+taking extra steps to verify the server's authenticity</i>.</p>
+<p>Normally a server's authenticity is automatically verified by the
+browser using <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">SSL/TLS
+certificates</a> which are checked against a set of recognized <a href="https://en.wikipedia.org/wiki/Certificate_authority">certificate
+authorities (CAs)</a>. If a security exception message appears like the
+figure below, then this might constitute a MitM attack. The warning
+should not be bypassed unless there is another trusted way of checking
+the certificate's fingerprint with the people running the service.</p>
+<p><strong>Figure:</strong> <em>An Untrusted Connection</em></p>
+<p><img src="../media/ssl_warning.png.webp" alt="ssl_warning.png" /></p>
+<p>Mozilla has an educational resource to help determine if a <a href="https://support.mozilla.org/en-US/kb/how-do-i-tell-if-my-connection-is-secure">connection
+to a website is secure</a>. The Electronic Frontier Foundation (EFF)
+also has an excellent <a href="https://www.eff.org/pages/tor-and-https">interactive
+illustration</a> that provides an overview of HTTP / HTTPS
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup> connections with and without Tor, and what
+information is visible to various third parties.</p>
+<h3 id="The_Fallible_Certificate_Authority_Model">The Fallible
+Certificate Authority Model</h3>
+<p>Unfortunately, the vast majority of Internet encryption relies on the
+CA model of trust which is susceptible to various methods of compromise.
+Ultimately, encryption in and of itself does not solve the
+authentication problem in electronic communications, as seen in the
+actions of advanced adversaries who have targeted and undermined this
+central pillar upon which the Internet relies.</p>
+<p>For example, Verisign was <a href="https://www.schneier.com/blog/archives/2012/02/verisign_hacked.html">hacked
+successfully and repeatedly</a> in 2010, with the likely conclusion
+being the attackers were able to forge certificates for an unknown
+number of websites.</p>
+<p>A more glaring example was the confirmation by Comodo on March 15,
+2011, that a user account with an affiliate registration authority had
+been compromised. This is a privacy and security disaster since Comodo
+is a major <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">SSL/TLS</a>
+company and the breach led to the creation of a new user account that
+issued nine certificate signing requests for seven domains:
+mail.google.com, login.live.com, www.google.com, login.yahoo.com (three
+certificates), login.skype.com, addons.mozilla.org, and global trustee.
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p>Later in 2011, DigiNotar, a Dutch SSL certificate company,
+incorrectly issued certificates to a malicious party or parties. It
+later emerged that DigiNotar was apparently compromised months before,
+or perhaps even in May of 2009, if not earlier. Rogue certificates were
+issued for multiple domains, including: google.com, mozilla.org,
+torproject.org, login.yahoo.com and many more. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p>Considering the frequency of attacks and the passage of time, there
+is a distinct possibility that a MitM attack might occur <i>even when
+the browser is trusting a HTTPS connection.</i> <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<h3 id="SSL/TLS_Alternatives">SSL/TLS Alternatives</h3>
+<p>Depending on your personal circumstances, there are alternatives to
+SSL/TLS which can be considered. Unfortunately, none of them can be used
+as a drop-in replacement for SSL/TLS. Tools providing connection
+security include: <a href="https://web.archive.org/web/20190202122554/http://web.monkeysphere.info/">Monkeysphere</a>,
+<a href="https://en.wikipedia.org/wiki/Convergence_%28SSL%29">Convergence</a>,
+<a href="https://perspectives-project.org/">Perspectives Project</a> and
+Tor onion services. <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<p>Using Tor does not magically solve the authentication problem. Tor's
+distinct advantage is that by providing anonymity, it is more difficult
+for attackers to perform a MitM attack with a rogue SSL/TLS certificate
+that is targeted at just one specific individual. However, the
+disadvantage of Tor is that it is easier for people or organizations
+running malicious Tor exit relays to perform a large scale MitM attempt.
+Further, malicious exit nodes could perform attacks targeted at a
+specific server, and especially those Tor clients who happen to utilize
+the service.</p>
+<p>In all cases, it is advised to use additional message encryption for
+email, chats and so on. It is unwise to rely on SSL/TLS alone. Relevant
+tools that may be useful include:</p>
+<ul>
+<li><a href="Chat.html">Encrypted messengers</a>.</li>
+<li><a href="https://en.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a>.</li>
+<li><a href="Moved:Software.html#OpenPGP_(GnuPG_Frontend)">
+KGpg</a>.</li>
+<li><a href="Encrypted_Email_with_Thunderbird.html">Mozilla
+Thunderbird</a> for anonymous, encrypted email.</li>
+</ul>
+<p><sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
+<h2 id="Tor_Network_Attacks">Tor Network Attacks</h2>
+<p>Tor is not invulnerable to attacks. Several techniques are already
+used for deanonymization and Whonix users can be similarly affected --
+some of these attacks are described in further detail below. Interested
+readers can also refer to the <a href="Speculative_Tor_Attacks.html">Speculative Tor Attacks</a> entry for a more
+comprehensive list of <em>potential</em> attacks against the Tor client,
+servers and/or network.</p>
+<h3 id="Confirmation_Attacks">Confirmation Attacks</h3>
+<p>A confirmation attack targets the broader Tor network itself, usually
+via multiple malicious Tor nodes. In this instance, the adversary
+controls or observes relays at both ends of the Tor circuit (the guard
+and exit relays). Comparisons are made of traffic timing, volume and
+other characteristics to confirm the relays share the same circuit.
+Since the first entry guard knows the user's IP, and the last exit relay
+knows the destination/resource accessed (like a webpage), this leads to
+deanonymization. <sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p>In a 2009 blog post, The Tor Project described this threat of <a href="https://blog.torproject.org/one-cell-enough-break-tors-anonymity/">deanonymization
+under specific conditions</a>:</p>
+<p><blockquote><p>The Tor design doesn't try to protect against an attacker who can see
+or measure both traffic going into the Tor network and also traffic
+coming out of the Tor network. That's because if you can see both flows,
+some simple statistics let you decide whether they match up.<br />
+<br />
+That could also be the case if your ISP (or your local network
+administrator) and the ISP of the destination server (or the destination
+server itself) cooperate to attack you.<br />
+<br />
+Tor tries to protect against traffic analysis, where an attacker tries
+to learn whom to investigate, but Tor can't protect against traffic
+confirmation (also known as end-to-end correlation), where an attacker
+tries to confirm a hypothesis by monitoring the right locations in the
+network and then doing the math.</p></blockquote></p>
+<h3 id="Traffic_Analysis">Traffic Analysis</h3>
+<p>Adversaries conducting traffic analysis are able to discover a
+varying amount of user information, depending on the position(s) they
+are occupying in the network. The following observations reveal various
+information, in increasing order: <sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<ul>
+<li>Observing the client-to-guard-node network path.</li>
+<li>Controlling the guard relay, as individual circuits can be
+examined.</li>
+<li>Observing the paths to the guard relay and from the Tor exit
+relay.</li>
+<li>Controlling the guard and exit relays (or client guard and onion
+service guard).</li>
+<li>Controlling both ends of the communication, and able to inject and
+manipulate traffic patterns.</li>
+</ul>
+<p>Notably, The Tor Project has recently highlighted research that has
+identified a number of new, low cost, website traffic (fingerprinting)
+analysis attacks and potential mitigations; see <a href="Speculative_Tor_Attacks.html#Website_Oracles">Website
+Oracles</a> for further information.</p>
+<h3 id="Guard_Discovery">Guard Discovery</h3>
+<p>Advanced adversaries are capable of identifying the guard node(s) in
+use by an onion service or Tor client. Many connections are made to the
+onion service, forcing it to create multiple circuits until one of the
+adversary's nodes is chosen as the middle relay (next to the guard). A
+traffic analysis side channel then confirms the relay is next to the
+onion service, confirming the identity of the service's guard node. The
+guard node is then compromised, forced or surveilled to discover the
+actual IP address of the onion service or client.
+<sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<h3 id="Tor_Defenses">Tor Defenses</h3>
+<p>Tor has implemented some defenses against limited adversaries that
+can gather traffic statistics from Internet routers along the path to
+the guard node, and is planning defenses against website traffic
+fingerprinting by guard node adversaries. However, a number of other
+attacks remain viable at present such as end-to-end correlation attacks,
+alternate guard node exploits, circuit fingerprinting attacks and so
+on.</p>
+<h1 id="Documents">Documents</h1>
+<h2 id="Document_Encryption">Document Encryption</h2>
+<p>As with any <u>o</u>perating <u>s</u>ystem (OS), if documents are
+saved inside Whonix, they will not be encrypted by default. This is why
+it is recommended to apply
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] on the host OS to protect
+sensitive data.</p>
+<p>Documents created may also have specific file signatures that reveal
+use of the platform. See also <a href="Surfing_Posting_Blogging.html">Surfing Posting Blogging</a> and <a href="Metadata.html">Metadata</a>.</p>
+<h2 id="Document_Metadata">Document Metadata</h2>
+<p>Numerous file formats store hidden data or metadata inside of the
+files. For example, text processors or PDF files could store the
+author's name, the date and time of file creation, and sometimes even
+parts of the file's editing history. The extent of hidden data depends
+on the file format and the software that is used.</p>
+<p>Image file formats like <a href="https://en.wikipedia.org/wiki/TIFF">TIFF</a> and <a href="https://en.wikipedia.org/wiki/JPEG">JPEG</a> are some of the worst
+offenders. For instance, when these files are created by digital cameras
+or mobile phones, they contain a metadata format called <a href="https://en.wikipedia.org/wiki/Exif">Exif</a> whose defined tags
+can include:</p>
+<ul>
+<li>Date and time information.</li>
+<li>Occasionally GPS coordinates of the picture.</li>
+<li>Camera settings: camera model and make (including the serial
+number), orientation (rotation), aperture, shutter speed, focal length,
+metering mode and ISO speed information.</li>
+<li>A thumbnail for previewing the picture in file managers, on camera,
+or in photo editing software. Image processing software tend to keep
+Exif data intact.</li>
+<li>Descriptions.</li>
+<li>Copyright information.</li>
+</ul>
+<p>Notably, the Internet is full of cropped or blurred images where the
+Exif thumbnail still contains the full original picture. <a href="https://packages.debian.org/mat">Specialist software</a> is often
+required to remove Exif tags before safely publishing images.
+<sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+<p>Be aware that <i>Whonix does not clear file metadata
+automatically.</i> However, Whonix comes bundled with <a href="Metadata.html#MAT2:_Metadata_Anonymisation_Toolkit_v2"> MAT2 -- the Metadata Anonymisation Toolkit v2 --</a>
+as part of the design goal to help protect users.</p>
+<h1 id="Fingerprinting">Fingerprinting</h1>
+<h2 id="Stylometry">Stylometry</h2>
+<h3 id="Coding_Style">Coding Style</h3>
+<p><a href="https://www.wired.com/story/machine-learning-identify-anonymous-code/">Recent
+research</a> has revealed that coders have a unique fingerprint similar
+to linguistic expressions. Machine learning techniques are capable of
+de-anonymizing code samples, using "abstract syntax trees" that analyze
+the underlying structure. For instance, a 2017 study found that GitHub
+coders could be identified with <a href="https://arxiv.org/pdf/1701.05681.pdf">99 per cent accuracy</a>
+based on small and incomplete source code fragments. To date, attempts
+to obfuscate coding style have failed.</p>
+<p>The implication is that "anonymous" developers of open-source
+projects might be identified by prior non-anonymous code contributions.
+It is likely that advanced adversaries will use this capability to
+target and de-anonymize developers of popular anonymity and censorship
+circumvention tools.</p>
+<h3 id="Linguistic_Style">Linguistic Style</h3>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<strong>Tip:</strong> The warning below equally applies to regular
+Whonix wiki contributors and forum participants. <sup class="reference"><a href="#cite_note-13">[13]</a></sup></p>
+</div>
+<p>Whonix does not obfuscate an individual's writing style, which is
+easily fingerprinted based on syntax and other grammatical
+idiosyncrasies. <a href="Surfing_Posting_Blogging.html#Stylometry">Unless precautions are taken</a>, <a href="https://en.wikipedia.org/wiki/Stylometry">stylometric analysis
+based on linguistic characteristics</a> is a credible threat. Research
+suggests only a few thousand words (or less) may be enough to positively
+identify an author, and there are a host of software tools available to
+conduct this analysis.</p>
+<h2 id="Whonix_Signature">Whonix Signature</h2>
+<p>Developers have designed Whonix to be indistinguishable from standard
+use of the Tor network. However, there may be unknown fingerprinting
+methods available to ISPs and other network adversaries which identify
+Whonix users. If this is a legitimate concern, then investigate optional
+configurations which can <a href="Hide_Tor_from_your_Internet_Service_Provider.html">hide Tor / Whonix use from the ISP</a>.</p>
+<h1 id="Platform_Security">Platform Security</h1>
+<h2 id="Password_Strength">Password Strength</h2>
+<p>Tor promotes online anonymity, while Whonix automatically forces
+desktop-wide activities through Tor (along with many extra <a href="Design.html">security features</a>). However, neither
+Tor or Whonix are one-click solutions for impregnable security or
+absolute anonymity.</p>
+<p>If weak passwords (passphrases) are used they can be easily
+determined by <a href="https://en.wikipedia.org/wiki/Brute-force_attack">brute-force
+attacks</a>, whether or not Whonix is installed. In essence, attackers
+systematically try all passwords until the correct one is found, or
+attempt to guess the key which is created from the password using a key
+derivation function (an exhaustive key search). This method is very fast
+for short and/or non-random passwords.</p>
+<p>For greater security it is recommended to generate strong and unique
+<a href="Moved:Passwords.html#Generating_Unbreakable_Passwords">Diceware passwords</a> and follow <a href="Moved:Passwords.html#Principles_for_Stronger_Passwords">other recommendations</a> concerning safe habits,
+password generation and storage.</p>
+<h2 id="Compromised_Hardware_or_Advanced_Malware">Compromised Hardware
+or Advanced Malware</h2>
+<p>Virtualizers like Qubes, VirtualBox and KVM cannot absolutely prevent
+the compromise of hardware, nor detect advanced malware. Running all
+activities inside VMs is a very reasonable approach. However, this only
+raises the bar and makes it more difficult and/or expensive to
+compromise the whole system. It is by no means a perfect solution. As
+one Google Project Zero researcher noted recently when demonstrating a
+VM escape in KVM: <sup class="reference"><a href="#cite_note-14">[14]</a></sup> <blockquote><p>The bug and its exploit still serve as a demonstration that highly
+exploitable security vulnerabilities can still exist in the very core of
+a virtualization engine, which is almost certainly a small and well
+audited codebase. While the attack surface of a hypervisor such as KVM
+is relatively small from a pure LoC perspective, its low level nature,
+close interaction with hardware and pure complexity makes it very hard
+to avoid security-critical bugs.</p>
+<p>While we have not seen any in-the-wild exploits targeting hypervisors
+outside of competitions like Pwn2Own, these capabilities are clearly
+achievable for a well-financed adversary. I've spent around two months
+on this research, working as an individual with only remote access to an
+AMD system. Looking at the potential ROI on an exploit like this, it
+seems safe to assume that more people are working on similar issues
+right now and that vulnerabilities in KVM, Hyper-V, Xen or VMware will
+be exploited in-the-wild sooner or later.</p></blockquote></p>
+<p>Whonix cannot provide protection if the system's <a href="https://en.wikipedia.org/wiki/Trusted_computing_base">trusted
+computing base</a> has been compromised by:</p>
+<ul>
+<li>Physical access and the installation of untrusted pieces of hardware
+(like a keylogger);</li>
+<li><a href="Moved:Malware_and_Firmware_Trojans.html#Firmware_Trojans">Firmware Trojans</a> (including BIOS/UEFI attacks);
+or</li>
+<li><a href="Moved:Malware_and_Firmware_Trojans.html#Malware">Malware</a>.</li>
+</ul>
+<p>If the host system is affected by malware, firmware trojans or
+malicious hardware components, then every Whonix virtual machine, Tor
+process and communication thought to be anonymous is similarly
+compromised.</p>
+<p>In the event a system compromise is strongly suspected or confirmed,
+the ultimate goal is to re-establish a trusted, private environment for
+future activities -- see <a href="Disaster_Recovery.html">Compromise Recovery</a> for techniques to recover from
+host and/or Whonix VM infections.</p>
+<h2 id="Host_Security">Host Security</h2>
+<p>The security of the Whonix platform is itself reliant upon the
+security of the host. Naturally, a majority are likely to run Whonix on
+top of the every day operating system without making any additional
+changes. However, safety is materially improved by using a <a href="Moved:System_Configuration_and_Access.html#Use_a_Dedicated_Host_Operating_System_and_Computer"> dedicated host operating system</a> solely for Whonix
+VMs. For better security, this system should be configured on a computer
+bought solely for Whonix activities, and which has never been used
+before.</p>
+<p>There are a number of recommendations relevant to host OS security in
+the following <a href="Documentation.html">Documentation</a>
+sections:</p>
+<ul>
+<li>Basic Security Guide.</li>
+<li>Advanced Security Guide.</li>
+<li>Computer Security Education.</li>
+</ul>
+<p>The <a href="System_Hardening_Checklist.html">System
+Hardening Checklist</a> also provides a quick and handy reference guide
+for specific areas of interest.</p>
+<h1 id="Tor">Tor</h1>
+<h2 id="Exit_Relays_can_Eavesdrop_on_Communications">Exit Relays can
+Eavesdrop on Communications</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+The Tor network hides an individual's location, but it does not
+automatically encrypt communications.</p>
+</div>
+<p>Instead of taking a direct route from source to destination,
+communications using the Tor network take a random pathway through
+several Tor relays to help cover the user's tracks. This means observers
+at any single point cannot tell both where the data came from and where
+it is going.</p>
+<p><strong>Figure:</strong> <i>How Tor Works</i> <sup class="reference"><a href="#cite_note-15">[15]</a></sup>
+<img src="../media/Htw2.png.webp" alt="A Tor connection usually goes through 3 relays with the last one establishing the actual connection to the destination server" /></p>
+<p>The last relay on the three-hop circuit is called the Tor exit relay.
+It is the critical relay that establishes the actual connection to the
+destination server. By design, Tor does not encrypt the traffic between
+a Tor exit relay and the final destination. This means <i>any exit relay
+is in a position to capture any traffic passing through it.</i> To
+protect against snooping by the Tor exit relay, end-to-end encryption
+should always be used. <sup class="reference"><a href="#cite_note-16">[16]</a></sup></p>
+<p>Malicious exit nodes have previously been used to spy on sensitive
+communications. For example, in 2007, a security researcher monitored
+the connections coming out of an exit relay under their control and <a href="https://www.wired.com/2007/09/rogue-nodes-turn-tor-anonymizer-into-eavesdroppers-paradise/">intercepted
+thousands of private e-mail messages</a> sent by foreign embassies and
+human rights groups around the world..</p>
+<p>While browsing, sending email or chatting online, it is recommended
+to utilize the necessary tools bundled with Whonix to enforce strong
+encryption. Refer to the <a href="Documentation.html">Documentation</a> for necessary steps to remain safe.
+<sup class="reference"><a href="#cite_note-17">[17]</a></sup></p>
+<h2 id="Use_of_Tor_is_Obvious">Use of Tor is Obvious</h2>
+<p>Tor tries to prevent attackers from learning what destination
+websites are being connected to.</p>
+<p>Both the ISP and a local network administrator <i>can easily check if
+connections are made to a Tor relay</i> and not a normal web server. To
+learn more about whether it is possible to hide Tor network activity,
+see: <a href="Hide_Tor_from_your_Internet_Service_Provider.html">Hide Tor use from the Internet Service
+Provider</a>.</p>
+<p><i>The destination server contacted through Tor can learn whether the
+communication originates from a Tor exit relay</i> by consulting the
+publicly available list of known exit relays. For example, The Tor
+Project <a href="https://check.torproject.org/cgi-bin/TorBulkExitList.py">Tor Bulk
+Exit List tool</a> could be used for this purpose.</p>
+<p>Based on this information, Whonix users will <u>not</u> appear to be
+a random Internet user is used to prevent the telltale signs of Tor use.
+The strong anonymity provided by Tor and Whonix is based on trying to
+make everyone look exactly the same, so it is not possible to identify a
+specific individual in the larger user pool.</p>
+<p>Ultimately, stronger protection requires a social approach; the
+larger the pool of Tor users (in close proximity) and the more <a href="https://www.torproject.org/about/torusers.html.en">diverse</a>
+their interests, the less likely it will be that a specific individual
+can be identified. Convincing others to use Tor will help the larger
+anonymity-minded community. <sup class="reference"><a href="#cite_note-18">[18]</a></sup></p>
+<h2 id="Persistent_Guard_Relays_can_Enable_Physical_Location_Tracking">Persistent
+Guard Relays can Enable Physical Location Tracking</h2>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>What are Tor Entry Guards? If this is an unfamiliar term, please
+press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p>Current practical, low-latency, anonymity designs like Tor fail when
+the attacker can see both ends of the communication channel. For
+example, suppose the attacker controls or watches the Tor relay a user
+chooses to enter the network, and also controls or watches the website
+visited. In this case, the research community is unaware of any
+practical, low-latency design that can reliably prevent the attacker
+from correlating volume and timing information on both ends.</p>
+<p>Mitigating this threat requires consideration of the Tor network
+topology. Suppose the attacker controls, or can observe, <i>C</i> relays
+from a pool of <i>N</i> total relays. If a user selects a new entry and
+exit relay each time the Tor network is used, the attacker can correlate
+all traffic sent with a probability of <i>(c/n)<sup>2</sup></i>. For
+most users, profiling is as hazardous as being traced all the time.
+Simply put, users want to repeat activities without the attacker
+noticing, but being noticed once by the attacker is as detrimental as
+being noticed more frequently. [...]</p>
+<p>The solution to this problem is "entry guards". Each Tor client
+selects a few relays at random to use as entry points, and only uses
+those relays for the first hop. If those relays are not controlled or
+observed, the attacker can't use end-to-end techniques and the user is
+secure. If those relays <i>are</i> observed or controlled by the
+attacker, then they see a larger <i>fraction</i> of the user's traffic
+-- but still the user is no more profiled than before. Thus, entry
+guards increase the user's chance of avoiding profiling (on the order of
+<i>(n-c)/n</i>), compared to the former case.</p>
+<p>You can read more at <a href="https://www.freehaven.net/anonbib/#wright02">An Analysis of the
+Degradation of Anonymous Protocols</a>, <a href="https://www.freehaven.net/anonbib/#wright03">Defending Anonymous
+Communication Against Passive Logging Attacks</a>, and especially <a href="https://www.freehaven.net/anonbib/#hs-attack06">Locating Hidden
+Servers</a>.</p>
+<p>Restricting entry nodes may also help to defend against attackers who
+want to run a few Tor nodes and easily enumerate all of the Tor user IP
+addresses. <sup class="reference"><a href="#cite_note-19">[19]</a></sup> However, this feature won't become really
+useful until Tor moves to a "directory guard" design as well.</p>
+<p>Source and License, see footnote: <sup class="reference"><a href="#cite_note-20">[20]</a></sup></p>
+</div>
+</div>
+</div>
+<p>Many well known enhanced anonymity designs such as Tor, Whonix and
+the Tor Browser (TB) use persistent Tor guards. This decision is
+attributable to community-based research which demonstrates that
+persistent Tor entry guards benefit security and lower the probability
+of an adversary profiling a user. <sup class="reference"><a href="#cite_note-21">[21]</a></sup></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<strong>Note:</strong> Guard fingerprinting techniques are similar to
+methods that track users via MAC addresses. If this is a realistic
+threat, then MAC address randomization is also recommended.</p>
+</div>
+<p>In general, users should not interfere with Tor guard persistence or
+the natural rotation of entry guards every few months. At the time of
+writing, the Tor client selects one guard node, but previously used a
+three-guard design. Guards have a primary lifetime of 120 days.
+<sup class="reference"><a href="#cite_note-22">[22]</a></sup> <sup class="reference"><a href="#cite_note-23">[23]</a></sup> <sup class="reference"><a href="#cite_note-24">[24]</a></sup></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+<strong>Warning:</strong> In some situations it is safer to not use the
+usual guard relay!</p>
+</div>
+<h2 id="Guard_Fingerprinting">Guard Fingerprinting</h2>
+<p>While natural guard rotation is recommended, there are some corner
+cases in which an adversary could fingerprint the entry guards
+<sup class="reference"><a href="#cite_note-25">[25]</a></sup> and de-anonymize a user. For instance:</p>
+<ul>
+<li>The same entry guards are used across various physical locations and
+access points.</li>
+<li>The same entry guards are used after permanently moving to a
+different physical location.</li>
+</ul>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For details on how this is possible, press Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p>Consider the following scenario. A user connects to Tor via a laptop
+at their home address. An advanced adversary has observed the
+client-to-guard-node network path to discover the user's entry point to
+the Tor network.</p>
+<p>Soon afterwards, the same user attends a prominent event or protest
+in a nearby city. At that location, the user decides to anonymously blog
+about what transpired using the same laptop. This is problematic for
+anonymity, as the Tor client is using the same entry guard normally
+correlated with the user's home address.</p>
+<p>To understand the potential threat, consider the following:</p>
+<ul>
+<li>There are only around 4,000 Tor guards in 2021.
+<sup class="reference"><a href="#cite_note-26">[26]</a></sup></li>
+<li>By design, Tor is picking one primary guard and using it for a few
+months. Since the Tor user base is relatively small, it is possible that
+a guard might only be used by one person in an entire region.</li>
+<li>As the IP address of Tor entry guards is static and Tor network
+traffic is easily distinguishable, this information becomes public
+knowledge.</li>
+<li>It is feasible that if a user-guard relationship is unique in a city
+location, and that user moves, it is likely (but not certain) that there
+was a location change.</li>
+<li>At the event, the user might be the only one using Tor (or among a
+handful).</li>
+<li>If the user posts about the event <em>and</em> an adversary who is
+passively monitoring network traffic conducts the same successful
+observation of the client-to-guard network path, then it's likely the
+"anonymous" posts will be linked with the same person who normally
+connects to that guard at home.</li>
+</ul>
+<p>The relative uncommonness of Tor usage simply exacerbates the
+potential for de-anonymization.</p>
+</div>
+</div>
+<p>There are several ways to mitigate the risk of guard fingerprinting
+across different physical locations. In most cases, the original entry
+guards can also be re-established after returning home:</p>
+<ul>
+<li><a href="Tor_Entry_Guards.html#Clone_Whonix-Gateway_(sys-whonix)_with_New_Entry_Guards">Clone Whonix-Gateway<sup>™</sup> (sys-whonix) with New
+Entry Guards</a>.</li>
+<li><a href="Tor_Entry_Guards.html#Regenerate_the_Tor_State_After_Saving_the_Tor_State_Folder">Regenerate the Tor State File after Saving the Current
+Tor State</a>.</li>
+<li>Configure Tor to use <a href="Tor_Entry_Guards.html#Alternating_Bridges">Alternating Bridges</a>.</li>
+<li>If moving to a new location permanently, create <a href="Tor_Entry_Guards.html#Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File">Fresh Tor Entry Guards by Regenerating the Tor State
+File</a>.</li>
+</ul>
+<p>Forum discussion:<br />
+<a href="https://forums.whonix.org/t/persistent-tor-entry-guard-relays-can-make-you-trackable-across-different-physical-locations/2090">https://forums.whonix.org/t/persistent-tor-entry-guard-relays-can-make-you-trackable-across-different-physical-locations/2090</a></p>
+<p>For more information, see the advanced topic <a href="Tor_Entry_Guards.html#Configure_Non-Persistent_Entry_Guards">Configure Non-Persistent Entry Guards</a>.</p>
+<h2 id="Tor_cannot_Protect_Against_a_Global_Adversary">Tor cannot
+Protect Against a Global Adversary</h2>
+<p>A global, passive adversary is defined as a person or entity who is
+able to monitor the traffic between all the computers in a network at
+the same time. By studying the timing and volume patterns of the
+different communications across the network, it is statistically
+feasible to identify Tor circuits and thus match Tor clients with
+destination servers.</p>
+<p>In order to create a low-latency communication service which is
+usable for web browsing, Internet chat or SSH connections, The Tor
+Project has made a security trade-off and has not attempted to address
+this threat.</p>
+<p>For more expert information on this topic, see <a href="https://svn.torproject.org/svn/projects/design-paper/tor-design.pdf">Tor
+Project: The Second-Generation Onion Router</a>, part 3. Design goals
+and assumptions.</p>
+<p><span class="manually-placed-anchor " id="Whonix_is_not_Amnesic"></span>
+<span class="manually-placed-anchor " id="live"></span></p>
+<h1 id="Whonix_Persistence_vs_Live_vs_Amnesic">Whonix Persistence vs
+Live vs Amnesic</h1>
+<p>Traces of software installations, files or other user activities
+depend on whether or not the user is using a live operating system or <a href="Live_Mode.html">Live Mode</a>.</p>
+<div class="mininav">
+<ul>
+<li><a href="Live_Mode.html">Live Mode</a></li>
+<li><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="USB_Installation.html">Whonix on USB</a></li>
+<li><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+</ul>
+</div>
+<h2 id="A_Live_Operating_System_or_Live_Mode_is_not_Configured">A Live
+Operating System or <a href="Live_Mode.html">Live Mode</a>
+is not Configured</h2>
+<ul>
+<li><strong>A)</strong> <u>persistent mode</u>:</li>
+</ul>
+<p>If any software is downloaded or used on a computer, local traces of
+the download, installation and use will be left on the device's mass
+storage device (hard drive, HDD, SSD). This normal mode of operation is
+referred to as "persistent mode" since any files downloaded, documents
+created and so on will persist after reboot.</p>
+<p>Any created files still exist after the computer is powered-off or
+rebooted, unless steps are taken to securely wipe the files or otherwise
+remove all signs of their existence. Unless <a href="Live_Mode.html">Live Mode</a> is used, there are no preventative
+measures to limit what is written to disk. This can lead to evidence of
+activity in created files, backup files, temporary files, swap, chat
+history, browser history and so on.</p>
+<p>It is likely most Whonix users are utilizing persistent mode. For
+this reason it is recommended to <a href="Whonix-Workstation_Security.html#VM_Snapshots">use
+multiple VM Snapshots</a> and to <a href="Moved:Full_Disk_Encryption.html">apply Full Disk Encryption on the host</a>. A higher
+level of security is afforded by encrypting everything, including data,
+system and swap partitions.</p>
+<ul>
+<li><strong>B)</strong> <u>Live Mode inside a VM</u>:</li>
+</ul>
+<p>This is useful to stop persistent <a href="Moved:Malware_and_Firmware_Trojans.html">malware</a> as well as for testing. Be aware that
+although <a href="Live_Mode.html">Live Mode</a> inside <a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a> virtual
+machines (VMs) make writes go to RAM instead of the HDD/SSD, traces of
+activity may be left in swap files, core dumps or via other
+configurations on the host <u>o</u>perating <u>s</u>ystem (OS). If this
+is a risk in your circumstances, refer to <a href="Moved:Anti-Forensics_Precautions.html">Anti-Forensics
+Precautions</a> or preferably utilize <a href="Live_Mode.html">Live Mode</a> on the host OS. <sup class="reference"><a href="#cite_note-27">[27]</a></sup>
+<sup class="reference"><a href="#cite_note-28">[28]</a></sup></p>
+<ul>
+<li><strong>C)</strong> <u>Live Mode inside on the host OS</u>:</li>
+</ul>
+<p>Without the disadvantages mentioned above. See <a href="Live_Mode.html">Live Mode</a>.</p>
+<h2 id="A_Live_Operating_System_or_Live_Mode_is_Configured">A Live
+Operating System or <a href="Live_Mode.html">Live Mode</a>
+is Configured</h2>
+<p>Refer to the <a href="Live_Mode.html">Live Mode</a>
+chapter for further details.</p>
+<h2 id="Live_DVD_/_USB">Live DVD / USB</h2>
+<p>To install Whonix on a USB, see: <a href="USB_Installation.html">Whonix on USB</a>.</p>
+<p>At the time of writing Whonix does not offer a Live DVD / USB. This
+situation may change in the future, see: <a href="Whonix-Host.html">Whonix-Host</a>.</p>
+<h1 id="Whonix_Development">Whonix Development</h1>
+<h2 id="Missing_Whonix_Features">Missing Whonix Features</h2>
+<p>Whonix is currently alpha quality software and missing some features,
+including those relating to security. While many issues listed below are
+planned for future implementation, a number will probably never get
+"fixed" because they are impossible to address in a software-only
+project.</p>
+<table>
+<caption><em>Missing Whonix Features</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Category</strong></p></th>
+<th><p><strong>Missing Feature or Capability</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Adversaries</p></td>
+<td><p>Protect against global network adversaries.</p></td>
+</tr>
+<tr class="even">
+<td><p>AppArmor</p></td>
+<td><p>Apply AppArmor profiles for every process or application.
+<sup class="reference"><a href="#cite_note-29">[29]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p>Backdoors</p></td>
+<td><p>Protect against hardware or software backdoors.</p></td>
+</tr>
+<tr class="even">
+<td><p>Encryption</p></td>
+<td><p>Encrypt a user's data, documents, files and so on.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Hardening</p></td>
+<td><p>Use all the possible hardening options like full PIE and
+grsecurity.</p></td>
+</tr>
+<tr class="even">
+<td><p>Local Adversaries</p></td>
+<td><p>Protect against local adversaries who could mount cold boot and
+evil maid attacks, or otherwise compromise a user's physical
+machine.</p></td>
+</tr>
+<tr class="odd">
+<td><p>MAC Address</p></td>
+<td><p>Automatically protect against MAC address fingerprinting on
+public networks.</p></td>
+</tr>
+<tr class="even">
+<td><p>Passwords</p></td>
+<td><p>Make weak passwords stronger.</p></td>
+</tr>
+<tr class="odd">
+<td><p>RAM</p></td>
+<td><ul>
+<li>Wipe RAM on shut down.
+<ul>
+<li>(When using
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] as a host operating system,
+consider
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].)</li>
+</ul></li>
+<li>Wipe video RAM on shut down. <sup class="reference"><a href="#cite_note-30">[30]</a></sup></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Security Updates</p></td>
+<td><p>Automatically apply security updates. This was a conscious
+developer decision because automated updates also come with their own
+set of security problems. However, <a href="Moved:Systemcheck.html">whonixcheck</a> provides notifications about updates on
+Whonix-Workstation.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Software Attacks</p></td>
+<td><p>Protect against highly skilled software attacks, unless <a href="Dev/Build_Documentation/Physical_Isolation.html">physical isolation</a> or <a href="Qubes.html">Qubes-Whonix</a> is utilized.</p></td>
+</tr>
+<tr class="even">
+<td><p>Stylometry</p></td>
+<td><p>Obfuscate an individual's linguistic style to defeat stylometric
+analysis.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Tor</p></td>
+<td><ul>
+<li>Provide protection by default if Tor is somehow broken. This
+situation is partially mitigated (with caveats) by chaining Tor with
+SSH, proxies or VPNs.<br />
+</li>
+<li>Disguise the use of Tor by default - it has been assessed this goal
+is <a href="Hide_Tor_from_your_Internet_Service_Provider.html"> difficult beyond practicality</a>.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>User Behavior</p></td>
+<td><p>Protect those who: fail to read the <a href="Documentation.html">Documentation</a>, engage in unsafe behaviors, or
+change default settings without knowing the implications.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Whonix Builds</p></td>
+<td><p>Have deterministic builds, see <a href="Dev/Archived_Discussions.html">Dev/Archived Discussions</a>.
+<sup class="reference"><a href="#cite_note-31">[31]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>This list is likely incomplete. It is strongly encouraged to read the
+rest of the <a href="Documentation.html">Documentation</a>
+and perhaps the <a href="Design.html">Design</a> chapter to
+have a full overview of Whonix security, including the list of supported
+and unsupported features.</p>
+<p>Contributors who want to help improve Whonix security should join the
+discussions on <a href="Dev/Archived_Discussions.html">Dev/Archived Discussions</a>, or on the developer
+mailing list.</p>
+<p><span class="manually-placed-anchor " id="Whonix_is_a_Work_in_Progress"></span></p>
+<h2 id="Whonix_is_a_Work_in_Progress">Whonix is a Work in Progress</h2>
+<p>Whonix, as well as all the software it includes, are under continuous
+development and might contain programming errors or security holes -- <a href="Download.html#Stay_tuned"> Stay Tuned</a> to Whonix
+development, and do not rely on the platform for strong anonymity.</p>
+<p>That said, Whonix has a <a href="https://lists.torproject.org/pipermail/tor-talk/2012-October/025921.html">strong
+foundational design</a> since it uses both the Isolating Proxy and
+Transparent Proxy concepts. Since Whonix was founded in 2012, no
+anonymity leaks or proxy bypass problems have yet been discovered.
+Whonix has been developed with great care, but it is impossible to ever
+prove that it is absolutely "leak-proof" or free of mistakes that
+degrade the goals of the extended project description.</p>
+<p>Basic functionality is built-in and Whonix can be used to browse the
+web and <a href="Onion_Services.html"> host onion
+services</a>, use email, IRC, SSH, and a host of other activities. <a href="Reporting_Bugs.html#Software_Development_Cycle">Development is ongoing</a> and more features are
+continually being added. Contributors who want to join the development
+process are most welcome; see <a href="Reporting_Bugs.html#Patches_are_Welcome">Patches are
+Welcome</a>. A complete list of open issues is available on the <a href="https://phabricator.whonix.org/maniphest/">Whonix issues
+tracker</a>.</p>
+<p>See also: <a href="Whonix_against_Real_Attacks.html">
+Whonix Protection Against Real World Attacks</a>, <a href="Security_Reviews_and_Feedback.html"> Security Reviews
+and Feedback</a> and <a href="Dev/Technical_Introduction.html#Security_Overview"> Security Overview</a>.</p>
+<h1 id="Unsubstantiated_Conclusions">Unsubstantiated Conclusions</h1>
+<p>Users must be careful not to draw incorrect conclusions based on the
+existence of specific Whonix communication channels, community software
+utilized, applications installed on the platform, or the availability of
+certain wiki entries. Whonix tries to use concise language so that users
+are not misled into believing anything has been implied. Despite this
+effort, users will sometimes draw false conclusions in an unintended
+way. Consider the following hypothetical discussion.</p>
+<p><blockquote><p>Developer: Donations to Whonix are possible via Bitcoin.</p></blockquote></p>
+<p><blockquote><p>Whonix user: Since you are knowledgeable about Bitcoin, can you also
+accept Monero donations?</p></blockquote></p>
+<p>In this case the hypothetical developer did not state "I am
+knowledgeable about Bitcoin", but rather concisely stated "Donations to
+Whonix are possible via Bitcoin." The conclusion drawn by the user
+"Since you are knowledgeable about Bitcoin" might be totally
+unsubstantiated.</p>
+<p>In a similar fashion, just because Whonix does something -- like
+providing a <a href="https://forums.whonix.org/t/whonix-telegram-chat-channel/8346">telegram
+channel</a> -- it does <u>not</u> follow that Whonix endorses it; see
+also <a href="Terms_of_Service.html#Non-Endorsement">Terms
+of Service: Non-endorsement</a>. A list of further examples is outlined
+below.</p>
+<table>
+<caption><em>Facts vs. False Conclusions</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Fact</strong> <sup class="reference"><a href="#cite_note-32">[32]</a></sup></p></th>
+<th><p><strong>False Conclusion</strong> <sup class="reference"><a href="#cite_note-33">[33]</a></sup></p></th>
+<th><p><strong>More Information</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Whonix provides a <a href="Donate.html">Bitcoin (BTC)
+donation address</a>.</p></td>
+<td><p>Bitcoin is anonymous.</p></td>
+<td><p><a href="Money.html">Anonymous Money</a></p></td>
+</tr>
+<tr class="even">
+<td><p>Whonix provides a <a href="Donate.html">Monero (XMR)
+donation address</a>.</p></td>
+<td><p>Monero is perfect.</p></td>
+<td><p><a href="Money.html">Anonymous Money</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>The Whonix website is using popular web applications (web apps)
+like <a href="https://www.mediawiki.org/wiki/MediaWiki">MediaWiki</a>,
+<a href="https://phabricator.wikimedia.org/">Phabricator</a> and <a href="https://www.discourse.org/">Discourse</a> (forum
+software).</p></td>
+<td><p>These are perfectly "secure" (for whatever purpose, threat model)
+web apps.</p></td>
+<td><p>In an ideal world, better web apps would be used but this is not
+possible due to finite Whonix resources. To learn more, see: <a href="Moved:Privacy_Policy_Technical_Details.html#website">Privacy
+on the Whonix Website</a>.</p></td>
+</tr>
+<tr class="even">
+<td><p>Whonix provides downloadable <a href="VirtualBox.html">VirtualBox</a> builds.</p></td>
+<td><p>VirtualBox is secure.</p></td>
+<td><p><a href="Dev/Virtualization_Platform.html#VirtualBox">VirtualBox isn't an ideal choice</a>.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Whonix is available for Windows hosts.</p></td>
+<td><p>Windows is a suitable host.</p></td>
+<td><p><a href="Moved:Windows_Hosts.html">Windows Hosts</a> pose
+numerous security and privacy threats.</p></td>
+</tr>
+<tr class="even">
+<td><p>Whonix is installable on macOS hosts.</p></td>
+<td><p>macOS is a suitable host.</p></td>
+<td><p><a href="Host_Operating_System_Selection.html#macOS_Hosts">macOS Hosts</a> pose numerous security and privacy
+threats.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Whonix is <a href="Reasons_for_Freedom_Software.html">Freedom Software</a>.</p></td>
+<td><p>Whonix is a Freedom Software 'maximalist' project.</p></td>
+<td><p>See also:</p>
+<ul>
+<li><a href="Policy_On_Nonfreedom_Software.html">Policy On
+Nonfreedom Software</a>;</li>
+<li><a href="Moved:nonfree.html">Dev/nonfree</a>;</li>
+<li>Forum discussion: <a href="https://forums.whonix.org/t/whonix-host-nonfree-blobs-firmware-linux-nonfree/7251">Whonix
+host - nonfree blobs - firmware-linux-nonfree</a>; and</li>
+<li><a href="https://forums.whonix.org/t/whonix-and-free-system-distribution-guidelines-gnu-fsdg/5877">Whonix
+and Free System Distribution Guidelines (GNU FSDG)</a>.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Whonix provides a <a href="https://forums.whonix.org/t/whonix-telegram-chat-channel/8346">telegram
+channel</a> <a href="Support.html">support</a>
+channel.</p></td>
+<td><p>Telegram is a perfect, privacy-respecting, secure
+messenger.</p></td>
+<td><p>See footnote. <sup class="reference"><a href="#cite_note-34">[34]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p>There is an <a href="https://x.com/Whonix">twitter profile</a>
+(<a href="https://xcancel.com/Whonix">xcancel</a>).</p></td>
+<td><p>Twitter is a safe platform to utilize.</p></td>
+<td><p><a href="Official_Online_Profiles.html">Official
+Whonix Online Profiles</a></p></td>
+</tr>
+<tr class="even">
+<td><p>whonix.org has a public <a href="https://forums.whonix.org">forum</a>.</p></td>
+<td><p>The whonix.org forum and associated comments are intended to
+promote free speech.</p></td>
+<td><p>Unfortunately, running a free speech platform is a full-time job
+and would constitute a separate project in itself. This is simply not
+possible as a side project. For further details, see: <a href="Moved:Limitations_on_Free_Speech_on_Website_and_Chat.html">Limitations on Free Speech on Whonix Website and Whonix
+Chat</a>.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Whonix is Open Source.</p></td>
+<td><p>Whonix must/should implement all ideas from the
+community.</p></td>
+<td><p>See: <a href="Reporting_Bugs.html#Community_Feedback">Community Feedback</a> / <a href="Reporting_Bugs.html#Patches_are_Welcome">Patches are
+Welcome</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>It is also recommended to consult the following resources:</p>
+<ul>
+<li><a href="https://forums.whonix.org/tag/project-philosophy">list of
+forum posts regarding the Whonix project philosophy</a>;</li>
+<li><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]; and</li>
+<li>the underpinning <a href="Tips_on_Remaining_Anonymous.html#Rationale">Rationale</a> for this chapter.</li>
+</ul>
+<p>On top of unsubstantiated conclusions it also happens that adherence
+to "perfectly moral" behavior or an approved ™ set of
+political/ideological beliefs is expected from the Whonix project.
+However, what counts as "perfectly moral" and the path of attaining
+therein will always be subjective and disputed among proponents. Such
+demands include "don't allow running Whonix on Windows hosts", "don't
+have a twitter project account", "don't accept Bitcoin donation", "don't
+use centralized services such as telegram", "don't document X, because
+of Y". Those disagreeing with our methods and philosophy are welcome to
+exercise their right to <a href="https://en.wikipedia.org/wiki/Fork_(software_development)">software
+fork</a> the project under the respective licenses.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Depending on personal circumstances and the Whonix platform in
+use.</li>
+<li id="cite_note-2"><a href="https://www.sans.org/white-papers/529/">https://www.sans.org/white-papers/529/</a></li>
+<li id="cite_note-3"><a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">https://en.wikipedia.org/wiki/Man-in-the-middle_attack</a></li>
+<li id="cite_note-4">HTTPS here refers to encrypted connections, whether it is (inferior)
+SSL or TLS.</li>
+<li id="cite_note-5">Source: <a href="https://web.archive.org/web/20140212050533/http://blogs.comodo.com/it-security/data-security/the-recent-ra-compromise/">Comodo:
+The Recent RA Compromise</a></li>
+<li id="cite_note-6">Source: <a href="https://blog.torproject.org/diginotar-debacle-and-what-you-should-do-about-it">The
+Tor Project: The DigiNotar Debacle, and what you should do about
+it</a></li>
+<li id="cite_note-7">This is one reason why self-authenticating onion services
+(<i>.onion</i>) connections are superior to HTTPS, because they do not
+rely on the flawed CA system for confirmation of the destination
+server.</li>
+<li id="cite_note-8"><a href="Onion_Services.html">Onion Services</a> are <a href="Onion_Services.html#Notes_about_End-to-end_Security_of_Onion_Services">automatically encrypted end-to-end</a>. More
+specifically, connections remain within the Tor network at all
+times.</li>
+<li id="cite_note-9">Quoted from <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">wikipedia
+Man-in-the-middle_attack</a> and <a href="https://blog.torproject.org/detecting-certificate-authority-compromises-and-web-browser-collusion">Tor
+Project: Detecting Certificate Authority compromises and web browser
+collusion</a>.</li>
+<li id="cite_note-10"><a href="https://blog.torproject.org/tor-security-advisory-relay-early-traffic-confirmation-attack">https://blog.torproject.org/tor-security-advisory-relay-early-traffic-confirmation-attack</a></li>
+<li id="cite_note-11"><a href="https://blog.torproject.org/tors-open-research-topics-2018-edition">https://blog.torproject.org/tors-open-research-topics-2018-edition</a></li>
+<li id="cite_note-12">For example, the <a href="https://en.wikipedia.org/wiki/XKeyscore">XKeyscore</a> program is
+actively targeting Exif information for collection.</li>
+<li id="cite_note-13">Who should also prefer v3 onion connections to Whonix infrastructure
+whenever possible.</li>
+<li id="cite_note-14"><a href="https://googleprojectzero.blogspot.com/2021/06/an-epyc-escape-case-study-of-kvm.html">https://googleprojectzero.blogspot.com/2021/06/an-epyc-escape-case-study-of-kvm.html</a></li>
+<li id="cite_note-15">Source: <a href="https://2019.www.torproject.org/about/overview.html.en#overview">Tor:
+Overview</a> License: <a href="https://creativecommons.org/licenses/by/3.0/us/">Creative Commons
+Attribution 3.0 United States License</a></li>
+<li id="cite_note-16">For example, a HTTPS or onion service (<i>.onion</i>)
+connection.</li>
+<li id="cite_note-17">Source: <a href="https://trac.torproject.org/projects/tor/wiki/TheOnionRouter/TorFAQ#CanexitnodeseavesdroponcommunicationsIsntthatbad">Tor
+FAQ: Can exit relays eavesdrop on communications?</a></li>
+<li id="cite_note-18">Attribution: Two sentences in this chapter have been forked from the
+<a href="https://www.torproject.org/download/">Tor</a> website, which
+was licensed under a <a href="https://creativecommons.org/licenses/by/3.0/us/">Creative Commons
+Attribution 3.0 United States License</a> at the time of writing.</li>
+<li id="cite_note-19">Even though the attacker can't discover the user's destinations in
+the network, they still might target a list of known Tor users.</li>
+<li id="cite_note-20">Source:<br />
+<a href="https://support.torproject.org/#about_entry-guards">torproject.org
+What are Entry Guards?</a><br />
+<a href="https://www.torproject.org/about/trademark/">license</a>:<br />
+Content on this site is Copyright The Tor Project, Inc.. Reproduction of
+content is permitted under a <a href="https://creativecommons.org/licenses/by/3.0/us/">Creative Commons
+Attribution 3.0 United States License</a>. All use under such license
+must be accompanied by a clear and prominent attribution that identifies
+The Tor Project, Inc. as the owner and originator of such content. The
+Tor Project Inc. reserves the right to change licenses and permissions
+at any time in its sole discretion.</li>
+<li id="cite_note-21">The risk of guard fingerprinting is less severe now that upstream
+(The Tor Project) has changed its guard parameters to decrease the
+de-anonymization risk.</li>
+<li id="cite_note-22">Prop 291 indicates a 3.5 month guard rotation.</li>
+<li id="cite_note-23">The Tor Project is currently considering shifting to two guards per
+client for better anonymity, instead of having one primary guard in
+use.</li>
+<li id="cite_note-24"><a href="https://github.com/torproject/torspec/blob/master/proposals/291-two-guard-nodes.txt">https://github.com/torproject/torspec/blob/master/proposals/291-two-guard-nodes.txt</a></li>
+<li id="cite_note-25">The <a href="https://gitlab.torproject.org/legacy/trac/-/issues/9273#comment:3">entropy
+associated with one, two or three guards</a> is 9, 17 and 25 bits,
+respectively.</li>
+<li id="cite_note-26"><a href="https://metrics.torproject.org/relayflags.html">https://metrics.torproject.org/relayflags.html</a></li>
+<li id="cite_note-27">Unix-like operating systems also <a href="https://en.wikipedia.org/wiki/Swap_partition#Unix_and_Unix-like_systems">swap
+(move) memory pages between host RAM and the host disk</a>, and this
+behavior cannot be prevented in Whonix VMs. The danger is data leakage
+might occur and an unencrypted swap partition could reveal interesting
+data to an attacker or be used to store unencrypted copies of files in
+<i>/tmp</i> for later retrieval.</li>
+<li id="cite_note-28"><a href="https://www.linuxtopia.org/online_books/linux_administrators_security_guide/06_Linux_File_System_and_File_Security.html">https://www.linuxtopia.org/online_books/linux_administrators_security_guide/06_Linux_File_System_and_File_Security.html</a></li>
+<li id="cite_note-29">Although a full system MAC policy is currently in development, see
+<a href="https://forums.whonix.org/t/apparmor-for-complete-system-including-init-pid1-systemd-everything-full-system-mac-policy/8339">here</a>
+for further details.</li>
+<li id="cite_note-30"><a href="https://gitlab.tails.boum.org/tails/tails/-/issues/5356">Tails
+feature request - erase video memory on shutdown</a></li>
+<li id="cite_note-31">Although Tor now has deterministic builds, see <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3688">Bug
+3688</a>.</li>
+<li id="cite_note-32">Things that were really stated.</li>
+<li id="cite_note-33">Things which were <u>not</u> said or implied.</li>
+<li id="cite_note-34">Some criticisms of Telegram. * New releases are squished into a
+single commit, see: <a href="https://github.com/DrKLO/Telegram/commit/28eb8dfd0ef959fd5ad7d5d22f1d32879707c0a0">one
+commit</a>. * It is impossible to sign up without a phone number. *
+There are other concerns, but they are irrelevant for illustrating the
+point being made here.</li>
+</ol>
+</div>
+<h1 id="License">License</h1>
+<p><blockquote><p>Whonix Warning wiki page Copyright (C) Amnesia
+<br />
+Whonix Warning wiki page Copyright (C) 2012 - 2026 ENCRYPTED SUPPORT LLC
+&lt;<span class="antispam-email-tooltip"><span class="robots-nocontent" data-nosnippet=""><code>adrelanos(at)whonix.org</code>
+(Replace <code>(at)</code> with
+<code>@</code>.)<span class="tooltip"><span>Please <strong>DO
+NOT</strong> use e-mail for one of the following
+reasons:</span><span class="icon-bullet-list"><span><i class="fa-solid fa-lock cs-yellow"></i><span><u>Private
+Contact:</u> Please avoid e-mail whenever possible. (&lt;a
+href="Contact.html#Private_Communications_Policy"&gt;Private
+Communications
+Policy&lt;/a&gt;)</span></span><span><i class="fas fa-headset cs-red"></i><span><u>User
+Support Questions:</u> No. (See &lt;a
+href="Support.html"&gt;Support&lt;/a&gt;.)</span></span><span><i class="fa-solid fa-droplet cs-red"></i><span><u>Leaks
+Submissions:</u> No. (&lt;a href="Contact.html#No_Leaks_Policy"&gt;No
+Leaks
+Policy&lt;/a&gt;)</span></span><span><i class="fa-solid fa-ban cs-red"></i><span><u>Sponsored
+posts:</u>
+No.</span></span><span><i class="fa-solid fa-link cs-red"></i><span><u>Paid
+links:</u>
+No.</span></span><span><i class="fa-solid fa-chart-line cs-red"></i><span><u>SEO
+reviews:</u>
+No.</span></span><span><i class="fa-solid fa-bullhorn cs-red"></i><span><u>Advertisement
+deals:</u>
+No.</span></span><span><i class="fa-solid fa-box-open cs-red"></i><span><u>Default
+application installation:</u> No. (&lt;a
+href="Contact.html#Default_Application_Policy"&gt;Default Application
+Policy&lt;/a&gt;)</span></span></span></span></span>&gt;</p>
+<p>This program comes with ABSOLUTELY NO WARRANTY; for details see the
+wiki source code.<br />
+This is free software, and you are welcome to redistribute it under
+certain conditions; see the wiki source code for details.</p></blockquote></p>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Whonix-Workstation_Security.html" title="Whonix-Workstation Security"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Whonix-Workstation
+Security</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Advanced_Security_Guide_Introduction.html" title="Advanced Security Guide Introduction"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Advanced
+Security Guide
+Introduction</span></a><span class="info"><span class="prev">Previous
+page: Whonix-Workstation Security</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Advanced Security
+Guide Introduction</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

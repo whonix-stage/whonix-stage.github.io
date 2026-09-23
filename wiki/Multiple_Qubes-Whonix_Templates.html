@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Multiple Qubes-Whonix Templates</title>
+<meta name="description" content="Compartmentalization. Managing multiple Qubes-Whonix&lt;sup&gt;&amp;trade;&lt;/sup&gt; Templates.">
+<meta property="og:description" content="Compartmentalization. Managing multiple Qubes-Whonix&lt;sup&gt;&amp;trade;&lt;/sup&gt; Templates.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Multiple_Qubes-Whonix_Templates.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Multiple_Qubes-Whonix_Templates.html">
+<meta property="og:title" content="Multiple Qubes-Whonix Templates">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Multiplequbeshwonix.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Multiple_Whonix-Gateway.html">Multiple
+Whonix-Gateway<sup>™</sup></a></li>
+<li><a href="Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation<sup>™</sup></a></li>
+<li><a href="Multiple_Qubes-Whonix_Templates.html">Multiple
+Qubes-Whonix<sup>™</sup> Templates</a></li>
+</ul>
+</div>
+<p><img src="../media/Multiplequbeshwonix.jpg.webp" alt="Multiplequbeshwonix.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Compartmentalization. Managing multiple Qubes-Whonix Templates.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Multiple <a href="Qubes.html">Qubes-Whonix</a> Templates
+provides much greater flexibility over a single template when choosing
+software packages. The additional cloned templates can be customized
+with software to meet specific requirements; something impossible to
+achieve with a single Template. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h1 id="Rationale">Rationale</h1>
+<ul>
+<li><u>Packages from a later release</u>: Installing packages from a
+later release could end up breaking the system. For example, mixing
+packages from <a href="https://wiki.debian.org/DebianStable">Debian
+Stable</a> with those of a later release like <a href="https://wiki.debian.org/DebianTesting">Debian Testing</a> can lead
+to an unstable system because of associated software dependencies
+required for full functionality. <sup class="reference"><a href="#cite_note-2">[2]</a></sup> <sup class="reference"><a href="#cite_note-3">[3]</a></sup>
+Prior to installing Debian packages from a later release, first read
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+<li><u>Custom software</u>: Additional cloned templates makes it easy to
+install custom software used for a specific application. For example,
+users could <a href="Tunnel_UDP_over_Tor.html">Tunnel UDP
+over Tor</a> by configuring <code>whonix-workstation-18</code> to route
+all applications through a VPN tunnel. However, this method also
+increases the risk of identity correlation. To mitigate this risk, the
+App Qube based on this template should only be used for the particular
+application that must be routed through the <i>tunnel-link</i>. Before
+installing custom software it is recommended to first read <a href="Install_Software.html#General_Advice">Install
+Software: General Advice</a>.</li>
+<li><u>Untrusted packages</u>: It is unwise to install untrusted
+packages in a template used for sensitive activities. With multiple
+cloned Templates, a single template can be designated as a less trusted
+domain for that purpose. <sup class="reference"><a href="#cite_note-4">[4]</a></sup> Read <a href="https://www.qubes-os.org/doc/templates/#trusting-your-templates">Trusting
+your templates</a> prior to installing untrusted packages.</li>
+</ul>
+<h1 id="Cloning_Templates">Cloning Templates</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<strong>Note:</strong> Each Template's root filesystem runs
+independently from all other Templates. <sup class="reference"><a href="#cite_note-5">[5]</a></sup> Therefore,
+each individual Template must be updated separately. This is a Qubes
+default and <a href="Unspecific.html">unspecific</a> to
+Qubes-Whonix.</p>
+</div>
+<h2 id="Qube_Manager">Qube Manager</h2>
+<p>Cloning templates in <a href="Qubes.html">Qubes-Whonix</a> is easily accomplished via Qube
+Manager.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+<strong>Naming convention advice:</strong></p>
+<p>Be careful with naming conventions for both Templates and App Qubes
+(based on those templates) so they are not confused with each other.
+This will minimize the chance of basing an App Qube on the wrong
+template.</p>
+<p>When creating App Qubes based on cloned Templates, a purpose-based
+naming convention is sensible so there is no ambiguity regarding the
+intended function of an App Qube. For example, if an App Qube is created
+to tunnel UDP over Tor, appending <code>tunnel-udp</code> (the purpose)
+to the end of <code>anon-whonix</code> would lead to the name
+<code>anon-whonix-tunnel-udp</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+<strong>Template cloning:</strong></p>
+<p>To clone <a href="Qubes.html">Qubes-Whonix</a> Templates,
+follow the steps below in Qube Manager:</p>
+<p><code>Qube Manager</code> -> <code>VM to be Cloned</code> ->
+<code>Clone qube</code> -> <code>Enter name for Qube clone</code><br />
+<strong>Figure:</strong> <em>Cloning Whonix qubes</em></p>
+<p><img src="../media/Qubesmanagercloning.png.webp" alt="Qubesmanagercloning.png" /></p>
+<p>When prompted, give the newly cloned VM a name that is not easily
+confused with other VMs. This minimizes the chances of basing an App
+Qube on the wrong template; there could be serious security concerns if
+a "trusted" App Qube was based on the wrong Template with untrusted
+packages.</p>
+<p><strong>Figure:</strong> <em>Clone Renaming</em></p>
+<p><img src="../media/Qubeclonerenaming.png.webp" alt="Qubeclonerenaming.png" /></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+<strong>Done.</strong></p>
+<p>Cloning has been completed.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+<strong>UpdatesProxy settings:</strong></p>
+<p>The user might wish to customize the <a href="#UpdatesProxy_Settings">UpdatesProxy Settings</a>.</p>
+<p><span class="manually-placed-anchor " id="Additional_Settings"></span></p>
+<h2 id="UpdatesProxy_Settings">UpdatesProxy Settings</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<u>Reminder</u>: The <code>net qube</code> setting of Templates should
+be set to <code>None</code>. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+A cloned Whonix Template will by default be upgraded through
+<code>sys-whonix</code>. This is a known Qubes usability issue.
+<sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+</div>
+<p>If you would like to change the UpdatesProxy setting for any
+Template, apply the following steps.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+<strong>Disable the old-style file:</strong></p>
+<p>In <code>dom0</code>, move the Qubes old-style configuration file
+<code>/etc/qubes-rpc/policy/qubes.UpdatesProxy</code> out of the way.
+<sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<p>If there is an error that this file no longer exists, that is OK too.
+The only purpose of this step is to make sure
+<code>/etc/qubes-rpc/policy/qubes.UpdatesProxy</code> no longer
+exists.</p>
+<p><span class="code-select">sudo mv
+/etc/qubes-rpc/policy/qubes.UpdatesProxy ~/</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+<strong>Open the new-style policy file:</strong></p>
+<p>In <code>dom0</code>, open
+<code>/etc/qubes/policy.d/30-user.policy</code> with root rights.</p>
+<p><span class="code-select">sudo nano
+/etc/qubes/policy.d/30-user.policy</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+<strong>Learn the syntax:</strong></p>
+<p>Syntax: <sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
+<pre><code>qubes.UpdatesProxy      *   name-of-template-vm    @default    allow target=name-of-net-qube</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+<strong>See an example rule:</strong></p>
+<p>Example line entry example:</p>
+<p><span class="code-select">qubes.UpdatesProxy *
+whonix-workstation-18-clone-1 @default allow
+target=sys-whonix-cloned</span></p>
+<p>Full example:</p>
+<p>If the user already completed adding the above line entry, the
+following is not required. It is only for illustrative purposes. A
+complete file could look like this.</p>
+<p><span class="code-select">qubes.UpdatesProxy *
+whonix-gateway-18-clone-1 @default allow target=sys-whonix-cloned
+qubes.UpdatesProxy * whonix-workstation-18-clone-1 @default allow
+target=sys-whonix-cloned</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+<strong>Add your new entry:</strong></p>
+<p>Based on the syntax and examples above.</p>
+<p>Note: Replace <code>sys-whonix-cloned</code> with the actual name of
+the VM such as for example <code>sys-whonix2</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+<strong>Save the file:</strong></p>
+<pre><code>&lt;Ctrl-X&gt; --&gt; press Y --&gt; &lt;Enter&gt;</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+<strong>Done.</strong></p>
+<p>The procedure is now complete.</p>
+</div>
+<h1 id="See_Also">See Also</h1>
+<div class="mininav">
+<ul>
+<li><a href="Multiple_Whonix-Gateway.html">Multiple
+Whonix-Gateway<sup>™</sup></a></li>
+<li><a href="Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation<sup>™</sup></a></li>
+<li><a href="Multiple_Qubes-Whonix_Templates.html">Multiple
+Qubes-Whonix<sup>™</sup> Templates</a></li>
+</ul>
+</div>
+<ul>
+<li><a href="Whonix-Gateway.html">Whonix-Gateway</a></li>
+<li><a href="Whonix-Workstation.html">Whonix-Workstation</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Optionally, the default template can be cloned and used as the
+default template for App Qubes. Having a "known-good" backup template
+available at all times is best practice.</li>
+<li id="cite_note-2">Using packages from different repositories can lead to
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+<li id="cite_note-3">This problem can be avoided by cloning additional Whonix templates
+and preferring packages from a single repository in each Template.</li>
+<li id="cite_note-4">It is strongly encouraged to only install signed packages from a
+trusted source.</li>
+<li id="cite_note-5">This applies to all Templates, even if they were cloned.</li>
+<li id="cite_note-6">Since Templates in Qubes R4 and above are supposed to be upgraded
+through qrexec based Qubes updates proxy. * <a href="https://www.qubes-os.org/doc/how-to-install-software/#technical-details">Qubes
+documentation: How to install software - Technical details</a> * <a href="https://github.com/QubesOS/qubes-issues/issues/1854">Qubes issues:
+implement qrexec based updates proxy</a></li>
+<li id="cite_note-7">* <a href="https://github.com/QubesOS/qubes-issues/issues/3412">Qubes issue:
+add UpdateVM setting to qubes-vm-settings</a> * <a href="https://forums.whonix.org/t/cloned-whonix-templatevm-connects-upgrades-through-sys-whonix-even-if-netvm-is-set-to-a-different-whonix-gateway-proxyvm/5840">Whonix
+forum discussion: cloned Whonix templateVM upgrades through sys-whonix
+even if net qube is set to a different gateway</a></li>
+<li id="cite_note-8">Qubes dom0 configuration folder <code>/etc/qubes-rpc/policy</code>
+is legacy. It was replaced with the new-style qrexec config folder
+<code>/etc/qubes/policy.d/</code> which is used here in the
+documentation. This is <a href="Unspecific.html">unspecific
+to Whonix</a>.</li>
+<li id="cite_note-9">This works because as per Qubes default, Qubes parses configuration
+file <code>/etc/qubes/policy.d/30-user.policy</code> before
+<code>/etc/qubes/policy.d/90-default.policy</code>. See also Qubes dom0
+file <code>/etc/qubes/policy.d/90-default.policy</code>.
+<span class="code-select">cat
+/etc/qubes/policy.d/90-default.policy</span>
+<code>/etc/qubes/policy.d/90-default.policy</code> comes with the
+following comment on top.
+<pre><code> ## Do not modify this file, create a new policy file with a lower number in the ## filename instead. For example `30-user.policy`. </code></pre></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

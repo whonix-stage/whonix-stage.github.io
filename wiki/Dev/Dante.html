@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Dante</title>
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Dante.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Dante.html">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Dante</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#/etc/resolv.conf">/etc/resolv.conf</a></li><li class="toc-l2"><a href="#Check_Dante_Log_for_DNS_Issues">Check Dante Log for DNS
+Issues</a></li><li class="toc-l2"><a href="#Why_is_a_Modification_of_Dante_required?">Why is a Modification
+of Dante required?</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Debugging Dante. Used in context of <a href="../Template:Tor_Browser_Remove_Proxy_Settings.html">Template:Tor_Browser_Remove_Proxy_Settings</a>.</p>
+<div class="post-intro-p">
+</div>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="../Unsupported.html">this</a> for
+potential alternatives.</p>
+</div>
+<h1 id="General_Connectivity_Test">General Connectivity Test</h1>
+<p><strong>1.</strong> Check if TCP is functional.</p>
+<ul>
+<li>without DNS:
+<ul>
+<li>The following command uses an IP address
+<code>116.202.120.181</code>.</li>
+<li><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
+--proto =https -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181/api/ip">https://116.202.120.181/api/ip</a></span></li>
+</ul></li>
+</ul>
+<p><strong>2.</strong> Check if DNS + TCP is functional.</p>
+<ul>
+<li>with DNS:
+<ul>
+<li>The following command uses a hostname
+<code>check.torproject.org</code>.</li>
+<li><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
+--proto =https <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></li>
+</ul></li>
+</ul>
+<h1 id="Dante_Connectivity_Test">Dante Connectivity Test</h1>
+<p><strong>1.</strong> Check dante socks server without authentication
+using curl (non-uwt version).</p>
+<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
+--proto =https --proxy socks5h://127.0.0.1:9150 <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></p>
+<p><strong>2.</strong> Check dante socks server with authentication
+using curl (non-uwt version).</p>
+<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
+--proto =https --proxy socks5h://x:y@127.0.0.1:9150 <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></p>
+<p>Both commands are functional. It seems that curl negotiates socks
+authentication method <code>none</code> even if given a socks username
+and password.</p>
+<h1 id="DNS">DNS</h1>
+<h2 id="/etc/resolv.conf">/etc/resolv.conf</h2>
+<p>Maybe issue. Maybe not.</p>
+<p>vpn-ed-anon-whonix <code>/etc/resolv.conf</code> might require same
+DNS settings as <code>sys-vpn</code> (Qubes VPN-Gateway)
+<code>/etc/resolv.conf</code>.</p>
+<p><strong>1.</strong> Look at <code>/etc/resolv.conf</code> in
+<code>sys-vpn</code></p>
+<p><strong>2.</strong> Use the same config for
+<code>/etc/resolv.conf</code> in <code>vpn-ed-whonix-gw-16</code>
+Template.</p>
+<h1 id="Tor_Browser_Error_Messages">Tor Browser Error Messages</h1>
+<pre><code>Hmm. We&#39;re having trouble finding that site.</code></pre>
+<p>Indicates broken DNS.</p>
+<h1 id="Dante">Dante</h1>
+<h2 id="Check_Dante_Log_for_DNS_Issues">Check Dante Log for DNS
+Issues</h2>
+<p><span class="code-select">sudo journalctl -u danted | grep -i
+DNS-resolve</span></p>
+<h2 id="Why_is_a_Modification_of_Dante_required?">Why is a Modification
+of Dante required?</h2>
+<p>Tor Browser however does not seem to negotiate at the socks protocol
+level.</p>
+<p><span class="code-select">sudo journalctl -f --output cat | grep
+--invert-match kernel</span></p>
+<pre><code>Sep 25 22:35:49 (1664145349.839004) danted[5755]: debug: recv_clientrequest(): initiating negotiation with client at 127.0.0.1.47726 which connected to us on 127.0.0.1.9150
+Sep 25 22:35:49 (1664145349.839025) danted[5755]: debug: recv_methods(): client 127.0.0.1.47726 offered 1 authentication method: 0x2 (username)
+Sep 25 22:35:49 (1664145349.839029) danted[5755]: debug: recv_methods(): socksmethod to use not set, selecting amongst the following 1 method: none
+Sep 25 22:35:49 (1664145349.839031) danted[5755]: debug: recv_methods(): sending authentication reply: VER: 5 METHOD: 255 (&lt;no acceptable method&gt;)
+Sep 25 22:35:49 (1664145349.839092) danted[5755]: debug: run_negotiate(): recv_clientrequest() from client 127.0.0.1.47726 returned 1, errno is 0 (no error)</code></pre>
+<p>When using <code>socksmethod: none username</code>:</p>
+<pre><code>Sep 25 22:44:38 (1664145878.640687) danted[7218]: debug: accesscheck(): no match for authentication: could not access user &quot;torproject.org&quot;&#39;s records in the system password file: no system error</code></pre>
+<p>Tor Browser does not seem to fall back to using no socks user name.
+While dante would allow using the socks proxy without authentication,
+dante still prohibits Tor Browser because Tor Browser unnecessarily
+attempts to to set a socks user name.</p>
+<p>(Tor Browser by default sets the top level domain name as socks user
+name for the purpose of stream isolation
+(<code>IsolateSOCKSAuth</code>).)</p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+</main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

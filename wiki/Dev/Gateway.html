@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Gateway</title>
+<meta name="description" content="Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; Detailed Design Documentation">
+<meta property="og:description" content="Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; Detailed Design Documentation">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Gateway.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Gateway.html">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Gateway</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Whonix-Gateway Detailed Design Documentation</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Whonix-Gateway">Whonix-Gateway</h1>
+<p>Whonix-Gateway MUST NOT be ever used for anything other than running
+Tor on it.</p>
+<p>If this machine is compromised the identity (public IP), all
+destinations and all clear-text (and onion service) communication over
+Tor is available to the attacker.</p>
+<p>Our first goal in securing the Whonix-Gateway is minimizing its
+attack surface. By installing a "minimal system", the only attack
+surface to an remote attack is Tor itself, apt, <a href="onion-grater.html">onion-grater</a> and <a href="../Sdwdate.html">sdwdate</a>. You can verify this with
+netstat.</p>
+<p>Security features that do not prevent exploitation but only restrict
+what exploits can do, such as chrooting or sandboxing, do not make much
+sense: A compromise of Tor already results in a compromise of everything
+the user cares about.</p>
+<p>Compile time hardening (see <a href="https://gitlab.torproject.org/legacy/trac/-/issues/5024">Bug
+#5024: compile time hardening of TBB (RELRO, canary, PIE)</a>) should be
+done by the Tor package contributor and is beyond the scope of
+Whonix.</p>
+<p>Debian is a good compromise of security and usability. More secure
+and hardened Linux or BSD based options do exist but they require too
+much work and/or maintenance to be considered for Whonix. The <a href="Operating_System.html">Dev/Operating System</a>
+design page elaborates on that topic.</p>
+<p>Having said this, you are welcome to use your own distro. The Whonix
+design is distro agnostic. You just won't be able to thoughtlessly copy
+and paste commands or to use the source without modifications.</p>
+<h1 id="Graphical_Whonix-Gateway_benefits_over_Headless_Whonix-Gateway">Graphical
+Whonix-Gateway benefits over Headless Whonix-Gateway</h1>
+<p>In the <a href="../VirtualBox.html">non-graphical version of
+Whonix-Gateway</a>, it is difficult for users who have never used Linux
+before to complete tasks like upgrading or configuring obfuscated
+bridges. Many activities are simpler and easily accessible in a <a href="../VirtualBox.html">graphical Whonix-Gateway</a>, such
+as:</p>
+<div>
+<ul>
+<li>Setting up bridges.</li>
+<li>Auditing logs.</li>
+<li>Auditing iptables.</li>
+<li>Auditing the system architecture in general.</li>
+<li>Running <a href="../Essential_Tests.html">Essential Whonix
+Functionality Tests</a>.</li>
+<li>Running <a href="Leak_Tests.html">Leak
+Tests</a>.</li>
+<li><a href="../Tor.html#Edit_Tor_Configuration">Editing the
+Tor configuration</a></li>
+<li>Editing the <a href="../Whonix-Gateway_Firewall.html">Whonix-Gateway firewall settings</a></li>
+<li>Reading status messages (<a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a> and
+<a href="../Sdwdate.html">sdwdate</a>).</li>
+<li><a href="../Tor_Controller.html#Nyx">Changing the Tor circuit</a>.</li>
+<li>Copying and pasting (configuration) commands, (error) messages and
+logs.</li>
+<li>Running tshark / wireshark.</li>
+<li><a href="../Tunnels/Introduction.html">Tunneling only
+Whonix-Gateway traffic through a VPN</a>.</li>
+</ul>
+</div>
+<p>A black, text-only window (terminal) is intimidating for normal
+users. A graphical desktop environment is also a prerequisite for
+further planned improvements, such as the proposed <a href="https://web.archive.org/web/20201214130658/https://github.com/Whonix/Whonix/issues/132">graphical
+Whonix Controller</a> which will provide buttons such as:</p>
+<ul>
+<li>"Create hidden blog", which creates a pre-configured blog.</li>
+<li>"Backup onion service keys".</li>
+<li>A <a href="https://phabricator.whonix.org/T89">Better Circumvention
+User Interface</a>.</li>
+<li>And more.</li>
+<li>Also, terminal environments can be impractical for users with
+disabilities.</li>
+</ul>
+<h1 id="Headless_/_CLI_(Terminal)_Whonix-Gateway">Headless / CLI (Terminal)
+Whonix-Gateway</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Non-Qubes-Whonix only.</p>
+</div>
+<p>If a user believes the graphical Whonix-Gateway is using too much
+RAM, or if a terminal version of Whonix-Gateway is generally preferred,
+then <strong>headless</strong> Whonix is available: see <a href="../VirtualBox.html">Whonix for VirtualBox with
+CLI</a>.</p>
+<p>Alternatively, <a href="../VirtualBox.html">Whonix for
+VirtualBox with LXQt</a> RAM can be reduced to 512 MB and <a href="../Moved:RAM_Adjusted_Desktop_Starter.html">RAM Adjusted
+Desktop Starter</a> will automatically boot into a terminal version of
+Whonix-Gateway.</p>
+<p>When building Whonix images from source code, both Whonix VirtualBox
+and Whonix KVM support build script parameter
+<code>--flavor whonix-gateway-cli</code>. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Equivalent for Whonix-Gateway
+<code>--flavor whonix-workstation-cli</code> also exists.</li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="UTM.html" title="Dev/UTM"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/UTM</span></a><a class="index internal" href="../Design.html" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="Host.html" title="Dev/Host"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Host</span></a><span class="info"><span class="prev">Previous
+page: Dev/UTM</span><span class="index">Index page:
+Design</span><span class="next">Next page:
+Dev/Host</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Design.html">Design</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Onion-grater</title>
+<meta name="description" content="Information about onion-grater.">
+<meta property="og:description" content="Information about onion-grater.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Onion-grater.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Onion-grater.html">
+<meta property="og:title" content="onion-grater: a Tor Control Port Filter Proxy">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Oniongrater123123.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Tor.html">Tor</a></li>
+<li><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="Anon_Connection_Wizard.html">Anon Connection
+Wizard</a></li>
+<li><a href="Tor-control-panel.html">tor-control-panel</a></li>
+<li><a href="Why_does_Whonix_use_Tor.html">Why does Whonix
+use Tor?</a></li>
+<li><a href="Tor_Entry_Guards.html">Tor Entry
+Guards</a></li>
+<li><a href="Tor_Myths_and_Misconceptions.html">Tor Myths
+and Misconceptions</a></li>
+<li><a href="Tor_Controller.html">Tor Controller</a></li>
+<li><a href="Tor-ctrl-observer.html">tor-ctrl-observer</a></li>
+<li><a href="Onion-grater.html">onion-grater</a></li>
+<li><a href="Dev/Tor.html">Tor (Developer)</a></li>
+<li><a href="Dev/onion-grater.html">onion-grater
+(Developer)</a></li>
+<li><a href="Dev/anon-ws-disable-stacked-tor.html">anon-ws-disable-stacked-tor (Developer)</a></li>
+</ul>
+</div>
+<p><img src="../media/Oniongrater123123.jpg.webp" alt="Oniongrater123123.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Information about onion-grater.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>onion-grater is a filter proxy that denies every controller command
+by default and allow specific commands, arguments and events that are
+explicitly whitelisted. It is a Tails project forked by Whonix with some
+adaptations.</p>
+<p>Acts as a proxy between the client application and Tor:</p>
+<ul>
+<li>Filters out Tor control protocol commands that are dangerous for
+anonymity such as <code>GETINFO ADDRESS</code> using a whitelist.</li>
+<li>Allows using Tor Browser's New Identity feature on Anonymity
+Distribution Workstations.</li>
+<li>Fixes Tor Browser's <a href="about:tor">about:tor</a> default
+homepage and Tor Button status indicator without exposing commands that
+are dangerous for anonymity.</li>
+</ul>
+<h1 id="onion-grater_Warning">onion-grater Warning</h1>
+<p>The following onion-grater warning is shown for all applications that
+require it.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Ambox_notice.png" /></span>
+This application requires incoming connections through a <a href="Tor.html">Tor</a> onion service. Supported <a href="Whonix-Gateway.html">Whonix-Gateway<sup>™</sup></a>
+modifications are therefore necessary for full functionality; see the
+instructions below.</p>
+<p>For better security, consider using <a href="Multiple_Whonix-Gateway.html">Multiple Whonix-Gateway</a> and <a href="Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation<sup>™</sup></a>. In any case, <a href="About.html">Whonix</a> is the safest choice for running it.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+</div>
+<h1 id="Applications_that_require_onion-grater">Applications that
+require onion-grater</h1>
+<p>A list of applications which currently require onion-grater so these
+can be used in Whonix can be found here: <a href="Special:WhatLinksHere/Template:Control_Port_Filter_Python_Profile_Add.html">Special:WhatLinksHere/Template:Control_Port_Filter_Python_Profile_Add</a></p>
+<h1 id="Add_Profile">Add Profile</h1>
+<p><strong>Extend the onion-grater whitelist.</strong></p>
+<div class="info-box ">
+<p>On Whonix-Gateway (<code>sys-whonix</code>).</p>
+<p>Add <a href="Onion-grater.html">onion-grater</a>
+profile.</p>
+<p><span class="code-select">sudo onion-grater-add
+40_onion_authentication</span></p>
+</div>
+<h1 id="Remove_Profile">Remove Profile</h1>
+<p>Reduce the onion-grater whitelist in Whonix-Gateway<sup>™</sup>
+(<code>sys-whonix</code>).</p>
+<div class="info-box ">
+<p>On Whonix-Gateway.</p>
+<p>Remove onion-grater profile.</p>
+<p><span class="code-select">sudo onion-grater-remove
+40_onion_authentication</span></p>
+</div>
+<h1 id="List_Profile">List Profile</h1>
+<p>List the onion-grater whitelist in Whonix-Gateway<sup>™</sup>
+(<code>sys-whonix</code>).</p>
+<div class="info-box ">
+<p>On Whonix-Gateway.</p>
+<p>List available onion-grater profiles:</p>
+<p><span class="code-select">sudo onion-grater-list --available
+--show</span></p>
+<p>List used onion-grater profiles: <span class="code-select">sudo
+onion-grater-list --used --show</span></p>
+</div>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Dev/onion-grater.html">onion-grater, a Tor
+Control Port Filter Proxy, design documentation</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><u>Security considerations:</u> * By using Whonix, additional
+protections are in place for enhanced security. * This application
+requires access to Tor's control protocol. * In the Whonix context,
+Tor's control protocol has dangerous features. The Tor control command
+<em><span>GETINFO address</span></em>
+reveals the real, external IP of the Tor client. * Whonix provides <a href="Dev/onion-grater.html">onion-grater, a Tor Control
+Port Filter Proxy - filtering dangerous Tor Control Port commands</a>. *
+When this application is run inside Whonix-Gateway with an onion-grater
+whitelist extension, it limits Whonix-Workstation application rights to
+Tor control protocol access only. Non-whitelisted Tor control commands
+such as <em><span>GETINFO
+address</span></em> are rejected by onion-grater in these circumstances.
+In this event, Whonix-Workstation cannot determine its own IP address
+via requests to the Tor Controller, as onion-grater filters the reply. *
+In comparison with other operating systems: ** If the application is run
+on a non-Tor-focused operating system like Debian: The application will
+have unlimited access to Tor's control protocol (a less secure
+configuration). ** Whonix: The application's access to Tor's control
+protocol is limited. Only whitelisted Tor control protocol commands
+required by the application are allowed. * Comparison of using Tor as a
+client versus hosting Tor onion services. ** Using Tor only as a client:
+More secure. ** When hosting Tor onion services: Users are more
+vulnerable to attacks against the Tor network. This is elaborated in
+chapter <a href="Onion_Services.html#Onion_Services_Security">Onion Services Security</a>. In conclusion, Whonix is
+the safest and correct choice for running this application.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

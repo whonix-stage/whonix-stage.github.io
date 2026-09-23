@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>ElectrumX-LTC</title>
+<meta name="description" content="Higher Security and Privacy through using a Self-Hosted, Fully Validating Litecoin Node (ElectrumX + Litecoin Core)">
+<meta property="og:description" content="Higher Security and Privacy through using a Self-Hosted, Fully Validating Litecoin Node (ElectrumX + Litecoin Core)">
+<link rel="canonical" href="https://www.whonix.org/wiki/ElectrumX-LTC.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/ElectrumX-LTC.html">
+<meta property="og:title" content="Litecoin How-to: Use ElectrumX Personal Server in Whonix">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Isolating_Proxy_Setup">Isolating Proxy Setup</a></li><li class="toc-l2"><a href="#Electrum-LTC_Safeguard">Electrum-LTC Safeguard</a></li><li class="toc-l2"><a href="#Package_Dependency_Installation">Package Dependency
+Installation</a></li><li class="toc-l2"><a href="#Software_Dependency_Installation">Software Dependency
+Installation</a></li><li class="toc-l2"><a href="#Source_Code_Download_and_Digital_Software_Signature_Verification">Source
+Code Download and Digital Software Signature Verification</a></li><li class="toc-l2"><a href="#Litecoin-Qt_Configuration">Litecoin-Qt Configuration</a></li><li class="toc-l2"><a href="#ElectrumX_Configuration">ElectrumX Configuration</a></li><li class="toc-l3"><a href="#ElectrumX_Server_Configuration">ElectrumX Server
+Configuration</a></li><li class="toc-l3"><a href="#ElectrumX_User_Systemd_Unit_Configuration">ElectrumX User
+Systemd Unit Configuration</a></li><li class="toc-l2"><a href="#Electrum-LTC_Wallet_Configuration">Electrum-LTC Wallet
+Configuration</a></li><li class="toc-l2"><a href="#Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry">Add a
+Electrum-LTC using Local ElectrumX Start Menu Entry</a></li><li class="toc-l2"><a href="#Autostart_Electrum-LTC_using_Local_ElectrumX">Autostart
+Electrum-LTC using Local ElectrumX</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Higher Security and Privacy through using a Self-Hosted, Fully
+Validating Litecoin Node (ElectrumX + Litecoin Core)</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Using Electrum-LTC with its default, public servers (which are hosted
+by third parties) has various security and privacy disadvantages
+mentioned in <a href="Electrum.html">electrum</a> chapter <a href="Electrum.html#Warnings">warnings</a>. These issues can
+be resolved by using one's own, self-hosted, local Electrum-LTC server.
+ElectrumX is a electrum server, which is documented on this wiki page.
+Under the assumption of a non-compromised system, the advantages
+include:</p>
+<ul>
+<li>No third party can correlate all of the user's Litecoin addresses to
+the same pseudonym simply by starting the Electrum-LTC wallet. However,
+this does not change recommendation regarding Coin Control. When
+spending Litecoin using multiple inputs, correlation will still happen
+on the blockchain level.</li>
+<li>No third party can log how many times or the times when a user is
+viewing their Litecoin addresses, transactions in their Electrum-LTC
+wallet.</li>
+<li>A self-hosted ElectrumX will always truthfully report unconfirmed
+and confirmed transactions. However, the usual recommendation to wait
+for a number of confirmations on the blockchain remains unchanged.</li>
+<li>Confirmed transactions are fully verified, not only via SPV.</li>
+<li>Litecoin network fee estimates are no longer dependent on third
+parties.</li>
+</ul>
+<p>These instructions should be compatible with
+Non-Qubes-Whonix<sup>™</sup>, Qubes-Whonix<sup>™</sup> and
+Kicksecure<sup>™</sup>.</p>
+<p>ElectrumX depends on <a href="Litecoin_Core.html">Litecoin Core</a> to download the Litecoin blockchain.
+In other words, Litecoin Core is a dependency of ElectrumX. If Litecoin
+Core could have been avoided in this setup, it would have been avoided
+for simplicity.</p>
+<p>By design:</p>
+<ul>
+<li>Only Litecoin Core will be able to establish outgoing internet
+connections. Only Litecoin Core will be configured to be able to reach
+the Litecoin network over Tor.</li>
+<li>The connection scheme is <code>Electrum-LTC</code> ->
+<code>ElectrumX</code> -> <code>Litecoin Core</code> -> <code>Tor</code> ->
+<code>Litecoin network</code>.</li>
+<li>Both ElextrumX and Electrum-LTC will be unable to connect to the
+internet thanks to enabling Whonix transparent proxying feature as
+documented below.</li>
+<li>It should be expected that the proxy settings for Electrum-LTC
+remain unchanged. That is normal and as intended. (If Electrum-LTC was
+configured to use Tor that would actually disable the fail-safe and
+violate the goal of these instructions to have a fail-safe preventing
+Electrum-LTC from connecting to third-party servers and the connection
+chain being <code>Electrum-LTC</code> -> <code>ElectrumX</code> ->
+<code>Litecoin Core</code>.)</li>
+<li>Electrum-LTC connects to ElextrumX on localhost
+(<code>127.0.0.1</code>).</li>
+<li>ElextrumX connects to Litecoin Core on localhost
+(<code>127.0.0.1</code>).</li>
+</ul>
+<p><a href="Moved:Root.html#Inappropriate_Use_of_Root_Rights">Inappropriate Use of Root Rights</a> should be avoided.
+Instructions on this wiki page have been carefully crafted with when to
+use and when not to use <code>sudo</code> in mind. The user should not
+use <code>sudo</code> unless instructed in documentation.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h1 id="Warnings">Warnings</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Warning: This is for <u><strong>testers-only</strong></u>!</p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="Community_Support.html">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+Security warning: Installing third party software allows the vendor to
+potentially compromise your system. Proceed at your own risk! See <a href="Install_Software.html#Foreign_Sources">Foreign
+Sources</a> for further information.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Whonix default admin password is: changeme" /></span>
+Documentation in the Whonix wiki provides guidance on installing
+third-party software from different upstream sources. This is especially
+useful as upstream often includes generic instructions for various Linux
+distributions, which may be complex for users to follow. Additionally,
+documentation Whonix usually has a higher focus on security, digital
+software signatures verification.</p>
+<p>The instructions provided here serve as a "translation layer" from
+upstream documentation to Whonix, offering assistance in most scenarios.
+Nevertheless, it's important to acknowledge that upstream software may
+undergo changes over time. Consequently, the documentation on this wiki
+might need occasional updates, such as revised signing key fingerprints,
+to stay current and accurate.</p>
+<p>Please note, this is a general wiki template and may not apply to all
+upstream documentation scenarios.</p>
+<p>Users encountering issues, such as connectivity issues, are advised
+to adhere to the <a href="Self_Support_First_Policy.html">Self Support First Policy</a> and engage in <a href="Reporting_Bugs.html#Generic_Bug_Reproduction">Generic
+Bug Reproduction</a>. This involves attempting to replicate the issue on
+Debian <code>trixie</code> (over Tor), contacting upstream directly if
+the issue can be reproduced as such problems are likely <a href="Unspecific.html">unspecific to Whonix</a>. In most
+cases, Whonix is not responsible for, nor capable of resolving, issues
+stemming from third-party software.</p>
+<p>For further information, refer to <a href="Introduction.html#User_Expectations_-_What_Documentation_Is_and_What_It_Is_Not">Introduction, User Expectations - What Documentation Is
+and What It Is Not</a>.</p>
+<p>Should the user encounter bugs related to third-party software, it is
+advisable to report these issues to the respective upstream projects.
+Additionally, users are encouraged to share links to upstream bug
+reports in the Whonix forums and/or make edits to this wiki page. For
+instance, if there are outdated links or key fingerprints in need of
+updating, please feel free to make the necessary changes. Contributions
+aimed at maintaining the currentness and accuracy of information are
+highly valued. These updates not only improve the quality of the wiki
+but also serve as a useful resource for other users.</p>
+<p><a href="Contribute.html#Documentation">The Whonix wiki
+is an open platform where everyone is welcome to contribute improvements
+and edits, with or without an account.</a> Edits to this wiki are
+subject to moderation, so contributors should not worry about making
+mistakes. Your edits will be reviewed before being made public, ensuring
+the integrity and accuracy of the information provided.</p>
+</div>
+<h1 id="Installation">Installation</h1>
+<h2 id="Isolating_Proxy_Setup">Isolating Proxy Setup</h2>
+<p>Optional but recommended for better privacy.</p>
+<p>Make sure the Electrum-LTC is prohibited from accidentally connecting
+to Electrum-LTC public servers and effectively only permitted to connect
+to ElectrumX.</p>
+<p><strong>1.</strong> Acquire prerequisite knowledge.</p>
+<ul>
+<li><a href="Stream_Isolation.html#Transparent_Proxy">Transparent Proxy</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/IsolatingProxy">IsolatingProxy</a></li>
+<li><a href="Stream_Isolation.html">Stream
+Isolation</a></li>
+</ul>
+<p><strong>2.</strong> Do <u>not</u> configure Electrum-LTC for use with
+stream isolation.</p>
+<p>As documented on the the <a href="Electrum-LTC.html">Electrum-LTC</a> wiki page since this would nullify,
+circumvent the advantage of disabling transparent proxying.</p>
+<p><strong>3.</strong> Disable transparent proxying.</p>
+<p><strong>Note:</strong> The following step should be applied in
+Whonix-Gateway (<a href="Qubes.html">Qubes-Whonix</a>: In
+App Qubes <code>sys-whonix</code>):<br />
+<a href="Stream_Isolation.html#Disable_Transparent_Proxying">Disable Transparent Proxying</a>.</p>
+<h2 id="Electrum-LTC_Safeguard">Electrum-LTC Safeguard</h2>
+<p>Remove the default electrum start menu entry.</p>
+<p>Optional but highly recommended for better privacy.</p>
+<p>Make sure the electrum default start menu entry (which would result
+in using electrum public servers) gets deleted and stays deleted even
+after electrum package upgrades to make sure to not accidentally start
+the electrum using its default start menu entry.</p>
+<p><strong>Note:</strong> The following command should be applied in
+Whonix-Workstation<sup>™</sup> (<a href="Qubes.html">Qubes-Whonix</a>: In Template
+<code>whonix-workstation-18</code>).</p>
+<p><span class="code-select">sudo dpkg-divert --local --divert
+/usr/share/applications/electrum.desktop --rename --add
+/usr/share/electrum-invalid</span></p>
+<h2 id="Package_Dependency_Installation">Package Dependency
+Installation</h2>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: In Template
+<code>whonix-workstation-18</code>).</p>
+<p>Install dependencies from the Debian repository.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<div class="info-box ">
+<p>Install package(s)
+<code>git python3-rocksdb python3-aiohttp python3-plyvel</code>
+following these instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="Qubes.html">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the
+<code>git python3-rocksdb python3-aiohttp python3-plyvel</code>
+package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+git python3-rocksdb python3-aiohttp python3-plyvel</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s)
+<code>git python3-rocksdb python3-aiohttp python3-plyvel</code> is
+complete.</p>
+</div>
+<h2 id="Software_Dependency_Installation">Software Dependency
+Installation</h2>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p><strong>1.</strong> Install the <a href="PyLRU.html">Install PyLRU</a>. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><strong>2.</strong> Install <a href="Litecoin_Core.html">Litecoin Core</a>.</p>
+<p><strong>3.</strong> Install <a href="Electrum-LTC.html">Electrum-LTC</a>.</p>
+<h2 id="Source_Code_Download_and_Digital_Software_Signature_Verification">Source
+Code Download and Digital Software Signature Verification</h2>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p><strong>1.</strong></p>
+<p><strong>2.</strong> Acquire the OpenPGP public key of ElectrumX
+developer SomberNight. <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<div class="info-box ">
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="Advanced_Users.html"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="Moved:Verifying_Software_Signatures.html"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<p><a href="Moved:Secure_Downloads.html">Securely download</a> the
+signing key.</p>
+<p><span class="code-select">scurl-download <a href="https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/sombernight.asc">https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/sombernight.asc</a></span></p>
+<p>Display the key's fingerprint.</p>
+<p><span class="code-select">gpg --keyid-format long --import
+--import-options show-only --with-fingerprint sombernight.asc</span></p>
+<p>Verify the fingerprint. It should show.</p>
+<p><u>Note</u>: Key fingerprints provided on the Whonix website are for
+convenience only. The Whonix project does not have the authorization or
+the resources to function as a certificate authority, and therefore
+cannot verify the identity or authenticity of key fingerprints. The
+ultimate responsibility for verifying the authenticity of the key
+fingerprint and correctness of the verification instructions rests with
+the user.</p>
+<p><blockquote><p>In late-2021, the output is identical to the following.</p>
+<p><code>     Key fingerprint = 4AD6 4339 DFA0 5E20 B3F6  AD51 E7B7 48CD AF5E 5ED9</code></p></blockquote></p>
+<p>The most important check is confirming the key fingerprint
+<u>exactly</u> matches the output above. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+<strong>Warning:</strong></p>
+<p>Do not continue if the fingerprint does not match! This risks using
+infected or erroneous files! The whole point of verification is to
+confirm file integrity.</p>
+</div>
+<p>Add the signing key.</p>
+<p><span class="code-select">gpg --import sombernight.asc</span></p>
+</div>
+<p><strong>3.</strong> Download the ElectrumX server source code using
+<code>git</code>.</p>
+<p><span class="code-select">git clone <a href="https://github.com/spesmilo/electrumx.git">https://github.com/spesmilo/electrumx.git</a></span></p>
+<p><strong>4.</strong> Change directory.</p>
+<p><span class="code-select">cd electrumx</span></p>
+<p><strong>5.</strong> Digital signature verification.</p>
+<p><u>Note:</u> At the time of writing, <code>1.16.0</code> was the
+latest stable release. Before starting the ElectrumX source code
+download, browse to <a href="https://github.com/spesmilo/electrumx/tags"><code>github.com/spesmilo/electrumx/tags</code></a>
+to verify the version number.</p>
+<p><span class="code-select">git tag --verify 1.16.0</span></p>
+<p><u>If the file is verified successfully</u>, the output will include
+<code>Good signature</code>, which is the most important thing to
+check.</p>
+<pre><code>gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.</code></pre>
+<p>This message does not alter the validity of the signature related to
+the downloaded key. Rather, this warning refers to the level of trust
+placed in the Whonix signing key and the <a href="Moved:OpenPGP.html#The_OpenPGP_Web_of_Trust">web of
+trust</a>. To remove this warning, the Whonix signing key must be
+personally signed with your own key.</p>
+<p><strong>6.</strong> Checkout the git tag.</p>
+<p><span class="code-select">git checkout --quiet 1.16.0</span></p>
+<p><strong>7.</strong> Done.</p>
+<p>Download, digital software verification and git checkout --quiet of
+the ElectrumX server source code is complete.</p>
+<h1 id="Configuration">Configuration</h1>
+<h2 id="Litecoin-Qt_Configuration">Litecoin-Qt Configuration</h2>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p><strong>1.</strong> Create folder <code>~/.litecoin</code>.</p>
+<p>Note: It is OK Litecoin-Qt has been previously used and folder
+<code>~/.litecoin</code> already exists. Running the following command
+would be optional, OK and do nothing.</p>
+<p><span class="code-select">mkdir -p ~/.litecoin</span></p>
+<p><strong>2.</strong> Create the Litecoin Core configuration file
+<code>~/.litecoin/litecoin.conf</code>.</p>
+<p>Open file <code>~/.litecoin/litecoin.conf</code> in a <a href="Moved:Software.html#Text_Editor">text editor</a> of your
+choice as a regular, non-root user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad
+~/.litecoin/litecoin.conf</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano ~/.litecoin/litecoin.conf</span></p>
+</div>
+<p><strong>3.</strong> Paste the following text. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p><span class="code-select">server=1 bind=127.0.0.1 rpcbind=127.0.0.1
+rpcallowip=127.0.0.1 txindex=1 prune=0 rpcuser=username
+rpcpassword=password proxy=10.152.152.10:9111</span></p>
+<p><strong>4.</strong> Save.</p>
+<p><strong>5.</strong> Start Litecoin-Qt.</p>
+<p>Litecoin-Qt can be started using any method (from command line or
+start menu entry). Starting normally. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<p><span class="code-select">~/litecoin-*/bin/litecoin-qt</span></p>
+<p><strong>6.</strong> Disable pruning in Litecoin-Qt.</p>
+<p><code>Litecoin Core</code> -> <code>Settings</code> ->
+<code>Options</code> -> <u>un</u>select
+<code>Prune block storage to</code> <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<p><strong>7.</strong> Disable incoming connections in Litecoin-Qt.</p>
+<p>Optional. <sup class="reference"><a href="#cite_note-8">[8]</a></sup> <sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
+<p><code>Litecoin Core</code> -> <code>Settings</code> ->
+<code>Network</code> -> <u>un</u>select
+<code>Allow incoming connections</code></p>
+<p><strong>8.</strong> Terminate Litecoin-Qt.</p>
+<p>Close terminate Litecoin-Qt. This is required for the following next
+step which requires that Litecoin-Qt is not running.</p>
+<p><strong>9.</strong> Reindex the blockchain using Litecoin-Qt.</p>
+<p>Litecoin-Qt needs to be started at least once from the command line
+with the <code>-reindex</code> parameter. <sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p><span class="code-select">~/litecoin-*/bin/litecoin-qt
+-reindex</span></p>
+<p>When Litecoin-Qt is started next time, there is no more need for
+<code>-reindex</code> and it probably should not be used since it takes
+more time.</p>
+<p><strong>10.</strong> Wait for the blockchain to be synchronized.</p>
+<p><strong>11.</strong> Optional for better usability: <a href="Litecoin_Core.html#Add_a_Litecoin-Qt_Start_Menu_Entry">Add Litecoin-Qt start menu entry</a>.</p>
+<p><strong>12.</strong> Optional for better usability: <a href="Litecoin_Core.html#Autostart_Litecoin-Qt">Autostart
+Litecoin-Qt</a>.</p>
+<p>Autostarting Litecoin-Qt after reboot might be desirable so it can
+catch up downloading the blockchain as well as to serve ElectrumX.</p>
+<p><strong>13.</strong> Done.</p>
+<p>Configuration of Litecoin-Qt is complete.</p>
+<h2 id="ElectrumX_Configuration">ElectrumX Configuration</h2>
+<h3 id="ElectrumX_Server_Configuration">ElectrumX Server
+Configuration</h3>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p><strong>1.</strong> Create folder <code>~/.electrumx</code>.</p>
+<p><span class="code-select">mkdir -p ~/.electrumx</span></p>
+<p><strong>2.</strong> Open file <code>~/electrumx.conf</code> in a <a href="Moved:Software.html#Text_Editor">text editor</a> of your
+choice as a regular, non-root user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad ~/electrumx.conf</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano ~/electrumx.conf</span></p>
+</div>
+<p><strong>3.</strong> Paste the following contents.</p>
+<p><span class="code-select">COIN=Litecoin
+DB_DIRECTORY=/home/user/.electrumx
+DAEMON_URL=username:password@127.0.0.1
+SERVICES=tcp://127.0.0.1:5000,rpc://127.0.0.1:2401
+PEER_DISCOVERY=self</span></p>
+<p><strong>4.</strong> Save.</p>
+<p><strong>5.</strong> Done.</p>
+<p>Server configuration of ElectrumX has been completed.</p>
+<h3 id="ElectrumX_User_Systemd_Unit_Configuration">ElectrumX User
+Systemd Unit Configuration</h3>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p><strong>1.</strong> Create folder
+<code>~/.config/systemd/user</code>.</p>
+<p><span class="code-select">mkdir -p ~/.config/systemd/user</span></p>
+<p><strong>2.</strong> Create file
+<code>~/.config/systemd/user/electrumx.service</code>.</p>
+<p>Open file <code>~/.config/systemd/user/electrumx.service</code> in a
+<a href="Moved:Software.html#Text_Editor">text editor</a> of your
+choice as a regular, non-root user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad
+~/.config/systemd/user/electrumx.service</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano
+~/.config/systemd/user/electrumx.service</span></p>
+</div>
+<p><sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<p><strong>3.</strong> Paste the following contents.</p>
+<p><span class="code-select">[Unit] Description=ElectrumX
+After=network.target</p>
+<p>[Service] EnvironmentFile=/home/user/electrumx.conf
+ExecStart=/home/user/electrumx/electrumx_server LimitNOFILE=8192
+TimeoutStopSec=30min</p>
+<p>[Install] WantedBy=default.target</span></p>
+<p><strong>4.</strong> Save.</p>
+<p><strong>5.</strong> Reload systemd user instance.</p>
+<p><span class="code-select">systemctl --user daemon-reload</span></p>
+<p><strong>6.</strong> Optional: Enable autostart for the ElectrumX
+systemd user instance.</p>
+<p><span class="code-select">systemctl --user enable
+electrumx</span></p>
+<p><strong>7.</strong> Start ElectrumX systemd user instance.</p>
+<p><span class="code-select">systemctl --user restart
+electrumx</span></p>
+<p><strong>8.</strong> Done.</p>
+<p>Creation and configuration of ElectrumX systemd user unit has been
+completed.</p>
+<h2 id="Electrum-LTC_Wallet_Configuration">Electrum-LTC Wallet
+Configuration</h2>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p>Connect only to one server (own server) instead of any third party
+servers.</p>
+<p><span class="code-select">~/bin/electrum-ltc --offline setconfig
+oneserver true</span></p>
+<p>Connect to own local server.</p>
+<p><span class="code-select">~/bin/electrum-ltc --offline setconfig
+server 127.0.0.1:5000:t</span></p>
+<p>Avoid auto connecting to third party servers (and avoid Electrum-LTC
+first start wizard asking to).</p>
+<p><span class="code-select">~/bin/electrum-ltc --offline setconfig
+auto_connect false</span></p>
+<h2 id="Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry">Add a
+Electrum-LTC using Local ElectrumX Start Menu Entry</h2>
+<p>Creating a <code>Electrum-LTC</code> start menu entry which only
+connects to <code>ElectrumX</code>.</p>
+<p>This step is optional.</p>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<div class="info-box ">
+<p>Inside Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p><strong>1.</strong> Create folder
+<code>~/.local/share/applications</code>.</p>
+<p><span class="code-select">mkdir -p
+~/.local/share/applications</span></p>
+<p><strong>2.</strong> Open file
+<code>~/.local/share/applications/electrum-ltc-with-electrumx.desktop</code>
+in a <a href="Moved:Software.html#Text_Editor">text editor</a> of
+your choice as a regular, non-root user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad
+~/.local/share/applications/electrum-ltc-with-electrumx.desktop</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano
+~/.local/share/applications/electrum-ltc-with-electrumx.desktop</span></p>
+</div>
+<p><strong>3.</strong> Paste the following contents.</p>
+<p><span class="code-select">[Desktop Entry] Name=Electrum-LTC with
+ElectrumX Comment=electrum-ltc-with-electrumx Exec=bash -c
+'~/bin/electrum-ltc -v --oneserver --server 127.0.0.1:5000:t'
+Terminal=false Type=Application Icon=money-manager-ex
+StartupWMClass=litecoin MimeType=x-scheme-handler/litecoin;
+Categories=Finance;</span></p>
+<p><strong>4.</strong> Save.</p>
+<p><strong>5.</strong> Qubes-Whonix: perform platform-specific
+steps.</p>
+<p>In <code>dom0</code>, refresh Qubes' appmenu:
+<code>VM settings</code> -> <code>Applications</code> ->
+<code>Refresh Applications</code> ->
+<code>Add desktop shortcut</code>.</p>
+<p><strong>6.</strong> Done.</p>
+<p>The <code>Electrum-LTC with ElectrumX</code> start menu entry
+available should be available.</p>
+</div>
+<h2 id="Autostart_Electrum-LTC_using_Local_ElectrumX">Autostart
+Electrum-LTC using Local ElectrumX</h2>
+<p>Automatically starting
+<code>Electrum-LTC using local ElectrumX</code> which only connects to
+ElectrumX.</p>
+<p>This step is optional.</p>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<div class="info-box ">
+<p>Inside Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p><strong>1.</strong> Apply instructions <a href="#Add_a_Electrum-LTC_Start_Menu_Entry">Add a
+Electrum-LTC Start Menu Entry</a> first.</p>
+<p><strong>2.</strong> Create folder
+<code>~/.config/autostart</code>.</p>
+<p><span class="code-select">mkdir -p ~/.config/autostart</span></p>
+<p><strong>3.</strong> Create a symlink from
+<code>~/.local/share/applications/electrum-ltc-with-electrumx.desktop</code>
+to
+<code>~/.config/autostart/electrum-ltc-with-electrumx.desktop</code>.</p>
+<p><span class="code-select">ln -s
+~/.local/share/applications/electrum-ltc-with-electrumx.desktop
+~/.config/autostart/electrum-ltc-with-electrumx.desktop</span></p>
+<p><strong>4.</strong> Done.</p>
+<p><code>Electrum-LTC with ElectrumX</code> will be automatically
+started the next time the VM is started.</p>
+</div>
+<h1 id="Usage">Usage</h1>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p><strong>1.</strong> Start Litecoin-Qt using any method (from start
+menu entry, autostart or manually from the command line).</p>
+<p><span class="code-select">~/litecoin-*/bin/litecoin-qt</span></p>
+<p><strong>2.</strong> Check the the blockchain download in Litecoin-Qt
+is functional.</p>
+<p><strong>3.</strong> Run the ElectrumX server using any method
+(autostart, or manually form the command line).</p>
+<p><span class="code-select">systemctl --user restart
+electrumx</span></p>
+<p><strong>4.</strong> Check that ElectrumX blockchain processing is
+functional.</p>
+<p>See <a href="#Monitoring">monitoring</a>.</p>
+<p><strong>5.</strong> Start the <a href="Electrum-LTC.html">Electrum-LTC</a> wallet using any method (autostart, or
+manually form the command line). <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+<p><span class="code-select">~/bin/electrum-ltc -v --oneserver --server
+127.0.0.1:5000:t</span></p>
+<p>If Electrum-LTC shows "not connected" then that could be because
+Litecoin Core has not downloaded enough blockchain yet and/or ElectrumX
+has not caught up with the blockchain yet. In that case, the console
+output would include:</p>
+<pre><code>I/i | interface.[127.0.0.1:5000] | connection established. version: [&#39;ElectrumX 1.16.0&#39;, &#39;1.4&#39;]
+I/i | interface.[127.0.0.1:5000] | disconnecting due to GracefulDisconnect(&#39;server tip below max checkpoint&#39;)</code></pre>
+<p>Upstream bug reports:</p>
+<ul>
+<li><a href="https://github.com/spesmilo/electrum/issues/7549">electrum
+unwanted disconnect from own ElectrumX server</a>
+<sup class="reference"><a href="#cite_note-13">[13]</a></sup></li>
+<li><a href="https://github.com/spesmilo/electrumx/issues/161">ElectrumX
+should accept local RDP connections even if it has not fully caught up
+with the litecoin daemon</a></li>
+</ul>
+<h1 id="Monitoring">Monitoring</h1>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>anon-whonix</code>).</p>
+<p>Check the status of the ElectrumX systemd user service.</p>
+<p><span class="code-select">systemctl --no-pager --full --user status
+electrumx</span></p>
+<p>Follow the log of the ElectrumX systemd user service.</p>
+<p><span class="code-select">journalctl --boot --user -f -u
+electrumx</span></p>
+<p>If all is going well, it should be showing output similar to the
+following.</p>
+<pre><code>electrumx_server[7426]: INFO:Prefetcher:new block height 144,270 hash 00000000000002606168ac016368896d79c591bff2b6580db2e398faef7ec093</code></pre>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Money.html">Money</a></li>
+<li><a href="Litecoin_Core.html">Litecoin Core</a></li>
+<li><a href="Electrum-LTC.html">Electrum-LTC</a></li>
+<li><a href="PyLRU.html">PyLRU</a> (Dependency of
+ElectrumX.)</li>
+<li><a href="https://github.com/spesmilo/electrumx">ElectrumX Source
+Code Repository</a></li>
+<li>ElectrumX Upstream Documentation
+<ul>
+<li><a href="https://electrumx-spesmilo.readthedocs.io">ElectrumX
+Documentation Index</a></li>
+<li><a href="https://electrumx-spesmilo.readthedocs.io/en/latest/HOWTO.html">ElectrumX
+HOWTO</a></li>
+<li><a href="https://electrumx-spesmilo.readthedocs.io/en/latest/environment.html">ElectrumX
+Environment Variables</a></li>
+</ul></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">The <code>systemctl --user</code> must be run as normal, non-root
+user without <code>sudo</code> because these are <code>systemd</code>
+<u>user</u> units and <u>not</u> <code>systemd</code> <u>system</u>
+units.</li>
+<li id="cite_note-2">Installation of the <a href="Electrum-LTC.html">Electrum-LTC</a> Wallet is optional. In advanced
+setups, the Electrum-LTC wallet might be running on a different server
+or in a different VM.</li>
+<li id="cite_note-3">Not available from packages.debian.org at time of writing. <a href="https:/packages.debian.org/pylru">https:/packages.debian.org/pylru</a></li>
+<li id="cite_note-4">* <a href="https://github.com/spesmilo/electrum/tree/master/pubkeys">https://github.com/spesmilo/electrum/tree/master/pubkeys</a>
+* <a href="https://github.com/spesmilo/electrum/blob/master/SECURITY.md">https://github.com/spesmilo/electrum/blob/master/SECURITY.md</a></li>
+<li id="cite_note-5">Minor changes in the output such as new uids (email addresses) or
+newer expiration dates are inconsequential.</li>
+<li id="cite_note-6">* <code>prune=0</code> is the default for litecoind but the
+Litecoin-Qt GUI has a first start wizard which asks if pruning should be
+enabled. To avoid that first start wizard and to make sure pruning is
+disabled, explicitly disable pruning in configuration file. * Quote <a href="https://electrumx-spesmilo.readthedocs.io/en/latest/HOWTO.html">ElectrumX
+Upstream Documentation</a>: <blockquote><p>You must be running a non-pruning litecoin daemon with
+<code>txindex=1</code></p></blockquote></li>
+<li id="cite_note-7">"normally" meaning without <code>-reindex</code>.</li>
+<li id="cite_note-8">Optional since Litecoin-Qt options menu says that configuration file
+overrides Litecoin-Qt GUI settings anyhow but better just in case to
+avoid any potential bugs.</li>
+<li id="cite_note-9">Disable incoming connections in Litecoin-Qt for better security (?)
+(avoiding code paths handling unsolicited incoming connections). But
+incoming connections are not accidentally happening inside
+Whonix-Workstation anyhow. That would require setting up an <a href="Onion_Services.html">onion service</a> for Litecoin
+Core which is <a href="Unsupported.html">Undocumented</a>.
+On the other hand, unsolicited incoming connections through an onion
+service might be desirable for better connectivity, to support the
+Litecoin network?</li>
+<li id="cite_note-10">Using <code>-reindex</code> is required because Litecoin Core
+configuration has been changed, specifically <a href="https://bitcoin.stackexchange.com/questions/35707/what-are-pros-and-cons-of-txindex-option"><code>txindex</code></a>
+has been enabled. (<code>txindex=1</code>)<br />
+Quote <a href="https://electrumx-spesmilo.readthedocs.io/en/latest/HOWTO.html">ElectrumX
+Upstream Documentation</a>: You must be running a non-pruning litecoin
+daemon with <code>txindex=1</code></li>
+<li id="cite_note-11">Based on
+<code>~/electrumx/contrib/systemd/electrumx.service</code>.</li>
+<li id="cite_note-12"><code>-v</code> for verbose mode is optional but recommended.</li>
+<li id="cite_note-13"><a href="https://github.com/spesmilo/electrum/issues/7548">https://github.com/spesmilo/electrum/issues/7548</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

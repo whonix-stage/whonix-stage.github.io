@@ -1,0 +1,703 @@
+/* mw-static-generator clean-room stylesheet.
+   Effective CSS only (no MediaWiki/Vector base). Strict CSP: system fonts +
+   inline/data only, no external resources. ASCII only. No inline styles anywhere
+   (everything is class-driven), so the whole look is a swappable sheet for A/B.
+   Theming: light default on :root, dark via prefers-color-scheme (guarded so an
+   explicit choice wins) AND [data-theme=dark] (set flash-free by the pre-paint
+   script). All color/spacing/shape is a token, redefined only for dark. */
+
+/* ---- design tokens: light (default) ---- */
+:root {
+  /* surfaces + text */
+  --bg: #ffffff;
+  --surface: #f6f7f9;
+  --surface-2: #eceff2;
+  --fg: #1b1d1f;
+  --fg-soft: #3c4147;
+  --muted: #5c626a;
+  --border: #d5d9de;
+  --border-soft: #e6e9ec;
+  --code-bg: #f3f4f6;
+
+  /* interaction */
+  --link: #0b57d0;
+  --link-hover: #08409b;
+  --accent: #14866d;
+  --accent-fg: #ffffff;
+  --focus: #0b57d0;
+
+  /* callout accents (referenced by .cs-* below) */
+  --c-red: #d33426;
+  --c-green: #14866d;
+  --c-blue: #2f6fd0;
+  --c-yellow: #c98a00;
+  --c-orange: #d9730d;
+  --c-gray: #6b7178;
+
+  /* shape + depth */
+  --radius: 8px;
+  --radius-sm: 5px;
+  --shadow-sm: 0 1px 2px rgba(20, 24, 31, 0.06), 0 1px 3px rgba(20, 24, 31, 0.05);
+  --shadow-md: 0 4px 12px rgba(20, 24, 31, 0.10);
+
+  /* rhythm + measure */
+  --maxw: 62rem;
+  --gap: 1rem;
+
+  /* fonts */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", "Cousine", Menlo, Consolas, "Courier New", monospace;
+}
+
+/* ---- design tokens: dark ---- */
+:root[data-theme="dark"] {
+  --bg: #16181b;
+  --surface: #1e2126;
+  --surface-2: #262a30;
+  --fg: #e7e8ea;
+  --fg-soft: #c6c9ce;
+  --muted: #9aa1a9;
+  --border: #333840;
+  --border-soft: #2a2e35;
+  --code-bg: #1e2126;
+
+  --link: #74b1ff;
+  --link-hover: #9cc8ff;
+  --accent: #4fd1b0;
+  --accent-fg: #08221c;
+  --focus: #74b1ff;
+
+  --c-red: #ef6b5e;
+  --c-green: #4fd1b0;
+  --c-blue: #6ba4f5;
+  --c-yellow: #e6b64c;
+  --c-orange: #e79448;
+  --c-gray: #9aa1a9;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16181b;
+    --surface: #1e2126;
+    --surface-2: #262a30;
+    --fg: #e7e8ea;
+    --fg-soft: #c6c9ce;
+    --muted: #9aa1a9;
+    --border: #333840;
+    --border-soft: #2a2e35;
+    --code-bg: #1e2126;
+
+    --link: #74b1ff;
+    --link-hover: #9cc8ff;
+    --accent: #4fd1b0;
+    --accent-fg: #08221c;
+    --focus: #74b1ff;
+
+    --c-red: #ef6b5e;
+    --c-green: #4fd1b0;
+    --c-blue: #6ba4f5;
+    --c-yellow: #e6b64c;
+    --c-orange: #e79448;
+    --c-gray: #9aa1a9;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ---- base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  color-scheme: light dark;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.65 var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+}
+img { max-width: 100%; height: auto; }
+hr {
+  height: 0;
+  border: 0;
+  border-top: 1px solid var(--border-soft);
+  margin: 2rem 0;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: 2px; }
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+
+/* shared button-like affordance */
+.mw-ui-button,
+.expand-or-collapse-all-button,
+.github-link-widget,
+.search-browse,
+.darkmode-toggle,
+.collapsible-toggle,
+.copy-button,
+.back-to-top {
+  display: inline-block;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.mw-ui-button:hover,
+.expand-or-collapse-all-button:hover,
+.github-link-widget:hover,
+.search-browse:hover,
+.darkmode-toggle:hover,
+.collapsible-toggle:hover,
+.copy-button:hover,
+.back-to-top:hover {
+  background: var(--surface-2);
+  border-color: var(--accent);
+  color: var(--fg);
+  text-decoration: none;
+}
+.mw-ui-progressive {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+}
+.mw-ui-progressive:hover {
+  background: color-mix(in srgb, var(--accent) 85%, #000);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* ---- chrome: header + nav (pure-CSS toggle) ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem 1.1rem;
+  flex-wrap: wrap;
+  padding: 0.55rem 1.25rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.site-logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+.site-logo:hover { color: var(--fg); text-decoration: none; }
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.site-nav a {
+  display: block;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  color: var(--fg-soft);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.site-nav a:hover {
+  background: var(--surface-2);
+  color: var(--fg);
+  text-decoration: none;
+}
+.nav-toggle-label {
+  display: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--fg);
+}
+.site-search {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.site-search input {
+  padding: 0.4rem 0.65rem;
+  min-width: 12rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.9rem;
+}
+.site-search input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+.edit-source { color: var(--muted); font-size: 0.9rem; }
+
+/* JS-created search results dropdown */
+.search-results {
+  position: absolute;
+  z-index: 40;
+  margin-top: 0.25rem;
+  max-width: 22rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 0.3rem;
+}
+.search-results a {
+  display: block;
+  padding: 0.35rem 0.55rem;
+  border-radius: var(--radius-sm);
+  color: var(--fg);
+}
+.search-results a:hover { background: var(--surface-2); text-decoration: none; }
+
+@media (max-width: 640px) {
+  .site-header { padding: 0.55rem 1rem; }
+  .nav-toggle-label { display: inline-flex; align-items: center; margin-left: auto; order: 2; }
+  .site-nav { flex-basis: 100%; order: 3; }
+  .site-nav ul { flex-direction: column; gap: 0.1rem; }
+  .site-nav a { padding: 0.55rem 0.65rem; }
+  .nav-toggle:not(:checked) ~ .site-nav { display: none; }
+  .site-search { order: 4; flex-basis: 100%; margin-left: 0; }
+  .site-search input { min-width: 0; flex: 1 1 auto; }
+}
+
+/* ---- content ---- */
+.wiki-content {
+  max-width: var(--maxw);
+  margin: 2rem auto 3rem;
+  padding: 0 1.25rem;
+}
+.wiki-content h1, .wiki-content h2, .wiki-content h3,
+.wiki-content h4, .wiki-content h5, .wiki-content h6 {
+  color: var(--fg);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 2rem 0 0.75rem;
+  scroll-margin-top: 4.5rem;
+  text-wrap: balance;
+}
+.wiki-content h1 { font-size: 2rem; font-weight: 700; }
+.wiki-content h2 { font-size: 1.55rem; }
+.wiki-content h3 { font-size: 1.28rem; }
+.wiki-content h4 { font-size: 1.1rem; }
+.wiki-content h5 { font-size: 1rem; }
+.wiki-content h6 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.wiki-content h1, .wiki-content h2 {
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 0.3rem;
+}
+/* heading wrapper carries no box, so the inner hN margins govern rhythm */
+.widget-headline { margin: 0; }
+.first-heading, .wiki-content > .widget-headline:first-child h1 { margin-top: 0.25rem; }
+
+.wiki-content p { margin: 0 0 1rem; }
+.wiki-content ul, .wiki-content ol { margin: 0 0 1rem; padding-left: 1.6rem; }
+.wiki-content li { margin: 0.3rem 0; }
+.wiki-content li > ul, .wiki-content li > ol { margin: 0.3rem 0 0.3rem; }
+
+blockquote {
+  margin: 1.25rem 0;
+  padding: 0.4rem 0 0.4rem 1rem;
+  border-left: 4px solid var(--border);
+  color: var(--fg-soft);
+}
+blockquote p:last-child { margin-bottom: 0; }
+.blockquote-context {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-style: normal;
+}
+
+/* ---- code + pre ---- */
+.wiki-content pre, .code-select {
+  display: block;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.8rem 0.95rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  tab-size: 4;
+}
+.wiki-content pre code { background: none; padding: 0; border: 0; font-size: inherit; }
+.code-select.inline-style, .code-select.display-inline-block {
+  display: inline;
+  padding: 0.1rem 0.35rem;
+  overflow: visible;
+}
+code {
+  background: var(--code-bg);
+  border: 1px solid var(--border-soft);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+}
+
+/* ---- tables (self-scrolling: generator emits no wrapper) ---- */
+/* pandoc drops the `class="wikitable"`, so content tables arrive as bare <table>;
+   style ALL content tables (not the TOC or the storage viewer, which own their look). */
+.wiki-content table:not(.toc):not(.storage-table) {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--border) 60%, var(--fg) 40%);
+}
+.wiki-content table:not(.toc):not(.storage-table) th,
+.wiki-content table:not(.toc):not(.storage-table) td {
+  border: 1px solid color-mix(in srgb, var(--border) 60%, var(--fg) 40%);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+.wiki-content table:not(.toc):not(.storage-table) th {
+  background: color-mix(in srgb, var(--surface) 70%, var(--fg) 12%);
+  font-weight: 700;
+  border-bottom-width: 2px;
+}
+/* zebra: explicit .odd/.even hooks and an nth-child fallback */
+.wiki-content table:not(.toc):not(.storage-table) tr.even td,
+.wiki-content table:not(.toc):not(.storage-table) tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--surface) 55%, var(--bg));
+}
+.table-wrap { overflow-x: auto; }
+
+/* ---- callouts / notice boxes ---- */
+.mbox, .info-box, .sitenotice-banner, .community-support-info {
+  margin: 1.25rem 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-soft);
+  border-left: 4px solid var(--callout, var(--accent));
+  border-radius: var(--radius);
+  background: var(--surface);
+  background: color-mix(in srgb, var(--callout, var(--accent)) 7%, var(--surface));
+}
+.info-box { display: flex; gap: 0.75rem; align-items: flex-start; }
+.info-box-icon { flex: 0 0 auto; color: var(--callout, var(--accent)); font-size: 1.1rem; }
+.mbox > :first-child, .info-box > :last-child > :first-child, .sitenotice-banner > :first-child { margin-top: 0; }
+.mbox > :last-child, .sitenotice-banner > :last-child { margin-bottom: 0; }
+
+/* color-scheme accents: set --callout so box border + tint follow */
+.cs-red, .cs-red-light, .cs-red-font { --callout: var(--c-red); }
+.cs-green, .cs-green-light { --callout: var(--c-green); }
+.cs-blue { --callout: var(--c-blue); }
+.cs-yellow, .cs-yellow-light { --callout: var(--c-yellow); }
+.cs-orange { --callout: var(--c-orange); }
+.cs-gray, .cs-gray-light, .cs-black, .cs-white { --callout: var(--c-gray); }
+.cs-red-font { color: var(--c-red); }
+
+/* ---- icon bullet list ---- */
+.icon-bullet-list { list-style: none; padding-left: 0; margin: 1rem 0; }
+.icon-bullet-list li {
+  display: flex;
+  gap: 0.55rem;
+  align-items: baseline;
+  margin: 0.35rem 0;
+}
+.icon-bullet-list li .has-icon, .icon-bullet-list .info-box-icon {
+  flex: 0 0 auto;
+  color: var(--accent);
+}
+/* fontSize= mapped to classes (no inline style; whole list scales via em) */
+.ibl-fs-13 { font-size: 13px; } .ibl-fs-14 { font-size: 14px; }
+.ibl-fs-15 { font-size: 15px; } .ibl-fs-16 { font-size: 16px; }
+.ibl-fs-17 { font-size: 17px; } .ibl-fs-18 { font-size: 18px; }
+.ibl-fs-19 { font-size: 19px; } .ibl-fs-20 { font-size: 20px; }
+.ibl-fs-22 { font-size: 22px; } .ibl-fs-24 { font-size: 24px; }
+.ibl-fs-30 { font-size: 30px; }
+
+/* ---- multi-column list layouts ---- */
+.use-2-columns { columns: 2; column-gap: 2rem; }
+.use-3-columns { columns: 3; column-gap: 2rem; }
+.use-2-columns li, .use-3-columns li { break-inside: avoid; }
+.strict-list-columns { list-style-position: inside; }
+.force-column-break { break-before: column; }
+@media (max-width: 720px) { .use-3-columns { columns: 2; } }
+@media (max-width: 480px) { .use-2-columns, .use-3-columns { columns: 1; } }
+
+/* ---- tabs (tcc): JS toggles .active; no-JS shows all (progressive) ---- */
+.tab-content-controller, .tcc-section {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 1rem 0;
+  background: var(--bg);
+}
+.tab-content-controller { padding: 0.4rem; }
+.tcc-section { margin: 0.4rem 0; overflow: hidden; }
+.tcc-title {
+  font-weight: 600;
+  padding: 0.55rem 0.8rem;
+  background: var(--surface);
+  cursor: pointer;
+}
+.tcc-section.active .tcc-title { color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.tcc-content { padding: 0.8rem; border-top: 1px solid var(--border-soft); }
+/* once JS marks one section active, hide the inactive panels' content */
+.tab-content-controller:has(.tcc-section.active) .tcc-section:not(.active) .tcc-content {
+  display: none;
+}
+
+/* ---- collapsibles: rendered expanded no-JS; JS adds the toggle button ---- */
+.mw-collapsible, .toccolours {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 1rem 0;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface);
+}
+.collapsible-toggle { margin-bottom: 0.5rem; }
+/* only collapse when the JS toggle exists (no-JS stays open) */
+.mw-collapsible:has(> .collapsible-toggle).mw-collapsed .mw-collapsible-content {
+  display: none;
+}
+
+/* ---- headings from #headline widget ---- */
+.widget-headline { padding: 0; }
+
+/* ---- back-to-top floating button ---- */
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 40;
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- footer ---- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1.75rem 1.25rem 2rem;
+  margin-top: 3rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.site-footer .tagline {
+  margin: 0 0 0.75rem;
+  color: var(--fg-soft);
+  font-weight: 500;
+}
+.footer-links ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0;
+}
+.footer-links a { color: var(--muted); }
+.footer-links a:hover { color: var(--link); }
+.darkmode-toggle { margin: 0.9rem 0 0.6rem; }
+.copyright { margin: 0.6rem 0 0; }
+
+/* ---- misc content hooks ---- */
+.tagline, .post-intro-p, .pre-intro-p, .intro-like { color: var(--fg-soft); }
+.references, .footnotes { font-size: 0.9rem; color: var(--fg-soft); }
+.reference { font-size: 0.85em; vertical-align: super; line-height: 0; }
+.image-right { float: right; margin: 0 0 1rem 1.25rem; max-width: 45%; }
+[hidden] { display: none !important; }
+
+@media (max-width: 480px) {
+  .wiki-content { margin: 1.25rem auto 2rem; padding: 0 1rem; }
+  .image-right { float: none; margin: 1rem 0; max-width: 100%; }
+}
+
+/* --- table of contents (pure-CSS collapsible; no-JS friendly, CSP-safe) --- */
+.toc {
+  display: table; min-width: 15rem; max-width: 100%;
+  margin: 0 0 1.5rem; padding: 0.5rem 1rem 0.7rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px); font-size: 0.95rem;
+}
+.toc-toggle { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.toc-title {
+  font-weight: 600; cursor: pointer; user-select: none;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.toc-title::before { content: "\25be"; font-size: 0.8em; color: var(--muted); }
+.toc-toggle:not(:checked) ~ .toc-title::before { content: "\25b8"; }
+.toc-toggle:not(:checked) ~ ul { display: none; }
+.toc-toggle:focus-visible ~ .toc-title { outline: 2px solid var(--link); outline-offset: 2px; }
+.toc ul { list-style: none; margin: 0.5rem 0 0; padding: 0; }
+.toc li { margin: 0.15rem 0; }
+.toc-l3 { padding-left: 1.2rem; }
+.toc a { color: var(--link); }
+.toc a:hover { text-decoration: underline; }
+
+/* --- gallery (native image grid) --- */
+.gallery { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; }
+.gallery-item {
+  display: flex; flex-direction: column; align-items: center;
+  max-width: 12rem; font-size: 0.85rem; color: var(--muted);
+}
+.gallery-item img {
+  border: 1px solid var(--border); border-radius: var(--radius-sm, 4px);
+  background: var(--surface); max-width: 100%; height: auto;
+}
+.gallery-caption { margin-top: 0.3rem; text-align: center; }
+
+/* --- tab mininav (JS builds the buttons; no-JS shows all sections) --- */
+.mininav { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border); }
+.mininav:empty { display: none; }
+.mininav-tab {
+  border: 1px solid transparent; border-bottom: none; background: none;
+  padding: 0.35rem 0.75rem; cursor: pointer; font: inherit; color: var(--fg-soft, var(--fg));
+  border-radius: var(--radius-sm, 4px) var(--radius-sm, 4px) 0 0;
+}
+.mininav-tab:hover { background: var(--surface); }
+.mininav-tab.active {
+  border-color: var(--border); background: var(--surface);
+  color: var(--accent); font-weight: 600;
+}
+.tab-content-controller.mininav-ready .tcc-title { display: none; }
+
+/* --- breadcrumbs + categories box --- */
+.breadcrumbs { font-size: 0.85rem; color: var(--muted); margin: 0 0 0.75rem; }
+.breadcrumbs a { color: var(--link); }
+.catlinks {
+  margin: 2rem 0 0; padding: 0.6rem 0.9rem; font-size: 0.9rem;
+  border-top: 1px solid var(--border); color: var(--muted);
+}
+.catlinks-label { font-weight: 600; }
+.catlinks a { color: var(--link); margin-right: 0.5rem; }
+
+/* --- book prev/index/next nav (#wikibookindex) --- */
+.wiki-book-index {
+  display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+  margin: 0 0 1.25rem; padding: 0.5rem 0.85rem; font-size: 0.9rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px);
+}
+.wiki-book-index a { display: inline-flex; align-items: center; gap: 0.3rem; }
+.wiki-book-index a.next { margin-left: auto; }
+.wiki-book-index a.prev::before { content: "\2039\00a0"; color: var(--muted); }
+.wiki-book-index a.index::before { content: "\2261\00a0"; color: var(--muted); }
+.wiki-book-index a.next::after { content: "\00a0\203a"; color: var(--muted); }
+/* info spans duplicate the links; the book nav uses text arrows (::before), so its
+   own <i> icons are hidden -- but Font Awesome IS shipped now, so DO NOT hide fa-* */
+.wiki-book-index .info { display: none; }
+.wiki-book-index i { display: none; }
+
+/* Book / related-links nav box: a .mininav carrying a title + link list (e.g. the
+   "Legal Policies" grouping). :has(> ul) scopes this to the list variant, NOT the
+   tab-controller mininav (which JS fills with .mininav-tab buttons). */
+.mininav:has(> ul) {
+  margin: 0 0 1.25rem; padding: 0.6rem 0.9rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px); font-size: 0.9rem;
+}
+.mininav > p { font-weight: 600; margin: 0 0 0.45rem; }
+.mininav > ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem;
+}
+.mininav > ul > li { margin: 0; }
+
+/* Anti-spam e-mail: the "please do not e-mail for..." reasons are revealed on
+   hover/focus (restores the MediaWiki hover feature) and hidden otherwise, so the
+   address is not a flat wall of text on the page. */
+.antispam-email-tooltip { position: relative; cursor: help; }
+.antispam-email-tooltip .tooltip {
+  display: none; position: absolute; left: 0; top: calc(100% + 0.3rem); z-index: 40;
+  width: max-content; max-width: min(90vw, 30rem);
+  padding: 0.7rem 0.9rem; text-align: left; font-weight: normal; font-size: 0.88rem;
+  background: var(--surface); color: var(--fg);
+  border: 1px solid var(--border); border-radius: var(--radius-md, 6px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.antispam-email-tooltip:hover .tooltip,
+.antispam-email-tooltip:focus-within .tooltip { display: block; }
+.antispam-email-tooltip .tooltip .icon-bullet-list { margin-top: 0.4rem; }
+
+/* --- consent / privacy banner (no-JS shows it; JS dismiss -> localStorage) --- */
+.consent-banner {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem;
+  padding: 0.55rem 1rem; font-size: 0.88rem;
+  background: var(--surface-2, var(--surface)); border-top: 1px solid var(--border);
+}
+.consent-text { flex: 1 1 18rem; color: var(--fg-soft, var(--fg)); }
+.consent-dismiss {
+  border: 1px solid var(--border); background: var(--bg); color: var(--fg);
+  padding: 0.3rem 0.9rem; border-radius: var(--radius-sm, 4px); cursor: pointer; font: inherit;
+}
+.consent-dismiss:hover { background: var(--surface); }
+
+/* Staging notice -- STAGE builds only; loud + non-dismissible so stage is never
+   mistaken for production. */
+.stage-banner {
+  padding: 0.5rem 1rem; font-size: 0.9rem; text-align: center;
+  color: #3a2500; background: #ffcf33;
+  border-bottom: 2px solid #e0a800;
+}
+.stage-banner strong { color: #7a1f00; }
+
+/* Browser-storage viewer (Special:BrowserStorage) */
+.storage-table {
+  border-collapse: collapse; margin: 1rem 0; width: 100%; max-width: 40rem;
+}
+.storage-table th, .storage-table td {
+  border: 1px solid var(--border); padding: 0.35rem 0.6rem; text-align: left;
+  font-size: 0.9rem; word-break: break-word;
+}
+.storage-table th { background: var(--surface); }
+.storage-clear {
+  border: 1px solid var(--border); background: var(--bg); color: var(--fg);
+  padding: 0.4rem 1rem; border-radius: var(--radius-sm, 4px); cursor: pointer; font: inherit;
+}
+.storage-clear:hover { background: var(--surface); }
+.storage-cleared { color: var(--accent, inherit); margin-top: 0.5rem; }
+.storage-unset { color: var(--fg-soft, var(--fg)); font-style: italic; }
+.storage-del {
+  border: 1px solid var(--border); background: var(--bg); color: var(--fg);
+  padding: 0.15rem 0.55rem; border-radius: var(--radius-sm, 4px); cursor: pointer;
+  font: inherit; font-size: 0.82rem;
+}
+.storage-del:hover { background: var(--surface); }

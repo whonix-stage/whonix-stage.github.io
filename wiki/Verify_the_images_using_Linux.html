@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Verify the images using Linux</title>
+<meta name="description" content="Instructions for OpenPGP and Signify Verification of Whonix ISO, VirtualBox and KVM on the Command Line">
+<meta property="og:description" content="Instructions for OpenPGP and Signify Verification of Whonix ISO, VirtualBox and KVM on the Command Line">
+<link rel="canonical" href="https://www.whonix.org/wiki/Verify_the_images_using_Linux.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Verify_the_images_using_Linux.html">
+<meta property="og:title" content="Verify Downloaded Images on Linux">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Verify_images_on_linux.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Whonix_ISO">Whonix ISO</a></li><li class="toc-l2"><a href="#VirtualBox">VirtualBox</a></li><li class="toc-l2"><a href="#Whonix_VirtualBox_LXQt">Whonix VirtualBox LXQt</a></li><li class="toc-l2"><a href="#Whonix_VirtualBox_CLI">Whonix VirtualBox CLI</a></li><li class="toc-l2"><a href="#KVM">KVM</a></li><li class="toc-l2"><a href="#Whonix_KVM_LXQt">Whonix KVM LXQt</a></li><li class="toc-l2"><a href="#Whonix_KVM_CLI">Whonix KVM CLI</a></li><li class="toc-l2"><a href="#Whonix_ISO_2">Whonix ISO</a></li><li class="toc-l2"><a href="#VirtualBox_2">VirtualBox</a></li><li class="toc-l2"><a href="#KVM_2">KVM</a></li><li class="toc-l2"><a href="#Whonix_ISO_3">Whonix ISO</a></li><li class="toc-l2"><a href="#VirtualBox_3">VirtualBox</a></li><li class="toc-l2"><a href="#KVM_3">KVM</a></li><li class="toc-l2"><a href="#Whonix_ISO_4">Whonix ISO</a></li><li class="toc-l2"><a href="#VirtualBox_4">VirtualBox</a></li><li class="toc-l2"><a href="#KVM_4">KVM</a></li><li class="toc-l2"><a href="#Troubleshooting">Troubleshooting</a></li><li class="toc-l2"><a href="#Whonix_ISO_Signify">Whonix ISO Signify</a></li><li class="toc-l2"><a href="#VirtualBox_Signify">VirtualBox Signify</a></li><li class="toc-l2"><a href="#KVM_Signify">KVM Signify</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Verify_images_on_linux.png.webp" width="200" alt="Verify_images_on_linux.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Instructions for OpenPGP and Signify Verification of Whonix ISO,
+VirtualBox and KVM on the Command Line</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="Advanced_Users.html"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="Moved:Verifying_Software_Signatures.html"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active info-box">
+<div class="tcc-image">
+<p><img src="../media/GnuPG-Logo.svg" width="25" alt="GnuPG-Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h1 id="OpenPGP">OpenPGP</h1>
+</div>
+<div class="tcc-content">
+<p>In order to verify the Whonix image, GnuPG must be installed. GnuPG
+is the common OpenPGP implementation for Linux: it is installed by
+default in Debian, Ubuntu, Whonix and many other distributions.</p>
+<p><strong>1.</strong> Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active info-box">
+<div class="tcc-image">
+<p><img src="../media/Cd-rom-icon.png.webp" width="25" alt="Cd-rom-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Whonix_ISO">
+<p>Whonix ISO</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><strong>2.</strong> Import the signing key.</p>
+<p>Refer to the more secure, detailed <a href="Main/Project_Signing_Key.html">Whonix Signing Key</a> instructions.</p>
+<p><a rel="noreferrer" data-no-instant="" href="../keys/derivative.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix OpenPGP Key</span></span></a></p>
+<p><strong>3.</strong> Download the cryptographic OpenPGP signature
+corresponding to the image you want to verify.</p>
+<p><strong>4.</strong> Save the signature in the same folder as the
+image.</p>
+<p><a rel="noreferrer" data-no-instant="" href="../download/iso/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.iso" class="download-button-v2 "><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>ISO
+image</span></span><span class="op-sys"></span></a></p>
+<p><a rel="noreferrer" data-no-instant="" href="../download/iso/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.iso.asc" class="download-button-v2 "><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>ISO
+signature</span></span><span class="op-sys"></span></a></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Virtualbox_logo.png.webp" width="25" alt="Virtualbox_logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="VirtualBox">
+<p>VirtualBox</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p>Refer to the more secure, detailed <a href="Main/Project_Signing_Key.html">Whonix Signing Key</a> instructions.</p>
+<p><a rel="noreferrer" data-no-instant="" href="../keys/derivative.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix OpenPGP Key</span></span></a></p>
+<p><strong>3.</strong> Download the cryptographic OpenPGP signature
+corresponding to the image you want to verify.</p>
+<p><strong>4.</strong> Save the signature in the same folder as the
+image.</p>
+<p>Select LXQt or CLI version.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Clipart-gui.svg" width="25" alt="Clipart-gui.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Whonix_VirtualBox_LXQt">
+<p>Whonix VirtualBox LXQt</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><u>Note:</u> Whonix version 18 migrated from Xfce to LXQt.</p>
+<p><a rel="noreferrer" data-no-instant="" href="../download/ova/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.ova" class="download-button-v2 "><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>VirtualBox
+LXQt image</span></span><span class="op-sys"></span></a></p>
+<p><a rel="noreferrer" data-no-instant="" href="../download/ova/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.ova.asc" class="download-button-v2 "><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>VirtualBox
+LXQt signature</span></span><span class="op-sys"></span></a></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Whonix_VirtualBox_CLI">
+<p>Whonix VirtualBox CLI</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><a rel="noreferrer" data-no-instant="" href="../download/ova/18.2.1.9/Whonix-CLI-18.2.1.9.Intel_AMD64.ova" class="download-button-v2 "><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>VirtualBox
+CLI image</span></span><span class="op-sys"></span></a></p>
+<p><a rel="noreferrer" data-no-instant="" href="../download/ova/18.2.1.9/Whonix-CLI-18.2.1.9.Intel_AMD64.ova.asc" class="download-button-v2 "><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>VirtualBox
+CLI signature</span></span><span class="op-sys"></span></a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Kvm-new-logo.png.webp" width="25" alt="Kvm-new-logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="KVM">
+<p>KVM</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p>Refer to the more secure, detailed <a href="Main/Project_Signing_Key.html">Whonix Signing Key</a> instructions.</p>
+<p><a rel="noreferrer" data-no-instant="" href="../keys/derivative.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix OpenPGP Key</span></span></a></p>
+<p><strong>3.</strong> Download the cryptographic OpenPGP signature
+corresponding to the image you want to verify.</p>
+<p><strong>4.</strong> Save the signature in the same folder as the
+image.</p>
+<p>Select LXQt or CLI version.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Clipart-gui.svg" width="25" alt="Clipart-gui.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Whonix_KVM_LXQt">
+<p>Whonix KVM LXQt</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><u>Note:</u> Whonix version 18 migrated from Xfce to LXQt.</p>
+<p><a rel="noreferrer" data-no-instant="" href="../download/libvirt/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.qcow2.libvirt.xz" class="download-button-v2 "><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>KVM
+LXQt image</span></span><span class="op-sys"></span></a></p>
+<p><a rel="noreferrer" data-no-instant="" href="../download/libvirt/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.qcow2.libvirt.xz.asc" class="download-button-v2 "><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>KVM
+LXQt signature</span></span><span class="op-sys"></span></a></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Whonix_KVM_CLI">
+<p>Whonix KVM CLI</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><a rel="noreferrer" data-no-instant="" href="../download/libvirt/18.2.1.9/Whonix-CLI-18.2.1.9.Intel_AMD64.qcow2.libvirt.xz" class="download-button-v2 "><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>KVM
+CLI image</span></span><span class="op-sys"></span></a></p>
+<p><a rel="noreferrer" data-no-instant="" href="../download/libvirt/18.2.1.9/Whonix-CLI-18.2.1.9.Intel_AMD64.qcow2.libvirt.xz.asc" class="download-button-v2 "><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>KVM
+CLI signature</span></span><span class="op-sys"></span></a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>5.</strong> Change directory.</p>
+<pre><code>cd [the directory in which you downloaded the image and the signature]</code></pre>
+<p><strong>6.</strong> Start the cryptographic verification.</p>
+<p>This process can take several minutes.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active info-box">
+<div class="tcc-image">
+<p><img src="../media/Cd-rom-icon.png.webp" width="25" alt="Cd-rom-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Whonix_ISO_2">
+<p>Whonix ISO</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">gpg --verify-options show-notations
+--verify Whonix-*.Intel_AMD64.iso.asc
+Whonix-*.Intel_AMD64.iso</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Virtualbox_logo.png.webp" width="25" alt="Virtualbox_logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="VirtualBox_2">
+<p>VirtualBox</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">gpg --verify-options show-notations
+--verify Whonix-*.ova.asc Whonix-*.ova</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Kvm-new-logo.png.webp" width="25" alt="Kvm-new-logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="KVM_2">
+<p>KVM</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">gpg --verify-options show-notations
+--verify Whonix-*.libvirt.xz.asc Whonix-*.libvirt.xz</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>7.</strong> Check the output of the verification step.</p>
+<p><u>If the file is verified successfully</u>, the output will include
+<code>Good signature</code>, which is the most important thing to
+check.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active info-box">
+<div class="tcc-image">
+<p><img src="../media/Cd-rom-icon.png.webp" width="25" alt="Cd-rom-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Whonix_ISO_3">
+<p>Whonix ISO</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<pre><code>gpg: Good signature</code></pre>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Virtualbox_logo.png.webp" width="25" alt="Virtualbox_logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="VirtualBox_3">
+<p>VirtualBox</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<pre><code>gpg: Good signature</code></pre>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Kvm-new-logo.png.webp" width="25" alt="Kvm-new-logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="KVM_3">
+<p>KVM</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<pre><code>gpg: Good signature</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>This output might be followed by a warning.</p>
+<pre><code>gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.</code></pre>
+<p>This message does not alter the validity of the signature related to
+the downloaded key. Rather, this warning refers to the level of trust
+placed in the Whonix signing key and the <a href="Moved:OpenPGP.html#The_OpenPGP_Web_of_Trust">web of
+trust</a>. To remove this warning, the Whonix signing key must be
+personally signed with your own key.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+Remember to check the GPG signature timestamp. For instance, if you
+previously saw a signature from 2023 and now see one from 2022, this
+could indicate a potential rollback (downgrade) or indefinite freeze
+attack.<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+</div>
+<p>Example of a signature creation timestamp; see below.</p>
+<pre><code>gpg: Signature made Mon 19 Jan 2023 11:45:41 PM CET using RSA key ID ...</code></pre>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+Remember: OpenPGP signatures sign the contents of files, <em>not</em>
+the file names themselves. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+</div>
+<p>The <code>file@name</code> OpenPGP notation in Whonix release
+signatures describes the file name. This helps to confirm that the file
+name has not been tampered with; see the example below.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active info-box">
+<div class="tcc-image">
+<p><img src="../media/Cd-rom-icon.png.webp" width="25" alt="Cd-rom-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Whonix_ISO_4">
+<p>Whonix ISO</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<pre><code>gpg: Signature notation: file@name=Whonix-18.2.1.9.Intel_AMD64.iso</code></pre>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Virtualbox_logo.png.webp" width="25" alt="Virtualbox_logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="VirtualBox_4">
+<p>VirtualBox</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<pre><code>gpg: Signature notation: file@name=Whonix-18.2.1.9.Intel_AMD64.ova</code></pre>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Kvm-new-logo.png.webp" width="25" alt="Kvm-new-logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="KVM_4">
+<p>KVM</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<pre><code>gpg: Signature notation: file@name=Whonix-18.2.1.9.libvirt.xz</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p><u>If the digital software signature verification failed</u>, the
+output will indicate a bad signature:</p>
+<pre><code>gpg: BAD signature</code></pre>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Do not continue if verification fails! This risks using infected or
+erroneous files! The whole point of verification is to confirm file
+integrity. This page is strongly related to the pages <a href="Trust.html">Placing Trust in Whonix</a> and <a href="Moved:Verifying_Software_Signatures.html">Verifying Software
+Signatures</a>.</p>
+</div>
+<p><strong>8.</strong> Done.</p>
+<p>Digital software signature verification using OpenPGP has been
+completed.</p>
+<h2 id="Troubleshooting">Troubleshooting</h2>
+<p>Try using <code>ls</code> instead of <code>gpg</code> first to
+confirm existence of the files before using <code>gpg</code>.</p>
+<p>When a GPG error is encountered, first try a web search for the
+relevant error. The <a href="https://security.stackexchange.com">security stackexchange
+website</a> can also help to resolve GPG problems. Describe the problem
+thoroughly, but be sure it is GPG-related and not specific to
+Whonix.</p>
+<p>More help resources are available on the <a href="Support.html">Support</a> page.</p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Signify_Logo.svg" width="25" alt="Signify_Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h1 id="Signify">Signify</h1>
+</div>
+<div class="tcc-content">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<a href="Advanced_Users.html">Advanced users</a> only!</p>
+</div>
+<p><strong>1.</strong> Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active info-box">
+<div class="tcc-image">
+<p><img src="../media/Cd-rom-icon.png.webp" width="25" alt="Cd-rom-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Whonix_ISO_Signify">
+<p>Whonix ISO Signify</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><strong>2.</strong> <a href="Signing_Key.html#Download_the_signify_Key">Download the signify Key</a> and save it as
+<code>derivative.pub</code>.</p>
+<p><a rel="noreferrer" data-no-instant="" href="../keys/derivative.pub" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix signify Key</span></span></a></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Virtualbox_logo.png.webp" width="25" alt="Virtualbox_logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="VirtualBox_Signify">
+<p>VirtualBox Signify</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><strong>2.</strong> <a href="Signing_Key.html#Download_the_signify_Key">Download the signify Key</a> and save it as
+<code>derivative.pub</code>.</p>
+<p><a rel="noreferrer" data-no-instant="" href="../keys/derivative.pub" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix signify Key</span></span></a></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Kvm-new-logo.png.webp" width="25" alt="Kvm-new-logo.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="KVM_Signify">
+<p>KVM Signify</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><strong>2.</strong> <a href="Signing_Key.html#Download_the_signify_Key">Download the signify Key</a> and save it as
+<code>derivative.pub</code>.</p>
+<p><a rel="noreferrer" data-no-instant="" href="../keys/derivative.pub" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix signify Key</span></span></a></p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Install <code>signify-openbsd</code>.</p>
+<div class="info-box ">
+<p>Install package(s) <code>signify-openbsd</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="Qubes.html">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>signify-openbsd</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+signify-openbsd</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>signify-openbsd</code>
+is complete.</p>
+</div>
+<p><strong>4.</strong> Note.</p>
+<p><a href="https://forums.whonix.org/t/signify-openbsd/7842/5">It is
+impossible to <code>signify</code> sign images (<code>.ova</code> /
+<code>libvirt.tar.xz</code>) directly.</a> You can only verify the
+<code>.sha512sums</code> hash sum file using
+<code>signify-openbsd</code> and then verify the image against the
+<code>sha512</code> sum.</p>
+<p><strong>5.</strong> Download the <code>.sha512sums</code> and
+<code>.sha512sums.sig</code> files.</p>
+<p><strong>6.</strong> Verify the <code>.sha512sums</code> file with
+<code>signify-openbsd</code>.</p>
+<p><span class="code-select">signify-openbsd -Vp derivative.pub -m
+Whonix-*.sha512sums</span></p>
+<p>If the signature is valid, it will output:</p>
+<pre><code>Signature Verified</code></pre>
+<p>If the signature is invalid, it will output an error.</p>
+<p><strong>7.</strong> Compare the hash of the image file with the hash
+in the <code>.sha512sums</code> file.</p>
+<p><span class="code-select">sha512sum --strict --check
+Whonix-*.sha512sums</span></p>
+<p>If the hash is correct, it will output:</p>
+<pre><code>Whonix-LXQt-18.2.1.9.ova: OK</code></pre>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Do not continue if verification fails! This risks using infected or
+erroneous files! The whole point of verification is to confirm file
+integrity. This page is strongly related to the pages <a href="Trust.html">Placing Trust in Whonix</a> and <a href="Moved:Verifying_Software_Signatures.html">Verifying Software
+Signatures</a>.</p>
+</div>
+<p><strong>8.</strong> Done.</p>
+<p>Digital signature verification using signify has been completed.</p>
+<p>If you are using signify for software signature verification, please
+consider making a report in the <a href="https://forums.whonix.org/t/signify-openbsd/7842">signify-openbsd
+forum thread</a>. This helps developers decide whether to continue
+supporting this method or deprecate it.</p>
+<p>Forum discussion: <a href="https://forums.whonix.org/t/signify-openbsd/7842">signify-openbsd</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">As defined by TUF: Attacks and Weaknesses: * <a href="https://theupdateframework.io/security/">https://theupdateframework.io/security/</a></li>
+<li id="cite_note-2"><a href="https://lists.gnupg.org/pipermail/gnupg-users/2015-January/052185.html">https://lists.gnupg.org/pipermail/gnupg-users/2015-January/052185.html</a></li>
+</ol>
+</div>
+<h1 id="License">License</h1>
+<p><blockquote><p>Whonix Verify the images using Linux wiki page Copyright (C) Amnesia
+<br />
+Whonix Verify the images using Linux wiki page Copyright (C) 2012 - 2026
+ENCRYPTED SUPPORT LLC
+&lt;<span class="antispam-email-tooltip"><span class="robots-nocontent" data-nosnippet=""><code>adrelanos(at)whonix.org</code>
+(Replace <code>(at)</code> with
+<code>@</code>.)<span class="tooltip"><span>Please <strong>DO
+NOT</strong> use e-mail for one of the following
+reasons:</span><span class="icon-bullet-list"><span><i class="fa-solid fa-lock cs-yellow"></i><span><u>Private
+Contact:</u> Please avoid e-mail whenever possible. (&lt;a
+href="Contact.html#Private_Communications_Policy"&gt;Private
+Communications
+Policy&lt;/a&gt;)</span></span><span><i class="fas fa-headset cs-red"></i><span><u>User
+Support Questions:</u> No. (See &lt;a
+href="Support.html"&gt;Support&lt;/a&gt;.)</span></span><span><i class="fa-solid fa-droplet cs-red"></i><span><u>Leaks
+Submissions:</u> No. (&lt;a href="Contact.html#No_Leaks_Policy"&gt;No
+Leaks
+Policy&lt;/a&gt;)</span></span><span><i class="fa-solid fa-ban cs-red"></i><span><u>Sponsored
+posts:</u>
+No.</span></span><span><i class="fa-solid fa-link cs-red"></i><span><u>Paid
+links:</u>
+No.</span></span><span><i class="fa-solid fa-chart-line cs-red"></i><span><u>SEO
+reviews:</u>
+No.</span></span><span><i class="fa-solid fa-bullhorn cs-red"></i><span><u>Advertisement
+deals:</u>
+No.</span></span><span><i class="fa-solid fa-box-open cs-red"></i><span><u>Default
+application installation:</u> No. (&lt;a
+href="Contact.html#Default_Application_Policy"&gt;Default Application
+Policy&lt;/a&gt;)</span></span></span></span></span>&gt;</p>
+<p>This program comes with ABSOLUTELY NO WARRANTY; for details see the
+wiki source code.<br />
+This is free software, and you are welcome to redistribute it under
+certain conditions; see the wiki source code for details.</p></blockquote></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a> <a href="Category:MultiWiki.html">MultiWiki</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

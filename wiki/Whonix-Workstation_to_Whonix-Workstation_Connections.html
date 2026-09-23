@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix-Workstation to Whonix-Workstation Connections</title>
+<meta name="description" content="How-to: Connect from Whonix-Workstation (client) to another Whonix-Workstation (server). (Esoteric Documentation)">
+<meta property="og:description" content="How-to: Connect from Whonix-Workstation (client) to another Whonix-Workstation (server). (Esoteric Documentation)">
+<link rel="canonical" href="https://www.whonix.org/wiki/Whonix-Workstation_to_Whonix-Workstation_Connections.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Whonix-Workstation_to_Whonix-Workstation_Connections.html">
+<meta property="og:title" content="Connections between two different Whonix-Workstations">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Wsandgwmeeting213.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Local_Connections.html">Local
+Connections</a></li>
+<li><a href="Whonix-Workstation_to_Whonix-Workstation_Connections.html">Whonix-Workstation to Whonix-Workstation
+Connections</a></li>
+<li><a href="Access_Local_Network_or_Host_or_Clearnet_Internet_from_VM.html">Access Local Network, Host or Clearnet Internet from
+VM</a></li>
+<li><a href="Logging_in_to_captive_portals.html">Logging
+into Captive Portals</a></li>
+<li><a href="Dev/Test.html">Enable Clearnet
+Networking</a></li>
+</ul>
+</div>
+<p><img src="../media/Wsandgwmeeting213.jpg.webp" alt="Wsandgwmeeting213.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>How-to: Connect from Whonix-Workstation (client) to another
+Whonix-Workstation (server). (Esoteric Documentation)</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Instructions">Instructions</h1>
+<p><strong>1.</strong> Multiple workstation setup.</p>
+<p>Follow the usual documentation on how to set up <a href="Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation</a>.</p>
+<p><strong>2.</strong> Server installation.</p>
+<p>Install the server software in the <a href="Whonix-Workstation.html">Whonix-Workstation</a> (server) that is supposed to be
+reachable from another Whonix-Workstation.</p>
+<p><strong>3.</strong> Firewall settings.</p>
+<p>incoming:</p>
+<p>The Whonix-Workstation that is supposed to provide a server service
+(open port) needs to be configured to <a href="Whonix-Workstation_Firewall.html#Open_an_Incoming_Port">open an incoming port in the Whonix-Workstation
+firewall</a>.</p>
+<p>outgoing:</p>
+<p>The Whonix-Workstation (client) that connects to the other
+Whonix-Workstation (server) does not need any special configuration.</p>
+<p><strong>4.</strong> VPN notice.</p>
+<p>VPNs are known to break connections to other machines in the
+(virtual) LAN. Therefore, if the user is using a VPN, that might be the
+reason why Whonix-Workstation cannot connect to another
+Whonix-Workstation. The user might need to disable the VPN or
+reconfigure it to allow connections inside the (virtual) LAN.</p>
+<p><strong>5.</strong> Reading <a href="Stream_Isolation/Easy.html">Stream_Isolation/Easy</a> might help.</p>
+<p><strong>6.</strong> If you need to connect to localhost for testing
+purposes, refer also to <a href="Local_Connections.html">Local Connections</a>.</p>
+<p><strong>7.</strong> If using curl (or other applications that are
+configured for <a href="Stream_Isolation.html">Stream
+Isolation</a> by default in Whonix) for local connections or connections
+to other Whonix-Workstations, the stream isolation wrapper uwt needs to
+be disabled or circumvented. Curl stream isolation circumvention
+example:</p>
+<p>Do not use:</p>
+<pre><code>curl</code></pre>
+<p>Instead use:</p>
+<p><span class="code-select">curl.anondist-orig</span></p>
+<p><strong>8.</strong> Tor Browser notice.</p>
+<p>Also, <a href="Tor_Browser.html">Tor Browser</a> might be
+difficult to use for this purpose. This is due to the design of Tor
+Browser for its specialized use case by its original developers. This is
+<a href="Unspecific.html">unspecific to Whonix</a>.</p>
+<p><strong>9.</strong> Done.</p>
+<h1 id="Forum_Discussion">Forum Discussion</h1>
+<p><a href="https://forums.whonix.org/t/resolved-workstation-workstation-communication/16953">https://forums.whonix.org/t/resolved-workstation-workstation-communication/16953</a></p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Local_Connections.html">Local
+Connections</a></li>
+<li><a href="Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

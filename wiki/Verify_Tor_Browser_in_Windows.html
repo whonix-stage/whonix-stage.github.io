@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Verify Tor Browser in Windows</title>
+<meta name="description" content="This page documents how to the Tor Browser digital software signatures for users of Microsoft Windows.">
+<meta property="og:description" content="This page documents how to the Tor Browser digital software signatures for users of Microsoft Windows.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Verify_Tor_Browser_in_Windows.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Verify_Tor_Browser_in_Windows.html">
+<meta property="og:title" content="Verify Tor Browser in Microsoft Windows">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Verifywindows.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Install_SignTools">Install SignTools</a></li><li class="toc-l2"><a href="#Download_and_Verify_Gpg4win">Download and Verify Gpg4win</a></li><li class="toc-l2"><a href="#Download_Tor_Browser_Installer_for_Windows">Download Tor Browser
+Installer for Windows</a></li><li class="toc-l2"><a href="#Verify_Tor_Browser_Installer">Verify Tor Browser Installer</a></li><li class="toc-l2"><a href="#Install_Tor_Browser">Install Tor Browser</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>This page documents how to the Tor Browser digital software
+signatures for users of Microsoft Windows.</p>
+<div class="post-intro-p">
+</div>
+<p><img src="../media/Verifywindows.jpg.webp" width="400" alt="Verifywindows.jpg" />
+<span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="Community_Support.html">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p><a href="https://gnupg.org/">GnuPG</a> is a complete and free
+implementation of <a href="Moved:OpenPGP.html">OpenPGP</a> that
+allows users to encrypt and sign data and communications. <a href="https://www.gpg4win.org/">Gpg4win</a> is a graphical front end for
+GnuPG that is used for file and email encryption in Windows. The
+verification process for Tor Browser installer begins with securely
+downloading and verifying the <code>gpg4win</code> package. Once
+completed users can use GPG from the command-line to verify the Tor
+Browser installer.</p>
+<p>The following guide provides steps to:</p>
+<ol>
+<li>Install SignTool.</li>
+<li>Download and verify GPG4win.</li>
+<li>Download Tor Browser Installer for Windows</li>
+<li>Verify Tor Browser Installer</li>
+<li>Install Tor Browser</li>
+</ol>
+<h1 id="Install_GPG4win">Install GPG4win</h1>
+<h2 id="Install_SignTools">Install SignTools</h2>
+<p><a href="https://docs.microsoft.com/en-us/dotnet/framework/tools/signtool-exe">SignTools</a>
+is a Windows command-line tool that uses <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode">Authenticode</a>
+to digitally sign files and verify both signatures in files and
+timestamp files. SignTool is available as part of <a href="https://en.wikipedia.org/wiki/Microsoft_Windows_SDK">Microsoft
+Windows SDK</a>, which can be installed in just a few easy steps.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Download the latest version of the SDK for the
+most recent stable version of Windows from the <a href="https://developer.microsoft.com/en-us/windows/downloads/sdk-archive">Windows
+SDK and emulator archive</a>. Make sure to select "Install SDK".</p>
+<p><strong>2.</strong> Double-click the downloaded file. There's no need
+to change the default installation path. Click "Next".</p>
+<p><strong>Figure:</strong> <em>Installation Path</em></p>
+<p><img src="../media/SDK1.jpg.webp" width="800" alt="SDK1.jpg" /></p>
+<p><strong>3.</strong> There's no need to enable Microsoft Insights
+collection, so select "No" and then click "Next".</p>
+<p><strong>Figure:</strong> <em>Windows Kits Privacy</em></p>
+<p><img src="../media/SDK2.jpg.webp" width="800" alt="SDK2.jpg" /></p>
+<p><strong>4.</strong> Install the necessary SDK package.</p>
+<p>The Windows SDK installer provides a number of different packages
+that can be installed. The only package needed for <code>gpg4win</code>
+verification is <i>Windows SDK Signing Tools for Desktop Apps</i>
+(SignTools). Choose it then press on "Install".</p>
+<p><strong>Figure:</strong> <em>Select SignTools Package</em></p>
+<p><img src="../media/SDK3.jpg.webp" width="800" alt="SDK3.jpg" /></p>
+<p><strong>5.</strong> Once the installation is complete, close the
+installer.</p>
+<p><strong>Figure:</strong> <em>Installation completed</em></p>
+<p><img src="../media/SDK4.jpg.webp" width="800" alt="SDK4.jpg" /></p>
+</div>
+<h2 id="Download_and_Verify_Gpg4win">Download and Verify Gpg4win</h2>
+<p><code>SignTool</code> can be used to verify the authenticity of the
+<code>gpg4win</code> package itself.</p>
+<p><u>Note</u>: To simplify the SignTool verification process, be sure
+to download the <code>gpg4win</code> package to the Downloads
+directory.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Download the <code>gpg4win</code> package.</p>
+<ul>
+<li>Navigate to <a href="https://gpg4win.org/">https://gpg4win.org/</a></li>
+<li>Download the latest version of <code>gpg4win</code>.</li>
+</ul>
+<p>At the time of writing <code>gpg4win-4.3.1.exe</code> was the latest
+version.</p>
+<p><strong>2.</strong> Verify the <code>gpg4win</code> package by
+running SignTool from the command prompt.</p>
+<p>Now you need to manually locate <code>signtool.exe</code> and run it
+as a normal <code>*.exe</code> file. You will need to provide a path to
+your <code>gpg4win-latest.exe</code> file. Open PowerShell then add the
+following:</p>
+<p>Notes:</p>
+<ul>
+<li>Replace <code>[username]</code> with your computer's username; the
+uploaded image uses "techy" as an example.</li>
+<li>Replace gpg4win-<code>[version number]</code>.exe with the version
+of the downloaded gpg4win file..</li>
+</ul>
+<p><code>&amp; "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe" verify /pa "C:\Users\[username]\Downloads\gpg4win-[version number].exe"</code>.</p>
+<p><img src="../media/SDK5-2.jpg.webp" alt="SDK5-2.jpg" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong> If verification fails, delete the
+<code>gpg4win</code> package and repeat the download and verification
+process again.</p>
+</div>
+<p>If verification passes, then you are ready to trust and install gpg
+using this file, i.e., <code>gpg4win-latest.exe</code>.</p>
+</div>
+<h2 id="Download_Tor_Browser_Installer_for_Windows">Download Tor Browser
+Installer for Windows</h2>
+<div class="info-box ">
+<p>Tor Browser Installer for Windows package will be downloaded and used
+to install Tor Browser.</p>
+<p><strong>1.</strong> Browse to <a href="https://www.torproject.org/download/">https://www.torproject.org/download/</a></p>
+<p><strong>2.</strong> Download Tor Browser installer for Windows:
+<code>Left "click" Windows icon</code> ->
+<code>"click" Save file</code>.</p>
+<p><strong>3.</strong> Download the Tor Browser Installer GPG signature
+file: <code>Right "click" Sig (signature file)</code> ->
+<code>"click" Save Lin</code><u><code>k</code></u><code> As..</code><sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+</div>
+<h2 id="Verify_Tor_Browser_Installer">Verify Tor Browser Installer</h2>
+<div class="info-box ">
+<p><u>Note:</u> At the time of writing (Aug 10 2019)
+<code>torbrowser-install-win64-8.5.4_en-US.exe</code> was the current
+stable release. When verifying the Tor Browser Installer package, users
+must modify the package version in the steps below to correspond to the
+Tor Browser Installer package version downloaded from <a href="https://www.torproject.org/download/">https://www.torproject.org/download/</a></p>
+<p><strong>1.</strong> In the Windows start menu, open a command
+prompt.</p>
+<p><span class="code-select">cmd.exe</span></p>
+<p><strong>2.</strong> In the command prompt, change to the directory
+the Tor Browser Installer package and signature file was downloaded. In
+<em>most</em> cases this is the "Downloads" directory.</p>
+<p><span class="code-select">cd Downloads</span></p>
+<p><strong>3.</strong> Download the Tor Browser developers signing
+key.</p>
+<p>From the Windows command prompt, run.</p>
+<p><span class="code-select">gpg --auto-key-locate nodefault,wkd
+--locate-keys torbrowser@torproject.org</span></p>
+<p>Command out put should show the Tor Browser Developers GPG key has
+been imported.</p>
+<pre><code>gpg: key 4E2C6E8793298290: public key &quot;Tor Browser Developers (signing key) &lt;torbrowser@torproject.org&gt;&quot; imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+pub   rsa4096 2014-12-15 [C] [expires: 2020-08-24]
+      EF6E286DDA85EA2A4BA7DE684E2C6E8793298290
+uid           [ unknown] Tor Browser Developers (signing key) &lt;torbrowser@torproject.org&gt;
+sub   rsa4096 2018-05-26 [S] [expires: 2020-09-12]</code></pre>
+<p><strong>4.</strong> Verify the Tor Browser installer for Windows.
+Note: Remember to alter the below Tor Browser version number to match
+the package and signature file you downloaded.</p>
+<p>In the Windows command prompt, run.</p>
+<p><span class="code-select">gpg --verify
+torbrowser-install-win64-8.5.4_en-US.exe.asc
+torbrowser-install-win64-8.5.4_en-US.exe</span></p>
+<p>If the Tor Browser installer package is correct the output will tell
+you that the signature is good.</p>
+<pre><code>gpg: Signature made 07/08/19 07:03:49 Eastern Daylight Time
+gpg:                using RSA key EB774491D9FF06E2
+gpg: Good signature from &quot;Tor Browser Developers (signing key) &lt;torbrowser@torproject.org&gt;&quot; [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290
+     Subkey fingerprint: 1107 75B5 D101 FB36 BC6C  911B EB77 4491 D9FF 06E2</code></pre>
+<p><u>Bad signature warning.</u></p>
+<p>If the command output shows a "Bad signature" warning. Users should
+immediately delete <em>both</em> the Tor Browser installer package and
+signature file. Then repeat the Tor Browser Installer sourcing and
+verification steps.</p>
+<p><u>Key not certified warning.</u></p>
+<pre><code>gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.</code></pre>
+<p>The above message can be ignored as it does not alter the validity of
+the signature related to the downloaded key. Rather, this warning refers
+to the level of trust placed in the Tor Browser developer's signing key
+and the <a href="Moved:OpenPGP.html#The_OpenPGP_Web_of_Trust">web
+of trust</a>. To remove this warning, the Tor Browser developer's
+signing key must be personally signed with your own key.</p>
+</div>
+<h2 id="Install_Tor_Browser">Install Tor Browser</h2>
+<div class="info-box ">
+<p>Tor Browser installation is a simple process with Tor Browser
+Installer for Windows.</p>
+<p><strong>1.</strong> Choose the Tor Browser installation Path and
+language.</p>
+<p>Navigate to the folder
+<code>torbrowser-install-win64-8.5.4_en-US</code> was downloaded:</p>
+<ul>
+<li><code>Double "click" tor-browser-install-win64-8.5.4_en-US</code> ->
+<code>Select language</code> -> <code>"click" OK</code> ->
+<code>Choose Install Location</code> -> <code>"click" OK</code> ->
+<code>Choose Install Location</code> ->
+<code>"click" Install</code>.</li>
+</ul>
+<p><strong>Figure:</strong> <em>Start Tor Browser Installer for
+Windows</em></p>
+<p><img src="../media/start_Tor_Browser_windows_installer.png.webp" alt="start_Tor_Browser_windows_installer.png" /></p>
+<p><strong>Figure:</strong> <em>Select Language</em></p>
+<p><img src="../media/Tor_Browser_select_language.png.webp" alt="Tor_Browser_select_language.png" /></p>
+<p><strong>Figure:</strong> <em>Choose Installation Location</em></p>
+<p><img src="../media/choose_Tor_Browser_install_location.png.webp" alt="choose_Tor_Browser_install_location.png" /></p>
+<p><strong>Figure:</strong> <em>Tor Browser Installing</em></p>
+<p><img src="../media/Tor_Browser_installing.png.webp" alt="Tor_Browser_installing.png" /></p>
+<p><strong>2.</strong> Complete Tor Browser setup.</p>
+<p>Once Tor Browser has been installed a popup window will ask if a
+Start Menu and Desktop Shortcut should be added and if Tor Browser
+should be started once complete. Check ☑ both boxes and "click"
+Finish.</p>
+<p><strong>Figure:</strong> <em>Tor Browser Installation
+Complete</em></p>
+<p><img src="../media/complete_TorBrowser_setup.png.webp" alt="complete_TorBrowser_setup.png" /></p>
+<p><strong>3.</strong> Network Connections</p>
+<p>When Tor Browser starts for the first time it asks for "Tor Network
+Settings" to be set. Click <code>Connect</code>, then wait while the
+connection to Tor is completed. When Tor has successfully connected, Tor
+Browser will open and it is ready for use.</p>
+<p><strong>Figure:</strong> <em>Configure Network Connection</em></p>
+<p><img src="../media/Tor_Browser_connect_to_tor.png.webp" alt="Tor_Browser_connect_to_tor.png" /></p>
+<p><strong>Figure:</strong> <em>Connecting to Tor Network</em></p>
+<p><img src="../media/Tor_Browser_connecting_Tor_network.png.webp" alt="Tor_Browser_connecting_Tor_network.png" /></p>
+<p><strong>-> Done!</strong></p>
+</div>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Note: The file extension ".asc" may not be visible when first
+downloading the signature file</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

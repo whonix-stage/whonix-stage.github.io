@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Test</title>
+<meta name="description" content="Using clearnet networking for Whonix-Gateway and/or Whonix-Workstation / Curl Clearnet Connectivity Test from Whonix-Gateway.">
+<meta property="og:description" content="Using clearnet networking for Whonix-Gateway and/or Whonix-Workstation / Curl Clearnet Connectivity Test from Whonix-Gateway.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Test.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Test.html">
+<meta property="og:title" content="How-to: &quot;UnWhonix&quot; - using clearnet networking">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Test</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Make_Clearnet_home_persistent">Make Clearnet home
+persistent</a></li><li class="toc-l2"><a href="#restore_Whonix-Gateway_clearnet_networking">restore
+Whonix-Gateway clearnet networking</a></li><li class="toc-l2"><a href="#restore_Whonix-Workstation_clearnet_networking">restore
+Whonix-Workstation clearnet networking</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Moved:Firewall_Refactoring.html" title="Dev/Firewall Refactoring"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Firewall
+Refactoring</span></a><a class="index internal" href="../Design.html" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../Moved:Firejail.html" title="Dev/Firejail"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Firejail</span></a><span class="info"><span class="prev">Previous
+page: Dev/Firewall Refactoring</span><span class="index">Index page:
+Design</span><span class="next">Next page:
+Dev/Firejail</span></span></span>How-to: "UnWhonix" - using clearnet
+networking</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../Local_Connections.html">Local
+Connections</a></li>
+<li><a href="../Whonix-Workstation_to_Whonix-Workstation_Connections.html">Whonix-Workstation to Whonix-Workstation
+Connections</a></li>
+<li><a href="../Access_Local_Network_or_Host_or_Clearnet_Internet_from_VM.html">Access Local Network, Host or Clearnet Internet from
+VM</a></li>
+<li><a href="../Logging_in_to_captive_portals.html">Logging
+into Captive Portals</a></li>
+<li><a href="Test.html">Enable Clearnet
+Networking</a></li>
+</ul>
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Using clearnet networking for Whonix-Gateway and/or
+Whonix-Workstation / Curl Clearnet Connectivity Test from
+Whonix-Gateway.</p>
+<p>This is mostly for developers only!</p>
+<div class="post-intro-p">
+</div>
+<h1 id="The_clearnet_User">The clearnet User</h1>
+<p>The <code>clearnet</code> user is a special user account on the
+Whonix-Gateway that is designed to bypass Tor for specific purposes.
+Unlike the default user account <code>user</code>, which routes all
+traffic through Tor, the clearnet user has direct access to the internet
+without anonymization.</p>
+<p>Key points about the clearnet user:</p>
+<ul>
+<li><u>Purpose:</u> It allows certain applications or services to
+connect directly to the internet when necessary, such as for the SSH
+connection in this setup.</li>
+<li><u>Security considerations:</u> Traffic from the clearnet user is
+not anonymized. Any connections made using this account will reveal your
+real IP address and can potentially be traced back to you.</li>
+<li><u>Limited use:</u> The clearnet user should only be used when
+absolutely necessary and for specific tasks that require a direct
+internet connection.</li>
+<li><u>Isolation:</u> By using a separate user account for non-Tor
+traffic, Whonix maintains a clear separation between anonymized and
+non-anonymized connections, reducing the risk of accidental
+deanonymization.</li>
+<li><u>Persistence:</u> By default, the clearnet user's home directory
+is not persistent. This will change in a future Whonix version. How to
+make it persistent is documented below.</li>
+</ul>
+<p>The clearnet user is essential for establishing the initial tunnel
+connection that will then be used to route Tor traffic. This allows for
+the <code>User</code> -> <code>proxy/SSH/VPN</code> -> <code>Tor</code> ->
+<code>Internet</code> configuration, where the tunnel connection acts as
+an additional layer before Tor.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Always be aware that when using the clearnet user, your activities are
+not protected by Tor's anonymity features. Only use this account for
+tasks that specifically require a direct internet connection and where
+anonymity is not a concern.</p>
+</div>
+<h2 id="Make_Clearnet_home_persistent">Make Clearnet home
+persistent</h2>
+<p>There is no persistent home for the <code>clearnet</code> user by
+default. Therefore make it persistent so SSH user data (keys,
+known_hosts file) can be saved there.</p>
+<p><strong>1.</strong> Change folder location of user
+<code>clearnet</code> to <code>/home/clearnet</code>.</p>
+<p>Platform specific. See below on where to run the following
+command.</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: On
+Whonix-Gateway.</li>
+<li><a href="../Qubes.html">Qubes-Whonix</a>: On
+<code>whonix-gateway-18</code> Template. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+</ul>
+<p><span class="code-select">sudo usermod -d /home/clearnet
+clearnet</span></p>
+<p><strong>2.</strong> Create the new persistent home folder.</p>
+<p>Platform specific. See below on where to run the following
+commands.</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: On
+Whonix-Gateway.</li>
+<li><a href="../Qubes.html">Qubes-Whonix</a>: On
+<code>sys-whonix</code> App Qube. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+</ul>
+<p><span class="code-select">sudo mkdir -p /home/clearnet</span></p>
+<p><strong>3.</strong> Change owner and group to
+<code>clearnet</code>.</p>
+<p><span class="code-select">sudo chown -R clearnet:clearnet
+/home/clearnet</span></p>
+<p><strong>4.</strong> Adjust permissions.</p>
+<p><span class="code-select">sudo chmod 755 /home/clearnet</span></p>
+<p>This will most likely be simplified in a future Whonix version, where
+user <code>clearnet</code> will have a persistent home folder by
+default.</p>
+<h1 id="Curl_Clearnet_Connectivity_Test_from_Whonix-Gateway">Curl
+Clearnet Connectivity Test from Whonix-Gateway</h1>
+<p><strong>Warning:</strong> <u>Not anonymous!</u></p>
+<p>At time of writing IP <code>116.202.120.181</code> is
+<code>check.torproject.org</code>.</p>
+<p>Using IP (<code>116.202.120.181</code>) rather than DNS
+(<code>check.torproject.org</code>) is required since
+Whonix-Gateway<sup>™</sup> does not have a global DNS resolver enabled
+by default for its own traffic (details on page <a href="../Whonix-Gateway_System_DNS.html">Whonix-Gateway System
+DNS</a>).</p>
+<p><span class="code-select">sudo -u clearnet UWT_DEV_PASSTHROUGH=1 curl
+--silent --tlsv1.3 --header 'Host: check.torproject.org' --insecure <a href="https://116.202.120.181">https://116.202.120.181</a></span></p>
+<h1 id="Enable_Clearnet_Networking">Enable Clearnet Networking</h1>
+<h2 id="restore_Whonix-Gateway_clearnet_networking">restore
+Whonix-Gateway clearnet networking</h2>
+<p>Instructions on how to remove Whonix Tor default networking for
+Whonix-Gateway. After applying these instructions, Whonix-Gateway will
+connect to clearnet.</p>
+<p>This is possible because Whonix-Gateway is simplified "just a set of
+configurations". (And anything else would technically be pointless and a
+proprietary obfuscated software instead of a Freedom Software project.
+By reverting these configurations, it's possible to revert back to the
+same functionality that Debian has, which Whonix is based on. And Debian
+of course supports clearnet connectivity. This cannot happen by
+accident, see <a href="Technical_Introduction.html#Security_Overview">Dev/Technical_Introduction#Security_Overview</a>.</p>
+<p><strong>Warning:</strong> <u>Not anonymous!</u></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Preferences_system.png.webp" width="40" alt="Developers only!" /></span>
+<img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" />
+<strong>Warning:</strong> This is for
+<u><strong>developers-only</strong></u>!</p>
+</div>
+<p><strong>1.</strong> Inside <code>Whonix-Gateway</code>: <a href="Firewall_Unload.html">Unload Whonix
+Firewall</a>.</p>
+<p><strong>2.</strong> Inside <code>Whonix-Gateway</code>: Verify that
+the firewall rules have been unloaded. .</p>
+<p><span class="code-select">sudo iptables --list</span></p>
+<p>Expected output:</p>
+<pre><code>Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination</code></pre>
+<p><strong>3.</strong> Find out DNS server IP address.</p>
+<p>Choose either option <strong>A)</strong>, <strong>B)</strong>
+<u>or</u> <strong>B)</strong>.</p>
+<ul>
+<li><strong>A)</strong> Use your router's IP address.</li>
+<li><strong>B)</strong> Use a public DNS server. (Potential privacy
+issues!) <span class="code-select">## Cloudflare</li>
+</ul>
+<p>nameserver 1.1.1.1</p>
+<ol>
+<li><ol>
+<li>Google</li>
+</ol></li>
+<li>nameserver 8.8.8.8</span></li>
+</ol>
+<ul>
+<li><strong>C)</strong> Use the IP address provided by the DNS server IP
+address.</li>
+</ul>
+<p>Inside any other VM, any non-Tor VM, any non-Whonix VM. Such as a
+Debian (based) VM that has functional internet.</p>
+<p>Figure out its <code>/etc/resolv.conf</code> settings.</p>
+<p><span class="code-select">cat /etc/resolv.conf</span></p>
+<p><strong>4.</strong> Inside <code>Whonix-Gateway</code>: Delete
+<code>/etc/resolv.conf</code>.</p>
+<p><span class="code-select">sudo rm /etc/resolv.conf</span></p>
+<p><strong>5.</strong> Inside <code>Whonix-Gateway</code>: Use the same
+settings from the non-Tor VM.</p>
+<p>Open file <code>/etc/resolv.conf</code> in an editor with
+administrative ("<a href="../Moved:Root.html"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>6.</strong> Inside <code>Whonix-Gateway</code>: Deactivate
+all uwt wrappers globally.</p>
+<div class="info-box ">
+<p>The following instructions permanently deactivate all uwt wrappers
+and remove stream isolation for <a href="../Stream_Isolation.html#By_uwt_wrapper">uwt-wrapped
+applications</a> system-wide. Consequently, all uwt-wrapped applications
+revert to the default system networking configuration.</p>
+<p>For more granular control of uwt wrapper deactivation, see: <a href="../Stream_Isolation.html#Deactivate_uwt_Stream_Isolation_Wrapper">Deactivate uwt Stream Isolation Wrapper</a>.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Platform specific notice:</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix.html">Non-Qubes-Whonix<sup>™</sup></a>: No platform specific
+notice.</li>
+<li><a href="../Qubes.html">Qubes-Whonix<sup>™</sup></a>: In
+Template. (<code>whonix-workstation-18</code>) <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+</ul>
+<p><strong>2.</strong> Open file <code>/etc/uwt.d/50_user.conf</code> in
+an editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_2">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Add.</p>
+<p><span class="code-select">uwtwrapper_global="0"</span></p>
+<p><strong>4.</strong> Save and exit.</p>
+<p><strong>5.</strong> Check that the changes have taken effect. Run in
+terminal: <span class="code-select">uwt_settings_show</span></p>
+<p>It should print</p>
+<pre><code>uwt INFO: disabled.</code></pre>
+<p><strong>6.</strong> Done.</p>
+</div>
+</div>
+<p><strong>7.</strong> Inside <code>Whonix-Gateway</code>: Download <a href="https://check.torproject.org">https://check.torproject.org</a></p>
+<p><span class="code-select">scurl --remote-name <a href="https://check.torproject.org">https://check.torproject.org</a></span></p>
+<p>Or manually run <i>curl</i> with these parameters.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<p><span class="code-select">curl --tlsv1.3 --remote-name <a href="https://check.torproject.org">https://check.torproject.org</a></span></p>
+<p>Open file <code>index.html</code> in a <a href="../Moved:Software.html#Text_Editor">text editor</a> of your choice as a regular, non-root
+user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad index.html</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano index.html</span></p>
+</div>
+<p>Should include.</p>
+<pre><code>Sorry. You are not using Tor.</code></pre>
+<p><strong>8.</strong> Inside <code>Whonix-Gateway</code>: Untorify APT
+sources.</p>
+<p>For all files in <code>/etc/apt/sources.list.d</code> folder, remove
+the <span class="code-select inline-style">tor+</span> prefix.</p>
+<p><span class="code-select">for file_name in /etc/apt/sources.list
+/etc/apt/sources.list.d/* ; do sudo str_replace "tor+" "" "$file_name" ;
+done</span></p>
+<p><strong>9.</strong> Done.</p>
+<h2 id="restore_Whonix-Workstation_clearnet_networking">restore
+Whonix-Workstation clearnet networking</h2>
+<p><a href="../Unsupported.html">Undocumented</a>. It would
+require at least:</p>
+<ul>
+<li>Configuration of the host virtualization software to use either:
+<ul>
+<li>A) a different gateway VM <u>or</u></li>
+<li>B) changing the network type form internal to "normal" (virtualizer
+specific, NAT for VirtualBox for example).</li>
+</ul></li>
+<li>Disabling Whonix-Workstation firewall.</li>
+<li>DNS configuration.</li>
+<li>Network configuration.</li>
+</ul>
+<p>Untested but of course possible in theory. This is possible because
+Whonix-Workstation is also simplified "just a set of configurations". By
+reverting these configurations, it's possible to revert back to the same
+functionality that Debian has, which Whonix is based on. And Debian of
+course supports clearnet connectivity. This cannot happen by accident or
+malware running inside the VM, see <a href="Technical_Introduction.html#Security_Overview">Dev/Technical_Introduction#Security_Overview</a>.</p>
+<h1 id="How_to_UnWhonix_-_Whonix_package_removal">How to UnWhonix -
+Whonix package removal</h1>
+<p>TODO: document</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Because <code>/etc/passwd</code>, the configuration file that
+declares location of the home folders for users, is stored in the Qubes
+root image.</li>
+<li id="cite_note-2">Because home folders of users are stored in the Qubes private
+image.</li>
+<li id="cite_note-3">Qubes-Whonix users note: Or alternatively in App Qube.
+<div class="info-box ">
+<p><strong>1.</strong> Create folder <code>/usr/local/etc/uwt.d</code>.
+<span class="code-select">sudo mkdir -p /usr/local/etc/uwt.d</span>
+<strong>2.</strong> Open with root rights:
+<span class="code-select">sudoedit
+/usr/local/etc/uwt.d/50_user.conf</span></p>
+</div></li>
+<li id="cite_note-4">This has the same effect as the <i>scurl</i> command above.</li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Moved:Firewall_Refactoring.html" title="Dev/Firewall Refactoring"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Firewall
+Refactoring</span></a><a class="index internal" href="../Design.html" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../Moved:Firejail.html" title="Dev/Firejail"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Firejail</span></a><span class="info"><span class="prev">Previous
+page: Dev/Firewall Refactoring</span><span class="index">Index page:
+Design</span><span class="next">Next page:
+Dev/Firejail</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+</main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Troubleshooting</title>
+<meta name="description" content="Troubleshooting Installation and Network Issues with Whonix.">
+<meta property="og:description" content="Troubleshooting Installation and Network Issues with Whonix.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Troubleshooting.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Troubleshooting.html">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Troubleshooting-thumbnail.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#Essential_Connectivity_Troubleshooting_Steps">Essential
+Connectivity Troubleshooting Steps</a></li><li class="toc-l2"><a href="#RELATED_state_fix">RELATED state fix</a></li><li class="toc-l2"><a href="#ICMP_Fix">ICMP Fix</a></li><li class="toc-l2"><a href="#ARP_Fix">ARP Fix</a></li><li class="toc-l2"><a href="#Advanced_Connectivity_Troubleshooting_Steps">Advanced
+Connectivity Troubleshooting Steps</a></li><li class="toc-l2"><a href="#Clock_Fix">Clock Fix</a></li><li class="toc-l2"><a href="#Command_Line_Connectivity_Test">Command Line Connectivity
+Test</a></li><li class="toc-l2"><a href="#Clearnet_Connectivity_Test">Clearnet Connectivity Test</a></li><li class="toc-l2"><a href="#General_Virtualizer_Connectivity_Test">General Virtualizer
+Connectivity Test</a></li><li class="toc-l2"><a href="#Unsuitable_Connectivity_Troubleshooting_Tools">Unsuitable
+Connectivity Troubleshooting Tools</a></li><li class="toc-l2"><a href="#Why_can&#x27;t_I_Ping_the_Whonix-Gateway?">Why can&#x27;t I Ping the
+Whonix-Gateway?</a></li><li class="toc-l2"><a href="#Introduction_3">Introduction</a></li><li class="toc-l2"><a href="#Essential_General_Troubleshooting_Steps">Essential General
+Troubleshooting Steps</a></li><li class="toc-l2"><a href="#Low_RAM_Issues">Low RAM Issues</a></li><li class="toc-l3"><a href="#VirtualBox">VirtualBox</a></li><li class="toc-l3"><a href="#KVM">KVM</a></li><li class="toc-l3"><a href="#Qubes-Whonix_6">Qubes-Whonix</a></li><li class="toc-l3"><a href="#Free_up_Additional_Memory_Resources">Free up Additional Memory
+Resources</a></li><li class="toc-l2"><a href="#Check_Systemd_Journal_Log_of_Current_Boot">Check Systemd Journal
+Log of Current Boot</a></li><li class="toc-l2"><a href="#Watch_Systemd_Journal_Log_of_Current_Boot">Watch Systemd Journal
+Log of Current Boot</a></li><li class="toc-l2"><a href="#Check_Systemd_Journal_Log_of_Previous_Boot">Check Systemd
+Journal Log of Previous Boot</a></li><li class="toc-l2"><a href="#View_List_of_Systemd_Journal_Logs">View List of Systemd Journal
+Logs</a></li><li class="toc-l2"><a href="#Daemon_Log_View">Daemon Log View</a></li><li class="toc-l2"><a href="#Daemon_Log_Follow">Daemon Log Follow</a></li><li class="toc-l2"><a href="#Daemon_Status">Daemon Status</a></li><li class="toc-l2"><a href="#Check_Systemd_Journal_Log_of_Failed_Boot">Check Systemd Journal
+Log of Failed Boot</a></li><li class="toc-l2"><a href="#General_Recommendations">General Recommendations</a></li><li class="toc-l2"><a href="#memtest86+">memtest86+</a></li><li class="toc-l2"><a href="#gsmartcontrol">gsmartcontrol</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Troubleshooting.html#Connectivity_Troubleshooting">Connectivity Troubleshooting</a></li>
+<li><a href="Troubleshooting.html#General_Troubleshooting">General Troubleshooting</a></li>
+<li><a href="Download_Issues.html">Download Issues</a></li>
+</ul>
+</div>
+<p><img src="../media/Troubleshooting-thumbnail.jpg.webp" width="300" alt="Troubleshooting-thumbnail.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Troubleshooting Installation and Network Issues with Whonix.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<ul>
+<li><i class="fa-solid fa-1 cs-green"></i><span>On this page you will
+find help for <b>various troubleshooting topics</b>, including general
+troubleshooting, connectivity troubleshooting</span></li>
+<li><i class="fa-solid fa-2 cs-green"></i><span>You will also learn
+about <b>virtual machine bug analysis, system logs</b> and other related
+topics</span></li>
+<li><i class="fa-solid fa-3 cs-green"></i><span>Please be aware that
+some very specific, individual problems <b>can take a long time</b> to
+research and solve. Don't expect a "magic solution" for most of these
+issues</span></li>
+<li><i class="fa-solid fa-4 cs-green"></i><span>We will help you with a
+lot of common problems here, but also be sure to <b>check out &lt;a
+href="Documentation.html"&gt;our Documentation&lt;/a&gt;</b> and
+related pages.</span></li>
+</ul>
+<h1 id="Connectivity_Troubleshooting">Connectivity Troubleshooting</h1>
+<p>This chapter covers connectivity issues that you may encounter.</p>
+<h2 id="Introduction_2">Introduction</h2>
+<ul>
+<li><i class="fa-solid fa-network-wired cs-green"></i><span><b>There is
+no general network problem analysis tool.</b> While there are many tools
+and commands available for specific aspects of network diagnostics,
+there isn't a single built-in command for any operating system that
+performs a fully comprehensive, automated network analysis with one
+execution.</span></li>
+<li><i class="fa-solid fa-ban cs-orange"></i><span><b>Shortcut? There is
+no shortcut:</b> Network diagnostics require a systematic approach,
+where each potential issue must be carefully examined and ruled out one
+by one. Unlike other processes that may offer quick fixes or automated
+solutions, network troubleshooting involves methodically testing
+different aspects of the network to identify the root cause of a
+problem. This process is inherently time-consuming. Attempting to rush
+through diagnostics or skipping steps can lead to incomplete or
+inaccurate conclusions, making the resolution process even longer.
+Therefore, persistence and attention to detail are essential when
+working through network issues, as there is no single tool or command
+that can automatically solve all potential problems.</span></li>
+<li><i class="fa-solid fa-lightbulb cs-yellow"></i><span><b>Is there
+really no shortcut? There is not.</b> While a theoretical "shortcut"
+might exist, it would be economically infeasible. [1]</span></li>
+<li><i class="fa-solid fa-check-square cs-green"></i><span><b>How to
+proceed:</b> Please run the following checklist in the next chapter.
+Please ensure that you have completed all steps in this checklist. The
+results of each step should be included in your support request.
+Omitting these steps, failing to provide this information result will
+most likely result in unresolved connectivity issues.</span></li>
+</ul>
+<p>[1] See the footnote for details. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h2 id="Essential_Connectivity_Troubleshooting_Steps">Essential
+Connectivity Troubleshooting Steps</h2>
+<p>In case of connectivity issues, please complete the following
+checklist:</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+<strong>Make sure you started Whonix-Gateway first.</strong></p>
+<p>For a functional network connection, <a href="Whonix-Gateway.html">Whonix-Gateway</a> must be started before <a href="Whonix-Workstation.html">Whonix-Workstation</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+<strong>Download source.</strong></p>
+<p>Platform specific.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>:
+Did you download Whonix from whonix.org? If downloaded from other
+sources, uninstall and try downloading from whonix.org instead.</li>
+<li><a href="Qubes.html">Qubes-Whonix</a>: Did you
+install Whonix according to instructions <a href="Qubes/Install.html">Qubes/Install</a>?</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+<strong>Version Check</strong></p>
+<p>Platform specific.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>:
+See <a href="About.html#Support_Schedule">Support
+Schedule</a>.</li>
+<li><a href="Qubes.html">Qubes-Whonix</a>: Qubes
+<code>R4.1</code> and below are <a href="Unsupported.html">unsupported</a>. This statement might get outdated over
+time. Newer versions might also be unsupported at time of writing. For
+up-to-date information, see <a href="About.html#Qubes_Hosts">Qubes-Whonix version support policy</a> and <a href="Qubes/Install.html">Qubes/Install</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
+<strong>Test your host computer first.</strong></p>
+<p>"Forget" about Whonix for a moment and imagine you had never heard of
+the platform. Test your host computer first.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">5</i>
+<strong>Test if the host internet connection is functional.</strong>
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>Open different websites such as <code>whonix.org</code> in a host web
+browser. If the host internet connection is dysfunctional, Whonix
+connectivity will also be broken. The host internet connection needs to
+be fixed first.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">6</i>
+<strong>Speed and ping test the host internet connection.</strong></p>
+<p>Running an internet speed test and ping test might show if there is
+something wrong with the host internet connection.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">7</i>
+<strong>IPv<u>4</u> connectivity test.</strong></p>
+<p>If you are on on a IPv<u>6</u>-only network? To find out, see <a href="IPv6.html#Host_Networking_IPv4_versus_IPv6_Connectivity_Status">Host Networking IPv<u>4</u> versus IPv<u>6</u>
+Connectivity Status</a>.</p>
+<p>If you are on a IPv<u>6</u>-only network, that will break
+connectivity. This situation will improve once Whonix 18 gets
+released.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">8</i>
+<strong>VPN/proxy related connectivity issues.</strong></p>
+<p>Using a VPN or proxy? (<strong><code>User</code> -> <code>Tor</code> ->
+<code>proxy/VPN/SSH</code> -> <code>Internet</code></strong>) If yes, the
+following tests should be performed.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">A</i>
+The host internet connection and speed without VPN and without Tor
+should be tested first.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">B</i>
+Next, the host internet connection should be tested with a VPN only but
+without Tor.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">C</i>
+Only then should complex setups such as Tor in combination with a VPN be
+tested.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">9</i>
+'''Check the date and time. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p>Check if the host clock time and date have accuracy of up to ± 30
+minutes. If the host clock is more than 1 hour in the past or more than
+3 hours in the future, Tor cannot connect. (<a href="Network_Time_Synchronization.html">details</a>)</p>
+<p>If not, fix host clock, power off VM and restart the VM.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">10</i>
+<strong><a href="Timezone.html">Do not change system
+timezone setting.</a></strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">11</i>
+<strong>Unnecessary use of <a href="Bridges.html">Bridges</a>.</strong></p>
+<p>Have bridges been configured? The user should consider if that is
+really necessary in their area. Note: Bridges are not necessarily more
+secure than entry guards (<a href="Bridges.html#Before_Configuring_a_Bridge">link to sources</a>) and have the potential to cause
+broken, unreliable and slow connections. <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">12</i>
+<strong>Using WiFi or mobile internet connection?</strong></p>
+<p>Both, WiFi and mobile internet connections might be unreliable.
+Clearnet browsing might be able to recover more easily from slight
+unreliability issues than Tor. If practical, it should be considered to
+use a wired internet connection such as DSL, fiber or cable internet.
+This might result in more stable and faster connections
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup> and would also be more secure, resistant to
+de-anonymization attacks.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">13</i>
+<strong>Check if Tor Browser works on the host to rule out a possible <a href="Network_Obstacle.html">Network
+Obstacle</a>.</strong></p>
+<p>Download the Tor Browser Bundle from <a href="https://www.torproject.org/download/">torproject.org</a> and test
+if it is working on the host.</p>
+<p>If the Tor Browser Bundle is not functional on the host, then Whonix
+is unlikely to work either. In that case, see <a href="Unspecific.html">unspecific to Whonix</a>.</p>
+<p>It is recommended to have a recent Tor Browser Bundle version
+installed at all times. This way users can test if they live in a
+censored area or not and whether Tor is blocked by the ISP. Further, if
+(private) (obfuscated) <a href="Bridges.html">bridges</a>
+are necessary for Tor Browser Bundle functionality on the host, then
+Whonix will similarly require them.</p>
+<p>Follow one of the methods outlined in <a href="Install_Tor_Browser_Outside_of_Whonix.html">Non-Whonix
+Tor Browser</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">14</i>
+<strong>Run
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</strong>.</p>
+<p>Because when <code>systemcheck</code> is run in Whonix it performs
+various tests and might provide insights why there are connectivity or
+other issues.</p>
+<p>Check Whonix-Gateway first.</p>
+<p><span class="code-select">systemcheck --ip-test</span></p>
+<p>If systemcheck's connectivity test:</p>
+<ul>
+<li><u>Succeeded:</u> Test Whonix-Workstation using the same
+command.</li>
+<li><u>Failed:</u> There is no need to perform a systemcheck's
+connectivity test inside Whonix-Workstation. In that case, proceed with
+the steps below.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">15</i>
+<strong>Ping:</strong></p>
+<ul>
+<li>Whonix 17: <a href="Whonix-Workstation_Firewall.html#Ping">Forget about <code>ping</code>.</a></li>
+<li>Whonix 18 and above: use nping (TCP based ping)
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup></li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">16</i>
+<strong>Check if other virtual machines have Internet
+connectivity</strong>, such as newly created ones or those from a
+different vendor.</p>
+<p>See <a href="#General_Virtualizer_Connectivity_Test">General Virtualizer Connectivity Test</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">17</i>
+<strong>Virtualizer settings changes.</strong></p>
+<p>Did you change any settings on the host operating system
+virtualization software?</p>
+<p>For example, if using VirtualBox, changing settings from NAT to <a href="Whonix-Gateway_Security.html#Warning:_Bridged_Networking">bridged networking is discouraged</a> and breaks
+networking.</p>
+<p>In case you changed virtualizer settings but don't know which,
+perform a
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], i.e. delete the Whonix VMs and
+re-import these.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">18</i>
+<strong>RELATED state fix (regarding <code>nftables</code> (formerly
+<code>iptables</code>)</strong></p>
+<p>Try <a href="#RELATED_Fix">RELATED Fix</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">19</i>
+<strong>ICMP fix</strong></p>
+<p>Using dial-up connection? Or Tor bootstrapping stuck at 45%? See <a href="#ICMP_Fix">ICMP Fix</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">20</i>
+<strong>ARP fix</strong></p>
+<p>Try <a href="#ARP_Fix">ARP Fix</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">21</i>
+<strong><a href="Tor.html#Connectivity_Troubleshooting">Tor
+Connectivity Troubleshooting</a>.</strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">22</i>
+<strong>Consider continuation with <a href="Troubleshooting.html#Advanced_Connectivity_Troubleshooting_Steps">Advanced Connectivity Troubleshooting
+Steps</a>.</strong></p>
+</div>
+<p>Information pertaining to these points should be included in any <a href="Support.html">support</a> request or <a href="Reporting_Bugs.html">bug report</a>.</p>
+<h2 id="RELATED_state_fix">RELATED state fix</h2>
+<p><span class="manually-placed-anchor " id="RELATED_Fix"></span></p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+''<strong>'Modify Whonix-Gateway User Firewall Settings.</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/usr/local/etc/whonix_firewall.d/50_user.conf</code> appears empty
+(because it does not exist). This is expected.</p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>Settings</code> -> <code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p>In Whonix-Gateway, open the whonix_firewall configuration file in an
+editor.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway App Qube (commonly called </code><em><span><code>sys-whonix</code></span></em><code>)</code>
+-> <code>User Firewall Settings</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>.</p>
+<p><strong>Note</strong>: The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>See also <a href="Moved:Configuration_Files.html">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="Qubes.html">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Template:</code> <code>whonix-gateway-18</code> ->
+<code>Global Firewall Settings</code></p>
+<p><u>If using a graphical Whonix-Gateway</u>, complete these steps.</p>
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>Settings</code> -> <code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Gateway</u>, complete these steps.</p>
+<p>In Whonix-Gateway, view the global firewall configuration file in an
+editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_gateway_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>'''</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+<strong>Paste.</strong>
+<span class="code-select">GATEWAY_ALLOW_INCOMING_RELATED_STATE=1</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+<strong>Save.</strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
+''<strong>'Reload Whonix-Gateway Firewall.</strong></p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_2">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>System</code> -> <code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_2">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_2"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway ProxyVM (commonly named sys-whonix)</code> ->
+<code>Reload Firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<p>'''</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">5</i>
+<strong>Done.</strong></p>
+<p>The process of allowing RELATED connections on Whonix-Gateway has
+been completed.</p>
+</div>
+<p>related:</p>
+<ul>
+<li><a href="https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233">https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233</a></li>
+<li><a href="https://forums.whonix.org/t/tor-is-not-yet-fully-bootstrapped-30-done/8792/6">https://forums.whonix.org/t/tor-is-not-yet-fully-bootstrapped-30-done/8792/6</a></li>
+</ul>
+<h2 id="ICMP_Fix">ICMP Fix</h2>
+<p>Using a dial-up connection? Or is Tor bootstrapping stuck at 45%?</p>
+<p><a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol">ICMP</a>
+<a href="https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233/2">is
+disabled in Whonix by default for security reasons</a> because only a
+minority of users require it.</p>
+<p>Try allowing incoming ICMP on <a href="Whonix-Gateway.html">Whonix-Gateway</a>.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+<strong>Modify Whonix-Gateway User Firewall Settings.</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/usr/local/etc/whonix_firewall.d/50_user.conf</code> appears empty
+(because it does not exist). This is expected.</p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_3">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>Settings</code> -> <code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_3">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p>In Whonix-Gateway, open the whonix_firewall configuration file in an
+editor.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_3"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway App Qube (commonly called </code><em><span><code>sys-whonix</code></span></em><code>)</code>
+-> <code>User Firewall Settings</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>.</p>
+<p><strong>Note</strong>: The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>See also <a href="Moved:Configuration_Files.html">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="Qubes.html">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Template:</code> <code>whonix-gateway-18</code> ->
+<code>Global Firewall Settings</code></p>
+<p><u>If using a graphical Whonix-Gateway</u>, complete these steps.</p>
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>Settings</code> -> <code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Gateway</u>, complete these steps.</p>
+<p>In Whonix-Gateway, view the global firewall configuration file in an
+editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_gateway_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Paste.</p>
+<p><span class="code-select">GATEWAY_ALLOW_INCOMING_ICMP=1</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+Save.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
+<strong>Reload Whonix-Gateway Firewall.</strong></p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_4">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>System</code> -> <code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_4">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_4"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway ProxyVM (commonly named sys-whonix)</code> ->
+<code>Reload Firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">5</i>
+Done.</p>
+<p>The process of enabling ICMP on Whonix-Gateway has been
+completed.</p>
+</div>
+<p>There might be <a href="https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233/3">a
+more restricted ICMP permission</a> but it is not implemented. <a href="Reporting_Bugs.html#Contributions">Contributions
+welcome!</a></p>
+<p>Also see this related <a href="https://forums.whonix.org/t/icmp-support-is-required-for-networking-in-some-cases/12503">forum
+discussion</a>.</p>
+<h2 id="ARP_Fix">ARP Fix</h2>
+<div class="info-box ">
+<p><strong>Introduction</strong></p>
+<p>Whonix-Gateway uses the sysctl parameter
+<code>net.ipv4.conf.*.arp_ignore=2</code> to prevent network information
+leaks, such as VPN IP address leaks on the local
+network.<sup class="reference"><a href="#cite_note-6">[6]</a></sup> This is known to interfere with advanced
+configurations, such as routing a VPN through Whonix-Gateway or using a
+Whonix-Custom-Workstation. It might also cause issues in other, yet
+unknown, cases. Therefore, the configuration must be made more lenient
+for these use cases.</p>
+<p>Changing <code>arp_ignore=2</code> to <code>arp_ignore=1</code> will
+resolve these issues. Doing so may allow some additional data about
+Whonix-Gateway's network configuration to be leaked to other machines on
+the local network (or to other VMs on the same Qubes OS machine), but it
+should not allow leakage of information such as VPN IP addresses to
+other machines.</p>
+<p><strong>Downgrade <code>arp_ignore</code></strong></p>
+<p>To change <code>arp_ignore=2</code> in Whonix-Gateway to
+<code>arp_ignore=1</code>: <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<p><strong>1.</strong> Platform specific notice:</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Inside Whonix-Gateway Template (commonly
+<code>whonix-gateway-18</code>).</li>
+</ul>
+<p><strong>2.</strong> Launch a terminal in Whonix-Gateway.</p>
+<p><strong>3.</strong> Open file <code>/etc/sysctl.d/99_user.conf</code>
+in an editor with administrative ("<a href="Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/sysctl.d/99_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_5">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/sysctl.d/99_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/sysctl.d/99_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>4.</strong> Paste.</p>
+<p><span class="code-select">net.ipv4.conf.*.arp_ignore=1</span></p>
+<p><strong>5.</strong> Save and exit.</p>
+<p><strong>6.</strong> Reboot.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice. Simply reboot
+Whonix-Gateway.</li>
+<li>Qubes-Whonix: Shut down Whonix-Gateway Template (commonly
+<code>whonix-gateway-18</code>) and reboot all Qubes based on that
+Template.</li>
+</ul>
+<p><strong>7.</strong> Done.</p>
+<p>The process of changing <code>arp_ignore=2</code> to
+<code>arp_ignore=1</code> in Whonix-Gateway is complete.</p>
+</div>
+<h2 id="Advanced_Connectivity_Troubleshooting_Steps">Advanced
+Connectivity Troubleshooting Steps</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+These Advanced Connectivity Troubleshooting Steps are supplementary and
+not a substitute, "better", or a shortcut.</p>
+</div>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Start with the <a href="#Essential_Connectivity_Troubleshooting_Steps">Essential Connectivity Troubleshooting Steps</a>
+above.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Run <a href="#Command_Line_Connectivity_Test">Command
+Line Connectivity Test</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+Consider <a href="#Clearnet_Connectivity_Test">Clearnet
+Connectivity Test</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
+Investigate virtualizer-specific troubleshooting.</p>
+<ul>
+<li><a href="Moved:VirtualBox/Troubleshooting.html">VirtualBox
+Troubleshooting</a></li>
+<li><a href="KVM.html#Troubleshooting">KVM
+Troubleshooting</a></li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">5</i>
+Check <a href="#General_Troubleshooting">General
+Troubleshooting</a> steps.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">6</i>
+Support requests.</p>
+<p>Posting in forums, reddit, etc. most likely won't help. Most likely
+nobody will be able to suggest a simple method on how to easily fix
+this. See footnote for examples. <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<p>The only chance is to go through the troubleshooting guide
+step-by-step. Then please include the results for each troubleshooting
+step in the support request. Tedious, yes, but unfortunately there is no
+better option.</p>
+</div>
+<h2 id="Clock_Fix">Clock Fix</h2>
+<p>Broken internet connectivity is to be expected if the clock is
+incorrect. At all times it is recommended to have a host clock with
+accuracy of up to ± 30 minutes.</p>
+<p>Quote Whonix <a href="Post_Install_Advice.html">Post
+Install Advice</a>:</p>
+<p><blockquote><p>To protect against time zone leaks, the system clock inside Whonix is
+set to UTC. This means it may be a few hours before or ahead of your
+host system clock. <u>Do not change this setting!</u></p></blockquote></p>
+<p>See <a href="Network_Time_Synchronization.html#Manually_Set_Clock_Time_and_Date">Manually Set Clock Time and Date</a>.</p>
+<h2 id="Command_Line_Connectivity_Test">Command Line Connectivity
+Test</h2>
+<p>Inside Whonix-Workstation.</p>
+<p><strong>1.</strong> Check if TCP is functional.</p>
+<ul>
+<li>without DNS:
+<ul>
+<li>The following command uses an IP address
+<code>116.202.120.181</code>.</li>
+<li><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
+--proto =https -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181/api/ip">https://116.202.120.181/api/ip</a></span></li>
+</ul></li>
+</ul>
+<p><strong>2.</strong> Check if DNS + TCP is functional.</p>
+<ul>
+<li>with DNS:
+<ul>
+<li>The following command uses a hostname
+<code>check.torproject.org</code>.</li>
+<li><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
+--proto =https <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></li>
+</ul></li>
+</ul>
+<h2 id="Clearnet_Connectivity_Test">Clearnet Connectivity Test</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong> The following test might reveal the Whonix
+platform is in use. If that is a valid concern, then omit this step.</p>
+</div>
+<p>It is possible to check if a non-torified, non-anonyomus, direct
+connection to <code>check.torproject.org</code> is functional.
+<sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
+<p>On Whonix-Gateway<sup>™</sup>, run.</p>
+<p><span class="code-select">sudo -u clearnet UWT_DEV_PASSTHROUGH=1 curl
+--tlsv1.3 -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181">https://116.202.120.181</a></span></p>
+<h2 id="General_Virtualizer_Connectivity_Test">General Virtualizer
+Connectivity Test</h2>
+<p>If networking is unavailable inside Whonix, start by testing the
+virtualizer host software as if you've never encountered Whonix. This
+will give you a baseline. This can be done by trying the following
+steps:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+<strong>Install a Standard Virtual Machine</strong>: Install a
+non-Whonix operating system. This means to install an operating system
+in a virtual machine that does not run Whonix. A good candidate would be
+Debian <code>trixie</code>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+<strong>Test Network Functionality</strong>: Test the network
+functionality in this freshly downloaded or created standard virtual
+machine.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+<strong>DONE.</strong></p>
+<p><strong>If Networking is Non-Functional:</strong></p>
+<p>If networking is still not functional in these standard virtual
+machines, then Whonix will not work either. It indicates that the
+problem isn't caused by to Whonix. Such issues that are <a href="Unspecific.html">unspecific</a> to Whonix should be
+tackled according to these guidelines:</p>
+<ul>
+<li>In case of VirtualBox: <a href="Moved:VirtualBox/Troubleshooting.html#VirtualBox_Generic_Bug_Reproduction">VirtualBox Generic Bug Reproduction</a></li>
+<li><a href="Self_Support_First_Policy.html">Self Support
+First Policy</a></li>
+<li><a href="Reporting_Bugs.html#Generic_Bug_Reproduction">Generic Bug Reproduction</a></li>
+</ul>
+<p>The user must first resolve this issue, which might require:</p>
+<ul>
+<li>Re-installation of the virtualizer.</li>
+<li>Rebooting the system.</li>
+<li>Conducting further connectivity tests.</li>
+</ul>
+<p><strong>If Networking is Functional:</strong></p>
+<p>If networking is functional in the standard virtual machines, then
+users should:</p>
+<ul>
+<li>Note that networking is working in non-Whonix VMs.</li>
+<li>Include this information as part of the support request or bug
+report for Whonix.</li>
+</ul>
+<p>These steps will help ensure that the underlying network
+infrastructure is working correctly before troubleshooting Whonix
+specific issues.</p>
+<h2 id="Unsuitable_Connectivity_Troubleshooting_Tools">Unsuitable
+Connectivity Troubleshooting Tools</h2>
+<p>The following tools have limited usefulness when attempting to fix
+connectivity issues.</p>
+<ul>
+<li><a href="Tor-control-panel.html">Tor Control
+Panel</a></li>
+<li><a href="Anon_Connection_Wizard.html">Anon Connection
+Wizard</a></li>
+<li>Others listed further below.</li>
+</ul>
+<p>These tools can offer assistance for Tor configuration, either by
+simply enabling access to the public Tor network or by configuring Tor
+to use <a href="Bridges.html">Bridges</a>. If an internet
+service provider (ISP) prevents access to the public Tor network, then
+using these tools to configure bridges might help. If the ISP prevents
+access to one type of bridges or specific (such as built-in) bridges,
+then choosing another type and/or different bridge might help.</p>
+<p>However, these are simple utilities that create a Tor configuration
+file, restart Tor, and report what the Tor software is saying about the
+Tor bootstrap (connection) status. These tools do not have sophisticated
+features to debug complex connectivity issues; they are designed to:</p>
+<ol>
+<li>Ask for user input.</li>
+<li>Create Tor configuration file.</li>
+<li>Restart Tor.</li>
+<li>Show Tor bootstrap status.</li>
+</ol>
+<p>Constant monitoring of network issues is not implemented. For
+example, after the initial setup is done -- such as using Tor Control
+Panel for Anon Connection Wizard -- these tools do not keep supervising
+Tor or other parts of the system. Therefore, the Tor Control Panel
+message stating "Connected to the Tor network" could be stale. That was
+true when the tool was started, but it is not constantly monitored.</p>
+<p>From the perspective of the Tor software, these are <a href="https://en.wikipedia.org/wiki/High-level_programming_language">high-level
+level programming language</a> tools developed by a third party.
+<sup class="reference"><a href="#cite_note-10">[10]</a></sup> These tools have a limited "understanding" of Tor's
+internals, let alone other aspects of the system configuration that
+might be broken. <sup class="reference"><a href="#cite_note-11">[11]</a></sup> When attempting to debug
+connectivity issues, the "lower" level must be inspected which is closer
+to the system, virtualizer and Tor.</p>
+<p><a href="Sdwdate.html">sdwdate</a>, sdwdate logs and <a href="Sdwdate-gui.html">sdwdate-gui</a> have limited
+usefulness for connectivity troubleshooting. These tools might point out
+issues with the system time but other than that sdwdate requires an
+already functional Tor to be able to fetch the time from onions.</p>
+<p>Other unsuitable connectivity troubleshooting tools include:</p>
+<ul>
+<li>Mostly: <a href="Whonix-Workstation_Firewall.html#Ping">Using <code>ping</code> inside
+Whonix-Workstation<sup>™</sup></a>.</li>
+</ul>
+<p>Other <a href="#Connectivity_Troubleshooting">recommended steps</a> mentioned on this page are far
+more promising.</p>
+<h2 id="Why_can't_I_Ping_the_Whonix-Gateway?">Why can't I Ping the
+Whonix-Gateway?</h2>
+<p>The Whonix-Gateway does not respond to ping or similar commands
+because it is firewalled for security reasons; see
+<em>/usr/bin/whonix_firewall</em> or refer to the Whonix source code. In
+most cases it is unnecessary to ping the Whonix-Gateway anyhow.</p>
+<p>If you insist on pinging the Whonix-Gateway or have a unique setup
+that requires it, then this can be tested by clearing all firewall rules
+with the <a href="https://github.com/Kicksecure/developer-meta-files/blob/master/dangerous-scripts/dev_clearnet">dev_clearnet</a>
+script. Alternatively, a script can be run to try and <a href="Dev/Firewall_Unload.html">unload / remove every
+iptables rule</a>, or the Whonix firewall can be hacked to not load at
+all. The latter method is only for experts and it is necessary to
+comment out <em>exit 0</em> at the beginning.</p>
+<h1 id="General_Troubleshooting">General Troubleshooting</h1>
+<p>This chapter covers general issues that you may encounter and
+solution approaches.</p>
+<h2 id="Introduction_3">Introduction</h2>
+<p>Troubleshooting issues can be time intensive and success cannot be
+guaranteed. Some users expect Whonix to provide an easy experience
+similar to a Windows machine. While the Whonix developers make every
+effort to meet user expectations, limited funding and human resources
+makes meeting these expectations impossible.</p>
+<p>Even though problems emerge when using Whonix, the cause is most
+often unrelated to Whonix code. For example, users often report the same
+Whonix release worked on different hardware and/or with a different host
+operating system. Most software such as the host operating system or the
+virtualizer is developed by independent entities; this is the norm in
+Linux distributions. See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] to learn more about these
+relationships, as well as organizational and funding issues in the Open
+Source ecosystem.</p>
+<h2 id="Essential_General_Troubleshooting_Steps">Essential General
+Troubleshooting Steps</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="info" /></span>
+The following recommended steps will fix many startup, freezing or other
+unusual issues in Whonix. Skips steps that are no longer possible, such
+as the "run systemcheck" command if a virtual machine is no longer
+bootable.</p>
+</div>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+<strong>Test your host computer first.</strong></p>
+<p>"Forget" about Whonix for a moment and imagine you had never heard of
+the platform. Test your host computer first.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+<strong>Exclude basic <a href="#Hardware_Issues">hardware issues</a>.</strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+<strong>Ensure the virtual machine (VM) images have been imported into a
+supported virtualizer</strong> listed on the <a href="Download.html">Download</a> page.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
+<strong>Run <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a></strong>,
+if possible.</p>
+<p>This verifies the Whonix system is up-to-date and that everything is
+in proper working order.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">5</i>
+<strong>Debian (based) Linux host operating system users only: The
+following command should not show any errors.</strong>
+<sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+<p><span class="code-select">sudo dpkg-reconfigure -a</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">6</i>
+<strong>Debian (based) Linux host operating system users only: The
+following command should be silent and not show any errors or output at
+all.</strong> <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+<p><span class="code-select">sudo dpkg --configure -a</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">7</i>
+<strong>Debian (based) Linux host operating system users only: Next
+attempt to retrieve all available updates.</strong></p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><span class="code-select">sudo apt full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">8</i>
+<strong>Check for possible <a href="#Low_RAM_Issues">Low RAM Issues</a>.</strong></p>
+<ul>
+<li><a href="#Free_up_Additional_Memory_Resources">Free
+up Additional Memory Resources</a>.</li>
+<li>Also refer to <a href="RAM.html">Advice for Systems with
+Low RAM</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">9</i>
+<strong>Virtualizer-specific troubleshooting.</strong></p>
+<ul>
+<li><a href="Moved:VirtualBox/Troubleshooting.html">VirtualBox
+Troubleshooting</a> / [[VirtualBox/Troubleshooting#General VirtualBox
+Troubleshooting Steps|General VirtualBox Troubleshooting Steps</li>
+</ul>
+<p>]]</p>
+<ul>
+<li><a href="KVM.html#Troubleshooting">KVM
+Troubleshooting</a></li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">10</i>
+<strong>Try a non-Whonix VM.</strong></p>
+<p>Attempt <a href="#Virtualizer_Generic_Bug_Reproduction">#Virtualizer Generic Bug Reproduction</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">11</i>
+<strong>Check <a href="#System_Logs">System
+Logs</a>.</strong></p>
+<ul>
+<li>Sometimes crashing or freezing issues are easier to detect by <a href="#Watch_Systemd_Journal_Log_of_Current_Boot">Watching Systemd Journal Log of <u>Current</u>
+Boot</a>.</li>
+<li>Sometimes it is necessary to <a href="#Check_Systemd_Journal_Log_of_Previous_Boot">Check Systemd Journal Log of <u>Previous</u>
+Boot</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">12</i>
+<strong>If a graphical environment (where one can use a computer mouse)
+is unavailable after booting, utilize a virtual console to acquire
+system logs.</strong></p>
+<ol>
+<li><a href="Moved:Recovery.html#Virtual_Consoles">Recovery,
+Virtual Consoles</a>.</li>
+<li>Check system logs of the previous boot (step 11).</li>
+</ol>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">13</i>
+<strong>Use recovery mode to acquire system logs.</strong></p>
+<ol>
+<li>Boot in <a href="Moved:Recovery.html#Recovery_Mode">recovery
+mode</a>.</li>
+<li>Check system logs of previous boot (step 11).</li>
+</ol>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">14</i>
+<strong>Use a chroot to acquire system logs.</strong></p>
+<p>If a virtual console is inaccessible and recovery mode is also
+broken, try <a href="Moved:Recovery.html#Chroot">using a chroot
+for recovery</a>.</p>
+</div>
+<h2 id="Low_RAM_Issues">Low RAM Issues</h2>
+<p>If insufficient RAM is available for Whonix VMs they might become
+unusable. Low RAM issues in Whonix are commonly caused by:</p>
+<ul>
+<li>Unnecessary processes running and/or multi-tasking on the host
+OS.</li>
+<li>Multiple, open browser tabs.</li>
+<li>Unnecessary processes running in the Whonix VM(s).</li>
+<li>Allocating more RAM to the Whonix VM than is available; this
+prevents the VM from booting.</li>
+<li>Insufficient RAM allocated to the Whonix VM(s).</li>
+<li>Other non-Whonix VMs running in parallel.</li>
+</ul>
+<p>Insufficient RAM can cause multiple issues, but the most common
+effects include:</p>
+<ul>
+<li>Slow or unresponsive applications.</li>
+<li>The VM, mouse and/or keyboard freeze.</li>
+<li>Scrolling causes window staggers or jumps.</li>
+<li>Issues become worse when additional browser tabs or processes are
+spawned.</li>
+<li>Overall performance is poor.</li>
+</ul>
+<p>To add additional RAM to the Whonix VM(s), follow the
+platform-specific advice below.</p>
+<div class="tab-content-controller tcc-indent">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h3 id="VirtualBox">VirtualBox</h3>
+</div>
+<div class="tcc-content">
+<ol>
+<li>To add RAM in VirtualBox the VM <u>must</u> first be powered
+down.</li>
+<li><code>Virtual machine</code> -> <code>Menu</code> ->
+<code>Settings</code> -> <i><code>Adjust</code></i>
+<code>Memory slider</code> ->
+<i><code>Hit:</code></i><code> OK</code></li>
+</ol>
+<p>See also: <a href="Moved:VirtualBox/Troubleshooting.html">VirtualBox/Troubleshooting</a>.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h3 id="KVM">KVM</h3>
+</div>
+<div class="tcc-content">
+<div class="info-box ">
+<p><strong>1.</strong> Shut down the virtual machine(s).</p>
+<p><span class="code-select">virsh -c qemu:///system shutdown
+&lt;vm_name&gt;</span></p>
+<p><strong>2.</strong> Increase the maximum memory.</p>
+<p><span class="code-select">virsh setmaxmem &lt;vm_name&gt;
+&lt;memsize&gt; --config</span></p>
+<p><strong>3.</strong> Set the actual memory.</p>
+<p><span class="code-select">virsh setmem &lt;vm_name&gt;
+&lt;memsize&gt; --config</span></p>
+<p><strong>4.</strong> Restart the virtual machine(s).</p>
+<p><span class="code-select">virsh -c qemu:///system start
+&lt;vm_name&gt;</span></p>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h3 id="Qubes-Whonix_6">Qubes-Whonix</h3>
+</div>
+<div class="tcc-content">
+<p>Utilize Qube Manager:</p>
+<p><code>Qube Manager</code> -> <code>VM_name</code> ->
+<code>Qubes s</code><u><code>e</code></u><code>ttings</code> ->
+<code>Advanced</code> -> <code>Max memory:</code>
+<i><code>mem_size</code></i></p>
+</div>
+</div>
+</div>
+</div>
+<p>See also: <a href="RAM.html">Advice for Systems with Low
+RAM</a>.</p>
+<h3 id="Free_up_Additional_Memory_Resources">Free up Additional Memory
+Resources</h3>
+<p>If a VM needs additional memory, then free up resources and/or add
+more RAM to the VM:</p>
+<ul>
+<li>Terminate any non-essential processes on the host.</li>
+<li>Shut down any non-essential VMs.</li>
+<li>Shut down and/or close non-essential processes and browser tabs in
+Whonix VMs.</li>
+<li><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>
+only: If low memory issues emerge in Whonix-Workstation, additional
+resources can be freed by reducing RAM in Whonix-Gateway with <a href="Moved:RAM_Adjusted_Desktop_Starter.html">rads</a>.</li>
+</ul>
+<h1 id="Virtualizer_Generic_Bug_Reproduction">Virtualizer Generic Bug
+Reproduction</h1>
+<p><span class="manually-placed-anchor " id="Generic_Bug_Reproduction"></span></p>
+<p><strong><i class="padded-content-icon     fa-solid fa-info cs-blue"></i>
+This chapter teaches you how check virtual machines for generic bugs
+that have nothing to do with Whonix.</strong></p>
+<p>Check if other VMs are functional, such as newly created ones or
+those from a different vendor. If an issue is happen inside Whonix,
+start by testing the virtualizer host software as if you've never
+encountered Whonix. "Forget" about Whonix for a moment and imagine you
+had never heard of the platform. This will give you a baseline. This can
+be done by trying the following steps:</p>
+<ol>
+<li><strong>Install a Standard Virtual Machine</strong>: Install a
+non-Whonix operating system. This means to install an operating system
+in a virtual machine that does not run Whonix. A good candidate would be
+Debian <code>trixie</code>.</li>
+<li><strong>Test the Feature</strong>: Test the functionality in this
+freshly downloaded or created standard virtual machine.</li>
+</ol>
+<p><strong>If the Feature is Non-Functional:</strong></p>
+<p>If the feature is still not functional in these standard virtual
+machines, then Whonix will not work either. It indicates that the
+problem isn't caused by to Whonix. Such issues that are <a href="Unspecific.html">unspecific</a> to Whonix should be
+tackled according to these guidelines:</p>
+<ul>
+<li>In case of VirtualBox: <a href="Moved:VirtualBox/Troubleshooting.html#VirtualBox_Generic_Bug_Reproduction">VirtualBox Generic Bug Reproduction</a></li>
+<li><a href="Self_Support_First_Policy.html">Self Support
+First Policy</a></li>
+<li><a href="Reporting_Bugs.html#Generic_Bug_Reproduction">Generic Bug Reproduction</a></li>
+</ul>
+<p>The user must first resolve this issue, which might require:</p>
+<ul>
+<li>Re-installation of the virtualizer.</li>
+<li>Rebooting the system.</li>
+<li>Conducting further tests.</li>
+<li>Reading upstream documentation.</li>
+<li>Contacting upstream support.</li>
+</ul>
+<p><strong>If the Feature is Functional:</strong></p>
+<p>If feature is functional in the standard virtual machines, then users
+should:</p>
+<ul>
+<li>Note that the feature is working in non-Whonix VMs.</li>
+<li>Include this information as part of the support request or bug
+report for Whonix.</li>
+</ul>
+<p>These steps will help ensure that the underlying feature is working
+correctly before troubleshooting Whonix specific issues.</p>
+<h1 id="System_Logs">System Logs</h1>
+<p>Use the system logs to your advantage.</p>
+<p><sup class="reference"><a href="#cite_note-13">[13]</a></sup></p>
+<h2 id="Check_Systemd_Journal_Log_of_Current_Boot">Check Systemd Journal
+Log of Current Boot</h2>
+<p>To inspect the systemd journal log of the current boot, run.</p>
+<p><span class="code-select">sudo journalctl -b</span></p>
+<p>This command requires pressing arrow keys like ↑, ↓, <-, ->, as well as
+<code>PgUp</code> and <code>PgDn</code> for scrolling.</p>
+<p>For convenient reading of the log (until the command is issued), the
+log can be dumped to file. For example, the following command would
+write the log to file <code>~/systemd-log</code>.</p>
+<p><span class="code-select">sudo journalctl -b &gt;
+~/systemd-log</span></p>
+<p>Use any available editor to read the log file, such as
+<code>mousepad</code>.</p>
+<p><span class="code-select">mousepad ~/systemd-log</span></p>
+<h2 id="Watch_Systemd_Journal_Log_of_Current_Boot">Watch Systemd Journal
+Log of Current Boot</h2>
+<p>It is possible to to watch the systemd journal log as it is
+written.</p>
+<p><span class="code-select">sudo journalctl -b -f</span></p>
+<h2 id="Check_Systemd_Journal_Log_of_Previous_Boot">Check Systemd
+Journal Log of Previous Boot</h2>
+<p><span class="code-select">sudo journalctl -b -1</span></p>
+<p>This command requires pressing arrow keys like ↑, ↓, <-, ->, as well as
+<code>PgUp</code> and <code>PgDn</code> for scrolling.</p>
+<p>For convenient reading of the log (until the command is issued), the
+log can be dumped to file. For example, the following command would
+write the log to file <code>~/systemd-log-previous</code>.</p>
+<p><span class="code-select">sudo journalctl -b -1 &gt;
+~/systemd-log-previous</span></p>
+<p>Use any available editor to read the log file, such as
+<code>mousepad</code>.</p>
+<p><span class="code-select">mousepad ~/systemd-log-previous</span></p>
+<h2 id="View_List_of_Systemd_Journal_Logs">View List of Systemd Journal
+Logs</h2>
+<p><span class="code-select">sudo journalctl --list-boots</span></p>
+<p><span class="manually-placed-anchor " id="Daemon_Log"></span></p>
+<h2 id="Daemon_Log_View">Daemon Log View</h2>
+<p>To view the log of a specific systemd unit. Syntax:</p>
+<p>(Replace <code>unit-name</code> with the actual name of the systemd
+unit.)</p>
+<p><span class="code-select">sudo journalctl -b --no-pager -u
+unit-name</span></p>
+<p>Example:</p>
+<p><span class="code-select">sudo journalctl -b --no-pager -u
+sdwdate</span></p>
+<h2 id="Daemon_Log_Follow">Daemon Log Follow</h2>
+<p>To follow the log of a specific systemd unit. Syntax:</p>
+<p>(Replace <code>unit-name</code> with the actual name of the systemd
+unit.)</p>
+<p><span class="code-select">sudo journalctl -f -b --no-pager -u
+unit-name</span></p>
+<p>Example:</p>
+<p><span class="code-select">sudo journalctl -f -b --no-pager -u
+sdwdate</span></p>
+<h2 id="Daemon_Status">Daemon Status</h2>
+<p>To view the status of a specific systemd unit. Syntax:</p>
+<p>(Replace <code>unit-name</code> with the actual name of the systemd
+unit.)</p>
+<p><span class="code-select">sudo systemctl status --no-pager
+unit-name</span></p>
+<p>Example:</p>
+<p><span class="code-select">sudo systemctl status --no-pager
+sdwdate</span></p>
+<h2 id="Check_Systemd_Journal_Log_of_Failed_Boot">Check Systemd Journal
+Log of Failed Boot</h2>
+<p>An alternative to recovery mode might be <a href="Desktop.html#Virtual_Consoles">virtual consoles</a>,
+since they are an easier and more lightweight solution. A virtual
+console login might still be possible when the graphical user interface
+no longer starts.</p>
+<p>Prerequisite knowledge: <a href="Desktop.html#Virtual_Consoles">Virtual Consoles</a>. Try to log in to a virtual
+console in a functional VM as an exercise. If that works, try a virtual
+console login in the broken VM.</p>
+<p>If a virtual console is unavailable:</p>
+<ol>
+<li>Boot into <a href="Moved:Recovery.html">Recovery
+Mode</a>.</li>
+<li>Reboot into normal mode so a log for the failed boot will be written
+(if not previously enabled).</li>
+<li>Boot into recovery mode again.</li>
+<li><a href="#Check_Systemd_Journal_Log_of_Previous_Boot">Check Systemd Journal Log of Previous Boot</a>.</li>
+</ol>
+<h1 id="Permission_Fix">Permission Fix</h1>
+<p>Fix permissions that might not be set correctly.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="info" /></span>
+If something does not work, do not arbitrarily try to use sudo / root
+without any indication this is appropriate. Otherwise, this can
+negatively affect the correct user home folder permissions. See also: <a href="Moved:Root.html">Safely Use Root Commands</a>.</p>
+</div>
+<p>Open a terminal.</p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="50" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix_USER_Session">Non-Qubes-Whonix USER
+Session</h4>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix with
+<strong>LXQt</strong></u>, complete the following steps.</p>
+<p><code>Start menu</code> -> <code>System Tools</code> ->
+<code>QTerminal</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="50" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix_SYSMAINT_Session">Non-Qubes-Whonix SYSMAINT
+Session</h4>
+</div>
+<div class="tcc-content">
+<p>In the System Maintenance Panel, under the <code>Misc</code> section,
+click <code>Open Terminal</code>.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_7">Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="Qubes.html">Qubes-Whonix</a></u>, complete the following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Workstation</code><sup><code>™</code></sup><code> App Qube (commonly named </code><em><code>anon-whonix</code></em><code>)</code>
+-> <code>QTerminal</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><span class="code-select">sudo chown --recursive user:user
+/home/user</span></p>
+<h1 id="Hardware_Issues">Hardware Issues</h1>
+<p>These are hardware issue that you may encouter.</p>
+<h2 id="General_Recommendations">General Recommendations</h2>
+<p>Rhetorical questions:</p>
+<ul>
+<li>When was the last time a qualified person disassembled your
+computer/notebook and removed dust from the fan and checked the cooling
+system of the CPU?</li>
+<li>How often should maintenance be performed?</li>
+<li>What is your CPU temperature under heavy system load?</li>
+<li>What is the room temperature where the computer is operating?</li>
+<li>What is your hard drive's health status?</li>
+</ul>
+<p>Recommendations:</p>
+<ul>
+<li>Ensure your computer or notebook has regular, proper
+maintenance.</li>
+<li>Monitor CPU temperature by utilizing relevant host operating system
+tools.</li>
+<li>Consider cooling the room where computers/notebooks operate.</li>
+<li>Better placement (more air space) around computers or notebooks can
+help.</li>
+<li>Consider a passive or active (notebook) cooling pad.
+<sup class="reference"><a href="#cite_note-14">[14]</a></sup></li>
+<li><a href="#memtest86+">Run
+<code>memtest86+</code></a> to rule out RAM problems.</li>
+<li><a href="#gsmartcontrol">Run
+<code>gsmartcontrol</code></a> to rule out hard drive defects.</li>
+</ul>
+<p>None of these issues are related to Whonix. Therefore, please do not
+ask these questions in Whonix support channels (until there is a
+Whonix-Host operating system) as per <a href="Self_Support_First_Policy.html">Self Support First Policy</a>.</p>
+<h2 id="memtest86+">memtest86+</h2>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Install the <code>memtest86+</code> tool.</p>
+<p>On Debian (based) hosts such as <a href="Moved:Kicksecure.html">Kicksecure</a>.</p>
+<div class="info-box ">
+<p>Install package(s) <code>memtest86+</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="Qubes.html">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>memtest86+</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+memtest86+</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>memtest86+</code> is
+complete.</p>
+</div>
+<p>For other host operating systems, refer to <code>memtest86+</code>
+upstream documentation.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Reboot.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+Start <code>memtest86+</code> from (grub) boot menu.</p>
+<ul>
+<li>Choose <code>memory test (memtest86+.elf)</code>.</li>
+<li><code>memory test (memtest86+.bin, serial console)</code> serial
+console not needed.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
+Keep <code>memtest86+</code> running for a significant period.</p>
+<p>A single pass of <code>memtest86+</code> from 0 to 100% progress is
+insufficient. The memory testing should be run for as long as
+practically possible; for example, ideally overnight or for 8+ hours.
+This is because RAM issues might not happen during
+<code>memtest86+</code>'s first pass. Sometimes only after a few 10
+minutes or few hours issues can be detected because the issue might be
+related to stress, heat and not be easily and quickly reproducible.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">5</i>
+Check the <code>memtest86+</code> output.</p>
+<p>If there are any issues, red error messages appear in the middle of
+the screen.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">6</i>
+Done.</p>
+<p>The memory test is complete.</p>
+<p>If <code>memtest86+</code> identified any issues, these can manifest
+in various ways such as system crashes at random times. In such cases,
+the only likely solution is replacing the faulty hardware (RAM banks).
+<sup class="reference"><a href="#cite_note-15">[15]</a></sup></p>
+</div>
+<h2 id="gsmartcontrol">gsmartcontrol</h2>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Install the <code>gsmartcontrol+</code> tool.</p>
+<p>On Debian (based) hosts such as <a href="Moved:Kicksecure.html">Kicksecure</a>.</p>
+<div class="info-box ">
+<p>Install package(s) <code>gsmartcontrol</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="Qubes.html">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>gsmartcontrol</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+gsmartcontrol</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>gsmartcontrol</code> is
+complete.</p>
+</div>
+<p>For other host operating systems, refer to <code>gsmartcontrol</code>
+upstream documentation.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Reboot.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+Start <code>gsmartcontrol</code>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
+Run the short and extended tests on all hard drives.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">5</i>
+Done.</p>
+<p>The hard drive test is complete.</p>
+<p>If <code>gsmartcontrol</code> identified any issues, these can
+manifest in various ways such as system crashes at random times. In such
+cases, the only likely solution is replacing the faulty hardware (hard
+drive). <sup class="reference"><a href="#cite_note-16">[16]</a></sup></p>
+</div>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="RAM.html">Advice for Systems with Low
+RAM</a></li>
+<li><a href="Moved:VirtualBox/Troubleshooting.html">VirtualBox
+Troubleshooting</a></li>
+<li><a href="KVM.html#Troubleshooting">KVM
+Troubleshooting</a></li>
+<li><a href="Qubes/Troubleshooting.html">Qubes-Whonix<sup>™</sup> Troubleshooting</a></li>
+<li><a href="Moved:Recovery.html">Recovery Mode</a></li>
+<li><a href="Moved:SysRq.html">System Recovery using SysRq
+Key</a></li>
+<li><a href="Moved:Core_Dumps.html">Core Dumps</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">While a Linux kernel developer could attach a debugger to analyze
+low-level operations, doing so for a common network error shown by
+Firefox, such as <code>DNS_PROBE_FINISHED_NO_INTERNET</code>, is
+generally impractical and unnecessary for several reasons: *
+<strong>Complexity:</strong> Kernel debugging is complex and requires
+deep system knowledge. It involves analyzing system calls, network stack
+processes, and possibly kernel code, which is overkill for typical
+network issues. * <strong>Time-Consuming:</strong> Setting up a kernel
+debugger environment, reproducing the issue, and analyzing the results
+can take significantly more time than standard troubleshooting methods.
+* <strong>Expenses:</strong> There are few people with the skills
+required. Hiring a developer with these skills would be more expensive
+than standard network troubleshooting. * <strong>User
+expectations:</strong> Debugging attempts are not guaranteed to work,
+but they are encouraged to help fix outstanding issues. For everyday
+network issues, especially those related to DNS, using standard
+troubleshooting techniques and tools is more efficient and safer.</li>
+<li id="cite_note-2">By using ping. For example, ping <code>8.8.8.8</code>. On the host,
+run. <span class="code-select">ping 8.8.8.8</span> Ping
+<code>google.com</code> and/or other websites.
+<span class="code-select">ping google.com</span> and so on.</li>
+<li id="cite_note-3">''' <span class="code-select">date</span></li>
+<li id="cite_note-4"><a href="https://forums.whonix.org/t/time-too-long-error-or-very-long-time/12716/4">https://forums.whonix.org/t/time-too-long-error-or-very-long-time/12716/4</a></li>
+<li id="cite_note-5"><a href="https://forums.whonix.org/t/ping-operation-permitted/11056">https://forums.whonix.org/t/ping-operation-permitted/11056</a></li>
+<li id="cite_note-6"><a href="https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium">https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium</a></li>
+<li id="cite_note-7"><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li id="cite_note-8"><a href="https://www.reddit.com/r/Whonix/comments/1easzpq/the_hellish_5_problem_plz_help/">https://www.reddit.com/r/Whonix/comments/1easzpq/the_hellish_5_problem_plz_help/</a></li>
+<li id="cite_note-9">This test only uses TCP and not DNS.</li>
+<li id="cite_note-10">In computer science, a high-level programming language is a
+programming language with strong abstraction from the details of the
+computer. In contrast to low-level programming languages, it may use
+natural language elements, be easier to use, or may automate (or even
+hide entirely) significant areas of computing systems (e.g. memory
+management), making the process of developing a program simpler and more
+understandable than when using a lower-level language. The amount of
+abstraction provided defines how "high-level" a programming language
+is.</li>
+<li id="cite_note-11">Such as broken networking in either the host network or in all
+virtual machines.</li>
+<li id="cite_note-12">This process can be lengthy.</li>
+<li id="cite_note-13">"user support template": <a href="https://forums.whonix.org/t/workstation-keeps-freezing/7693/6">https://forums.whonix.org/t/workstation-keeps-freezing/7693/6</a></li>
+<li id="cite_note-14">Perform thorough research beforehand.</li>
+<li id="cite_note-15">RAM bank warranties may apply.</li>
+<li id="cite_note-16">Hard drive warranties may apply.</li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Essential_Tests.html" title="Essential Tests"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Essential
+Tests</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="IPv6.html" title="IPv6"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">IPv6</span></a><span class="info"><span class="prev">Previous
+page: Essential Tests</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+IPv6</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

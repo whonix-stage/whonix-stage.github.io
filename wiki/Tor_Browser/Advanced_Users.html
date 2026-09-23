@@ -1,0 +1,3560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Tor Browser/Advanced Users</title>
+<meta name="description" content="Tor Browser Adversary Model and Torbutton Design. Custom homepage, configurations and proxy settings. Tor Browser update technical details. Platform-specific issues.">
+<meta property="og:description" content="Tor Browser Adversary Model and Torbutton Design. Custom homepage, configurations and proxy settings. Tor Browser update technical details. Platform-specific issues.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Tor_Browser/Advanced_Users.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Tor_Browser/Advanced_Users.html">
+<meta property="og:title" content="Tor Browser Advanced Topics">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Toradvanced.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Tor Browser</span> / <span>Advanced Users</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Adversary_Goals">Adversary Goals</a></li><li class="toc-l2"><a href="#Adversary_Positioning_Capabilities">Adversary Positioning
+Capabilities</a></li><li class="toc-l2"><a href="#Adversary_Attack_Capabilities">Adversary Attack
+Capabilities</a></li><li class="toc-l2"><a href="#New_Identity_Design">New Identity Design</a></li><li class="toc-l2"><a href="#New_Tor_Circuit_Design">New Tor Circuit Design</a></li><li class="toc-l2"><a href="#Security_Slider_Design">Security Slider Design</a></li><li class="toc-l2"><a href="#Disabled_Tor_Browser_Functions">Disabled Tor Browser
+Functions</a></li><li class="toc-l3"><a href="#Open_Network_Settings">Open Network Settings</a></li><li class="toc-l3"><a href="#Tor_Circuit_View">Tor Circuit View</a></li><li class="toc-l2"><a href="#Tor_Browser_AppArmor_Permit_Shared_Folder">Tor Browser AppArmor
+Permit Shared Folder</a></li><li class="toc-l2"><a href="#Verify_New_Identity">Verify New Identity</a></li><li class="toc-l2"><a href="#Get_a_New_Identity_without_Tor_ControlPort_Access">Get a New
+Identity without Tor ControlPort Access</a></li><li class="toc-l2"><a href="#Remove_Proxy_Settings">Remove Proxy Settings</a></li><li class="toc-l2"><a href="#Change_Proxy_Settings">Change Proxy Settings</a></li><li class="toc-l2"><a href="#Permission_Fix">Permission Fix</a></li><li class="toc-l2"><a href="#tor-launcher">tor-launcher</a></li><li class="toc-l2"><a href="#torbrowser-launcher">torbrowser-launcher</a></li><li class="toc-l2"><a href="#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template">Running
+Tor Browser in Qubes Template or Disposable Template</a></li><li class="toc-l2"><a href="#tb-updater_in_Qubes_Template">tb-updater in Qubes Template</a></li><li class="toc-l3"><a href="#Default_Behavior">Default Behavior</a></li><li class="toc-l3"><a href="#Update_Failures">Update Failures</a></li><li class="toc-l3"><a href="#Optional_Package_Configuration">Optional Package
+Configuration</a></li><li class="toc-l3"><a href="#Technical_Details">Technical Details</a></li><li class="toc-l3"><a href="#File_Locations">File Locations</a></li><li class="toc-l3"><a href="#Creating_Whonix_Using_the_Build_Script">Creating Whonix Using
+the Build Script</a></li><li class="toc-l2"><a href="#tb-updater_in_Qubes_Disposable_Template">tb-updater in Qubes
+Disposable Template</a></li><li class="toc-l2"><a href="#tb-updater_Configuration">tb-updater Configuration</a></li><li class="toc-l3"><a href="#Disable_tb-updater_downloading_Tor_Browser_during_tb-updater_Package_Upgrade">Disable
+tb-updater downloading Tor Browser during tb-updater Package
+Upgrade</a></li><li class="toc-l2"><a href="#Template_Customization">Template Customization</a></li><li class="toc-l2"><a href="#Disposable_Template_Customization">Disposable Template
+Customization</a></li><li class="toc-l3"><a href="#Option_1:_Disposable_Template_Method">Option 1: Disposable
+Template Method</a></li><li class="toc-l3"><a href="#Option_2:_Template_Method">Option 2: Template Method</a></li><li class="toc-l3"><a href="#Option_3:_Manual_Method">Option 3: Manual Method</a></li><li class="toc-l3"><a href="#Split_Tor_Browser_for_Qubes">Split Tor Browser for Qubes</a></li><li class="toc-l2"><a href="#Linux_Generally">Linux Generally</a></li><li class="toc-l2"><a href="#Qubes-specific">Qubes-specific</a></li><li class="toc-l2"><a href="#Multiple_Tor_Browser_Instances">Multiple Tor Browser
+Instances</a></li><li class="toc-l2"><a href="#Multiple_Whonix-Workstation">Multiple Whonix-Workstation</a></li><li class="toc-l2"><a href="#Tor_Browser_versus_/etc/hosts">Tor Browser versus /etc/hosts</a></li><li class="toc-l2"><a href="#Tor_Browser_versus_DNS_over_HTTPS">Tor Browser versus DNS over
+HTTPS</a></li><li class="toc-l2"><a href="#Tor_Browser_vs_Firewalls_Based_Filtering">Tor Browser vs
+Firewalls Based Filtering</a></li><li class="toc-l2"><a href="#Tor_Browser_Filtering_Options">Tor Browser Filtering
+Options</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../Tor_Browser.html">Tor Browser
+Essentials</a></li>
+<li><a href="Advanced_Users.html">Tor Browser
+Advanced</a></li>
+<li><a href="../Browser_Tests.html">Browser Tests</a></li>
+<li><a href="../Other_Browsers.html">Other Browsers</a></li>
+<li><a href="../Geo-blocking.html">Geo-blocking - Unreachable
+Websites</a></li>
+</ul>
+</div>
+<p><img src="../../media/Toradvanced.jpg.webp" width="200" alt="Toradvanced.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Tor Browser Adversary Model and Torbutton Design. Custom homepage,
+configurations and proxy settings. Tor Browser update technical details.
+Platform-specific issues.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Tor_Browser_Adversary_Model">Tor Browser Adversary Model</h1>
+<p>The Tor Browser design has carefully considered the goals,
+capabilities and types of attacks undertaken by adversaries and planned
+accordingly. The design specifications address:</p>
+<div>
+<ul>
+<li>Application data isolation.</li>
+<li>Cross-origin fingerprinting unlinkability.</li>
+<li>Cross-origin identifier unlinkability.</li>
+<li>Disk avoidance.</li>
+<li>Long-term unlinkability via the "New Identity" button.</li>
+<li>Proxy obedience.</li>
+<li>State separation.</li>
+<li>Other security measures to address many of the risks outlined below.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup> <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+</ul>
+</div>
+<h2 id="Adversary_Goals">Adversary Goals</h2>
+<table>
+<caption><em>Adversary Goals</em> <sup class="reference"><a href="#cite_note-3">[3]</a></sup>
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Adversary Goals</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Anonymity Set Reduction (Fingerprinting)</p></td>
+<td><p>To identify specific individuals, system data like the browser
+build, timezone or display resolution is used to track down (or at least
+track) their activities.</p></td>
+</tr>
+<tr class="even">
+<td><p>Bypassing Proxy Settings</p></td>
+<td><p>Directly compromising and bypassing Tor, or forcing connections
+to specific IP addresses.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Correlating Activity across Multiple Sites</p></td>
+<td><p>Learning if the person who visited site A is the same person who
+visited site B, in order to serve targeted advertisements.</p></td>
+</tr>
+<tr class="even">
+<td><p>Correlating Tor and Non-Tor activity</p></td>
+<td><p>If a proxy bypass is not possible, correlation of Tor and non-Tor
+activity is sought via cookies, cache identifiers, JavaScript events and
+Cascading Style Sheets (CSS).</p></td>
+</tr>
+<tr class="odd">
+<td><p>History Disclosure</p></td>
+<td><p>Querying user history for censored search queries or
+websites.</p></td>
+</tr>
+<tr class="even">
+<td><p>History Records and other On-disk Information</p></td>
+<td><p>Seizing the computers of all Tor users in a given area and
+extracting history records, cache data, hostnames and disk-logged
+spoofed MAC address history.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Location Information</p></td>
+<td><p>Seeking timezone and locality information to determine if the
+user originates from a specific region they are trying to control, or
+focusing in on dissidents or whistleblowers.</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Adversary_Positioning_Capabilities">Adversary Positioning
+Capabilities</h2>
+<table>
+<caption><em>Positioning Capabilities</em> <sup class="reference"><a href="#cite_note-3">[3]</a></sup>
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Location</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Adservers and/or Malicious Websites</p></td>
+<td><p>Running websites or contracting ad space from adservers to inject
+content. Reducing a Tor user's anonymity is also good for marketing
+purposes. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p>Exit Node or Upstream Router</p></td>
+<td><p>Running exit nodes or controlling routers upstream of exit nodes.
+<sup class="reference"><a href="#cite_note-6">[6]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p>Local Network / ISP / Upstream Router</p></td>
+<td><p>Injecting malicious content at the upstream router when Tor is
+disabled in order to correlate Tor and non-Tor activity. Additionally,
+block Tor or attempt to recognize traffic patterns of specific web pages
+at the entrance to the Tor network.</p></td>
+</tr>
+<tr class="even">
+<td><p>Physical Access</p></td>
+<td><p>Constant or intermittent physical access to computer equipment.
+This may happen to Internet cafe users or those in jurisdictions where
+equipment is confiscated due to general suspicion or solely for Tor
+use.</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Adversary_Attack_Capabilities">Adversary Attack
+Capabilities</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong> Advanced adversaries have numerous
+surveillance methods and attack vectors to deanonymize and spy on
+individuals.</p>
+</div>
+<table>
+<caption><em>Attack Capabilities</em> <sup class="reference"><a href="#cite_note-3">[3]</a></sup>
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Attack Capabilities</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Inserting CSS</p></td>
+<td><ul>
+<li><u>Using CSS pop-ups</u>: Correlate Tor and non-Tor activity in
+order to reveal the non-Tor IP address.<br />
+</li>
+<li><u>Using CSS and JavaScript</u>: Perform CSS-only history disclosure
+attacks.<br />
+</li>
+<li><u>CSS media queries</u>: Gather information about desktop size,
+widget size, display type, DPI (dots per inch), user agent type and
+other information.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Inserting JavaScript</p></td>
+<td><ul>
+<li><u>Extracting fingerprinting information</u>: Available fonts, DOM
+objects to ascertain the user agent, WebGL to reveal the video card in
+use, and high precision timing information to reveal the CPU and
+interpreter speed.<br />
+</li>
+<li><u>Executing history disclosure attacks</u>: Query the history of
+different attributes of visited links for specific queries, sites, or
+for user profiling (gender, interests etc.).<br />
+</li>
+<li><u>Querying</u>: The user's timezone via the date object and
+reducing the anonymity set by querying the navigator object for
+operating system, CPU, location and user agent information.</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Inserting or Exploiting Plugins</p></td>
+<td><ul>
+<li><u>Using plugins</u>: Perform network activity that is independent
+of browser (or its own) proxy settings in order to obtain the non-Tor IP
+address.<br />
+</li>
+<li><u>Using active plugin exploits</u>: Leak the non-Tor IP
+address.<br />
+</li>
+<li><u>Enumerating</u>: The list of plugins to fingerprint the
+user.<br />
+</li>
+<li><u>Gathering information</u>: Use plugins capable of extracting font
+lists, interface addresses and other machine information.<br />
+</li>
+<li><u>Retrieving</u>: Unique plugin identifiers.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Reading and Inserting Identifiers</p></td>
+<td><ul>
+<li><u>Storing identifiers</u>: HTTP auth, DOM storage, cached scripts,
+other elements with embedded identifiers, client certificates and TLS
+session IDs.<br />
+</li>
+<li><u>Performing a man-in-the-middle (MITM) attack</u>: Inject elements
+to both read and inject cookies for arbitrary domains (affecting even
+SSL/TLS secured websites).</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Other Attacks</p></td>
+<td><ul>
+<li><u>Creating arbitrary cached content</u>: Reading the browser cache
+which stores unique identifiers.<br />
+</li>
+<li><u>Observing request behavior</u>: Fingerprinting is aided by
+observing the user agent, Accept-* headers, pipeline usage, and request
+ordering. Fingerprinting is worsened by custom filters like AdBlock and
+uBlock Origin.<br />
+</li>
+<li><u>Fingerprinting</u>: Using the large number of browser attributes
+to reduce the anonymity set, or even uniquely fingerprinting
+individuals. <sup class="reference"><a href="#cite_note-7">[7]</a></sup><br />
+</li>
+<li><u>Website traffic fingerprinting</u>: Attempting to recognize the
+encrypted traffic patterns of specific websites, either between the user
+and the Guard node, or at the Guard node itself.
+<sup class="reference"><a href="#cite_note-8">[8]</a></sup><br />
+</li>
+<li><u>Remotely or locally exploiting the browser and/or OS</u>:
+Exploiting the browser, plugin or OS vulnerabilities to install malware
+or surveillance software, or physically access the machine to do the
+same.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Torbutton_Design">Torbutton Design</h1>
+<p>With the <a href="https://blog.torproject.org/new-release-tor-browser-90">release of
+Tor Browser 9.0</a> in late-2019, both the Torbutton and Tor Launcher
+extensions have been tightly integrated into Tor Browser, meaning
+Torbutton has been moved from the URL bar and neither appears on the <a href="about:addons"><code>about:addons</code></a> page. Other changes
+include the New Identity function shifting to the URL bar and the New
+Tor Circuit function being accessible via the hamburger menu. As <a href="https://2019.www.torproject.org/docs/torbutton/torbutton-faq.html.en">noted
+by Tor developers</a>:</p>
+<p><blockquote><p>Now that the Tor Browser includes a patched version of Firefox, and
+because we don't have enough developer resources to keep up with the
+accelerated Firefox release schedule, the toggle model of Torbutton is
+<a href="https://blog.torproject.org/toggle-or-not-toggle-end-torbutton">no
+longer supported</a>. Users should be using Tor Browser, not installing
+Torbutton themselves.</p></blockquote></p>
+<p>No functionality has been lost -- Torbutton's functions in Tor
+Browser behavior have <a href="https://gitlab.torproject.org/legacy/trac/-/issues/10760">simply
+moved into direct Firefox patches</a> <sup class="reference"><a href="#cite_note-9">[9]</a></sup> which address
+the following dimensions.</p>
+<table>
+<caption><em>Torbutton Features Integrated into Tor Browser</em>
+<sup class="reference"><a href="#cite_note-10">[10]</a></sup> <sup class="reference"><a href="#cite_note-11">[11]</a></sup></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Feature</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Anonymity Set Preservation</p></td>
+<td><p>Tor Browser should not leak any other anonymity set reducing or
+fingerprinting information (such as user agent, extension presence, and
+resolution information) automatically via Tor.</p></td>
+</tr>
+<tr class="even">
+<td><p>Disk Avoidance</p></td>
+<td><p>Tor Browser should not write any Tor-related state to disk, or
+store it in memory beyond one Tor toggle.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Interoperability</p></td>
+<td><p>Tor Browser should inter-operate with third-party proxy switchers
+that enable the user to switch between a number of different proxies,
+with full Tor protection.</p></td>
+</tr>
+<tr class="even">
+<td><p>Location Neutrality</p></td>
+<td><p>Tor Browser should not leak location-specific information, like
+the timezone or locale via Tor.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Proxy Obedience</p></td>
+<td><p>Tor Browser must not bypass Tor proxy settings.</p></td>
+</tr>
+<tr class="even">
+<td><p>State Separation</p></td>
+<td><p>Cookies, cache, history, DOM storage, and more accumulated in one
+Tor state must not be accessible via the network in another Tor
+state.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Update Safety</p></td>
+<td><p>Tor Browser should not perform unauthenticated updates or
+upgrades via Tor.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Tor Browser patches and the integrated Torbutton features can
+potentially disable some functionality or interfere with the proper
+operation of some Internet sites, but the vast majority of websites work
+well. To learn more about former Torbutton, see:</p>
+<ul>
+<li><a href="https://2019.www.torproject.org/docs/torbutton/">The
+Torbutton homepage</a></li>
+<li><a href="https://2019.www.torproject.org/docs/torbutton/torbutton-faq.html.en">The
+Torbutton FAQ</a></li>
+<li><a href="https://2019.www.torproject.org/docs/torbutton/en/design/index.html.en">Torbutton
+Design Documentation</a></li>
+<li>The Torbutton function design section immediately below.</li>
+</ul>
+<h2 id="New_Identity_Design">New Identity Design</h2>
+<p>The Tor Browser design document describes the full features provided
+by this extension: <sup class="reference"><a href="#cite_note-12">[12]</a></sup> <sup class="reference"><a href="#cite_note-13">[13]</a></sup></p>
+<div>
+<ul>
+<li>Disables JavaScript and plugins on all tabs and windows.</li>
+<li>Stops all page activity for each tab.</li>
+<li>Clears the Tor Browser state:
+<ul>
+<li>OCSP state.</li>
+<li>Content and image cache.</li>
+<li>Site-specific zoom.</li>
+<li>Cookies and DOM storage.</li>
+<li>The safe browsing key.</li>
+<li>Google Wi-Fi geolocation token.</li>
+<li>Last opened URL preference (if it exists).</li>
+<li>Searchbox and findbox text.</li>
+<li>Purge session history.</li>
+<li>HTTP authentication.</li>
+<li>SSL session IDs.</li>
+<li>Crypto tokens.</li>
+<li>Site-specific content preferences.</li>
+<li>Undo tab history.</li>
+<li>Offline storage.</li>
+<li>Domain isolator state.</li>
+<li>NoScript's site and temporary permissions.</li>
+<li>All other browser site permissions.</li>
+</ul></li>
+<li>Closes all remaining HTTP keep-alive connections.</li>
+<li>Sends Tor the "newnym" signal to issue a new Tor circuit.</li>
+</ul>
+</div>
+<p>After this process above, a fresh browser window is opened and the
+current browser window is closed (this does not spawn a new Firefox
+process, only a new window). When the final window is closed, any <a href="blob:UUID">blob:UUID</a> URLs that were created by websites are
+purged. <sup class="reference"><a href="#cite_note-13">[13]</a></sup></p>
+<p>While there is no Tor running inside Whonix-Workstation, this is
+still possible. <a href="../Dev/anon-ws-disable-stacked-tor.html">anon-ws-disable-stacked-tor</a> redirects the
+connection to Whonix-Gateway, where <a href="../Onion-grater.html">onion-grater (user documentation)</a> (<a href="../Dev/onion-grater.html">onion-grater (developer
+documentation)</a>) is running, forwarding it to Tor.</p>
+<h2 id="New_Tor_Circuit_Design">New Tor Circuit Design</h2>
+<p>The "New Tor Circuit for this Site" feature sends the "newnym" signal
+to the Tor control port to cause a new circuit to be created for the
+<i>current</i> Tor Browser tab. <sup class="reference"><a href="#cite_note-14">[14]</a></sup> Other open tabs and
+windows from the same website will use the new circuit as well once they
+have reloaded, but connections to other websites on separate tabs are
+not affected. <sup class="reference"><a href="#cite_note-15">[15]</a></sup></p>
+<h2 id="Security_Slider_Design">Security Slider Design</h2>
+<p>The Security Level preference tab and Tor Project manual describe the
+exact effect of each level and which features are disabled or partially
+disabled. Note that as of Tor Browser release v8.5, the security slider
+function has shifted from Torbutton to the taskbar ("shield" icon).
+<sup class="reference"><a href="#cite_note-16">[16]</a></sup> <sup class="reference"><a href="#cite_note-17">[17]</a></sup></p>
+<table>
+<caption><em>Security Slider Settings</em> <sup class="reference"><a href="#cite_note-18">[18]</a></sup></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Setting</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Standard</p></td>
+<td><ul>
+<li>All Tor Browser and website features are enabled.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Safer</p></td>
+<td><ul>
+<li>Dangerous website features are disabled; some sites lose
+functionality.<br />
+</li>
+<li>On non-HTTPS sites, JavaScript is disabled.<br />
+</li>
+<li>Some fonts and maths symbols are disabled.<br />
+</li>
+<li>WebGL and HTML5 media (like audio and video) are
+click-to-play.<br />
+</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Safest</p></td>
+<td><ul>
+<li>Only website features required for basic services and static sites
+are allowed; images, media and scripts are affected.<br />
+</li>
+<li>JavaScript is disabled on all sites; some images, fonts, icons and
+maths symbols are disabled.<br />
+</li>
+<li>HTML5 media (like audio and video) are click-to-play.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Disabled_Tor_Browser_Functions">Disabled Tor Browser
+Functions</h2>
+<h3 id="Open_Network_Settings">Open Network Settings</h3>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Whonix has modified environment variables to prevent visibility of the
+"Open Network Settings..." menu option in Tor Browser.</p>
+</div>
+<p>The regular Tor Browser Bundle from The Tor Project (without Whonix)
+allows networking settings to be changed inside Tor via the Open Network
+Settings menu option. It has the same effect as editing Tor's torrc
+configuration file.</p>
+<p>In Whonix, the environment variable export
+<code>TOR_NO_DISPLAY_NETWORK_SETTINGS=1</code> has been <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">set</a>
+to disable the <code>Tor Browser</code> ->
+<code>Open Network Settings...</code> menu item. It is not useful and
+confusing to have in the Whonix-Workstation<sup>™</sup> because:
+<sup class="reference"><a href="#cite_note-19">[19]</a></sup> <sup class="reference"><a href="#cite_note-20">[20]</a></sup></p>
+<ul>
+<li>In Whonix, there is only limited access to Tor's control port (see
+<a href="../Dev/onion-grater.html">onion-grater (Control Port
+Filter Proxy)</a> for more information).</li>
+<li>For security reasons, Tor must be manually configured via
+<em>/usr/local/etc/torrc.d/50_user.conf</em> in
+Whonix-Gateway<sup>™</sup>, and not inside Whonix-Workstation (see <a href="../Features.html#Tunnel_Support">VPN/Tunnel support</a>
+for more information).</li>
+</ul>
+<h3 id="Tor_Circuit_View">Tor Circuit View</h3>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Whonix has removed the Tor Circuit View from Tor Browser for security
+reasons.</p>
+</div>
+<p>Normally this option in Tor Browser shows the three Tor relays used
+for the website in the current tab. This includes the IP addresses of
+each and the countries they are located in, and whether a bridge is
+being used (see below). The node immediately above the destination
+website reflects the Tor exit relay. <sup class="reference"><a href="#cite_note-21">[21]</a></sup></p>
+<p><strong>Figure:</strong> <em>Tor Circuit View - Disabled in
+Whonix</em> <sup class="reference"><a href="#cite_note-22">[22]</a></sup></p>
+<p><img src="../../media/Torcircuitviewupdate.png.webp" alt="Tor Browser Bundle&#x27;s Improved Circuit Display" /></p>
+<p>The <a href="../Dev/onion-grater.html">onion-grater (Control
+Port Filter Proxy)</a> configuration in Whonix intentionally does not
+whitelist the Tor control protocol commands that would be required for
+Tor Circuit View to function. This information is made unavailable to
+Whonix-Workstation because Whonix-Workstation should not have access to
+IP address information. If unavailable it cannot leak. Otherwise <a href="../Moved:Malware_and_Firmware_Trojans.html">malicious</a> or
+broken applications could leak it. Users might also unintentionally make
+screenshots of this information. One of the main advantages of Whonix
+is, that there is no way to determine the real external IP address of
+the user from within Whonix-Workstation. Therefore also the IP address
+of the Tor entry guard or bridge as well as Tor middle relay should be
+inaccessible from Whonix-Workstation. Otherwise this information might
+aid an attacker who gained remote code execution capability within
+Whonix-Workstation.</p>
+<p>If you want to help fix the Tor Button Circuit view, read more on <a href="../Dev/onion-grater.html#Circuit_View">Dev/onion-grater#Circuit_View</a>.</p>
+<p><span class="manually-placed-anchor " id="SecBrowser:_Tor_Browser_without_Tor"></span></p>
+<h1 id="Saving_Files_in_Shared_Folder">Saving Files in Shared
+Folder</h1>
+<p>Saving downloaded files in the shared folder is no longer trivially
+possible due to the <a href="https://forums.whonix.org/t/install-apparmor-profiles-apparmor-profiles-extra-apparmor-profiles-kicksecure-by-default/13753">now
+pre-installed</a> Tor Browser
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] profile for <a href="../Tor_Browser.html#AppArmor_Confinement">Tor Browser
+AppArmor Confinement</a>.</p>
+<p>If the user wants to save files in the shared folder, there are
+multiple options. Choose one.</p>
+<ul>
+<li><strong>A)</strong> Saving files in
+<code>/home/user/Downloads</code> folder instead as per <a href="../Tor_Browser.html#Navigating_Tor_Browser_Downloads">Navigating Tor Browser Downloads</a> and then move the
+files from there to the shared folder.</li>
+<li><strong>B)</strong> Modify the Tor Browser AppArmor profile
+<code>/etc/apparmor.d/home.tor-browser.firefox</code> by addition of an
+additional permission in the local
+<code>/etc/apparmor.d/local/home.tor-browser.firefox</code> file. See <a href="#Tor_Browser_AppArmor_Permit_Shared_Folder">Tor
+Browser AppArmor Permit Shared Folder</a>.</li>
+<li><strong>C)</strong> Attempt the
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] instructions once this issue has
+appeared. <a href="../Unsupported.html">Unsupported</a>.</li>
+<li><strong>D)</strong> Deactivate the Tor Browser AppArmor profile.
+Recommended against since this lowers security.</li>
+<li><strong>E)</strong> Deactivate AppArmor. Recommended against since
+totally unnecessary and since this lowers security.</li>
+</ul>
+<h2 id="Tor_Browser_AppArmor_Permit_Shared_Folder">Tor Browser AppArmor
+Permit Shared Folder</h2>
+<p>By applying the following instructions, Tor Browser write access to
+folder <code>/mnt/shared</code> folder would be permitted by
+AppArmor.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Open file <code>/etc/apparmor.d/local/home.tor-browser.firefox</code> in
+an editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apparmor.d/local/home.tor-browser.firefox</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apparmor.d/local/home.tor-browser.firefox</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apparmor.d/local/home.tor-browser.firefox</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Paste.</p>
+<p><span class="code-select">/mnt/shared r, /mnt/shared**
+rwl,</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Reload the Tor Browser AppArmor profile.</p>
+<p>Note: The following filename is different from above and correct.
+<sup class="reference"><a href="#cite_note-23">[23]</a></sup></p>
+<p><span class="code-select">sudo aa-enforce
+/etc/apparmor.d/home.tor-browser.firefox</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Done.</p>
+<p>Tor Browser should now have write access to the
+<code>/mnt/shared</code> folder.</p>
+<h1 id="KeePassXC_Browser_Extension">KeePassXC Browser Extension</h1>
+<p>Untested / <a href="../Unsupported.html">unsupported</a>.</p>
+<p>Discouraged because this might change the browser fingerprint, see <a href="../Tor_Browser.html#Non-default_Add-ons">Non-default
+Add-ons</a>.</p>
+<p>KeePassXC Browser Extension developers did, at the time of writing,
+not address bug report <a href="https://github.com/keepassxreboot/keepassxc/issues/10438">Problems
+with Tor Browser integration on Linux</a>. This issue is <a href="../Unspecific.html">unspecific to Whonix</a>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Open file <code>/etc/apparmor.d/local/home.tor-browser.firefox</code> in
+an editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apparmor.d/local/home.tor-browser.firefox</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_2">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apparmor.d/local/home.tor-browser.firefox</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apparmor.d/local/home.tor-browser.firefox</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Paste.</p>
+<p><span class="code-select">/usr/bin/keepassxc-proxy rix,
+/home/user/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/TorBrowser/Data/Browser/.mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json
+rix,</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Save.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Reload the Tor Browser AppArmor profile.</p>
+<p><span class="code-select">sudo aa-enforce
+/etc/apparmor.d/home.tor-browser.firefox</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Symlink the KeePassXC extension's <code>.mozilla</code> folder to the
+Tor Browser's folder.</p>
+<p><span class="code-select">ln -s
+/home/user/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/TorBrowser/Data/Browser/.mozilla
+/home/user/.tb/tor-browser/Browser/TorBrowser/Data/Browser</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Done.</p>
+<p>KeePassXC Browser Extension permissions and the symlink should now be
+configured.</p>
+<p>See also:</p>
+<ul>
+<li><a href="https://forums.whonix.org/t/keepassxc-browser-doesnt-work-out-of-the-box/16877">https://forums.whonix.org/t/keepassxc-browser-doesnt-work-out-of-the-box/16877</a></li>
+<li><a href="https://github.com/keepassxreboot/keepassxc-browser/issues/1399#issuecomment-1246145118">https://github.com/keepassxreboot/keepassxc-browser/issues/1399#issuecomment-1246145118</a></li>
+<li><a href="https://github.com/keepassxreboot/keepassxc/issues/9679">connection
+to KeePassXC breaks after Tor Browser updated itself</a> (describes
+symlink workaround)</li>
+<li><a href="https://github.com/keepassxreboot/keepassxc-browser/issues/281">https://github.com/keepassxreboot/keepassxc-browser/issues/281</a></li>
+<li><a href="https://github.com/keepassxreboot/keepassxc/issues/10866">https://github.com/keepassxreboot/keepassxc/issues/10866</a></li>
+</ul>
+<h1 id="Custom_Homepage">Custom Homepage</h1>
+<p>It is unclear whether <a href="https://forums.whonix.org/t/new-whonix-bugs">setting a custom
+homepage</a> in Tor Browser settings will currently work. Previous
+attempts lead to the Whonix default homepage being loaded on startup,
+even though a different homepage was manually set. The custom homepage
+only appeared following use of the New Identity function.
+<sup class="reference"><a href="#cite_note-24">[24]</a></sup></p>
+<p>The <a href="https://github.com/Whonix/whonix-welcome-page">whonix-welcome-page</a>
+package currently sets <a href="https://gitlab.torproject.org/legacy/trac/-/issues/13835">the
+environment variable</a>
+<em><span>TOR_DEFAULT_HOMEPAGE</span></em>
+to
+<em><span>/usr/share/homepage/whonix-welcome-page/whonix.html</span></em>
+when setting the Tor Browser homepage. This is done via the <a href="https://github.com/Whonix/whonix-welcome-page/blob/master/usr/libexec/whonix-welcome-page/env_var.sh">bash
+script file</a> <sup class="reference"><a href="#cite_note-25">[25]</a></sup> associated with the package. In
+light of this design, there are three possible options for a user-set
+custom homepage (untested):</p>
+<ol>
+<li>Attempting to purge the whonix-welcome-page package.
+<sup class="reference"><a href="#cite_note-26">[26]</a></sup> This solution is difficult due to technical
+limitations as explained on the <a href="../Debian_Packages.html">Whonix Debian Packages</a> page.</li>
+<li>Modifying
+<em><span>/usr/lib/whonix-welcome-page/env_var.sh</span></em>.
+<sup class="reference"><a href="#cite_note-27">[27]</a></sup> Unfortunately these changes will revert after an
+upgrade.</li>
+<li>Setting the environment variable
+<em><span>TOR_DEFAULT_HOMEPAGE</span></em>
+to a custom value. This would have a similar effect as setting
+environment variables as outlined in <a href="../Tor_Browser.html#Key_Terminology">Tor Browser
+Transparent Proxying</a>.</li>
+</ol>
+<p>A recent forum discussion in relation to this topic can be found <a href="https://forums.whonix.org/t/tor-browser-in-whonix">here</a>.</p>
+<h1 id="Custom_Configurations">Custom Configurations</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Custom configurations is an advanced topic. Only a small minority will
+ever need to apply the steps in this section.</p>
+</div>
+<h2 id="Verify_New_Identity">Verify New Identity</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Usually this action is only necessary for custom configurations, like
+when using a <a href="../Other_Operating_Systems.html">Whonix-Custom-Workstation<sup>™</sup></a>.</p>
+</div>
+<p>If attempts to create a New Identity fail, then a related Tor Browser
+notification should appear once it realizes it cannot connect to Tor's
+ControlPort. If this error notification does not appear, then it likely
+means there are no problems.</p>
+<p>After Tor Browser is restarted, click "IP Check" on the landing page.
+This will redirect to <a href="https://check.torproject.org">https://check.torproject.org</a>
+automatically, but the URL can be manually entered if preferred. In
+<i>most, but not all cases</i> <sup class="reference"><a href="#cite_note-28">[28]</a></sup> a new Tor exit relay
+will be received, with a different IP address being reported.</p>
+<p>On Whonix-Gateway, examine the <a href="../Dev/onion-grater.html">onion-grater (Control Port Filter Proxy)</a> log while
+using Tor Browser's New Identity feature.</p>
+<p><span class="code-select">sudo journalctl -f -u
+onion-grater</span></p>
+<p>If the output is similar to the following.</p>
+<pre><code>Aug 16 05:30:19 host onion-grater[2316]: 10.137.0.10:41334 (filter: 30_autogenerated): &amp;rarr; SIGNAL NEWNYM
+Aug 16 05:30:19 host onion-grater[2316]: 10.137.0.10:41334 (filter: 30_autogenerated): &lt;- 250 OK</code></pre>
+<p>Then the Control Port Filter Proxy received both the request from Tor
+Browser and Tor confirmation that it worked.</p>
+<h2 id="Get_a_New_Identity_without_Tor_ControlPort_Access">Get a New
+Identity without Tor ControlPort Access</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+This action is usually only needed for custom configurations, like when
+not using the <a href="../Dev/onion-grater.html">onion-grater
+(Control Port Filter Proxy)</a>.</p>
+</div>
+<p>Simulate Tor Browser's New Identity functionality via these
+steps.</p>
+<ol>
+<li>Close Tor Browser.<br />
+</li>
+<li>Get a new identity in Whonix-Gateway using <a href="../Tor_Controller.html">nyx</a>.<br />
+</li>
+<li>Start Tor Browser again.<br />
+</li>
+</ol>
+<p>The procedure is complete.</p>
+<p><span class="manually-placed-anchor " id="Change/Remove_Proxy_Setting"></span>
+<span class="manually-placed-anchor " id="Change_/_Remove_Proxy_Setting"></span></p>
+<h1 id="Proxy_Settings">Proxy Settings</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+These steps are usually only needed for advanced tunneling
+scenarios.</p>
+</div>
+<h2 id="Remove_Proxy_Settings">Remove Proxy Settings</h2>
+<p>To remove Tor Browser proxy settings (set no proxy), apply the
+following instructions.</p>
+<div class="info-box ">
+<p><strong>Introduction</strong></p>
+<p>This configuration results in Tor Browser no longer using proxy
+settings. With no proxy set, Tor Browser uses the (VM) system's default
+networking. This is identical to any other application inside
+Whonix-Workstation<sup>™</sup> that has not been explicitly configured
+to use Tor via socks proxy settings or a socksifier. This setting is
+also called transparent torification. <sup class="reference"><a href="#cite_note-29">[29]</a></sup>
+<sup class="reference"><a href="#cite_note-30">[30]</a></sup></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="info" /></span>
+<u>Why is this difficult?</u></p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p><u>This is difficult and may not work for you.</u></p>
+<p>To learn why this is difficult, please press on Expand on the
+right.</p>
+<div class="mw-collapsible-content">
+<p>Tor Browser, which is developed by upstream, The Tor Project (TPO),
+an independent entity has hard configured to use Tor as a proxy.</p>
+<ul>
+<li>Upstream does not support user using Tor Browser with an additional
+extra proxy at the end of the chain, i.e.: <code>user</code> ->
+<code>Tor</code> -> <code>proxy</code> -> <code>destination</code></li>
+<li>Upstream does also not support using Tor Browser with a proxy other
+than Tor, i.e.: <code>user</code> -> <code>custom proxy</code> ->
+<code>destination</code>. This may or may not currently be possible but
+upstream does not provide documentation on how to do this.</li>
+<li>Upstream does also not support using Tor Browser with a VPN instead
+of Tor, i.e. <code>user</code> -> <code>VPN</code> ->
+<code>destination</code>.</li>
+<li>Upstream does also not support using Tor Browser with a VPN in
+addition before Tor, i.e. <code>user</code> -> <code>Tor</code> ->
+<code>VPN</code> -> <code>destination</code>.</li>
+</ul>
+<p>That makes sense from TPO's perspective as a project that maintains a
+browser that should always connect using the Tor network. Due to that
+perspective, proxy settings have been removed from Tor Browser to avoid
+user confusion and accidental misconfiguration. Little attention is
+spend on custom proxy settings. That, from TPO's perspective is assumed
+to only make sense for users using a Tor transparent proxy and that are
+already running Tor on a different computer in their LAN. Only a
+minority of users is using such configurations.</p>
+<p>Because of this organisational and technical background, the highly
+specialized use case of configuring Tor Browser running inside
+Whonix-Workstation<sup>™</sup> to use an additional proxy
+(<code>user</code> -&gt; <code>Tor</code> -&gt; <code>proxy</code> -&gt;
+<code>destination</code>) is difficult to accomplish.</p>
+<p>To learn more about this organisational and technical background see
+also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</p>
+</div>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-chapter has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS wiki <u>CHAPTER
+only</u></strong> is only supported by the community. Whonix developers
+are <strong>very unlikely</strong> to provide free support for this
+content. See <a href="../Community_Support.html">Community
+Support</a> for further information, including implications and possible
+alternatives.</p>
+</div>
+</div>
+<p><u>Note</u>: This action will break both <a href="../Stream_Isolation.html">Stream Isolation</a> for Tor Browser and <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3455">Tor
+Browser's SOCKS username for a request based on first party domain</a>
+feature. This worsens the <a href="../Fingerprint.html#web_fingerprint">web fingerprint</a> and leads to <a href="../Tips_on_Remaining_Anonymous.html#Study:_Anonymity_and_Pseudonymity_are_not_the_same">pseudonymous (not anonymous) connections</a>. To
+mitigate these risks, consider using <a href="../Whonix-Workstation_Security_Hardening.html#Multiple_Tor_Browser_Instances">More than one Tor Browser in Whonix</a>, or preferably
+<a href="../Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation<sup>™</sup></a>.</p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p><u>Local socks proxy Method'''</u></p>
+<p>This method works for removal of proxy settings but is rather lengthy
+and complicated. In case the user wants to have a look anyhow, please
+press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p>Since other methods to configure Tor Browser to use system default
+networking are broken due to Tor Browser changes by upstream, this new
+local socks proxy method stops <a href="../Dev/anon-ws-disable-stacked-tor.html">anon-ws-disable-stacked-tor</a> local port
+<code>9150</code> redirection to Whonix-Gateway<sup>™</sup>
+<code>9150</code> (where a Tor <code>SocksPort</code> is listening). As
+a replacement, a local socks proxy listens on Whonix-Workstation local
+port <code>9150</code> which then forwards the traffic using system
+default networking. In result, if the user is using a VPN inside
+Whonix-Workstation or in a VPN-Gateway wretched between
+Whonix-Gateway<sup>™</sup> and Whonix-Workstation, Tor Browser would use
+the VPN.</p>
+<p>In this documentation, Dante is used as a local socks proxy.
+Development notes are kept on <a href="../Dev/Dante.html">Dev/Dante</a>.</p>
+<p><strong>1.</strong> Legacy notices.</p>
+<ul>
+<li><u>New users</u>, that did not apply instructions from this page
+again: No special notice.</li>
+<li><u>Existing users</u>: See below.</li>
+</ul>
+<p>A few settings need to be undone.</p>
+<ul>
+<li>A) Previous changes to <code>/etc/environment</code> as documented
+previously for other methods need to be undone.</li>
+<li>B) Tor Browser needs to be re-installed. This is because undoing the
+previous configuration is difficult and <a href="../Unsupported.html">undocumented</a>.</li>
+</ul>
+<p><strong>2.</strong> Stop default anon-ws-disable-stacked-tor service
+for port 9150.</p>
+<ul>
+<li>Non-Qubes-Whonix: In Whonix-Workstation.</li>
+<li>Qubes-Whonix: In <code>whonix-workstation-18</code>
+<u>Template</u>.</li>
+</ul>
+<p><span class="code-select">sudo systemctl stop
+anon-ws-disable-stacked-tor_autogen_port_9150.socket sudo systemctl stop
+anon-ws-disable-stacked-tor_autogen_port_9150.service sudo systemctl
+stop
+anon-ws-disable-stacked-tor_autogen__run_anon-ws-disable-stacked-tor_127.0.0.1_9150.sock.socket
+sudo systemctl stop
+anon-ws-disable-stacked-tor_autogen__run_anon-ws-disable-stacked-tor_127.0.0.1_9150.sock.service</span></p>
+<p><strong>3.</strong> Prevent default anon-ws-disable-stacked-tor
+systemd unit from starting.</p>
+<ul>
+<li>Non-Qubes-Whonix: In Whonix-Workstation.</li>
+<li>Qubes-Whonix: In <code>whonix-workstation-18</code> Template.</li>
+</ul>
+<p><span class="code-select">sudo systemctl mask
+anon-ws-disable-stacked-tor_autogen_port_9150.socket sudo systemctl mask
+anon-ws-disable-stacked-tor_autogen_port_9150.service sudo systemctl
+mask
+anon-ws-disable-stacked-tor_autogen__run_anon-ws-disable-stacked-tor_127.0.0.1_9150.sock.socket
+sudo systemctl mask
+anon-ws-disable-stacked-tor_autogen__run_anon-ws-disable-stacked-tor_127.0.0.1_9150.sock.service</span></p>
+<p><strong>4.</strong> Install the local socks proxy server.</p>
+<ul>
+<li>Non-Qubes-Whonix: In Whonix-Workstation.</li>
+<li>Qubes-Whonix: In <code>whonix-workstation-18</code> Template.</li>
+</ul>
+<div class="info-box ">
+<p><strong>A)</strong> Enable Debian source repository.</p>
+<p>Open file <code>/etc/apt/sources.list.d/debian.sources</code> in an
+editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apt/sources.list.d/debian.sources</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_3">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apt/sources.list.d/debian.sources</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apt/sources.list.d/debian.sources</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Find and edit the following stanza (around lines 69-74).</p>
+<p><span class="code-select">Types: deb-src URIs:
+tor+https://deb.debian.org/debian Suites: trixie trixie-updates
+trixie-backports Components: main contrib non-free non-free-firmware
+Enabled: yes # &lt;&lt;&lt;&lt;&lt; change this line from "no" to "yes"
+Signed-By: /usr/share/keyrings/debian-archive-keyrings.gpg</span></p>
+<p>Save and exit.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><strong>B)</strong> Install build dependencies.</p>
+<p><span class="code-select">sudo apt build-dep dante-server</span></p>
+<p><strong>C)</strong> Get dante source code.</p>
+<p><span class="code-select">apt-get source dante-server</span></p>
+<p><strong>D)</strong> Open the dante accesscheck.c source file.</p>
+<p><span class="code-select">mousepad
+~/dante-1.4.2+dfsg/sockd/accesscheck.c</span></p>
+<p>Paste the contents. Here we rewrite the authentication method to
+always return true. For the reasons see <a href="../Dev/Dante.html">Dev/Dante</a>.</p>
+<p><span class="code-select">/*</p>
+<p><code>* Copyright (c) 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2005, 2006, 2008,</code><br />
+<code>*               2009, 2010, 2011, 2012, 2013</code><br />
+<code>*      Inferno Nettverk A/S, Norway.  All rights reserved.</code><br />
+<code>*</code><br />
+<code>* Redistribution and use in source and binary forms, with or without</code><br />
+<code>* modification, are permitted provided that the following conditions</code><br />
+<code>* are met:</code><br />
+<code>* 1. The above copyright notice, this list of conditions and the following</code><br />
+<code>*    disclaimer must appear in all copies of the software, derivative works</code><br />
+<code>*    or modified versions, and any portions thereof, aswell as in all</code><br />
+<code>*    supporting documentation.</code><br />
+<code>* 2. All advertising materials mentioning features or use of this software</code><br />
+<code>*    must display the following acknowledgement:</code><br />
+<code>*      This product includes software developed by</code><br />
+<code>*      Inferno Nettverk A/S, Norway.</code><br />
+<code>* 3. The name of the author may not be used to endorse or promote products</code><br />
+<code>*    derived from this software without specific prior written permission.</code><br />
+<code>*</code><br />
+<code>* THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR</code><br />
+<code>* IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES</code><br />
+<code>* OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.</code><br />
+<code>* IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,</code><br />
+<code>* INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT</code><br />
+<code>* NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</code><br />
+<code>* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</code><br />
+<code>* THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</code><br />
+<code>* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</code><br />
+<code>* THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</code><br />
+<code>*</code><br />
+<code>* Inferno Nettverk A/S requests users of this software to return to</code><br />
+<code>*</code><br />
+<code>*  Software Distribution Coordinator  or  sdc@inet.no</code><br />
+<code>*  Inferno Nettverk A/S</code><br />
+<code>*  Oslo Research Park</code><br />
+<code>*  Gaustadall&amp;eacute;en 21</code><br />
+<code>*  NO-0349 Oslo</code><br />
+<code>*  Norway</code><br />
+<code>*</code><br />
+<code>* any improvements or extensions that they make and grant Inferno Nettverk A/S</code><br />
+<code>* the rights to redistribute these changes.</code><br />
+<code>*</code><br />
+<code>*/</code></p>
+<ol>
+<li>include "common.h"</li>
+</ol>
+<p>static const char rcsid[] = "$Id: accesscheck.c,v 1.89 2013/10/27
+15:24:42 karls Exp $";</p>
+<p>int usermatch(auth, userlist)</p>
+<p><code>  const authmethod_t *auth;</code><br />
+<code>  const linkedname_t *userlist;</code></p>
+<p>{ /* const char *function = "usermatch()"; */</p>
+<p><code>  const char *name;</code></p>
+<p><code>  if ((name = authname(auth)) == NULL)</code><br />
+<code>     return 0; /* no username, no match. */</code></p>
+<p><code>  do</code><br />
+<code>     if (strcmp(name, userlist-&gt;name) == 0)</code><br />
+<code>        break;</code><br />
+<code>  while ((userlist = userlist-&gt;next) != NULL);</code></p>
+<p><code>  if (userlist == NULL)</code><br />
+<code>     return 0; /* no match. */</code><br />
+<code>  return 1;</code></p>
+<p>}</p>
+<p>int groupmatch(auth, grouplist)</p>
+<p><code>  const authmethod_t *auth;</code><br />
+<code>  const linkedname_t *grouplist;</code></p>
+<p>{</p>
+<p><code>  const char *function = "groupmatch()";</code><br />
+<code>  const char *username;</code><br />
+<code>  struct passwd *pw;</code><br />
+<code>  struct group *groupent;</code></p>
+<p><code>  SASSERTX(grouplist != NULL);</code></p>
+<p><code>  if ((username = authname(auth)) == NULL)</code><br />
+<code>     return 0; /* no username, no match. */</code></p>
+<p><code>  /*</code><br />
+<code>   * First check the primary group of the user against grouplist.</code><br />
+<code>   * If the groupname given there matches, we don't need to go through</code><br />
+<code>   * all users in the list of group.</code><br />
+<code>   */</code><br />
+<code>  if ((pw = getpwnam(username))         != NULL</code><br />
+<code>  &amp;&amp;  (groupent = getgrgid(pw-&gt;pw_gid)) != NULL) {</code><br />
+<code>     const linkedname_t *listent = grouplist;</code></p>
+<p><code>     do</code><br />
+<code>        if (strcmp(groupent-&gt;gr_name, listent-&gt;name) == 0)</code><br />
+<code>           return 1;</code><br />
+<code>     while ((listent = listent-&gt;next) != NULL);</code><br />
+<code>  }</code><br />
+<code>  else {</code><br />
+<code>     if (pw == NULL)</code><br />
+<code>        slog(LOG_DEBUG, "%s: unknown username \"%s\"", function, username);</code><br />
+<code>     else if (groupent == NULL)</code><br />
+<code>        slog(LOG_DEBUG, "%s: unknown primary groupid %ld",</code><br />
+<code>             function, (long)pw-&gt;pw_gid);</code><br />
+<code>  }</code></p>
+<p><code>  /*</code><br />
+<code>   * Go through grouplist, matching username against each groupmember of</code><br />
+<code>   * all the groups in grouplist.</code><br />
+<code>   */</code><br />
+<code>  do {</code><br />
+<code>     char **groupname;</code></p>
+<p><code>     if ((groupent = getgrnam(grouplist-&gt;name)) == NULL) {</code><br />
+<code>        swarn("%s: unknown groupname \"%s\"", function, grouplist-&gt;name);</code><br />
+<code>        continue;</code><br />
+<code>     }</code></p>
+<p><code>     groupname = groupent-&gt;gr_mem;</code></p>
+<p><code>     while (*groupname != NULL) {</code><br />
+<code>        if (strcmp(username, *groupname) == 0)</code><br />
+<code>           return 1; /* match. */</code></p>
+<p><code>        ++groupname;</code><br />
+<code>     }</code><br />
+<code>  } while ((grouplist = grouplist-&gt;next) != NULL);</code></p>
+<p><code>  return 0;</code></p>
+<p>}</p>
+<ol>
+<li>if HAVE_LDAP</li>
+</ol>
+<p>int ldapgroupmatch(auth, rule)</p>
+<p><code>  const authmethod_t *auth;</code><br />
+<code>  const rule_t *rule;</code></p>
+<p>{</p>
+<p><code>  const char *function = "ldapgroupmatch()";</code><br />
+<code>  const linkedname_t *grouplist;</code><br />
+<code>  const char *username;</code><br />
+<code>  char *userdomain, *groupdomain;</code><br />
+<code>  int retval;</code></p>
+<p><code>  if ((username = authname(auth)) == NULL)</code><br />
+<code>     return 0; /* no username, no match. */</code></p>
+<ol>
+<li>if !HAVE_GSSAPI</li>
+</ol>
+<p><code>  if (!rule-&gt;state.ldap.ldapurl)</code><br />
+<code>     SERRX(rule-&gt;state.ldap.ldapurl != NULL);</code></p>
+<ol>
+<li>endif /* !HAVE_GSSAPI */</li>
+</ol>
+<p><code>  if ((userdomain = strchr(username, '@')) != NULL)</code><br />
+<code>     ++userdomain;</code></p>
+<p><code>  if (userdomain == NULL &amp;&amp; *rule-&gt;state.ldap.domain == NUL &amp;&amp; rule-&gt;state.ldap.ldapurl == NULL) {</code><br />
+<code>     slog(LOG_DEBUG, "%s: cannot check ldap group membership for user %s: "</code><br />
+<code>                     "user has no domain postfix and no ldap url is defined",</code><br />
+<code>                     function, username);</code><br />
+<code>     return 0;</code><br />
+<code>  }</code></p>
+<p><code>  if ((retval = ldap_user_is_cached(username)) &gt;= 0)</code><br />
+<code>     return retval;</code></p>
+<p><code>  /* go through grouplist, matching username against members of each group. */</code><br />
+<code>  grouplist = rule-&gt;ldapgroup;</code><br />
+<code>  do {</code><br />
+<code>     char groupname[MAXNAMELEN];</code></p>
+<p><code>     slog(LOG_DEBUG, "%s: checking if user %s is member of ldap group %s",</code><br />
+<code>                     function, username, grouplist-&gt;name);</code></p>
+<p><code>     STRCPY_ASSERTLEN(groupname, grouplist-&gt;name);</code></p>
+<p><code>     if ((groupdomain = strchr(groupname, '@')) != NULL) {</code><br />
+<code>        *groupdomain = NUL; /* separates groupname from groupdomain. */</code><br />
+<code>        ++groupdomain;</code><br />
+<code>     }</code></p>
+<p><code>     if (groupdomain != NULL &amp;&amp; userdomain != NULL) {</code><br />
+<code>        if (strcmp(groupdomain, userdomain) != 0</code><br />
+<code>        &amp;&amp;  strcmp(groupdomain, "") != 0) {</code><br />
+<code>           slog(LOG_DEBUG, "%s: userdomain \"%s\" does not match groupdomain "</code><br />
+<code>                           "\"%s\" and groupdomain is not default domain.  "</code><br />
+<code>                           "Trying next entry",</code><br />
+<code>                           function, userdomain, groupdomain);</code><br />
+<code>           continue;</code><br />
+<code>        }</code><br />
+<code>     }</code></p>
+<p><code>     if (ldapgroupmatches(username, userdomain, groupname, groupdomain, rule)){</code><br />
+<code>        cache_ldap_user(username, 1);</code><br />
+<code>        return 1;</code><br />
+<code>     }</code><br />
+<code>  } while ((grouplist = grouplist-&gt;next) != NULL);</code></p>
+<p><code>  cache_ldap_user(username, 0);</code><br />
+<code>  return 0;</code></p>
+<p>}</p>
+<ol>
+<li>endif /* HAVE_LDAP */</li>
+</ol>
+<p>int accesscheck(s, auth, src, dst, emsg, emsgsize)</p>
+<p><code>  int s;</code><br />
+<code>  authmethod_t *auth;</code><br />
+<code>  const struct sockaddr_storage *src, *dst;</code><br />
+<code>  char *emsg;</code><br />
+<code>  size_t emsgsize;</code></p>
+<p>{</p>
+<p><code>  int match, authresultisfixed;</code><br />
+<code>  match = 1;</code><br />
+<code>  </code><br />
+<code>  /*</code><br />
+<code>   * HACK-FORK-EDIT-OK</code><br />
+<code>   */</code></p>
+<p><code>  return match;</code></p>
+<p>}</span></p>
+<p><strong>E)</strong> Change directory into the dante source code
+folder.</p>
+<p><span class="code-select">pushd dante-1.4.2+dfsg</span></p>
+<p><strong>F)</strong> Build the Debian package.</p>
+<p><span class="code-select">dpkg-buildpackage -b --no-sign</span></p>
+<p><strong>E)</strong> Change directory back to the home folder.</p>
+<p><span class="code-select">popd</span></p>
+<p><strong>F)</strong> Install the modified dante package.</p>
+<p><span class="code-select">sudo dpkg -i
+dante-server_1.4.2+dfsg-7_amd64.deb</span></p>
+<p><strong>G)</strong> Block updates of dante-server.</p>
+<p><span class="code-select">sudo apt-mark hold dante-server</span></p>
+</div>
+<p><strong>5.</strong> Open file <code>/etc/danted.conf</code> in an
+editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/danted.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_4">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/danted.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/danted.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>6.</strong> Local socks proxy configuration.</p>
+<ul>
+<li>Non-Qubes-Whonix: In Whonix-Workstation.</li>
+<li>Qubes-Whonix: In <code>whonix-workstation-18</code> Template.</li>
+</ul>
+<p>Delete all contents from the file and <u>replace</u> it with the
+following configuration.</p>
+<p><span class="code-select">debug: 0</p>
+<p>logoutput: stderr</p>
+<p>internal: 127.0.0.1 port = 9150 external: eth0</p>
+<p>socksmethod: none username clientmethod: none</p>
+<p>user.privileged: root user.notprivileged: root user.libwrap: root</p>
+<ol>
+<li>allow connections only from localhost</li>
+</ol>
+<p>client pass {</p>
+<p><code>       from: 127.0.0.1/8 port 1-65535 to: 0.0.0.0/0</code><br />
+<code>       log: connect disconnect error # comment on some logs if you don't want to keep them</code></p>
+<p>}</p>
+<p>socks pass {</p>
+<p><code>       from: 0.0.0.0/0 to: 0.0.0.0/0</code><br />
+<code>       command: bind connect udpassociate</code><br />
+<code>       log: error connect disconnect iooperation</code></p>
+<p>}</span></p>
+<p><strong>7.</strong> Restart the local socks proxy.</p>
+<p>This is to apply the changed configuration and to test if the
+configuration is valid.</p>
+<ul>
+<li>Non-Qubes-Whonix: In Whonix-Workstation.</li>
+<li>Qubes-Whonix: In <code>whonix-workstation-18</code> Template.</li>
+</ul>
+<p><span class="code-select">sudo systemctl restart
+danted.service</span></p>
+<p><strong>8.</strong> tb-starter Configuration</p>
+<ul>
+<li>Non-Qubes-Whonix: In Whonix-Workstation.</li>
+<li>Qubes-Whonix: In <code>whonix-workstation-18</code> Template.</li>
+</ul>
+<p>Stop Tor from using unix domain socket files for socks so it uses
+socks on IP 127.0.0.1 port 9150 instead.</p>
+<p>Open file <code>/etc/torbrowser.d/50_user.conf</code> in an editor
+with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_5">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_5">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_5">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Paste.</p>
+<p><span class="code-select">unset TOR_SOCKS_IPC_PATH</span></p>
+<p>Save and exit.</p>
+<p><strong>9.</strong> Platform specific notice:</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice required.</li>
+<li>Qubes-Whonix: Shutdown Template. Once done, restart App Qube.</li>
+</ul>
+<p><strong>10.</strong> Start Tor Browser.</p>
+<ul>
+<li>Non-Qubes-Whonix: In Whonix-Workstation.</li>
+<li>Qubes-Whonix: In <code>Whonix-Workstation</code> <u>App
+Qube</u>.</li>
+</ul>
+<p><span class="code-select">torbrowser</span></p>
+<p>Tor Browser should now be using system default networking thanks to
+the local socks proxy.</p>
+<p>No additional configuration of Tor Browser is required.</p>
+<p><strong>11.</strong> Done.</p>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p><u>Older Methods:</u></p>
+<p>For older methods, which might be broken due to Tor Browser changes
+by upstream, please press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p>To enable transparent torification (no proxy setting), set the
+<code>TOR_TRANSPROXY=1</code> environment variable. There are several
+methods, but the simplest is the <a href="#/etc/environment_Method">/etc/environment Method</a>.</p>
+<p><strong>Note:</strong> <u>Choose only one method</u> to enable
+transparent torification.</p>
+<p><u><strong><code>/etc/environment</code> Method</strong></u></p>
+<p>This will apply to the whole environment, including any possible
+custom locations of Tor Browser installation folders.
+<sup class="reference"><a href="#cite_note-31">[31]</a></sup></p>
+<p><strong>1.</strong> Platform specific notice.</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix.html">Non-Qubes-Whonix<sup>™</sup></a>: No platform specific
+notice.</li>
+<li><a href="../Qubes.html">Qubes-Whonix<sup>™</sup></a>: In
+Template. (<code>whonix-workstation-18</code>)</li>
+</ul>
+<p><strong>2.</strong> Open file <code>/etc/environment</code> in an
+editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_6">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/environment</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_6">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/environment</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_6">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/environment</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Add the following line.</p>
+<p><span class="code-select">TOR_TRANSPROXY=1</p>
+<ol>
+<li><ol>
+<li>newline at the end</span></li>
+</ol></li>
+</ol>
+<p><strong>4.</strong> Save and exit.</p>
+<p><strong>5.</strong> Reboot.</p>
+<p>Reboot is required to make changes to configuration file
+<code>/etc/environment</code> take effect.</p>
+<p><strong>6.</strong> Done.</p>
+<p><code>/etc/environment</code> method configuration has been
+completed.</p>
+<p><strong>Tor Browser Settings Changes</strong></p>
+<p>This step is required since Tor Browser 10. <sup class="reference"><a href="#cite_note-32">[32]</a></sup></p>
+<p><strong>1.</strong> Platform specific notice.</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: No
+platform specific notice.</li>
+<li><a href="../Qubes.html">Qubes-Whonix</a>: In App Qube.
+(<code>anon-whonix</code>)</li>
+</ul>
+<p><strong>2.</strong> Tor Browser -> URL bar -> Type: <a href="about:config"><code>about:config</code></a> -> Press
+<code>Enter</code> key. -> search for and modify</p>
+<p><strong>3.</strong> <code>network.dns.disabled</code> -> set to
+<code>false</code></p>
+<p><strong>4.</strong> <code>extensions.torbutton.launch_warning</code>
+-> set to <code>false</code></p>
+<p><strong>Undo</strong></p>
+<p>Reverting this change is <a href="../Unsupported.html">undocumented</a>. Simply unsetting that environment
+variable will not work due to Tor Browser limitations. The easiest way
+to undo this setting is to install a fresh instance of Tor Browser
+(please contribute to these instructions)!</p>
+<p><u><strong>Command Line Method</strong></u></p>
+<p><strong>1.</strong> Platform specific notice:</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: No
+platform specific notice.</li>
+<li><a href="../Qubes.html">Qubes-Whonix</a>: In App Qube.
+(<code>anon-whonix</code>)</li>
+</ul>
+<p><strong>2.</strong> Navigate to the Tor Browser folder.</p>
+<p><span class="code-select">cd ~/.tb/tor-browser</span></p>
+<p><strong>3.</strong> Every time Tor Browser is started, run the
+following command to set the <code>TOR_TRANSPROXY=1</code> environment
+variable.</p>
+<p><span class="code-select">TOR_TRANSPROXY=1
+./start-tor-browser.desktop</span></p>
+<p><strong>4.</strong> Done.</p>
+<p><span class="manually-placed-anchor " id="start-tor-browser_Method"></span>
+<u><strong>start-tor-browser Method</strong></u></p>
+<p>This only applies to a single instance of the Tor Browser folder that
+is configured. This method may not persist when Tor Browser is
+updated.</p>
+<p><strong>1.</strong> Platform specific notice:</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: No
+platform specific notice.</li>
+<li><a href="../Qubes.html">Qubes-Whonix</a>: In App Qube.
+(<code>anon-whonix</code>)</li>
+</ul>
+<p><strong>2.</strong> Find and open
+<span>start-tor-browser</span> in the
+Tor Browser folder with an editor.</p>
+<p>This is most likely found in
+<code>~/.tb/tor-browser/Browser/start-tor-browser</code> <u>below</u>
+<code>#!/usr/bin/env bash</code>.</p>
+<p><strong>3.</strong> Set.</p>
+<p><span class="code-select">export TOR_TRANSPROXY=1</span></p>
+<p><strong>4.</strong> Done.</p>
+<p><span>start-tor-browser</span>
+Method configuration has been completed.</p>
+</div>
+</div>
+<p><span class="manually-placed-anchor " id="/etc/environment_Method"></span></p>
+<p><span class="manually-placed-anchor " id="Forget_about_Tor_Button&#x27;s_Open_Network_Settings"></span>
+<strong>Ignore Tor Button's Open Network Settings</strong></p>
+<p>Whonix has disabled the <code>Open Network Settings...</code> menu
+option in Tor Button. Read the footnote for further information.
+<sup class="reference"><a href="#cite_note-33">[33]</a></sup></p>
+</div>
+<p><span class="manually-placed-anchor " id="Tor_Browser_Proxy_Configuration"></span></p>
+<h2 id="Change_Proxy_Settings">Change Proxy Settings</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+These instructions <u>do not</u> apply to accessing <a href="../Tor_Browser.html#Local_Connections">local
+web-interfaces</a>.</p>
+</div>
+<p>Complete the following steps inside Whonix-Workstation
+(<code>anon-whonix</code>).</p>
+<div class="info-box ">
+<p><u>Configuration for use of Tor Browser with a HTTP, HTTPS or SOCKS
+proxy using proxy settings method.</u></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="info" /></span>
+<u>Why is this difficult?</u></p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p><u>This is difficult and may not work for you.</u></p>
+<p>To learn why this is difficult, please press on Expand on the
+right.</p>
+<div class="mw-collapsible-content">
+<p>Tor Browser, which is developed by upstream, The Tor Project (TPO),
+an independent entity has hard configured to use Tor as a proxy.</p>
+<ul>
+<li>Upstream does not support user using Tor Browser with an additional
+extra proxy at the end of the chain, i.e.: <code>user</code> ->
+<code>Tor</code> -> <code>proxy</code> -> <code>destination</code></li>
+<li>Upstream does also not support using Tor Browser with a proxy other
+than Tor, i.e.: <code>user</code> -> <code>custom proxy</code> ->
+<code>destination</code>. This may or may not currently be possible but
+upstream does not provide documentation on how to do this.</li>
+<li>Upstream does also not support using Tor Browser with a VPN instead
+of Tor, i.e. <code>user</code> -> <code>VPN</code> ->
+<code>destination</code>.</li>
+<li>Upstream does also not support using Tor Browser with a VPN in
+addition before Tor, i.e. <code>user</code> -> <code>Tor</code> ->
+<code>VPN</code> -> <code>destination</code>.</li>
+</ul>
+<p>That makes sense from TPO's perspective as a project that maintains a
+browser that should always connect using the Tor network. Due to that
+perspective, proxy settings have been removed from Tor Browser to avoid
+user confusion and accidental misconfiguration. Little attention is
+spend on custom proxy settings. That, from TPO's perspective is assumed
+to only make sense for users using a Tor transparent proxy and that are
+already running Tor on a different computer in their LAN. Only a
+minority of users is using such configurations.</p>
+<p>Because of this organisational and technical background, the highly
+specialized use case of configuring Tor Browser running inside
+Whonix-Workstation<sup>™</sup> to use an additional proxy
+(<code>user</code> -&gt; <code>Tor</code> -&gt; <code>proxy</code> -&gt;
+<code>destination</code>) is difficult to accomplish.</p>
+<p>To learn more about this organisational and technical background see
+also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</p>
+</div>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-chapter has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS wiki <u>CHAPTER
+only</u></strong> is only supported by the community. Whonix developers
+are <strong>very unlikely</strong> to provide free support for this
+content. See <a href="../Community_Support.html">Community
+Support</a> for further information, including implications and possible
+alternatives.</p>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p><u>Archived instructions.</u></p>
+<p>NOTE: The following archived instructions are most likely currently
+broken due to changes by upstream, The Tor Project. To resolve this
+issue, the user would have to proceed as per <a href="../Self_Support_First_Policy.html">Self Support First
+Policy</a>. Please post in Whonix forums to notify if this method is
+currently working, broken or if any solution has been found. To view the
+archived instructions, please press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p>Complete the following steps inside Whonix-Workstation<sup>™</sup>
+(<code>anon-whonix</code>).</p>
+<p><strong>1.</strong> Launch Tor Browser.</p>
+<p><strong>2.</strong> And enter <a href="about:config"><code>about:config</code></a> into the URL bar and
+press enter.</p>
+<p><strong>3.</strong> Change the following settings.</p>
+<p><strong>4.</strong> Set
+<code>extensions.torbutton.use_nontor_proxy</code> to
+<code>true</code>.</p>
+<p><strong>5.</strong> Set <code>network.proxy.no_proxies_on</code> to
+<code>0</code>.</p>
+<p><strong>6.</strong> Proxy specific settings.</p>
+<p>Depending on using a HTTP, HTTPS or SOCKS proxy.</p>
+<p><strong>A)</strong> HTTP proxy</p>
+<p>If a HTTP proxy is being used, modify address and port number to the
+following strings.</p>
+<ul>
+<li><code>network.proxy.http</code></li>
+<li><code>network.proxy.http_port</code></li>
+</ul>
+<p><strong>B)</strong> HTTPS proxy</p>
+<p>If a HTTPS proxy is being used, modify the following strings
+instead.</p>
+<ul>
+<li><code>network.proxy.ssl</code></li>
+<li><code>network.proxy.ssl_port</code></li>
+</ul>
+<p><strong>C)</strong> SOCKS proxy</p>
+<p>This process can be repeated with socks proxies, but it is redundant
+and does not provide any advantage over the former types. The reason is
+because only Tor Browser is modified and no other programs are being
+tunneled through it.</p>
+<ul>
+<li>Set <code>network.proxy.socks</code> to the IP of proxy server.</li>
+<li>Set <code>network.proxy.socks_port</code> to the port number of the
+proxy server.</li>
+<li>Set <code>network.proxy.socks_remote_dns</code> to
+<ul>
+<li><code>false</code> - if the proxy server does not support resolving
+DNS. In this case, DNS will go through Tor exit nodes thanks to Whonix,
+<u>or</u></li>
+<li><code>true</code> - if the proxy server does resolving DNS which is
+better.</li>
+</ul></li>
+<li>Set <code>network.proxy.socks_version</code> to either
+<code>4</code> or <code>5</code> depending on the version of the proxy
+server.</li>
+</ul>
+<p><strong>7.</strong> Done.</p>
+<p>Tor Browser proxy configuration has been completed.</p>
+</div>
+</div>
+</div>
+<h1 id="Backup_and_Restore">Backup and Restore</h1>
+<p>It is possible to restore data from an old browser profile to a new
+browser profile. <a href="https://support.mozilla.org/en-US/kb/recovering-important-data-from-an-old-profile">Regular
+Firefox documentation applies</a>, except different file paths must be
+inspected.</p>
+<p>In the old browser folder <code>~/.tb/tor-browser</code> search for
+the following files:</p>
+<ul>
+<li><code>~/.tb/tor-browser/Browser/TorBrowser/Data/Browser/profile.default/key4.db</code>
+- This file stores the key database for passwords. To transfer saved
+passwords, this file and the one immediately below must be copied.</li>
+<li><code>~/.tb/tor-browser/Browser/TorBrowser/Data/Browser/profile.default/logins.json</code>
+- Saved passwords.</li>
+<li><code>~/.tb/tor-browser/Browser/TorBrowser/Data/Browser/profile.default/places.sqlite</code>
+- Bookmarks, downloads and browsing history.</li>
+</ul>
+<p>Either backup these files or backup the whole browser folder, which
+is safer. Afterwards, copy them over after re-downloading Tor
+Browser.</p>
+<h1 id="Restore_Backup">Restore Backup</h1>
+<p>These <code>Restore Backup</code> instructions are untested and
+possibly incomplete.</p>
+<h2 id="Permission_Fix">Permission Fix</h2>
+<p>When restoring a backup, sometimes a fix is necessary due to lost
+file permissions. Note that the fix below has not yet been tested.</p>
+<p>To apply a general permission fix, run.</p>
+<p><span class="code-select">sudo chown --recursive user:user
+/home/user</span></p>
+<p>Retrieve a list of executable files from a functional Tor Browser
+version. Ideally it should be the same version as the one you are
+attempting to restore, possibly in a separate VM.</p>
+<p><span class="code-select">find ~/.tb/tor-browser/ -type f -executable
+-print</span></p>
+<p>Then <code>chmod +x</code> all of these files.</p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>In the collapsible section you can find a list created in June 2019.
+It might be outdated by now so you might have to create your own. Please
+press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p><span class="code-select">chmod +x
+/home/user/.tb/tor-browser/Browser/libmozavcodec.so chmod +x
+/home/user/.tb/tor-browser/Browser/libplds4.so chmod +x
+/home/user/.tb/tor-browser/Browser/libnspr4.so chmod +x
+/home/user/.tb/tor-browser/Browser/libsmime3.so chmod +x
+/home/user/.tb/tor-browser/Browser/updater chmod +x
+/home/user/.tb/tor-browser/Browser/libxul.so chmod +x
+/home/user/.tb/tor-browser/Browser/libssl3.so chmod +x
+/home/user/.tb/tor-browser/Browser/libmozgtk.so chmod +x
+/home/user/.tb/tor-browser/Browser/plugin-container chmod +x
+/home/user/.tb/tor-browser/Browser/gtk2/libmozgtk.so chmod +x
+/home/user/.tb/tor-browser/Browser/libnss3.so chmod +x
+/home/user/.tb/tor-browser/Browser/liblgpllibs.so chmod +x
+/home/user/.tb/tor-browser/Browser/execdesktop chmod +x
+/home/user/.tb/tor-browser/Browser/abicheck chmod +x
+/home/user/.tb/tor-browser/Browser/libmozavutil.so chmod +x
+/home/user/.tb/tor-browser/Browser/libmozsqlite3.so chmod +x
+/home/user/.tb/tor-browser/Browser/libnssdbm3.so chmod +x
+/home/user/.tb/tor-browser/Browser/libnssckbi.so chmod +x
+/home/user/.tb/tor-browser/Browser/libsoftokn3.so chmod +x
+/home/user/.tb/tor-browser/Browser/libmozsandbox.so chmod +x
+/home/user/.tb/tor-browser/Browser/firefox.real chmod +x
+/home/user/.tb/tor-browser/Browser/libnssutil3.so chmod +x
+/home/user/.tb/tor-browser/Browser/libfreeblpriv3.so chmod +x
+/home/user/.tb/tor-browser/Browser/start-tor-browser chmod +x
+/home/user/.tb/tor-browser/Browser/libplc4.so chmod +x
+/home/user/.tb/tor-browser/Browser/start-tor-browser.desktop chmod +x
+/home/user/.tb/tor-browser/Browser/firefox chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/libssl.so.1.0.0 chmod
++x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/libstdc++/libstdc++.so.6
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/libevent-2.1.so.6
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fteproxy-lib/libgmp.so.10
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/zope/interface/_zope_interface_coptimizations.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fteproxy/tests/test_record_layer.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fteproxy/cli.py
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/obfs4proxy
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/meek-client
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fteproxy.wrapper
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/meek-client-torbrowser
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fteproxy.bin
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/test_bit_ops.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test4.regex
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test3.dfa
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test1.dfa
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test6.dfa
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test4.dfa
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test6.regex
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test5.dfa
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test2.regex
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/__init__.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test2.dfa
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test1.regex
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test5.regex
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/dfas/test3.regex
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/__init__.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/test_encrypter.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/tests/test_encoder.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/cDFA.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/encoder.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/conf.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/encrypter.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/rank_unrank.cc
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/rank_unrank.h
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/bit_ops.py
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/fte/cDFA.cc
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/obfsproxy.bin
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/twisted/runner/portmap.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/twisted/python/sendmsg.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/twisted/test/raiser.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Util/strxor.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Util/_counter.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Cipher/_AES.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Cipher/_ARC4.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Cipher/_XOR.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Cipher/_ARC2.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Cipher/_DES.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Cipher/_CAST.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Cipher/_DES3.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Cipher/_Blowfish.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Hash/_SHA256.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Hash/_SHA512.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Hash/_MD2.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Hash/_RIPEMD160.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Hash/_SHA384.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Hash/_SHA224.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/PluggableTransports/Crypto/Hash/_MD4.so
+chmod +x
+/home/user/.tb/tor-browser/Browser/TorBrowser/Tor/libcrypto.so.1.0.0
+chmod +x /home/user/.tb/tor-browser/Browser/TorBrowser/Tor/tor chmod +x
+/home/user/.tb/tor-browser/start-tor-browser.desktop</span></p>
+</div>
+</div>
+<h1 id="Tor_Browser_Hard_Reset">Tor Browser Hard Reset</h1>
+<p>A Tor Browser Hard Reset is usually not needed. If the user runs <a href="../Tor_Browser.html#Tor_Browser_Downloader_by_Whonix">Tor
+Browser Downloader by Whonix</a>
+(<em><span>tb-updater</span></em>
+package)
+(<em><span>update-torbrowser</span></em>)
+normally (without the <code>--reset</code> parameter), Tor Browser will
+be re-downloaded, re-installed and thereby a hard reset is automatically
+performed.</p>
+<p>The <code>--reset</code> parameter is usually not useful for fixing
+any Tor Browser issues.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Platform specific.</p>
+<p>Apply the following steps...</p>
+<ul>
+<li>Non-Qubes-Whonix<sup>™</sup>: in Whonix-Workstation.</li>
+<li>Qubes-Whonix<sup>™</sup>: in Template
+<code>whonix-workstation-18</code>.</li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Open file <code>/etc/torbrowser.d/50_user.conf</code> in an editor with
+administrative ("<a href="../Moved:Root.html"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_7">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_7">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_7">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Disable automatic deletion of the Tor Browser compressed archive after
+Tor Browser installation.</p>
+<p>By default, the Tor Browser compressed archive is deleted after Tor
+Browser installation to save disk space. However, if the user wishes to
+later reinstall Tor Browser (hard reset) without re-downloading Tor
+Browser, this needs to be disabled. In order to disable this, add.</p>
+<p><span class="code-select">TB_NO_CLEANUP=true</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Save the file and exit.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Platform specific.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special steps required.</li>
+<li>Qubes-Whonix: Shut down Template. <code>update-torbrowser</code> in
+the correct place as per the usual Qubes-Whonix Tor Browser
+documentation.</li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Use <code>update-torbrowser</code> with parameter
+<code>--reset</code></p>
+<p><span class="code-select">update-torbrowser --reset</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Done.</p>
+<p>Tor Browser should now be re-installed without prior re-download.</p>
+</div>
+<p>Forum discussion: <a href="https://forums.whonix.org/t/tor-browser-downloader-anondist-suggestion-hard-reset/14151">https://forums.whonix.org/t/tor-browser-downloader-anondist-suggestion-hard-reset/14151</a></p>
+<h1 id="Local_Connections_Exception_Threat_Analysis">Local Connections
+Exception Threat Analysis</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+This section applies to those who are configuring an exception for <a href="../Tor_Browser.html#Local_Connections">Local
+Connections</a> in Tor Browser.</p>
+</div>
+<p>According to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=354493">this</a>
+Firefox ticket, JavaScript can be abused to scan internal networks,
+fingerprint devices, and make malicious commands to those devices if
+they have a web interface.</p>
+<p>In Whonix, there are no embedded devices attached to an internal
+network; it is isolated and untrusted. However, malicious JavaScript can
+reveal to an attacker that a service is running on a localhost port.
+Consequently, this can reduce the user's anonymity set. Further, daemons
+listening on the localhost can be maliciously misconfigured, but this
+has limited impact because traffic is still forced through
+Whonix-Gateway.</p>
+<p>For further reading on this topic, see this related <a href="https://forums.whonix.org/t/workaround-available-i2p-no-longer-works-with-the-latest-tor-browser/182/14">Whonix
+Forum topic</a> and <a href="https://gitlab.torproject.org/legacy/trac/-/issues/11493">Tor
+Browser bug report</a>.</p>
+<p>The configured exception means a small trade-off in privacy, but it
+is much safer than using another browser. <sup class="reference"><a href="#cite_note-34">[34]</a></sup></p>
+<h1 id="tor-launcher_vs_torbrowser-launcher">tor-launcher vs
+torbrowser-launcher</h1>
+<p>tor-launcher and torbrowser-launcher are two completely different
+things with similar names:</p>
+<ul>
+<li><a href="https://lists.torproject.org/pipermail/tor-dev/2013-May/004761.html">tor-launcher</a>
+(<a href="https://web.archive.org/web/20211102001639/http://trial.pearlcrescent.com/tor/torlauncher/2013-05-03/SetupWizard/wizard-all.png">screenshots</a>)
+is a Tor Controller that has replaced <a href="https://dist.torproject.org/vidalia-bundles">Vidalia</a>. It is an
+add-on that is included in the Tor Browser (TB) by default.</li>
+<li><a href="https://web.archive.org/web/20160316094119/https://micahflee.com/torbrowser-launcher/">torbrowser-launcher</a>
+(<a href="https://web.archive.org/web/20181030072217/https://micahflee.com/wp-content/uploads/2013/04/tbl.png">screenshot</a>)
+is an application to download Tor Browser, and is an alternative to <a href="../Tor_Browser.html#Tor_Browser_Internal_Updater#Tor_Browser_Downloader_by_Whonix">Tor Browser Updater (Whonix)</a> (<a href="https://github.com/Kicksecure/tb-updater">tb-updater</a>).</li>
+</ul>
+<h2 id="tor-launcher">tor-launcher</h2>
+<p>Do not be concerned that tor-launcher might result in a <a href="../Tips_on_Remaining_Anonymous.html#Refrain_from_&quot;Tor_over_Tor&quot;_Scenarios">Tor over Tor</a> scenario, as this is prevented by <a href="Advanced_Users.html#Proxy_Settings">Whonix
+proxy settings</a>. By default, tor-launcher is disabled in
+Whonix-Workstation.</p>
+<p>In theory it is possible to remove tor-launcher from TBB, but this
+would not make any difference. Taking this step is untested and seems
+unlikely to provide any additional advantages. For that reason, it is
+best to leave it enabled so the platform has the same tested and
+functional setup as everyone else.</p>
+<p>tor-launcher is not yet available for use in Whonix-Gateway.
+<sup class="reference"><a href="#cite_note-35">[35]</a></sup></p>
+<h2 id="torbrowser-launcher">torbrowser-launcher</h2>
+<p><a href="../Tor_Browser.html#Tor_Browser_Internal_Updater#Tor_Browser_Downloader_by_Whonix">Tor Browser Updater (Whonix)</a> (<a href="https://github.com/Kicksecure/tb-updater">tb-updater</a>) is
+installed by default and specifically designed to be functional when
+installed alongside torbrowser-launcher. A possible long-term
+development goal in Whonix is to deprecate tb-updater and instead
+install torbrowser-launcher by default. See this <a href="https://forums.whonix.org/t/using-torbrowser-launcher-instead-of-tb-updater-in-whonix">forum
+development discussion</a> if that is of interest.</p>
+<h1 id="Platform-specific_Issues:_Qubes-Whonix">Platform-specific Issues:
+Qubes-Whonix</h1>
+<p><span class="manually-placed-anchor " id="Running_Tor_Browser_in_Qubes_Template"></span></p>
+<h2 id="Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template">Running
+Tor Browser in Qubes Template or Disposable Template</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Do not start Tor Browser in the <code>whonix-workstation-18</code>
+Template or <code>whonix-workstation-18-dvm</code> Disposable Template!
+This is unexpected behavior and dangerous.</p>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>To understand why, please click Expand on the right.</p>
+<div class="mw-collapsible-content">
+<ul>
+<li>Tor Browser should be used in its stock configuration with as few
+modifications as possible. This is in accordance with upstream
+recommendations by The Tor Project.</li>
+<li>Starting Tor Browser in a Disposable Template establishes internet
+connections -- this risks a compromise of the template and all
+Disposables based upon it.</li>
+<li>Various files are created when Tor Browser starts -- these might
+make an individual <a href="../Tips_on_Remaining_Anonymous.html#Study:_Anonymity_and_Pseudonymity_are_not_the_same">pseudonymous rather than anonymous</a>, even if
+software has been designed against this. It is undesirable to have the
+same pseudonym linked to all App Qubes based on a singular
+Template.</li>
+<li>It is far safer to start Tor Browser for the first time in an App
+Qube, rather than the Template. It is unrealistic to expect Tor Browser
+to perform perfectly without any critical bugs being revealed later on.
+Current and past Tor Browser issues support this assertion; for example,
+see <a href="https://gitlab.torproject.org/search?group_id=268&amp;scope=issues&amp;search=linkability&amp;state=opened">here</a>
+and <a href="https://gitlab.torproject.org/search?group_id=268&amp;repository_ref=&amp;scope=issues&amp;search=fingerprinting&amp;snippets=&amp;state=opened">here</a>.</li>
+<li>Tor Browser gets installed in a user's home folder when the browser
+is run or updated in an AppVM. A Disposable Template is just an AppVM
+with a special use case. If Tor Browser were copied to the home folder
+in a Disposable Template, all DispVMs based on that Disposable Template
+would be locked to the version of Tor Browser present in the Disposable
+Template's home folder. The browser would then have to be updated
+separately in the Disposable Template, rather than being updated
+automatically when the "master" Whonix-Workstation TemplateVM receives a
+<code>tb-updater</code> package update. It can be hard to remember to
+update Tor Browser this way, which increases the chances that the user
+will accidentally use an outdated and vulnerable version of Tor Browser
+for normal browsing. Forum discussion: <a href="https://forums.whonix.org/t/update-torbrowser-and-disposable-templates/22842">https://forums.whonix.org/t/update-torbrowser-and-disposable-templates/22842</a></li>
+<li>See also <a href="../Tor_Browser.html#Unsafe_Tor_Browser_Habits">Unsafe Tor Browser Habits</a>.</li>
+</ul>
+</div>
+</div>
+<h2 id="tb-updater_in_Qubes_Template">tb-updater in Qubes Template</h2>
+<p>Tor Browser is installed by default in Whonix-Workstation.</p>
+<h3 id="Default_Behavior">Default Behavior</h3>
+<p>Whonix-Workstation builds by default automatically run <a href="../Tor_Browser.html#Tor_Browser_Downloader_by_Whonix">Tor
+Browser Downloader by Whonix</a>
+(<em><span>tb-updater</span></em>
+package)
+(<em><span>update-torbrowser</span></em>)
+following its initial installation within chroot. If the attempt to run
+the <em><span>tb-updater</span></em>
+package is unsuccessful, then it will fail closed by default and nothing
+will be installed. As a consequence, this could lead to an error while
+building Whonix images from source code or when <a href="../Dev/Installation_from_Repository.html">installing
+Whonix from the repository</a>. Although this is undesirable behavior,
+developers have still decided to install Tor Browser by default in
+Whonix-Workstation. This means the only way to ensure Tor Browser is
+really installed by default is to also fail closed when necessary.</p>
+<p>Qubes-Whonix-Workstation Templates by default automatically run
+<em><span>update-torbrowser</span></em>
+during upgrades of <a href="../Tor_Browser.html#Tor_Browser_Downloader_by_Whonix">Tor
+Browser Downloader by Whonix</a>
+(<em><span>tb-updater</span></em>
+package). If the
+<em><span>update-torbrowser</span></em>
+process fails, it will fail open by default. In this case, a terminal
+message will inform that no new Tor Browser could be downloaded, but APT
+will terminate normally. This is necessary to implement the Qubes-Whonix
+feature ensuring an <a href="https://phabricator.whonix.org/T417">up-to-date version of Tor
+Browser</a> is available in freshly created App Qubes.
+<sup class="reference"><a href="#cite_note-36">[36]</a></sup></p>
+<h3 id="Update_Failures">Update Failures</h3>
+<p>If an update failure occurs, this only poses a small inconvenience.
+The problem is easily solved by one of the following methods:</p>
+<ol>
+<li>Running <a href="../Tor_Browser.html#Tor_Browser_Internal_Updater#In_Qubes-Whonix">Tor Browser Downloader by Whonix</a> in
+Whonix-Workstation Template (<code>whonix-workstation-18</code>) or in
+an App Qube like <code>anon-whonix</code>.</li>
+<li>Using the <a href="../Tor_Browser.html#Tor_Browser_Internal_Updater#Tor_Browser_Internal_Updater">Internal Updater</a> in an App Qube like
+<code>anon-whonix</code>.</li>
+<li><a href="../Tor_Browser.html#Tor_Browser_Internal_Updater#Tor_Browser_Manual_Update">Manually downloading</a> Tor Browser in an App Qube
+like <code>anon-whonix</code>.</li>
+</ol>
+<h3 id="Optional_Package_Configuration">Optional Package
+Configuration</h3>
+<p>Actions of the tb-updater package can be optionally configured.</p>
+<h4 id="Disable_Automatic_Update_Downloads">Disable Automatic Update
+Downloads</h4>
+<div class="info-box ">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Open file <code>/etc/torbrowser.d/50_user.conf</code> in an editor with
+administrative ("<a href="../Moved:Root.html"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_8">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_8">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_8">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Disable automatic downloads.</p>
+<p>When the tb-updater package is upgraded in the
+Qubes-Whonix-Workstation Template, by default a hard-coded
+<sup class="reference"><a href="#cite_note-37">[37]</a></sup> version Tor Browser tarball and signature is
+automatically downloaded. In order to disable this, add.</p>
+<p><span class="code-select">tb_install_follow=false</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Save the file and exit.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Done.</p>
+<p>Automatic Tor Browser download during <code>tb-updater</code> package
+upgrades should now be disabled.</p>
+</div>
+<h3 id="Technical_Details">Technical Details</h3>
+<p>By default, during the Debian maintainer postinst script run in
+Qubes-Whonix-Workstation Templates, the folders
+<code>/var/cache/tb-binary/.cache/tb/</code> and
+<code>/var/cache/tb-binary/.tb/tor-browser</code> will be deleted if
+they exist. tb-updater will then download files to
+<code>/var/cache/tb-binary/.cache/tb/</code></p>
+<p><span class="code-select">find
+/var/cache/tb-binary/.cache/tb/</span></p>
+<pre><code>/var/cache/tb-binary/.cache/tb/
+/var/cache/tb-binary/.cache/tb/temp
+/var/cache/tb-binary/.cache/tb/temp/pv_wrapper_fifo
+/var/cache/tb-binary/.cache/tb/temp/tbb_remote_folder
+/var/cache/tb-binary/.cache/tb/temp/tar_fifo
+/var/cache/tb-binary/.cache/tb/temp/sha256_output
+/var/cache/tb-binary/.cache/tb/files
+/var/cache/tb-binary/.cache/tb/files/sha256sums-unsigned-build.txt.asc
+/var/cache/tb-binary/.cache/tb/files/sha256sums-unsigned-build.txt
+/var/cache/tb-binary/.cache/tb/last_used_gpg_bash_lib_output_signed_on_date
+/var/cache/tb-binary/.cache/tb/tbb_version_last_downloaded_save_file
+/var/cache/tb-binary/.cache/tb/RecommendedTBBVersions
+/var/cache/tb-binary/.cache/tb/last_used_gpg_bash_lib_output_signed_on_unixtime
+/var/cache/tb-binary/.cache/tb/gpgtmpdir
+/var/cache/tb-binary/.cache/tb/gpgtmpdir/pubring.kbx
+/var/cache/tb-binary/.cache/tb/gpgtmpdir/private-keys-v1.d
+/var/cache/tb-binary/.cache/tb/gpgtmpdir/trustdb.gpg
+/var/cache/tb-binary/.cache/tb/gpgtmpdir/gpg_bash_lib_internal_gpg_verify_output_file
+/var/cache/tb-binary/.cache/tb/gpgtmpdir/pubring.kbx~
+/var/cache/tb-binary/.cache/tb/gpgtmpdir/gpg_bash_lib_internal_gpg_verify_status_fd_file</code></pre>
+<p>After gpg verification, tb-updater will extract the Tor Browser
+archive to <i>/var/cache/tb-binary/.tb</i></p>
+<p><span class="code-select">find /var/cache/tb-binary/.tb</span></p>
+<pre><code>/var/cache/tb-binary/.tb/tor-browser/...</code></pre>
+<p>In essence, when a Qubes-Whonix-Workstation App Qube is booted for
+the first time, the systemd unit file
+<i>/lib/systemd/system/tb-updater-first-boot.service</i>
+<sup class="reference"><a href="#cite_note-38">[38]</a></sup> runs
+<i>/usr/lib/tb-updater/first-boot-home-population</i>.
+<sup class="reference"><a href="#cite_note-39">[39]</a></sup> That script copies <i>/var/cache/tb-binary</i> to
+<i>/home/user</i></p>
+<p>The result is.</p>
+<p><span class="code-select">ls -la /home/user/.tb</span></p>
+<pre><code>drwxr-xr-x  6 user user 4096 Jun  8 01:17 .
+drwx------ 20 user user 4096 Jun  8 01:17 ..
+-rw-r--r--  1 user user    0 Jun  8 01:17 first-boot-home-population.done
+drwxr-xr-x  3 user user 4096 Jun  8 01:17 tor-browser</code></pre>
+<p><span class="code-select">ls -la /home/user/.cache/tb</span></p>
+<pre><code>drwxr-xr-x 5 user user 4096 Jun  8 01:17 .
+drwxr-xr-x 3 user user 4096 Jun  8 01:17 ..
+-rw-r--r-- 1 user user  167 Jun  8 01:17 RecommendedTBBVersions
+drwxr-xr-x 2 user user 4096 Jun  8 01:17 files
+drwx------ 3 user user 4096 Jun  8 01:17 gpgtmpdir
+-rw-r--r-- 1 user user   26 Jun  8 01:17 last_used_gpg_bash_lib_output_signed_on_date
+-rw-r--r-- 1 user user   11 Jun  8 01:17 last_used_gpg_bash_lib_output_signed_on_unixtime
+-rw-r--r-- 1 user user    6 Jun  8 01:17 tbb_version_last_downloaded_save_file
+drwxr-xr-x 2 user user 4096 Jun  8 01:17 temp</code></pre>
+<h3 id="File_Locations">File Locations</h3>
+<h4 id="Browser">Browser</h4>
+<p>Template:</p>
+<pre><code>/var/cache/tb-binary/.tb/tor-browser</code></pre>
+<p>Home folder:</p>
+<pre><code>~/.tb/tor-browser</code></pre>
+<h4 id="user.js">user.js</h4>
+<p>Path to <code>user.js</code> in this documentation is just a hint.
+Whonix does not influence that path, although it might change in later
+versions of Tor Browser. Any contents inside the <code>/Browser/</code>
+folder are unmodified; this is the same as Tor Browser by The Tor
+Project. Whonix does not perform any modifications.</p>
+<pre><code>/var/cache/tb-binary/.tb/tor-browser/Browser/TorBrowser/Data/Browser/profile.default/user.js</code></pre>
+<pre><code>~/.tb/tor-browser/Browser/TorBrowser/Data/Browser/profile.default/user.js</code></pre>
+<h3 id="Creating_Whonix_Using_the_Build_Script">Creating Whonix Using
+the Build Script</h3>
+<p>If Qubes-Whonix is built with the available script and it should fail
+open in general, then before building in chroot a file
+<i>/etc/torbrowser.d/50_user.conf</i> must be created with the following
+content.</p>
+<p><span class="code-select">anon_shared_inst_tb=open</span></p>
+<p>If Qubes-Whonix is built with the available script and skipping the
+initial download of Tor Browser is preferred, then before building
+Whonix in chroot a file <i>/etc/torbrowser.d/50_user.conf</i> must be
+created with the following content.</p>
+<p><span class="code-select">tb_install_in_chroot=false</span></p>
+<h2 id="tb-updater_in_Qubes_Disposable_Template">tb-updater in Qubes
+Disposable Template</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Tor Browser Downloader by Whonix should <u>not</u> be launched in
+Disposable Templates (<code>whonix-workstation-18-dvm</code>)!</p>
+</div>
+<p>The only safe place to run Tor Browser Downloader by Whonix is in
+either:</p>
+<ul>
+<li>The Template (<code>whonix-workstation-18</code>); or</li>
+<li>The App Qube which is based on this template
+(<code>anon-whonix</code>).</li>
+</ul>
+<p>The reason is because Tor Browser is stored in folder
+<code>/var/cache/tb-binary</code> which is non-persistent in Qubes'
+Disposable Template (<code>whonix-workstation-18-dvm</code>), but
+persistent in Qubes' Template (<code>whonix-workstation-18</code>).</p>
+<table>
+<caption><em>Qubes R4 Inheritance and Persistence</em></caption>
+<thead>
+<tr class="header">
+<th></th>
+<th><p><strong>Inheritance</strong> <sup class="reference"><a href="#cite_note-40">[40]</a></sup></p></th>
+<th><p><strong>Persistence</strong> <sup class="reference"><a href="#cite_note-41">[41]</a></sup></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p><a href="https://www.qubes-os.org/doc/glossary/#template">Template</a>
+<sup class="reference"><a href="#cite_note-42">[42]</a></sup> <sup class="reference"><a href="#cite_note-43">[43]</a></sup></p></td>
+<td><p>n/a</p></td>
+<td><p>Everything</p></td>
+</tr>
+<tr class="even">
+<td><p><a href="https://www.qubes-os.org/doc/glossary/#app-qube">App
+Qubes</a> <sup class="reference"><a href="#cite_note-44">[44]</a></sup></p></td>
+<td><p><em><code>/etc/skel/</code></em> to
+<em><code>/home/</code></em></p></td>
+<td><p><em><code>/rw/</code></em> (includes <em><code>/home/</code></em>
+and <a href="https://www.qubes-os.org/doc/bind-dirs/"><code>bind-dirs</code></a>)</p></td>
+</tr>
+<tr class="odd">
+<td scope="row"><p><a href="https://www.qubes-os.org/doc/glossary/#disposable-template">Disposable
+Template</a> <sup class="reference"><a href="#cite_note-45">[45]</a></sup> <sup class="reference"><a href="#cite_note-46">[46]</a></sup></p></td>
+<td><p><em><code>/etc/skel/</code></em> to
+<em><code>/home/</code></em></p></td>
+<td><p><em><code>/rw/</code></em> (includes
+<em><code>/home/</code></em>, <em><code>/usr/local</code></em> and <a href="https://www.qubes-os.org/doc/bind-dirs/"><code>bind-dirs</code></a>)</p></td>
+</tr>
+<tr class="even">
+<td scope="row"><p><a href="https://www.qubes-os.org/doc/how-to-use-disposables/">Disposable</a>
+<sup class="reference"><a href="#cite_note-47">[47]</a></sup> <sup class="reference"><a href="#cite_note-48">[48]</a></sup></p></td>
+<td><p><em><code>/rw/</code></em> (includes
+<em><code>/home/</code></em>, <em><code>/usr/local</code></em> and <a href="https://www.qubes-os.org/doc/bind-dirs/"><code>bind-dirs</code></a>)</p></td>
+<td><p>Nothing</p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>To learn more about persistence, see <a href="https://www.qubes-os.org/doc/templates/#important-notes">here</a>
+or <a href="../Dev/Qubes.html#Qubes_Persistence">here</a>.</p>
+<p>Updating Tor Browser in Qubes' Template
+<code>whonix-workstation-18</code> is sufficient to make a copy of the
+latest Tor Browser available to all <u>newly</u> created App Qubes based
+upon it.</p>
+<p><span class="manually-placed-anchor " id="Start_Tor_Browser_in_Qubes_Disposable_Template"></span></p>
+<p><span class="manually-placed-anchor " id="DVM_Template_Customization"></span></p>
+<h2 id="tb-updater_Configuration">tb-updater Configuration</h2>
+<p>Tor Browser Downloader by Whonix has some configuration options.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Learn about configuration options.</p>
+<p>Just open the file. Do not make any modifications.</p>
+<p>Open file <code>/etc/torbrowser.d/30_default.conf</code> in a <a href="../Moved:Software.html#Text_Editor">text editor</a> of your
+choice as a regular, non-root user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad
+/etc/torbrowser.d/30_default.conf</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano
+/etc/torbrowser.d/30_default.conf</span></p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Close the file after having read it.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Create a configuration file.</p>
+<p>Open file <code>/etc/torbrowser.d/50_user.conf</code> in an editor
+with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_9">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_9">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_9">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h3 id="Disable_tb-updater_downloading_Tor_Browser_during_tb-updater_Package_Upgrade">Disable
+tb-updater downloading Tor Browser during tb-updater Package
+Upgrade</h3>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Warning.</p>
+<p>Discouraged! Not recommended for most users.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Disable tb-updater downloading Tor Browser during tb-updater Package
+Upgrade.</p>
+<p><span class="code-select">tb_install_follow=false</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Done.</p>
+<p>The <code>tb-updater</code> configuration file should now be created
+and (optionally) updated.</p>
+<h2 id="Template_Customization">Template Customization</h2>
+<p>Similar to <a href="#Disposable_Template_Customization">Disposable Template Customization</a>.</p>
+<p><a href="#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template">Tor Browser customization is discouraged!</a></p>
+<p>To start Tor Browser from the command line or in debugging mode in a
+Qubes Disposable Template, choose any of the following options
+below.</p>
+<ul>
+<li><a href="#Option_1:_Disposable_Template_Method">Option 1: Disposable Template Method</a> cannot be
+used.</li>
+<li>Only <a href="#Option_2:_Template_Method">Option 2:
+Template Method</a> or <a href="#Option_3:_Manual_Method">Option 3: Manual Method</a> can be used.</li>
+</ul>
+<h2 id="Disposable_Template_Customization">Disposable Template
+Customization</h2>
+<p><a href="#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template">Tor Browser customization is discouraged!</a></p>
+<p>To start Tor Browser from the command line or in debugging mode in a
+Qubes Disposable Template, choose any of the following options
+below.</p>
+<p>Forum discussion: <a href="https://forums.whonix.org/t/how-do-i-customise-tor-browser-in-a-whonix-templatebased-dvm-in-whonix-14/5580">How
+to customize Tor Browser in a Whonix TemplateBased DVM?</a></p>
+<h3 id="Option_1:_Disposable_Template_Method">Option 1: Disposable
+Template Method</h3>
+<p>Using this method, customization would only apply to the Disposable
+Template and any Disposables based on that Disposable Template.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Start Whonix-Workstation Template
+(<code>whonix-workstation-18</code>).</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Disable Tor Browser Downloader Disposable Service.
+<sup class="reference"><a href="#cite_note-49">[49]</a></sup></p>
+<p><span class="code-select">sudo systemctl mask
+tb-updater-dispvm.service</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Shutdown Template.</p>
+<p><span class="code-select">sudo poweroff</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Open a terminal emulator in Whonix-Workstation Disposable Template
+<code>whonix-workstation-18-dvm</code>.</p>
+<p>Run in dom0 terminal emulator.</p>
+<p><span class="code-select">qvm-run -a whonix-workstation-18-dvm
+qterminal</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Open Tor Browser Starter / Tor Browser Downloader (by Whonix developers)
+configuration file.</p>
+<p>In Whonix-Workstation Disposable Template
+<code>whonix-workstation-18-dvm</code>:</p>
+<p>Create folder <code>/usr/local/etc/torbrowser.d</code>.</p>
+<p><span class="code-select">sudo mkdir -p
+/usr/local/etc/torbrowser.d</span></p>
+<p>Open file <code>/usr/local/etc/torbrowser.d/50_user.conf</code> in an
+editor with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torbrowser.d/50_user.conf</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Paste.</p>
+<pre><code>tb_qubes_dvm_template() {
+   true
+}</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Save.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+Tor Browser in Disposable Template.</p>
+<p>Running Tor Browser Starter / Tor Browser Downloader (by Whonix
+developers) in Disposable Template is now possible.
+<sup class="reference"><a href="#cite_note-50">[50]</a></sup></p>
+<p>Start Tor Browser.</p>
+<p><span class="code-select">torbrowser</span></p>
+<p>Optional: Download a new version Tor Browser Downloader by Whonix.
+Read chapter <a href="../Tor_Browser.html#Tor_Browser_Downloader_by_Whonix">Tor Browser Downloader by Whonix</a> beforehand.</p>
+<p><span class="code-select">update-torbrowser</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+Customize Tor Browser.</p>
+<p>Perform customization changes.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">10</i>
+Shut down Disposable Template.</p>
+<p><span class="code-select">sudo poweroff</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">11</i>
+Start Tor Browser in Disposable.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">12</i>
+Done.</p>
+<p>Customized Tor Browser should now be started in the Disposable.</p>
+</div>
+<h3 id="Option_2:_Template_Method">Option 2: Template Method</h3>
+<p>Using this method, customization this way would apply to all App
+Qubes and Disposables based on this Template.</p>
+<div class="info-box ">
+<p>In Whonix-Workstation Template
+<code>whonix-workstation-18</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Open a terminal.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Change ownership of Tor Browser.</p>
+<p>Select if you are using <a href="../Sysmaint.html">user-sysmaint-split</a> (default, most users) or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] (optional configuration).</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="user-sysmaint-split">user-sysmaint-split</h4>
+</div>
+<div class="tcc-content">
+<p>In case using user-sysmaint-split (default, most users):</p>
+<p>Change the ownership of the folder from <code>root</code> to
+<code>sysmaint</code> to be able to launch the browser from that
+folder.</p>
+<p><span class="code-select">sudo chown -R sysmaint:sysmaint
+/var/cache/tb-binary</span></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="unrestricted_admin_mode">unrestricted admin mode</h4>
+</div>
+<div class="tcc-content">
+<p>In case using unrestricted admin mode:</p>
+<p>Change the ownership of the folder from <code>root</code> to
+<code>user</code> to be able to launch the browser from that folder.</p>
+<p><span class="code-select">sudo chown -R user:user
+/var/cache/tb-binary</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Change directory.</p>
+<p><span class="code-select">cd
+/var/cache/tb-binary/.tb/tor-browser/Browser</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Start Tor Browser in debugging mode.</p>
+<p><span class="code-select">./start-tor-browser --debug</span></p>
+<p>Note: Tor Browser can also be started manually without the
+<code>--debug</code> argument.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Apply the desired modification.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Close Tor Browser.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Change back the ownership to <code>root</code>.</p>
+<p><span class="code-select">sudo chown -R root:root
+/var/cache/tb-binary</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+Disable automatic update downloads.</p>
+<p>Optional: Consider <a href="#Disable_Automatic_Update_Downloads">Disable Automatic Update Downloads</a> since these
+would overwrite any user modifications. <sup class="reference"><a href="#cite_note-51">[51]</a></sup></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+Apply Tor Browser updates.</p>
+<p>From time to time when updates for Tor Browser are available,
+re-apply this procedure and use <a href="../Tor_Browser.html#Tor_Browser_Internal_Updater">Tor
+Browser Internal Updater</a> to update Tor Browser. Alternatively use
+any other update method as documented on the <a href="../Tor_Browser.html">Tor Browser</a> wiki page.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">10</i>
+Done.</p>
+<p>Tor Browser customization using Qubes Template Method has been
+completed.</p>
+<p><strong>Note:</strong> If using Tor Browser Downloader by Whonix,
+user modifications in folder
+<code>/var/cache/tb-binary/.tb/tor-browser</code> will be lost and would
+need to be re-applied. <sup class="reference"><a href="#cite_note-51">[51]</a></sup></p>
+</div>
+<h3 id="Option_3:_Manual_Method">Option 3: Manual Method</h3>
+<p>It is possible to ignore most of what Whonix has implemented relating
+to Tor Browser and go back to square one, performing it all
+manually.</p>
+<div class="info-box ">
+<ol>
+<li>Start a terminal emulator in Qubes Disposable Template.</li>
+<li>Ignore command <code>torbrowser</code> /
+<code>/usr/bin/torbrowser</code> on the command line. (Ignore Tor
+Browser Starter by Whonix developers.)</li>
+<li>Ignore command <code>update-torbrowser</code> /
+<code>/usr/bin/update-torbrowser</code> on the command line. (Ignore Tor
+Browser Downloader by Whonix developers.)</li>
+<li>Ignore Tor Browser (AnonDist) (by Whonix developers) Qubes start
+menu entry.</li>
+<li>Manually install Tor Browser to folder <code>/home/user</code> as
+per instructions from The Tor Project. Nothing Whonix specific. <a href="../Self_Support_First_Policy.html">Self Support First
+Policy</a> applies. However, instructions for <a href="Manual_Download.html">Tor Browser: Manual
+Download</a> might be handy.</li>
+<li>Manually (by ignoring as instructed above) start Tor Browser such as
+from folder <code>/home/user/tor-browser</code>.</li>
+<li>Make any desired modifications.</li>
+<li>Close Tor Browser.</li>
+<li>Shutdown Qubes Disposable Template.</li>
+<li>Start a terminal emulator in Disposable.</li>
+<li>Navigate to the folder where you manually installed Tor
+Browser.</li>
+<li>Start Tor Browser.</li>
+</ol>
+<p>Feel free to customize this further such as adding a new Qubes start
+menu entry. This is outside the scope of this documentation and can be
+done as per the usual Qubes start menu modification procedures.</p>
+<p><a href="../Tips_on_Remaining_Anonymous.html#Refrain_from_&quot;Tor_over_Tor&quot;_Scenarios">Tor over Tor</a> is a non-issue in this case due to
+minimal <a href="../Tor_Browser.html#Whonix_Tor_Browser_Differences">Whonix Tor Browser Differences</a>.</p>
+</div>
+<p>The advantage of this method is that whatever Whonix implemented will
+probably not cause any issues. The disadvantage is slightly reduced
+usability, such as the superfluous Qubes start menu entry which can be
+ignored.</p>
+<h3 id="Split_Tor_Browser_for_Qubes">Split Tor Browser for Qubes</h3>
+<p>TODO: Try, review and document <a href="https://forums.whonix.org/t/try-review-document-qubes-split-browser/18824">Qubes'
+Split Tor Browser</a>.</p>
+<h1 id="Platform-specific_Issues:_Whonix_Custom_Linux_Workstation">Platform-specific
+Issues: Whonix Custom Linux Workstation</h1>
+<p>For instructions on how to configure Tor Browser in a
+Whonix-Custom-Linux-Workstation, see: <a href="../Other_Operating_Systems.html#Configure_Tor_Browser_Settings">Whonix-Linux-Workstation Tor Browser Settings</a>.</p>
+<h1 id="Platform-specific_Issues:_Windows">Platform-specific Issues:
+Windows</h1>
+<p>Instructions to configure Tor Browser in a
+Whonix-Custom-Windows-Workstation are <em>untested and unfinished.</em>
+Please <a href="../Contribute.html">contribute</a> by testing
+and finishing these <a href="../Other_Operating_Systems.html#Tor_Browser_Settings">Windows Tor Browser Settings</a> instructions.</p>
+<p><span class="manually-placed-anchor " id="Cumbersomeness"></span></p>
+<h1 id="Tor_Browser_Update:_Technical_Details">Tor Browser Update:
+Technical Details</h1>
+<h2 id="Linux_Generally">Linux Generally</h2>
+<p>Updating Tor Browser works differently in Debian and other Linux
+distributions generally, since it cannot be upgraded with APT package
+sources like most other applications (<a href="../Based_on_Debian.html">Whonix is based on Debian</a>). The reason is there are
+unresolved upstream issues, namely deb packages and/or a deb repository
+with Tor Browser are not provided:</p>
+<ul>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/5236">Make a
+deb of the Torbrowser and add to repository</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/3994">Get
+TorBrowser in Debian</a></li>
+</ul>
+<p>Tor Browser Developer Georg Koppen (gk) has stated:
+<sup class="reference"><a href="#cite_note-52">[52]</a></sup></p>
+<p><blockquote><p>We don't have plans to pick this up, but maybe someone from the
+community...</p></blockquote></p>
+<p>The usual process for general, non-Whonix Linux platforms such as for
+example Debian supported by The Tor Project is:</p>
+<ol>
+<li>Navigate to torproject.org</li>
+<li>Download Tor Browser for the relevant platform.</li>
+<li>Verify Tor Browser.</li>
+<li>Extract Tor Browser inside the home folder.</li>
+<li>Launch Tor Browser.</li>
+</ol>
+<p>This process is simplified by programs such as torbrowser-launcher
+(for Debian users) and tb-updater (for Debian and Whonix users), yet Tor
+Browser is still installed inside of the home folder. For this reason,
+Tor Browser cannot be updated by package management tools like apt.</p>
+<p>torbrowser-launcher and tb-updater are Tor Browser installers.
+torbrowser-launcher (for Debian users) and tb-updater are <u>not</u> Tor
+Browser updaters. The difference between an installer and an updater is
+that an installer is incapable of preserving user data after updates --
+only an updater can achieve that. In the long term, tb-updater will
+likely be renamed to tpo-downloader.</p>
+<p>Another issue is that Tor Browser mixes binaries and user data into
+the same folder. Usually binaries used by users in Linux distributions
+generally reside in folder <code>/usr/bin</code> and user data resides
+in folder <code>/home/user</code>. This is further complicated since Tor
+Browser folder structure has changed over time. Future changes might
+happen. Therefore it would be unwise for a downstream Linux distribution
+such as Whonix to attempt to separate binaries and user data. Since Tor
+Browser comes with its own internal updater and folder structure might
+change in future, updates might break or user data might become
+inaccessible if such attempts were made.</p>
+<h2 id="Qubes-specific">Qubes-specific</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Prerequisite knowledge: see
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<p>The Tor Project requires Tor Browser to be installed inside of the
+home folder as explained earlier; see <a href="#Linux_Generally">Linux Generally</a>. Qubes' App Qubes have their own
+home folder, independent from the Template they are based on. This means
+updates of a Qubes' Template will not update Tor Browser which is
+already installed in a Qubes App Qube's home folder. In short, Tor
+Browser updates are a more cumbersome task in Qubes OS due to
+Qubes-specific design choices and technical limitations.</p>
+<p>Due to these restrictions, the safest configuration that Whonix has
+<a href="https://forums.whonix.org/t/up-to-date-versions-of-tor-browsers-in-newly-created-appvms-inherited-from-updated-templatevms/18986">T417
+implemented</a> is to ensure that <u>new</u> App Qubes and <a href="../Qubes/Disposables.html">Disposables</a> are created
+with a copy of the latest Tor Browser version. In essence:</p>
+<ul>
+<li>When tb-updater is run in a Qubes Template, it stores Tor Browser in
+folder <code>/var/cache/tb-binary</code>.</li>
+<li>When a App Qube starts and it has never copied Tor Browser before
+(likely only at first boot), and there is no copy of Tor Browser in
+<code>/home/user</code>, Tor Browser is copied from
+<code>/var/cache/tb-binary</code> to <code>/home/user</code>.
+<ul>
+<li>Existing copies of Tor Browser in the home folder are not
+overwritten. This is due to an explicit design goal to avoid data loss;
+see <a href="#tb-updater_in_Qubes_Template">tb-updater
+in Qubes Template VM</a> for technical details.</li>
+</ul></li>
+</ul>
+<p>Since Tor Browser mixes binaries and user data into the same folder,
+special configurations such as <a href="Advanced_Users.html#Disposable_Template_Customization">Qubes Disposable Template Customization</a> are more
+complicated than for other software. This is because either folder
+<code>/var/cache/tb-binary</code> is being kept up to date or user data
+is being preserved. There is no maintainable way for Whonix to separate
+Tor Browser binaries from user data.</p>
+<h1 id="Multiple_Tor_Browser_Instances_and_Workstations">Multiple Tor
+Browser Instances and Workstations</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+As noted on the <a href="../Warning.html">Warning</a> page, <a href="../Warning.html#Separation_of_Different_Contextual_Identities">Whonix does not Separate Different Contextual
+Identities</a>.</p>
+</div>
+<p>Appropriate compartmentalization of user activities is important when
+different identities and/or additional software are in use. Multiple Tor
+Browser instances provide some separation of distinct identities,
+however this issue has not yet been fully solved by <a href="../Tor_Browser.html">Tor Browser</a> or <a href="../Tor_Browser.html#Torbutton">Torbutton</a>. A more
+secure method of compartmentalization is using <a href="../Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation</a>, which are easily created.</p>
+<h2 id="Multiple_Tor_Browser_Instances">Multiple Tor Browser
+Instances</h2>
+<p>To better separate different contextual identities, consider starting
+multiple Tor Browser instances. Follow the steps in the <a href="Manual_Download.html">Manually
+Downloading Tor Browser</a> entry, except for minor changes that are
+necessary; for example Tor Browser must be extracted into a different
+folder.</p>
+<p>This method is less secure than using multiple Whonix-Workstation,
+which is outlined below.</p>
+<h2 id="Multiple_Whonix-Workstation">Multiple Whonix-Workstation</h2>
+<p>For tasks requiring different identities and/or additional software,
+it is recommended to utilize <a href="../Multiple_Whonix-Workstation.html">two or more Whonix-Workstation VMs</a> since different
+torified clients are isolated from each other. In this configuration, a
+Tor Browser exploit in one Whonix-Workstation cannot simultaneously read
+the user's identity in another VM (for example, an IRC account).
+<sup class="reference"><a href="#cite_note-53">[53]</a></sup></p>
+<p>This method is less secure than using Tor Browser in a Qubes <a href="../Qubes/Disposables.html">Whonix-Workstation
+Disposable</a>.</p>
+<h1 id="Tor_Browser_Filtering">Tor Browser Filtering</h1>
+<h2 id="Tor_Browser_versus_/etc/hosts">Tor Browser versus /etc/hosts</h2>
+<p>Tor Browser ignores the system's <code>/etc/hosts</code> file, as per
+the Tor Browser default configuration set by the upstream, The Tor
+Project. This issue is <a href="../Unspecific.html">unspecific
+to Whonix</a>.</p>
+<p>The rationale for this behavior includes:</p>
+<ul>
+<li><strong>A)</strong> <u>Anti-Fingerprinting</u>: The user's Tor
+Browser does not adhere to the same DNS rules as other browsers
+installed on the system. This could enable the correlation of identities
+between non-anonymous browsers and the Tor Browser.</li>
+<li><strong>B)</strong> <u>SocksPort Configuration</u>: By default, Tor
+Browser is configured to use a Tor <code>SocksPort</code> to leverage <a href="../Stream_Isolation.html#IsolateSOCKSAuth">Tor's
+<code>IsolateSOCKSAuth</code></a> feature.</li>
+</ul>
+<p>It might be possible to restore the behavior of Tor Browser honoring
+<code>/etc/hosts</code> file, but this is discouraged, see <a href="../Tor_Browser.html#Tor_Browser_Transparent_Proxying">Tor
+Browser Transparent Proxying</a>.</p>
+<h2 id="Tor_Browser_versus_DNS_over_HTTPS">Tor Browser versus DNS over
+HTTPS</h2>
+<p>At time of writing, Tor Browser does not use DNS over HTTPS (DOH).
+But if Tor Browser did use DOH, then this would also result in Tor
+Browser ignoring <code>/etc/hosts</code> file and might as well break
+DPI (deep packet inspection) based DNS filtering.</p>
+<p>related:
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</p>
+<h2 id="Tor_Browser_vs_Firewalls_Based_Filtering">Tor Browser vs
+Firewalls Based Filtering</h2>
+<p>As mentioned above, Tor Browser uses a Tor <code>SocksPort</code> by
+default as per upstream default.</p>
+<p><code>nftables</code> (and its predecessor <code>iptables</code>)
+however does not inherently understand application-layer protocols like
+SOCKS. This is why <code>nftables</code> firewalls are unable to filter
+Tor Browser's traffic. See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for a detailed technical
+explanation.</p>
+<p>Firewall (IP, DNS) based filtering and would require either:</p>
+<ul>
+<li><strong>A)</strong> <u>Transparent Proxying:</u> Using system
+default networking, i.e. not using a Tor <code>SocksPort</code> and
+thereby breaking <a href="../Stream_Isolation.html">Stream
+Isolation</a>.</li>
+<li><strong>B)</strong> <u>DPI:</u> Deep packet inspection in case using
+a firewall. This is <a href="../Unsupported.html">undocumented</a>.</li>
+</ul>
+<p>See also: <a href="https://forums.whonix.org/t/firewall-implementation-for-qubes-whonix/16726">https://forums.whonix.org/t/firewall-implementation-for-qubes-whonix/16726</a></p>
+<h2 id="Tor_Browser_Filtering_Options">Tor Browser Filtering
+Options</h2>
+<p>Filtering is discouraged in <a href="https://2019.www.torproject.org/projects/torbrowser/design/">Tor
+Browser's threat model</a> in chapter "No filters".</p>
+<ul>
+<li><strong>A)</strong> <u>DPI:</u> Deep packet inspection in case using
+a firewall. This is <a href="../Unsupported.html">undocumented</a>.
+<ul>
+<li>Would require Transparent Proxying, i.e. using system default
+networking, i.e. not using a Tor <code>SocksPort</code> and thereby
+breaking <a href="../Stream_Isolation.html">Stream
+Isolation</a>.</li>
+</ul></li>
+<li><strong>B)</strong> <u>Browser Add-on:</u> Some browser add-ons
+perform filtering. Also discouraged, see <a href="../Tor_Browser.html#Non-default_Add-ons">Non-default
+Add-ons</a>.</li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Tor_Browser.html">Tor Browser Essentials in
+Whonix</a></li>
+<li><a href="../Qubes/Tor_Browser.html">Using Tor Browser in
+Qubes-Whonix</a></li>
+<li><a href="../Browser_Plugins.html">Browser Plugins</a></li>
+</ul>
+<h1 id="Footnotes_/_References">Footnotes / References</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://2019.www.torproject.org/projects/torbrowser/design/#Implementation">https://2019.www.torproject.org/projects/torbrowser/design/#Implementation</a></li>
+<li id="cite_note-2">This has also informed the development of the Torbutton
+extension.</li>
+<li id="cite_note-3"><a href="https://2019.www.torproject.org/docs/torbutton/en/design/index.html.en#adversary">https://2019.www.torproject.org/docs/torbutton/en/design/index.html.en#adversary</a></li>
+<li id="cite_note-4"><a href="https://2019.www.torproject.org/projects/torbrowser/design/#adversary">https://2019.www.torproject.org/projects/torbrowser/design/#adversary</a></li>
+<li id="cite_note-5">Partially explaining the unholy alliance between the corporate
+sector and government.</li>
+<li id="cite_note-6">This has already been observed.</li>
+<li id="cite_note-7">For instance, there is an estimated 29 bit-identifier based on the
+browser and desktop window resolution information alone.</li>
+<li id="cite_note-8">This attack is somewhat mitigated by the ocean of Tor traffic, which
+rapidly increases the rate of false positives when larger traffic sets
+are analyzed.</li>
+<li id="cite_note-9"><a href="https://2019.www.torproject.org/projects/torbrowser/design/#components">https://2019.www.torproject.org/projects/torbrowser/design/#components</a></li>
+<li id="cite_note-10"><a href="https://2019.www.torproject.org/docs/torbutton/en/design/index.html.en#requirements">https://2019.www.torproject.org/docs/torbutton/en/design/index.html.en#requirements</a></li>
+<li id="cite_note-11">Some of the design features have been deprecated due to changes in
+the Tor / Tor Browser design.</li>
+<li id="cite_note-12"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/523">https://gitlab.torproject.org/legacy/trac/-/issues/523</a></li>
+<li id="cite_note-13"><a href="https://2019.www.torproject.org/projects/torbrowser/design/#new-identity">https://2019.www.torproject.org/projects/torbrowser/design/#new-identity</a></li>
+<li id="cite_note-14"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/9442">https://gitlab.torproject.org/legacy/trac/-/issues/9442</a></li>
+<li id="cite_note-15"><a href="https://tb-manual.torproject.org/managing-identities/">https://tb-manual.torproject.org/managing-identities/</a></li>
+<li id="cite_note-16"><a href="https://blog.torproject.org/new-release-tor-browser-85">https://blog.torproject.org/new-release-tor-browser-85</a></li>
+<li id="cite_note-17"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/29825">https://gitlab.torproject.org/legacy/trac/-/issues/29825</a></li>
+<li id="cite_note-18"><a href="https://tb-manual.torproject.org/security-settings/">https://tb-manual.torproject.org/security-settings/</a></li>
+<li id="cite_note-19"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/19652">https://gitlab.torproject.org/legacy/trac/-/issues/19652</a></li>
+<li id="cite_note-20"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/14100">https://gitlab.torproject.org/legacy/trac/-/issues/14100</a></li>
+<li id="cite_note-21"><a href="https://tails.boum.org/doc/anonymous_internet/Tor_Browser/index.en.html">https://tails.boum.org/doc/anonymous_internet/Tor_Browser/index.en.html</a></li>
+<li id="cite_note-22"><a href="https://blog.torproject.org/new-release-tor-browser-80a9">New
+Release: Tor Browser 8.09a9</a> License: <a href="https://creativecommons.org/licenses/by/3.0/us/">Creative Commons
+Attribution 3.0 United States License</a></li>
+<li id="cite_note-23">Should not include <code>/local/</code>.</li>
+<li id="cite_note-24">This is a potential bug since the custom homepage does not overrule
+the
+<em><span>TOR_DEFAULT_HOMEPAGE</span></em>
+environment variable. No bug has yet been reported.</li>
+<li id="cite_note-25">Also <i>/usr/lib/whonix-welcome-page/env_var.sh</i></li>
+<li id="cite_note-26"><span class="code-select">sudo apt purge
+whonix-welcome-page</span></li>
+<li id="cite_note-27">Open file <code>/usr/lib/whonix-welcome-page/env_var.sh</code> in an
+editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.
+<div class="info-box ">
+<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_10">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes. * <u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it. * <u>Editor
+requirement:</u> Close Featherpad (or the chosen text editor) before
+running the <code>sudoedit</code> command.
+<i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights. <span class="code-select">sudoedit
+/usr/lib/whonix-welcome-page/env_var.sh</span></p>
+</div>
+</div>
+<div class="tcc-section info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_10">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes. * <u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it. * <u>Editor
+requirement:</u> Close Featherpad (or the chosen text editor) before
+running the <code>sudoedit</code> command. * <u>Template
+requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.
+<i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights. <span class="code-select">sudoedit
+/usr/lib/whonix-welcome-page/env_var.sh</span>
+<i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes. * <u>Shut down Template:</u> After applying this change, shut
+down the Template. * <u>Restart App Qubes:</u> All App Qubes based on
+the Template need to be restarted if they were already running. *
+<u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] * <u>General procedure:</u> This
+is a general procedure required for Qubes and is <a href="../Unspecific.html">unspecific to Qubes-Whonix</a>.</p>
+</div>
+</div>
+<div class="tcc-section info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_10">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes. * <u>Example only:</u> This is just an example. Other tools could
+achieve the same goal. * <u>Troubleshooting and alternatives:</u> If
+this example does not work for you, or if you are not using Whonix,
+please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File with Root Rights</a>.
+<i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights. <span class="code-select">sudoedit
+/usr/lib/whonix-welcome-page/env_var.sh</span></p>
+</div>
+</div>
+</div>
+</div>
+</div></li>
+<li id="cite_note-28">Getting a new circuit does not guarantee receiving a new exit relay;
+this is normal behavior. Also see: <a href="../Stream_Isolation.html">Stream Isolation</a>.</li>
+<li id="cite_note-29">This term was coined in context of a <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy">Tor
+Transparent Proxy</a> (<a href="http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/legacy/trac/-/wikis/doc/TransparentProxy">.onion</a>).
+It acts as a simple gateway that routes all connections through Tor, but
+does not provide <a href="../Stream_Isolation.html">Stream
+Isolation</a>.</li>
+<li id="cite_note-30">If these settings are changed, Tor Button would previously show a
+red sign and state "Tor Disabled" when a mouse was hovered over it.</li>
+<li id="cite_note-31">Unless this environment variable is manually unset before starting
+Tor Browser.</li>
+<li id="cite_note-32">* <a href="https://forums.whonix.org/t/tor-browser-10-without-tor/10313">https://forums.whonix.org/t/tor-browser-10-without-tor/10313</a>
+* <a href="https://forums.whonix.org/t/tor-browser-not-working-user-tor-vpn-internet/10385">https://forums.whonix.org/t/tor-browser-not-working-user-tor-vpn-internet/10385</a>
+* <a href="https://forums.whonix.org/t/tor-browser-infinite-tab-opening-when-enabling-tor-transproxy-when-using-it-with-a-vpn/12791">https://forums.whonix.org/t/tor-browser-infinite-tab-opening-when-enabling-tor-transproxy-when-using-it-with-a-vpn/12791</a></li>
+<li id="cite_note-33">The regular Tor Browser Bundle from The Tor Project (without Whonix)
+allows networking settings to changed inside Tor via the
+<code>Open Network Settings</code> menu option. It has the same effect
+as editing Tor's config file torrc. In Whonix, the environment variable
+<code>export TOR_NO_DISPLAY_NETWORK_SETTINGS=1</code> has been <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">set</a>
+to disable the <code>Tor Browser</code> ->
+<code>Open Network Settings...</code> menu item. It is not useful and
+confusing to have in the Whonix-Workstation because: * In Whonix, there
+is only limited access to Tor's control port (see <a href="../Dev/onion-grater.html">onion-grater, a Tor Control
+Port Filter Proxy, design documentation</a> for more information). * For
+security reasons, Tor must be manually configured in
+<i>/usr/local/etc/torrc.d/50_user.conf</i> on Whonix-Gateway, and not
+from Whonix-Workstation (see <a href="../Features.html#Tunnel_Support">VPN/Tunnel support</a> for more information).</li>
+<li id="cite_note-34"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/10419#comment:37">https://gitlab.torproject.org/legacy/trac/-/issues/10419#comment:37</a></li>
+<li id="cite_note-35"><a href="https://phabricator.whonix.org/T118">https://phabricator.whonix.org/T118</a></li>
+<li id="cite_note-36">Which is in turn inherited from updated Templates.</li>
+<li id="cite_note-37">In the tb-updater package.</li>
+<li id="cite_note-38"><a href="https://github.com/Kicksecure/helper-scripts/blob/master/usr/libexec/helper-scripts/first-boot-skel">https://github.com/Kicksecure/helper-scripts/blob/master/usr/libexec/helper-scripts/first-boot-skel</a></li>
+<li id="cite_note-39"><a href="https://github.com/Kicksecure/tb-updater/blob/master/usr/lib/tb-updater/first-boot-home-population">https://github.com/Kicksecure/tb-updater/blob/master/usr/lib/tb-updater/first-boot-home-population</a></li>
+<li id="cite_note-40">Upon creation.</li>
+<li id="cite_note-41">Following shutdown.</li>
+<li id="cite_note-42"><a href="https://www.qubes-os.org/doc/templates/">https://www.qubes-os.org/doc/templates/</a></li>
+<li id="cite_note-43">The former name was Template.</li>
+<li id="cite_note-44">The former name was AppVM or TemplateBasedVM.</li>
+<li id="cite_note-45"><a href="https://github.com/QubesOS/qubes-issues/issues/4175">https://github.com/QubesOS/qubes-issues/issues/4175</a></li>
+<li id="cite_note-46">Former names included Disposable Template, DVM Template, and
+DVM.</li>
+<li id="cite_note-47"><a href="https://www.qubes-os.org/doc/glossary/#disposable">https://www.qubes-os.org/doc/glossary/#disposable</a></li>
+<li id="cite_note-48">Former names included Disposable and DispVM.</li>
+<li id="cite_note-49">* This is to prevent mounting <code>/var/cache/tb-binary/.tb</code>
+to <code>/home/user/.tb</code>. *
+<code>/lib/systemd/system/tb-updater-dispvm.service</code> *
+<code>/usr/lib/tb-updater/dispvm</code> The following will not work.
+<span class="code-select">sudo mkdir -p
+/usr/local/lib/systemd/system/</span> <span class="code-select">sudo ln
+-s /dev/null
+/usr/local/lib/systemd/system/tb-updater-dispvm.service</span> This is
+probably because Qubes mounts /usr/local too late to be regarded by
+systemd.</li>
+<li id="cite_note-50">When running <code>torbrowser</code> (Tor Browser Starter by Whonix
+developers) in Disposable Template it will first copy
+<code>/var/cache/tb-binary/.tb/tor-browser</code> to user home folder
+<code>/home/user/.tb/tor-browser</code>. (Folder
+<code>/var/cache/tb-binary/.tb/tor-browser</code> was previously created
+by Tor Browser Downloader (by Whonix developers).) Second, it will start
+the Tor Browser binary from folder
+<code>/home/user/.tb/tor-browser</code>.</li>
+<li id="cite_note-51"><a href="#Tor_Browser_Update:_Technical_Details">Due to technical limitations.</a> Because whole folder
+<code>/var/cache/tb-binary/.tb/tor-browser</code> is replaced. <a href="../Reasons_for_Freedom_Software.html#No_Intentional_User_Freedom_Restrictions">This is not an intentional user freedom restriction or
+security feature.</a></li>
+<li id="cite_note-52"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/5236#comment:45">https://gitlab.torproject.org/legacy/trac/-/issues/5236#comment:45</a></li>
+<li id="cite_note-53">This does not protect against the sudden loss of networking, which
+could reveal to the attacker that two activities / accounts suddenly
+going off-line are probably related.</li>
+</ol>
+</div>
+<h1 id="License">License</h1>
+<p><blockquote><p>Whonix Tor Browser Advanced Topics wiki page Copyright (C) Amnesia
+ Whonix Tor Browser Advanced Topics wiki page
+Copyright (C) 2012 - 2026 ENCRYPTED SUPPORT LLC
+&lt;adrelanos@whonix.org&gt;</p>
+<p>This program comes with ABSOLUTELY NO WARRANTY; for details see the
+wiki source code. This is free software, and you are welcome to
+redistribute it under certain conditions; see the wiki source code for
+details.</p></blockquote></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

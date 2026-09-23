@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Technical Introduction</title>
+<meta name="description" content="Introduction into Whonix Technical Design.">
+<meta property="og:description" content="Introduction into Whonix Technical Design.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Technical_Introduction.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Technical_Introduction.html">
+<meta property="og:title" content="Technical Introduction">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Whonix-technical-introduction.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Technical Introduction</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Sensitive_Information">Sensitive Information</a></li><li class="toc-l2"><a href="#Origin_of_Leaks">Origin of Leaks</a></li><li class="toc-l2"><a href="#Design">Design</a></li><li class="toc-l2"><a href="#In_layman&#x27;s_terms">In layman&#x27;s terms</a></li><li class="toc-l2"><a href="#With_more_technical_terms">With more technical terms</a></li><li class="toc-l2"><a href="#Targeted_Surveillance">Targeted Surveillance</a></li><li class="toc-l2"><a href="#Passive_Surveillance">Passive Surveillance</a></li><li class="toc-l2"><a href="#Forensic_Considerations">Forensic Considerations</a></li><li class="toc-l2"><a href="#Anti-forensic_Claims">Anti-forensic Claims</a></li><li class="toc-l2"><a href="#Why_are_Whonix_Images_so_Large?">Why are Whonix Images so
+Large?</a></li><li class="toc-l2"><a href="#Is_there_Something_like_Whonix_Live?">Is there Something like
+Whonix Live?</a></li><li class="toc-l2"><a href="#Is_there_a_Whonix_Amnesic_Feature_/_Live_CD_/_Live_DVD?_What_about_Forensics?">Is
+there a Whonix Amnesic Feature / Live CD / Live DVD? What about
+Forensics?</a></li><li class="toc-l2"><a href="#Will_there_be_a_Whonix_Live_CD_or_DVD?">Will there be a Whonix
+Live CD or DVD?</a></li><li class="toc-l3"><a href="#Non-Qubes-Whonix™">Non-Qubes-Whonix™</a></li><li class="toc-l3"><a href="#Qubes-Whonix">Qubes-Whonix</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../Design.html">Design Documentation</a></li>
+<li><a href="Technical_Introduction.html">Technical
+Introduction</a></li>
+<li><a href="Threat_Model.html">Threat Model</a></li>
+<li><a href="../Comparison_with_Others.html">Comparison with
+Others</a></li>
+<li><a href="../Comparison_with_Kicksecure.html">Comparison
+with Kicksecure</a></li>
+</ul>
+</div>
+<p><img src="../../media/Whonix-technical-introduction.png.webp" width="200" alt="Whonix-technical-introduction.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Introduction into Whonix Technical Design.</p>
+<ul>
+<li><u>Technical readers:</u> This wiki page is intended for technical
+readers.</li>
+<li><u>Laymen users:</u> Laymen users should read <a href="../About.html">Whonix Overview</a> instead.</li>
+</ul>
+<div class="post-intro-p">
+</div>
+<h1 id="Summary">Summary</h1>
+<p>Whonix aims to be safer than Tor alone. The primary goal is that no
+one can find out the user's IP, location, or de-anonymize the user.</p>
+<p>Whonix consists of two Debian ([Broken-ExtLink--no-url-was-provided])
+based (virtual) machines (VMs), which are connected through an isolated
+network.</p>
+<ul>
+<li>A) One machine acts as the client or <em>Whonix-Workstation</em>,
+running applications such as a browser; and</li>
+<li>B) the other as a proxy or <em>Whonix-Gateway</em>, which runs Tor
+and routes all Whonix-Workstation<sup>™</sup> traffic through Tor.</li>
+</ul>
+<p>All traffic originating from <a href="../Whonix-Workstation.html">Whonix-Workstation<sup>™</sup></a> and <a href="../Whonix-Gateway.html">Whonix-Gateway<sup>™</sup></a> is
+routed to the <a href="../Tor.html">Tor</a> software.</p>
+<div class="toccolours mw-collapsible mw-collapsed mwc-headline-normal-text-size">
+<p>For technical details, click on "Learn More" on the right side.</p>
+<div class="mw-collapsible-content">
+<ul>
+<li><u>Traffic from Whonix-Gateway also routed over Tor:</u> Starting
+from Whonix version <code>0.2.1</code>, traffic from Whonix-Gateway is
+also routed over Tor. This approach conceals the use of Whonix from
+entities monitoring the network.</li>
+<li><u>Gateway's own traffic not essential for anonymity:</u> To
+preserve the anonymity of a user's Whonix-Workstation activities, it is
+not essential to route Whonix-Gateway's own traffic through Tor. (Note:
+The gateway is mainly a tool that helps route traffic; it does not
+typically contain personal activity data.)</li>
+<li><u>DNS configuration on Whonix-Gateway has limited impact:</u>
+Altering DNS settings on Whonix-Gateway in <code>/etc/resolv.conf</code>
+only impacts DNS requests made by Whonix-Gateway's applications that
+utilize the system's default DNS resolver. (DNS is like the internet's
+phonebook - it translates website names to IP addresses.) By default, no
+applications on Whonix-Gateway that generate network traffic use this
+default resolver. All default applications on Whonix-Gateway that
+produce network traffic (like apt, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>, <a href="../Sdwdate.html">sdwdate</a>) are explicitly configured,
+or forced by uwt wrappers, to use their dedicated Tor
+<code>SocksPort</code> (refer to <a href="../Stream_Isolation.html">Stream Isolation</a>).</li>
+<li><u>Whonix-Workstation DNS requests handled via Tor:</u>
+Whonix-Workstation's default applications are configured to use
+dedicated Tor <code>SocksPorts</code> (see <a href="../Stream_Isolation.html">Stream Isolation</a>), avoiding the system's default
+DNS resolver. Any applications in Whonix-Workstation not set up for
+stream isolation - such as <code>nslookup</code> - will use the default
+DNS server configured in Whonix-Workstation (through
+<code>/etc/network/interfaces</code>), which points to Whonix-Gateway.
+These DNS requests are then redirected to Tor's <code>DnsPort</code> by
+the Whonix-Gateway firewall. (This ensures DNS lookups still go through
+Tor even if they use the default method.) Changes in Whonix-Gateway's
+<code>/etc/resolv.conf</code> do not influence Whonix-Workstation's DNS
+queries.</li>
+<li><u>Tor process traffic allowed direct internet access:</u> Traffic
+produced by the Tor process, which by Debian's default operates under
+the account <code>debian-tor</code> and originates from Whonix-Gateway,
+can access the internet directly. This is permitted because the Linux
+user account <code>debian-tor</code> is exempted in the <a href="../Whonix-Gateway_Firewall.html">Whonix-Gateway
+Firewall</a> and allowed to use the "regular" internet. (This is
+necessary for Tor to establish its connections.)</li>
+<li><u>Tor mostly uses TCP traffic:</u> As of Tor version
+<code>0.4.5.6</code> (with no changes announced at the time of writing),
+the Tor software predominantly relies on TCP traffic. (TCP is a common
+protocol used for stable internet connections.) For further details, see
+<a href="../Tor.html#UDP">Tor wiki page, chapter UDP</a>. For
+DNS, please refer to the next footnote.</li>
+<li><u>Tor's DNS independence and exceptions:</u> Tor does not depend
+on, nor use, a functional (system) DNS for most of its operations. IP
+addresses of Tor directory authorities are hardcoded in the Tor software
+by Tor developers. (That means Tor knows important addresses in advance
+and doesn't need to look them up.) Exceptions include:
+<ul>
+<li><u>Proxy with domain name:</u> Proxy settings that use proxies with
+domain names instead of IP addresses.</li>
+<li><u>Pluggable transport domain resolution:</u> Some Tor pluggable
+transports, such as meek lite, which resolve domains set in
+<code>url=</code> and <code>front=</code> to IP addresses, or
+snowflake's <code>-front</code>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<p>This setup can be implemented either through virtualization and/or
+Physical Isolation (explained below).</p>
+<p>To visualize this configuration, imagine physically computer A)
+having no direct internet connection (no Wifi, no modem, no cable, no
+DSL) and being connected by a LAN cable to a separate physical computer
+B). In such a setup by default, computer A) has no way to access the
+internet. Computer B), the proxy, can however opt-in to provide network
+access to computer A).</p>
+<p>In this setup, how could computer A) get access to the internet? One
+way would be for computer B) to enable IP forwarding. Whonix does not do
+this by design. Another way would be for computer B) to run proxy
+software that opens port(s) (services) that computer A) can access. This
+is the core principle of what Whonix does.</p>
+<p>Whonix comes with many <a href="https://www.whonix.org/#security">security-enhancing and
+anonymity-protecting features</a>.</p>
+<p><a href="../Reliable_IP_Hiding.html">Whonix provides
+reliable IP hiding</a>. However, hiding your identity is harder than
+just hiding your IP. Merely <a href="../IP_hiding_is_outdated.html">hiding IP addresses is an outdated, year 1990 threat
+model</a>. Simply masking the user's IP address is insufficient, as
+adversaries employ various <a href="../Data_Collection_Techniques.html">Data Collection Techniques</a> that do not require IP
+addresses. This is evidenced by numerous <a href="../Browser_Tests.html">Browser Tests</a>, such as the <a href="https://fingerprint.com/demo/">Fingerprint.com Demo</a>,
+particularly since <a href="../The_World_Wide_Web_And_Your_Privacy.html#Fingerprint.com">"12% of the largest 500 websites use
+Fingerprint.com"</a>.</p>
+<p>To keep users anonymous, Whonix offers <a href="../About.html#Full_Spectrum_Anti-Tracking_Protection">Full Spectrum Anti-Tracking Protection</a> and is <a href="https://www.whonix.org/#vpn">much safer than VPNs</a> (refer to
+the comprehensive <a href="../Whonix_versus_VPNs.html">Whonix
+versus VPNs</a> comparison).</p>
+<p><a href="../What_we_do.html">Project activities</a>
+include:</p>
+<ul>
+<li>Maintaining approximately <a href="https://github.com/Whonix">~ 16
+Whonix source code repositories</a>.</li>
+<li>and <a href="https://github.com/Kicksecure">~ 56 Kicksecure source
+code repositories</a>.</li>
+</ul>
+<h1 id="Essentials">Essentials</h1>
+<p>The basic assumption is, that all applications are untrustworthy. No
+application must be able to obtain the user's real external IP. Whonix
+ensures that applications can only connect through Tor. Direct
+connections (leaks) must be impossible. This is the only way we know of,
+that can reliably protect your anonymity from client application
+vulnerabilities and IP/DNS and <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#protocol-leaks">protocol
+leaks</a>. When the term protocol leak or "information leak" is used in
+the context of security and anonymity it is referring to an event that
+causes the release of secure or private information to an untrusted
+party or environment <sup class="reference"><a href="#cite_note-1">[1]</a></sup> <sup class="reference"><a href="#cite_note-2">[2]</a></sup>.</p>
+<p>The <strong>Whonix Concept</strong> (see below) is agnostic about
+everything, the anonymizer, platform, etc. See <strong>Whonix
+Framework</strong> below.</p>
+<p><strong>Whonix Example Implementation</strong>: Anonymity setup built
+around <strong>Tor</strong>, two virtual machines using <a href="../Qubes.html">Qubes</a>, <a href="../KVM.html">KVM</a>, <a href="../VirtualBox.html">VirtualBox</a> or <a href="Build_Documentation/Physical_Isolation.html">physical isolation</a> and
+<strong>Debian GNU/Linux</strong>. Whonix can be installed on every <a href="../Download.html">supported platform</a>.
+(Supports Windows, OS X, Linux, BSD and Solaris.)</p>
+<p>Physical Isolation describes installing Whonix-Gateway<sup>™</sup>
+and Whonix-Workstation on two different pieces of hardware. It is more
+secure than VirtualBox / KVM virtual machines alone, requires more
+physical space, and hardware and electricity costs are higher. Keep in
+mind that you don't need very powerful dedicated servers or desktops.
+Unfortunately, using <a href="../Qubes.html">Qubes-Whonix<sup>™</sup></a> with physical isolation is
+<a href="../Unsupported.html">unsupported</a>. For more
+information, see <a href="Build_Documentation/Physical_Isolation.html">Physical Isolation</a>.</p>
+<p>See <a href="../Design.html">Design</a> for Technical Design
+and security of Whonix. For security introduction, see below.</p>
+<p>The listed <a href="../Features.html">Features</a>,
+advantages and disadvantages shall give you an overview, what Whonix is
+useful for, what Whonix can do for you, and what not.</p>
+<h1 id="Technical_Challenges">Technical Challenges</h1>
+<p>System security, privacy and anonymity are dependent upon sensitive
+information or data not escaping the trusted environment, which is
+protected and under the user's control. This is a technically
+challenging task with a multitude of elements to be considered. The
+numerous applications and background processes running on a system at
+any given time exacerbate the difficulties encountered.</p>
+<h2 id="Sensitive_Information">Sensitive Information</h2>
+<p>In the context of privacy and anonymity, sensitive information is any
+information that can be used to identify an individual. An inexhaustive
+list of sensitive information includes:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Serial_number">Hardware
+serials</a> - can be used to uniquely identify a computer and in turn be
+linked to the person who purchased or was using it.</li>
+<li><a href="https://www.dnsleaktest.com/what-is-a-dns-leak.html">DNS
+leak</a> - if DNS queries are leaking, an ISP or any on-path
+eavesdropper can log the sites that are visited.<sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+<li><a href="https://browserleaks.com/ip">IP leaks</a> - a user's
+external (ISP-facing) IP address can be used to identify an individual
+as well as their location.</li>
+<li><a href="https://digitalguardian.com/blog/what-personally-identifiable-information">Personally
+identifiable information</a> (PII) - information that can be used on its
+own or with other information to identify, contact, or locate a single
+person, or to identify an individual in context.<sup class="reference"><a href="#cite_note-4">[4]</a></sup>.</li>
+</ul>
+<h2 id="Origin_of_Leaks">Origin of Leaks</h2>
+<p>Even if sensitive data is only a very small proportion of the total,
+it is extremely difficult to block all available leak avenues.
+Information leaks have several primary causes:</p>
+<ul>
+<li><strong>Misbehaving applications</strong> (<a href="https://en.wikipedia.org/wiki/Software_bug">buggy software</a>) -
+programs that do not function as intended, leading directly to data
+leakage or causing other applications they interact with to leak.</li>
+</ul>
+<ul>
+<li><strong>Deliberate</strong> (<a href="https://en.wikipedia.org/wiki/Backdoor_(computing)">Backdoors</a>)
+- a backdoor is a method, often secret, of bypassing normal
+authentication or encryption in a computer system, product, or embedded
+device (like a home router), or its embodiment which forms part of a
+cryptosystem, an algorithm, a chipset, or a "homunculus
+computer".<sup class="reference"><a href="#cite_note-5">[5]</a></sup></li>
+</ul>
+<ul>
+<li><strong>Mis-configured applications</strong> - some applications can
+leak sensitive information if configured improperly. For instance, VPN
+clients can <a href="https://en.wikipedia.org/wiki/DNS_leak">leak DNS
+queries</a>. Other applications that can be used to block information
+leaks, such as <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a>, may be
+ineffective if configured improperly.</li>
+</ul>
+<ul>
+<li><strong>Software vulnerability</strong> - a weakness which allows an
+adversary to reduce a system's integrity, availability, authenticity,
+non-repudiation and confidentiality of user
+data.<sup class="reference"><a href="#cite_note-6">[6]</a></sup><sup class="reference"><a href="#cite_note-7">[7]</a></sup></li>
+</ul>
+<h1 id="Whonix_Framework">Whonix Framework</h1>
+<p>The <strong>Whonix Concept</strong> is agnostic about everything.
+With some development effort you can replace any component. The Whonix
+developers would like to support each and any use case, but due to
+limited amount of developers this is impossible and we focus on the
+<strong>Whonix Example Implementation</strong>.</p>
+<p>The Tor network is Whonix official and best supported anonymizing
+network. Whonix can also potentially and optionally use <a href="../Other_Anonymizing_Networks.html">other anonymizing
+networks</a> (Such as JonDo, I2P, Freenet, RetroShare), either in
+addition (<a href="../Tunnels/Introduction.html">tunneled</a> through Tor)
+or as a replacement for Tor. See the article for more information.</p>
+<p>You can also avoid using virtualization by using <a href="Build_Documentation/Physical_Isolation.html">Physical Isolation</a> without any virtualization,
+although that is not recommended, see <a href="../Comparison_of_different_variants.html">Comparison of
+different variants</a> for more information.</p>
+<p>It is possible to use other virtualization platforms than VirtualBox,
+e.g. <a href="../Qubes.html">Qubes</a> (which is based on XEN),
+<a href="../VMware.html">VMware</a>, <a href="../KVM.html">KVM</a>, XEN, <a href="../QEMU.html">QEMU</a>,
+Bochs, etc. (See <a href="Virtualization_Platform.html#Other_Virtualization_Platforms">Dev/Other Virtualization Platforms</a>.).</p>
+<p>Other operating systems (e.g. Windows; *nix; BSD; etc.) can
+potentially be used as host and/or guest operating system. See the <a href="../Other_Operating_Systems.html">Other Operating
+Systems</a> for more information.</p>
+<h2 id="Design">Design</h2>
+<p>A robust "security by isolation" model is incorporated into the
+Whonix framework to counter the ever-present threat of information
+leaks. This model is composed of four (three when using physical
+isolation)<sup class="reference"><a href="#cite_note-8">[8]</a></sup> unique, but essential components.</p>
+<ul>
+<li><strong>Hypervisor</strong> - also referred to as a virtual machine
+monitor. This is software, firmware, or hardware that creates and runs
+<a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual
+machines</a>. Several elements are involved:
+<ul>
+<li>The computer on which the hypervisor runs is called the host.</li>
+<li>The hypervisor in turn runs virtual machines which are called guest
+machines. The hypervisor provides hardware virtualization which hides
+the characteristics of a computing platform from the user, instead
+presenting an abstract computing platform.</li>
+<li>This platform virtualization -- creation of a virtual machine that
+acts like a real computer -- is performed on a given hardware platform
+by host software (a control program).</li>
+<li>The host software creates a simulated computer environment; a
+virtual machine (VM), for its guest software.</li>
+<li>The guest software executes as if it were running directly on the
+physical hardware.</li>
+<li>Due to these factors, Whonix is able to isolate the the virtual
+machines from the actual computer hardware. This prevents the virtual
+machines from accessing sensitive information on the host OS or from
+each other.<sup class="reference"><a href="#cite_note-9">[9]</a></sup><sup class="reference"><a href="#cite_note-10">[10]</a></sup></li>
+</ul></li>
+</ul>
+<ul>
+<li><strong>Whonix-Gateway</strong> - the first of two VMs that make up
+Whonix. The function of Whonix-Gateway is to run <a href="../Tor.html">Tor</a> processes and force all traffic through the Tor
+network. This is done through a modest application of <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a>, which blocks
+network traffic from passing through any other channel besides the
+dedicated Tor gateway. As mentioned earlier, the hypervisor enforces the
+isolation between the two VMs used in Whonix. Consequently, any <a href="../Moved:Malware_and_Firmware_Trojans.html">malware</a> that
+might infect Whonix-Workstation (the second VM) will not compromise
+Whonix-Gateway or the host.</li>
+</ul>
+<ul>
+<li><strong>Whonix-Workstation</strong> - the second of two VMs, the
+Workstation is responsible for running user applications. This includes
+any pre-installed or custom-installed user applications. Since
+Whonix-Workstation is isolated from both the Whonix-Gateway and host OS,
+if an application misbehaves or is exploited by an adversary, this will
+be contained in the isolated Whonix-Workstation. Unless an advanced
+adversary is able to break out of the VM, there is no way for hardware
+serials or the externally-facing IP address to leak; Whonix-Workstation
+is simply unaware of sensitive information. Moreover, DNS leaks are
+eliminated since all DNS requests are sent over the Tor network via the
+Whonix-Gateway.</li>
+</ul>
+<ul>
+<li><strong>Tor</strong> -<a href="https://www.torproject.org">Tor</a>
+is an anonymity network which helps users defend against traffic
+analysis, network surveillance and privacy threats. Tor protects users
+by bouncing their communications around a distributed network of
+relays.<sup class="reference"><a href="#cite_note-11">[11]</a></sup></li>
+</ul>
+<h1 id="Whonix_Concept">Whonix Concept</h1>
+<p>Whonix is an <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/IsolatingProxy">Isolating
+Proxy</a> with an additional <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy">Transparent
+Proxy</a>, which can be optionally disabled. (See <a href="../Stream_Isolation.html">Stream Isolation</a>).</p>
+<h1 id="Goals_and_Non-Goals">Goals and Non-Goals</h1>
+<ul>
+<li>Tor Browser development non-goal: make every user look like someone
+unique else.</li>
+<li>Tor Browser development goal: to make everyone look the same from
+the perspective of destination websites; hiding the fact that someone is
+using Tor from destination websites.</li>
+</ul>
+<p><code>Whonix by concept is an extension to Tor Browser expanding these goals to the whole operating system.</code></p>
+<p>Goals are restricted not by what developers would ideally want to
+provide but by technical challenges and what's realistic.</p>
+<h1 id="Security_Overview">Security Overview</h1>
+<h2 id="In_layman's_terms">In layman's terms</h2>
+<p>Is Whonix safe?</p>
+<p>Whonix has a solid 14 years <a href="../History.html">history</a> of providing <a href="../Whonix_against_Real_Attacks.html">Whonix Track Record
+against Real Cyber Attacks</a>. No data leaks have ever been
+reported.</p>
+<p>It is in the nature of security related software, that there is no
+100% safety. Believe it or not, we use it ourselves and we keep
+maintaining and developing it. We believe that Whonix is safer than
+other tools in some aspects, threat models, and use cases. There is
+detailed reasoning for such claims on the <a href="https://www.whonix.org/#security">Whonix Homepage</a>.</p>
+<p>If you are more paranoid or have higher security needs, read
+everything, full documentation and full technical design, you'll learn
+about physical isolation and build Whonix from source code and so
+on.</p>
+<p>And no, Whonix does <strong>not</strong> claim to protect from very
+powerful adversaries, to be a perfectly secure system, to provide strong
+anonymity, or to provide protection from technically advanced
+surveillance and similar.</p>
+<p>See also <a href="../Warning.html#Whonix_is_a_Work_in_Progress">Whonix is a work in progress</a>.</p>
+<p>At first glance this site may create the impression that Whonix is
+completely insecure and everything is a lost cause. We are upfront with
+things we could do better and we are still working on and try to
+consider all possibilities and document all thinkable and future
+threats. You must judge for your own which risks are acceptable for your
+use cases.</p>
+<h2 id="With_more_technical_terms">With more technical terms</h2>
+<p>It is difficult to write a summary of Whonix security features. Both
+anonymity and security consist of so many different aspects. That's why
+there is lots of <a href="../Documentation.html">Documentation</a> and the whole Technical <a href="../Design.html">Design</a>.</p>
+<p>The Technical <a href="../Design.html">Design</a> intends to
+document security philosophy, design, goals and current shortcomings of
+Whonix.</p>
+<p>This chapter is only a short introduction. Please read the full <a href="../Design.html">Design</a>.</p>
+<p>Whonix follows the principle of security by isolation. We know that
+making our currently used systems secure is a lost cause. They are too
+complex and too large to be trustworthy and verifiably free of any bugs.
+Whonix can't solve this but it tries to minimize attack surfaces and
+limit what danger exploitable bugs in more exposed parts can do, one
+primary danger specific to Tor is the danger of exposing the public IP
+address of a system. Whonix isolates client applications inside the
+Whonix-Workstation from discovering the external IP address.
+Specifically, Whonix is designed to prevent direct detection of the IP
+(not more!) even if an adversary has unrestricted access to the
+Whonix-Workstation.</p>
+<p>Once there is a vulnerability found in Tor (ex: exploiting Tor's
+ports) or a successful attack against Tor, Whonix fails.</p>
+<p>Same goes for iptables. Whonix is a setup based on Linux, iptables,
+Tor, etc. If any of the underlying projects has a vulnerability, which
+cannot be ruled out, of course, Whonix will fail as well.</p>
+<p>Whonix also has <a href="../Advanced_Deanonymization_Attacks.html"> limited countermeasures</a> and protections against
+most classes of <a href="../Advanced_Security_Guide.html#Side_Channel_Attacks">side-channel attacks</a>.</p>
+<p>In summary, Whonix does <strong>not</strong> claim to be a perfectly
+secure system or able to provide anonymity if one faces a very powerful
+adversary, and so on.</p>
+<p>There are <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#general-torifying-information">to
+torify</a>. Read the link for a comparison of the security.</p>
+<p>Whonix-Workstation has no access to the internet without going
+through Tor. You can look into our setup. It is all Open Source and well
+documented.</p>
+<p><span class="manually-placed-anchor " id="multiple_security_layers"></span>
+(<a href="#multiple_security_layers">#multiple security
+layers</a>)</p>
+<p>Whonix uses multiple security layers.</p>
+<ol>
+<li>IP-forwarding is disabled.</li>
+<li>There is no dependency on routing table modifications.
+<sup class="reference"><a href="#cite_note-12">[12]</a></sup></li>
+<li>In general terms (<a href="../Unspecific.html">unspecific
+to Whonix</a>): if one VM is only connected to another VM through a
+virtual, internal LAN and has no other network interfaces besides that,
+it does not easily gain internet access. That requires IP forwarding to
+be enabled the other VM.</li>
+<li>In Whonix specific terms: Since one VM Whonix-Workstation is only
+connected to another VM Whonix-Gateway through a virtual, internal LAN,
+Whonix-Workstation does not easily gain internet access.</li>
+<li>What application internet traffic originating from
+Whonix-Workstation essentially do is attempting to talk to a "service"
+on Whonix-Gateway, which is <a href="../Tor.html">Tor</a>.
+However, if Tor refuses connections or Tor isn't even available, there
+is nothing legitimate that the application traffic can do from within
+Whonix-Workstation. <sup class="reference"><a href="#cite_note-13">[13]</a></sup></li>
+<li>Therefore even if Whonix-Gateway if powered off and only
+Whonix-Workstation is powered on, no leaks are possible.</li>
+<li>If Tor is not running or not responding on Whonix-Gateway, then
+Whonix-Workstation has no way to connect to the internet.</li>
+<li>In other words, Whonix fails "closed": when Tor is disabled, loses
+connection, or the Whonix-Gateway crashes, no network connections are
+possible. (Fails "closed" means, connection failing without any leak.
+Nothing goes out to the internet. Failing "open" in this context would
+mean it would fail to connect using Tor and connect using the user's
+real external IP address instead.)</li>
+<li>IPv6 is disabled.</li>
+<li>The Iptables firewall on Whonix-Gateway redirects any traffic from
+originating from Whonix-Workstation to Tor's <a href="../Ports.html">ports</a> on Whonix-Gateway. Local network connections
+are dropped. No leaks are possible, assuming the TCB is
+trustworthy.</li>
+<li>Even without <a href="../Whonix-Gateway_Firewall.html">Whonix-Gateway Firewall</a> and without <a href="../Whonix-Workstation.html">Whonix-Workstation</a>
+firewall, no leaks are possible. Traffic from Whonix-Workstation can
+either reach Tor which is running on Whonix-Gateway or no destination at
+all.</li>
+<li>The only thing that breaks and fails closed even without any
+firewalls is <a href="../Stream_Isolation.html#Transparent_Proxy">transparent proxying</a>.</li>
+<li>Applications are configured correctly using latest suggestions
+(correct application and proxy and other privacy settings, <a href="../Stream_Isolation.html">Stream Isolation</a>).</li>
+<li>Firewall rules are enforced and prevent accessing the internet
+directly, thus leaks are prevented in case some application leaks.</li>
+<li>Optionally, <a href="Build_Documentation/Physical_Isolation.html">Physical Isolation</a> is documented.</li>
+<li><a href="../Protocol-Leak-Protection_and_Fingerprinting-Protection.html">Protocol-Leak-Protection and
+Fingerprinting-Protection</a>.</li>
+<li><a href="TimeSync.html">Whonix Secure And
+Distributed Time Synchronization Mechanism</a>.</li>
+<li>Check.torproject.org is checked (see <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>)
+anyway, even though we are sure, that there are no leaks.</li>
+<li>Built in update notification for operating system updates, Tor
+Browser version and Whonix version (see <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>).</li>
+<li>Comprehensive, growing <a href="../Documentation.html">Documentation</a>.</li>
+<li>Comprehensive, growing <a href="../Design.html">Technical
+Design</a>.</li>
+<li>Openness about weaknesses, shortcomings, etc.</li>
+<li>Cryptographically signed binary builds and git source code
+tags.</li>
+<li>...</li>
+</ol>
+<p>Whonix was tested for leaks, see <a href="Leak_Tests.html">Dev/Leak Tests</a>. All went negative, meaning no leaks
+have ever been found. Additionally, Skype, which is known for it is
+ability to punch through firewalls, was not able to establish
+non-torified connections. Also BitTorrent doesn't leak the IP (there is
+an online bittorrent leak tester), which of course should never be used
+through Tor (because it chokes Tor nodes), but for leak testing it was
+welcome. Right now we don't know of any leak tests which leaks the real
+IP.</p>
+<p>Whonix is safe (not affected) from <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#protocol-leaks">Protocol
+leaks</a>, like this the ones listed on <a href="../Whonix_against_Real_Attacks.html">Whonix against Real
+Attacks</a>, Skype, Flash or BitTorrent. This already justifies to use a
+"no non-Tor connections possible" approach.</p>
+<p>See also <a href="../Security_Reviews_and_Feedback.html">Security Reviews and Feedback</a>.</p>
+<p>When you go ahead now, and ask in a hacker forum, they probably won't
+spread a simple method to get the real IP of Whonix-Workstation. On the
+other hand, if you run an intelligence service and have 100.000 $ left
+over, you can announce something like "find a new exploit in Tor's
+SocksPort and get 100.000 $". Qualified people start looking into it and
+might find something.</p>
+<h1 id="Does_Whonix_/_Tor_Provide_Protection_from_Advanced_Adversaries?">Does
+Whonix / Tor Provide Protection from Advanced Adversaries?</h1>
+<h2 id="Targeted_Surveillance">Targeted Surveillance</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Based on intelligence disclosures, users targeted for active
+surveillance by advanced adversaries are almost guaranteed to be
+infected!</p>
+</div>
+<p>Whonix cannot provide protection against <a href="https://www.spiegel.de/international/world/catalog-reveals-nsa-has-back-doors-for-numerous-devices-a-940994.html">advanced
+attack tools</a> which have the capability to penetrate all types of
+OSes, firewalls, routers, VPN traffic, computers, smartphones and other
+digital devices. Implants are capable of surviving across reboots,
+software / firmware upgrades and following the re-installation of
+operating systems. <sup class="reference"><a href="#cite_note-14">[14]</a></sup></p>
+<p>Once infected in this way, it is virtually undetectable and no
+solution can be readily found, except throwing away the hardware and
+moving on from the targeted physical / network location. Encryption, Tor
+/ Tor Browser, other anonymity tools, "secure" hardware configurations
+and so on are helpless against these attacks, which are increasingly
+automated and being scaled up in size. For example, the American IC
+prefers using the <a href="https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/">TURBINE</a>
+system for this purpose.</p>
+<p>The following is just a small sample of the hundreds of advanced
+implants and tools currently in use. Needless to say, advanced
+adversaries can achieve almost any outcome they like:
+<sup class="reference"><a href="#cite_note-15">[15]</a></sup> <sup class="reference"><a href="#cite_note-16">[16]</a></sup> <sup class="reference"><a href="#cite_note-17">[17]</a></sup></p>
+<div>
+<ul>
+<li>Exfiltrate or modify information / data including removable flash
+drives (SALVAGERABBIT).</li>
+<li>Log keystrokes or browser history (GROK, FOGGYBOTTOM).</li>
+<li>Surreptitiously turn on cameras or microphones (CAPTIVATEAUDIENCE,
+GUMFISH).</li>
+<li>Exploit VPN and VoIP data (HAMMERCHANT, HAMMERSTEIN).</li>
+<li>Block certain websites (QUANTUMSKY).</li>
+<li>Corrupt downloads (QUANTUMCOPPER).</li>
+<li>Present fake or malware-ridden servers (FOXACID, QUANTUMHAND).
+<sup class="reference"><a href="#cite_note-18">[18]</a></sup></li>
+<li>Launch malware attacks (SECONDDATE).</li>
+<li>Upload and download data from an infected machine (VALIDATOR).</li>
+<li>Detect certain targets for attack (TURMOIL).
+<sup class="reference"><a href="#cite_note-19">[19]</a></sup></li>
+<li>Collect images of computer screens (VAGRANT).</li>
+<li>Collect from LAN implants (MINERALIZE).</li>
+<li>Image the hard drive (LIFESAFER).</li>
+<li>Jump air-gaps (GENIE).</li>
+<li>Inject ethernet packets onto targets (RADON).</li>
+<li>And much, much <a href="https://electrospaces.blogspot.fr/p/nicknames-and-codewords.html">more</a>.</li>
+</ul>
+</div>
+<p>The take-home message is that current hardware and software solutions
+provide multiple attack vectors which are impossible to completely
+close. Air-gapped solutions which have never been connected to the
+Internet <em>may</em> provide security for targeted individuals, but
+Internet-connected devices should be considered completely unsafe.</p>
+<h2 id="Passive_Surveillance">Passive Surveillance</h2>
+<p>Users should be aware that passive surveillance systems will attempt
+to intercept, record, categorize and attribute all data that can be
+feasibly collected, including <a href="../Surveillance_Capabilities.html#Internet_Backbone_Surveillance">straight off the Internet backbone</a>. These systems
+are designed to hoover up <em>everything</em>, irrespective of whether
+it is browsing history, emails, chat / video, voice data, photographs,
+attachments, VoIP, file transfers, video conferencing, social
+networking, logins, or user activity meta-data.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Any data packets which traverse networks (particularly encrypted traffic
+like Tor) are targeted for collection. Targeting of popular technology
+companies is also the IC's bread and butter.</p>
+</div>
+<p>Consistent use of anonymous handles, strong encryption, Tor / Tor
+Browser and world class open source anonymity tools and platforms
+<em>may</em> provide partial protection against <a href="https://en.wikipedia.org/wiki/List_of_government_mass_surveillance_projects">passive
+surveillance programs</a>, such as:</p>
+<div>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/PRISM">PRISM</a>.</li>
+<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#fairview">FAIRVIEW</a>.</li>
+<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#blarney">BLARNEY</a>.</li>
+<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#so">STORMBREW
+and OAKSTAR</a>.</li>
+<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#xks">XKEYSCORE</a>.</li>
+<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#mtp">MARINA,
+TRAFFICTHIEF, PINWHALE</a>.</li>
+<li><a href="https://en.wikipedia.org/wiki/MAINWAY">MAINWAY</a>.</li>
+<li><a href="https://en.wikipedia.org/wiki/MYSTIC">MYSTIC</a>.</li>
+<li>And many similar programs run by governments worldwide.</li>
+</ul>
+</div>
+<p>Be aware that this claim comes with an important caveat - it depends
+on whether Tor (and other software / hardware solutions) <a href="https://lists.torproject.org/pipermail/tor-talk/2013-July/029014.html">provide
+adequate protection or not</a>. The answer to that question is not
+clear. Whonix has adopted a skeptical mindset and only makes
+conservative claims, because it is impossible to prove a negative. For a
+related statement about advanced adversaries, refer to the following <a href="Technical_Introduction.html#With_more_technical_terms">technical introduction</a>.</p>
+<h1 id="Can_Certain_Activities_Leak_DNS_and/or_the_Real_External_IP_Address_/_Location?">Can
+Certain Activities Leak DNS and/or the Real External IP Address /
+Location?</h1>
+<p>No activity conducted inside Whonix-Workstation can cause IP/DNS
+leaks so long as Whonix-Gateway is left unchanged or only documented
+changes are made like configuring bridges, establishing onion services
+and running updates.</p>
+<p>However, certain behaviors can degrade anonymity or inadvertently
+expose a user's real identity or location. For instance:</p>
+<ul>
+<li>Do not confuse <a href="../Tips_on_Remaining_Anonymous.html#Study:_Anonymity_and_Pseudonymity_are_not_the_same">pseudonymity with anonymity</a>.</li>
+<li>Avoid activities that <a href="../Tips_on_Remaining_Anonymous.html">risk de-anonymization</a>.</li>
+<li>Avoid major networking changes like using non-Tor, <a href="../Alternative_DNS_Resolver.html">secondary DNS
+resolvers</a> or establishing permanent Tor exit relays.
+<sup class="reference"><a href="#cite_note-20">[20]</a></sup></li>
+</ul>
+<h1 id="Forensics">Forensics</h1>
+<h2 id="Forensic_Considerations">Forensic Considerations</h2>
+<p>In the past, a number of ideas have been put forward as
+anti-forensics.</p>
+<ul>
+<li>Shredding the Whonix hard disk images.</li>
+<li>Having a zip archive of Whonix hard disk images and restoring them
+every time Whonix is used.</li>
+<li>Restoring a fresh <a href="../Whonix-Workstation_Security.html#VM_Snapshots">snapshot</a> every time Whonix is used.</li>
+<li>Running Whonix <a href="https://forums.whonix.org/t/whonix-and-truecrypt/293/6">completely
+in ramdisks</a>.</li>
+<li>Using <a href="../Moved:Full_Disk_Encryption.html">full disk
+encryption</a>.</li>
+<li>Logs deletion.</li>
+<li>And so on.</li>
+</ul>
+<p>Unfortunately, these methods are not a sufficient substitute. It is
+manifestly unsafe to try and deal with data by wiping it after it has
+already been stored, so this is a poor design principle to implement.
+One reason for that is <a href="https://en.wikipedia.org/wiki/Wear_leveling">wear leveling</a>.
+The issue with wear leveling is that the disk controller tells the
+kernel "file deleted," while in reality the sector has been marked as
+unusable but still contains data. This data can be recovered by data
+recovery professionals using low-level disk controller commands. This is
+documented in more detail here:
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p>Use <a href="../Live_Mode.html">Live Mode</a> on the host
+<u>o</u>perating <u>s</u>ystem (OS) instead. The advantage is that
+sensitive (or unencrypted) data is never stored on storage media in the
+first place. Ideally, this would be combined with
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] mode.</p>
+<p>Using full disk encryption is still useful to protect against
+forensic analysis, but in some parts of the world this is illegal or
+draws unwanted attention.</p>
+<h2 id="Anti-forensic_Claims">Anti-forensic Claims</h2>
+<p>Readers are urged to exercise caution when encountering claims about
+the capability to defeat disk forensics. For instance, the Whonix team
+does not possess expertise in areas such as:</p>
+<ul>
+<li>HDD/SSD swap space.</li>
+<li><a href="https://en.wikipedia.org/wiki/Computer_forensics">Computer
+forensics</a>.<sup class="reference"><a href="#cite_note-21">[21]</a></sup></li>
+<li>Residual data on USBs and SSDs post <a href="https://web.archive.org/web/20201201150503/http://www.infosecisland.com/blogview/12153-Data-Remains-on-USB-and-SSDs-After-Secure-Erase.html">"secure"
+erasure</a>.</li>
+<li><a href="https://en.wikipedia.org/wiki/Wear_leveling">Wear
+leveling</a>.
+<ul>
+<li><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+</ul></li>
+<li>Occasional tendencies of conventional hard drives to flag sectors as
+defective, retaining their data indefinitely.<sup class="reference"><a href="#cite_note-22">[22]</a></sup></li>
+<li>Data remnants potentially <a href="https://research.torproject.org/techreports/tbb-forensic-analysis-2013-06-28.pdf">left
+behind by Tor Browser</a> across macOS, Linux, and Windows.</li>
+<li>Other associated <a href="https://web.archive.org/web/20170911205814/http://www.forensicswiki.org/wiki/Main_Page">forensic
+competencies</a>.</li>
+</ul>
+<p>Even meticulously crafted systems struggle to match the effectiveness
+of an amnesic setup. To confidently assert anti-forensic capabilities,
+the following procedures are fundamental:</p>
+<ol>
+<li>Create an image of the HDD/SSD.</li>
+<li>Operate Whonix and engage in a variety of typical user actions.</li>
+<li>Produce a subsequent image of the HDD/SSD.</li>
+<li>Compare the two images.</li>
+</ol>
+<p>Elaborating on the process:</p>
+<ol>
+<li>Boot using an alternate system, an external (Live) DVD or USB.</li>
+<li><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li>Shutdown.</li>
+<li>Boot into live mode from the internal storage.</li>
+<li>Launch various applications and carry out a spectrum of regular user
+tasks.</li>
+<li>Shutdown.</li>
+<li>Construct a second raw disk backup image of the internal
+storage.</li>
+<li>Compare the images checksums utilizing tools like
+<code>sha512sum</code> or its equivalents.</li>
+<li>Conclusion:</li>
+</ol>
+<ul>
+<li><u>If both images have the same checksum:</u> Excellent, the system
+demonstrates amnesia.</li>
+<li><u>Otherwise:</u> There is an issue.</li>
+</ul>
+<p>Without executing these critical steps, a system might seem amnesic
+yet fail against modern forensic instruments. Those anxious about local
+forensic threats should consider
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]. Leveraging reputable open-source
+encryption methods like Linux dmcrypt, when used appropriately,
+generally delivers on its assurances. Nonetheless, be mindful that this
+strategy has its limitations, especially when users might be compelled
+to disclose their passwords. Opting for <a href="../Live_Mode.html">Live Mode</a> is a preferable alternative.</p>
+<p>Related:</p>
+<ul>
+<li>development task: <a href="https://phabricator.whonix.org/T910">anti-forensics / amnesia
+testing of Whonix-Host in Live mode</a></li>
+<li><a href="https://www.reddit.com/r/Whonix/comments/15q7vcs/have_the_dev_team_tested_the_antiforensic/">Have
+the dev team tested the anti-forensic capability of Whonix-live mode and
+grub live?</a></li>
+</ul>
+<h1 id="Images">Images</h1>
+<h2 id="Why_are_Whonix_Images_so_Large?">Why are Whonix Images so
+Large?</h2>
+<p>From Whonix 14:</p>
+<ul>
+<li>zerofree has been used to reduce the size of the Whonix-Gateway from
+1.7 GB to 850 MB, while the Whonix-Workstation is reduced from 2 GB to
+1.1 GB. <sup class="reference"><a href="#cite_note-23">[23]</a></sup></li>
+<li>A <a href="../VirtualBox.html">headless, cli-only version
+of Whonix</a> is available.</li>
+</ul>
+<p><s>This is still larger than other "Tor-VM" or "Tor-LiveCD/DVD"
+projects, which sometimes depend on specially "stripped-down" or minimal
+distributions like <a href="http://www.tinycorelinux.net/">TinyCore</a>,
+<a href="http://www.damnsmalllinux.org/">DSL</a> and <a href="https://puppylinux-woof-ce.github.io/">Puppy Linux</a>.</s></p>
+<h1 id="Live_Operating_System">Live Operating System</h1>
+<h2 id="Is_there_Something_like_Whonix_Live?">Is there Something like
+Whonix Live?</h2>
+<p><a href="../Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>: See
+<a href="../Live_Mode.html">Live Mode</a></p>
+<p><a href="../Qubes.html">Qubes-Whonix</a>: look into
+something roughly similar, see <a href="../Qubes/Disposables.html">Qubes Disposables</a>.</p>
+<p>Alternatively, users can follow the recommendations to run Whonix
+with the <a href="../Moved:System_Configuration_and_Access.html#Use_a_Dedicated_Host_Operating_System_and_Computer">dedicated host operating system</a> installed on <a href="../USB_Installation.html">external media</a> in
+combination with <a href="../Moved:Full_Disk_Encryption.html">full
+disk encryption</a>.</p>
+<h2 id="Is_there_a_Whonix_Amnesic_Feature_/_Live_CD_/_Live_DVD?_What_about_Forensics?">Is
+there a Whonix Amnesic Feature / Live CD / Live DVD? What about
+Forensics?</h2>
+<p>Amnesic Feature: See <a href="../Live_Mode.html">Live
+Mode</a>.</p>
+<p>Live: See <a href="../Whonix-Host.html">Whonix-Host</a>.</p>
+<p><span class="manually-placed-anchor " id="future-live-dvd"></span></p>
+<h2 id="Will_there_be_a_Whonix_Live_CD_or_DVD?">Will there be a Whonix
+Live CD or DVD?</h2>
+<p>Probably yes. See <a href="../Whonix-Host.html">Whonix-Host</a>.</p>
+<h3 id="Non-Qubes-Whonix™">Non-Qubes-Whonix<sup>™</sup></h3>
+<p><a href="../Whonix-Host.html">possibly in future</a>.</p>
+<h3 id="Qubes-Whonix">Qubes-Whonix</h3>
+<p>Another promising long term possibility may be running <a href="../Qubes.html">Qubes-Whonix</a> on <a href="https://www.qubes-os.org">Qubes OS</a> Live DVD/USB, which is
+currently in Alpha. <sup class="reference"><a href="#cite_note-24">[24]</a></sup> Unfortunately, at the time of
+writing Live-mode is no longer supported or maintained by Qubes.
+<sup class="reference"><a href="#cite_note-25">[25]</a></sup> Nevertheless, if this is further developed in the
+future, only limited changes are required on the Whonix side. The
+primary responsibility for hardware support and Live operating system
+development rests upon Qubes developers, with whom the Whonix team has a
+strong, collaborative, working relationship.</p>
+<p>For something roughly similar see <a href="../Qubes/Disposables.html">Qubes Disposables</a>.</p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Comparison_with_Others.html">Comparison of
+Whonix, Tails, Tor Browser, TorVM and corridor</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://en.wikipedia.org/wiki/Information_leakage"><span>https://en.wikipedia.org/wiki/Information_leakage</span></a></li>
+<li id="cite_note-2"><a href="https://en.wikipedia.org/wiki/Data_breach"><span>https://en.wikipedia.org/wiki/Data_breach</span></a></li>
+<li id="cite_note-3"><a href="https://en.wikipedia.org/wiki/DNS_leak">DNS leak</a></li>
+<li id="cite_note-4"><a href="https://en.wikipedia.org/wiki/Personal_data"><span>https://en.wikipedia.org/wiki/Personal_data</span></a></li>
+<li id="cite_note-5"><a href="https://en.wikipedia.org/wiki/Backdoor_(computing)"><span>https://en.wikipedia.org/wiki/Backdoor_(computing)</span></a></li>
+<li id="cite_note-6"><a href="https://en.wikipedia.org/wiki/Vulnerability_(computing)"><span>https://en.wikipedia.org/wiki/Vulnerability_(computing)</span></a></li>
+<li id="cite_note-7"><a href="https://en.wikipedia.org/wiki/Information_assurance"><span>https://en.wikipedia.org/wiki/Information_assurance</span></a></li>
+<li id="cite_note-8">Whonix uses three components when using physical isolation,
+non-virtualization. Whonix-Workstation, Whonix-Gateway and Tor</li>
+<li id="cite_note-9"><a href="https://en.wikipedia.org/wiki/Hypervisor"><span>https://en.wikipedia.org/wiki/Hypervisor</span></a></li>
+<li id="cite_note-10"><a href="https://en.wikipedia.org/wiki/Hardware_virtualization"><span>https://en.wikipedia.org/wiki/Hardware_virtualization</span></a></li>
+<li id="cite_note-11"><a href="https://en.wikipedia.org/wiki/Tor_(network)"><span>https://en.wikipedia.org/wiki/Tor_(network)</span></a></li>
+<li id="cite_note-12">By comparison, when using popular VPN software, networking depends
+on the state of the VPN software modifying the routing table. This can
+cause clearnet leaks. See <a href="../Whonix_versus_VPNs.html#VPN_Software_is_not_Designed_for_Anonymity">VPN Software is not Designed for Anonymity</a>. Whonix
+does not depend on and does not make any routing table
+modifications.</li>
+<li id="cite_note-13">Illegitimate example: <a href="../Moved:Malware_and_Firmware_Trojans.html">malware</a>
+exploiting the hypervisor and executing code on the host operating
+system.</li>
+<li id="cite_note-14">For example, BIOS is a favorite target of IC operatives for
+persistence.</li>
+<li id="cite_note-15"><a href="https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/">https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/</a></li>
+<li id="cite_note-16"><a href="https://www.washingtonpost.com/world/national-security/powerful-nsa-hacking-tools-have-been-revealed-online/2016/08/16/bce4f974-63c7-11e6-96c0-37533479f3f5_story.html">https://www.washingtonpost.com/world/national-security/powerful-nsa-hacking-tools-have-been-revealed-online/2016/08/16/bce4f974-63c7-11e6-96c0-37533479f3f5_story.html</a></li>
+<li id="cite_note-17"><a href="https://www.schneier.com/blog/archives/2013/10/code_names_for.html">https://www.schneier.com/blog/archives/2013/10/code_names_for.html</a></li>
+<li id="cite_note-18">A popular attack against Tor Browser users.</li>
+<li id="cite_note-19">This relies on selector types like machine IDs, attached devices,
+cipher keys, network IDs and various user-specific leads such as
+cookies.</li>
+<li id="cite_note-20">Both of these methods shift trust to a single provider, rather than
+distributing it. In the case of the DNS resolver, it may lead to
+identity correlation or weaken safeguards against potentially hostile
+applications; for example, see <a href="../VoIP.html#Skype">Skype</a>.</li>
+<li id="cite_note-21">While the developers have a foundational understanding, they
+primarily advocate caution.</li>
+<li id="cite_note-22">This phenomenon warrants further research.</li>
+<li id="cite_note-23"><a href="https://phabricator.whonix.org/T790">https://phabricator.whonix.org/T790</a></li>
+<li id="cite_note-24">See also: <a href="https://groups.google.com/g/qubes-users/c/IQdCEpkooto">https://groups.google.com/g/qubes-users/c/IQdCEpkooto</a></li>
+<li id="cite_note-25"><a href="https://www.qubes-os.org/downloads/">https://www.qubes-os.org/downloads/</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Design.html">Design</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

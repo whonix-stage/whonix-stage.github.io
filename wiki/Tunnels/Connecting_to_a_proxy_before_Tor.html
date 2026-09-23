@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Tunnels/Connecting to a proxy before Tor</title>
+<meta name="description" content="Instructions on how to connect to a proxy before Tor. (User &amp;rarr; proxy &amp;rarr; Tor &amp;rarr; Internet)">
+<meta property="og:description" content="Instructions on how to connect to a proxy before Tor. (User &amp;rarr; proxy &amp;rarr; Tor &amp;rarr; Internet)">
+<link rel="canonical" href="https://www.whonix.org/wiki/Tunnels/Connecting_to_a_proxy_before_Tor.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Tunnels/Connecting_to_a_proxy_before_Tor.html">
+<meta property="og:title" content="Connecting to a Proxy before Tor">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Lightning-199651640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Tunnels</span> / <span>Connecting to a proxy before Tor</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Location_of_the_Running_Proxy">Location of the Running
+Proxy</a></li><li class="toc-l2"><a href="#The_Proxy_IP_and_Port">The Proxy IP and Port</a></li><li class="toc-l2"><a href="#Type_of_Proxy_in_Use">Type of Proxy in Use</a></li><li class="toc-l2"><a href="#Option_1:_Use_Anon_Connection_Wizard">Option 1: Use
+Anon Connection
+Wizard</a></li><li class="toc-l3"><a href="#Step_1:_Start_Anon_Connection_Wizard">Step 1: Start Anon
+Connection Wizard</a></li><li class="toc-l3"><a href="#Step_2:_Use_Proxy_Configuration_Page">Step 2: Use Proxy
+Configuration Page</a></li><li class="toc-l2"><a href="#Option_2:_Manually_Configure_Proxy">Option 2: Manually Configure
+Proxy</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Lightning-199651640.jpg.webp" width="350" alt="Lightning-199651640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Instructions on how to connect to a proxy before Tor.</p>
+<p><strong><code>User</code> -> <code>Proxy</code> -> <code>Tor</code> ->
+<code>Internet</code></strong></p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<b><u>Before combining Tor with other tunnels, <a href="Introduction.html">be sure to read and
+understand the risks</a>!</u></b></p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="../Community_Support.html">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<h1 id="Proxy_Warning">Proxy Warning</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Whonix first time users warning" /></span>
+<strong><u>Warning!</u></strong> Take careful note of the following
+issues when using standard, common http(s)/SOCKS4(a)/5 proxies --
+anonymizers that only use http(s)/SOCKS4(a)/5 as an interface
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup> are exempt.</p>
+<ul>
+<li>Most problems with these proxies are not caused by Whonix.</li>
+<li>Connections to proxies are unencrypted and therefore should not be
+used to hide Tor use. This is because proxies are a type of tunnel-link
+which are not VPNs or SSH. Despite being unsuitable for hiding Tor due
+to the lack of encryption, in certain circumstances proxies might still
+be useful for users to circumvent censorship.</li>
+<li>If state-level censorship of the Tor network must be circumvented,
+then a better solution may be <a href="../Bridges.html">Bridges</a> or other <a href="../Lantern.html">alternative</a> <a href="../Anon_Connection_Wizard.html">circumvention</a> <a href="../Censorship_Circumvention_Tools.html">tools</a>.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li>Be especially careful with http(s) proxies. Some of them send the <a href="../Whonix_versus_Proxies.html#Summary"><code>X-Forwarded-For</code></a> header which discloses
+the IP address. http(s) proxies that do not send this header are
+sometimes called "elite" or "anonymous" proxies.</li>
+<li>When using <code>X-Forwarded-For</code> http(s) proxies, Tor entry
+guards and Tor <a href="../Bridges.html">bridges</a> can
+determine the IP address.</li>
+<li>The unencrypted nature of proxies makes them unsuitable to hide Tor
+from destination websites. For simple IP logging / IP detection they
+might work unless they're http(s) proxies and send the
+<code>X-Forwarded-For</code> header.</li>
+</ul>
+<p>For further detailed information on proxies, see: <a href="../Whonix_versus_Proxies.html">Tor vs. Proxies, Proxy
+Chains</a>.</p>
+</div>
+<h1 id="Proxy_Configuration_Prerequisites">Proxy Configuration
+Prerequisites</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<strong>Tip:</strong> In order to configure a proxy, three things must
+be known in advance:</p>
+<ol>
+<li>where the proxy is running;</li>
+<li>the IP and port of the proxy; and</li>
+<li>what type of proxy is being used.</li>
+</ol>
+</div>
+<h2 id="Location_of_the_Running_Proxy">Location of the Running
+Proxy</h2>
+<p>The location of the running proxy is variable and depends on the
+user's system. Refer to the following resources for examples:</p>
+<ul>
+<li><strong>A)</strong> Proxy software might run on a remote computer,
+which is easier to set up.</li>
+<li><strong>B)</strong> Proxy software (such as <a href="../Lantern.html">Lantern</a>) create a proxy tunnel on the local
+computer.
+<ul>
+<li><a href="../Qubes.html">Qubes-Whonix<sup>™</sup></a> VM: <a href="../Lantern.html">Lantern</a> as an example.</li>
+<li><a href="../Non-Qubes-Whonix.html">Non-Qubes-Whonix</a> VM:
+This is not yet fully documented, please <a href="../Contribute.html">contribute</a>.
+<ul>
+<li>The proxy software must run either:
+<ul>
+<li><strong>B1)</strong> Whonix-Gateway<sup>™</sup> under the Linux user
+account <code>tunnel</code>; <u>or</u></li>
+<li><strong>B2)</strong> on the host <u>o</u>perating <u>s</u>ystem (OS)
+(outside any <u>v</u>irtual <u>m</u>achine (VM)); <u>or</u></li>
+<li><strong>B3)</strong> in another VM.</li>
+</ul></li>
+<li>All of this is <a href="../Unsupported.html">undocumented</a>.
+<ul>
+<li>how to autostart custom software after reboot (systemd etc.)</li>
+<li>custom proxy software setup example.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="The_Proxy_IP_and_Port">The Proxy IP and Port</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+If the proxy IP address and port is known, this section can be
+skipped.</p>
+</div>
+<ul>
+<li>If custom proxy software will be run on Whonix-Gateway, then this
+configuration is also called <code>localhost</code>. Usually the proxy
+IP address is <code>127.0.0.1</code>.</li>
+<li><u>Note</u>: It is necessary to use the IP address instead of the
+hostname (<code>proxy.example.com</code>). If the proxy IP address is
+unknown, then in a terminal on the host <u>o</u>perating <u>s</u>ystem
+(OS) (outside of any <u>v</u>irtual <u>m</u>achine (VM)), run (Linux)
+<code>nslookup proxy.example.com</code>; replace
+<code>proxy.example.com</code> with the hostname of your actual proxy.
+Using the IP address instead of hostname might cause subtle
+fingerprinting issues -- see the footnote <sup class="reference"><a href="#cite_note-3">[3]</a></sup> for more
+information.</li>
+</ul>
+<h2 id="Type_of_Proxy_in_Use">Type of Proxy in Use</h2>
+<p>It is necessary to know the proxy type from the following list:</p>
+<ul>
+<li><code>HTTPProxy</code></li>
+<li><code>HTTPSProxy</code></li>
+<li><code>Socks4Proxy</code></li>
+<li><code>Socks5Proxy</code></li>
+</ul>
+<p>Also check whether the proxy requires a username and/or password
+beforehand.</p>
+<h1 id="Configure_Whonix-Gateway">Configure Whonix-Gateway</h1>
+<p><code>User</code> -> <code>proxy</code> -> <code>Tor</code> ->
+<code>Internet</code></p>
+<p>Tor natively supports proxy settings and only requires editing of the
+torrc file.</p>
+<h2 id="Option_1:_Use_Anon_Connection_Wizard">Option 1: Use
+<em><span>Anon Connection
+Wizard</span></em></h2>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>A prefixed proxy can be configured easily using <a href="../Anon_Connection_Wizard.html">Anon Connection
+Wizard</a>.</p>
+<div class="mw-collapsible-content">
+<h3 id="Step_1:_Start_Anon_Connection_Wizard">Step 1: Start Anon
+Connection Wizard</h3>
+<div class="info-box ">
+<p><u>If you are using <a href="../Qubes.html">Qubes-Whonix<sup>™</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway</code><sup><code>™</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-> <code>Anon Connection Wizard</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>System</code> -> <code>Anon Connection Wizard</code></p>
+<p><u>If you are using a <a href="../Moved:Software.html#Terminal">terminal emulator</a> (such as for example qterminal)
+on Whonix-Gateway</u>, type.</p>
+<p><span class="code-select">anon-connection-wizard</span></p>
+<p><u>If you are using a <a href="../VirtualBox.html"><strong>CLI</strong> Whonix-Gateway</a></u>, see
+footnote. <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+</div>
+<h3 id="Step_2:_Use_Proxy_Configuration_Page">Step 2: Use Proxy
+Configuration Page</h3>
+<div class="info-box ">
+<p><code>Select "Use proxy before connecting to the Tor network" on the Proxy Configuration page</code>
+-> <code>Choose the proxy type</code> ->
+<code>Fill out other necessary information</code></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<u><strong>Tips:</strong></u></p>
+<p><strong>1. Proxy Type</strong></p>
+<p>The proxy type is the protocol which is used to communicate with the
+proxy server. Since there are only three options, they can all be tried
+until one works.</p>
+<p><strong>2. Proxy IP/hostname</strong></p>
+<p>It is necessary to know the proxy IP for attempted connections. If
+the user is trying to connect to a local proxy, then
+<code>127.0.0.1</code> should be specified since it is the
+localhost.</p>
+<p><strong>3. Proxy Port number</strong></p>
+<p>It is necessary to know the port number for attempted connections. It
+should be a positive integer from <code>1</code> to <code>65535</code>.
+If searching for the listening port number of a well-known censorship
+circumvention tool, it can be found online.</p>
+<p><strong>4. Username and Password</strong></p>
+<p>If the username and password are unknown, they should be left blank
+to see if the connection will succeed. In most cases they are not
+needed.</p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="Option_2:_Manually_Configure_Proxy">Option 2: Manually Configure
+Proxy</h2>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>Manual Tor configuration is an alternative.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>1.</strong> Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root.html"><code>root</code></a>) access first. See also <a href="../Sysmaint.html">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint.html">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session">Graphical Whonix-Gateway
+USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="../Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint.html">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes.html">Qubes-Whonix<sup>™</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>™</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes.html">Qubes-Whonix<sup>™</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Add necessary settings to
+<code>/usr/local/etc/torrc.d/50_user.conf</code>.</p>
+<p>Depending on your proxy configuration, add the necessary settings to
+the <code>/usr/local/etc/torrc.d/50_user.conf</code> file. For more
+information on these settings, refer to the <a href="https://2019.www.torproject.org/docs/tor-manual.html.en">Tor
+manual</a> (<a href="http://jqyzxhjk6psc6ul5jnfwloamhtyh7si74b4743k2qgpskwwxrzhsxmad.onion/docs/tor-manual.html.en">.onion</a>)
+and read the <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorFAQ#my-internet-connection-requires-an-http-or-socks-proxy">FAQ</a>.</p>
+<pre><code>HTTPProxy host[:port]
+HTTPProxyAuthenticator username:password
+HTTPSProxy host[:port]
+HTTPSProxyAuthenticator username:password
+
+Socks4Proxy host[:port]
+
+Socks5Proxy host[:port]
+Socks5ProxyUsername username
+Socks5ProxyPassword password
+
+FascistFirewall 0|1
+
+ReachableAddresses ADDR[/MASK][:PORT]...
+ReachableDirAddresses ADDR[/MASK][:PORT]...
+ReachableORAddresses ADDR[/MASK][:PORT]...</code></pre>
+<p><strong>3.</strong> Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="../Qubes.html">Qubes-Whonix<sup>™</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Service</code> ->
+<code>Whonix-Gateway</code><sup><code>™</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+-> <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> -> <code>System Tools</code> ->
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p><strong>4.</strong> <em>Optional:</em> Test the configuration by
+running <a href="../Moved:systemcheck.html">systemcheck</a>.</p>
+<p>The procedure is complete.</p>
+</div>
+</div>
+</div>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Like the Tor, or <a href="../I2P.html">I2P</a>
+software.</li>
+<li id="cite_note-2">Users in China are <a href="https://web.archive.org/web/20171218203107/https://www.cs.uml.edu/~xinwenfu/paper/Bridge.pdf">unlikely
+to circumvent government censorship</a> with vanilla bridges, as they
+are uniformly blocked. That said, Anon Connection Wizard configured with
+the <code>meek-amazon</code> or <code>meek-azure</code> pluggable
+transport was reported to bypass Chinese censorship in late 2017.
+Unfortunately the <code>meek-amazon</code> pluggable transport was <a href="https://gitlab.torproject.org/legacy/trac/-/issues/26098">deprecated
+in 2018</a> after Amazon removed the domain fronting option.</li>
+<li id="cite_note-3"><a href="https://web.archive.org/web/20201214130728/https://github.com/Whonix/Whonix/issues/94">https://web.archive.org/web/20201214130728/https://github.com/Whonix/Whonix/issues/94</a></li>
+<li id="cite_note-4">Stop: <span class="code-select">sudo systemctl stop
+tor@default</span> <span class="code-select">sudo systemctl disable
+tor@default</span> Start: <span class="code-select">sudo systemctl
+enable tor@default</span> <span class="code-select">sudo systemctl start
+tor@default</span></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

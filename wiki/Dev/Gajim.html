@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Gajim</title>
+<meta name="description" content="Gajim - TODO for installing Gajim by default in Whonix">
+<meta property="og:description" content="Gajim - TODO for installing Gajim by default in Whonix">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Gajim.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Gajim.html">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Gajim</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<h1 id="TODO">TODO</h1>
+<ul>
+<li>Gajim might intelligently set a Tor socks user name per account
+already. Do we still manually specify a user/password?
+<ul>
+<li>Gajim developers said they don't intelligently set a Tor socks user
+name per account. <a href="https://dev.gajim.org/gajim/gajim/issues/9213">https://dev.gajim.org/gajim/gajim/issues/9213</a></li>
+</ul></li>
+</ul>
+<ul>
+<li>security
+<ul>
+<li>(3) TODO: create an AppArmor profile</li>
+</ul></li>
+<li>does it have any <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#protocol-leaks">protocol
+leaks</a>?
+<ul>
+<li>(4) TODO: check Gajim's built-in XML console</li>
+</ul></li>
+<li>how to pre-configure Gajim with all these settings by default as a
+linux distribution?
+<ul>
+<li>(5) TODO: feature request for .d config folder support - <a href="https://dev.gajim.org/gajim/gajim/issues/9214">https://dev.gajim.org/gajim/gajim/issues/9214</a></li>
+</ul></li>
+</ul>
+<ul>
+<li>feature request: Forcing OMEMO out of the box
+<ul>
+<li><a href="https://dev.gajim.org/gajim/gajim/issues/9215">https://dev.gajim.org/gajim/gajim/issues/9215</a></li>
+</ul></li>
+</ul>
+<h1 id="Resolved">Resolved</h1>
+<p>Was a blocker:</p>
+<ul>
+<li>Despite the proxy setting, it routes DNS requests use system default
+networking, thus end up in Tor's
+<em><span>TransPort</span></em>,
+thereby DNS is not <a href="../Stream_Isolation.html">stream
+isolated</a>.
+<ul>
+<li>Won't be fixed. Python limitation.</li>
+<li><a href="https://dev.gajim.org/gajim/gajim/issues/8538">https://dev.gajim.org/gajim/gajim/issues/8538</a></li>
+<li>Violates <a href="Default_Application_Policy.html">Whonix Default Application Policy</a>.
+<ul>
+<li><a href="https://forums.whonix.org/t/gajim-messenger/708/7">https://forums.whonix.org/t/gajim-messenger/708/7</a></li>
+<li><a href="https://forums.whonix.org/t/should-strict-stream-isolation-by-a-requirement-in-whonixs-default-application-policy/3940">https://forums.whonix.org/t/should-strict-stream-isolation-by-a-requirement-in-whonixs-default-application-policy/3940</a></li>
+</ul></li>
+</ul></li>
+<li>--&gt; Strict stream isolation removed from Whonix Default
+Application Policy.</li>
+</ul>
+<h1 id="Done">Done</h1>
+<ul>
+<li>Are uploads by gajim-httpupload encrypted using gajim-omemo?
+<ul>
+<li>Developer responded: "yes if you have activated OMEMO, httpupload
+will always encrypt the file, in fact you can not send a unencrypted
+file with OMEMO activated even if you wanted."</li>
+</ul></li>
+</ul>
+<ul>
+<li>Plugin installer is only using https for verification which is
+weaker than gpg which is used by APT which is usually used to install
+software. <sup class="reference"><a href="#cite_note-1">[1]</a></sup> <sup class="reference"><a href="#cite_note-2">[2]</a></sup>
+<ul>
+<li>We can nuke the plugin installer. <a href="https://github.com/Whonix/anon-apps-config">anon-apps-config</a>
+which is installed by default will <a href="https://github.com/Whonix/anon-apps-config/blob/master/debian/anon-apps-config.hide">deactivate
+gajim plugin installer / updater</a> because it's not secure. Using
+<code>config-package-dev</code> <code>displace</code>.</li>
+<li>(2) Debian feature request to ship the gajim plugin-installer plugin
+in a separate Debian package. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+</ul></li>
+</ul>
+<h1 id="Discussion">Discussion</h1>
+<ul>
+<li>some answers here: <a href="https://dev.gajim.org/gajim/gajim/issues/8651">https://dev.gajim.org/gajim/gajim/issues/8651</a></li>
+</ul>
+<ul>
+<li>gajim Whonix integration development discussion: <a href="https://forums.whonix.org/t/gajim-messenger">https://forums.whonix.org/t/gajim-messenger</a></li>
+</ul>
+<ul>
+<li>it would take a lot patches to ensure that OMEMO encryption is
+always used, but on the other hand, because it is written in Python,
+Gajim is very easy to patch.</li>
+</ul>
+<ul>
+<li>Gajim can keep its account username and passwords in</li>
+</ul>
+<p><a href="https://www.kicksecure.com/wiki/Keepassxc">KeepassXc</a>
+using LibSecret integration. If we look at end-to-end security, and
+worry about the weakest links, then integration of IM with a
+password-manager should be a high priority.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://tails.boum.org/blueprint/replace_Pidgin/">https://tails.boum.org/blueprint/replace_Pidgin/</a></li>
+<li id="cite_note-2"><a href="https://gitlab.tails.boum.org/tails/tails/-/issues/7868">https://gitlab.tails.boum.org/tails/tails/-/issues/7868</a></li>
+<li id="cite_note-3"><a href="https://bugs.debian.org/902237">https://bugs.debian.org/902237</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Moved:Special_Keys.html" title="Dev/Special Keys"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Special
+Keys</span></a><a class="index internal" href="../Design.html" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../Moved:Dev-Ledger_Hardware_Wallet.html" title="Dev/Ledger Hardware Wallet"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Ledger
+Hardware Wallet</span></a><span class="info"><span class="prev">Previous
+page: Dev/Special Keys</span><span class="index">Index page:
+Design</span><span class="next">Next page: Dev/Ledger Hardware
+Wallet</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Development.html">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

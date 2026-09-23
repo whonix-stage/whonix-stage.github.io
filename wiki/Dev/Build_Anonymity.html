@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Build Anonymity</title>
+<meta name="description" content="Staying anonymous while building Whonix from source code.">
+<meta property="og:description" content="Staying anonymous while building Whonix from source code.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Build_Anonymity.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Build_Anonymity.html">
+<meta property="og:title" content="Build Anonymity">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Building-1089861640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Build Anonymity</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Building-1089861640.jpg.webp" alt="Building-1089861640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Staying anonymous while building Whonix from source code.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Build_Anonymity">Build Anonymity</h1>
+<p>This applies only if you are going to build Whonix from source,
+and/or redistribute Whonix, and/or use Physical Isolation. This is not a
+Whonix-specific problem. Most projects do not even address build
+anonymity. While building Whonix, software must be downloaded. It
+involves a unique selection of software, making it inherently
+non-unique. Therefore, your <strong>i</strong>nternet
+<strong>s</strong>ervice <strong>p</strong>rovider (ISP) could deduce
+that you are building Whonix. This should not be a concern in a free
+country (free as per your definition) if the content of your traffic is
+neither observed nor logged.</p>
+<p>Especially, but not exclusively, if you intend to redistribute
+Whonix, you might wish to hide the fact that you are building Whonix
+(i.e., maintain anonymity).</p>
+<p>To prevent any personally identifiable or fingerprintable information
+from leaking from the build system into the Whonix images, it is
+recommended to build inside an already torified Virtual Machine.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup> <sup class="reference"><a href="#cite_note-2">[2]</a></sup> You can build Whonix inside an
+existing Whonix-Workstation<sup>™</sup>, but it can also be built on a
+headless server.</p>
+<p>It is also recommended to build in an already torified Virtual
+Machine because it prevents leaks from the build system. Such leaks
+could help an attacker (with root access to the Whonix-Workstation)
+gather identifiable information about the build system, potentially
+tracing back to your identity.</p>
+<p>Beginning with Whonix 0.4.0, grml-debootstrap and chroot are used for
+virtual machine image creation. The grml-debootstrap source code
+indicates that it copies <code>/etc/network/interfaces</code> and
+<code>/etc/resolv.conf</code> into the chroot. Additionally,
+grml-debootstrap mounts several devices (<code>/dev</code>,
+<code>/proc</code>, etc.) inside the chroot, and the Whonix chroot
+mounts some devices later. This is why it is recommended to build inside
+an already torified virtual machine.</p>
+<p>Building from source code also leaves local traces on the disk, such
+as the source code itself and build dependencies. If this is a concern,
+it can be more easily disposed of when contained within a Virtual
+Machine.</p>
+<p>While it is possible to build directly on the host and torify all
+connections the scripts make, it is unclear what other
+grml-debootstrap/chroot-related leaks might occur.</p>
+<p>It is a known issue that build anonymity requires building inside a
+VM.</p>
+<h2 id="VirtualBox_inside_VirtualBox">VirtualBox inside VirtualBox</h2>
+<p>See <a href="../Moved:Nested_Virtualization.html">Nested
+Virtualization</a>.</p>
+<h2 id="corridor-Gateway">corridor-Gateway</h2>
+<p><a href="https://github.com/rustybird/corridor">corridor, a Tor
+traffic whitelisting gateway</a> might be useful. See also <a href="https://lists.torproject.org/pipermail/tor-talk/2014-February/032152.html">discussion
+on the tor-talk mailing list</a>.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Yes, this creates a bootstrap, chicken-or-egg problem. To solve it,
+you can either download existing Whonix binary builds or, if you prefer
+to build from source, create a minimal torified machine yourself first
+while routing all network traffic through Tor.</li>
+<li id="cite_note-2">Whonix's build process attempts to avoid leaking anything (such as
+<code>/etc/resolv.conf</code>) from the host system into the VM image.
+Such a leak would also be a bug hindering the implementation of <a href="https://reproducible-builds.org">reproducible builds</a>. However,
+in software, nothing can be guaranteed with absolute certainty. Using a
+VM minimizes this risk.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation.html">Documentation</a> <a href="../Category:Development.html">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

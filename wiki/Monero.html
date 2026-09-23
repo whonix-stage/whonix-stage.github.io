@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Monero</title>
+<meta name="description" content="How to use Monero in Whonix">
+<meta property="og:description" content="How to use Monero in Whonix">
+<link rel="canonical" href="https://www.whonix.org/wiki/Monero.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Monero.html">
+<meta property="og:title" content="Monero (XMR): A Reasonably Private Digital Currency">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Moneroheader.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l3"><a href="#A_:_Non-Qubes-Whonix">A : Non-Qubes-Whonix</a></li><li class="toc-l3"><a href="#B_:_Qubes-Whonix_Template">B : Qubes-Whonix Template</a></li><li class="toc-l3"><a href="#C_:_Qubes-Whonix_App_Qube">C : Qubes-Whonix App Qube</a></li><li class="toc-l3"><a href="#A_:_Non-Qubes-Whonix_2">A : Non-Qubes-Whonix</a></li><li class="toc-l3"><a href="#B_:_Qubes-Whonix_Template_2">B : Qubes-Whonix Template</a></li><li class="toc-l3"><a href="#C_:_Qubes-Whonix_App_Qube_2">C : Qubes-Whonix App Qube</a></li><li class="toc-l2"><a href="#Start_Monero_GUI">Start Monero GUI</a></li><li class="toc-l2"><a href="#Start_Monero_CLI">Start Monero CLI</a></li><li class="toc-l2"><a href="#Wallet-File_Command_Line_Argument">Wallet-File Command Line
+Argument</a></li><li class="toc-l2"><a href="#Monero_Architecture">Monero Architecture</a></li><li class="toc-l2"><a href="#monero-gui_Debian_Package">monero-gui Debian Package</a></li><li class="toc-l2"><a href="#Troubleshooting">Troubleshooting</a></li><li class="toc-l3"><a href="#qt.qpa.plugin:_Could_not_find_the_Qt_platform_plugin_wayland_in_">qt.qpa.plugin:
+Could not find the Qt platform plugin &quot;wayland&quot; in &quot;&quot;</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Monero.html">Monero</a></li>
+<li><a href="Monero/Manual_Instructions.html">Monero Manual
+Instructions</a></li>
+<li><a href="Monero_Multisig.html">Monero Multisig</a></li>
+<li><a href="Monero_Offline_Wallet.html">Monero Offline
+Wallet</a></li>
+<li><a href="RetoSwap.html">RetoSwap</a></li>
+<li><a href="UnstoppableSwap.html">UnstoppableSwap</a></li>
+</ul>
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="Ethereum.html" title="Ethereum"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Ethereum</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Monero_Wallet_Isolation.html" title="Monero Wallet Isolation"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Monero
+Wallet
+Isolation</span></a><span class="info"><span class="prev">Previous page:
+Ethereum</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Monero Wallet
+Isolation</span></span></span>Monero (XMR): A Reasonably Private Digital
+Currency</p>
+</div>
+<p><img src="../media/Monero-symbol-1280.png.webp" width="256" alt="Monero Logo" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Monero is a privacy-centric cryptocurrency launched in 2014 to allow
+direct and anonymous digital payments without being dependent on a
+central authority.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Installation_Sources">Installation Sources</h1>
+<p>There are many different options to install Monero. Choose one.</p>
+<ul>
+<li><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">A</i>
+<u>Flathub:</u> This is documented below.</li>
+<li><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">B</i>
+<u>Manual installation:</u> <a href="Unsupported.html">Undocumented</a> but same as if using Debian. Therefore
+<a href="Unspecific.html">unspecific to Whonix</a>.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+<li><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">C</i>
+<u>Official Debian packages sources:</u> <a href="https://packages.debian.org/trixie/monero"><code>packages.debian.org</code></a>
+<code>monero</code><u><code>d</code></u> and <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI) only. Monero <u>g</u>raphical <u>u</u>ser
+<u>i</u>nterface (GUI) is unavailable from Debian package sources.</li>
+</ul>
+<h1 id="Installation">Installation</h1>
+<p>Apart from these optional hints, installation and usage of Monero in
+Whonix does not differ from installing Monero on any Linux based
+distribution.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i></p>
+<div class="info-box ">
+<p>Install <code>org.getmonero.Monero</code> via <a href="Install_Software.html#Flatpak">flatpak</a>.</p>
+<div class="vspacer-1">
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+<strong>Sysmaint Notice</strong></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Sysmaint notice" /></span></p>
+<ul>
+<li><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">A</i>
+<u>If using <code>user-sysmaint-split</code>:</u> The user must boot
+into the sysmaint session. For details and instructions on how to do so,
+see <a href="Sysmaint.html">user-sysmaint-split</a>.</li>
+<li><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">B</i>
+<u>If using
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]:</u> This sysmaint notice does not
+apply. Continue with the steps below.</li>
+</ul>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+<strong>Add a Flatpak repository.</strong></p>
+<p>Select your platform.</p>
+<div class="tab-content-controller tcc-indent">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading3 widget-headline ">
+<h3 role="heading" aria-level="3" id="A_:_Non-Qubes-Whonix">
+<p>A : Non-Qubes-Whonix</p>
+</h3>
+</div>
+</div>
+<div class="tcc-content">
+<p>Non-Qubes-Whonix</p>
+<p><a href="Install_Software.html#Enable_Flathub_Repository">Already enabled by default. (system-wide)</a>. No
+additional steps needed to enable the Flathub repository.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading3 widget-headline ">
+<h3 role="heading" aria-level="3" id="B_:_Qubes-Whonix_Template">
+<p>B : Qubes-Whonix Template</p>
+</h3>
+</div>
+</div>
+<div class="tcc-content">
+<p>Qubes-Whonix Template (<code>whonix-workstation-18</code>)</p>
+<p><a href="Install_Software.html#Enable_Flathub_Repository">Already enabled by default. (system-wide)</a>. No
+additional steps needed to enable the Flathub repository.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading3 widget-headline ">
+<h3 role="heading" aria-level="3" id="C_:_Qubes-Whonix_App_Qube">
+<p>C : Qubes-Whonix App Qube</p>
+</h3>
+</div>
+</div>
+<div class="tcc-content">
+<p>Qubes-Whonix App Qube (<code>anon-whonix</code>)</p>
+<p>The user needs to
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]. Must be enabled
+<u>per-user</u>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="vspacer-20">
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+<strong>Install the flatpak <code>org.getmonero.Monero</code>
+package.</strong></p>
+<div class="tab-content-controller tcc-indent">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading3 widget-headline ">
+<h3 role="heading" aria-level="3" id="A_:_Non-Qubes-Whonix_2">
+<p>A : Non-Qubes-Whonix</p>
+</h3>
+</div>
+</div>
+<div class="tcc-content">
+<p>Non-Qubes-Whonix <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p><span class="code-select">flatpak install flathub
+org.getmonero.Monero</span></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading3 widget-headline ">
+<h3 role="heading" aria-level="3" id="B_:_Qubes-Whonix_Template_2">
+<p>B : Qubes-Whonix Template</p>
+</h3>
+</div>
+</div>
+<div class="tcc-content">
+<p>Qubes-Whonix Template (<code>whonix-workstation-18</code>)
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><u>Note:</u> Advanced users that uninstalled the
+<code>qubes-core-agent-passwordless-sudo</code> package should see forum
+thread <a href="https://forums.whonix.org/t/warning-flatpak-system-operation-deploy-not-allowed-for-user/20393">Warning:
+Flatpak system operation Deploy not allowed for user</a>.</p>
+<p><span class="code-select">http_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a>
+https_proxy=$http_proxy flatpak install flathub
+org.getmonero.Monero</span></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading3 widget-headline ">
+<h3 role="heading" aria-level="3" id="C_:_Qubes-Whonix_App_Qube_2">
+<p>C : Qubes-Whonix App Qube</p>
+</h3>
+</div>
+</div>
+<div class="tcc-content">
+<p>Qubes-Whonix App Qube (<code>anon-whonix</code>)
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<p><span class="code-select">flatpak --user remote-add --if-not-exists
+flathub <a href="https://dl.flathub.org/repo/flathub.flatpakrepo">https://dl.flathub.org/repo/flathub.flatpakrepo</a></span></p>
+<p><span class="code-select">flatpak --user install flathub
+org.getmonero.Monero</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="vspacer-20">
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
+<strong>Done.</strong></p>
+<p>The procedure of installing <code>org.getmonero.Monero</code> is
+complete.</p>
+<div class="vspacer-10">
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">5</i>
+<strong>Upgrades notice.</strong></p>
+<p><u>Note</u>: this procedure will not keep the software up-to-date.
+How to update installation installed by flatpak is also documented on
+the <a href="Moved:Operating_System_Software_and_Updates.html">Operating System Software and Updates</a> wiki
+page.</p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Done.</p>
+<p>Installation of Monero from Flathub has been completed.</p>
+<h1 id="Monero_Operations">Monero Operations</h1>
+<h2 id="Start_Monero_GUI">Start Monero GUI</h2>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Open a terminal.</p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="50" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix_USER_Session">Non-Qubes-Whonix USER
+Session</h4>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix with
+<strong>LXQt</strong></u>, complete the following steps.</p>
+<p><code>Start menu</code> -> <code>System Tools</code> ->
+<code>QTerminal</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="50" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix_SYSMAINT_Session">Non-Qubes-Whonix SYSMAINT
+Session</h4>
+</div>
+<div class="tcc-content">
+<p>In the System Maintenance Panel, under the <code>Misc</code> section,
+click <code>Open Terminal</code>.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix">Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="Qubes.html">Qubes-Whonix</a></u>, complete the following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Workstation</code><sup><code>™</code></sup><code> App Qube (commonly named </code><em><code>anon-whonix</code></em><code>)</code>
+-> <code>QTerminal</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Monero GUI start command.</p>
+<p><span class="code-select">flatpak run org.getmonero.Monero</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Done.</p>
+<p>Monero GUI should be running.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Further information.</p>
+<p>For detailed instructions on how to use Monero, please refer to the
+<a href="https://web.getmonero.org/get-started/using/">official Monero
+documentation</a>.</p>
+<p><strong>Figure:</strong> <em>Monero GUI in Whonix</em></p>
+<p><img src="../media/Monerogui.png.webp" alt="Monerogui.png" /></p>
+<h2 id="Start_Monero_CLI">Start Monero CLI</h2>
+<p>Alternatively, you could also use Monero on the command line.</p>
+<p><span class="code-select">flatpak run --command=monero-wallet-cli
+org.getmonero.Monero</span></p>
+<h2 id="Wallet-File_Command_Line_Argument">Wallet-File Command Line
+Argument</h2>
+<p>This chapter is for advanced users only.</p>
+<p>Advanced users using the <code>--wallet-file</code> need to first
+grant access to the host file system.</p>
+<p><u>Note:</u> This command might be non-ideal. A finer permission
+would be desirable such as only granting the
+<code>org.getmonero.Monero</code> flatpak access to 1 additional folder.
+<a href="Unspecific.html">Unspecific to Whonix</a>.</p>
+<p><span class="code-select">sudo flatpak override org.getmonero.Monero
+--filesystem=host</span></p>
+<p>To run Monero CLI flatpak using the <code>--wallet-file</code> see
+the following example.</p>
+<p><u>Note:</u> Adjust path to wallet file.</p>
+<p><span class="code-select">flatpak run --command=monero-wallet-cli
+org.getmonero.Monero --wallet-file /home/user/path/to/wallet</span></p>
+<p>Other command line parameters can be appended if required.</p>
+<p><u>Note:</u> This results in Monero using folder
+<code>~/.bitmonero</code> instead of
+<code>~/.var/app/org.getmonero.Monero/.bitmonero</code> as per <a href="https://github.com/monero-project/monero-gui/issues/3929#issuecomment-2437133065">https://github.com/monero-project/monero-gui/issues/3929#issuecomment-2437133065</a></p>
+<h1 id="Remote_Node_Security_and_Privacy_Considerations">Remote Node
+Security and Privacy Considerations</h1>
+<p>Using a remote node provides a quick way to set up your Monero
+wallet. You will not have to download the entire blockchain.</p>
+<p>It is important to note that the remote node:</p>
+<ul>
+<li>cannot spend your XMR (you hold the keys);</li>
+<li>does not know your IP address (we are connecting to it over
+Tor);</li>
+<li>does not know your XMR address; and</li>
+<li>does not know your balance or private view key.</li>
+</ul>
+<p>However, using a remote node is not without risk. To learn more about
+the possible attacks, see: <a href="https://web.archive.org/web/20230331040213/https://moneroworld.com/">https://web.archive.org/web/20230331040213/https://moneroworld.com/</a></p>
+<p>In general, if the wallet warns you about the node misbehaving, then
+immediately exit the wallet and connect to a different node.</p>
+<h1 id="Stream_Isolation">Stream Isolation</h1>
+<p>Simplified: Stream isolation is about details. Not about IP masking.
+Your real external IP address is masked no matter what you do in the
+Whonix-Workstation. See also <a href="Reliable_IP_Hiding.html">Reliable IP Hiding</a>.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Advanced users only!</p>
+</div>
+<p><a href="Unsupported.html">Untested</a>! <a href="Stream_Isolation.html">Stream Isolation</a> for Monero
+has not yet been considered. Refer to the <a href="Stream_Isolation.html">Stream Isolation</a> page and search for:</p>
+<ul>
+<li><span class="code-select inline-style">torsocks</span> , and</li>
+<li><span class="code-select inline-style">IsolatePID 1</span> .</li>
+</ul>
+<p>To enforce stream isolation, you could experiment with the following
+commands.</p>
+<p><u>Note:</u> Replace <code>monerod</code>,
+<code>monero-wallet-gui</code>, <code>monero-wallet-cli</code> with the
+actual path to <code>monerod</code>, for example
+<code>/home/user/monero-gui/monerod</code> or
+<code>./monerod</code>.</p>
+<p><span class="code-select">DNS_PUBLIC=tcp TORSOCKS_ALLOW_INBOUND=1
+torsocks monerod --p2p-bind-ip 127.0.0.1 --no-igd
+--hide-my-port</span></p>
+<p><span class="code-select">torsocks monero-wallet-gui</span></p>
+<p><span class="code-select">torsocks monero-wallet-cli</span></p>
+<p>For more inspiration, refer to the related forum discussion: <a href="https://forums.whonix.org/t/monero-in-whonix-with-torsocks-for-better-stream-isolation/5432">Monero
+in Whonix with torsocks for better stream isolation</a>.</p>
+<h1 id="Donations">Donations</h1>
+<p>After installing Monero, please consider making a <a href="Donate.html">donation</a> to Whonix to help keep it running for many
+years to come.</p>
+<p><img src="../media/Monero-symbol-1280.png.webp" width="25" alt="Monero accepted here" />
+Donate Monero (XMR) to Whonix.</p>
+<p><span class="code-select">84ZZSsqyh5niztCgxmWAejDLu9eDerWo4Wsx8woEhDGpdKP3BWPtqenNjKuv8vojrB968U3hqYTKgLGt2zEcGopX1qaEPew</span></p>
+<p><img src="../media/Whonix_donate_monero.png.webp" width="100" alt="Whonix_donate_monero.png" /></p>
+<h1 id="Appendix">Appendix</h1>
+<h2 id="Monero_Architecture">Monero Architecture</h2>
+<p>Monero works by having contributors host large files which are
+equivalent to a public ledger. Any time someone broadcasts a
+transaction, every ledger maintainer updates their copy of the ledger
+and ensures no cheating or fraud has occurred. As with most
+cryptocurrencies, transactions are sent to Public Addresses which are
+derived from personally created private keys.</p>
+<p>Since transactions could otherwise be traced by watching which
+addresses are sending to each other, Monero uses a Diffie-Hellman key
+exchange using the transaction information on the sender's side and the
+public address on the receiver's end of a transaction to encrypt the
+recipient's address on the ledger. To protect the sender, spending
+Monero is equivalent to forwarding the output of the previous
+transaction, so a user's address is never stored on the ledger at all -
+this technique is called Stealth Addressing.</p>
+<p>Since this solution is imperfect, and allows EABE attacks and is
+dependent on ECC for the key exchange, Monero uses a second layer of
+anonymity called Ring Signatures. When signing a transaction and
+broadcasting it to the network, Ring Signatures take signers from
+previous transactions and forge a new signature with Ring Size = N,
+where you cannot tell which entity in the group N actually authorized a
+transaction. This further obfuscates the blockchain and reduces the
+available attack vectors on the cryptocurrency as a whole, as well as
+introduces several zero knowledge proofs which prevent absolute analysis
+of the ledger.</p>
+<p>Ring Signatures combined with Stealth Addressing prevent many attack
+vectors, but since new transactions are forwarded outputs from previous
+ones you can still perform analysis by viewing the amounts spent
+on-chain. To address this potential issue, a solution called RingCT was
+introduced which obfuscates the amount spent in a transaction.</p>
+<p>Further attack vectors including cross-referencing an address posted
+in multiple places and IP leaks when connecting to the network are
+further developments sought out by the Monero community. These potential
+issues are addressed with Subaddresses and Kovri respectively.</p>
+<h2 id="monero-gui_Debian_Package">monero-gui Debian Package</h2>
+<p>Project <a href="https://ccs.getmonero.org/proposals/adrelanos-debian-package.html">Monero
+Debian Package Repository for 2 years</a> is no longer available. No
+extension request is planned.</p>
+<p>In technical terms, the previously pre-installed version of Monero in
+folder <code>/usr/bin</code> is no longer available.</p>
+<p>As a replacement, it is recommended to use the official Monero
+Flatpak installation method which is documented above.</p>
+<h2 id="Troubleshooting">Troubleshooting</h2>
+<h3 id="qt.qpa.plugin:_Could_not_find_the_Qt_platform_plugin_wayland_in_">qt.qpa.plugin:
+Could not find the Qt platform plugin "wayland" in ""</h3>
+<p>This error may appear when attempting to launch the Monero GUI
+AppImage. The AppImage contains a bundled version of Qt that lacks
+Wayland support. To work around this, open a terminal in the directory
+containing the AppImage, and launch it with the following command:</p>
+<p><span class="code-select">QT_QPA_PLATFORM=xcb
+./monero-wallet-gui.AppImage</span></p>
+<p><a href="https://forums.whonix.org/t/monero-wallet-gui-appimage-no-longer-runs/22980">https://forums.whonix.org/t/monero-wallet-gui-appimage-no-longer-runs/22980</a></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Maybe <a href="Monero/Manual_Instructions.html">Monero,
+Manual Instructions</a> could be updated and ported to Whonix wiki.</li>
+<li id="cite_note-2"><strong>Non-Qubes-Whonix:</strong> * <strong>A)</strong>
+<u>system-wide</u> (requires <a href="Moved:Root.html">administrative ("root") rights</a>) (compatible with
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]):
+<span class="code-select">flatpak install flathub
+org.getmonero.Monero</span> * <strong>B)</strong> <u>per-user</u> (no
+administrative rights required) (probably not compatible with
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]):
+<span class="code-select">flatpak --user install flathub
+org.getmonero.Monero</span> <strong>What is better? System-wide or
+per-user?</strong> * <u>usability:</u> <a href="https://forums.whonix.org/t/flatpak-as-a-software-source-flathub-as-a-source-of-software/8500/61">Flathub
+is enabled by default system-wide but not per-user.</a> *
+<u>multi-user:</u> On a multi-user system (probably if multiple human
+users use the same computer, which is rare nowadays), system-wide might
+be preferable as this saves disk space. * <u>At present:</u> Does not
+make any difference. * <u>Future-proof:</u> Per-user might be more
+future-proof. It would be compatible with future Whonix security
+improvements
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]. However,
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for the home folder is to be
+considered later, at which point this documentation needs to be updated
+once that has been implemented.</li>
+<li id="cite_note-3"><strong>Qubes-Whonix <u>Template</u>:</strong> <code>flatpak</code>
+cannot be used with the <code>--user</code> option. This is because in
+case of using a Qubes Template, the flatpak needs to be installed
+system-wide into the <code>/var/lib/flatpak</code> folder. This is due
+to <a href="Qubes.html#Qubes_Persistence">Qubes
+Persistence</a>. If the <code>--user</code> option was used, the flatpak
+would only be available in the Template's home folder but not in any App
+Qube based on that Template, because App Qubes have their own
+independent home folder.</li>
+<li id="cite_note-4"><strong>Qubes-Whonix <u>App Qube</u>:</strong> <code>flatpak</code>
+should be used with the <code>--user</code> option. This is because in
+case of using an App Qube, the flatpak needs to be installed per-user
+only into the <code>~/.local/share/flatpak</code> folder and not
+system-wide. This is due to <a href="Qubes.html#Qubes_Persistence">Qubes Persistence</a>. If the <code>--user</code>
+option was not used, the flatpak would only be available in the App
+Qube's non-persistent <code>/var/lib/flatpak</code> folder located in
+the root image.</li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Ethereum.html" title="Ethereum"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Ethereum</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Monero_Wallet_Isolation.html" title="Monero Wallet Isolation"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Monero
+Wallet
+Isolation</span></a><span class="info"><span class="prev">Previous page:
+Ethereum</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Monero Wallet
+Isolation</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

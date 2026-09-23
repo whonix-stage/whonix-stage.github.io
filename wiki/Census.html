@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Census</title>
+<meta name="description" content="Whonix User Count, Project Metrics, Design, Rationale, Disabling">
+<meta property="og:description" content="Whonix User Count, Project Metrics, Design, Rationale, Disabling">
+<link rel="canonical" href="https://www.whonix.org/wiki/Census.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Census.html">
+<meta property="og:title" content="Whonix Census">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Census3212.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="Art_Gallery.html" title="Art Gallery"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Art
+Gallery</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Media_Mentions.html" title="Media Mentions"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Media
+Mentions</span></a><span class="info"><span class="prev">Previous page:
+Art Gallery</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Media
+Mentions</span></span></span>Whonix Census</p>
+</div>
+<p><img src="../media/Census3212.png.webp" alt="Census3212.png" /></p>
+<h1 id="Whonix_User_Count_Statistic">Whonix User Count Statistic</h1>
+<table>
+<caption><em>Whonix Project Metrics</em></caption>
+<tbody>
+<tr class="odd">
+<td><p><strong>Date</strong></p></td>
+<td><p><strong>Daily Whonix-Gateway Users</strong></p></td>
+</tr>
+<tr class="even">
+<td><p>15 March 2019</p></td>
+<td><p>3,682</p></td>
+</tr>
+<tr class="odd">
+<td><p>24 August 2019</p></td>
+<td><p>4,107</p></td>
+</tr>
+<tr class="even">
+<td><p>17 October 2019</p></td>
+<td><p>4,446</p></td>
+</tr>
+<tr class="odd">
+<td><p>8 February 2020</p></td>
+<td><p>5,326</p></td>
+</tr>
+<tr class="even">
+<td><p>31 March 2020</p></td>
+<td><p>5,887</p></td>
+</tr>
+<tr class="odd">
+<td><p>1 March 2021</p></td>
+<td><p>8,236</p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The user count is manually updated on occasion, but this is a low
+priority.</p>
+<p>The <u><code>daily</code></u><code> Whonix-Gateway users</code>
+estimate is impacted by several factors:</p>
+<ul>
+<li><u>Total number of Whonix users</u>: The <u>total</u> Whonix user
+population is probably higher than the number of <u>daily</u>
+Whonix-Gateway users.</li>
+<li><u>New day, still running, new count</u>: A Whonix-Gateway that runs
+longer than one day (24 hours) will re-fetch the Whonix warrant canary
+and therefore be counted again.</li>
+<li><u>New day, new boot, new count</u>: A Whonix-Gateway that has not
+been run for more than one day (24 hours) will re-fetch the Whonix
+warrant canary and therefore be counted again.</li>
+<li><u>Duplication</u>: Users relying upon multiple Whonix-Gateway are
+counted multiple times; this is difficult to avoid with the current
+design (see the next section).</li>
+<li><u>Non-duplication</u>: Boots are not explicitly counted. User
+counts based on the number of Whonix-Gateway boots would lead to
+overestimates because many users start up and shut down their computers
+several times a day.</li>
+<li><u>Non-Live</u>: Live users are not counted.</li>
+</ul>
+<h1 id="Whonix_User_Count_Design">Whonix User Count Design</h1>
+<p>There are strict requirements for the Whonix user count:</p>
+<ul>
+<li>no transfer of private information</li>
+<li>no unique identifiers are utilized</li>
+<li>no collection of IP addresses <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+<li>count only once within a 24-hour period</li>
+<li>provide an option to <a href="#Disable_Whonix_User_Count">disable user counts</a></li>
+<li>a by-product of, and based on, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>'s
+automated <a href="Moved:systemcheck.html#Warrant_Canary_Check">Warrant Canary Check</a> <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li>downloaded over Tor using the Whonix v3 onion service
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+<li>secure operation <sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+</ul>
+<p>The census design was inspired by <a href="https://cleaninsights.org">Clean Insights (Privacy-Preserving
+Measurement)</a>, <sup class="reference"><a href="#cite_note-5">[5]</a></sup> <a href="https://matomo.org/">Matomo</a>, <sup class="reference"><a href="#cite_note-6">[6]</a></sup> <a href="https://metrics.torproject.org">Tor Metrics</a>, <a href="https://gitlab.tails.boum.org/tails/tails/-/issues/16535">Tails
+boot statistics</a> <sup class="reference"><a href="#cite_note-7">[7]</a></sup>, <a href="https://crypto.stanford.edu/prio/">Prio</a> <sup class="reference"><a href="#cite_note-8">[8]</a></sup> <a href="https://hacks.mozilla.org/2018/10/testing-privacy-preserving-telemetry-with-prio/">Privacy-Preserving
+Telemetry</a> by Mozilla. <sup class="reference"><a href="#cite_note-9">[9]</a></sup> and <a href="https://divviup.org/">Divvi Up</a>. For further details, see: <a href="Moved:systemcheck.html#Warrant_Canary_Check">Warrant Canary
+Check</a>.</p>
+<h1 id="Whonix_User_Count_Rationale">Whonix User Count Rationale</h1>
+<p>A user count statistic provides several benefits:</p>
+<ul>
+<li>Whonix maintainers can track whether the user population is
+increasing over time.</li>
+<li>Certain people or organizations decide whether to <a href="Contribute.html">contribute</a> based on the estimated
+impact of the Whonix project.</li>
+<li>Statistics can help answer certain questions, such as the estimated
+user population of different anonymity platforms.</li>
+<li>Direct comparisons between the numbers of Tor, Tails, and Whonix
+users become possible.</li>
+<li>Users can make an informed decision about <a href="Fingerprint.html">fingerprinting</a> risks. <sup class="reference"><a href="#cite_note-10">[10]</a></sup></li>
+<li>User counts can inform broader Internet and network <a href="Fingerprint.html">fingerprinting</a>
+considerations.</li>
+<li>The data is already available due to <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>'s
+automated verification of the <a href="Trust.html#Whonix_Warrant_Canary">Whonix warrant canary</a>. <sup class="reference"><a href="#cite_note-11">[11]</a></sup></li>
+</ul>
+<h1 id="Disable_Whonix_User_Count">Disable Whonix User Count</h1>
+<p>Refer to the following <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>
+chapters:</p>
+<ul>
+<li><a href="Moved:systemcheck.html#Warrant_Canary_Check">Warrant
+Canary Check</a></li>
+<li><a href="Moved:systemcheck.html#Disable_Warrant_Canary_Check">Disable Warrant Canary Check</a></li>
+</ul>
+<h1 id="Forum_Discussion">Forum Discussion</h1>
+<ul>
+<li><a href="https://forums.whonix.org/t/whonix-census-counter-the-number-of-whonix-users/7620">Whonix
+Census - Counter the Number of Whonix users</a></li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Moved:Privacy_Policy_Technical_Details.html#View_Counters_on_the_Kicksecure_Website">No Accurate View Counters on the Whonix
+Website</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">By using an onion service, the server has no way to log originating
+IP addresses. The <code>whonix.org</code> website privacy policy is
+different; see: * <a href="Privacy_Policy.html#IP_Addresses_and_IP_Addresses_Logging_Policy">IP Addresses and IP Addresses Logging Policy</a> * <a href="Trust.html#Trusting_the_Whonix_Website">Trusting the
+Whonix Website</a></li>
+<li id="cite_note-2">Which verifies the <a href="Trust.html#Whonix_Warrant_Canary">Whonix warrant canary</a>.</li>
+<li id="cite_note-3">This is similar to how <a href="Sdwdate.html">sdwdate</a> fetches time from onion time sources.</li>
+<li id="cite_note-4">This process has identical security to the <a href="Moved:systemcheck.html#Warrant_Canary_Check">Warrant Canary
+Check</a>.</li>
+<li id="cite_note-5">Developed by the <a href="https://guardianproject.info">Guardian
+Project</a>.</li>
+<li id="cite_note-6">Formerly Piwik, which is a free and open source web analytics
+application.</li>
+<li id="cite_note-7">* <a href="https://gitlab.tails.boum.org/tails/tails/-/issues/17545">https://gitlab.tails.boum.org/tails/tails/-/issues/17545</a></li>
+<li id="cite_note-8">Private, Robust, and Scalable Computation of Aggregate Statistics by
+Stanford University.</li>
+<li id="cite_note-9">* <a href="https://fedoraproject.org/wiki/Changes/DNF_Better_Counting">https://fedoraproject.org/wiki/Changes/DNF_Better_Counting</a>
+* <a href="https://lwn.net/ml/fedora-devel/20190108152239.GA24118@gardel-login/">https://lwn.net/ml/fedora-devel/20190108152239.GA24118@gardel-login/</a>
+* <a href="https://lwn.net/Articles/776327/">https://lwn.net/Articles/776327/</a></li>
+<li id="cite_note-10">Like whether they prefer sharing the same network fingerprint as
+thousands of other users (Whonix) versus millions of other users (Tor
+Browser in isolation).</li>
+<li id="cite_note-11">Previously <code>Whonix News</code>.</li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Art_Gallery.html" title="Art Gallery"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Art
+Gallery</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Media_Mentions.html" title="Media Mentions"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Media
+Mentions</span></a><span class="info"><span class="prev">Previous page:
+Art Gallery</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Media
+Mentions</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a> <a href="Category:MultiWiki.html">MultiWiki</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

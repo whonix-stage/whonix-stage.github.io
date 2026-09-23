@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Tor Controller</title>
+<meta name="description" content="Using a Tor Controller with Whonix. Onion Circuits. Nyx. View or change your Tor circuits. Monitor Tor and inspect logs.">
+<meta property="og:description" content="Using a Tor Controller with Whonix. Onion Circuits. Nyx. View or change your Tor circuits. Monitor Tor and inspect logs.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Tor_Controller.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Tor_Controller.html">
+<meta property="og:title" content="Control and Monitor Tor">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Onioncircuits.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Nyx_Usage">Nyx Usage</a></li><li class="toc-l2"><a href="#Nyx_FAQ">Nyx FAQ</a></li><li class="toc-l2"><a href="#Nyx_Autostart">Nyx Autostart</a></li><li class="toc-l2"><a href="#tor-ctrl">tor-ctrl</a></li><li class="toc-l2"><a href="#Talking_to_the_Real_Tor_Controller">Talking to the Real Tor
+Controller</a></li><li class="toc-l2"><a href="#netcat">netcat</a></li><li class="toc-l2"><a href="#tor-prompt">tor-prompt</a></li><li class="toc-l2"><a href="#Vidalia">Vidalia</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Tor.html">Tor</a></li>
+<li><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="Anon_Connection_Wizard.html">Anon Connection
+Wizard</a></li>
+<li><a href="Tor-control-panel.html">tor-control-panel</a></li>
+<li><a href="Why_does_Whonix_use_Tor.html">Why does Whonix
+use Tor?</a></li>
+<li><a href="Tor_Entry_Guards.html">Tor Entry
+Guards</a></li>
+<li><a href="Tor_Myths_and_Misconceptions.html">Tor Myths
+and Misconceptions</a></li>
+<li><a href="Tor_Controller.html">Tor Controller</a></li>
+<li><a href="Tor-ctrl-observer.html">tor-ctrl-observer</a></li>
+<li><a href="Onion-grater.html">onion-grater</a></li>
+<li><a href="Dev/Tor.html">Tor (Developer)</a></li>
+<li><a href="Dev/onion-grater.html">onion-grater
+(Developer)</a></li>
+<li><a href="Dev/anon-ws-disable-stacked-tor.html">anon-ws-disable-stacked-tor (Developer)</a></li>
+</ul>
+</div>
+<p><img src="../media/Onioncircuits.png.webp" alt="onioncircuits - View Tor Circuits" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Using a Tor Controller with Whonix. Onion Circuits. Nyx. View or
+change your Tor circuits. Monitor Tor and inspect logs.</p>
+<div class="post-intro-p">
+</div>
+<p><img src="../media/0brand_Arm_Controller-1.png.webp" alt="Nyx Tor Controller" /></p>
+<h1 id="Introduction">Introduction</h1>
+<p><a href="#Nyx">Nyx</a> is the primary Tor Controller
+option that comes pre-installed in Whonix.</p>
+<p><strong>Note</strong>: <a href="#Vidalia">Vidalia</a> has been deprecated and is no longer
+packaged in Debian.</p>
+<p><span class="manually-placed-anchor " id="Arm"></span></p>
+<h1 id="Nyx">Nyx</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+The <a href="https://packages.debian.org/trixie/nyx">nyx</a> Tor
+controller is a later version of the <code>arm</code> package, so the
+functionality and appearance are very similar. The <a href="https://nyx.torproject.org/">Tor Project nyx homepage</a> states:
+<i>"Nyx is a command-line monitor for Tor. With this you can get
+detailed real-time information about your relay such as bandwidth usage,
+connections, logs, and much more."</i></p>
+</div>
+<h2 id="Nyx_Usage">Nyx Usage</h2>
+<p>Nyx is recommended and comes pre-installed in
+Whonix-Gateway<sup>™</sup>. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<div class="info-box ">
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>System</code> -> <code>Nyx - Status Monitor for Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, type.</p>
+<p><span class="code-select">nyx</span></p>
+<p><u>If you are using <a href="Qubes.html">Qubes-Whonix<sup>™</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway</code><sup><code>™</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-> <code>Nyx - Status Monitor for Tor</code> </code></p>
+</div>
+<p>To receive a new circuit, press:</p>
+<pre><code>n</code></pre>
+<p>To exit Nyx, press:</p>
+<pre><code>q
+q</code></pre>
+<h2 id="Nyx_FAQ">Nyx FAQ</h2>
+<p><span class="manually-placed-anchor " id="Arm_FAQ"></span></p>
+<table>
+<caption>Nyx FAQ</caption>
+<thead>
+<tr class="header">
+<th><p><strong>Message / Question</strong></p></th>
+<th><p><strong>Response</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p><em><span>arm vs
+nyx?</span></em></p></td>
+<td><p>The software was previously called <code>arm</code>, but the new
+name is <code>nyx</code>. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p><u><em><span>Should any of the
+following nyx messages concern me?</span></em></u></p></td>
+<td><p>No; see below for reasons why. See also: <a href="Moved:Malware_and_Firmware_Trojans.html#Valid_Compromise_Indicators_versus_Invalid_Compromise_Indicators">Indicators of Compromise</a> and <a href="Reporting_Bugs.html#Support_Request_Policy">Support
+Request Policy</a> (<a href="Reporting_Bugs.html#Policy_Rationale">rationale</a>).</p></td>
+</tr>
+<tr class="odd">
+<td><p><u><em><span>Am I compromised?
+Does nyx report leaks?</span></em></u></p></td>
+<td><p>Nyx is not designed to detect serious issues such as possible
+compromises or leaks. <sup class="reference"><a href="#cite_note-3">[3]</a></sup> Nyx is listed on the <a href="Dev/Leak_Tests.html">leak tests</a> wiki page in
+chapter <a href="Dev/Leak_Tests.html#Unsuitable_Tests">Unsuitable Tests</a>.</p></td>
+</tr>
+<tr class="even">
+<td><p><u><em><span>Nyx sometimes shows
+my public IP address and other times the internal <code>10.0.2.15</code>
+and <code>127.0.0.1</code> IPs. Is it normal or
+dangerous?</span></em></u> <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p></td>
+<td><p>This is a normal Nyx feature. Whonix utilizes a Tor control port
+filter proxy (<a href="Onion-grater.html">onion-grater</a>)
+that prevents abuse of the <code>ControlPort</code>, including blocking
+dangerous commands like <code>GETINFO address</code>. When the real IP
+address appears, it is only visible locally and cannot be seen by
+others.</p></td>
+</tr>
+<tr class="odd">
+<td><p><em><span>Tor is preventing
+system utilities like netstat and lsof from working. This means that nyx
+can't provide you with connection information. You can change this by
+adding 'DisableDebuggerAttachment 0' to your torrc and restarting tor.
+For more information see... <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3313">https://gitlab.torproject.org/legacy/trac/-/issues/3313</a></span></em></p></td>
+<td><p>If you want to learn about the technical details, read <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3313">https://gitlab.torproject.org/legacy/trac/-/issues/3313</a>.</p></td>
+</tr>
+<tr class="even">
+<td><p>DisableDebuggerAttachment even when running as root.</p></td>
+<td><p>This <a href="https://gitlab.torproject.org/legacy/trac/-/issues/7709">bug</a>
+in Nyx has been resolved.</p></td>
+</tr>
+<tr class="odd">
+<td><p><em><span>man page (GENERAL
+OPTIONS and COMMAND-LINE OPTIONS)</span></em></p></td>
+<td><p>This <a href="https://gitlab.torproject.org/legacy/trac/-/issues/9679">bug</a>
+in Nyx has been resolved.</p></td>
+</tr>
+<tr class="even">
+<td><p><em><span>[WARN] Socks version
+71 not recognized. (Tor is not an http proxy.)</span></em></p></td>
+<td><p>This is caused by the
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] function
+<em><span>check_tor_socks_port_reachability</span></em>,
+which verifies if a Tor SocksPort is accessible by testing it using
+curl. <sup class="reference"><a href="#cite_note-5">[5]</a></sup> If successful, it does not return a response,
+but it will issue a warning if it fails.</p></td>
+</tr>
+<tr class="odd">
+<td><p><em><span>[WARN] Socks version
+71 not recognized. (This port is not an HTTP proxy; did you want to use
+HTTPTunnelPort?)</span></em></p></td>
+<td><p>This occurs for similar reasons to the entry above.</p></td>
+</tr>
+<tr class="even">
+<td><p><em><span>[WARN] Rejecting
+request for anonymous connection to private address [scrubbed] on a
+TransPort or NATDPort. Possible loop in your NAT
+rules?</span></em></p></td>
+<td><p>This happens, for example, if you run
+<code>curl 192.168.0.15</code>. By default, when using <code>curl</code>
+in Whonix, it is not executed directly but rather via a uwt-wrapped (<a href="Stream_Isolation.html">stream-isolated</a>) version of
+curl. This means it does not attempt a direct connection to
+<code>192.168.0.15</code> but instead tries to connect through Tor,
+resulting in this Tor message. It indicates that the attempted operation
+is not feasible. To resolve this, either deactivate the curl stream
+isolation wrapper or use the non-wrapped version, see <a href="Stream_Isolation.html">Stream Isolation</a>.</p></td>
+</tr>
+<tr class="odd">
+<td><p><em><span>[NOTICE] You
+configured a non-loopback address '10.152.152.10:9179' for SocksPort.
+This allows everybody on your local network to use your machine as a
+proxy. Make sure this is what you wanted. [1 duplicate
+hidden]</span></em> (Or another port number or DnsPort or
+TransPort.)</p></td>
+<td><p>Tor is genuinely listening on that IP/port. It belongs to the
+Whonix-Gateway network interface and is only accessible from
+Whonix-Workstation<sup>™</sup>. This restriction is enforced by an
+internal network between Whonix-Workstation<sup>™</sup>(s), and
+Whonix-Gateway is also protected by a firewall. See
+<em>/usr/bin/whonix_firewall</em> or the Whonix source code for further
+details.</p></td>
+</tr>
+<tr class="even">
+<td><p><em><span>[NOTICE] New control
+connection opened. [2 duplicates hidden]</span></em> (Or more
+duplicates.)</p></td>
+<td><p>This is caused by
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]'s Tor Bootstrap Status Test, which
+utilizes Tor's <code>ControlPort</code> or <a href="Dev/onion-grater.html">onion-grater</a>.</p></td>
+</tr>
+<tr class="odd">
+<td><p><em><span>[NOTICE][NYX_WARN] The
+torrc differs from what Tor is using. You can issue a sighup to reload
+the torrc values by pressing x. Configuration value is missing from the
+torrc: RunAsDaemon</span></em></p></td>
+<td><p>This is a Nyx usability bug. <sup class="reference"><a href="#cite_note-6">[6]</a></sup>
+<sup class="reference"><a href="#cite_note-7">[7]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p><em><span>"192.168.0.1 UNKNOWN 1
+/ Guard" in circuit information</span></em></p></td>
+<td><p>This indicates that you are connecting to the Tor network using a
+<a href="Bridges.html">Tor Bridge</a>. If you are connecting
+directly to the public Tor network without a Tor Bridge, the real IP and
+Nickname of the Guard should be visible instead.
+<sup class="reference"><a href="#cite_note-8">[8]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Nyx_Autostart">Nyx Autostart</h2>
+<p>Optional.</p>
+<p><strong>1.</strong> Platform specific notice:</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Inside Template.</li>
+</ul>
+<p><strong>2.</strong> Symlink start menu entry to autostart.</p>
+<p><span class="code-select">sudo ln -s
+/usr/share/applications/gateway-nyx.desktop
+/etc/xdg/autostart/gateway-nyx.desktop</span></p>
+<p><strong>3.</strong> Done.</p>
+<p>Nyx should now autostart after the next reboot.</p>
+<h1 id="Onion_Circuits">Onion Circuits</h1>
+<p><blockquote><p>Onion Circuits is a GTK+ application to display Tor circuits and
+streams. It allows the user to inspect the circuits the locally running
+Tor daemon has built, along with some metadata for each node.</p></blockquote> <sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
+<p><a href="https://packages.debian.org/trixie/onioncircuits">Onion
+Circuits</a> is installed by default but is not a full Tor controller;
+it only displays Tor circuits. It can be launched from the start
+menu.</p>
+<h1 id="New_Identity_and_Tor_Circuits">New Identity and Tor
+Circuits</h1>
+<p>The behavior of "New Identity" in the context of Tor Browser and
+<code>nyx</code> is often misunderstood. First, there are various ways
+to issue a "New Identity" (this list is not exhaustive):</p>
+<ul>
+<li><a href="Tor_Browser.html#New_Identity_Function">Tor
+Browser New Identity Function</a></li>
+<li><a href="#Nyx">nyx</a></li>
+<li><a href="#tor-ctrl">tor-ctrl</a></li>
+<li><a href="#netcat">netcat</a></li>
+</ul>
+<p>In all cases, the "New Identity" function sends the protocol command
+<code>SIGNAL newnym</code> to <a href="Tor.html">Tor</a>'s
+<code>ControlPort</code>.</p>
+<p><a href="Tor_Browser.html">Tor Browser</a>'s new identity
+function additionally clears the browser state, closes tabs, and obtains
+a fresh Tor circuit for future requests. <sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p>Other Tor controllers, such as <code>nyx</code>, run only
+<code>SIGNAL newnym</code>.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong> The New Identity feature will <em>likely</em>
+create a new Tor circuit with a different Tor exit relay and <a href="Data_Collection_Techniques.html#IP_Address">IP
+Address</a>, but this is not guaranteed.</p>
+</div>
+<p>The impact of "signal newnym" on Tor circuit lifetimes is often
+misunderstood. "signal newnym" ensures a fresh circuit for <em>new</em>
+connections. However, sometimes Tor only replaces the middle relay while
+keeping the same Tor exit relay. This behavior is by design and follows
+the Tor default settings. Additionally, "signal newnym" does not
+interfere with long-lived connections such as file downloads, website
+downloads, SSH, or IRC connections.</p>
+<p>Interested readers can verify the effect of "signal newnym" as
+follows:</p>
+<ol>
+<li>Open <a href="https://check.torproject.org">https://check.torproject.org</a> in
+Tor Browser.</li>
+<li>Issue "signal newnym" using <a href="#Nyx">nyx</a>.</li>
+<li>Reload <a href="https://check.torproject.org">https://check.torproject.org</a>.</li>
+<li>In some cases, it will still show the same IP address, probably
+because the browser did not close the connection to <a href="https://check.torproject.org">https://check.torproject.org</a> in
+the first place.</li>
+</ol>
+<p>Now, repeat this experiment with a small modification, which should
+result in a new Tor exit IP address:</p>
+<ol>
+<li>Open <a href="https://check.torproject.org">https://check.torproject.org</a> in
+Tor Browser.</li>
+<li>Issue "signal newnym" using <a href="#Nyx">nyx</a>.</li>
+<li>Close Tor Browser, then restart it.</li>
+<li>Open <a href="https://check.torproject.org">https://check.torproject.org</a>
+again. A new Tor exit relay IP address is (likely) visible.</li>
+</ol>
+<p>New identity is not an IP selection or cycling feature; it is a
+circuit changer, not an IP changer. Tor replaces your real external IP
+address with a Tor IP, but it does not easily let users pick any
+specific IP. Tor determines the exit IP, and Whonix does not influence
+this. <a href="Unspecific.html">This is unspecific to
+Whonix.</a></p>
+<p>Forcing an IP change might be possible, but this is discouraged as
+per <a href="Tor.html#Tor_Routing_Algorithm">Tor Routing
+Algorithm</a>. Changing the Tor configuration to select specific IPs
+might be possible, but this is <a href="Unsupported.html">unsupported</a>. Users attempting this must <a href="Tor.html#Edit_Tor_Configuration">edit the Tor
+configuration</a> themselves. The exact settings required would need to
+be researched by the user as per the <a href="Self_Support_First_Policy.html">Self Support First Policy</a>, rather than asking in
+Whonix forums.</p>
+<h2 id="tor-ctrl">tor-ctrl</h2>
+<p><a href="https://github.com/Kicksecure/tor-ctrl">tor-ctrl</a> is
+installed by default.</p>
+<p>For example, to get a new circuit, run:</p>
+<p><span class="code-select">tor-ctrl signal NEWNYM</span></p>
+<p>The output should show:</p>
+<pre><code>250 OK</code></pre>
+<p>Repeat this command each time a new circuit is desired.</p>
+<p>See also:</p>
+<p><span class="code-select">man tor-ctrl</span></p>
+<h1 id="Alternatives">Alternatives</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Advanced users only.</p>
+</div>
+<h2 id="Talking_to_the_Real_Tor_Controller">Talking to the Real Tor
+Controller</h2>
+<p>To communicate directly with the Tor Controller, run the commands on
+Whonix-Gateway. If executed on Whonix-Workstation, the connection passes
+through the <a href="Onion-grater.html">onion-grater
+controller proxy</a>, which may filter some commands.</p>
+<p>On Whonix-Gateway,
+<em><span>test</span></em> is the
+example password. Use a different, stronger password if desired.</p>
+<p><span class="code-select">tor --hash-password test</span></p>
+<p>This will return an output similar to:</p>
+<pre><code>16:1CEAF6E6A08E0CF460AFD71772461C5F56BD9738FA8824B882FCA4A785</code></pre>
+<p>Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="Moved:Root.html"><code>root</code></a>) access first. See also <a href="Sysmaint.html">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="Sysmaint.html">sysmaint</a> session or
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session">Graphical Whonix-Gateway
+USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="Sysmaint.html">sysmaint</a> session or
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="Qubes.html">Qubes-Whonix<sup>™</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>™</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="Qubes.html">Qubes-Whonix<sup>™</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add the following:</p>
+<pre><code>HashedControlPassword 16:1CEAF6E6A08E0CF460AFD71772461C5F56BD9738FA8824B882FCA4A785</code></pre>
+<p>Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="Qubes.html">Qubes-Whonix<sup>™</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Service</code> ->
+<code>Whonix-Gateway</code><sup><code>™</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+-> <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> -> <code>System Tools</code> ->
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p><span class="code-select">sudo service tor reload</span></p>
+<p>To connect to Tor's Controller:</p>
+<p><span class="code-select">sudo -n -u debian-tor socat -
+UNIX-CONNECT:/var/run/tor/control</span></p>
+<p>Authenticate:</p>
+<p><span class="code-select">authenticate "test"</span></p>
+<p>A successful authentication returns:</p>
+<pre><code>250 OK</code></pre>
+<p>Test commands, such as starting logging stream events:</p>
+<p><span class="code-select">setevents stream</span></p>
+<p>Initially, this does nothing. However, when Tor is used (e.g.,
+running Tor Browser, APT, etc.), stream events similar to the following
+appear:</p>
+<pre><code>650 STREAM 211 NEW 0 pop.riseup.net:995 SOURCE_ADDR=10.152.152.11:47036 PURPOSE=USER
+...</code></pre>
+<p>Whonix includes <code>tor-ctrl</code>, a wrapper for direct
+communication with Tor's controller. This simplifies authentication,
+socket connection, and cookie conversion to base32. While this section
+explains direct communication without external programs, users can
+accomplish the same task with:</p>
+<p><span class="code-select">tor-ctrl -w setevents stream</span></p>
+<h2 id="netcat">netcat</h2>
+<p>netcat is no longer required. <a href="#tor-ctrl">tor-ctrl</a> is recommended instead.</p>
+<p>netcat provides an easy way to send Tor protocol commands to Tor's
+<code>ControlPort</code> from within Whonix-Workstation. However, for
+security reasons, commands are processed through <a href="Onion-grater.html">onion-grater (Tor Control Protocol Filter
+Proxy)</a>.</p>
+<div class="info-box ">
+<p>Inside Whonix-Workstation.</p>
+<p><strong>1.</strong> Install netcat.</p>
+<p><span class="code-select">sudo apt install netcat-openbsd</span></p>
+<p><strong>2.</strong> Connect to Tor's <code>ControlPort</code>.
+<sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<p><span class="code-select">nc 127.0.0.1 9051</span></p>
+<p><strong>3.</strong> Example command to change the Tor circuit.</p>
+<p><span class="code-select">signal newnym</span></p>
+<p>Expected output:</p>
+<pre><code>250 OK</code></pre>
+</div>
+<h2 id="tor-prompt">tor-prompt</h2>
+<p>On Whonix-Gateway, run:</p>
+<p>Example of <code>tor-prompt</code> in non-interactive mode:</p>
+<p><span class="code-select">tor-prompt --no-color --run "getinfo
+consensus/valid-until"</span></p>
+<p>Example of <code>tor-prompt</code> in interactive mode:</p>
+<p><span class="code-select">tor-prompt</span></p>
+<p>This will display an introduction similar to:</p>
+<pre><code>Welcome to Stem&#39;s interpreter prompt. This provides you with direct access to
+Tor&#39;s control interface.
+
+This acts like a standard python interpreter with a Tor connection available
+via your &#39;controller&#39; variable...
+
+  &gt;&gt;&gt; controller.get_info(&#39;version&#39;)
+  &#39;0.2.5.1-alpha-dev (git-245ecfff36c0cecc)&#39;
+
+You can also issue requests directly to Tor...
+
+  &gt;&gt;&gt; GETINFO version
+  250-version=0.2.5.1-alpha-dev (git-245ecfff36c0cecc)
+  250 OK
+
+For more information run &#39;/help&#39;.
+
+&gt;&gt;&gt;</code></pre>
+<p>To run a Tor control protocol command, such as
+<code>GETINFO version</code>, enter:</p>
+<p><u>Note:</u> Replace <code>GETINFO version</code> with the actual
+command intended to run.</p>
+<p><span class="code-select">GETINFO version</span></p>
+<p>Expected output:</p>
+<pre><code>250-version=0.2.5.1-alpha-dev (git-245ecfff36c0cecc)
+250 OK</code></pre>
+<h1 id="Deprecated">Deprecated</h1>
+<h2 id="Vidalia">Vidalia</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Vidalia is no longer maintained.</p>
+</div>
+<p><span class="manually-placed-anchor " id="Vidalia_recommended_against"></span></p>
+<p>Vidalia is no longer recommended because development has ceased. As a
+result, it has been removed from all Debian variants (stretch, sid,
+etc.) and was also dropped from Tor Browser Bundle v3.5 by The Tor
+Project. <sup class="reference"><a href="#cite_note-12">[12]</a></sup> <sup class="reference"><a href="#cite_note-13">[13]</a></sup></p>
+<p>Vidalia had several limitations, such as the inability to fully
+control Tor. For example:</p>
+<ul>
+<li>It could not stop Tor when installed via the Debian package, as Tor
+runs under the user "debian-tor."</li>
+<li>It was unable to edit
+<em><span>/usr/local/etc/torrc.d/50_user.conf</span></em>.
+<sup class="reference"><a href="#cite_note-14">[14]</a></sup></li>
+<li>It did not support obfuscated bridges.</li>
+</ul>
+<p>Since Vidalia has been deprecated and provides a poor and confusing
+user experience, it is best to use <a href="#Nyx">nyx</a> instead. <sup class="reference"><a href="#cite_note-15">[15]</a></sup></p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Tor-ctrl-observer.html">tor-ctrl-observer - Tor
+Connection Destination Viewer</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Since <a href="#Vidalia">Vidalia</a> is <a href="#Vidalia_recommended_against">recommended
+against</a>.</li>
+<li id="cite_note-2"><a href="https://tor.stackexchange.com/tags/nyx/info">https://tor.stackexchange.com/tags/nyx/info</a></li>
+<li id="cite_note-3">Nyx operates on a different level. It is a Tor Controller. Nyx
+communicates with Tor via the <code>ControlPort</code> and serves as an
+interface to display what Tor perceives. Neither Tor nor Nyx provides
+functionality for virus detection, compromise detection, or leak
+detection. While Nyx messages are generally informative and useful, they
+rarely indicate a cause for concern.</li>
+<li id="cite_note-4"><a href="https://forums.whonix.org/t/strange-nyx-behavior/9514">https://forums.whonix.org/t/strange-nyx-behavior/9514</a></li>
+<li id="cite_note-5"><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl
+10.152.152.10:9100</span></li>
+<li id="cite_note-6"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/16459">https://gitlab.torproject.org/legacy/trac/-/issues/16459</a></li>
+<li id="cite_note-7">The issue was closed as 'not a bug' several years ago.</li>
+<li id="cite_note-8">https://forums.whonix.org/t/how-to-check-if-i-configured-bridges-correctly-and-the-bridges-are-working-properly/4371/5</li>
+<li id="cite_note-9"><a href="https://packages.debian.org/trixie/onioncircuits">https://packages.debian.org/trixie/onioncircuits</a></li>
+<li id="cite_note-10"><a href="https://blog.torproject.org/torbutton-141-released">https://blog.torproject.org/torbutton-141-released</a></li>
+<li id="cite_note-11">This works in Whonix-Workstation because the <a href="Dev/anon-ws-disable-stacked-tor.html">anon-ws-disable-stacked-tor</a> package opens localhost
+listener ports and forwards connections to Whonix-Gateway, where <a href="Dev/onion-grater.html">onion-grater (Control Port
+Filter Proxy)</a> is listening.</li>
+<li id="cite_note-12"><a href="https://tor.stackexchange.com/questions/1075/what-happened-to-vidalia">https://tor.stackexchange.com/questions/1075/what-happened-to-vidalia</a></li>
+<li id="cite_note-13">As noted by Tor developer Roger Dingledine:<br />
+<blockquote><p>Cammy is right -- we've removed the bridge/relay/exit bundles from
+the download page too, since Vidalia has been unmaintained for years and
+pointing people to unmaintained software is dangerous. I'd love to have
+enough developers to do everything at once, but we don't.</p></blockquote></li>
+<li id="cite_note-14">It is unclear whether control commands such as New Identity were
+correctly processed either.</li>
+<li id="cite_note-15">Unless the reader is specifically interested in Vidalia's graphical
+network map.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

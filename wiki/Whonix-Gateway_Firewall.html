@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix-Gateway Firewall</title>
+<meta name="description" content="General information about Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; firewall. How-To: Changing firewall settings and Open a Port in Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; Firewall.">
+<meta property="og:description" content="General information about Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; firewall. How-To: Changing firewall settings and Open a Port in Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; Firewall.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Whonix-Gateway_Firewall.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Whonix-Gateway_Firewall.html">
+<meta property="og:title" content="Whonix-Gateway Firewall">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Firewall146529640.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Host_Firewall.html">Host (or <code>dom0</code>)
+Firewall</a></li>
+<li><a href="Whonix-Gateway_Firewall.html">Whonix-Gateway
+Firewall</a></li>
+<li><a href="Whonix-Workstation_Firewall.html">Whonix-Workstation Firewall</a></li>
+<li><a href="Qubes/Firewall.html">Qubes specific</a></li>
+</ul>
+</div>
+<p><img src="../media/Firewall146529640.png.webp" width="200" alt="Firewall146529640.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>General information about Whonix-Gateway firewall. How-To: Changing
+firewall settings and Open a Port in Whonix-Gateway Firewall.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Whonix has an iptables rules script and firewall configuration file
+for both Whonix-Gateway and Whonix-Workstation<sup>™</sup>.
+Whonix-Gateway firewall features include: <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<div>
+<ul>
+<li>transparent proxying</li>
+<li>stream isolation</li>
+<li>reject invalid packages</li>
+<li>fail closed mechanism</li>
+<li>optional VPN-Firewall</li>
+<li>optional isolating proxy</li>
+<li>optional incoming flash proxy</li>
+<li>optional Tor relay</li>
+</ul>
+</div>
+<p>The firewall should not be removed unless you no longer wish to use
+Whonix.</p>
+<h1 id="Whonix-Gateway_Firewall_Settings">Whonix-Gateway Firewall
+Settings</h1>
+<div class="info-box ">
+<p><strong>1.</strong> #REDIRECT <a href="Template:Firewall_Settings.html">Template:Firewall Settings</a></p>
+<p><strong>2.</strong> Add setting.</p>
+<p><strong>3.</strong> Save.</p>
+<p><strong>4.</strong> <strong>Reload Whonix-Gateway
+Firewall.</strong></p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>System</code> -> <code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway ProxyVM (commonly named sys-whonix)</code> ->
+<code>Reload Firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>5.</strong> Done.</p>
+<p>The procedure is complete.</p>
+</div>
+<h1 id="How-to:_Open_an_Incoming_Port_on_Whonix-Gateway_Firewall">How-to:
+Open an Incoming Port on Whonix-Gateway Firewall</h1>
+<h2 id="From_the_Outside">From the Outside</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong></p>
+<ul>
+<li>Don't! Unless you know what you are doing.</li>
+<li>This is usually not required!</li>
+<li>This is <a href="Unsupported.html">Unsupported</a>!
+Always follow <a href="Moved:Firewall_Refactoring.html">Firewall Refactoring</a> steps before and after making
+configuration changes to check if the firewall rules actually
+changed.</li>
+</ul>
+</div>
+<p>'''<code>Host</code> -> <code>Whonix-Gateway</code></p>
+<p>'''<code>Internet</code> -> <code>Host</code> ->
+<code>Whonix-Gateway</code></p>
+<p>This will allow an incoming connection on Whonix-Gateway originating
+from:</p>
+<ul>
+<li>if using VM: the host.</li>
+<li>if using physical isolation: the Internet.</li>
+</ul>
+<div class="info-box ">
+<p><strong>1.</strong> <strong>Modify Whonix-Gateway User Firewall
+Settings.</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/usr/local/etc/whonix_firewall.d/50_user.conf</code> appears empty
+(because it does not exist). This is expected.</p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_2">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>Settings</code> -> <code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_2">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p>In Whonix-Gateway, open the whonix_firewall configuration file in an
+editor.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_2"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway App Qube (commonly called </code><em><span><code>sys-whonix</code></span></em><code>)</code>
+-> <code>User Firewall Settings</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>.</p>
+<p><strong>Note</strong>: The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>See also <a href="Moved:Configuration_Files.html">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="Qubes.html">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Template:</code> <code>whonix-gateway-18</code> ->
+<code>Global Firewall Settings</code></p>
+<p><u>If using a graphical Whonix-Gateway</u>, complete these steps.</p>
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>Settings</code> -> <code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Gateway</u>, complete these steps.</p>
+<p>In Whonix-Gateway, view the global firewall configuration file in an
+editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_gateway_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Add.</p>
+<p>Replace <code>80</code> with the actual port you would like to
+open.</p>
+<p><span class="code-select">EXTERNAL_OPEN_PORTS+=" 80 "</span></p>
+<p><strong>3.</strong> Save.</p>
+<p><strong>4.</strong> <strong>Reload Whonix-Gateway
+Firewall.</strong></p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_3">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>System</code> -> <code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_3">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_3"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway ProxyVM (commonly named sys-whonix)</code> ->
+<code>Reload Firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>5.</strong> Done.</p>
+<p>The procedure is complete.</p>
+</div>
+<h2 id="For_Connections_Originating_from_Whonix-Workstation">For
+Connections Originating from Whonix-Workstation</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong></p>
+<ul>
+<li>Don't! Unless you know what you are doing.</li>
+<li>This is usually not required!</li>
+<li>This is <a href="Unsupported.html">Unsupported</a>!
+Always follow <a href="Moved:Firewall_Refactoring.html">Firewall Refactoring</a> steps before and after making
+configuration changes to check if the firewall rules actually
+changed.</li>
+</ul>
+</div>
+<p><strong><code>Whonix-Workstation</code> ->
+<code>Whonix-Gateway</code></strong></p>
+<p>This will allow incoming connections from Whonix-Workstation to
+Whonix-Gateway.</p>
+<p>It might be useful for <a href="Tor.html#Additional_SocksPorts">Tor additional <code>SocksPort</code>s</a>.
+(<strong><code>Whonix-Workstation</code> -> <code>Whonix-Gateway</code> ->
+Tor <code>SocksPort</code></strong>)</p>
+<div class="info-box ">
+<p><strong>1.</strong> <strong>Modify Whonix-Gateway User Firewall
+Settings.</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/usr/local/etc/whonix_firewall.d/50_user.conf</code> appears empty
+(because it does not exist). This is expected.</p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_4">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>Settings</code> -> <code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_4">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p>In Whonix-Gateway, open the whonix_firewall configuration file in an
+editor.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_4"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway App Qube (commonly called </code><em><span><code>sys-whonix</code></span></em><code>)</code>
+-> <code>User Firewall Settings</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>.</p>
+<p><strong>Note</strong>: The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>See also <a href="Moved:Configuration_Files.html">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="Qubes.html">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Template:</code> <code>whonix-gateway-18</code> ->
+<code>Global Firewall Settings</code></p>
+<p><u>If using a graphical Whonix-Gateway</u>, complete these steps.</p>
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>Settings</code> -> <code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Gateway</u>, complete these steps.</p>
+<p>In Whonix-Gateway, view the global firewall configuration file in an
+editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_gateway_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Add.</p>
+<p>Note: Replace <code>9230</code> with the actual port you would like
+to open. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p><span class="code-select">INTERNAL_OPEN_PORTS+=" 9230 "</span></p>
+<p><strong>3.</strong> Save.</p>
+<p><strong>4.</strong> <strong>Reload Whonix-Gateway
+Firewall.</strong></p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_5">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> -> <code>Applications</code> ->
+<code>System</code> -> <code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_5">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_5"><a href="Qubes.html">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<code>Whonix-Gateway ProxyVM (commonly named sys-whonix)</code> ->
+<code>Reload Firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<p>The procedure is complete.</p>
+</div>
+<h1 id="Disable_Socksified_Connections">Disable Socksified
+Connections</h1>
+<p>The following setting prevents Whonix-Workstation from making
+sockified connections, i.e. applications talking to a Tor
+<code>SocksPort</code> listening on Whonix-Gateway.</p>
+<p>Add the following setting to Whonix-Gateway firewall
+configuration.</p>
+<p><span class="code-select">WORKSTATION_ALLOW_SOCKSIFIED=0</span></p>
+<h1 id="Disable_Transparent_Proxying">Disable Transparent Proxying</h1>
+<p>What is transparent proxying? See <a href="Stream_Isolation.html#Transparent_Proxy">Transparent
+Proxy</a>.</p>
+<p>How to disable transparent proxying? See <a href="Stream_Isolation.html#Disable_Transparent_Proxying">Disable Transparent Proxying</a>.</p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Ports.html">Open a Port(s) in Whonix and Port
+Forwarding</a></li>
+<li><a href="Moved:Configuration_Files.html#Configuration_Drop-In_Folders">Whonix Configuration Drop-In Folders</a></li>
+<li><a href="https://github.com/Whonix/whonix-firewall/blob/master/etc/whonix_firewall.d/30_whonix_gateway_default.conf">https://github.com/Whonix/whonix-firewall/blob/master/etc/whonix_firewall.d/30_whonix_gateway_default.conf</a></li>
+<li><a href="https://github.com/Whonix/whonix-firewall/blob/master/usr/bin/whonix-gateway-firewall">https://github.com/Whonix/whonix-firewall/blob/master/usr/bin/whonix-gateway-firewall</a></li>
+<li><a href="https://github.com/Whonix/whonix-firewall">https://github.com/Whonix/whonix-firewall</a></li>
+<li><a href="Whonix-Workstation_Firewall.html">Whonix-Workstation Firewall</a></li>
+<li><a href="Install_Software.html#Whonix-Workstation_is_Firewalled">Whonix-Workstation is Firewalled</a></li>
+<li><a href="Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway.html">Redirect Whonix-Workstation Ports or Unix Domain Socket
+Files to Whonix-Gateway</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://github.com/Whonix/whonix-firewall">https://github.com/Whonix/whonix-firewall</a></li>
+<li id="cite_note-2"><a href="https://forums.whonix.org/t/internal-open-ports-setting/11404/1">https://forums.whonix.org/t/internal-open-ports-setting/11404/1</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

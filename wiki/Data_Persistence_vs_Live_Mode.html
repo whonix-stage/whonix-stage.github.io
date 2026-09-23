@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Data Persistence vs Live Mode</title>
+<meta name="description" content="Tails versus Whonix] Live Mode Comparison">
+<meta property="og:description" content="Tails versus Whonix] Live Mode Comparison">
+<link rel="canonical" href="https://www.whonix.org/wiki/Data_Persistence_vs_Live_Mode.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Data_Persistence_vs_Live_Mode.html">
+<meta property="og:title" content="Data Persistence vs Live Mode">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<h1 id="Forensics_Categories">Forensics Categories</h1>
+<p>There are potentially two major categories of forensic evidence that
+an <u>o</u>perating <u>s</u>ystem (OS) (such as for example Whonix) was
+used that might be available to adversaries under <a href="#Data_Accessibility">specific conditions</a>.
+This is a general computer security topic and <a href="Unspecific.html">unspecific to Whonix</a>.</p>
+<ul>
+<li><strong>A)</strong> evidence that the OS was downloaded (and
+installed or written to USB / DVD), <u>and</u> <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+<li><strong>B)</strong> data persistence or amnesia of activities during
+use of the OS.</li>
+</ul>
+<p>This is related to
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<h1 id="Data_Accessibility">Data Accessibility</h1>
+<p>This is <a href="Unspecific.html">unspecific to
+Whonix</a>.</p>
+<ul>
+<li><u>Local attacks:</u> An adversary with physical access to the
+user's storage device could read that data unless the user is using
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+<li><u>Remote attacks:</u> If a <u>v</u>irtual <u>m</u>achine (VM) or
+host operating system is compromised by
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], then an adversary that succeeded
+in infecting the user's computer with malware can steal this data.</li>
+</ul>
+<h1 id="Data_Persistence_vs_Live_Mode">Data Persistence vs Live
+Mode</h1>
+<p>Data persistence of activities during a Whonix session.</p>
+<p>Depending on choice of boot mode of the user, either:</p>
+<ul>
+<li><strong>A)</strong> <u>Booting into persistent mode:</u> This is
+what 99% of computer users do every day. The supermajority of internet
+users is unaware of the concepts of "persistent mode" or "live mode".
+Data persistence works normally as most users expect. Data created by
+the user or operating system during a session of Whonix persists. This
+means it is still available after reboot. The advantage is that this
+works for many use case examples such as saving browser bookmarks,
+notes, documents, downloaded files and so forth. The downside is that
+this information might be available to adversaries under <a href="#Data_Accessibility">specific conditions</a></li>
+<li><strong>B)</strong> <u>Using
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]:</u> When booting into host live
+mode and then using Whonix, no data will persist. For example, bookmarks
+created during live mode or any files created or downloaded will be gone
+after reboot.</li>
+</ul>
+<h1 id="Tails_versus_Whonix_Live_Mode_Comparison">Tails versus Whonix
+Live Mode Comparison</h1>
+<ul>
+<li>Whonix boots into persistent mode by default. This comes with
+various advantages such as persistent <a href="Tor_Entry_Guards.html">Tor Entry Guards</a>, <a href="Vanguards.html">vanguards</a>, easy standard ("everyday") upgrades to
+allow the users to always have the latest security patches and
+compatibility with full disk encryption. Users can optionally use live
+mode by using
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]. It is easier to hide that Whonix
+was used from adversaries with physical access through use of full disk
+encryption on the host operating system.</li>
+<li>Tails: boots into non-persistent (live mode) by default, which has
+the advantage of better usability for users who do not wish to persist
+data and an optional selective encrypted persistence feature. A Tails
+DVD or USB installation examined by an adversary with local access can
+always trivially determine that Tails is on the DVD / USB.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+</ul>
+<p>See also <a href="Comparison_with_Others.html">Anonymity
+Operating System Comparison - Whonix vs Tails vs Tor Browser
+Bundle</a>.</p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="USB_Installation.html">Installation of Whonix
+on USB</a></li>
+<li><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="System_Hardening_Checklist.html">System
+Hardening Checklist</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">* the downloaded image on the host operating system * the history of
+the program used to write the ISO to USB * other traces on the host
+operating system used to such as file manage history and whatnot. For
+inspiration what that likely would be, see: <a href="https://research.torproject.org/techreports/tbb-forensic-analysis-2013-06-28.pdf">https://research.torproject.org/techreports/tbb-forensic-analysis-2013-06-28.pdf</a></li>
+<li id="cite_note-2">While user data in Tails optional selective encrypted persistence
+feature is encrypted, the boot and system partition is unencrypted. That
+does not leak user data but that leaks the fact that the user is a Tails
+user and Tails version to an adversary with physical access.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Development.html">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

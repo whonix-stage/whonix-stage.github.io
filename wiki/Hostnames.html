@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Hostnames</title>
+<meta name="description" content="Privacy Risks Posed by Hostnames">
+<meta property="og:description" content="Privacy Risks Posed by Hostnames">
+<link rel="canonical" href="https://www.whonix.org/wiki/Hostnames.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Hostnames.html">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Hostnames.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Hostnames.jpg.webp" alt="Hostnames.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Privacy Risks Posed by Hostnames</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Computers are given hostnames for a number of good reasons. For
+instance, this is particularly useful for computers which operate on a
+network, as administrators and users are then able to ping computers,
+remotely connect to the computer, mount computer disks, and conduct
+other relevant activities. Naming conventions for computers are usually
+left to the individual, and may either comprise random chosen selections
+("MrBig", "coffeelover", "Qubes-Whonix<sup>™</sup>Rocks" etc.), or
+default values that comprise information such as user name, login name,
+and device brand / model / make.</p>
+<p>In the case of smaller devices like smart phones, these usually have
+manufacturer-assigned names which are either generic ("Samsung Phone")
+or completely unique ("android_f7s89f8ir78etywt"), and may contain
+information such as the brand name, language used, and the name of the
+device owner. In many cases, hostnames cannot be changed - or at least
+not without "rooting" the device. <sup class="reference"><a href="#cite_note-1">[1]</a></sup> In the case of
+Whonix, the hostname is always set to "host". <sup class="reference"><a href="#cite_note-2">[2]</a></sup>
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<h1 id="Privacy_Risks">Privacy Risks</h1>
+<p>The hostname given to a user's home computer or device can be leaked
+via a number of protocols, posing a privacy risk depending on the
+specificity of the naming convention. Vulnerable protocols which may
+leak the hostname include, but are not limited to: <sup class="reference"><a href="#cite_note-1">[1]</a></sup>
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">Dynamic
+Host Configuration Protocol (DHCP)</a>.</li>
+<li><a href="https://en.wikipedia.org/wiki/Domain_Name_System">DNS</a>
+address to name resolution.</li>
+<li><a href="https://en.wikipedia.org/wiki/Multicast_DNS">Multicast DNS
+(mDNS)</a>.</li>
+<li><a href="https://en.wikipedia.org/wiki/Link-Local_Multicast_Name_Resolution">Link-local
+Multicast Name Resolution</a>.</li>
+<li><a href="https://web.archive.org/web/20220531040811/http://www.dns-sd.org/">DNS
+service discovery</a>.</li>
+</ul>
+<p>Disclosure of information is particularly problematic for mobile
+devices, since adversaries that monitor remote networks (like Wi-Fi
+hotspots) are able to obtain the hostname via passive monitoring, or
+active probing using a variety of Internet protocols. In combination
+with traffic analysis, adversaries that can obtain a hostname may be
+able to extract information that identifies the particular device and
+its properties; potentially revealing unique individuals utilizing the
+device. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p>Even if generic names are used for hostnames such as "pinkrose" or
+"linuxfan", the possible identity of the user is narrowed significantly
+to a much smaller subset, particularly when combined with data on sites
+that are visited. This may quickly lead to user identification because
+hostname disclosure allows for tracking of the computer or device across
+many domains, and one-time exposure of the user via clearnet traffic can
+inform databases which link unique hostnames to user identities.</p>
+<p>As a further example, consider an adversary that is tracking users
+connecting to a specific Wi-Fi hot spot in an airport. After retrieving
+the hostname of a particular user "ABSmith", and observing VPN
+connections to the Apple corporate network, the two pieces of
+information reveal that Mr Smith is the owner, and is an employee of
+Apple.</p>
+<h1 id="Recommendations">Recommendations</h1>
+<p>Obviously a generic hostname is advisable, but in practice, there are
+limited other solutions available at present. One is to turn off any
+protocols that are not strictly necessary and which leak hostnames,
+particularly when insecure places are visited. This reduces the attack
+surface, but is impractical for certain protocols; for example, DHCP is
+necessary for Internet connectivity and many services depend on
+protocols such as mDNS. Another option is to use different hostnames for
+different purposes, rather than relying on a global hostname - this
+option is available on some OSes. Ultimately, a randomized hostname
+protocol is necessary to protect privacy, similar to methods utilized
+for MAC addresses. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h1 id="Anonymity_Distributions">Anonymity Distributions</h1>
+<ul>
+<li><a href="https://web.archive.org/web/20130701222115/https://mailman.boum.org/pipermail/tails-dev/2013-January/002457.html">https://web.archive.org/web/20130701222115/https://mailman.boum.org/pipermail/tails-dev/2013-January/002457.html</a></li>
+<li><a href="https://web.archive.org/web/20200810153110mp_/https://public-redmine-archive.tails.boum.org/code/issues/5655/">https://web.archive.org/web/20200810153110mp_/https://public-redmine-archive.tails.boum.org/code/issues/5655/</a></li>
+<li><a href="https://lists.autistici.org/message/20140627.215105.24023267.en.html">https://lists.autistici.org/message/20140627.215105.24023267.en.html</a></li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Essential_Host_Security.html">Essential Host
+Security</a></li>
+</ul>
+<h1 id="References">References</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://tools.ietf.org/html/rfc8117">https://tools.ietf.org/html/rfc8117</a></li>
+<li id="cite_note-2"><a href="https://github.com/Whonix/anon-base-files">https://github.com/Whonix/anon-base-files</a></li>
+<li id="cite_note-3"><a href="https://github.com/Whonix/whonix-base-files/blob/master/etc/hostname.whonix">https://github.com/Whonix/whonix-base-files/blob/master/etc/hostname.whonix</a></li>
+<li id="cite_note-4">Refer to the source paper for further information on these
+protocols.</li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Multiple_Whonix-Workstation.html" title="Multiple Whonix-Workstation"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Multiple
+Whonix-Workstation</span></a><a class="index internal" href="Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Host_Operating_System_Selection.html" title="Host Operating System Selection"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Host
+Operating System
+Selection</span></a><span class="info"><span class="prev">Previous page:
+Multiple Whonix-Workstation</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Host Operating System
+Selection</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Qubes/Install</title>
+<meta name="description" content="Installation Instructions, Release Notices, Disposable Template Setup, Updates over Tor">
+<meta property="og:description" content="Installation Instructions, Release Notices, Disposable Template Setup, Updates over Tor">
+<link rel="canonical" href="https://www.whonix.org/wiki/Qubes/Install.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Qubes/Install.html">
+<meta property="og:title" content="How-to: Install Qubes-Whonix">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Qubesinstall12312123.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Qubes</span> / <span>Install</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#1_Notices">1
+Notices</a></li><li class="toc-l2"><a href="#2_Install_Whonix_through_Qubes_post-install_setup_interface">2
+Install Whonix through Qubes post-install setup interface</a></li><li class="toc-l2"><a href="#3_Update_dom0">3
+Update dom0</a></li><li class="toc-l2"><a href="#4_Configure_salt_using_Qubes_dom0_Community_Testing_Repository">4
+Configure salt using Qubes dom0 Community Testing Repository</a></li><li class="toc-l2"><a href="#5_Download_and_Configure_Whonix_Templates">5
+Download and Configure Whonix Templates</a></li><li class="toc-l2"><a href="#Qubes_R4.3">Qubes R4.3</a></li><li class="toc-l2"><a href="#6_Support_the_Future_of_Whonix">6
+Support the Future of Whonix</a></li><li class="toc-l2"><a href="#Whonix_Disposable_Template">Whonix Disposable Template</a></li><li class="toc-l2"><a href="#Updates_over_Tor">Updates over Tor</a></li><li class="toc-l2"><a href="#Enable_AppArmor">Enable AppArmor</a></li><li class="toc-l2"><a href="#Warnings">Warnings</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="Why_use_Qubes_over_other_Virtualizers.html" title="Qubes/Why use Qubes over other Virtualizers"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes/Why
+use Qubes over other
+Virtualizers</span></a><a class="index internal" href="../Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Reinstall.html" title="Qubes/Reinstall"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Qubes/Reinstall</span></a><span class="info"><span class="prev">Previous
+page: Qubes/Why use Qubes over other
+Virtualizers</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Qubes/Reinstall</span></span></span>How-to: Install
+Qubes-Whonix<sup>™</sup></p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../Qubes.html">Qubes-Whonix: Introduction</a></li>
+<li><a href="Install.html">Installation</a></li>
+<li><a href="Reinstall.html">Re-Installation</a></li>
+<li><a href="Uninstall.html">Un-Installation</a></li>
+</ul>
+</div>
+<p><img src="../../media/Qubesinstall12312123.png.webp" width="200" alt="Qubesinstall12312123.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Getting started with Qubes-Whonix in 4 steps.</p>
+<p>Here you can find installation instructions, release notices,
+disposable template setup, updates over Tor, and more.</p>
+<div class="post-intro-p">
+</div>
+<p><span class="manually-placed-anchor " id="Remove_Old_Versions"></span></p>
+<h2 id="1_Notices"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Notices</h2>
+<table>
+<caption><em><a href="../Qubes.html">Qubes-Whonix<sup>™</sup></a> Release
+Notices</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Notice</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Version Support</p></td>
+<td><ul>
+<li>Supported Qubes version: <code>R4.</code><b><code>3</code></b> |
+Supported Whonix version: <code>18</code></li>
+<li>See also: <a href="../About.html#Qubes_Hosts">Qubes-Whonix
+version support policy</a></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Footnotes</p></td>
+<td><p>Novice or intermediate users can generally ignore footnotes (like
+<sup>1</sup>) unless experiencing difficulties or having questions. See
+also <a href="../Introduction.html">introduction</a> chapter <a href="../Introduction.html#Whonix_Footnotes_and_References">Whonix Footnotes and References</a>.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Known Issues</p></td>
+<td><ul>
+<li>Qubes-Whonix 18: N/A.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Other Issues</p></td>
+<td><p>In case technical issues are experienced, such as a broken
+<code>dom0</code> or a broken <code>qubes-dom0-update</code>, these are
+Qubes issues and <a href="../Unspecific.html">unspecific to
+Whonix</a>. They should therefore either be reported to <a href="https://github.com/QubesOS/qubes-issues/issues">qubes-issues</a>,
+or added as a comment to an existing issue there (if appropriate). This
+is further elaborated in <a href="https://forums.whonix.org/t/what-to-post-in-this-qubes-whonix-forum-and-what-not/2275">What
+to post in this Qubes-Whonix forum and what not.</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>Usability</p></td>
+<td><p>The instructions on this wiki page have poor usability. These
+issues are mostly outside the control of the Whonix project. See the
+footnote for more information. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p>Preexisting Qubes-Whonix 18 Installations</p></td>
+<td><p>This is a notice for users who already have Qubes-Whonix
+<u>18</u> installed.</p>
+<ul>
+<li><u>Backup reminder:</u> If any user data was stored in Qubes-Whonix
+VMs, back up any existing data before re-installation.</li>
+<li><u>Uninstallation requirement:</u> If you are already running <a href="../Qubes.html">Qubes-Whonix</a> <u>18</u>, it must be <a href="Uninstall.html">uninstalled</a> before a
+complete <u>re-installation</u> is performed. This is also necessary
+when <a href="../Qubes.html">Qubes-Whonix</a> <u>18</u> is
+bundled as part of future Qubes releases, and auto-configuration is
+selected during the installation.</li>
+<li><u>Re-installation options:</u> Choose <u>re-installation</u> option
+<strong>A)</strong> <u>OR</u> <strong>B)</strong>. (Listed in order of
+preference)
+<ul>
+<li><strong>A)</strong> <a href="Uninstall.html">Uninstall Qubes-Whonix</a> and then <a href="Install.html">Install Qubes-Whonix</a>;
+<u>OR</u></li>
+<li><strong>B)</strong> <a href="Reinstall.html">Reinstall the Whonix Template</a>.</li>
+</ul></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2_Install_Whonix_through_Qubes_post-install_setup_interface"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Install Whonix through Qubes post-install setup interface</h2>
+<div class="info-box ">
+<p>This is the easiest way to set up <a href="../About.html">Whonix</a> on <a href="https://www.qubes-os.org">Qubes</a>. On a new Qubes OS
+installation, the installer can set up Whonix for you during the first
+boot setup.</p>
+<p>After the first boot, Qubes opens the initial setup screen. In the
+<code>Installation:</code> section of the
+<code>Templates Configuration</code> page, make sure <code>Whonix</code>
+is checked. If it is not checked, you can still install the Whonix
+templates later by following the later steps in this guide.</p>
+<p>Checking
+<code>Create Whonix Gateway and Workstation qubes (sys-whonix, anon-whonix)</code>
+creates the standard Whonix setup automatically (as shown in <a href="Install.html#5_Download_and_Configure_Whonix_Templates">step 5</a>). In simple terms, <code>sys-whonix</code>
+connects to Tor, and <code>anon-whonix</code> is the Qube where you use
+applications over Tor.</p>
+<p>Checking
+<code>Enable system and template updates over the Tor anonymity network using Whonix</code>
+sends all Template's and <code>dom0</code> update traffic through
+<code>sys-whonix</code>. The <code>sys-whonix</code> Qube becomes the
+system's <a href="../Whonix-Gateway.html">Whonix-Gateway</a> by
+default.</p>
+<p>For more information on Qubes installation, see the Qubes OS
+installation guide: <a href="https://doc.qubes-os.org/en/latest/user/downloading-installing-upgrading/installation-guide.html">Qubes
+OS installation guide</a></p>
+<p>If you skipped Whonix installation at this step, check the later
+steps.</p>
+</div>
+<h2 id="3_Update_dom0"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Update dom0</h2>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+'''Launch a <code>dom0</code> terminal.<br />
+<em><code>Click</code></em><code> the Qubes App Launcher (blue/grey "Q")</code>
+-> <code>Open the Terminal Emulator (Qterminal)</code></p>
+<p><img src="../../media/qubes-whonix1.png.webp" alt="qubes-whonix1.png" />'''</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+<strong>Upgrade Qubes <code>dom0</code>.</strong> This step is
+mandatory. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p><span class="code-select">sudo qubes-dom0-update</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+<strong>Done.</strong></p>
+<p>The <code>dom0</code> upgrade has been completed.</p>
+</div>
+<h2 id="4_Configure_salt_using_Qubes_dom0_Community_Testing_Repository"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Configure salt using Qubes dom0 Community Testing Repository</h2>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p><strong>Optional.</strong></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Testers only.</p>
+</div>
+<p>If you are an interested tester, click Learn More on the right.</p>
+<div class="mw-collapsible-content">
+<p>The following command will configure Qubes <code>dom0</code> salt to
+use <code>qubes-templates-community-testing</code> for downloading
+Whonix. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><span class="code-select">sudo qubesctl top.enable qvm.whonix-testing
+pillar=true</span></p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>The following steps to enable the
+<code>qubes-templates-community-testing</code> repository should no
+longer be necessary. Please report if these steps were necessary for
+you.</p>
+<p>If you are an interested tester, click Learn More on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>1.</strong> Enable
+<code>qubes-templates-community-testing</code> repository.</p>
+<p>View the <a href="https://github.com/QubesOS/qubes-qubes-release/blob/87a279b64c37e7bb3ae7d24aa413b33734da8856/qubes-templates.repo">Qubes
+Templates <code>.repo</code></a> file.</p>
+<p><span class="code-select">cat
+/etc/yum.repos.d/qubes-templates.repo</span></p>
+<p><strong>2.</strong> Ensure the file contains
+<code>[qubes-templates-community-testing]</code>.</p>
+<p>The following text should be included.</p>
+<pre><code>[qubes-templates-community-testing]
+name = Qubes Community Templates repository
+#baseurl = https://yum.qubes-os.org/r$releasever/templates-community-testing
+metalink = https://yum.qubes-os.org/r$releasever/templates-community-testing/repodata/repomd.xml.metalink
+enabled = 0
+fastestmirror = 1
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qubes-$releasever-templates-community</code></pre>
+<p><strong>3.</strong> Fix any missing sections.</p>
+<p>If the <code>[qubes-templates-community-testing]</code> section is
+missing, then the user has probably already modified the file. In this
+case <code>dnf</code> <sup class="reference"><a href="#cite_note-4">[4]</a></sup> preserves user changes by
+saving updates to
+<code>/etc/yum.repos.d/qubes-templates.repo.rpmnew</code>
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup> instead of overwriting the file. Since the
+<code>.repo.rpmnew</code> file is ignored by
+<code>qubes-dom0-update</code>, the <code>.repo</code> file must be
+manually updated.</p>
+<p>Either:</p>
+<ul>
+<li>Manually add the changes from <code>.repo.rpmnew</code> to the
+<code>.repo</code> file; or</li>
+<li>Overwrite the <code>.repo</code> file with the
+<code>.repo.rpmnew</code> file:
+<ul>
+<li><span class="code-select">sudo cp
+/etc/yum.repos.d/qubes-templates.repo.rpmnew
+/etc/yum.repos.d/qubes-templates.repo</span></li>
+<li>And then manually add back necessary changes. If the command fails
+because <code>/etc/yum.repos.d/qubes-templates.repo.rpmnew</code> does
+not exist, then the user probably already has
+<code>[qubes-templates-community-testing]</code>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="5_Download_and_Configure_Whonix_Templates"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Download and Configure Whonix Templates</h2>
+<div class="info-box ">
+<p>Download Whonix Templates and Configure <code>sys-whonix</code> and
+<code>anon-whonix</code>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+<strong>Download speed notice.</strong></p>
+<p>This downloading procedure can take a long time to finish. Fast
+Internet connections take only a few minutes, while slow connections can
+take twenty minutes or more (it is far slower over Tor).</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+<strong>Download both <a href="../Whonix-Gateway.html">Whonix-Gateway<sup>™</sup></a> and <a href="../Whonix-Workstation.html">Whonix-Workstation<sup>™</sup></a>
+Templates.</strong></p>
+<p><u>In <code>dom0</code>.</u> <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p>Download Whonix-Gateway and Whonix-Workstation.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h2 id="Qubes_R4.3">Qubes R4.3</h2>
+</div>
+<div class="tcc-content">
+<p>Run this command:</p>
+<p><span class="code-select">qvm-template install
+--enablerepo=qubes-templates-community whonix-gateway-18
+whonix-workstation-18</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
+<strong>Configure <code>sys-whonix</code> and <code>anon-whonix</code>
+safely.</strong> <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<p><u>In <code>dom0</code></u>, run. <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<p><span class="code-select">sudo qubesctl state.sls
+qvm.anon-whonix</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
+<strong>In case of issues.</strong></p>
+<p>Only in case of issues, refer to the footnotes for troubleshooting
+tips. <sup class="reference"><a href="#cite_note-9">[9]</a></sup> Otherwise, proceed.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">5</i>
+<strong>Done.</strong></p>
+<p>Download and installation of Qubes-Whonix has been completed.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">6</i>
+<strong>Next steps.</strong></p>
+<p>See below for additional optional configurations and additional
+information.</p>
+</div>
+<h2 id="6_Support_the_Future_of_Whonix"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Support the Future of Whonix</h2>
+<div class="info-box ">
+<p>Whonix is made possible thanks to the donation of people like you.
+<i class="padded-content-icon     fa-solid fa-heart cs-red-font"></i></p>
+<p><strong>Please support the Whonix development with a
+donation.</strong></p>
+<p><a href="../Donate.html"><span class="mw-ui-button mw-ui-progressive" role="button" aria-disabled="false">Donate
+to Whonix</span></a></p>
+</div>
+<h1 id="Optional_Steps">Optional Steps</h1>
+<h2 id="Whonix_Disposable_Template">Whonix Disposable Template</h2>
+<p>Qubes-Whonix Disposable Template can optionally be set up as a base
+for <a href="Disposables.html">Disposables</a>.
+<sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p>In <code>dom0</code>, run.</p>
+<p><span class="code-select">sudo qubesctl state.sls
+qvm.whonix-workstation-dvm</span></p>
+<p><sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<p><span class="manually-placed-anchor " id="Optional:_Updates_over_Tor"></span></p>
+<h2 id="Updates_over_Tor">Updates over Tor</h2>
+<h4 id="Templates">Templates</h4>
+<p>To force <u>all</u> Template updates over Tor, use
+<code>qubesctl</code> in <code>dom0</code>. <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+<p><span class="code-select">sudo qubesctl state.sls
+qvm.updates-via-whonix</span></p>
+<p>To undo this setting, modify,</p>
+<ul>
+<li>Qubes R4.3:
+<code>/etc/qubes/policy.d/50-config-updates.policy</code></li>
+</ul>
+<p>in <code>dom0</code>. <sup class="reference"><a href="#cite_note-13">[13]</a></sup> See also <a href="UpdatesProxy.html">How-to: Fix dom0
+Qubes-Whonix<sup>™</sup> UpdatesProxy Settings</a>.</p>
+<h4 id="dom0">dom0</h4>
+<p>To force <code>dom0</code> updates over Tor, set Qubes'
+<code>dom0</code> UpdateVM to <code>sys-whonix</code>.
+<sup class="reference"><a href="#cite_note-14">[14]</a></sup></p>
+<ul>
+<li><code>Qube Manager</code> -> <u><code>S</code></u><code>ystem</code>
+-> <u><code>G</code></u><code>lobal Settings</code> ->
+<code>Dom0 UpdateVM:</code> <code>sys-whonix</code> ->
+<code>OK</code></li>
+</ul>
+<p>To revert this change, set Qubes' <code>dom0</code> UpdateVM to
+<code>sys-firewall</code> or another preferred VM.
+<sup class="reference"><a href="#cite_note-15">[15]</a></sup></p>
+<ul>
+<li><code>Qubes Manager</code> -> <u><code>S</code></u><code>ystem</code>
+-> <u><code>G</code></u><code>lobal Settings</code> ->
+<code>Dom0 UpdateVM:</code> <code>sys-firewall</code></code> ->
+<code>OK</code></li>
+</ul>
+<h2 id="Enable_AppArmor">Enable AppArmor</h2>
+<p>AppArmor is enabled by default. No extra steps required.</p>
+<h1 id="Update_and_Launch_Applications">Update and Launch
+Applications</h1>
+<p>Before starting applications in the Whonix-Workstation<sup>™</sup>
+App Qube, <a href="../Moved:Update.html">update both
+Whonix-Gateway<sup>™</sup> and Whonix-Workstation<sup>™</sup>
+Templates</a>.</p>
+<p>To launch an application like <a href="../Tor_Browser.html">Tor Browser</a>:</p>
+<ul>
+<li><code>Qubes App Launcher (blue/grey "Q")</code> ->
+<em><span><code>Domain: anon-whonix</code></span></em>
+-> <code>Tor Browser (AnonDist)</code></li>
+</ul>
+<h1 id="Additional_Information">Additional Information</h1>
+<h2 id="Warnings">Warnings</h2>
+<p><span class="manually-placed-anchor " id="Landing"></span></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Whonix first time users warning" /></span>
+<strong>Warning:</strong></p>
+<ul>
+<li>If you do not know what metadata or a man-in-the-middle attack
+is.</li>
+<li>If you think nobody can eavesdrop on your communications because you
+are using Tor.</li>
+<li>If you have no idea how Whonix works.</li>
+</ul>
+<p>Then read the <a href="../About.html">Design and Goals</a>,
+<a href="../Warning.html">Whonix and Tor Limitations</a> and <a href="../Tips_on_Remaining_Anonymous.html">Tips on Remaining
+Anonymous</a> pages to decide whether Whonix is the right tool for you
+based on its limitations.</p>
+</div>
+<p><span class="manually-placed-anchor " id="Download_Whonix_virtual_machine_images"></span></p>
+<p>It is recommended to refer to the following additional
+references:</p>
+<ul>
+<li><a href="../Known_Issues.html">Known Issues</a></li>
+<li>Read and apply the <a href="../Post_Install_Advice.html">Post Installation Security Advice</a>.</li>
+<li><a href="../Stay_Tuned.html">Follow Whonix
+Developments</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<p>Novice or intermediate users can generally ignore footnotes (like
+<sup>1</sup>) unless experiencing difficulties or having questions. See
+also <a href="../Introduction.html">introduction</a> chapter <a href="../Introduction.html#Whonix_Footnotes_and_References">Whonix Footnotes and References</a>.</p>
+<div class="references">
+<ol>
+<li id="cite_note-1">* specifically: Qubes feature request: <a href="https://github.com/QubesOS/qubes-issues/issues/6948">self-contained
+Qubes Templates including meta scripts (salt) / improve Qubes-Whonix
+installation usability (#6948)</a> * generally:
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li id="cite_note-2">Upgrading Qubes <code>dom0</code> is required to ensure: * The
+version file
+<code>/srv/formulas/base/virtual-machines-formula/qvm/whonix.jinja</code>
+contains the current version number of Whonix and is up to date. * A
+recent version of Qubes repository definition files. * Qubes salt. * <a href="https://github.com/QubesOS/qubes-core-admin-addon-whonix">qubes-core-admin-addon-whonix</a>.
+* <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines">qubes-mgmt-salt-dom0-virtual-machines</a>,
+ensuring it is installed and up to date. Older, similar references: * <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/17">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/17</a>
+* <a href="https://github.com/QubesOS/updates-status/issues/1184">https://github.com/QubesOS/updates-status/issues/1184</a>
+* <a href="https://forums.whonix.org/t/14-15-issues-uninstall-install/7652">https://forums.whonix.org/t/14-15-issues-uninstall-install/7652</a></li>
+<li id="cite_note-3">* <a href="https://github.com/QubesOS/updates-status/issues/623">qubes-mgmt-salt-dom0-virtual-machines
+v4.0.13 (r4.0)</a> * <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/15">Qubes-Whonix<sup>™</sup>
+salt - allow choice of repository / don't hardcode repository</a> * <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/15">whonix:
+Add pillar file for easily enabling templates testing
+repository</a></li>
+<li id="cite_note-4">This is invoked by <code>qubes-dom0-update</code>.</li>
+<li id="cite_note-5">Note the file extension <code>.repo.rpmnew</code>.</li>
+<li id="cite_note-6">The following <code>qvm-template</code> command is: * Optional. *
+Useful because it has a progress indicator, while the subsequent
+<code>qubesctl</code> command does not. (Qubes feature request: <a href="https://github.com/QubesOS/qubes-issues/issues/4215">add salt
+download progress indicator</a>) It is very confusing to have a
+long-running download command with no progress bar, especially over Tor.
+* Insufficient by itself - the subsequent <code>qubesctl</code> command
+that follows is mandatory, as per <a href="https://github.com/QubesOS/qubes-issues/issues/3447">phase out
+manual use of qubes-dom0-update by user / replace it by salt</a> and <a href="../Dev/Qubes.html#salt">Dev/Qubes#salt</a>. *
+<code>--enablerepo=qubes-templates-community</code>: **
+<code>--enablerepo=qubes-templates-community</code> can be omitted if
+the Qubes Community Templates Repository is already enabled in
+<code>dom0</code>. ** The Qubes Community Templates Repository should
+already be enabled by default, unless disabled by the user, restored
+Qubes-Whonix<sup>™</sup> from backup, or in some other edge case. **
+Recommending typing <code>--enablerepo=qubes-templates-community</code>
+is poor usability, since users cannot copy from their VM browser (where
+they are most likely reading this) to <code>dom0</code>. But too many
+people reported this issue. <a href="https://forums.whonix.org/t/had-to-enable-community-templates-to-get-new-template/12489">had
+to enable Qubes templates community repository</a> ** If the Qubes
+Community Templates Repository is not enabled in <code>dom0</code>,
+explicitly add <code>--enablerepo=qubes-templates-community</code> or
+enable it through editing the
+<code>/etc/yum.repos.d/qubes-templates.repo</code> file in dom0.
+<div class="info-box ">
+<p><u>In <code>dom0</code>.</u>
+<i class="padded-content-icon pci-text fa-solid cs-blue iconset-h2">1</i>
+<strong>Open file <code>/etc/yum.repos.d/qubes-templates.repo</code> in
+a text editor with root rights.</strong> <span class="code-select">sudo
+nano /etc/yum.repos.d/qubes-templates.repo</span>
+<i class="padded-content-icon pci-text fa-solid cs-blue iconset-h2">2</i>
+<strong>In section <code>[qubes-templates-community]</code>, add the
+following.</strong> <span class="code-select">enabled = 1</span>
+<i class="padded-content-icon pci-text fa-solid cs-blue iconset-h2">3</i>
+<strong>Save.</strong>
+<i class="padded-content-icon pci-text fa-solid cs-blue iconset-h2">4</i>
+<strong>Done.</strong> Qubes Community Templates Repository has been
+enabled. The command line parameter
+<code>--enablerepo=qubes-templates-community</code> should no longer be
+required.
+<i class="padded-content-icon pci-text fa-solid cs-blue iconset-h2">5</i>
+<strong>Report.</strong> Please report if this step was necessary for
+you!</p>
+</div></li>
+<li id="cite_note-7">* Do <u>not</u> interrupt the salt process once it has started, or
+this can lead to an <a href="https://groups.google.com/g/qubes-users/c/fwCqxENXguY">unstable
+system</a>. * <code>qubesctl</code>: This is a Qubes command, not from
+Whonix. Advanced users may refer to <a href="https://www.qubes-os.org/doc/salt/">Qubes salt management stack
+<code>qubesctl</code></a> for further information about
+<code>qubesctl</code> and Qubes salt. * If Templates were not previously
+downloaded using the above <code>qvm-template</code> command, then the
+<code>qubesctl</code> command would also download both Whonix-Gateway
+and Whonix-Workstation Templates. * Related source code files, for
+developer reference only: ** <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/sys-whonix.sls">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/sys-whonix.sls</a>
+** <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/anon-whonix.sls">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/anon-whonix.sls</a></li>
+<li id="cite_note-8">No progress indicator is shown. Qubes feature request: <a href="https://github.com/QubesOS/qubes-issues/issues/4215">add salt
+download progress indicator</a></li>
+<li id="cite_note-9">If <code>qubesctl</code> still does not work, try shutting down
+Qubes OS and rebooting the machine. Please report if this step was
+necessary for you!</li>
+<li id="cite_note-10">For developers only, link to related source code file: <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/whonix-workstation-dvm.sls">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/whonix-workstation-dvm.sls</a></li>
+<li id="cite_note-11">There was a <a href="https://github.com/QubesOS/qubes-issues/issues/3574">Qubes bug
+that may cause the Disposable Template to run instead of the
+Disposable</a>. This might be fixed in Qubes R4.2 and above. <a href="../Unspecific.html">Unspecific to Whonix</a>. If this
+happens, just log off and back on. There is no need to reinstall or set
+up anything.</li>
+<li id="cite_note-12">* By Qubes default, Qubes UpdatesProxy (RPC / qrexec based) is used
+to update Templates. * <a href="https://www.qubes-os.org/doc/how-to-install-software/#technical-details">Qubes:
+How to install software, technical details</a> * <a href="https://www.qubes-os.org/doc/salt/">Qubes <code>salt</code>
+management stack <code>qubesctl</code></a> * For developers only,
+related source code file: <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/updates-via-whonix.sls">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/updates-via-whonix.sls</a></li>
+<li id="cite_note-13"><a href="https://groups.google.com/g/qubes-users/c/_jI2uWPPMMA">How
+to change Template update method from Whonix to just another
+appvm?</a></li>
+<li id="cite_note-14">Or manually set the torified UpdateVM in <code>dom0</code> terminal.
+<span class="code-select">qubes-prefs updatevm sys-whonix</span></li>
+<li id="cite_note-15">To revert this change in <code>dom0</code> terminal, run.
+<span class="code-select">qubes-prefs updatevm sys-firewall</span></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Why_use_Qubes_over_other_Virtualizers.html" title="Qubes/Why use Qubes over other Virtualizers"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes/Why
+use Qubes over other
+Virtualizers</span></a><a class="index internal" href="../Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Reinstall.html" title="Qubes/Reinstall"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Qubes/Reinstall</span></a><span class="info"><span class="prev">Previous
+page: Qubes/Why use Qubes over other
+Virtualizers</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Qubes/Reinstall</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

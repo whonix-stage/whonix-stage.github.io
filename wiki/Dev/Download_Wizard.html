@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Download Wizard</title>
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Download_Wizard.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Download_Wizard.html">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Dev</span> / <span>Download Wizard</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#By_Host_Operating_System">By Host Operating System</a></li><li class="toc-l2"><a href="#By_Target_Platform">By Target Platform</a></li><li class="toc-l2"><a href="#By_Security_/_Usability_Compromise">By Security / Usability
+Compromise</a></li><li class="toc-l2"><a href="#By_Download_Method">By Download Method</a></li><li class="toc-l2"><a href="#By_Download_Anonymity">By Download Anonymity</a></li><li class="toc-l2"><a href="#By_Release_Life_Cycle">By Release Life Cycle</a></li><li class="toc-l2"><a href="#No_attacks_prevented">No attacks prevented</a></li><li class="toc-l2"><a href="#MITM_download">MITM download</a></li><li class="toc-l2"><a href="#whonix.org_server_compromise">whonix.org server compromise</a></li><li class="toc-l2"><a href="#build_server_compromise">build server compromise</a></li><li class="toc-l2"><a href="#Using_html_fieldset_tag">Using html fieldset tag</a></li><li class="toc-l3"><a href="#Example_Draft">Example Draft</a></li><li class="toc-l2"><a href="#Expand_Button_Examples">Expand Button Examples</a></li><li class="toc-l3"><a href="#One">One</a></li><li class="toc-l3"><a href="#Two">Two</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<h1 id="User's_Preferences">User's Preferences</h1>
+<h2 id="By_Host_Operating_System">By Host Operating System</h2>
+<ul>
+<li>Windows users -> Install VirtualBox from virtualbox.org -> recommend
+<a href="../VirtualBox.html">VirtualBox</a> ova's</li>
+<li>Linux users -> Install VirtualBox by using distribution's package
+manager -> recommend using <a href="../KVM.html">KVM</a> and
+<em><span>.qcow2</span></em>
+images</li>
+<li>Mac users -> Install VirtualBox by ? -> recommend VirtualBox
+ova's</li>
+<li>Qubes users -> <a href="../Qubes.html">Qubes</a></li>
+</ul>
+<h2 id="By_Target_Platform">By Target Platform</h2>
+<ul>
+<li><a href="../VirtualBox.html">VirtualBox</a></li>
+<li><a href="../QEMU.html">QEMU</a></li>
+<li><a href="../KVM.html">KVM</a></li>
+<li><a href="../Qubes.html">Qubes</a></li>
+<li>two physical computers (<a href="Build_Documentation/Physical_Isolation.html">Physical Isolation</a>)</li>
+<li>probably in long term future other virtualizers as well</li>
+</ul>
+<h2 id="By_Security_/_Usability_Compromise">By Security / Usability
+Compromise</h2>
+<ul>
+<li><span>Download Easy</span>
+<ul>
+<li>http-only, direct http download link (<a href="https://web.archive.org/web/20201214130610/https://github.com/Whonix/Whonix/issues/177">https
+as soon as implemented</a>)</li>
+<li>no notes about download anonymity</li>
+</ul></li>
+<li><span>Download More Secure</span>
+<ul>
+<li>Torrent + note, that anonymous download is
+difficult<sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+<li>http-only, direct http download link + hash check + note anonymous
+download</li>
+</ul></li>
+<li><span>Download Most Secure</span>
+<ul>
+<li>http(<a href="https://web.archive.org/web/20201214130610/https://github.com/Whonix/Whonix/issues/177">s</a>)
++ gpg</li>
+<li>onion + gpg</li>
+<li>notes about anonymous download</li>
+</ul></li>
+<li><span>Download Utmost
+Secure</span>
+<ul>
+<li>Build from source code</li>
+</ul></li>
+</ul>
+<h2 id="By_Download_Method">By Download Method</h2>
+<ul>
+<li>http(<a href="https://web.archive.org/web/20201214130610/https://github.com/Whonix/Whonix/issues/177">s</a>)</li>
+<li>[[Download_Security#Onion_Mirror|onion]]</li>
+<li>torrent</li>
+</ul>
+<h2 id="By_Download_Anonymity">By Download Anonymity</h2>
+<p>Low priority. Perhaps leaving this out.</p>
+<ul>
+<li>preferred download anonymity -> http(s) or onion, avoiding
+torrent</li>
+<li>no preference about download anonymity -> nevermind http(s) or
+torrent</li>
+</ul>
+<h2 id="By_Release_Life_Cycle">By Release Life Cycle</h2>
+<ul>
+<li>Stable Releases</li>
+<li>Testers-Only Releases</li>
+<li>Experimental Releases</li>
+</ul>
+<h1 id="Threat_Models">Threat Models</h1>
+<h2 id="No_attacks_prevented">No attacks prevented</h2>
+<ul>
+<li>Http-only download without verification.</li>
+<li>Good for new users who should be warned that this is only to try
+Whonix and practice getting used to Linux.</li>
+<li>-> <span>Download Easy</span></li>
+</ul>
+<h2 id="MITM_download">MITM download</h2>
+<ul>
+<li>Man-in-the-middle attack between mirror and downloader.</li>
+<li>Can be defeated by using hash check, SSL, onion or BitTorrent.</li>
+<li>-> <span>Download More
+Secure</span></li>
+</ul>
+<h2 id="whonix.org_server_compromise">whonix.org server compromise</h2>
+<ul>
+<li>Prevented by OpenPGP verification.</li>
+<li>-> <span>Download Most
+Secure</span></li>
+</ul>
+<h2 id="build_server_compromise">build server compromise</h2>
+<ul>
+<li>Prevented by building from source code.</li>
+<li>-> <span>Download Utmost
+Secure</span></li>
+</ul>
+<h1 id="Multiple_Download_Pages_Considerations">Multiple Download Pages
+Considerations</h1>
+<p>If we consider multiple download pages, users are accustomed to share
+direct download links. One who decided to use VirtualBox is likely to
+share the VirtualBox download page link. So the VirtualBox download page
+should ideally briefly mention, that there are also options on the main
+download page. Just a consideration. IF we decide that route.</p>
+<h1 id="Windows_Verification_is_hosed">Windows Verification is
+hosed</h1>
+<p>To check the hash, windows users have to either:<br />
+1. Download a utility from a website and follow the instructions about
+how to check a hash &lt;- Possible, but tedious.<br />
+2. Download via Bittorrent &lt;- Requires prior knowledge of
+Bittorrent<br />
+3. All downloads via SSL &lt;- <a href="https://web.archive.org/web/20201214130610/https://github.com/Whonix/Whonix/issues/177">Can't
+right now</a><br />
+4. Learn GPG &lt;- an important skill; but now we're jumping directory
+to the "advanced verification" stage</p>
+<p>Verifying file integrity is not something Windows encourages.</p>
+<p>No one is providing a https enabled download link for a Windows hash
+verification tool. Maybe we should redistribute <a href="https://portableapps.com/apps/utilities/rapid-crc-unicode-portable">rapid-crc-unicode-portable</a>
+(just 1 MB) over https on whonix.org?</p>
+<h1 id="Implementation_Ideas">Implementation Ideas</h1>
+<h2 id="Using_html_fieldset_tag">Using html fieldset tag</h2>
+<p>Compatibility, it looks like everyone supports it: <a href="https://www.w3schools.com/tags/tag_fieldset.asp">https://www.w3schools.com/tags/tag_fieldset.asp</a></p>
+<h3 id="Example_Draft">Example Draft</h3>
+<p><strong>Dropdown menu examples</strong></p>
+<p>No javascript required.</p>
+<p>Whonix can run on top of many host operating systems (Windows, Linux,
+Mac, Qubes and more). Whonix <a href="../Computer_Security_Education.html#Which_host_operating_system_do_you_recommend.3F">recommends</a> Debian Wheezy. (<a href="#TODO">More Options</a>)</p>
+<pre><code>&lt;html&gt;
+&lt;form class=&quot;form-download gap-from-top&quot; action=&quot;/download/&quot; method=&quot;get&quot;&gt;
+    &lt;fieldset&gt;
+        &lt;input type=&quot;hidden&quot; name=&quot;version&quot; value=&quot;9.1&quot; /&gt;
+        &lt;label for=&quot;input-operating-system&quot;&gt;Choose your operating system&lt;/label&gt;
+        &lt;select id=&quot;input-operating-system&quot; name=&quot;architecture&quot;&gt;
+            &lt;option value=&quot;Windows&quot; selected=&quot;selected&quot;&gt;Windows&lt;/option&gt;
+            &lt;option value=&quot;Linux&quot;&gt;Linux&lt;/option&gt;
+            &lt;option value=&quot;Mac&quot;&gt;Mac&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/fieldset&gt;
+    &lt;div&gt;
+        &lt;button type=&quot;submit&quot;&gt;Next&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/html&gt;</code></pre>
+<p>Whonix can run on top of various target platforms such as VirtualBox,
+KVM, Qemu, Qubes, VMware or with no virtualizer.</p>
+<pre><code>&lt;html&gt;
+&lt;form class=&quot;form-download gap-from-top&quot; action=&quot;/download/&quot; method=&quot;get&quot;&gt;
+    &lt;fieldset&gt;
+        &lt;input type=&quot;hidden&quot; name=&quot;version&quot; value=&quot;9.1&quot; /&gt;
+        &lt;label for=&quot;input-operating-system&quot;&gt;Choose your target platform&lt;/label&gt;
+        &lt;select id=&quot;input-operating-system&quot; name=&quot;architecture&quot;&gt;
+            &lt;option value=&quot;Windows&quot; selected=&quot;selected&quot;&gt;VirtualBox [status: stable] [usability: easiest]&lt;/option&gt;
+            &lt;option value=&quot;Linux&quot;&gt;KVM [status: testers-only] [usability: medium]&lt;/option&gt;
+            &lt;option value=&quot;Mac&quot;&gt;Qubes [status: testes-only] [usability: harder]&lt;/option&gt;
+            &lt;option value=&quot;Mac&quot;&gt;VMware [status: unmaintained] [usability: easy]&lt;/option&gt;
+            &lt;option value=&quot;Mac&quot;&gt;no virtualizer (physical isolation, bare metal) [status: stable] [usability: harder]&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/fieldset&gt;
+    &lt;div&gt;
+        &lt;button type=&quot;submit&quot;&gt;Download&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/html&gt;</code></pre>
+<h2 id="Expand_Button_Examples">Expand Button Examples</h2>
+<h3 id="One">One</h3>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>Interested in safer download options? Click on expand on the right
+side.</p>
+<div class="mw-collapsible-content">
+<p>Unfortunately, safer download options are more complicated, but well
+worth the effort. [...]</p>
+</div>
+</div>
+<h3 id="Two">Two</h3>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>More download options? Torrent, sha512 hash files, etc.? Click on
+expand on the right side. Without JavaScript those are expanded by
+default.</p>
+<div class="mw-collapsible-content">
+<p>Torrent, sha512 hash files, etc. [...]</p>
+</div>
+</div>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="https://forums.whonix.org/t/download-page-redesign-for-kvm-qubes-and-more-needed/716">Related
+forum discussion about this topic.</a></li>
+<li>Secure downloader. Stub downloader. Small tool that could be served
+from whonix.org over https, that could download and install the bigger
+files from elsewhere without https and do the verification. -> <a href="../Moved:Software_Signature_Verification_Usability_Issues_and_Proposed_Solutions.html">Software_Signature_Verification_Usability_Issues_and_Proposed_Solutions</a>
+-> Probably not. The Tor Project failed to implement such as tool
+(Thandy). And it is a different topic.</li>
+<li><a href="../Design.html#Download">Other Download Related
+Topics</a></li>
+<li><a href="https://tails.boum.org/install/index.en.html">Tails
+Installation Assistant</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">or at least very hard without Whonix, which is what they want to
+download in the first place</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Development.html">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

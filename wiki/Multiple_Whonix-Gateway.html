@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Multiple Whonix-Gateway</title>
+<meta name="description" content="Compartmentalization. Managing multiple Whonix-Gateway.">
+<meta property="og:description" content="Compartmentalization. Managing multiple Whonix-Gateway.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Multiple_Whonix-Gateway.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Multiple_Whonix-Gateway.html">
+<meta property="og:title" content="Multiple Whonix-Gateway">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Multiplegateways131231.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#VirtualBox">VirtualBox</a></li><li class="toc-l2"><a href="#KVM">KVM</a></li><li class="toc-l2"><a href="#Qubes-Whonix™">Qubes-Whonix™</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Multiple_Whonix-Gateway.html">Multiple
+Whonix-Gateway<sup>™</sup></a></li>
+<li><a href="Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation<sup>™</sup></a></li>
+<li><a href="Multiple_Qubes-Whonix_Templates.html">Multiple
+Qubes-Whonix<sup>™</sup> Templates</a></li>
+</ul>
+</div>
+<p><img src="../media/Multiplegateways131231.jpg.webp" alt="Multiplegateways131231.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Compartmentalization. Managing multiple Whonix-Gateway.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<strong>Note</strong>: It is far safer and easier to manage multiple
+Whonix-Gateway when only <u>one</u> is launched for user activities,
+rather than running many in parallel.</p>
+</div>
+<p>Multiple <a href="Whonix-Gateway.html">Whonix-Gateway</a>
+can be used alongside multiple <a href="Whonix-Workstation.html">Whonix-Workstation<sup>™</sup></a>, but this has both
+advantages and disadvantages. One security benefit is the isolation of
+separate Whonix-Gateway VM instances. In the event that one
+Whonix-Gateway is compromised, it is not certain the other(s) will be
+similarly compromised. On the downside, newly cloned Whonix-Gateway(s)
+will end up with a different set of Tor entry guards unless precautions
+are taken. <sup class="reference"><a href="#cite_note-1">[1]</a></sup> <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>In this configuration ISPs are probably capable of detecting that two
+different Tor data folders are in use, but this is not necessarily an
+anonymity threat. Similarly, if multiple Tor Browsers are used with
+distinct Whonix-Gateway, then a different set of Tor entry guards will
+be used as well (unless by chance the same Tor guards are chosen for
+different Whonix-Gateway).</p>
+<p>When multiple Whonix-Gateway are run in parallel, the risks explained
+in the <a href="Multiple_Whonix-Workstation.html#Safety_Precautions">Multiple Whonix-Workstation: Safety Precautions</a>
+section equally apply.</p>
+<h1 id="How_to_use_Multiple_Whonix-Gateway">How to use Multiple
+Whonix-Gateway</h1>
+<p>Platform specific. Select your virtualizer below.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Virtualbox_logo.png.webp" width="25" alt="Virtualbox_logo.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="VirtualBox">VirtualBox</h2>
+</div>
+<div class="tcc-content">
+<p>In VirtualBox Manager, it is necessary to change the name of the
+internal network for both Whonix-Gateway and Whonix-Workstation.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+<strong>Learn the default internal network name:</strong></p>
+<p><img src="../media/whonix-vbox-internal.png.webp" width="900" alt="whonix-vbox-internal.png" /></p>
+<p>The default internal network name is <code>Whonix</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+<strong>Pick an alternative internal network name:</strong></p>
+<p>For the second, third, or n<sup>th</sup> multiple Whonix-Gateway,
+another internal network name is required. Any name can be used, but
+make sure it is not reused in any other Whonix-Gateway that should be
+isolated from this one. The following example will use
+<code>Whonix</code><strong><u><code>2</code></u></strong>, however, it
+could be something completely different like
+<code>for-my-onion-web-server</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+<strong>Change Whonix-Gateway internal network name:</strong></p>
+<ul>
+<li><code>VirtualBox</code> -> Whonix-Gateway -> <code>Settings</code> ->
+<code>Network</code> ->
+<code>Adapter </code><strong><u><code>2</code></u></strong> ->
+<code>Name:</code> -> change <code>Whonix</code> to something else such
+as <code>Whonix</code><strong><u><code>2</code></u></strong> ->
+<code>OK</code></li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+<strong>Change Whonix-Workstation internal network name:</strong></p>
+<ul>
+<li><code>VirtualBox</code> -> Whonix-Workstation -> <code>Settings</code>
+-> <code>Network</code> ->
+<code>Adapter </code><strong><u><code>1</code></u></strong> ->
+<code>Name:</code> -> change <code>Whonix</code> to the same internal
+network name as above -> <code>OK</code></li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+<strong>Done.</strong></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Kvm-new-logo.png.webp" width="25" alt="Kvm-new-logo.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="KVM">KVM</h2>
+</div>
+<div class="tcc-content">
+<p>In this configuration, Whonix-Workstation will not be able to
+communicate with one another. This is recommended to keep different Tor
+activity profiles completely separate. To run multiple Whonix-Gateway,
+it is necessary to clone existing VMs; the steps below assume an
+existing Whonix install.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+<strong>Create clean clones:</strong></p>
+<p>Create clones of the Gateway and Workstation VMs rolled back to clean
+snapshots.</p>
+<p>In Virtual Machine Manager: <code>Highlight VM</code> ->
+<code>Open</code> -> <code>Virtual Machine</code> -> <code>Clone...</code>
+-> <code>Clone</code></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+<strong>Set up a different external network:</strong></p>
+<p>The Whonix-Gateway lacks a DHCP client for security hardening reasons
+and so cannot be attached to the same external network without
+conflicting with other Whonix-Gateways' traffic.</p>
+<p><span class="code-select">sudo virsh net-dumpxml Whonix-External &gt;
+Whonix-External2.xml</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+<strong>Edit the external network config:</strong></p>
+<p>Make the network unique, so it does not clash with the existing
+one.</p>
+<p><span class="code-select">sudo nano Whonix-External2.xml</span></p>
+<ul>
+<li>Change the <strong>name</strong> and <strong>bridge
+name</strong>.</li>
+<li>Delete the <strong>mac address</strong> and <strong>uuid</strong>
+parameters.</li>
+<li>Change the <strong>IP Address</strong> used.</li>
+</ul>
+<p>Or just replace the configuration with the example below (this
+assumes the only custom networks are Whonix-related).</p>
+<pre><code>&lt;network&gt;
+  &lt;name&gt;Whonix-External2&lt;/name&gt;
+  &lt;forward mode=&#39;nat&#39;&gt;
+    &lt;nat&gt;
+      &lt;port start=&#39;1024&#39; end=&#39;65535&#39;/&gt;
+    &lt;/nat&gt;
+  &lt;/forward&gt;
+  &lt;bridge name=&#39;virbr4&#39; stp=&#39;on&#39; delay=&#39;0&#39;/&gt;
+  &lt;dns enable=&#39;no&#39;/&gt;
+  &lt;ip address=&#39;10.0.3.2&#39; netmask=&#39;255.255.255.0&#39;&gt;
+  &lt;/ip&gt;
+&lt;/network&gt;</code></pre>
+<p>Save and exit.</p>
+<pre><code>CTRL-X
+y
+CTRL-M</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+<strong>Import and start the new external network:</strong></p>
+<p><span class="code-select">virsh -c qemu:///system net-define
+Whonix-External2.xml</span></p>
+<p><span class="code-select">virsh -c qemu:///system net-autostart
+Whonix-External2</span></p>
+<p><span class="code-select">virsh -c qemu:///system net-start
+Whonix-External2</span></p>
+<p>Attach the Gateway and Workstation VM NICs to the new network.</p>
+<p>To edit the VM virtual NIC settings:<br />
+<code>Highlight VM</code> -> <code>Open</code> ->
+<code>Settings (light bulb)</code> -> <code>NIC virtual hardware</code> ->
+Set Network Source to:
+<code>Virtual network 'Whonix-External2' : NAT</code></p>
+<p><img src="../media/gateway2-1.png.webp" width="600" alt="gateway2-1.png" /></p>
+<ul>
+<li>Note: <code>virbr1</code> is assigned to the <u>Whonix-External</u>
+network (default Whonix-Gateway external NAT NIC). Therefore, the
+network name was changed to <code>External2</code> and the bridge name
+to <code>virbr4</code>.</li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+<strong>Export Whonix internal network settings:</strong></p>
+<p><span class="code-select">sudo virsh net-dumpxml Whonix-Internal &gt;
+Whonix-Internal2.xml</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+<strong>Edit the internal network config:</strong></p>
+<p><span class="code-select">sudo nano Whonix-Internal2.xml</span></p>
+<ul>
+<li>Change the <strong>name</strong> and <strong>bridge
+name</strong>.</li>
+<li>Delete the <strong>mac address</strong> and <strong>uuid</strong>
+parameters.</li>
+</ul>
+<p>Or just replace the configuration with the example below (this
+assumes the only custom networks are Whonix-related).</p>
+<pre><code>&lt;network&gt;
+  &lt;name&gt;Whonix-Internal2&lt;/name&gt;
+  &lt;bridge name=&#39;virbr3&#39; stp=&#39;on&#39; delay=&#39;0&#39;/&gt;
+  &lt;dns enable=&#39;no&#39;/&gt;
+&lt;/network&gt;</code></pre>
+<p>Save and exit.</p>
+<pre><code>CTRL-X
+y
+CTRL-M</code></pre>
+<ul>
+<li>Note: <code>virbr2</code> is assigned to the <u>Whonix-Internal</u>
+network (default Whonix-Workstation internal NIC). Therefore, the
+network name was changed to <code>internal2</code> and the bridge name
+to <code>virbr3</code>.</li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+<strong>Import and start the new internal network:</strong></p>
+<p><span class="code-select">virsh -c qemu:///system net-define
+Whonix-Internal2.xml</span></p>
+<p><span class="code-select">virsh -c qemu:///system net-autostart
+Whonix-Internal2</span></p>
+<p><span class="code-select">virsh -c qemu:///system net-start
+Whonix-Internal2</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+<strong>Attach VM NICs to the new internal network:</strong></p>
+<p>To edit the VM virtual NIC settings:<br />
+<code>Highlight VM</code> -> <code>Open</code> ->
+<code>Settings (light bulb)</code> -> <code>NIC virtual hardware</code> ->
+Set Network Source to:
+<code>Virtual network 'Whonix-Internal2' : Isolated network</code></p>
+<p><img src="../media/gateway2-2.png.webp" width="600" alt="gateway2-2.png" /></p>
+<ul>
+<li>Note: The network is exclusively internal and does not communicate
+with the host in any way.</li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+<strong>Adjust network settings inside Whonix-Gateway2:</strong></p>
+<p>Now, you need to change the network settings inside the
+Whonix-Gateway2 machine. While you could modify the
+<code>30_non-qubes-whonix</code> file, it is better to avoid editing
+official Whonix files, as they may be overwritten during updates.
+Instead, create a new <code>50_custom-whonix</code> file, which will
+partially override the settings in <code>30_non-qubes-whonix</code>.</p>
+<ul>
+<li>Boot the Whonix-Gateway2 VM from KVM and create a new file:</li>
+</ul>
+<p><span class="code-select">sudo nano
+/etc/network/interfaces.d/50_custom-whonix</span></p>
+<ul>
+<li>Then copy and paste:</li>
+</ul>
+<pre><code># Custom Whonix Gateway overrides (loaded after 30_non-qubes-whonix)
+auto eth0
+iface eth0 inet static
+    pre-up ip addr flush dev eth0
+    address 10.0.3.15
+    netmask 255.255.255.0
+    gateway 10.0.3.2</code></pre>
+<p>Save and exit.</p>
+<pre><code>CTRL-X
+y
+CTRL-M</code></pre>
+<ul>
+<li>Restart network interface (or whole machine):</li>
+</ul>
+<p><span class="code-select">sudo ifdown eth0 &amp;&amp; sudo ifup
+eth0</span></p>
+<p>Related forum discussion: <a href="https://forums.whonix.org/t/do-multiple-whonix-gateways-require-different-whonix-external-virtual-nics/19903">https://forums.whonix.org/t/do-multiple-whonix-gateways-require-different-whonix-external-virtual-nics/19903</a></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">10</i>
+<strong>Change the number of pinned CPUs:</strong></p>
+<p>It is recommended to <a href="KVM.html#A)_With_an_Editor">edit</a> the cloned workstation's configuration and
+change the number of pinned CPUs to a different value (3 or 4) compared
+to the existing gateway and primary workstation. This only works if
+users have a quad-core system.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">11</i>
+<strong>Done.</strong></p>
+</div>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="Qubes-Whonix™">Qubes-Whonix<sup>™</sup></h2>
+</div>
+<div class="tcc-content">
+<p>It is simple to create additional Whonix-Gateway
+(<code>sys-whonix</code> instances) in <a href="Qubes.html">Qubes-Whonix</a>.</p>
+<p>Though the procedure is for advanced users who want the security
+benefit of separate Whonix-Gateway instances in Qubes-Whonix. While it
+affords some protection in the event that other Whonix-Gateway instances
+are compromised, it will result in a different set of Tor entry guards
+unless precautions are taken.</p>
+<p>Please ensure that the newly created <code>sys-whonix</code> is based
+on the <code>whonix-gateway-18</code> Template and has a distinctive VM
+name, so it is not confused with other VMs. Additionally, it is
+recommended <u>not</u> to run multiple Whonix-Gateway instances in
+parallel, see <a href="Multiple_Whonix-Gateway.html#Introduction">Multiple Whonix-Gateway</a>.</p>
+<p>To create a <a href="Whonix-Gateway.html">Whonix-Gateway</a> ProxyVM in Qubes:</p>
+<ol>
+<li><code>Qubes VM Manager</code> -> <code>Qube</code> ->
+<u><code>N</code></u><code>ew qube</code></li>
+<li><u>Name and label</u>: Name the ProxyVM. Do not include any personal
+information; if the ProxyVM is compromised, the attacker could run
+<code>qubesdb-read /name</code> to reveal its name. Use a generic naming
+convention, for example:
+<code>sys-whonix</code><u><code>-2</code></u>.</li>
+<li><u>Color</u>: Choose a color label for the Whonix-Gateway
+ProxyVM.</li>
+<li><u>Type</u>: Choose the type <code>Application</code>.</li>
+<li><u>Template</u>: Choose Whonix-Gateway Template. For example:
+<code>whonix-gateway-18</code>.</li>
+<li><u>Networking</u>: Choose the desired clearnet Service Qube from the
+list. For example: <code>sys-firewall</code>.</li>
+<li><u>Advanced Options</u>: Place a <i>check mark</i> in the "Provides
+network to other qubes" box. This will allow the Whonix-Gateway ProxyVM
+to provide networking for other App Qubes.</li>
+<li><u>Press</u>: <code>Create new qube</code>.</li>
+<li>See screenshots in footnotes if needed. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+<li>Open a dom0 terminal.</li>
+<li>Add qvm-tag <code>anon-gateway</code>,
+<code>sdwdate-gui-server</code> to the newly created App Qube.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+</ol>
+<p><u>Note:</u> Replace <code>sys-whonix</code><u><code>-2</code></u>
+with the actual name of the VM.</p>
+<p><span class="code-select">qvm-tags sys-whonix-2 add anon-gateway
+sdwdate-gui-server</span></p>
+<p>12. Done.</p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="See_Also">See Also</h1>
+<div class="mininav">
+<ul>
+<li><a href="Multiple_Whonix-Gateway.html">Multiple
+Whonix-Gateway<sup>™</sup></a></li>
+<li><a href="Multiple_Whonix-Workstation.html">Multiple
+Whonix-Workstation<sup>™</sup></a></li>
+<li><a href="Multiple_Qubes-Whonix_Templates.html">Multiple
+Qubes-Whonix<sup>™</sup> Templates</a></li>
+</ul>
+</div>
+<ul>
+<li><a href="Whonix-Gateway.html">Whonix-Gateway</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Such as manually configuring identical <a href="Tor_Entry_Guards.html">Tor entry guards</a>. Qube-Whonix users can copy the
+Tor state folder to another instance or use <a href="Bridges.html">Bridges</a>.</li>
+<li id="cite_note-2">At present, full instructions are not available for every
+Non-Qubes-Whonix platform.</li>
+<li id="cite_note-3"><strong>Figure:</strong> <em>Qubes Manager: Create New Qube - Step
+1</em><br />
+<img src="../media/Createproxyvm.png.webp" alt="Createproxyvm.png" /><br />
+<strong>Figure:</strong> <em>Qubes Manager: Create New Qube - Step
+2</em><br />
+<img src="../media/Createproxyvm2.png.webp" alt="Createproxyvm2.png" /></li>
+<li id="cite_note-4"><a href="Dev/Qubes.html#qvm-tags">Developer
+documentation about <code>qvm-tags</code></a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

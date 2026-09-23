@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Build Configuration</title>
+<meta name="description" content="Non-Qubes-Whonix&lt;sup&gt;&amp;trade;&lt;/sup&gt; Build Configuration. APT Repository, Onion Sources, APT Cache, VM Settings, Skip Steps, Source Code Changes">
+<meta property="og:description" content="Non-Qubes-Whonix&lt;sup&gt;&amp;trade;&lt;/sup&gt; Build Configuration. APT Repository, Onion Sources, APT Cache, VM Settings, Skip Steps, Source Code Changes">
+<link rel="canonical" href="https://www.whonix.org/wiki/Build_Configuration.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Build_Configuration.html">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Buildconfiguration12354.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Buildconfiguration12354.png.webp" alt="Buildconfiguration12354.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Non-Qubes-Whonix Build Configuration. APT Repository, Onion Sources,
+APT Cache, VM Settings, Skip Steps, Source Code Changes</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Usually the build configuration does not need to be changed. Whonix
+built from source code comes with safe defaults. The Derivative APT
+Repository will <b>not</b> be used.</p>
+<p>The most interesting build configurations are documented in the
+following chapters.</p>
+<p>If build configurations were used earlier, it might be better to
+delete the build configuration folder. A few example filenames may have
+changed since the last build.</p>
+<p><span class="code-select">sudo rm -r
+/etc/buildconfig-dist.d</span></p>
+<p><code>/etc/buildconfig-dist.d</code> is a <a href="Moved:Configuration_Files.html">modular flexible
+<code>.d</code> style configuration folder</a>.</p>
+<p>Less popular build configurations are documented in the
+derivative-maker <code>buildconfig.d</code> folder and on the <a href="Dev/Source_Code_Intro.html#Build_Configuration">Dev/Source_Code_Intro#Build_Configuration</a> page, but
+it is less user-friendly.</p>
+<p>To avoid typos, it is best to copy and paste text when creating build
+configuration files. Take care that editors do not capitalize variable
+names which are supposed to be lower case during copy and paste
+procedures.</p>
+<p>Note: All of the following build configuration steps are
+optional.</p>
+<h1 id="Platforms_Choice">Platforms Choice</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>Advanced users can create 32-bit instead of 64-bit builds.</p>
+<p>If you are interested, click on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<ul>
+<li>Whonix is 64-bit by default. <sup class="reference"><a href="#cite_note-1">[1]</a></sup>
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+</ul>
+<p>To build Whonix 32-bit, add the following build parameter.</p>
+<pre><code>--arch i386</code></pre>
+<ul>
+<li>kFreeBSD is entirely untested and most likely needs additional work
+(see footnotes). <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+</ul>
+<ul>
+<li>Whonix for arm64 development discussion (working and tested with
+QEMU on Mac M1):</li>
+</ul>
+<pre><code>--arch arm64</code></pre>
+<ul>
+<li><ul>
+<li><a href="https://forums.whonix.org/t/whonix-for-arm64-raspberry-pi-rpi/723">https://forums.whonix.org/t/whonix-for-arm64-raspberry-pi-rpi/723</a></li>
+<li><a href="https://forums.whonix.org/t/whonix-on-mac-with-arm-m1/11310">https://forums.whonix.org/t/whonix-on-mac-with-arm-m1/11310</a></li>
+</ul></li>
+</ul>
+<ul>
+<li>Generally speaking, 64-bit builds cannot be created if running a
+32-bit host kernel. See footnotes. <sup class="reference"><a href="#cite_note-4">[4]</a></sup>
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup></li>
+</ul>
+</div>
+</div>
+<p><span class="manually-placed-anchor " id="repository"></span></p>
+<h1 id="Derivative_APT_Repository">Derivative APT Repository</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p><a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>:<br />
+<u>Whonix APT Repository</u> is <u>disabled by default</u>
+<sup class="reference"><a href="#cite_note-6">[6]</a></sup> for <u>builds from source code</u> for reasons of <a href="Trust.html">Trust</a>. Users can decide to update
+Whonix Debian packages by building them from source code (greater
+security). Alternatively, Whonix APT repository can be enabled right
+after building or after booting the build for the first time (greater
+convenience) using <a href="Project-APT-Repository.html">Whonix repository tool</a>. To use the latter method
+which sacrifices security for convenience, click on Expand on the right
+side.</p>
+<div class="mw-collapsible-content">
+<p>Do you want to <u>opt-in</u> <u>Whonix APT Repository</u>?</p>
+<p>The easy way to add Whonix <code>stable</code> repository the
+following command line option can be used.</p>
+<p><span class="code-select">--repo true</span></p>
+<p>Other settings can be set using an environment variable or <a href="Dev/Source_Code_Intro.html#Build_Configuration">build
+configuration</a>. Below are examples using an environment variable.</p>
+<p><span class="code-select">DERIVATIVE_APT_REPOSITORY_OPTS='--enable
+--repository stable'</span>
+<span class="code-select">DERIVATIVE_APT_REPOSITORY_OPTS='--enable
+--repository testers'</span>
+<span class="code-select">DERIVATIVE_APT_REPOSITORY_OPTS='--enable
+--repository developers'</span>
+<span class="code-select">DERIVATIVE_APT_REPOSITORY_OPTS='--enable
+--codename trixie'</span></p>
+<p>Add an environment variable as one normally does on that specific
+Linux platform. For example, to enable the Whonix stable repository
+during build, you could set <code>DERIVATIVE_APT_REPOSITORY_OPTS</code>
+by interjecting it between <code>sudo</code> and the
+<code>./derivative-maker</code> command. Below is an example. Do not use
+<code>[...]</code>. Replace it with other chosen build parameters (such
+as <code>--build</code>, <code>--target</code> etc.) after
+<code>./derivative-maker</code>.</p>
+<p><span class="code-select">sudo
+DERIVATIVE_APT_REPOSITORY_OPTS='--enable --repository stable'
+./derivative-maker [...]</span></p>
+</div>
+</div>
+<h1 id="APT_Onion_Build_Sources">APT Onion Build Sources</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For better build security, you can also use onions apt sources for
+building Whonix.</p>
+<p>If you are interested, click on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p><strong>This does not ensure all of Whonix's build process will be
+torified!</strong> See <a href="Dev/Build_Anonymity.html">Build Anonymity</a>.</p>
+<pre><code>--connection onion</code></pre>
+</div>
+</div>
+<h1 id="Torified_or_Host_APT_Cache">Torified or Host APT Cache</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>Using an apt cache will greatly improve build speed when building
+several times in a row (e.g. when debugging, during development). Whonix
+build script sets up an apt cache by default.</p>
+<p>If you are interested in a torified apt-cacher-ng or host
+apt-cacher-ng, click on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>torified apt-cacher-ng</strong></p>
+<div class="info-box ">
+<p>Notes:</p>
+<ul>
+<li>The following torified apt-cacher-ng setup only has to be applied,
+if you are building using onion apt sources using
+<code>--connection onion</code>.</li>
+<li>When building inside Whonix-Workstation<sup>™</sup>, this is not
+required.</li>
+</ul>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Note, this neither torifies all of the build script's connections nor
+hides Tor from your ISP! See <a href="Dev/Build_Anonymity.html">Build Anonymity</a>.</p>
+</div>
+<p>The goal of this is to torify <code>apt-cacher-ng</code> using
+<code>torsocks</code> so it will be able to connect to onions.</p>
+<p><strong>Note:</strong> <u>This is currently broken.</u> No fix
+available. <a href="Unsupported.html">Undocumented</a>.</p>
+<p><strong>1.</strong> Install <code>apt-cacher-ng</code>,
+<code>torsocks</code> and <code>tor</code>.</p>
+<pre><code>sudo apt install apt-cacher-ng torsocks tor</code></pre>
+<p><strong>2.</strong> Create folder apt-cacher-ng systemd drop-in
+folder <code>/lib/systemd/system/apt-cacher-ng.service.d</code>.</p>
+<pre><code>sudo mkdir -p /lib/systemd/system/apt-cacher-ng.service.d</code></pre>
+<p><strong>3.</strong> Open file
+<code>/lib/systemd/system/apt-cacher-ng.service.d/50_user.conf</code> in
+an editor with administrative ("<a href="Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/lib/systemd/system/apt-cacher-ng.service.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/lib/systemd/system/apt-cacher-ng.service.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/lib/systemd/system/apt-cacher-ng.service.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>4.</strong> Add. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<p><span class="code-select">[Service] ExecStart= ExecStart=torsocks
+/usr/sbin/apt-cacher-ng SocketPath=/run/apt-cacher-ng/socket -c
+/etc/apt-cacher-ng ForeGround=1</span></p>
+<p><strong>5.</strong> Save.</p>
+<p><strong>6.</strong> Reload systemd.</p>
+<p><span class="code-select">sudo systemctl daemon-reload</span></p>
+<p><strong>7.</strong> Restart apt-cacher-ng.</p>
+<p><span class="code-select">sudo systemctl restart
+apt-cacher-ng</span></p>
+<p><strong>8.</strong> Done.</p>
+<p>The process of torification of apt-cacher-ng has been completed.</p>
+<p><strong>9.</strong> Broken!</p>
+<p><span class="code-select">/etc/tor/torsocks.conf</span> add:</p>
+<p><span class="code-select">AllowInbound 1 AllowOutboundLocalhost
+1</span></p>
+<p>But this is also insufficient.</p>
+<p><span class="code-select">sudo journalctl -f -u
+apt-cacher-ng</span></p>
+<p>shows errors:</p>
+<pre><code>WARNING torsocks[17645]: Config file not found: /etc/tor/torsocks.conf. Using default for Tor (in config_file_read() at config-file.c:583)
+Couldn&#39;t listen on socket: Operation not permitted
+Error creating socket: Function not implemented</code></pre>
+<p>No fix available. Help welcome.</p>
+</div>
+</div>
+<div class="info-box ">
+<p><strong>host apt-cacher-ng</strong></p>
+<p>This is probably only useful for developers. Most users will not need
+the complexity of an apt-cacher-ng running outside of the VM which runs
+derivative-maker or on another computer.</p>
+<div class="info-box ">
+<p>Be sure to have a firewall, so the whole internet cannot use the
+apt-cacher-ng service.</p>
+<p>When building inside a non-Whonix VM, an apt cache can be used on the
+host. In that case, adjust the IP accordingly and manually test that it
+is reachable. When building inside a (Whonix) VM, just install the apt
+cache inside the VM and point to a localhost apt cache.</p>
+<p>Prepend <code>REPO_PROXY=</code><a href="http://127.0.0.1:3142"><code>http://127.0.0.1:3142</code></a>
+before the build command.</p>
+<p>Replace the IP <code>127.0.0.1</code> with the IP address of your
+host. For security reasons, this should only be done over LAN and not
+over the internet.</p>
+<pre><code>sudo REPO_PROXY=http://127.0.0.1:3142 ./derivative-maker ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+<h1 id="VM_Settings">VM Settings</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>Various VM settings can optionally be changed.</p>
+<p>tested: Virtual RAM, virtual video RAM, hard drive size</p>
+<p>untested: filesystem, hostname, password This is only relevant for VM
+builds.</p>
+<div class="mw-collapsible-content">
+<p>Several examples are below. Values can be changed to suit user
+preferences.</p>
+<p>VirtualBox's <code>--vmsize</code> option (virtual RAM).</p>
+<pre><code>--vmram 128</code></pre>
+<p>VirtualBox's <code>--vram</code> option (virtual video RAM).</p>
+<pre><code>--vram 128</code></pre>
+<p>grml-debootstrap's <code>--vmsize</code> option.</p>
+<pre><code>--vmsize 200G</code></pre>
+<p><a href="https://manpages.debian.org/grml-debootstrap"><code>grml-debootstrap</code>'s</a>
+<code>--filesystem</code> option.</p>
+<pre><code>--filesystem ext4</code></pre>
+<p>grml-debootstrap's <code>--hostname</code> option.
+<sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<pre><code>--hostname host</code></pre>
+<p>grml-debootstrap's <code>--password</code> option.</p>
+<pre><code>--os-password changeme</code></pre>
+<p>grml-debootstrap's <code>--debopt</code> option.</p>
+<pre><code>--debopt &quot;--verbose&quot;</code></pre>
+</div>
+</div>
+<h1 id="Build_Variables_Changes">Build Variables Changes</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>It is possible to add build configuration files snippets which can
+change build variables.</p>
+<div class="mw-collapsible-content">
+<p><u>Build Configuration Folders</u>:</p>
+<p>You can drop configuration file either in:</p>
+<ol>
+<li><code>buildconfig.d</code> or in</li>
+<li><code>/etc/buildconfig-dist.d</code></li>
+<li><code>../buildconfig.d</code> folder.</li>
+</ol>
+<p>Files should have the file extension <code>.conf</code></code>.</p>
+<p>Method 2. is recommended for users.</p>
+<ol>
+<li>Contains examples. It is more difficult to use. <sup class="reference"><a href="#cite_note-9">[9]</a></sup>
+Rather use the following.</li>
+<li><code>sudo mkdir --parents /etc/buildconfig-dist.d</code></li>
+<li>When <code>/home/user/Whonix</code> is your Whonix source folder,
+you could use <code>/home/user/buildconfig.d</code> as your Whonix build
+configuration folder. It is easier to use, since you don't have to git
+commit your build config files.</li>
+</ol>
+<p><sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p>Below is an example how to use method 2.</p>
+<p><span class="code-select">sudo mkdir
+/etc/buildconfig-dist.d</span></p>
+<p>Open file <code>/etc/buildconfig-dist.d/50_user.conf</code> in an
+editor with administrative ("<a href="Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/buildconfig-dist.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_2">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/buildconfig-dist.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/buildconfig-dist.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add. (Replace it with whatever build configuration variable you wish
+to set.)</p>
+<p>Example 1.</p>
+<p><span class="code-select">export
+DERIVATIVE_APT_REPOSITORY_OPTS='--enable --repository stable'</span></p>
+<p>Example 2.</p>
+<p><span class="code-select">export tbb_version=13.0.1</span></p>
+<p>Save.</p>
+<p>Done.</p>
+</div>
+</div>
+<h1 id="Build_Variables">Build Variables</h1>
+<p>build results binary folder (<code>derivative-binary</code>) |
+<span class="code-select inline-style">binary_build_folder_dist</span> |
+default: <code>$HOMEVAR/derivative-binary</code></p>
+<p>See <a href="#Build_Variables_Changes">#Build
+Variables Changes</a> on how to set build variables.</p>
+<h1 id="Skip_Steps">Skip Steps</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>Advanced users can opt-in to skip certain build steps and/or Debian
+maintenance scripts (postinst, preinst, ...).</p>
+<div class="mw-collapsible-content">
+<p><u>Skip Sanity Tests</u></p>
+<p>Useful to speed up the build.</p>
+<pre><code>--sanity-tests false</code></pre>
+<p><u>Skipping Build Steps</u></p>
+<pre><code>export SKIP_SCRIPTS+=&quot; 1300_create-raw-image &quot;</code></pre>
+<p><u>Skipping Chroot and/or Postinst Scripts</u></p>
+<pre><code>export SKIP_SCRIPTS+=&quot; dist-base-files.postinst &quot;</code></pre>
+<p>Look at the file names and add them.
+<code>export SKIP_SCRIPTS+=" another_file_name "</code>. Do not forget
+empty spaces before and after <code>"</code>. <sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+</div>
+</div>
+<h1 id="Source_Code_Changes">Source Code Changes</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>If changes were made to the <code>derivative-maker</code> source code
+folder, it is the easiest to use the following build parameter.</p>
+<div class="mw-collapsible-content">
+<p>Notes:</p>
+<ul>
+<li>This is only required if changes were made to the
+<code>derivative-maker</code> source folder.</li>
+<li>This is not required if only a customized build configuration was
+added to the <code>/etc/buildconfig-dist.d</code> folder.</li>
+</ul>
+<pre><code>--allow-uncommitted true</code></pre>
+<p>Or if not building from a git tag, it is the easiest to use the
+following build parameter.</p>
+<pre><code>--allow-untagged true</code></pre>
+<p>Otherwise, changes must be committed to git first, before creating a
+git tag.</p>
+</div>
+</div>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://forums.whonix.org/t/state-of-offical-64-bit-builds">State
+of official 64-bit builds</a>.</li>
+<li id="cite_note-2">Don't get confused by the term <code>amd64</code>. It runs on both,
+Intel and AMD. <code>amd64</code> is only how Debian names the kernel.
+It works equally well on Intel and AMD.</li>
+<li id="cite_note-3">kFreeBSD (32-bit).
+<pre><code> --arch kfreebsd-i386 --kernel kfreebsd-image --headers kfreebsd-headers </code></pre>
+<p>kFreeBSD (64-bit).</p>
+<pre><code> --arch kfreebsd-amd64 --kernel kfreebsd-image --headers kfreebsd-headers </code></pre></li>
+<li id="cite_note-4"><a href="https://github.com/grml/grml-debootstrap/pull/13">https://github.com/grml/grml-debootstrap/pull/13</a></li>
+<li id="cite_note-5">In this case, try installing the packages
+<span>linux-image-amd64</span> and
+<span>linux-headers-amd64</span> on
+your host, then boot the amd64 kernel by choosing it in the boot menu.
+The whole system does not require re-installation; just be sure to boot
+with an amd64 kernel. Alternatively, consider to re-install your host
+using amd64.</li>
+<li id="cite_note-6">Since Whonix <code>7.3.3</code></li>
+<li id="cite_note-7">* The first <span class="code-select inline-style">ExecStart=</span>
+is to disable the default <code>ExecStart</code> in
+<code>/lib/systemd/system/apt-cacher-ng.service</code>. * This is based
+on
+<span class="code-select inline-style">/lib/systemd/system/apt-cacher-ng.service</span>
+. * Only <span class="code-select inline-style">torsocks</span> is
+prepended in front of
+<span class="code-select inline-style">/usr/sbin/apt-cacher-ng</span> *
+No other changes.</li>
+<li id="cite_note-8">The <a href="https://github.com/Whonix/anon-base-files">anon-base-files</a>
+package will change this later on.</li>
+<li id="cite_note-9">Since you would have to either: * A) git commit your build config
+files, OR, * B) See chapter source code changes below.</li>
+<li id="cite_note-10">This is because <code>..</code> means "one level below this
+folder".</li>
+<li id="cite_note-11">We are expanding a bash array.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a> <a href="Category:Development.html">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

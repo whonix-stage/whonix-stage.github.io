@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Install Tor Browser Outside of Whonix</title>
+<meta name="description" content="Installing Tor Browser outside of Whonix. Fallback if Whonix breaks. Test Tor connectivity outside of Whonix.">
+<meta property="og:description" content="Installing Tor Browser outside of Whonix. Fallback if Whonix breaks. Test Tor connectivity outside of Whonix.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Install_Tor_Browser_Outside_of_Whonix.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Install_Tor_Browser_Outside_of_Whonix.html">
+<meta property="og:title" content="Install Tor Browser on Debian, Kicksecure or Qubes using Tor Browser Downloader (by Whonix developers)">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Tbboutside.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#All_Platforms:_Manual_Tor_Browser_Download">All Platforms: Manual
+Tor Browser Download</a></li><li class="toc-l2"><a href="#Debian_Linux_Hosts">Debian Linux Hosts</a></li><li class="toc-l2"><a href="#Clone_the_Template">Clone the Template</a></li><li class="toc-l2"><a href="#anon-whonix_Steps">anon-whonix Steps</a></li><li class="toc-l2"><a href="#Template_Steps">Template Steps</a></li><li class="toc-l2"><a href="#App_Qube_Steps">App Qube Steps</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Tbboutside.jpg.webp" alt="Tbboutside.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<ul>
+<li><strong>A)</strong> Installation of Tor Browser on Whonix: Tor
+Browser is installed by default in Whonix. For more information and
+re-installtion, see the <a href="Tor_Browser.html">Tor
+Browser</a> wiki page.</li>
+<li><strong>B)</strong> Installation of Tor Browser using tb-updater (by
+Whonix developers) for Debian, Kicksecure, or Qubes: See this wiki
+page.</li>
+</ul>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="Community_Support.html">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<p>Various wiki sections recommend that a functional Tor Browser
+instance is maintained outside of the Whonix platform. This is useful in
+various cases:</p>
+<ul>
+<li>Should Whonix ever break, it is possible to search for a solution
+anonymously.</li>
+<li>System-wide Tor problems can be easily detected by testing
+connectivity outside of Whonix.</li>
+<li>Certain Tor / Tor Browser activities are difficult (or impossible)
+to configure in Whonix, but are much easier in the standard
+configuration. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+</ul>
+<p>In <a href="Non-Qubes-Whonix.html">Non-Qubes-Whonix</a>,
+it is recommended to have Tor Browser installed on the Linux / macOS /
+Windows host platform. In <a href="Qubes.html">Qubes-Whonix<sup>™</sup></a>, it is recommended to
+install Tor Browser in a <code>debian-13</code>,
+<code>debian-13-minimal</code> or <code>kicksecure</code> App Qube
+(advanced users).</p>
+<p><u>Note</u>: If an expired key signature message like below appears,
+the steps in this chapter must be performed again due to an update of
+the Whonix signing key; see <a href="https://forums.whonix.org/t/expired-key-signature/11457">Expired
+key signature</a>.</p>
+<pre><code>The following signatures were invalid: EXPKEYSIG CB8D50BB77BB3C48 Patrick Schleizer adrelanos@whonix.org</code></pre>
+<h1 id="Easy">Easy</h1>
+<h2 id="All_Platforms:_Manual_Tor_Browser_Download">All Platforms: Manual
+Tor Browser Download</h2>
+<p>Follow <a href="Tor_Browser/Manual_Download.html#Manually_Downloading_Tor_Browser">these instructions</a> to manually download Tor Browser
+with Firefox-ESR via the available onion service. This method is not
+anonymous, unless <a href="Qubes.html">Qubes-Whonix</a>
+users temporarily set <code>sys-whonix</code> as the NetVM for the
+non-Whonix App Qube.</p>
+<h2 id="Debian_Linux_Hosts">Debian Linux Hosts</h2>
+<p>Tor Browser can optionally be downloaded utilizing the <a href="https://github.com/Kicksecure/tb-updater"><code>tb-updater</code></a>
+software package by Whonix developers. By default the download <u>does
+not</u> occur over Tor, meaning it is <u>not</u> anonymous.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Download the <a href="Signing_Key.html">Signing Key</a>.</p>
+<p><span class="code-select">wget <a href="https://www.whonix.org/derivative.asc">https://www.whonix.org/derivative.asc</a></span></p>
+<p><strong>2.</strong> <em>Optional:</em> <a href="Signing_Key.html">Check the Signing Key</a> for better security.</p>
+<p><strong>3.</strong> Add Whonix signing key.</p>
+<p><span class="code-select">sudo cp derivative.asc
+/usr/share/keyrings/derivative.asc</span></p>
+<p><strong>4.</strong> Whonix APT repository choices.</p>
+<p><em>Optional:</em> See <a href="Packages_for_Debian_Hosts.html">Whonix Packages for Debian Hosts and Whonix Host
+Enhancements</a> instead of the next step for more secure and complex
+options.</p>
+<p><strong>5.</strong> Add Whonix APT repository.</p>
+<p><span class="code-select">echo "Types: deb URIs: <a href="https://deb.whonix.org">https://deb.whonix.org</a> Suites: trixie
+Components: main contrib non-free Enabled: yes Signed-By:
+/usr/share/keyrings/derivative.asc" | sudo tee
+/etc/apt/sources.list.d/derivative.sources</span></p>
+<p><strong>5.</strong> Update the package lists.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><strong>6.</strong> Install <code>tb-updater</code>.</p>
+<p><span class="code-select">sudo apt install tb-updater</span></p>
+</div>
+<h1 id="Moderate:_QubesOS">Moderate: QubesOS</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Ambox_notice.png" /></span>
+<a href="Qubes.html">Qubes-Whonix</a> R4 only! This method
+is anonymous.</p>
+</div>
+<p>Summary of instructions of Qubes OS. Details below. These
+instructions:</p>
+<ol>
+<li>Anonymously retrieve and verify the Whonix signing key.</li>
+<li>Copy the Whonix signing key to a debian-13
+(<code>debian-13-tor</code>) or debian-13-minimal
+(<code>debian-13-minimal-tor</code>) Template clone.</li>
+<li>Add the Whonix signing key to the list of trusted keys.</li>
+<li>Install apt-transport-tor in the <code>debian-13-tor</code> /
+<code>debian-13-minimal-tor</code> Template.</li>
+<li>Add the Whonix APT repository.</li>
+<li>Install <code>tb-updater</code> from the Whonix repository.</li>
+<li>Create a <code>debian-tor-browser</code> /
+<code>debian-minimal-tor-browser</code> App Qube based on the Template
+clone.</li>
+</ol>
+<p>The <code>debian-13-minimal</code> template provides a smaller attack
+surface, but is recommended for advanced users. Several package
+prerequisites are required for full functionality; see footnote.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup> <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<h2 id="Clone_the_Template">Clone the Template</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<u>Prerequisite</u>: The <code>debian-13</code> or
+<code>debian-13-minimal</code> Template must be manually installed first
+if it not already available. In <code>dom0</code>, run either.
+<span class="code-select">sudo qvm-template install debian-13</span> Or.
+<span class="code-select">sudo qvm-template install
+debian-13-minimal</span></p>
+</div>
+<p>In Qube Manager:
+<code>Right-click debian-13 or debian-13-minimal template</code> ->
+<u><code>C</code></u><code>lone qube</code> ->
+<code>Rename to debian-13-tor or debian-13-minimal-tor</code></p>
+<h2 id="anon-whonix_Steps">anon-whonix Steps</h2>
+<p>Run the following commands in <code>anon-whonix</code> terminal.
+Advanced users can utilize a Whonix DispVM instead in this section.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Download the Whonix signing key.</p>
+<p><span class="code-select">curl --tlsv1.3 --proto =https --max-time
+180 --output derivative.asc <a href="https://www.whonix.org/derivative.asc">https://www.whonix.org/derivative.asc</a></span></p>
+<p><strong>2.</strong> Display the key fingerprint.</p>
+<p><span class="code-select">gpg --keyid-format long --import
+--import-options show-only --with-fingerprint derivative.asc</span></p>
+<p><strong>3.</strong> Verify the Whonix signing key fingerprint.</p>
+<p>Compare the fingerprint to the one found <a href="Signing_Key.html">here</a>. The most important check is confirming the
+fingerprint <u>exactly</u> matches the output below.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<pre><code>      Key fingerprint = 916B 8D99 C38E AF5E 8ADC  7A2A 8D66 066A 2EEA CCDA</code></pre>
+<p>The message
+<code>gpg: key 8D66066A2EEACCDA: 104 signatures not checked due to missing keys</code>
+is related to the <a href="Moved:OpenPGP.html#The_OpenPGP_Web_of_Trust">The OpenPGP Web of Trust</a>. Advanced users can learn
+more about this <a href="Main/Project_Signing_Key.html#OpenPGP_Web_of_Trust">here</a>.</p>
+<p><strong>4.</strong> Rename the Whonix signing key to a temporary
+<code>derivative.asc</code> file.</p>
+<p><span class="code-select">mv derivative.asc
+/tmp/derivative.asc</span></p>
+<p><strong>5.</strong> Copy the <code>derivative.asc</code> text file to
+the <code>debian-13-tor</code> or <code>debian-13-minimal-tor</code>
+Template.</p>
+<p><span class="code-select">qvm-copy /tmp/derivative.asc</span></p>
+<p>When prompted, choose either the <code>debian-13-tor</code> or
+<code>debian-13-minimal-tor</code> Template.</p>
+</div>
+<h2 id="Template_Steps">Template Steps</h2>
+<p>Complete the following steps in <code>debian-13-tor</code> or
+<code>debian-13-minimal-tor</code> terminal.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Add the Whonix signing key to the list of trusted
+keys.</p>
+<p><span class="code-select">sudo cp
+~/QubesIncoming/anon-whonix/derivative.asc
+/usr/share/keyrings/derivative.asc</span></p>
+<p><strong>2.</strong> Add the Whonix stable APT repository.
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup> <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p><span class="code-select">echo "Types: deb URIs: <a href="https://deb.whonix.org">https://deb.whonix.org</a> Suites: trixie
+Components: main contrib non-free Enabled: yes Signed-By:
+/usr/share/keyrings/derivative.asc" | sudo tee
+/etc/apt/sources.list.d/derivative.sources</span></p>
+<p><strong>3.</strong> Update the package lists.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><strong>4.</strong> Install <code>tb-updater</code> by Whonix.</p>
+<p><span class="code-select">sudo apt install tb-updater</span></p>
+<p>Note: This step will correctly install <code>tb-updater</code> and
+should also automatically download Tor Browser. If that does not occur,
+complete steps 2 to 4 below after creating an App Qube.</p>
+</div>
+<h2 id="App_Qube_Steps">App Qube Steps</h2>
+<div class="info-box ">
+<p><strong>1.</strong> Create an App Qube based on the
+<code>debian-13-tor</code> or <code>debian-13-minimal-tor</code>
+Template.</p>
+<p>In Qube Manager:
+<code>Left-click </code><u><code>Q</code></u><code>ube</code> ->
+<code>Create </code><u><code>n</code></u><code>ew qube</code></p>
+<p>Use the following settings:</p>
+<ul>
+<li><u>Name and label:</u> debian-tor-browser or
+debian-minimal-tor-browser</li>
+<li><u>Type:</u> App Qube</li>
+<li><u>Template:</u> debian-13-tor or debian-13-minimal-tor</li>
+<li><u>Networking:</u> default (sys-firewall)</li>
+</ul>
+<p><strong>2.</strong> <em>Optional:</em> Temporarily set
+<code>sys-whonix</code> as the NetVM for the Debian App Qube.</p>
+<p>If Tor Browser was not downloaded at step 5 in the previous section,
+complete steps 2 to 4.</p>
+<p>In Qube Manager:
+<code>Right-click </code><em><code>debian-tor-browser</code></em> or
+<em><code>debian-minimal-tor-browser</code></em> ->
+<code>Qube s</code><u><code>e</code></u><code>ttings</code> ->
+<code>Networking</code> ->
+<code>Select </code><em><code>sys-whonix</code></em> ->
+<code>OK</code></p>
+<p><strong>3.</strong> <em>Optional:</em> Download Tor Browser.</p>
+<p>In terminal, run.</p>
+<p><span class="code-select">update-torbrowser --input gui</span></p>
+<p><strong>4.</strong> <em>Optional:</em> Revert the networking setting
+to <code>sys-firewall</code> in Qube Manager.</p>
+<p><strong>5.</strong> Launch Tor Browser from the App Qube menu and
+check it is functional.</p>
+<p>Note: Tor Browser can be kept up-to-date using Tor Browser's internal
+updater. It is not necessary to run the <em>update-torbrowser</em>
+command again.</p>
+</div>
+<p><strong>Figure:</strong> <em>Tor Browser in Qubes'
+<code>debian-minimal-tor-browser</code> App Qube</em></p>
+<p><img src="../media/Debian10minimaltorbrowser.png.webp" alt="Debian10minimaltorbrowser.png" /></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">For example, the <a href="Bridges.html#Snowflake">Snowflake</a> pluggable transport client is currently
+experimental in Whonix.</li>
+<li id="cite_note-2">At the time of writing the <a href="https://www.qubes-os.org/doc/templates/minimal/">Qubes
+documentation</a> and <a href="https://forum.qubes-os.org/t/debian-10-minimal-configuration/2603">forums</a>
+suggest the following essential packages for browsing purposes: *
+qubes-core-agent-passwordless-root * qubes-core-agent-networking *
+pulseaudio-qubes To utilize nautilus file manager so a GUI can be used
+to interact with downloaded files (optional): *
+qubes-core-agent-nautilus * nautilus * zenity If you plan on mounting
+encrypted drives (optional): * gnome-keyring * policykit-1 *
+libblockdev-crypto2</li>
+<li id="cite_note-3">Also see <a href="https://svensemmler.org/notes/deb-min-templates">automate
+debian-minimal based template creation</a></li>
+<li id="cite_note-4">Minor changes in the output such as new uids (email addresses) or
+newer expiration dates are inconsequential.</li>
+<li id="cite_note-5">Alternatively use the stable onion APT repository:
+<span class="code-select">echo "Types: deb URIs: <a href="http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion">http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion</a>
+Suites: trixie Components: main contrib non-free Enabled: yes Signed-By:
+/usr/share/keyrings/derivative.asc" | sudo tee
+/etc/apt/sources.list.d/derivative.sources</span></li>
+<li id="cite_note-6">Note: <code>tor+http</code> does not work in this
+configuration.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

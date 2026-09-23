@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Tunnels/Examples</title>
+<meta name="description" content="Instructions on how to combine VPN tunnels with Tor in Whonix">
+<meta property="og:description" content="Instructions on how to combine VPN tunnels with Tor in Whonix">
+<link rel="canonical" href="https://www.whonix.org/wiki/Tunnels/Examples.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Tunnels/Examples.html">
+<meta property="og:title" content="VPN Tunnel Setup Examples">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Dykeroad-41832640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../pygments.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="../About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../About.html">Home</a></li><li><a href="../Download.html">Download</a></li><li><a href="../Documentation.html">Docs</a></li><li><a href="../FAQ.html">FAQ</a></li><li><a href="../Support.html">Help</a></li><li><a href="../Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../About.html">Home</a> / <span>Tunnels</span> / <span>Examples</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Riseup_Quick_VPN_Command_Line_Test">Riseup Quick VPN Command
+Line Test</a></li><li class="toc-l2"><a href="#Riseup_riseup.conf">Riseup riseup.conf</a></li><li class="toc-l2"><a href="#Riseup_DNS">Riseup DNS</a></li><li class="toc-l3"><a href="#Setup">Setup</a></li><li class="toc-l3"><a href="#Testing">Testing</a></li><li class="toc-l2"><a href="#KDE_Network_Manager">KDE Network Manager</a></li><li class="toc-l2"><a href="#GNOME_Network_Manager">GNOME Network Manager</a></li><li class="toc-l3"><a href="#Autostart_GNOME_Network_Manager">Autostart GNOME Network
+Manager</a></li><li class="toc-l3"><a href="#Visible_nm-applet_Start_Menu_Entries">Visible nm-applet Start
+Menu Entries</a></li><li class="toc-l3"><a href="#Visible_nm-connection-editor_Start_Menu_Entries">Visible
+nm-connection-editor Start Menu Entries</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="Introduction.html" title="Tunnels/Introduction"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tunnels/Introduction</span></a><a class="index internal" href="../Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Lantern.html" title="Lantern"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Lantern</span></a><span class="info"><span class="prev">Previous
+page: Tunnels/Introduction</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Lantern</span></span></span>VPN Tunnel Setup Examples</p>
+</div>
+<p><img src="../../media/Dykeroad-41832640.jpg.webp" alt="Dykeroad-41832640.jpg" /></p>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<b><u>Before combining Tor with other tunnels, <a href="Introduction.html">be sure to read and
+understand the risks</a>!</u></b></p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="../Community_Support.html">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<p>This page is intended to demonstrate how easy it is to add a VPN to
+Whonix, whether utilizing a VPN tunnel-link before Tor
+(<code>User</code> -> <code>Tor</code> -> <code>VPN</code> ->
+<code>Internet</code>) or after Tor (<code>User</code> ->
+<code>VPN</code> -> <code>Tor</code> -> <code>Internet</code>).</p>
+<p>The examples below are mainly for testing purposes. It is possible to
+set up accounts for the same reasons, or the information can be used as
+a very rough guide for setting up a VPN with Whonix. To remain
+anonymous:</p>
+<ul>
+<li>In all cases, never enter personal information when signing up for
+an account.</li>
+<li>Use an extra email address solely for registration purposes.</li>
+<li>If planning on the <code>User</code> -> <code>Tor</code> ->
+<code>VPN</code> configuration, then you should obviously sign up
+through Tor.</li>
+<li>If planning on the <code>User</code> -> <code>VPN</code> ->
+<code>Tor</code> configuration, it is unknown whether it is best to sign
+up via Tor or not, but it probably cannot hurt.</li>
+</ul>
+<h1 id="Riseup">Riseup</h1>
+<h2 id="Riseup_Quick_VPN_Command_Line_Test">Riseup Quick VPN Command
+Line Test</h2>
+<p><a href="https://riseup.net/">Riseup</a> is known to support TCP, UDP
+and <a href="../Moved:SSL.html">TLS</a>.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Create a <a href="https://account.riseup.net/user/new">new Riseup account</a>.</p>
+<p>Note an account can only be created with an <a href="https://support.riseup.net/en/topics/10340-invite-code/posts">invite
+code</a>.</p>
+<p><strong>2.</strong> Obtain your VPN secret (VPN password).</p>
+<ul>
+<li>login to <code>account.riseup.net</code></li>
+<li>click Passwords on the left sidebar</li>
+<li>click the Service Passwords tab</li>
+</ul>
+<p><strong>3.</strong> Download the Riseup CA certificate.</p>
+<p>The "CA certificate" is used by the local program to confirm the
+identity of servers you connect to. Download it from <a href="https://riseup.net/es/security/network-security/riseup-ca">this
+page</a> or click this link: <a href="https://riseup.net/es/security/network-security/riseup-ca/RiseupCA.pem">RiseupCA.pem</a>.</p>
+<p><strong>4.</strong> Open a terminal.</p>
+<p>Navigate to the folder where <code>RiseupCA.pem</code> was saved.</p>
+<p><strong>5.</strong> Install <a href="https://openvpn.net/">OpenVPN</a>.</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt install
+openvpn</span></p>
+<p><strong>6.</strong> Test the connection from the command line.</p>
+<p>The following line from the Riseup OpenVPN for Linux page
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup> will not work for the connection: <code>user</code> ->
+<code>Tor</code> -> <code>VPN</code> -> <code>Internet</code>, because the
+Tor network does not support UDP.</p>
+<p><span class="code-select">sudo openvpn --client --dev tun
+--auth-user-pass --remote vpn.riseup.net 1194 --keysize 256 --auth
+SHA256 --cipher AES-256-CBC --ca RiseupCA.pem</span></p>
+<p>Instead, use the following functional command utilizing TCP for the
+connection: <code>user</code> -> <code>Tor</code> -> <code>VPN</code> ->
+<code>Internet</code>.</p>
+<p><span class="code-select">sudo openvpn --client --dev tun
+--auth-user-pass --remote vpn.riseup.net 1194 --keysize 256 --auth
+SHA256 --cipher AES-256-CBC --ca RiseupCA.pem --proto tcp</span></p>
+<p><strong>7.</strong> For DNS, see <a href="#Riseup_DNS">Riseup DNS</a> below.</p>
+</div>
+<h2 id="Riseup_riseup.conf">Riseup riseup.conf</h2>
+<p><a href="https://riseup.net/">Riseup</a> is known to support TCP, UDP
+and <a href="../Moved:SSL.html">TLS</a>.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Utilize the Riseup account and name created in
+the previous section.</p>
+<p><strong>2.</strong> Obtain your VPN secret (VPN password).</p>
+<p>Navigate to the <a href="https://account.riseup.net/">Riseup Red
+Account</a> page (<a href="http://3xeiol2bnhrsqhcsaifwtnlqkylrerdspzua7bcjrh26qlrrrctfobid.onion/">.onion</a>),
+log in and click on "VPN".</p>
+<p><strong>3.</strong> Download the Riseup CA certificate.</p>
+<p>The "CA certificate" is used by the local program to confirm the
+identity of servers you connect to. Download it from <a href="https://riseup.net/es/security/network-security/riseup-ca">this
+page</a> or click this link: <a href="https://riseup.net/es/security/network-security/riseup-ca/RiseupCA.pem">RiseupCA.pem</a>.</p>
+<p><strong>4.</strong> Create a file <code>auth.txt</code> inside the
+same folder.</p>
+<p>Open file <code>auth.txt</code> in a <a href="../Moved:Software.html#Text_Editor">text editor</a> of your choice as a regular, non-root
+user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad auth.txt</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano auth.txt</span></p>
+</div>
+<p><strong>5.</strong> Paste the following content.</p>
+<p><u>Notes:</u></p>
+<ul>
+<li>Replace <code>riseupusername</code> with your actual Riseup user
+name.</li>
+<li>Replace <code>vpnsecret</code> with your actual Riseup
+password.</li>
+</ul>
+<pre><code>riseupusername
+vpnsecret</code></pre>
+<p><strong>6.</strong> Create a file <code>riseup.conf</code> inside the
+same folder.</p>
+<pre><code>client
+dev tun
+auth-user-pass auth.txt
+#remote vpn.riseup.net 443
+#remote seattle.vpn.riseup.net 443
+remote nyc.vpn.riseup.net 80
+ca RiseupCA.pem
+remote-cert-tls server
+script-security 1
+#user nobody
+#group nobody
+proto tcp
+#log /var/log/openvpn.log</code></pre>
+<p><strong>7.</strong> Start OpenVPN.</p>
+<p><span class="code-select">sudo openvpn riseup.conf</span></p>
+<p><strong>8.</strong> For DNS, see <a href="#Riseup_DNS">Riseup DNS</a> below.</p>
+</div>
+<h2 id="Riseup_DNS">Riseup DNS</h2>
+<h3 id="Setup">Setup</h3>
+<div class="info-box ">
+<p><strong>1.</strong> Open file <code>/etc/resolv.conf</code> in an
+editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Comment out the nameserver.</p>
+<pre><code>#nameserver 10.152.152.10</code></pre>
+<p><strong>3.</strong> Add the Riseup OpenVPN DNS server.</p>
+<pre><code>## Riseup.net OpenVPN DNS server
+nameserver 172.27.100.1</code></pre>
+<p>If Riseup is not being used in your configuration, then replace
+<code>172.27.100.1</code> with the virtual LAN IP address of your VPN
+provider's DNS server. It probably can be obtained directly from the VPN
+provider. Another method of inferring it is running
+<code>sudo route</code> after successfully connecting to the VPN. The
+first destination default gateway should also function as a DNS
+server.</p>
+<p>Save the file.</p>
+<p><strong>4.</strong> <em>Optional:</em> Prevent overwriting of the
+configuration file.</p>
+<p>To ensure that <code>/etc/resolv.conf</code> is not overwritten by
+other packages like DHCP or resolvconf, run.</p>
+<p><span class="code-select">sudo chattr +i /etc/resolv.conf</span></p>
+<p>If you ever want to remove it, use <code>-i</code>.</p>
+</div>
+<h3 id="Testing">Testing</h3>
+<p>Use nslookup to query the DNS to obtain domain name and IP address
+mapping. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>When using <code>nameserver 10.152.152.10</code> ...</p>
+<p><span class="code-select">nslookup
+vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion</span></p>
+<p>The command will show.</p>
+<pre><code>Server:         10.152.152.10
+Address:        10.152.152.10#53
+Non-authoritative answer:
+Name:   vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion
+Address: 10.192.0.1</code></pre>
+<p>When using <code>nameserver 172.27.100.1</code> ...</p>
+<p><span class="code-select">nslookup
+vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion</span></p>
+<p>The command will show.</p>
+<pre><code>Server:         172.27.100.1
+Address:        172.27.100.1#53
+** server can&#39;t find vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion: NXDOMAIN</code></pre>
+<p>The reason is <code>.onion</code> domains cannot be accessed when a
+VPN has been chained (<code>user</code> -> <code>Tor</code> ->
+<code>VPN</code> -> <code>Internet</code>).</p>
+<p>Resolving clearnet DNS should work.</p>
+<p><span class="code-select">nslookup riseup.net</span></p>
+<p>The command should show.</p>
+<pre><code>Server:         172.27.100.1
+Address:        172.27.100.1#53
+Non-authoritative answer:
+Name:   riseup.net
+Address: 198.252.153.35</code></pre>
+<h1 id="USAIP">USAIP</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For testing purposes, <a href="https://www.usaip.eu/en/index.php">usaip.eu (USAIP)</a> was used
+in the past. The primary reason was they were free and did not block the
+tested, outgoing UDP port. The free version of USAIP is only suitable
+for testing purposes, because this version forcibly disconnects every
+seven minutes. For longer and serious/stable use, another VPN account is
+necessary. If you would still like to learn more, please press on expand
+on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+At the time of writing, it appeared that USAIP was probably blocking <a href="../Moved:SSL.html">TLS</a>, therefore the following command is
+possibly non-functional: <span class="code-select">UWT_DEV_PASSTHROUGH=1
+curl --tlsv1.3 <a href="https://check.torproject.org">https://check.torproject.org</a></span></p>
+</div>
+<div class="info-box ">
+<p><strong>1.</strong> Install OpenVPN.</p>
+<p><span class="code-select">sudo apt install openvpn</span></p>
+<p><strong>2.</strong> Navigate to <a href="https://usaip.eu/en/index.php">USAIP</a> and source the free
+test.</p>
+<ul>
+<li>click on <a href="https://usaip.eu/en/free_vpn.php">Free
+Demo</a></li>
+<li>download <code>usaip.zip</code> (this contains the OpenVPN
+configuration files)</li>
+<li>unpack the file</li>
+</ul>
+<p><strong>3.</strong> Open a terminal.</p>
+<p>Navigate to the USAIP folder.</p>
+<p><span class="code-select">cd usaip</span></p>
+<p>List the available files.</p>
+<p><span class="code-select">dir</span></p>
+<p><strong>4.</strong> Connect to a free VPN.</p>
+<p>For example, run.</p>
+<p><span class="code-select">sudo openvpn
+/home/user/usaip/eu-luxemburg.ovpn</span></p>
+<p>At the time of writing, the page stated, the password was
+<em>demo</em>, while the password was also <em>demo</em>.</p>
+<p>Wait until it has connected. If it is successful, it will show
+"Initialization Sequence Completed". If the connection does not succeed
+for some unknown reason, then try replacing
+<code>eu-luxemburg.ovpn</code> from the above example with another
+.ovpn from the USAIP folder.</p>
+<p>Note: DNS settings have not been considered in this entry.</p>
+</div>
+</div>
+</div>
+<h1 id="Using_a_Graphical_User_Interface">Using a Graphical User
+Interface</h1>
+<h2 id="KDE_Network_Manager">KDE Network Manager</h2>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>This entry is useful if you want to install the KDE Network Manager.
+If you would like to see more information, please press on expand on the
+right.</p>
+<div class="mw-collapsible-content">
+<p><span class="code-select">sudo apt install
+network-manager-kde</span></p>
+<p><code>Start menu</code> -> <code>System Settings</code> ->
+<code>Network Settings</code></p>
+<p>At the time of writing the former, there is no OpenVPN instructions
+for KDE on riseup website (removed). Another guide for KDE Network
+Manager might be found via Internet research, or use the command line
+based examples above.</p>
+<p>Also, do not be concerned if you cannot see the
+Whonix-Workstation<sup>™</sup> (virtual) wired network interface to
+Whonix-Gateway<sup>™</sup>; see footnote. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+</div>
+</div>
+<h2 id="GNOME_Network_Manager">GNOME Network Manager</h2>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>It is usually possible to integrate GNOME applications. If you would
+like to see more information, please press on expand on the right.</p>
+<div class="mw-collapsible-content">
+<p>In the case of GNOME Network Manager, more fiddling is required
+because upstream developers wanted to make GNOME and KDE as compatible
+as possible. This means that one settings manager will not show up when
+the other desktop has been started in a dual (KDE, GNOME)
+installation.</p>
+<p>If you want to install the GNOME Network Manager, run.</p>
+<p><span class="code-select">sudo apt install network-manager-gnome
+network-manager-openvpn-gnome</span></p>
+<h3 id="Autostart_GNOME_Network_Manager">Autostart GNOME Network
+Manager</h3>
+<p>If you want to autostart GNOME Network Manager, follow these
+steps.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Open
+<code>/etc/xdg/autostart/nm-applet.desktop</code> with root rights.</p>
+<p>Open file <code>/etc/xdg/autostart/nm-applet.desktop</code> in an
+editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/xdg/autostart/nm-applet.desktop</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_2">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/xdg/autostart/nm-applet.desktop</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/xdg/autostart/nm-applet.desktop</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Comment out.</p>
+<p><span class="code-select">NotShowIn=KDE;</span></p>
+</div>
+<h3 id="Visible_nm-applet_Start_Menu_Entries">Visible nm-applet Start
+Menu Entries</h3>
+<p>If you want to make the nm-applet start menu entries visible and to
+start it manually, follow these steps.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Open
+<code>/usr/share/applications/nm-applet.desktop</code>.</p>
+<p>Open file <code>/usr/share/applications/nm-applet.desktop</code> in
+an editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/share/applications/nm-applet.desktop</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_3">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/share/applications/nm-applet.desktop</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/share/applications/nm-applet.desktop</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Comment out.</p>
+<p><span class="code-select">NotShowIn=KDE;</span></p>
+<p><strong>3.</strong> Add.</p>
+<p><span class="code-select">Categories=GNOME;GTK;Settings;X-GNOME-NetworkSettings;</span></p>
+</div>
+<h3 id="Visible_nm-connection-editor_Start_Menu_Entries">Visible
+nm-connection-editor Start Menu Entries</h3>
+<p>If you want to make the nm-connection-editor start menu entries
+visible and to start it manually, follow these steps.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Open
+<code>nm-connection-editor.desktop</code>.</p>
+<p>Open file
+<code>/usr/share/applications/nm-connection-editor.desktop</code> in an
+editor with administrative ("<a href="../Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/share/applications/nm-connection-editor.desktop</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_4">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/share/applications/nm-connection-editor.desktop</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/share/applications/nm-connection-editor.desktop</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Comment out.</p>
+<p><span class="code-select">NotShowIn=KDE;</span></p>
+<p><strong>3.</strong> Open the settings.</p>
+<pre><code>Applications &amp;rarr; Settings &amp;rarr; Network Connections</code></pre>
+<p>Alternatively, you could also try the <a href="https://riseup.net/en/vpn/linux#have-the-tray-icon-visible-on-gnome">Riseup
+OpenVPN instructions for GNOME</a>.</p>
+</div>
+</div>
+</div>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://riseup.net/en/vpn/linux">https://riseup.net/en/vpn/linux</a></li>
+<li id="cite_note-2"><a href="https://en.wikipedia.org/wiki/Nslookup">https://en.wikipedia.org/wiki/Nslookup</a></li>
+<li id="cite_note-3">That is still managed by the ordinary ifupdown way. *
+/etc/network/interfaces * /etc/network/interfaces.d/30_non-qubes-whonix
+See <a href="../Dev/Network_Manager.html">Dev/Network
+Manager</a> for further information on why network-manager is not used
+by default in Whonix.</li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Introduction.html" title="Tunnels/Introduction"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tunnels/Introduction</span></a><a class="index internal" href="../Documentation.html" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Lantern.html" title="Lantern"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Lantern</span></a><span class="info"><span class="prev">Previous
+page: Tunnels/Introduction</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Lantern</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service.html">Terms of Service</a></li><li><a href="../Privacy_Policy.html">Privacy Policy</a></li><li><a href="../Cookie_Policy.html">Cookie Policy</a></li><li><a href="../Trademark_Policy.html">Trademark Policy</a></li><li><a href="../Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy.html">Privacy Policy</a>, <a href="../Cookie_Policy.html">Cookie Policy</a>, <a href="../Terms_of_Service.html">Terms of Service</a>, and <a href="../E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

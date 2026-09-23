@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Monero Offline Wallet</title>
+<meta name="description" content="Keep Monero private keys offline and isolate the network part (monerod) from the wallet part (Monero Wallet) for better security.">
+<meta property="og:description" content="Keep Monero private keys offline and isolate the network part (monerod) from the wallet part (Monero Wallet) for better security.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Monero_Offline_Wallet.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Monero_Offline_Wallet.html">
+<meta property="og:title" content="How-to: Use Monero Offline (Cold Storage) (Air Gap) + Daemon Isolation in Qubes-Whonix over Tor">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Moneroheader.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Qubes_dom0_Configuration">Qubes dom0
+Configuration</a></li><li class="toc-l3"><a href="#Create_App_Qubes">Create App Qubes</a></li><li class="toc-l3"><a href="#Qubes_qrexec_Policy_Configuration">Qubes qrexec Policy
+Configuration</a></li><li class="toc-l2"><a href="#monerod-ws_VM_Configuration">monerod-ws
+VM Configuration</a></li><li class="toc-l2"><a href="#monero-wallet-vault_VM_Setup">monero-wallet-vault
+VM Setup</a></li><li class="toc-l2"><a href="#monero-wallet-ws_VM_Setup">monero-wallet-ws VM
+Setup</a></li><li class="toc-l3"><a href="#socat_setup">socat setup</a></li><li class="toc-l3"><a href="#View-Only_Wallet_Setup">View-Only Wallet Setup</a></li><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#Receiving">Receiving</a></li><li class="toc-l2"><a href="#Watching">Watching</a></li><li class="toc-l2"><a href="#Spending">Spending</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="Monero.html">Monero</a></li>
+<li><a href="Monero/Manual_Instructions.html">Monero Manual
+Instructions</a></li>
+<li><a href="Monero_Multisig.html">Monero Multisig</a></li>
+<li><a href="Monero_Offline_Wallet.html">Monero Offline
+Wallet</a></li>
+<li><a href="RetoSwap.html">RetoSwap</a></li>
+<li><a href="UnstoppableSwap.html">UnstoppableSwap</a></li>
+</ul>
+</div>
+<p><img src="../media/Monero-symbol-1280.png.webp" width="128" alt="Monero Logo" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Keep Monero private keys offline and isolate the network part
+(monerod) from the wallet part (Monero Wallet) for better security.</p>
+<div class="post-intro-p">
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="Community_Support.html">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p><strong>UNFINISHED!</strong></p>
+<p>These instructions document how to keep Monero private keys offline
+as well as how to isolate the network part
+(<code>monero</code><u><code>d</code></u>) from the wallet part (Monero
+Wallet) for better security. <code>monero</code><u><code>d</code></u> is
+the Monero daemon, a full blockchain verifying background process which
+downloads and verifies the whole blockchain.</p>
+<p>The advantage of this setup is, should there ever be a vulnerability
+that allows the exploitation of Monero Wallet CLI's network source code
+and/or <code>monero</code><u><code>d</code></u> by malware, then all
+user funds would remain safe, since these would remain isolated in the
+Monero Wallet CLI in a different offline VM.</p>
+<p>If <code>monero</code><u><code>d</code></u> was ever compromised,
+then this setup would have the same issues as described on the <a href="Monero.html">Monero</a> wiki page in chapter <a href="Monero.html#Remote_Node_Security_and_Privacy_Considerations">Remote Node Security and Privacy Considerations</a>.
+This is an issue unspecific to these instructions.</p>
+<p>The connection scheme is <code>Monero Offline Wallet</code> ->
+<code>Monero Online Wallet</code> ->
+<code>monero</code><u><code>d</code></u> -> <code>Tor</code> ->
+<code>Monero network</code>.</p>
+<p>The VM scheme is <code>monero-wallet-vault</code> ->
+<code>monero-wallet-ws</code> ->
+<code>monero</code><u><code>d</code></u><code>-ws</code> ->
+<code>sys-whonix</code>.</p>
+<p>Instructions on this wiki page are compatible with the Whonix
+isolating proxy feature, i.e. after <a href="Stream_Isolation.html#Disable_Transparent_Proxying">disabling transparent proxying</a>.</p>
+<p>The following addresses and seed phrases on this wiki page are
+functional. Do NOT use them. Do NOT send funds there.</p>
+<p><a href="Moved:Root.html#Inappropriate_Use_of_Root_Rights">Inappropriate Use of Root Rights</a> should be avoided.
+Instructions on this wiki page have been carefully crafted with when to
+use and when not to use <code>sudo</code> in mind. The user should not
+use <code>sudo</code> unless instructed in documentation.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="Unsupported.html">this</a> for
+potential alternatives.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Warning: This is for <u><strong>testers-only</strong></u>!</p>
+</div>
+<p>Credits: These instructions are based on <a href="https://www.getmonero.org/resources/user-guides/cli_wallet_daemon_isolation_qubes_whonix.html">How
+to use Monero CLI/daemon with Qubes + Whonix</a> by <a href="https://www.getmonero.org">getmonero.org</a> and from <a href="https://web.archive.org/web/20230329234145/https://monerodocs.org/cold-storage/offline-transaction-signing/">Offline
+Transaction Signing</a> on <a href="https://web.archive.org/web/20240222090354/http://monerodocs.org/">monerodocs.org</a>
+by <a href="https://github.com/crocket">crocket</a>.</p>
+<h1 id="Prerequisite_Knowledge">Prerequisite Knowledge</h1>
+<p>Since this setup is more complex and for advanced users only, it is
+highly recommended to acquire essential knowledge about the usage of
+Monero first without reference to the instructions on this wiki page as
+per the "normal", simpler instructions on the <a href="Monero.html">Monero</a> wiki page. Only after the essential
+knowledge has been acquired, the more complex setup documented on this
+wiki page should be layered on top.</p>
+<p>Exercising with small amount of value is recommended but not too
+small (below the dust level, unable to move funds due to funds being
+worth less than the required transaction fees). Exercising on Monero
+testnet first should also be considered. This is <a href="Unspecific.html">unspecific</a> to Whonix.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Optional. How to use Monero Wallet GUI.</p>
+<p>If the end-goal is using an offline (air gap) Monero Wallet, learning
+how to use Monero Wallet GUI would be expendable.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+How to use Monero Wallet CLI.</p>
+<p>Wallet creation, receiving funds, spending funds.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+How to use <a href="Monero_Wallet_Isolation.html">Monero
+Wallet Isolation</a>.</p>
+<h1 id="Setup">Setup</h1>
+<h2 id="Qubes_dom0_Configuration">Qubes <code>dom0</code>
+Configuration</h2>
+<h3 id="Create_App_Qubes">Create App Qubes</h3>
+<p>In <code>dom0</code>.</p>
+<p>It is easier to use the exact same names as in the example below in
+this chapter. Otherwise, adjustments in next chapter "Qubes qrexec
+Policy Configuration" would be required.</p>
+<p><code>Qubes VM Manager</code> -> <code>VM</code> ->
+<code>Create App Qube</code></p>
+<ul>
+<li>Create Qubes-Whonix-Workstation<sup>™</sup> App Qube
+<ul>
+<li>Name: <code>monero-wallet-vault</code>.</li>
+<li>Color: Choose a color label for the Whonix-Workstation App Qube.
+Optional suggestion: <code>black</code></li>
+<li>Use this template: Choose the Whonix-Workstation Template. For
+example: <code>whonix-workstation-18</code>.</li>
+<li>Standalone: Leave the Standalone field unchecked.</li>
+<li>Type: Choose the type <code>App Qube</code>.</li>
+<li>Allow networking: Choose <code>none</code>.</li>
+<li>Press: <code>OK</code>.</li>
+</ul></li>
+</ul>
+<p><code>Qubes VM Manager</code> -> <code>VM</code> ->
+<code>Create App Qube</code></p>
+<ul>
+<li>Create Qubes-Whonix-Workstation App Qube
+<ul>
+<li>Name: <code>monero-wallet-ws</code>.</li>
+<li>Color: Choose a color label for the Whonix-Workstation App Qube.
+Optional suggestion: <code>yellow</code></li>
+<li>Use this template: Choose the Whonix-Workstation Template. For
+example: <code>whonix-workstation-18</code>.</li>
+<li>Standalone: Leave the Standalone field unchecked.</li>
+<li>Type: Choose the type <code>App Qube</code>.</li>
+<li>Allow networking: Choose <code>none</code>.</li>
+<li>Press: <code>OK</code>.</li>
+</ul></li>
+</ul>
+<p><code>Qubes VM Manager</code> -> <code>VM</code> ->
+<code>Create App Qube</code></p>
+<ul>
+<li>Create <code>monero</code><u><code>d</code></u><code>-ws</code> App
+Qube
+<ul>
+<li>Name: <code>monero</code><u><code>d</code></u><code>-ws</code>.</li>
+<li>Color: Choose a color label for the Whonix-Workstation App Qube.
+Optional suggestion: <code>red</code></li>
+<li>Use this template: Choose the Whonix-Workstation Template. For
+example: <code>whonix-workstation-18</code>.</li>
+<li>Standalone: Leave the Standalone field unchecked.</li>
+<li>Type: Choose the type <code>App Qube</code>.</li>
+<li>Allow networking: Choose the desired Whonix-Gateway<sup>™</sup>
+ProxyVM from the list. For example: <code>sys-whonix</code>.</li>
+<li>Press: <code>OK</code>.</li>
+<li>Make sure this workstation has enough private storage. You can
+estimate how much space you need by checking the size of the raw
+blockchain. Keep in mind that the blockchain will take up more space
+with time.</li>
+</ul></li>
+</ul>
+<h3 id="Qubes_qrexec_Policy_Configuration">Qubes qrexec Policy
+Configuration</h3>
+<p>In <code>dom0</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Create the file <code>/etc/qubes-rpc/policy/user.monerod</code>:</p>
+<p><span class="code-select">sudo nano
+/etc/qubes-rpc/policy/user.monerod</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Add the following line:</p>
+<p><u>Note</u>: If the user is using different names for the VMs other
+than <code>monero-wallet-ws</code> and
+<code>monero</code><u><code>d</code></u><code>-ws</code>, the next line
+would have to be modified accordingly. If the user is using the exact
+names as suggested in previous chapter "Create App Qubes", then no
+modifications are required.</p>
+<p><span class="code-select">monero-wallet-ws monerod-ws
+allow</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Save and close file.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Done.</p>
+<p>Qubes <code>dom0</code> setup is complete.</p>
+<h2 id="monerod-ws_VM_Configuration"><code>monero</code><u><code>d</code></u><code>-ws</code>
+VM Configuration</h2>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>monero</code><u><code>d</code></u><code>-ws</code>).</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Create folder <code>~/.config/systemd/user</code>.</p>
+<p><span class="code-select">mkdir -p ~/.config/systemd/user</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Create file
+<code>~/.config/systemd/user/monero</code><u><code>d</code></u><code>.service</code>.</p>
+<p>Open file <code>~/.config/systemd/user/monerod.service</code> in a <a href="Moved:Software.html#Text_Editor">text editor</a> of your
+choice as a regular, non-root user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad
+~/.config/systemd/user/monerod.service</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano
+~/.config/systemd/user/monerod.service</span></p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Paste the following contents. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p><span class="code-select">[Unit] Description=Monero Full Node
+After=network.target</p>
+<p>[Service] Type=simple PIDFile=/home/user/.bitmonero/monerod.pid</p>
+<ol>
+<li><ol>
+<li><a href="https://github.com/monero-project/monero/issues/5098">https://github.com/monero-project/monero/issues/5098</a></li>
+</ol></li>
+</ol>
+<p>KillSignal=SIGKILL</p>
+<p>Environment=DNS_PUBLIC=tcp Environment=TORSOCKS_ALLOW_INBOUND=1</p>
+<p>ExecStart=torsocks monerod --data-dir=/home/user/.bitmonero \</p>
+<p><code>   --no-igd --hide-my-port --pidfile=/home/user/.bitmonero/monerod.pid \</code><br />
+<code>   --log-file=/home/user/.bitmonero/bitmonero.log --p2p-bind-ip=127.0.0.1 \</code><br />
+<code>   --non-interactive</code></p>
+<p>Restart=always PrivateTmp=true</p>
+<p>[Install] WantedBy=default.target</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Save and close file.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Reload systemd user instance.</p>
+<p><span class="code-select">systemctl --user daemon-reload</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Optional: Enable autostart for the
+<code>monero</code><u><code>d</code></u> systemd user instance.</p>
+<p><span class="code-select">systemctl --user enable monerod</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Start <code>monero</code><u><code>d</code></u> systemd user
+instance.</p>
+<p><span class="code-select">systemctl --user restart monerod</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+Create folder <code>/rw/usrlocal/etc/qubes-rpc</code>.</p>
+<p><span class="code-select">sudo mkdir -p
+/rw/usrlocal/etc/qubes-rpc</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+Open file <code>/rw/usrlocal/etc/qubes-rpc/user.monerod</code> in an
+editor with administrative ("<a href="Moved:Root.html"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/rw/usrlocal/etc/qubes-rpc/user.monerod</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/rw/usrlocal/etc/qubes-rpc/user.monerod</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/rw/usrlocal/etc/qubes-rpc/user.monerod</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">10</i>
+Add this line:</p>
+<p><span class="code-select">socat STDIO TCP:localhost:18081</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">11</i>
+Make the <code>/rw/usrlocal/etc/qubes-rpc/user.monerod</code> script
+executable.</p>
+<p><span class="code-select">sudo chmod +x
+/rw/usrlocal/etc/qubes-rpc/user.monerod</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">12</i>
+Done.</p>
+<p>Creation and configuration of
+<code>monero</code><u><code>d</code></u> systemd user unit has been
+completed.</p>
+<h2 id="monero-wallet-vault_VM_Setup"><code>monero-wallet-vault</code>
+VM Setup</h2>
+<p>These instructions explain how to initially create the Monero private
+keys in the offline Monero vault VM.</p>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>monero-wallet-vault</code>).</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Generate a new Monero wallet file. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><span class="code-select">monero-wallet-cli --offline
+--generate-new-wallet ~/wallet1</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Monero Wallet CLI will show:</p>
+<pre><code>This is the command line monero wallet. It needs to connect to a monero
+daemon to work correctly.
+WARNING: Do not reuse your Monero keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy.
+
+Monero &#39;Oxygen Orion&#39; (v0.17.2.3-release)
+Logging to monero-wallet-cli.log
+Specify wallet file name (e.g., MyWallet). If the wallet doesn&#39;t exist, it will be created.
+Wallet file name (or Ctrl-C to quit):</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Enter the name of the wallet, for example: <code>wallet1</code></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Monero Wallet CLI will ask:</p>
+<pre><code>No wallet found with that name. Confirm creation of new wallet named: wallet1
+  (Y/Yes/N/No):</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Type <code>Y</code> and press enter.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Monero Wallet CLI will ask:</p>
+<pre><code>Generating new wallet...
+Enter a new password for the wallet:
+Confirm password:</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Enter a password or leave it empty. Arguably how useful it is when using
+<a href="Moved:Full_Disk_Encryption.html">Full Disk Encryption</a>
+on the host operating system. Re-enter password to confirm.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+Monero Wallet CLI will ask:</p>
+<pre><code>List of available languages for your wallet&#39;s seed:
+If your display freezes, exit blind with ^C, then run again with --use-english-language-names
+0 : Deutsch
+1 : English
+2 : Espa&amp;ntilde;ol
+3 : Fran&amp;ccedil;ais
+4 : Italiano
+5 : Nederlands
+6 : Portugu&amp;ecirc;s
+7 : &amp;#1088;&amp;#1091;&amp;#1089;&amp;#1089;&amp;#1082;&amp;#1080;&amp;#1081; &amp;#1103;&amp;#1079;&amp;#1099;&amp;#1082;
+8 : &amp;#26085;&amp;#26412;&amp;#35486;
+9 : &amp;#31616;&amp;#20307;&amp;#20013;&amp;#25991; (&amp;#20013;&amp;#22269;)
+10 : Esperanto
+11 : Lojban
+Enter the number corresponding to the language of your choice:</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+Enter <code>1</code> recommended. In the opinion of the author this is
+the most common language and least likely to suffer from potential
+restoration issues in a few decades. Optional: choose a language of your
+choice.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">10</i>
+Example printout:</p>
+<p>Note: Do not use address, keys or seed phrase from the example
+below!</p>
+<pre><code>Generated new wallet: 496qfvthZzy99adqviEhoDdFivmwcDH3vBZvPRSX8V6VScBTkR2VuMdb8xEgeMjyPqCigRfBK4cfrEXiX6YEdkF55rWD2Rq
+View key: 89298e00f35bd89928b23d8a199bcfb49c61d63e242ffe0ca6b235cc0ddb8706
+**********************************************************************
+Your wallet has been generated!
+To start synchronizing with the daemon, use the &quot;refresh&quot; command.
+Use the &quot;help&quot; command to see a simplified list of available commands.
+Use &quot;help all&quot; command to see the list of all available commands.
+Use &quot;help &lt;command&gt;&quot; to see a command&#39;s documentation.
+Always use the &quot;exit&quot; command when closing monero-wallet-cli to save
+your current session&#39;s state. Otherwise, you might need to synchronize
+your wallet again (your wallet keys are NOT at risk in any case).
+
+NOTE: the following 25 words can be used to recover access to your wallet. Write them down and store them somewhere safe and secure. Please do not store them in your email or on file storage services outside of your immediate control.
+
+launching okay honked putty zoom zoom people grunt
+ajar cylinder sake gypsy comb dexterity ethics square
+sincerely fictional glide equip fierce january journal kisses zoom
+**********************************************************************
+The daemon is not set up to background mine.
+With background mining enabled, the daemon will mine when idle and not on battery.
+Enabling this supports the network you are using, and makes you eligible for receiving new monero
+Do you want to do it now? (Y/Yes/N/No): :</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">11</i>
+Press <code>n</code> to disable mining.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">12</i>
+Note the <code>standard address</code>.</p>
+<p>Note, in above example print out a line starting with
+<code>Generated new wallet:</code>. In above example, the wallet address
+is
+<code>496qfvthZzy99adqviEhoDdFivmwcDH3vBZvPRSX8V6VScBTkR2VuMdb8xEgeMjyPqCigRfBK4cfrEXiX6YEdkF55rWD2Rq</code>.</p>
+<p>This is also called <code>standard address</code> or
+<code>primary address</code>. It is important to know what the
+<code>standard address</code> or <code>primary address</code> is.</p>
+<p>There is no need to memorize it. A note in a text file in an offline
+vault VM should be made "my standard address is ...". Replace
+<code>...</code> with the actual <code>standard address</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">13</i>
+Note the <code>view key</code>.</p>
+<p>Note, in above example print out a line starting with
+<code>View key:</code>. In above example, the view key is
+<code>89298e00f35bd89928b23d8a199bcfb49c61d63e242ffe0ca6b235cc0ddb8706</code>.
+There is no need to memorize it.</p>
+<p>The <code>view key</code> is also sometimes called
+<code>secret view key</code>. It is important to remember that
+<code>view key</code> is sometimes called
+<code>secret view key</code>.</p>
+<p>A note in a text file in an offline vault VM should be made "my
+secret view key is ...". Replace <code>...</code> with the actual view
+key.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">14</i>
+Note the seed phrase.</p>
+<p>Note, in above example print out a line starting with
+<code>NOTE: the following 25 words can be used to recover access to your wallet. Write them down and store them somewhere safe and secure. Please do not store them in your email or on file storage services outside of your immediate control.</code>.
+In above example, wallet seed phrase is:</p>
+<pre><code>launching okay honked putty zoom zoom people grunt
+ajar cylinder sake gypsy comb dexterity ethics square
+sincerely fictional glide equip fierce january journal kisses zoom</code></pre>
+<p>Do NOT use above seed phrase. A note in a text file in an offline
+vault VM should be made "my seed phrase is ...". Replace
+<code>...</code> with the actual seed phrase. This is the most important
+thing to backup! Everything else can be lost (computer, view key,
+standard address). The only thing required for recovery is the seed
+phrase. It might be a good idea to memorize it.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">15</i>
+Note.</p>
+<p><code>[wallet 496qfv (no daemon)]:</code> represents the Monero
+Wallet CLI command prompt.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">16</i>
+Optional. Disable Monero Wallet CLI timeout. <sup class="reference"><a href="#cite_note-4">[4]</a></sup> Run the
+following command in the Monero Wallet CLI command prompt.</p>
+<p><span class="code-select">set inactivity-lock-timeout 0</span></p>
+<h2 id="monero-wallet-ws_VM_Setup"><code>monero-wallet-ws</code> VM
+Setup</h2>
+<h3 id="socat_setup">socat setup</h3>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>monero-wallet-ws</code>).</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Open file <code>/rw/config/rc.local</code> in an editor with
+administrative ("<a href="Moved:Root.html"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /rw/config/rc.local</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_2">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="Qubes.html">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /rw/config/rc.local</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="Unspecific.html">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="Moved:Software.html#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /rw/config/rc.local</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Append at the bottom.</p>
+<p><span class="code-select">socat TCP-LISTEN:18081,fork,bind=127.0.0.1
+EXEC:"qrexec-client-vm monerod-ws user.monerod"</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Save and close file.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Make the <code>/rw/config/rc.local</code> script executable.</p>
+<p><span class="code-select">sudo chmod +x
+/rw/config/rc.local</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Restart the <code>monero-wallet-ws</code> VM.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Done.</p>
+<p>Setting up automatically starting the <code>socat</code> process has
+been completed.</p>
+<h3 id="View-Only_Wallet_Setup">View-Only Wallet Setup</h3>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>monero-wallet-ws</code>).</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Generate view-only wallet.</p>
+<p><span class="code-select">monero-wallet-cli --generate-from-view-key
+~/view1</span></p>
+<p>Monero Wallet CLI is more "clever" and automatically detects the
+already available <code>monero</code><u><code>d</code></u>.
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup> Therefore as opposed to Monero Wallet GUI, no "remote
+node" configuration is necessary.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Monero will show:</p>
+<pre><code>This is the command line monero wallet. It needs to connect to a monero
+daemon to work correctly.
+WARNING: Do not reuse your Monero keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy.
+
+Monero &#39;Oxygen Orion&#39; (v0.17.2.3-release)
+Logging to monero-wallet-cli.log
+Standard address:</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Enter the <code>standard address</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Monero will show:</p>
+<pre><code>Secret view key:</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Enter the <code>secret view key</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Example printout:</p>
+<pre><code>Standard address: 496qfvthZzy99adqviEhoDdFivmwcDH3vBZvPRSX8V6VScBTkR2VuMdb8xEgeMjyPqCigRfBK4cfrEXiX6YEdkF55rWD2Rq
+Secret view key: 89298e00f35bd89928b23d8a199bcfb49c61d63e242ffe0ca6b235cc0ddb8706
+
+Enter a new password for the wallet:
+Confirm password:
+Generated new wallet: 496qfvthZzy99adqviEhoDdFivmwcDH3vBZvPRSX8V6VScBTkR2VuMdb8xEgeMjyPqCigRfBK4cfrEXiX6YEdkF55rWD2Rq
+Restore from specific blockchain height (optional, default 0):
+The daemon is not set up to background mine.
+With background mining enabled, the daemon will mine when idle and not on battery.
+Enabling this supports the network you are using, and makes you eligible for receiving new monero
+Do you want to do it now? (Y/Yes/N/No): : n
+Background mining not enabled. Set setup-background-mining to 1 to change.
+If you are new to Monero, type &quot;welcome&quot; for a brief overview.
+Background refresh thread started</code></pre>
+<h1 id="Usage">Usage</h1>
+<h2 id="Introduction_2">Introduction</h2>
+<p><strong>Note:</strong> On the host (Qubes users: in
+<code>dom0</code>).</p>
+<p>The involved VMs need to be started using any usual method (using
+Qubes VM Manager (QVMM), starting a terminal emulator or otherwise).</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Start <code>monero</code><u><code>d</code></u><code>-ws</code> VM.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Expectations.</p>
+<p>Nothing is expected to happen.
+<code>monero</code><u><code>d</code></u> is a background service. To
+monitor it, see chapter <a href="Monero_Wallet_Isolation.html#Monitoring">monitoring</a>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Start <code>monero-wallet-ws</code> VM.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Start <code>monero-wallet-vault</code> VM.</p>
+<h2 id="Receiving">Receiving</h2>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>monero-wallet-vault</code>).</p>
+<p>Copy the <code>standard address</code> always from the
+<code>monero-wallet-vault</code> VM! Never from the
+<code>monero-wallet-ws</code> VM. Provide payees with the
+<code>standard address</code> or a <code>subaddress</code>.</p>
+<p><span class="code-select">monero-wallet-cli --offline --wallet-file
+~/wallet1</span></p>
+<p>To show the <code>standard address</code> or
+<code>primary address</code> the Monero Wallet CLI prompt, run:</p>
+<p><span class="code-select">address</span></p>
+<p>It is also possible to run any amount of additional
+<code>subaddress</code>. See:</p>
+<p><span class="code-select">help address</span></p>
+<h2 id="Watching">Watching</h2>
+<p>TODO</p>
+<h2 id="Spending">Spending</h2>
+<p>TODO</p>
+<h1 id="Monitoring_monerod">Monitoring
+<code>monero</code><u><code>d</code></u></h1>
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation (<a href="Qubes.html">Qubes-Whonix</a>: App Qube
+<code>monero</code><u><code>d</code></u><code>-ws</code>).</p>
+<p>Check the status of the <code>monero</code><u><code>d</code></u>
+systemd user service.</p>
+<p><span class="code-select">systemctl --user status monerod</span></p>
+<p>Follow the journal log of the
+<code>monero</code><u><code>d</code></u> systemd user service.</p>
+<p><span class="code-select">journalctl --boot --user -f -u
+monerod</span></p>
+<p>Follow the log file of the
+<code>monero</code><u><code>d</code></u>.</p>
+<p><span class="code-select">tail -f
+~/.bitmonero/bitmonero.log</span></p>
+<p>View the log file of <code>monero</code><u><code>d</code></u>.</p>
+<p>Open file <code>~/.bitmonero/bitmonero.log</code> in a <a href="Moved:Software.html#Text_Editor">text editor</a> of your
+choice as a regular, non-root user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad
+~/.bitmonero/bitmonero.log</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano ~/.bitmonero/bitmonero.log</span></p>
+</div>
+<p>For the initial author of this wiki page it took approximately 7
+minutes from <code>monero</code><u><code>d</code></u> log file starting
+<code>SYNCHRONIZATION started</code> until further progress on
+synchronization having actually started has been reported.</p>
+<pre><code>2021-11-02 10:53:55.204 [P2P4]  INFO    global  src/cryptonote_protocol/cryptonote_protocol_handler.inl:413 SYNCHRONIZATION started
+2021-11-02 11:00:20.821 [P2P9]  INFO    global  src/cryptonote_protocol/cryptonote_protocol_handler.inl:1680    Synced 201/2484385 (0%, 2484184 left)</code></pre>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Money.html">Money</a></li>
+<li><a href="Monero.html">Monero</a></li>
+</ul>
+<h1 id="Donations">Donations</h1>
+<p>After installing the Monero offline wallet, please consider making a
+donation to Monero and Whonix project (<a href="Donate.html">Donate</a>) to help keep it running for many years to
+come.</p>
+<p><img src="../media/Monero-symbol-1280.png.webp" width="25" alt="Monero accepted here" />
+Donate Monero (XMR) to Whonix.</p>
+<p><span class="code-select">84ZZSsqyh5niztCgxmWAejDLu9eDerWo4Wsx8woEhDGpdKP3BWPtqenNjKuv8vojrB968U3hqYTKgLGt2zEcGopX1qaEPew</span></p>
+<p><img src="../media/Whonix_donate_monero.png.webp" width="100" alt="Whonix_donate_monero.png" /></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">The <code>systemctl --user</code> must be run as normal, non-root
+user without <code>sudo</code> because these are <code>systemd</code>
+<u>user</u> units and <u>not</u> <code>systemd</code> <u>system</u>
+units.</li>
+<li id="cite_note-2">Do not use <code>--detach</code> - outdated style for daemons.
+Better error handling without.</li>
+<li id="cite_note-3">File name <code>wallet1</code> and file path <code>~/wallet1</code>
+is arbitrary.</li>
+<li id="cite_note-4"><a href="https://monero.stackexchange.com/questions/11737/how-can-i-slow-down-or-disable-cli-wallets-automatic-locking-due-to-inactivity">https://monero.stackexchange.com/questions/11737/how-can-i-slow-down-or-disable-cli-wallets-automatic-locking-due-to-inactivity</a></li>
+<li id="cite_note-5"><code>monero-wallet-cli</code> detects that
+<code>monero</code><u><code>d</code></u>'s default port
+<code>18081</code> is open on localhost. The detection mechanism is port
+based. Not process based.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

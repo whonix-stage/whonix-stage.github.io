@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Common CLI Commands</title>
+<meta name="description" content="Common Whonix CLI Commands">
+<meta property="og:description" content="Common Whonix CLI Commands">
+<link rel="canonical" href="https://www.whonix.org/wiki/Common_CLI_Commands.html">
+<meta property="og:url" content="https://www.whonix.org/wiki/Common_CLI_Commands.html">
+<meta property="og:title" content="Common Whonix CLI Commands">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Cli1242345.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../pygments.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="About.html">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="About.html">Home</a></li><li><a href="Download.html">Download</a></li><li><a href="Documentation.html">Docs</a></li><li><a href="FAQ.html">FAQ</a></li><li><a href="Support.html">Help</a></li><li><a href="Contribute.html">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="Special:AllPages.html">Browse</a></div></header>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Cli1242345.png.webp" width="100" alt="Cli1242345.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>There are a number of common command line operations that are
+performed by users of all skill levels in the Whonix environment. This
+wiki page is intended to serve as a quick and handy reference guide for
+locating these, but it is not a substitute for reading relevant wiki
+entries that provide detailed instructions for various activities.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup> Additional, useful commands will be added here over
+time.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Whonix-Gateway™">Whonix-Gateway<sup>™</sup></h1>
+<table>
+<caption><em>Whonix-Gateway Common Commands</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Category</strong></p></th>
+<th><p><strong>Commands</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Change Keyboard Layout</p></td>
+<td><ul>
+<li>To change the keyboard layout:
+<ul>
+<li><span class="code-select">sudo set-system-keymap
+--interactive</span></li>
+</ul></li>
+<li>Make the keyboard configuration change take effect in a text console
+(if needed):
+<ul>
+<li><span class="code-select">sudo setupcon</span></li>
+</ul></li>
+<li>Make the keyboard configuration change take effect in a GUI session
+(if needed):
+<ul>
+<li><span class="code-select">labwc --reconfigure</span></li>
+</ul></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Circumvent uwt Wrapper Use <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p></td>
+<td><ul>
+<li><code>/usr/bin/apt-get.anondist-orig</code></li>
+<li><code>/usr/bin/wget.anondist-orig</code></li>
+<li><code>/usr/bin/curl.anondist-orig</code></li>
+<li><code>/usr/bin/gpg.anondist-orig</code></li>
+<li><code>/usr/bin/ssh.anondist-orig</code></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Connection Wizard (Enable/Disable Tor)</p></td>
+<td><ul>
+<li><span class="code-select">anon-connection-wizard</span></li>
+<li><span class="code-select">setup-wizard-dist</span></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Default Username and Password <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p></td>
+<td><div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Whonix default admin password is: No password required. (Passwordless login.)" /></span></p>
+<ul>
+<li><strong>Default username:</strong>
+<span class="code-select">user</span></li>
+<li><strong>Default password:</strong> No password required.
+(Passwordless login.) <sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+</ul>
+</div></td>
+</tr>
+<tr class="odd">
+<td><p>Important Configuration Files / Folders</p></td>
+<td><ul>
+<li>Important configuration files:
+<ul>
+<li><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></li>
+<li><span class="code-select">sudoedit
+/etc/whonix_firewall.d/50_user.conf</span></li>
+</ul></li>
+<li>Important configuration folders:
+<ul>
+<li><code>/etc/whonix_firewall.d/</code></li>
+</ul></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Important Logs</p></td>
+<td><ul>
+<li><span class="code-select">sudo journalctl -f</span></li>
+<li><span class="code-select">sdwdate-log-viewer</span></li>
+<li><span class="code-select">sudo journalctl -u tor@default.service
+-f</span></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Nyx: Tor Command Line Monitor <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p></td>
+<td><ul>
+<li>Launch Nyx:</li>
+</ul>
+<p><span class="code-select">nyx</span></p></td>
+</tr>
+<tr class="even">
+<td><p>OS Updates</p></td>
+<td><ul>
+<li><span class="code-select">upgrade-nonroot</span> or</li>
+<li><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Switch to Clearnet User <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p></td>
+<td><ul>
+<li><span class="code-select">sudo su clearnet</span></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>systemcheck</p></td>
+<td><ul>
+<li>System Health Check:</li>
+</ul>
+<p><span class="code-select">systemcheck</span></p></td>
+</tr>
+<tr class="odd">
+<td><p>Time</p></td>
+<td><ul>
+<li>Report the date in UTC:</li>
+</ul>
+<p><span class="code-select">date -u</span></p>
+<ul>
+<li>Manually set the system clock:</li>
+</ul>
+<p><span class="code-select">sudo date -s "17 FEB 2019 24:00:00"
+&amp;&amp; sudo hwclock -w</span></p>
+<ul>
+<li>Randomize the time: <sup class="reference"><a href="#cite_note-7">[7]</a></sup> <sup class="reference"><a href="#cite_note-8">[8]</a></sup>
+<ul>
+<li><code>clock-random-manual-gui</code>: a randomized clock setting (in
+UTC) is entered via a GUI.</li>
+<li><code>clock-random-manual-cli</code>: a randomized clock setting (in
+UTC) is entered on the command line. For example:
+<span class="code-select">echo "Wed Dec 04 06:20:13 UTC 2019" |
+/usr/bin/clock-random-manual-cli</span></li>
+</ul></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Tor</p></td>
+<td><ul>
+<li>Restart Tor:</li>
+</ul>
+<p><span class="code-select">sudo systemctl restart
+tor@default.service</span></p>
+<ul>
+<li>Stop Tor:</li>
+</ul>
+<p><span class="code-select">sudo systemctl stop
+tor@default.service</span></p>
+<ul>
+<li>Check the Tor version:</li>
+</ul>
+<p><span class="code-select">anon-info</span></p>
+<ul>
+<li>Check the Tor configuration:
+<ul>
+<li><span class="code-select">anon-verify</span></li>
+<li>Or, use <code>systemcheck</code>, mentioned above.</li>
+</ul></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Virtual Consoles</p></td>
+<td><ul>
+<li>Text console: Press <code>Alt + Ctrl + F1</code>
+<ul>
+<li>Additional text consoles: Press <code>Alt + Ctrl + F2</code> or
+<code>F3</code> and so on.</li>
+</ul></li>
+<li>Graphical console: Press <code>Alt + Ctrl + F7</code></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>VM Operations</p></td>
+<td><ul>
+<li>Reboot:</li>
+</ul>
+<p><span class="code-select">sudo reboot</span></p>
+<ul>
+<li>Power off:</li>
+</ul>
+<p><span class="code-select">sudo poweroff</span></p></td>
+</tr>
+<tr class="odd">
+<td><p>Whonix Version</p></td>
+<td><ul>
+<li>Whonix version:</li>
+</ul>
+<p><span class="code-select">cat /etc/whonix_version</span></p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Whonix-Workstation">Whonix-Workstation</h1>
+<table>
+<caption><em>Whonix-Workstation Common Commands</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Category</strong></p></th>
+<th><p><strong>Commands</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Change Keyboard Layout</p></td>
+<td><ul>
+<li>To change the keyboard layout:
+<ul>
+<li><span class="code-select">sudo set-system-keymap
+--interactive</span></li>
+</ul></li>
+<li>Make the keyboard configuration change take effect in a text console
+(if needed):
+<ul>
+<li><span class="code-select">sudo setupcon</span></li>
+</ul></li>
+<li>Make the keyboard configuration change take effect in a GUI session
+(if needed):
+<ul>
+<li><span class="code-select">labwc --reconfigure</span></li>
+</ul></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Circumvent uwt Wrapper Use <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p></td>
+<td><ul>
+<li><code>/usr/bin/apt-get.anondist-orig</code></li>
+<li><code>/usr/bin/wget.anondist-orig</code></li>
+<li><code>/usr/bin/curl.anondist-orig</code></li>
+<li><code>/usr/bin/gpg.anondist-orig</code></li>
+<li><code>/usr/bin/git.anondist-orig</code></li>
+<li><code>/usr/bin/ssh.anondist-orig</code></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Default Username and Password <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p></td>
+<td><div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" alt="Whonix default admin password is: No password required. (Passwordless login.)" /></span></p>
+<ul>
+<li><strong>Default username:</strong>
+<span class="code-select">user</span></li>
+<li><strong>Default password:</strong> No password required.
+(Passwordless login.) <sup class="reference"><a href="#cite_note-9">[9]</a></sup></li>
+</ul>
+</div></td>
+</tr>
+<tr class="even">
+<td><p>DNS Resolution Functionality Test</p></td>
+<td><ul>
+<li><span class="code-select">nslookup check.torproject.org</span></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>GnuPG (OpenPGP)</p></td>
+<td><ul>
+<li>Retrieve keys (example):</li>
+</ul>
+<p><span class="code-select">sudo gpg --recv-keys
+EF6E286DDA85EA2A4BA7DE684E2C6E8793298290</span></p>
+<ul>
+<li>Check file signatures (example):</li>
+</ul>
+<p><span class="code-select">gpg --verify
+tor-browser-linux-x86_64-15.0.3.tar.xz.asc
+tor-browser-linux-x86_64-15.0.3.tar.xz</span></p></td>
+</tr>
+<tr class="even">
+<td><p>Important Configuration Folders and Logs</p></td>
+<td><ul>
+<li>Important configuration folders:
+<ul>
+<li><code>/etc/whonix_firewall.d/</code></li>
+</ul></li>
+<li>Important logs:
+<ul>
+<li><span class="code-select">sudo journalctl -f</span></li>
+<li><span class="code-select">sdwdate-log-viewer</span></li>
+</ul></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Leak Test <sup class="reference"><a href="#cite_note-10">[10]</a></sup></p></td>
+<td><ul>
+<li><span class="code-select">leaktest</span></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>OS Updates / Software Installation</p></td>
+<td><ul>
+<li><span class="code-select">upgrade-nonroot</span> or</li>
+<li><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></li>
+<li>Install the <code>package-name</code> package.</li>
+</ul>
+<p><span class="code-select">sudo apt install package-name</span></p>
+<ul>
+<li>Install the <code>package-name</code> package from Debian backports.
+Requires enabling <a href="Install_Software.html#Backports">backports</a> repository.</li>
+</ul>
+<p><span class="code-select">sudo apt -t trixie-backports install
+package-name</span></p></td>
+</tr>
+<tr class="odd">
+<td><p>systemcheck</p></td>
+<td><ul>
+<li>System Health Check:</li>
+</ul>
+<p><span class="code-select">systemcheck</span></p></td>
+</tr>
+<tr class="even">
+<td><p>Time</p></td>
+<td><ul>
+<li>Manually set the system clock:</li>
+</ul>
+<p><span class="code-select">sudo date -s "17 FEB 2025 24:00:00"
+&amp;&amp; sudo hwclock -w</span></p></td>
+</tr>
+<tr class="odd">
+<td><p>Tor Browser</p></td>
+<td><p>Note: Tor Browser can only be started when a graphical desktop
+environment (DE) such as LXQt is running (Whonix LXQt). At time of
+writing Tor Browser cannot be run without a running DE (Whonix CLI
+without a custom installed DE). However, graphical applications such as
+Tor Browser can be started from the command line when a DE is running.
+<sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<ul>
+<li>Important folders:
+<ul>
+<li><code>~/.tb/tor-browser</code></li>
+<li><code>~/.tb/tor-browser/Browser/TorBrowser/Data/Browser</code></li>
+</ul></li>
+<li>Tor Browser Launcher:</li>
+</ul>
+<p><span class="code-select">torbrowser</span></p>
+<ul>
+<li>Tor Browser in debugging mode:</li>
+</ul>
+<p><span class="code-select">~/.tb/tor-browser/Browser/start-tor-browser
+--debug</span></p>
+<ul>
+<li><a href="Tor_Browser.html#Tor_Browser_Downloader_by_Whonix">Tor Browser Downloader by Whonix developers</a>:</li>
+</ul>
+<p><span class="code-select">update-torbrowser</span></p></td>
+</tr>
+<tr class="even">
+<td><p>Virtual Consoles</p></td>
+<td><ul>
+<li>Text console: Press <code>Alt + Ctrl + F1</code>
+<ul>
+<li>Additional text consoles: Press <code>Alt + Ctrl + F2</code> or
+<code>F3</code> and so on.</li>
+</ul></li>
+<li>Graphical console: Press <code>Alt + Ctrl + F7</code></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>VM Operations</p></td>
+<td><ul>
+<li>Reboot:</li>
+</ul>
+<p><span class="code-select">sudo reboot</span></p>
+<ul>
+<li>Power off:</li>
+</ul>
+<p><span class="code-select">sudo poweroff</span></p></td>
+</tr>
+<tr class="even">
+<td><p>Whonix Version</p></td>
+<td><ul>
+<li>Whonix version:</li>
+</ul>
+<p><span class="code-select">cat /etc/whonix_version</span></p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">This entry has been inspired by the relatively unknown
+<code>whonix</code> command, which already lists common Whonix command
+line operations.</li>
+<li id="cite_note-2">Experts / debugging only!</li>
+<li id="cite_note-3">For both Whonix-Gateway and Whonix-Workstation<sup>™</sup>.</li>
+<li id="cite_note-4"><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li id="cite_note-5">This is a Tor Controller which runs as a console application.</li>
+<li id="cite_note-6">The <code>whonix</code> DNS notes state: <blockquote><p>Check if DNS resolution is functional: * Experts only! * This is only
+a summary. * You normally do not need to manually resolve DNS on
+Whonix-Gateway. * Whonix has by default a feature to hide the fact, that
+you are a Whonix user. - This will NOT hide the fact that you are a Tor
+user from your ISP! -- Hiding the fact, that you are a Tor user, is
+available as an optional configuration. * Whonix-Workstations traffic
+goes through Tors Socks-, Dns- or TransPorts. - Whonix-Gateway can only
+send traffic through Tor as well.<br />
+-- Whonix-Gateway has no longer a Trans- or DnsPort.<br />
+-- For example, APT will actually call the uwt wrapper
+/usr/bin/apt-get.<br />
+-- The APT uwt wrapper will with help of uwt and torsocks force also
+Whonix-Gateways traffic through Tor.<br />
+-- Thus hiding the fact, that you are a Whonix user.<br />
+* Only as either, - as clearnet user or<br />
+- after activation of transparent proxying for Whonix-Gateway<br />
+- in <code>/etc/whonix_firewall.d/</code> or<br />
+- after allowing Whonix-Gateways root sending non-Tor traffic in
+<code>/etc/whonix_firewall.d/</code><br />
+* nslookup check.torproject.org</p></blockquote></li>
+<li id="cite_note-7">A non-zero exit codes signifies an error, while <code>0</code> means
+it succeeded.</li>
+<li id="cite_note-8">Also see: <span class="code-select">man
+clock-random-manual-gui</span> <span class="code-select">man
+clock-random-manual-cli</span></li>
+<li id="cite_note-9"><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li id="cite_note-10">See: <a href="Dev/Leak_Tests.html">Leak Tests</a></li>
+<li id="cite_note-11"><a href="https://forums.whonix.org/t/tor-browser-on-whonix-workstation-cli/10020/8">https://forums.whonix.org/t/tor-browser-on-whonix-workstation-cli/10020/8</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation.html">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="Terms_of_Service.html">Terms of Service</a></li><li><a href="Privacy_Policy.html">Privacy Policy</a></li><li><a href="Cookie_Policy.html">Cookie Policy</a></li><li><a href="Trademark_Policy.html">Trademark Policy</a></li><li><a href="Imprint.html">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy.html">Privacy Policy</a>, <a href="Cookie_Policy.html">Cookie Policy</a>, <a href="Terms_of_Service.html">Terms of Service</a>, and <a href="E-Sign_Consent.html">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<script src="../search-index.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>
