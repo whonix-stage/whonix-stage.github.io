@@ -410,7 +410,7 @@ code {
 .table-wrap { overflow-x: auto; }
 
 /* ---- callouts / notice boxes ---- */
-.mbox, .info-box, .sitenotice-banner, .community-support-info {
+.mbox, .info-box, .community-support-info {
   margin: 1.25rem 0;
   padding: 0.75rem 1rem;
   border: 1px solid var(--border-soft);
@@ -421,8 +421,8 @@ code {
 }
 .info-box { display: flex; gap: 0.75rem; align-items: flex-start; }
 .info-box-icon { flex: 0 0 auto; color: var(--callout, var(--accent)); font-size: 1.1rem; }
-.mbox > :first-child, .info-box > :last-child > :first-child, .sitenotice-banner > :first-child { margin-top: 0; }
-.mbox > :last-child, .sitenotice-banner > :last-child { margin-bottom: 0; }
+.mbox > :first-child, .info-box > :last-child > :first-child { margin-top: 0; }
+.mbox > :last-child { margin-bottom: 0; }
 
 /* color-scheme accents: set --callout so box border + tint follow */
 .cs-red, .cs-red-light, .cs-red-font { --callout: var(--c-red); }
@@ -799,7 +799,7 @@ code {
 #siteNotice { display: block; margin: 0 0 1rem; text-align: center; }
 .sitenotice { position: relative; display: inline-block; max-width: 100%; }
 .sitenotice-close {
-  width: 30px; height: 30px; position: absolute; top: -10px; right: -10px; z-index: 10;
+  width: 30px; height: 30px; position: absolute; top: 4px; right: 4px; z-index: 10;
   cursor: pointer; border: 0; border-radius: 100px; background: #111; color: #fff;
   line-height: 1; padding: 0; font-size: 15px;
 }
@@ -894,3 +894,28 @@ body.mini-modal-active { overflow: hidden; }
 .hovercard .hovercard-title { font-weight: 700; margin-bottom: 4px; }
 .hovercard .hovercard-extract { margin: 0; }
 .hovercard .hovercard-ref { font-size: .85rem; }
+
+/* Donate page (#donate) -- the crypto coin logos, payment/IBAN/card logos and QR
+   codes are source File: images at native resolution (e.g. 1280px). Without a size
+   they render column-wide; constrain them to small icons like the production page. */
+.donate-area img.icon {
+  width: auto; height: 40px; max-width: 100%; vertical-align: middle;
+}
+.donate-area .qr-code-image { max-width: 180px; height: auto; }
+.donate-area .pp-logo { max-width: 200px; height: auto; }
+
+/* Visible marker for an unexpanded {{...}} that reached the output (pandoc would
+   otherwise silently delete it). Loud on purpose so the loss is never invisible. */
+.mw-unrendered {
+  font-family: monospace; white-space: pre-wrap;
+  color: #b00020; background: #fdecea;
+  border: 1px solid #b00020; border-radius: 3px; padding: 0 3px;
+}
+:root[data-theme="dark"] .mw-unrendered {
+  color: #ff6b6b; background: #3a1414; border-color: #ff6b6b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .mw-unrendered {
+    color: #ff6b6b; background: #3a1414; border-color: #ff6b6b;
+  }
+}
