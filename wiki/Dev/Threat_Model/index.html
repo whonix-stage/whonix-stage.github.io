@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Threat Model</title>
+<meta name="description" content="Technical Design Documentation about Whonix Threat Model. This document covers aspects such as attacker capabilities, goals, and attack surface.">
+<meta property="og:description" content="Technical Design Documentation about Whonix Threat Model. This document covers aspects such as attacker capabilities, goals, and attack surface.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Threat_Model/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Threat_Model/">
+<meta property="og:title" content="Whonix Threat Model">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Threat Model</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Classification_of_Threats">Classification of Threats</a></li><li class="toc-l2"><a href="#Note">Note</a></li><li class="toc-l2"><a href="#The_Threats">The Threats</a></li><li class="toc-l2"><a href="#Attacker_capabilities">Attacker capabilities</a></li><li class="toc-l3"><a href="#Legal/Non-technical_attacks_and_physical_access">Legal/Non-technical
+&quot;attacks&quot; and physical access</a></li><li class="toc-l3"><a href="#Backdoors">Backdoors</a></li><li class="toc-l3"><a href="#Software_attacks">Software attacks</a></li><li class="toc-l3"><a href="#Crypto-attacks">Crypto-attacks</a></li><li class="toc-l3"><a href="#Attacking_design_flaws">Attacking design flaws</a></li><li class="toc-l2"><a href="#Our_Goals">Our Goals</a></li><li class="toc-l2"><a href="#Our_Attack_Surface">Our Attack Surface</a></li><li class="toc-l2"><a href="#Applying_the_threat_model_to_Whonix">Applying the threat model
+to Whonix</a></li><li class="toc-l3"><a href="#High_Profile_Target_Considerations">High Profile Target
+Considerations</a></li><li class="toc-l3"><a href="#Hardware_Scope_and_Limitations">Hardware Scope and
+Limitations</a></li><li class="toc-l3"><a href="#Trustworthy_Hardware_and_Recommendations">Trustworthy Hardware
+and Recommendations</a></li><li class="toc-l3"><a href="#Hardware_Best_Practices">Hardware Best Practices</a></li><li class="toc-l3"><a href="#Cryptographic_Considerations">Cryptographic Considerations</a></li><li class="toc-l3"><a href="#Focus_on_Software_Attacks">Focus on Software Attacks</a></li><li class="toc-l3"><a href="#Software_Defense_Mechanisms">Software Defense Mechanisms</a></li><li class="toc-l3"><a href="#Protecting_against_Software_Vulnerabilities">Protecting against
+Software Vulnerabilities</a></li><li class="toc-l3"><a href="#Design_Flaws_and_Single_Points_of_Failure">Design Flaws and
+Single Points of Failure</a></li><li class="toc-l2"><a href="#Notes_about_securing_Confidentiality,_Integrity_and_Authenticity">Notes
+about securing Confidentiality, Integrity and Authenticity</a></li><li class="toc-l2"><a href="#Notes_about_End-to-end_security_of_Onion_Services">Notes about
+End-to-end security of Onion Services</a></li><li class="toc-l2"><a href="#Attack_on_Whonix">Attack on Whonix</a></li><li class="toc-l2"><a href="#Design_Document,_Innovations,_and_Research">Design Document,
+Innovations, and Research</a></li><li class="toc-l2"><a href="#Whonix_Threat_Model_not_available_as_PDF_or_paper_version">Whonix
+Threat Model not available as PDF or paper version</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../../Design/">Design Documentation</a></li>
+<li><a href="../Technical_Introduction/">Technical
+Introduction</a></li>
+<li><a href="./">Threat Model</a></li>
+<li><a href="../../Comparison_with_Others/">Comparison with
+Others</a></li>
+<li><a href="../../Comparison_with_Kicksecure/">Comparison
+with Kicksecure</a></li>
+</ul>
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Technical Design Documentation about Whonix Threat Model. This
+document covers aspects such as attacker capabilities, goals, and attack
+surface.</p>
+<div class="post-intro-p">
+</div>
+<h2 id="Classification_of_Threats">Classification of Threats</h2>
+<h2 id="Note">Note</h2>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.</p>
+<h2 id="The_Threats">The Threats</h2>
+<p>First, let us quickly consider all the possible threats we could
+face. We can categorize threats against computer systems into five
+categories:</p>
+<dl>
+<dt>1. <strong>Non-technical/non-computer-based and legal
+attacks</strong></dt>
+
+</dl>
+<p>:* Examples include:</p>
+<p>::* "Rubber hose cryptanalysis"</p>
+<p>::* Mandatory key disclosure</p>
+<p>::* Subpoenas</p>
+<p>::* Real detective work/espionage (done by real humans, not bots)</p>
+<p>::* Bugs</p>
+<p>::* Surveillance cameras</p>
+<dl>
+<dt>2. <strong>Hardware attacks through physical access</strong></dt>
+
+</dl>
+<p>:* Examples include:</p>
+<p>::* RAM and hard disk forensics</p>
+<p>::* Keyloggers</p>
+<p>::* TEMPEST</p>
+<p>::* Evil Maid attacks</p>
+<dl>
+<dt>3. <strong>Backdoors</strong></dt>
+
+</dl>
+<p>:* Intentional weaknesses or additional hidden "functionality"
+inserted into your system by a manufacturer, vendor, or distributor
+(hardware or software), allowing remote access<sup>1</sup>.</p>
+<p>:* These can be introduced anywhere from:</p>
+<p>::* Design/source code</p>
+<p>::* Manufacturing/compilation</p>
+<p>::* Distribution</p>
+<dl>
+<dt>;* Learn more about
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</dt>
+
+</dl>
+<dl>
+<dt>4. <strong>Vulnerabilities</strong></dt>
+
+</dl>
+<p>:* Coding or hardware design errors that can be exploited to gain
+remote access.<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p>:* In practice, vulnerabilities and backdoors can appear identical;
+only their methods of creation differ.</p>
+<dl>
+<dt>5. <strong>Design flaws</strong></dt>
+
+</dl>
+<p>:* Even in a system free of backdoors and errors, with perfect
+physical and legal protection (which does not exist in reality),
+achieving perfect security may still be elusive.</p>
+<p>:* This is particularly true for anonymity systems.</p>
+<p>::* While perfect cryptographic design exists (the one-time pad),
+anonymity is not binary.</p>
+<p>::* You are not simply anonymous or not; you possess some non-zero
+but imperfect degree of anonymity.</p>
+<p>::* Your anonymity hinges on blending in with others.</p>
+<p>::* Anonymity networks necessitate trust and a sizable, diverse user
+base.</p>
+<p>::* A perfectly secure system would not rely on trust in others or on
+such external factors.</p>
+<p>::* Every complex (yet still usable) system design (all computer
+systems are complex) involves trade-offs. That is why the majority
+employ imperfect cryptography instead of the one-time pad...</p>
+<p>Lastly, it is worth noting that the bug mentioned in <a href="https://gitlab.torproject.org/legacy/trac/-/issues/5928">Research:
+IP discovery through Tor behind isolated network</a> seems to primarily
+concern determining the IP address a Tor client uses to connect to the
+Internet. It does not touch upon other types of information leakage.</p>
+<h2 id="Attacker_capabilities">Attacker capabilities</h2>
+<h3 id="Legal/Non-technical_attacks_and_physical_access">Legal/Non-technical
+"attacks" and physical access</h3>
+<ul>
+<li>Legal/Non-technical "attacks" and physical access are expensive.
+Anything that requires real humans to work, rather than relying on
+computers and algorithms, is prohibitively expensive for more than a
+small target group.</li>
+</ul>
+<h3 id="Backdoors">Backdoors</h3>
+<ul>
+<li>Both hardware and software backdoors are costly to implement.
+Creating one is difficult and comes with risks.</li>
+<li>The more frequently a backdoor is used, the more likely it is to be
+detected and closed. Adversaries are unlikely to waste such tools on
+anything but high-profile targets.</li>
+<li>Well-hidden passive "backdoors" are concerning, as they can be
+nearly impossible to detect and may remain functional for years.</li>
+<li>Consider a backdoor in a compiler affecting the PRNG. The cost of
+implementing such a backdoor is high, requiring patience, sophisticated
+coding, social engineering, and cryptography skills. However, the
+potential return on investment could be significant.</li>
+</ul>
+<h3 id="Software_attacks">Software attacks</h3>
+<ul>
+<li>Software attacks are economical. While a good 0-day exploit can be
+expensive and loses its usefulness once deployed, new vulnerabilities
+emerge regularly, and new exploits can be developed.</li>
+<li>Compared to physical access and backdoors, software attacks are more
+cost-effective and can be automated for a broad target set.</li>
+<li>If you question the significance or realism of the threat from
+client application 0-days, consider pwn2own 2012. A semi-legal, albeit
+questionable, company demonstrated its ability to exploit every web
+browser, bypassing all advanced security features (MAC, Sandbox, ASLR,
+NX, etc.).</li>
+<li>Such findings are not shocking, given that large codebases will
+always contain bugs, some of which are exploitable. What stands out is
+that this company does not disclose its findings to the software
+developers; instead, it sells this information to governments (or the
+highest bidder) as offensive "cyber weapons" (though it would not term
+it as such).</li>
+<li>It is plausible that vulnerabilities in Tor are also being sold
+discreetly. Therefore, one should never rely solely on Tor, especially
+when requiring robust anonymity from well-funded adversaries.</li>
+</ul>
+<h3 id="Crypto-attacks">Crypto-attacks</h3>
+<ul>
+<li>Crypto-attacks are extremely expensive. If one discovers a method to
+break the currently used encryption, it will likely be kept secret.</li>
+<li>Most cryptographic attacks probably necessitate vast computing
+resources.</li>
+</ul>
+<h3 id="Attacking_design_flaws">Attacking design flaws</h3>
+<ul>
+<li>Attacking design flaws varies in cost. The expenses can differ
+significantly, but in every instance, once a design flaw is attacked and
+it becomes public knowledge, the target will rectify the flaw, making it
+tougher to exploit in the future.</li>
+<li>This dynamic could lead to an arms race, which neither party may
+desire.</li>
+<li>A significant issue for the defending party is that some systems
+have become so ubiquitous that transitioning to a more secure design is
+nearly impossible.</li>
+<li>A prime example is the certificate authority system. Its design has
+numerous flaws, but nearly every computer user relies on it for
+authentication and confidentiality.</li>
+<li>Similarly, the lack of crypto and hash agility in many applications
+results in dependence on fragile and compromised algorithms. This is not
+due to ignorance but because of the demands of backward compatibility
+and the problems a few malicious actors can cause.</li>
+<li>There is a threshold where, if an attacker remains discreet, they
+can operate undetected for an extended period, giving everyone the
+impression that the situation is not "that bad yet."</li>
+<li>For instance, a <a href="https://en.wikipedia.org/wiki/Collision_attack#Attack_scenarios">collision
+attack</a> against SHA-1, affecting various applications, including Tor,
+GPG, and TLS, has been deemed feasible for a potent adversary since
+2005. With advances in technology and attack methods, the number of
+potential adversaries has only grown. SHA-1 will likely remain in
+widespread use until a collision is publicly demonstrated, not because
+we lack alternatives, but because the costs of transitioning are so
+steep.</li>
+</ul>
+<h2 id="Our_Goals">Our Goals</h2>
+<ul>
+<li><strong>Hiding our Location and Identity when transmitting
+information</strong>: Ensuring that our physical location and personal
+or organizational identity remain anonymous when sending or receiving
+information.</li>
+</ul>
+<ul>
+<li><strong>Confidentiality, Integrity, Authenticity, and Availability
+of transmitted data</strong>:
+<ul>
+<li><strong>Confidentiality</strong>: Ensuring that the data remains
+private and is accessible only to those intended to have access.</li>
+<li><strong>Integrity</strong>: Guaranteeing that the data remains
+unchanged during transmission and that no unauthorized alterations
+occur.</li>
+<li><strong>Authenticity</strong>: Verifying the source and destination
+of the data, confirming that it is coming from and going to legitimate
+entities.</li>
+<li><strong>Availability</strong>: Making sure that data remains
+accessible and retrievable when needed, especially during crucial
+moments.</li>
+</ul></li>
+</ul>
+<h2 id="Our_Attack_Surface">Our Attack Surface</h2>
+<p>Every component we utilize to achieve our goals presents a potential
+attack vector:</p>
+<dl>
+<dt><strong>Physical Security and Privacy</strong>:</dt>
+<dd>
+Physical security and privacy are IMPERATIVE. Without them, achieving
+anonymity and confidentiality becomes challenging, if not impossible.
+</dd>
+</dl>
+<dl>
+<dt><strong>Tor &amp; Its Components</strong>:</dt>
+<dd>
+When considering Tor, its code, design, and the entire network (refer to
+<a href="../Anonymity_Network/">Dev/Anonymity
+Network</a> for details), it is essential not to view Tor in isolation.
+We MUST consider its entire TCB (<a href="https://en.wikipedia.org/wiki/Trusted_computing_base">Trusted
+Computing Base</a>). If any component of the TCB is compromised, the Tor
+process can be undermined. For backdoor threats, the entire TCB is the
+attack surface, while for vulnerabilities, only the network-facing
+components of the TCB are.
+<ul>
+<li><strong>Whonix-Gateway<sup>&#8482;</sup> Hardware</strong></li>
+<li><strong>GNU/Linux/OS</strong>: The kernel, essential userland, APT,
+and all software update packages provided by the <u>o</u>perating
+<u>s</u>ystem (OS) distributor/vendor.</li>
+<li><strong>Tor itself</strong></li>
+<li><strong>Build System &amp; Virtualization</strong>: The build system
+(e.g., gcc). Using virtualization (as opposed to physical isolation)
+enlarges the TCB significantly. This includes:</li>
+</ul>
+<dl>
+<dt></dt>
+<dd>
+Host Kernel
+</dd>
+<dd>
+Host applications
+</dd>
+<dd>
+Host software updater
+</dd>
+<dd>
+Virtualization software
+</dd>
+</dl>
+</dd>
+</dl>
+<dl>
+<dt><strong>Software Dependencies &amp; Functions</strong>:</dt>
+<dd>
+It is CRUCIAL that the software we employ does not exceed its necessary
+functions, as this might compromise our anonymity through protocol
+leaks, identity correlation via Tor circuit sharing, and fingerprinting.
+To ensure this, we also depend on the Whonix-Workstation<sup>&#8482;</sup> and
+the TCB of the applications we utilize. (For more details, see [Whonix
+Protocol-Leak-Protection and Fingerprinting-Protection]).
+</dd>
+</dl>
+<dl>
+<dt><strong>Confidentiality, Integrity, and Authenticity</strong>:</dt>
+<dd>
+To guarantee these, we (and this includes everyone, not just Whonix)
+rely far too heavily on TLS (Transport Layer Security, the "s" in
+https). We also depend on:
+<ul>
+<li>The entire host (both hardware and software)</li>
+<li>All software within Whonix-Workstation</li>
+<li>TLS/PKI infrastructure</li>
+<li>For onion services: The full location/identity TCB.</li>
+<li>The security of the entity you are communicating with, unless
+employing symmetric key cryptography where you possess the exclusive
+key.</li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt><strong>Availability of Information</strong>:</dt>
+<dd>
+Our dependencies include:
+<ul>
+<li>The reliability and connectivity of the upstream Internet
+provider</li>
+<li>The Tor network's ability to withstand DoS attacks</li>
+<li>The resistance of the web servers you access to DoS attacks</li>
+<li>Your system's capability to resist DoS attacks</li>
+</ul>
+</dd>
+</dl>
+<h2 id="Applying_the_threat_model_to_Whonix">Applying the threat model
+to Whonix</h2>
+<h3 id="High_Profile_Target_Considerations">High Profile Target
+Considerations</h3>
+<p>First, you do not want to be on the "high profile target" list of any
+resourceful adversary. If you are, neither Whonix nor any other
+computer-based system can protect you.</p>
+<h3 id="Hardware_Scope_and_Limitations">Hardware Scope and
+Limitations</h3>
+<p>Whonix is primarily a software project. Our scope for hardware and
+physical aspects is limited. Hardware security would not be as
+significant an issue if we were not dealing with monolithic systems
+where multiple parts have full system access through DRM or indirectly
+via hardware drivers that run in kernel space. Consider examining Qubes
+OS for cutting-edge hardware deprivileging. While it requires modern
+hardware and a larger user base, integrating Whonix with Qubes OS was
+done in the form of <a href="../../Qubes/">Qubes-Whonix</a>.</p>
+<h3 id="Trustworthy_Hardware_and_Recommendations">Trustworthy Hardware
+and Recommendations</h3>
+<p>Assuming the hardware is trustworthy and the physical location
+uncompromised, it is RECOMMENDED to use "clean" computers with parts
+from reputable manufacturers and to make purchases in cash to prevent
+hardware IDs from revealing our identity.</p>
+<p>For protection against forensic analysis, full disk encryption SHOULD
+be used on the host, and RAM should be wiped upon shutdown.</p>
+<p>Implementation status: Since Whonix does not yet include a host
+operating system, we RECOMMEND users follow the guidelines provided in
+the Whonix documentation.</p>
+<h3 id="Hardware_Best_Practices">Hardware Best Practices</h3>
+<p>Some additional pointers:</p>
+<ul>
+<li>Favor IOMMU over DMA, and avoid attaching untrusted devices to
+FireWire and PCI* interfaces.</li>
+<li>Opt for open source hardware or at least hardware that is open
+source friendly, meaning the specifications are public. With open
+source, multiple companies can produce the hardware, making backdoors
+more challenging to introduce.</li>
+<li>Embrace simplicity. Complexity is security's primary adversary.
+Whonix-Gateway could operate on straightforward hardware like the
+Raspberry Pi.</li>
+</ul>
+<h3 id="Cryptographic_Considerations">Cryptographic Considerations</h3>
+<p>Regarding cryptography, the approach we can take is to use <a href="https://en.wikipedia.org/wiki/Multiple_encryption">cascades</a> of
+varying cipher and hash families. However, it is more intricate than it
+seems, and no known software achieves this correctly.</p>
+<h3 id="Focus_on_Software_Attacks">Focus on Software Attacks</h3>
+<p>As mentioned in the "Attacker capabilities" section, our main area of
+focus should be software attacks.</p>
+<h3 id="Software_Defense_Mechanisms">Software Defense Mechanisms</h3>
+<p>To defend against software backdoors and vulnerabilities:</p>
+<ul>
+<li>The source should be audited, preferably both by you and numerous
+others, and should ideally be free of bugs. Popular open source projects
+are your best bet. As Whonix is fully open source, anyone can audit and
+submit patches. -&gt; <a href="../../Reasons_for_Freedom_Software/">Reasons for Freedom Software</a></li>
+<li>If you depend on others (and you do), ensure that you receive the
+same code as everyone else. Hash sums and signatures, especially when
+made public, can help verify this. If transparent signing (common in
+proprietary systems) is used, it becomes harder to confirm that you are
+receiving the same files as everyone else. By default, signing ensures
+you are receiving code from someone with access to the signing key,
+which protects against third parties, but not potential insiders. The
+checksums and signatures for Whonix and its updates are made publicly
+available.</li>
+<li>The code you utilize should have a strong track record. -&gt; <a href="../../Whonix_against_Real_Attacks/">Whonix Track Record
+against Real Cyber Attacks</a>
+<ul>
+<li>Any known issues must be promptly addressed. Code that is not
+regularly scrutinized but has no known issues is more concerning than
+code with many known (but patched) security vulnerabilities that is
+under continuous review. However, truly trustworthy code should have
+minimal, if any, security issues despite rigorous audits. It is worth
+noting that projects requiring frequent security patches are inherently
+insecure. But it is not just about the quantity of issues; the severity
+of bugs is also crucial. For instance, while Linux receives many
+security patches, critical vulnerabilities that could impact Whonix
+(like remote code execution with root privileges) are rare. However,
+critical flaws in user-facing applications, such as browsers, PDF
+readers, media players, and IRC, are more common, and such software
+should not be a part of the TCB (referenced below).</li>
+</ul></li>
+<li>Merely reviewing the source is not sufficient; trustworthy binaries
+are essential. Analyzing binaries is considerably more challenging than
+scrutinizing source code. If you are dependent on source code auditing,
+you must have a trustworthy compiler (along with a fully trusted system
+on which to run it) and utilize <a href="https://dwheeler.com/trusting-trust/">DCC</a>. In the same vein, a
+trusted system is imperative for verifying signatures and hashes. This
+introduces the bootstrapping dilemma often likened to the "chicken and
+egg" problem. Generally, to circumvent this, you should employ at least
+two distinct, unrelated systems (including their foundational build
+systems and compilers). The systems should be configured in a manner
+such that both would need to be compromised simultaneously by the same
+adversary, in a compatible manner, to result in a significant security
+breach.</li>
+</ul>
+<h3 id="Protecting_against_Software_Vulnerabilities">Protecting against
+Software Vulnerabilities</h3>
+<p>If the code base is large and complex, code auditing is not a
+realistic strategy. Therefore, we need to reduce complexity and the
+attack surface by:</p>
+<ul>
+<li>Making the TCB small, and</li>
+<li>Using privilege separation: The TCB for identity/anonymity is as
+small as it can be on a monolithic general-purpose OS. It could be
+smaller (e.g., a custom kernel, busybox, uclibc instead of libc, and
+gnu-utils), but that would increase the cost in terms of
+maintainability, security updates, and ease of use. (And this still
+leaves us with a comparably large monolithic kernel and a vast gcc
+infrastructure.) Linux/Xorg (with DAC or even MAC) does not excel at
+privilege separation (e.g., no trusted path). The most robust privilege
+separation is achieved by using multiple physical computers, which we
+RECOMMEND, as seen in <a href="../Build_Documentation/Physical_Isolation/">Physical Isolation</a> and <a href="../../Multiple_Whonix-Workstation/">multiple
+Whonix-Workstation</a>. A more practical, but less secure, alternative
+is virtualization. For details about privilege separation between
+IRC/Browser/Clients and Tor, see <a href="../Technical_Introduction/">Dev/Technical Introduction</a>.</li>
+</ul>
+<p>We have spent considerable time considering ways to make Whonix even
+more secure, but with the (free and open source) tools available today,
+it does not seem feasible. We would require an isolation kernel that
+offers robust guarantees of isolation between different subsystems and
+would ideally be verified. This way, concerns about sophisticated
+backdoors (barring those from the compiler, as discussed in "Trusting
+trust"/chicken and egg), software vulnerabilities, and even some
+hardware backdoors and vulnerabilities (through IOMMU and microkernel
+design one can move hardware and firmware components, aside from the
+CPU, out of the TCB) would be alleviated. For Fingerprint/Protocol leaks
+and the <a href="https://en.wikipedia.org/wiki/CIA_triad#Key_concepts">CIA
+Triad</a>, we rely on the Whonix-Workstation TCB. This presents a
+dauntingly large TCB/attack surface. Therefore, we employ another
+strategy, "security through non-persistence". Specifically, you should
+frequently utilize the clone feature and rollback capabilities of the
+virtual machine. Instead of enforcing privilege separation within a
+Tor-Workstation (e.g., by using a Mandatory Access Control framework),
+which would result in significant usability compromises, we recommend
+the coarse-grained isolation provided through multiple VMs.</p>
+<p>To protect specifically against software attacks
+(vulnerabilities):</p>
+<ul>
+<li>Make the software challenging to attack with tools like ASLR,
+canaries, NX, and kernel hardening. (See the Debian section <a href="../Operating_System/#Debian">About Debian</a>.)
+It is essential to understand that this makes attacks "harder" but not
+impossible. Hardening is not a substitute for fixing bugs. In a
+genuinely trustworthy system, hardening would not be necessary.</li>
+</ul>
+<h3 id="Design_Flaws_and_Single_Points_of_Failure">Design Flaws and
+Single Points of Failure</h3>
+<p>To mitigate design flaws, the primary strategy is to eliminate single
+points of failure:</p>
+<ul>
+<li>You SHOULD NOT rely solely on Tor; use WiFi or tunnel through <a href="../Anonymity_Network/">an anonymity network</a>
+if available. (Not really.) <a href="../../Why_does_Whonix_use_Tor/">Why does Whonix use Tor</a></li>
+<li>You SHOULD NOT rely solely on TLS; also use GPG (and vice
+versa).</li>
+<li>You SHOULD NOT rely on a software monoculture.</li>
+<li>You SHOULD NOT expect the Debian infrastructure to remain
+uncompromised forever. We currently do not adhere to this advice.</li>
+<li>To lessen the impact of a potential compromise of the update
+infrastructure, which includes developer machines, build systems, and
+key security and cryptographic primitives like PRNG (remember OpenSSL or
+Flame?), we do not enable automatic software updates. After all, these
+are essentially remote root-level backdoors, albeit with some checks in
+place.</li>
+</ul>
+<h2 id="Notes_about_securing_Confidentiality,_Integrity_and_Authenticity">Notes
+about securing Confidentiality, Integrity and Authenticity</h2>
+<p>This is no different from any other computer system without Tor. You
+MUST use end-to-end public key encryption; there is not really an
+alternative to that. But there are alternative implementations: TLS,
+SSH, GPG... End-to-End means both ends need to be secure. One end is the
+Whonix-Workstation, which you can control and secure. In the case of
+onion services, the Whonix-Gateway is ALSO part of the TCB!</p>
+<p>Whonix-Workstation is not specifically hardened because hardening a
+desktop system to a degree that makes it actually secure against a
+serious adversary makes the system unusable. Instead, we follow the nuke
+and restore approach, see <a href="../../Multiple_Whonix-Workstation/">Multiple Whonix-Workstation</a> and <a href="../../Security_Guide/#Recommendation_to_use_multiple_VM_Snapshots">Recommendation to use multiple Snapshots</a>.</p>
+<p>About availability: The most resilient approach is probably a
+distributed data store, like Tahoe-LAFS or Freenet. I2P offers
+multi-homing built in. For Tor, we do not know of any solutions ready
+for general usage.</p>
+<h2 id="Notes_about_End-to-end_security_of_Onion_Services">Notes about
+End-to-end security of Onion Services</h2>
+<p>Moved to <a href="../../Onion_Services/#Notes_about_End-to-end_Security_of_Onion_Services">Notes about End to end Security of Onion
+Services</a></p>
+<h2 id="Attack_on_Whonix">Attack on Whonix</h2>
+<p>There is a comparison of Tor Browser, Tails, Whonix Standard/Download
+version (host+VM+VM), and Whonix with Physical Isolation in chapter <a href="../../Comparison_with_Others/#Attacks">Attacks against
+Whonix</a>.</p>
+<h2 id="Design_Document,_Innovations,_and_Research">Design Document,
+Innovations, and Research</h2>
+<p>The Whonix developer, Adrelanos, has a keen interest in serious
+design documents. Currently, there exists only one design document
+pertaining to Tor, transparent/isolated proxying, isolation, and virtual
+machines. Adrelanos has reviewed the old design paper titled "A Tor
+Virtual Machine Design and Implementation" from 2009. After reviewing
+it, Adrelanos refined that paper by removing non-essential,
+non-security-relevant content, ensuring all considerations from the old
+design paper were incorporated into Whonix.</p>
+<p>The entirety of Whonix <a href="../../Documentation/">Documentation</a> and <a href="../../Design/">Design</a> supersedes the old design document.</p>
+<p>Adrelanos also monitors the following documents:</p>
+<ul>
+<li><a href="https://tails.boum.org/contribute/index.en.html">Tails
+Design</a></li>
+<li><a href="https://tails.boum.org/contribute/design/">Tails Design:
+Specification and Implementation</a></li>
+<li><a href="https://dee.su/liberte-security">Security and Anonymity in
+Libert&#233; Linux</a> (<a href="https://archive.ph/srdCd">archive.ph</a>)</li>
+<li><a href="https://dee.su/liberte-motivation">Libert&#233; Linux Motivation
+and Philosophy</a> (<a href="https://archive.ph/https://dee.su/liberte-motivation">archive.ph</a>)</li>
+</ul>
+<p>Any security/privacy/anonymity updates will be considered for
+inclusion in Whonix.</p>
+<p>The Whonix project is committed to asking pertinent questions,
+offering valuable suggestions, and creating useful tools. -&gt; <a href="../../What_we_do/">What we do</a></p>
+<p>The following list helps track all discussions and periodically
+review them to discern any changes:</p>
+<ul>
+<li>Smarm initiated a serious discussion on <a href="../Leak_Tests_Old/">Dev/Leak Tests Old</a>, which was subsequently scripted
+by Adrelanos (see <a href="../Leak_Tests/">Dev/Leak
+Tests</a>). This discussion may be of value to other projects as
+well.</li>
+<li><a href="https://web.archive.org/web/20170222032855/https://mailman.boum.org/pipermail/tails-dev/2012-June/001245.html">Tails-dev
+Removing SSL CA Dependency for HTP</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/torsocks">Modified
+usewithtor to Support Setting IP and Port by Command Line Parameter by
+Adrelanos</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/5928">Research:
+IP Discovery through Tor behind Isolated Network</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/5611">Enhance
+"Transparent Torification (Requires Custom transproxy or Tor Router)" in
+Tor Button.</a></li>
+<li>For further discussions, consult <a href="../Archived_Discussions/">Dev/Archived Discussions</a> and the associated
+archives. Our approach is always considered; everyone is welcome to
+contribute, and we strive to make informed decisions.</li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-May/024227.html">tor-talk
+Tor Browser Disabling Javascript Anonymity Set Reduction</a></li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023535.html">tor-talk
+Awareness for Identity Correlation through Circuit Sharing is Almost
+Zero.</a>; <a href="https://gitlab.torproject.org/legacy/trac/-/issues/6102">Add
+Warning Related to Identity Correlation through Circuit Sharing</a></li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023486.html">tor-talk
+Operating System Updates / Software Installation behind Tor Transparent
+Proxy</a></li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-August/025128.html">tor-talk
+Attack against Tor: Statistic Manipulation Attack</a></li>
+<li><a href="https://web.archive.org/web/20170222032804/https://mailman.boum.org/pipermail/tails-dev/2012-July/001394.html">Tails-dev
+tails_htp: Exit Relay can Fingerprint Tails Users until Exit Relay is
+Changed</a>; <a href="https://web.archive.org/web/20170222032556/https://mailman.boum.org/pipermail/tails-dev/2012-August/001421.html">2</a></li>
+<li><a href="https://web.archive.org/web/20170222032726/https://mailman.boum.org/pipermail/tails-dev/2012-August/001436.html">Tails-dev
+Better IRC Client, Include HexChat</a></li>
+<li><a href="https://web.archive.org/web/20141005211329/https://mailman.boum.org/pipermail/tails-dev/2012-August/001422.html">Tails-dev
+Separate Tor Streams</a></li>
+<li>...</li>
+</ul>
+<p>This list is not exhaustive...</p>
+<h2 id="Whonix_Threat_Model_not_available_as_PDF_or_paper_version">Whonix
+Threat Model not available as PDF or paper version</h2>
+<p>You may skip this optional chapter.</p>
+<p>While we read actual papers, such as the <a href="https://svn.torproject.org/svn/projects/design-paper/tor-design.pdf">Onion
+routing design paper</a> and many others, we cannot be compelled to
+create a paper titled "Designing an anonymous operating system" using
+LaTeX for PDF output.</p>
+<p>As Mike Perry, a developer of the Tor Browser, <a href="https://lists.torproject.org/pipermail/tor-talk/2012-May/024405.html">stated</a>,
+"<em>I find the PDF format heavy and unnerving from a security
+perspective.</em>" We share this sentiment and also find the PDF format
+inconvenient. Learning LaTeX, mastering PDF creation, and understanding
+formatting etiquette would consume considerable time. Time we would
+prefer to allocate to design enhancements, development, and other
+endeavors. The "Onion routing design paper" is now outdated, and we
+prefer an editable, frequently updated, and revised website over a
+static paper or PDF.</p>
+<p>Tails does not offer a design paper in PDF format either, yet it has
+garnered significant attention from both users and developers.
+Similarly, TrueCrypt did not have a design paper on plausible
+deniability, but it still underwent a review by Bruce Schneier and
+others. Hence, we do not see the inherent benefits of making our threat
+model available in PDF. However, if we have missed any advantages,
+please do not hesitate to inform us.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Used in the broadest sense, vulnerabilities can manifest as remote
+code execution, privilege escalation, DoS, etc. Essentially, they all
+allow remote parties to send your system instructions that diverge from
+the established security policy.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Design/">Design</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

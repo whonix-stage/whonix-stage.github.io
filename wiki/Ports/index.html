@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Ports</title>
+<meta name="description" content="How to open a port in Whonix / port forwarding / opening ports">
+<meta property="og:description" content="How to open a port in Whonix / port forwarding / opening ports">
+<link rel="canonical" href="https://www.whonix.org/wiki/Ports/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Ports/">
+<meta property="og:title" content="Opening Ports in Whonix">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Buttons-1688111640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Tor_Browser/Manual_Download/" title="Tor Browser/Manual Download"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tor
+Browser/Manual
+Download</span></a><a class="index internal" href="../Advanced_Documentation/" title="Advanced Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Advanced
+Documentation</span></a><a class="next internal" href="../Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway/" title="Redirect Whonix-Workstation Ports or Unix Domain Socket Files to Whonix-Gateway"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Redirect
+Whonix-Workstation Ports or Unix Domain Socket Files to
+Whonix-Gateway</span></a><span class="info"><span class="prev">Previous
+page: Tor Browser/Manual Download</span><span class="index">Index page:
+Advanced Documentation</span><span class="next">Next page: Redirect
+Whonix-Workstation Ports or Unix Domain Socket Files to
+Whonix-Gateway</span></span></span>Opening Ports in Whonix</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../Connections_between_Gateway_and_Workstation/">Connections between Whonix-Gateway and
+Whonix-Workstation</a></li>
+<li><a href="./">Opening Ports in Whonix</a></li>
+<li><a href="../Access_Gateway_Port_From_Host/">Access
+Whonix-Gateway Ports from the Host</a></li>
+<li><a href="../Access_Workstation_Port_From_Host/">Access
+Whonix-Workstation Ports from the Host</a></li>
+</ul>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="./">Opening Ports in Whonix</a></li>
+<li><a href="../Dev/Porting/">Porting Whonix to other
+Architectures</a></li>
+<li><a href="../Dev/Virtualization_Platform/">Porting
+Whonix to other Virtualizers</a></li>
+</ul>
+</div>
+<p><img src="../../media/Buttons-1688111640.jpg.webp" alt="Buttons-1688111640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>How to open a port in Whonix / port forwarding / opening ports</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+There is a lot confusion surrounding this topic and before proceeding
+with opening ports, for your security, you are advised to understand the
+following writeup.</p>
+</div>
+<h1 id="Opening_Ports:_Clearnet/Tor_Impact_and_Security_Issues">Opening
+Ports: Clearnet/Tor Impact and Security Issues</h1>
+<p>We have to clearly distinguish between opening when referring to
+clearnet versus referring to opening a port when using Tor.</p>
+<p>Most times when talking generally about opening ports (clearnet,
+unrelated to Tor), technically one is referring to allow unsolicited
+incoming connections. Imagine a public web server. The websever is
+supposed to be able to reply to unsolicited incoming connections by
+clients. On the other hand however, clients usually (except when they
+are behind some corporate, national or similar firewall) can use any
+outgoing port. When a client is creating an outgoing connection, the
+operating system picks a random port where it expects the solicited
+incoming answer. Sometimes end users want to open a port such for
+example when they want to install a public webserver on their home
+connection. The end users have mostly unrestricted outgoing access, but
+unsolicited incoming connections are restricted by their home router's
+NAT firewall. Opening a port for them often means that they use their
+router's web interface, configure the port they want to open and forward
+it to a computer in their LAN network. Also when they are using a
+firewall that restricts unsolicited incoming connections, they need to
+open an incoming port in their firewall in order to make their server
+application reachable from the open internet. By doing so, the users
+real public IP address is exposed. You would not want to open a port
+using this method if you wish to stay anonymous.</p>
+<p>When talking about <a href="../Tor/">Tor</a>, the topic
+of opening ports often causes confusion. By default Tor works only as a
+client, which means it lets the user establish outgoing
+connections<sup class="reference"><a href="#cite_note-1">[1]</a></sup> and receives the solicited answers. The
+Tor software by default does not block any outgoing ports. However, some
+Tor exit relays restrict outgoing ports. In theory, if there was no Tor
+exit relay supporting outgoing port 22, then you could not exit the Tor
+network directly through that port. In these cases there would be no way
+to force open that port since that is a Tor relay, not Tor client
+setting.</p>
+<p><a href="../Hosting_Location_Hidden_Services/">Hosting
+Location Onion Services</a> over Tor is possible. One way to accomplish
+this is using <a href="../Onion_Services/">Onion
+Services</a>. To oversimplify this, by configuration Tor it instructions
+the Tor network to open an incoming port at Tor relays for Tor onion
+hostname which gets forwarded to a port on the machine where Tor is
+running (called virtport). The users real public IP address remains
+hidden. That onion hostname is only reachable by other Tor clients.</p>
+<p>At the time of writing, it makes limited sense to open a port. There
+are very few exceptions.</p>
+<ul>
+<li><a href="../Access_Gateway_Port_From_Host/">Access
+Gateway Port From Host</a></li>
+<li><a href="../Host_a_Bridge_or_Tor_Relay/">Hosting a
+(private) (obfuscated) bridge or (exit) relay</a></li>
+<li>In past, using the now deprecated censorship circumvention Tor
+pluggable transport <a href="../Deprecated/#flashproxy">flashproxy</a> required opening a clearnet port to
+accept unsolicited clearnet incoming connections.</li>
+</ul>
+<p>If you want to host a Tor onion service, you will need to open a port
+in Whonix-Workstation<sup>&#8482;</sup> firewall so Whonix-Gateway<sup>&#8482;</sup>
+can forward the incoming Tor onion service connection to
+Whonix-Workstation<sup>&#8482;</sup>. This will be covered in <a href="../Onion_Services/">Onion Services</a>
+instructions.</p>
+<p>When Tor users ask about how to open a port, they often do not need
+to and try to fix the wrong problem. Common issues are:</p>
+<ul>
+<li>Services such as IRC servers ban connections from Tor users. This
+cannot be remedied by opening any ports.</li>
+<li>Sometimes applications such as VPNs do not work. Either because one
+is trying to use UDP, while the Tor network does not support that
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup> or because of VPN configuration issues, see <a href="../Tunnels/Introduction/">Tunnels/Introduction</a>.</li>
+<li>Sometimes applications such as <a href="../OnionShare/">OnionShare</a> when run in Whonix-Workstation expect
+Tor to be running on localhost because there are Tor-friendly
+applications, i.e. applications preconfigured to use Tor by the
+developer of the application. Now for OnionShare this is a non-issue
+because Whonix developers preconfigured Whonix using package <a href="../Dev/anon-ws-disable-stacked-tor/">anon-ws-disable-stacked-tor</a> to make OnionShare work
+inside Whonix without the user having to setup port redirections. See
+our Whonix <a href="../OnionShare/">OnionShare</a>
+instructions if you specifically care about OnionShare. Otherwise see <a href="../Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway/">Redirect Whonix-Workstation Ports or Unix Domain Socket
+Files to Whonix-Gateway</a>.</li>
+</ul>
+<p>If you really need an anonymous incoming port your primary option is
+Tor <a href="../Onion_Services/">Onion Services</a> and
+some methods listed on <a href="../Hosting_Location_Hidden_Services/">Hosting Location Hidden Services</a>.</p>
+<h1 id="How-to">How-to</h1>
+<p><a href="../Unsupported/">Undocumented</a>.
+Pointers:</p>
+<ul>
+<li><a href="https://github.com/Whonix/whonix-firewall/blob/95bbe7fd32fef12ee8544a9e9132973532d6a41d/etc/whonix_firewall.d/30_whonix_gateway_default.conf#L75-L84">https://github.com/Whonix/whonix-firewall/blob/95bbe7fd32fef12ee8544a9e9132973532d6a41d/etc/whonix_firewall.d/30_whonix_gateway_default.conf#L75-L84</a></li>
+<li><a href="../Access_Gateway_Port_From_Host/">Access
+Gateway Port From Host</a></li>
+</ul>
+<h2 id="Open_Whonix-Gateway_Port">Open Whonix-Gateway Port</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong></p>
+<ul>
+<li>Don't! Unless you know what you are doing.</li>
+<li>This is usually not required!</li>
+<li>This is <a href="../Unsupported/">Unsupported</a>!
+Always follow <a href="../Moved:Firewall_Refactoring/">Firewall Refactoring</a> steps before and after making
+configuration changes to check if the firewall rules actually
+changed.</li>
+</ul>
+</div>
+<p>Use cases:</p>
+<ul>
+<li><a href="../Access_Gateway_Port_From_Host/">Access
+Whonix-Gateway Ports from the Host</a></li>
+<li><a href="../Sshfs_into_Whonix-Workstation/">Sshfs into
+Whonix-Workstation</a></li>
+</ul>
+<p>Otherwise do not use this.</p>
+<p><strong>Modify Whonix-Gateway User Firewall Settings.</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/usr/local/etc/whonix_firewall.d/50_user.conf</code> appears empty
+(because it does not exist). This is expected.</p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>Settings</code> &#8594; <code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p>In Whonix-Gateway, open the whonix_firewall configuration file in an
+editor.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Gateway App Qube (commonly called </code><em><span><code>sys-whonix</code></span></em><code>)</code>
+&#8594; <code>User Firewall Settings</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>.</p>
+<p><strong>Note</strong>: The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>See also <a href="../Moved:Configuration_Files/">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="../Qubes/">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template:</code> <code>whonix-gateway-18</code> &#8594;
+<code>Global Firewall Settings</code></p>
+<p><u>If using a graphical Whonix-Gateway</u>, complete these steps.</p>
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>Settings</code> &#8594; <code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Gateway</u>, complete these steps.</p>
+<p>In Whonix-Gateway, view the global firewall configuration file in an
+editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_gateway_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<p><span class="code-select">EXTERNAL_OPEN_PORTS+=" 80 "</span></p>
+<p>Save.</p>
+<p><strong>Reload Whonix-Gateway Firewall.</strong></p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_2">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>System</code> &#8594; <code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_2">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_2"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Gateway ProxyVM (commonly named sys-whonix)</code> &#8594;
+<code>Reload Firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="Open_Whonix-Workstation_Port">Open Whonix-Workstation Port</h2>
+<p>Use case: <a href="../Onion_Services/">Onion
+Services</a></p>
+<p><strong>Modify Whonix-Workstation User Firewall Settings</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/etc/whonix_firewall.d/50_user.conf</code> appears empty (because
+it does not exist). This is expected.</p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, you must boot into this mode before these steps will work.</p>
+<p>Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_USER_Session">Graphical
+Whonix-Workstation USER Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session">Graphical
+Whonix-Workstation SYSMAINT Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
+run <code>/usr/libexec/whonix-firewall/firewall50user</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix-Workstation"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Workstation App Qube (commonly called </code><em><span><code>anon-whonix</code></span></em><code>)</code>
+&#8594; <code>QTerminal</code> &#8594; run
+<code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Workstation">Terminal Whonix-Workstation</h4>
+</div>
+<div class="tcc-content">
+<p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
+with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Learn More on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>.</p>
+<p>The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>Also see: <a href="../Moved:Configuration_Files/">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="../Qubes/">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template</code> &#8594; <code>whonix-workstation-18</code> &#8594;
+<code>QTerminal</code> &#8594; run
+<code>nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf</code></p>
+<p><u>If using a graphical Whonix-Workstation</u>, complete these
+steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Workstation</u>, complete these
+steps.</p>
+<p>In Whonix-Workstation, view the global firewall configuration file in
+an editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<p><span class="code-select">EXTERNAL_OPEN_PORTS+=" 80 "</span></p>
+<p>Save.</p>
+<p><strong>Reload Whonix-Workstation Firewall.</strong></p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, and you are not booted into it, reboot the VM to reload the
+firewall.</p>
+<p>Platform-specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_USER_Session_2">Graphical
+Whonix-Workstation USER Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_2">Graphical
+Whonix-Workstation SYSMAINT Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
+run <code>sudo whonix_firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Workstation_2">Terminal Whonix-Workstation</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix-Workstation_2"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
+<code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="Forum_Discussion">Forum Discussion</h1>
+<p><a href="https://forums.whonix.org/t/new-wiki-page-to-clear-up-confusion-about-opening-ports">https://forums.whonix.org/t/new-wiki-page-to-clear-up-confusion-about-opening-ports</a></p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Whonix-Workstation_Firewall/">Whonix-Workstation Firewall</a></li>
+<li><a href="../Onion_Services/">Onion Services</a></li>
+<li><a href="../Hosting_Location_Hidden_Services/">Hosting
+Location Hidden Services</a></li>
+<li><a href="../Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway/">Redirect Whonix-Workstation Ports or Unix Domain Socket
+Files to Whonix-Gateway</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">TCP and some types of DNS</li>
+<li id="cite_note-2"><a href="../Tor/#UDP">Tor#UDP</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Tor_Browser/Manual_Download/" title="Tor Browser/Manual Download"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tor
+Browser/Manual
+Download</span></a><a class="index internal" href="../Advanced_Documentation/" title="Advanced Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Advanced
+Documentation</span></a><a class="next internal" href="../Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway/" title="Redirect Whonix-Workstation Ports or Unix Domain Socket Files to Whonix-Gateway"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Redirect
+Whonix-Workstation Ports or Unix Domain Socket Files to
+Whonix-Gateway</span></a><span class="info"><span class="prev">Previous
+page: Tor Browser/Manual Download</span><span class="index">Index page:
+Advanced Documentation</span><span class="next">Next page: Redirect
+Whonix-Workstation Ports or Unix Domain Socket Files to
+Whonix-Gateway</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

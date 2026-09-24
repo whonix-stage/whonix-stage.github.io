@@ -1,0 +1,1202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Remote Administration</title>
+<meta name="description" content="Anonymous sysadmin of remote systems.">
+<meta property="og:description" content="Anonymous sysadmin of remote systems.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Remote_Administration/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Remote_Administration/">
+<meta property="og:title" content="Remote Administration">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Remoteadmin.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Warning">Warning</a></li><li class="toc-l2"><a href="#UDP">UDP</a></li><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#SSH_into_Whonix-Gateway">SSH into Whonix-Gateway</a></li><li class="toc-l2"><a href="#SSH_into_Whonix-Workstation">SSH into Whonix-Workstation</a></li><li class="toc-l2"><a href="#Graphical">Graphical</a></li><li class="toc-l3"><a href="#Introduction_3">Introduction</a></li><li class="toc-l2"><a href="#Introduction_4">Introduction</a></li><li class="toc-l2"><a href="#qubes-remote-support-receiver">qubes-remote-support-receiver</a></li><li class="toc-l2"><a href="#qubes-remote-support-provider">qubes-remote-support-provider</a></li><li class="toc-l3"><a href="#x2goclient">x2goclient</a></li><li class="toc-l2"><a href="#printout">printout</a></li><li class="toc-l3"><a href="#Qubes_Remote_Support_Receiver">Qubes Remote Support
+Receiver</a></li><li class="toc-l3"><a href="#Qubes_Remote_Support_Provider">Qubes Remote Support
+Provider</a></li><li class="toc-l2"><a href="#Test_Results">Test Results</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Remoteadmin.png.webp" alt="Remoteadmin.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Anonymous sysadmin of remote systems.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<h2 id="Warning">Warning</h2>
+<p>Remote administration of any system should be considered a potential
+anonymity hazard, since it is not under the user's physical protection
+and could be compromised. All activities, all programs, everything
+should be assumed to be monitored by the host of the server (VPS,
+dedicated server, etc.).</p>
+<p>Although counter-intuitive, it is necessary to follow all relevant
+recommendations in the <a href="../Surfing_Posting_Blogging/">Surfing Posting Blogging</a> chapter to stay safe:</p>
+<ul>
+<li>Beware of <a href="../Surfing_Posting_Blogging/#Keystroke_Fingerprinting">Keystroke</a> and <a href="../Surfing_Posting_Blogging/#Mouse_Fingerprinting">Mouse Fingerprinting</a>.</li>
+<li>Beware of <a href="../Surfing_Posting_Blogging/#Stylometry">Stylometry</a>.</li>
+<li>Beware of difficulties in paying anonymously, see <a href="../Money/">Money</a>.</li>
+</ul>
+<p>At a minimum, check the connection is encrypted / authenticated,
+because <a href="https://en.wikipedia.org/wiki/Virtual_Network_Computing">Virtual
+Network Computing (VNC)</a> by default is unencrypted / unauthenticated.
+Possible methods:</p>
+<ul>
+<li>Perhaps by tunneling VNC through <a href="../SSH/">SSH</a>;</li>
+<li>Running VNC through a <a href="../Onion_Services/">Tor
+Onion Service</a>;</li>
+<li>Using both SSH and an Onion Service, for stronger encryption and
+authentication; or</li>
+<li>Onion Services Authentication.</li>
+</ul>
+<p>In case remote servers are exclusively available over
+<code>.onion</code>: Might get locked out due to <a href="../Onion_Services/#Onion_Services_Reliability_Issues">Onion Services Reliability Issues</a>.</p>
+<p>SSH has a lower attack surface than VNC (for example Mouse
+Fingerprinting is not possible against simple SSH (terminal only, no X11
+forwarding).</p>
+<h2 id="UDP">UDP</h2>
+<p>It is suggested to utilize software that does not require the User
+Datagram Protocol (UDP), for the following reason.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Ambox_notice.png" /></span>
+The Tor software does not support UDP. The feature request <a href="https://gitlab.torproject.org/tpo/core/tor/-/issues/7830">UDP over
+Tor</a> was created in 2013 and <a href="https://gitlab.torproject.org/tpo/core/tor/-/issues/7830#note_2402996">closed
+as won't fix</a> by upstream, The Tor Project in 2018. It is therefore
+highly unlikely that the UDP over Tor feature will ever be implemented.
+This is <a href="../Unspecific/">unspecific to
+Whonix</a>.</p>
+<p>Tor provides a <code>DnsPort</code> but that is unrelated.</p>
+<p>If UDP is urgently required in Whonix, a limited workaround is
+provided. For the most secure method, see <a href="../Tunnel_UDP_over_Tor/">Tunnel UDP over Tor</a>.</p>
+</div>
+<h1 id="Remmina">Remmina</h1>
+<p><img src="../../media/Remminalogo.png.webp" alt="Remmina Logo" /> It is
+possible to remotely administer any operating system with GNU/Linux by
+using the <a href="https://remmina.org/">Remmina</a> desktop client.
+Remmina supports multiple network protocols, including RDP, VNC, SPICE,
+NX, XDMCP, SSH and EXEC. For an overview of Remmina features, see <a href="https://remmina.org/remmina-features/">here</a>.</p>
+<p>Note there are two separate Debian packages:</p>
+<ul>
+<li><code>remmina</code>: the main GTK+ application.</li>
+<li><code>remmina-plugins</code>: a set of plugins to support various
+network protocols.</li>
+</ul>
+<div class="info-box ">
+<p>Install package(s) <code>remmina</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="../Qubes/">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>remmina</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+remmina</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>remmina</code> is
+complete.</p>
+</div>
+<p>If you are interested in using Remmina, please first search the
+forums for this topic: <a href="https://forums.whonix.org/search?q=remmina">https://forums.whonix.org/search?q=remmina</a></p>
+<h1 id="SSH_into_Whonix">SSH into Whonix</h1>
+<h2 id="Introduction_2">Introduction</h2>
+<p>It is possible to install an SSH server on either Whonix-Gateway
+and/or Whonix-Workstation<sup>&#8482;</sup> and make it accessible through an
+anonymous <a href="../Onion_Services/">onion
+service</a>.</p>
+<h2 id="SSH_into_Whonix-Gateway">SSH into Whonix-Gateway</h2>
+<div class="info-box ">
+<p><strong>1.</strong> Update the package lists and install necessary
+software.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p>Install the
+<em><span>openssh-server</span></em>
+package.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+openssh-server</span></p>
+<p><strong>2.</strong> Optionally <a href="../SSH/">harden
+SSH</a>.</p>
+<p><strong>3.</strong> Make necessary Whonix-Gateway<sup>&#8482;</sup>
+adjustments.</p>
+<p>Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session">Graphical Whonix-Gateway
+USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<p><span class="code-select">HiddenServiceDir
+/var/lib/tor/gateway_ssh_service/ HiddenServicePort 22 127.0.0.1:22
+HiddenServiceVersion 3</span></p>
+<p>Save.</p>
+<p><strong>4.</strong> Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Service</code> &#8594;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+&#8594; <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p><strong>5.</strong> Retrieve the Tor onion service url.</p>
+<p><span class="code-select">sudo cat
+/var/lib/tor/gateway_ssh_service/hostname</span></p>
+<p>Reminder: Always backup the onion service key. This is necessary in
+order to restore it on another machine, on a newer
+Whonix-Gateway<sup>&#8482;</sup>, after HDD/SSD failure, etc. Follow the
+instructions below to find its location; root permission is required to
+access it.</p>
+<p><code>/var/lib/tor/workstation_ssh_service/hs_ed25519_secret_key</code></p>
+<div class="info-box ">
+<p><u><a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u></p>
+<p>The following example shows how to copy the
+<em><span>/var/lib/tor/workstation_ssh_service/hs_ed25519_secret_key</span></em>
+from the
+<em><span>sys-whonix</span></em> VM to
+the <em><span>vault</span></em> VM
+(which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a>.
+A dialog will appear asking for the destination VM.</p>
+<p><span class="code-select">sudo qvm-copy
+/var/lib/tor/workstation_ssh_service/hs_ed25519_secret_key</span></p>
+<p>When the dialog appears asking to confirm, select
+<em><span>vault</span></em>. This
+copies the Tor onion service private key file to the
+<em><span>QubesIncoming</span></em>
+folder of the
+<em><span>vault</span></em> VM.</p>
+<p><span class="code-select">/home/user/QubesIncoming/sys-whonix/hs_ed25519_secret_key</span></p>
+<p>Consider moving the file from the
+<em><span>QubesIncoming</span></em>
+folder to another preferred location.</p>
+<p>Qubes VM Manager can be used to conveniently backup the
+<em><span>vault</span></em> and/or
+other VMs. Please refer to the Qubes backups documentation for necessary
+steps to accomplish that.</p>
+<p><u><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a></u></p>
+<p>See also:</p>
+<ul>
+<li>file manager
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="../File_Transfer/">File Transfer</a></li>
+</ul>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="../Unsupported/">this</a> for
+potential alternatives.</p>
+</div>
+</div>
+</div>
+<h2 id="SSH_into_Whonix-Workstation">SSH into Whonix-Workstation</h2>
+<div class="info-box ">
+<p><strong>1.</strong> Update the package lists and install necessary
+software.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p>Install the
+<em><span>openssh-server</span></em>
+package.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+openssh-server</span></p>
+<p><strong>2.</strong> Optionally <a href="../SSH/">harden
+SSH</a>.</p>
+<p><strong>3.</strong> Make necessary Whonix-Gateway adjustments.</p>
+<p>Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix_2">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session_2">Graphical
+Whonix-Gateway USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session_2">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode_2">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway_2">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_2"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix_2">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix_2">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<p>Qubes-Whonix Note: Cannot use <code>10.152.152.11:22</code>. See page
+<a href="../Onion_Services/">Onion Services</a> for
+<code>/qubes-ip</code>.</p>
+<p><span class="code-select">HiddenServiceDir
+/var/lib/tor/workstation_ssh_service/ HiddenServicePort 22
+10.152.152.11:22 HiddenServiceVersion 3</span></p>
+<p>Save.</p>
+<p><strong>4.</strong> Reload Tor.</p>
+<p>Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Service</code> &#8594;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+&#8594; <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p><strong>5.</strong> Retrieve the Tor onion service url.</p>
+<p><span class="code-select">sudo cat
+/var/lib/tor/workstation_ssh_service/hostname</span></p>
+<p>Reminder: Always backup the onion service key. This is necessary in
+order to restore it on another machine, on a newer
+Whonix-Gateway<sup>&#8482;</sup>, after HDD/SSD failure, etc. Follow the
+instructions below to find its location; root permission is required to
+access it.</p>
+<p><code>/var/lib/tor/workstation_ssh_service/hs_ed25519_secret_key</code></p>
+<div class="info-box ">
+<p><u><a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u></p>
+<p>The following example shows how to copy the
+<em><span>/var/lib/tor/workstation_ssh_service/hs_ed25519_secret_key</span></em>
+from the
+<em><span>sys-whonix</span></em> VM to
+the <em><span>vault</span></em> VM
+(which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a>.
+A dialog will appear asking for the destination VM.</p>
+<p><span class="code-select">sudo qvm-copy
+/var/lib/tor/workstation_ssh_service/hs_ed25519_secret_key</span></p>
+<p>When the dialog appears asking to confirm, select
+<em><span>vault</span></em>. This
+copies the Tor onion service private key file to the
+<em><span>QubesIncoming</span></em>
+folder of the
+<em><span>vault</span></em> VM.</p>
+<p><span class="code-select">/home/user/QubesIncoming/sys-whonix/hs_ed25519_secret_key</span></p>
+<p>Consider moving the file from the
+<em><span>QubesIncoming</span></em>
+folder to another preferred location.</p>
+<p>Qubes VM Manager can be used to conveniently backup the
+<em><span>vault</span></em> and/or
+other VMs. Please refer to the Qubes backups documentation for necessary
+steps to accomplish that.</p>
+<p><u><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a></u></p>
+<p>See also:</p>
+<ul>
+<li>file manager
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="../File_Transfer/">File Transfer</a></li>
+</ul>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="../Unsupported/">this</a> for
+potential alternatives.</p>
+</div>
+</div>
+<p><strong>6.</strong> Adjust Whonix-Workstation firewall settings.</p>
+<p><strong>Modify Whonix-Workstation User Firewall Settings</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/etc/whonix_firewall.d/50_user.conf</code> appears empty (because
+it does not exist). This is expected.</p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, you must boot into this mode before these steps will work.</p>
+<p>Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_USER_Session">Graphical
+Whonix-Workstation USER Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session">Graphical
+Whonix-Workstation SYSMAINT Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
+run <code>/usr/libexec/whonix-firewall/firewall50user</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix-Workstation"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Workstation App Qube (commonly called </code><em><span><code>anon-whonix</code></span></em><code>)</code>
+&#8594; <code>QTerminal</code> &#8594; run
+<code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Workstation">Terminal Whonix-Workstation</h4>
+</div>
+<div class="tcc-content">
+<p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
+with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Learn More on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>.</p>
+<p>The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>Also see: <a href="../Moved:Configuration_Files/">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="../Qubes/">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template</code> &#8594; <code>whonix-workstation-18</code> &#8594;
+<code>QTerminal</code> &#8594; run
+<code>nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf</code></p>
+<p><u>If using a graphical Whonix-Workstation</u>, complete these
+steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Workstation</u>, complete these
+steps.</p>
+<p>In Whonix-Workstation, view the global firewall configuration file in
+an editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<p><span class="code-select">EXTERNAL_OPEN_PORTS+=" 22 "</span></p>
+<p>Save.</p>
+<p><strong>7.</strong> Reload the firewall.</p>
+<p><strong>Reload Whonix-Workstation Firewall.</strong></p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, and you are not booted into it, reboot the VM to reload the
+firewall.</p>
+<p>Platform-specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_USER_Session_2">Graphical
+Whonix-Workstation USER Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_2">Graphical
+Whonix-Workstation SYSMAINT Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
+run <code>sudo whonix_firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Workstation_2">Terminal Whonix-Workstation</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix-Workstation_2"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
+<code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="Graphical">Graphical</h2>
+<h3 id="Introduction_3">Introduction</h3>
+<p>It is possible to install a VNC server on either Whonix-Gateway
+and/or Whonix-Workstation and make it accessible through an anonymous <a href="../Onion_Services/">onion service</a>.</p>
+<p>TODO: <a href="../Unsupported/">Undocumented</a>.</p>
+<h1 id="Qubes_-_SSH_or_VNC_into_Qubes_dom0">Qubes - SSH or VNC into
+Qubes dom0</h1>
+<h2 id="Introduction_4">Introduction</h2>
+<p>Encrypted, authenticated SSH or VNC into Qubes dom0 over an
+authenticated Tor onion v3 service.</p>
+<p>Design <sup class="reference"><a href="#cite_note-1">[1]</a></sup>:</p>
+<ul>
+<li>Encrypted. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li>Authenticated. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+<li>Over Tor.</li>
+<li>Implemented using an authenticated Tor onion v3 service.</li>
+<li>Even if Whonix on
+<code>qubes-remote-support-</code><u><code>receiver</code></u> machine
+was compromised, the attacker will not be able to access dom0.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+<li><blockquote><p>The package will not be installed by default.</p></blockquote></li>
+<li><blockquote><p>The design requires explicit connection initiation by the user (no
+any open ports, extra network connections etc before that point). And
+when the user initiate the connection, it requires sharing a code word
+with the remote party to be able to connect.</p></blockquote></li>
+<li>No open ports required.</li>
+<li>No router settings changes required.</li>
+<li>Works behind NAT.</li>
+<li>Works over mobile networks (3G, 4G, 5G).</li>
+</ul>
+<p>Instructions:</p>
+<ul>
+<li><code>qubes-remote-support-</code><u><code>receiver</code></u> have
+to be applied by the person who intents to <u>receive</u> remote
+support.</li>
+<li><code>qubes-remote-support-</code><u><code>provider</code></u> have
+to be applied by the person who intents to <u>provide</u> remote
+support.</li>
+</ul>
+<h2 id="qubes-remote-support-receiver">qubes-remote-support-receiver</h2>
+<p>Security advice: Giving a third party remote support access is a very
+delicate permission. As with any remote support permission, the
+<code>qubes-remote-support-</code><u><code>provider</code></u> could
+persistently compromise the
+<code>qubes-remote-support-</code><u><code>receiver</code></u> with <a href="../Moved:Malware_and_Firmware_Trojans/">malware</a> without the user having a
+chance to notice that. Learn <a href="../Moved:Malware_and_Firmware_Trojans/#The_Importance_of_a_Malware_Free_System">The Importance of a Malware Free System</a>.</p>
+<p><strong>1)</strong> Qubes dependency installation.</p>
+<p>Install package <code>qubes-remote-support-receiver-dom0</code> in
+Qubes dom0. <sup class="reference"><a href="#cite_note-5">[5]</a></sup> <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p><span class="code-select">sudo qubes-dom0-update
+qubes-remote-support-receiver-dom0</span></p>
+<p><strong>2)</strong> Run the
+<code>qubes-remote-support-receiver-start</code> command line
+utility.</p>
+<p><span class="code-select">qubes-remote-support-receiver-start</span></p>
+<p>Will show something like this (example):</p>
+<p><blockquote><p>wormhole_code: 9-support-concert</p></blockquote></p>
+<p><strong>3)</strong> Notification.</p>
+<p>Tell the wormhole code (for example <code>9-support-concert</code>)
+to the person you would like to receive Qubes remote support from, i.e.
+the <code>qubes-remote-support-</code><u><code>provider</code></u>.</p>
+<p>Note: not <code>9-support-concert</code>. The actual code as shown in
+terminal / graphical user interface.</p>
+<p><strong>4)</strong> To check status of remote support.</p>
+<p><span class="code-select">qubes-remote-support-receiver-status</span></p>
+<p><strong>5)</strong> To terminate remote support.</p>
+<p><span class="code-select">qubes-remote-support-receiver-stop</span></p>
+<h2 id="qubes-remote-support-provider">qubes-remote-support-provider</h2>
+<p><strong>1)</strong> Dependency installation.</p>
+<p>Start <code>whonix-workstation-18</code> Template.</p>
+<p>(The latter package <code>x2goclient</code> can be omitted from
+installation connecting to
+<code>qubes-remote-support-</code><u><code>receiver</code></u> use of
+x2go (VNC) is unwanted.)</p>
+<div class="info-box ">
+<p>Install package(s) <code>openssh-client x2goclient</code> following
+these instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="../Qubes/">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>openssh-client x2goclient</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+openssh-client x2goclient</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s)
+<code>openssh-client x2goclient</code> is complete.</p>
+</div>
+<p>Shutdown <code>whonix-workstation-18</code> Template.</p>
+<p><strong>2)</strong> Start virtual machine (VM).</p>
+<p>Open a <code>whonix-workstation-18</code> based VM. Recommended but
+optional: DispVM. This will be refereed to as
+<code>qubes-remote-support-</code><u><code>provider</code></u> VM.</p>
+<p><strong>3)</strong> Run
+<code>qubes-remote-support-</code><u><code>provider</code></u> script in
+<code>qubes-remote-support-</code><u><code>provider</code></u> VM.</p>
+<p><span class="code-select">qubes-remote-support-provider</span></p>
+<p>It is an interactive script. Read what it says. Continue by pressing
+enter.</p>
+<p><strong>4)</strong> When it says:</p>
+<p><blockquote><p>INFO: Install authenticated Tor onion v3 service private key with the
+following command in sys-whonix.<br />
+sudo sourcefile=~/QubesIncoming/disp4522/1.auth_private
+anon-server-to-client-install</p></blockquote></p>
+<p>Do as instructed in <code>sys-whonix</code> VM. Do not copy the
+command from here. Copy the command from
+<code>qubes-remote-support-</code><u><code>provider</code></u> VM script
+output, then paste and run in <code>sys-whonix</code> VM. Then press
+enter to continue in
+<code>qubes-remote-support-</code><u><code>provider</code></u> VM.</p>
+<p><strong>5)</strong> Done.</p>
+<p>Should now be connected by SSH.</p>
+<p><strong>6)</strong> Optional: Connect by graphical remote support
+(x2go).</p>
+<p>As per instructions below.</p>
+<h3 id="x2goclient">x2goclient</h3>
+<p>Broken until upstream fix for issue <a href="https://github.com/QubesOS/updates-status/issues/2353">x2goagent
+3.5.99.26 crashes on connect</a> flows to Qubes dom0. TODO: Was
+fixed?</p>
+<p>In a Whonix-Workstation
+(<code>remote-support-</code><u><code>provider</code></u> VM).</p>
+<p><strong>1)</strong> Start <code>x2goclient</code>.</p>
+<p>As user. Run <code>x2goclient</code>.</p>
+<p><strong>2)</strong> x2goclient settings</p>
+<ul>
+<li><code>session</code> tab
+<ul>
+<li><code>host</code>: the onion v3 domain</li>
+<li>enable
+<code>Try auto login (via SSH agent or default SSH key)</code></li>
+<li><code>session type</code>:
+<code>connect to local desktop</code></li>
+</ul></li>
+<li><code>media</code> tab
+<ul>
+<li><code>media</code> -&gt;
+<code>disable client side printing support</code></li>
+<li><code>media</code> -&gt; <code>disable sound support</code></li>
+</ul></li>
+<li><code>connection</code> tab
+<ul>
+<li>These are optional settings for better performance. Feel free to
+experiment with these settings.</li>
+<li><code>connection</code> -&gt; <code>connection speed</code> -&gt;
+<code>WAN</code></li>
+<li><code>connection</code> -&gt; <code>image quality</code>
+<code>0</code></li>
+<li><code>connection</code> -&gt; <code>method</code> -&gt;
+<code>8-jpeg</code></li>
+</ul></li>
+<li><code>OK</code></li>
+<li>Click on the newly setup connection</li>
+<li><code>OK</code></li>
+</ul>
+<p>Alternatively session type terminal could be used.</p>
+<p>If you can only see a black screen, the the desktop might be locked
+(xscreensaver). Any mouse movement or any keypress should prompt for
+password.</p>
+<p>Not required:</p>
+<ul>
+<li><code>login</code>: not required</li>
+<li><code>password</code>: not required</li>
+</ul>
+<h2 id="printout">printout</h2>
+<h3 id="Qubes_Remote_Support_Receiver">Qubes Remote Support
+Receiver</h3>
+<pre><code>qubes-remote-support-receiver-start</code></pre>
+<pre><code>INFO: Starting Qubes Remote Support Receiver.
+INFO: This tool is supposed to be run by those who wish to receive remote support.
+INFO: Setting up... This will take a moment...
+INFO: Remote support archive file &#39;/tmp/tmp.Yfv3ehL6ZJ/remote-support-keys.tar.gz&#39; was successfully created.
+INFO: (That file allows a Qubes Remote Support Provider to connect to this machine.)
+INFO: (No need to do anything with that file.)
+INFO: Starting the file transfer tool magic-wormhole... This will take a moment...
+INFO: File transfer too magic-wormhole successfully started.
+INFO: The next line will show a wormhole code phrase. Send the code to the Qubes Remote Support Provider. Once the the Qubes Remote Support Provider acknowledged receipt, just wait.
+wormhole_code: 9-one-two-three-four
+INFO: The Qubes Remote Support Provider successfully received the remote support archive file and is now able to establish remote support.
+INFO: This can take up to 10 minutes.
+
+INFO: Should you wish to stop this Qubes Remote Support Session, please run:
+qubes-remote-support-receiver-stop
+
+INFO: This tool will exit now and there is nothing else to do besides waiting.
+INFO: Success.</code></pre>
+<pre><code>qubes-remote-support-receiver-status</code></pre>
+<pre><code>&amp;#9679; sshd.service - OpenSSH server daemon
+     Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled; vendor preset: disabled)
+     Active: active (running) since Sat 2021-02-13 06:49:51 EST; 3 weeks 3 days ago
+[...]
+Hint: Some lines were ellipsized, use -l to show in full.
+INFO: /etc/qubes-rpc/policy/qubes.ConnectTCP+22 looks OK.
+qvm-check: {{project_name_gateway_vm}}: running
+INFO: VM &#39;{{project_name_gateway_vm}}&#39; already running, ok.
+___ qubes-whonix-remote-support.service - Qubes-Whonix Remote Support
+   Loaded: loaded (/lib/systemd/system/qubes-whonix-remote-support.service; disabled; vendor preset: disabled)
+   Active: active (running) since Tue 2021-03-09 13:51:30 UTC; 9min ago
+[...]
+___ tor@default.service - Anonymizing overlay network for TCP
+   Loaded: loaded (/lib/systemd/system/tor@default.service; enabled-runtime; vendor preset: enabled)
+[...]
+   Active: active (running) since Tue 2021-03-09 13:43:23 UTC; 17min ago
+[...]
+INFO: Success.</code></pre>
+<pre><code>qubes-remote-support-receiver-stop</code></pre>
+<pre><code>INFO: sshd was previously running, therefore not stopping it, ok.
+INFO: VM &#39;{{project_name_gateway_vm}}&#39; already running, ok.
+INFO: Success, remote support received has been turned off.</code></pre>
+<h3 id="Qubes_Remote_Support_Provider">Qubes Remote Support
+Provider</h3>
+<pre><code>qubes-remote-support-provider</code></pre>
+<pre><code>INFO: Starting Qubes Remote Support Provider.
+INFO: This tool is supposed to be run by those who wish to provide remote support.
+INFO: Setting up... This will take a moment...
+INFO: Ask the remote support receiver for the wormhole code phrase and enter it below.
+Enter receive wormhole code: 9-one-two-three-four
+ (note: you can use &lt;Tab&gt; to complete words)
+Receiving file (814 Bytes) into: remote-support-keys.tar.gz
+ok? (y/N): y
+Receiving (-&gt;relay:tcp:magic-wormhole-transit.debian.net:4001)..
+100%|&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;| 814/814 [00:00&lt;00:00, 3.82MB/s]
+Received file written to remote-support-keys.tar.gz
+INFO: Success, received remote support archive file &#39;/tmp/tmp.ZTe9baxU6Z/remote-support-keys.tar.gz&#39;.
+INFO: (That file allows a Qubes Remote Support Provider to connect to this machine.)
+INFO: (No need to do anything with that file.)
+INFO: Setting up... This will take a moment...
+
+Success. Please continue as instructed below.
+
+INFO: To avoid confusion, it is advised your delete folder ~/QubesIncoming in {{project_name_gateway_vm}} if it exists. In most cases no such folder exists.
+INFO: If there is nothing you need to backup, you could run the following command in {{project_name_gateway_vm}}:
+
+rm -rf ~/QubesIncoming
+
+INFO: When done, press enter to continue.
+
+INFO: Will ask to copy 1.auth_private to {{project_name_gateway_vm}}.
+INFO: When Qubes dom0 asks, answer to copy to {{project_name_gateway_vm}}.
+INFO: Press enter to continue.
+
+sent 0/1 KB
+
+INFO: Install authenticated Tor onion v3 service private key by running the following command in {{project_name_gateway_vm}}:
+
+sudo sourcefile=~/QubesIncoming/disp2887/1.auth_private anon-server-to-client-install
+
+INFO: When done, press enter to continue.
+
+INFO: Do you want to SSH to &#39;xxx.onion&#39;?
+INFO: Press enter to continue.
+
+INFO: Trying SSH...
+INFO: Will keep trying to run the following command...
+ssh &#39;xxx.onion&#39;
+INFO: This can take up to 10 minutes.
+Last login: Tue Mar  9 08:49:28 2021 from xx.xx.xx.x
+[user@dom0 ~]$</code></pre>
+<h2 id="Test_Results">Test Results</h2>
+<ul>
+<li>Running a simple command such as <code>ls -la</code> takes 1 second
+until results are drawn.</li>
+<li>There is an 1 seconds delay between a keypress on inside
+<code>remote-support-provider</code> VM until it gets visible in the
+remote terminal.</li>
+<li>Click Xfce start menu: 2 seconds</li>
+<li>clock in systray (shows seconds) update: every 1 or 2 seconds</li>
+<li>There is a bug where I have no idea if caused by Qubes or x2go or a
+combination of it. When pressing any key it sometimes happen that this
+key is auto-repeat "jammed". I.e. "a" becomes "aaaaaaaaaaaaaaa" (no
+exact counting).</li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../SSH/">SSH</a></li>
+</ul>
+<h1 id="Help_Wanted">Help Wanted</h1>
+<p>Please contribute by helping to create full working instructions in
+Whonix! See:</p>
+<ul>
+<li><a href="https://forums.whonix.org/t/add-user-documentation-for-remote-administration-keystroke-fingerprinting-stylometry/18858">add
+user documentation for Remote Administration, Keystroke Fingerprinting,
+Stylometry</a></li>
+<li><a href="https://forums.whonix.org/t/easy-remote-support-vnc-alternative-nx-spice-x2go-remmina/18491">easy
+remote support VNC alternative, NX, SPICE, X2Go, Remmina</a></li>
+</ul>
+<h1 id="Future_Research">Future Research</h1>
+<p><blockquote><p>[1] comparing vnc, nx(x2go) and spice. VNC sends the least amount of
+data. nx has a stable perf irrelevant of bandwidth conditions however
+one disadvantage I came across was it is heavily tied to X11 and
+therefore not future proof. <a href="https://bbs.archlinux.org/viewtopic.php?id=225765">https://bbs.archlinux.org/viewtopic.php?id=225765</a></p>
+<p>[1] <a href="https://www.diva-portal.org/smash/get/diva2:530960/FULLTEXT01.pdf">https://www.diva-portal.org/smash/get/diva2:530960/FULLTEXT01.pdf</a></p>
+<p>VNC perf depends heavily on implementation details. TigerVNC is
+better than realvnc, but Remmina is commented to be better than tiger.
+"A 2010 reviewer found the TigerVNC product "much faster than Vinagre <a href="https://en.wikipedia.org/wiki/Vinagre">https://en.wikipedia.org/wiki/Vinagre</a>
+but not quite as responsive as Remmina <a href="https://en.wikipedia.org/wiki/Remmina">https://en.wikipedia.org/wiki/Remmina</a>
+<a href="https://en.wikipedia.org/wiki/TigerVNC">https://en.wikipedia.org/wiki/TigerVNC</a>
+"</p>
+<p>Tiger can be further optimized for constrained environments by
+ratcheting up the compression and lowering the jpeg quality. NB turbo
+isn't in Debian and it seems geared towards 3D usage. <a href="https://turbovnc.org/About/TigerVNC">https://turbovnc.org/About/TigerVNC</a></p></blockquote></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">* <a href="https://github.com/QubesOS/qubes-issues/issues/6364#issuecomment-767166712">https://github.com/QubesOS/qubes-issues/issues/6364#issuecomment-767166712</a>
+* <a href="../Dev/Qubes_Remote_Support/">Dev/Qubes Remote
+Support</a></li>
+<li id="cite_note-2">Thanks to encryption provided by Tor onion v3 and SSH.</li>
+<li id="cite_note-3">Thanks to authentication provided by Tor onion v3, onion
+authentication and SSH.</li>
+<li id="cite_note-4">Thanks to encryption/authentication provided by SSH.<br />
+<br />
+Public/private keys for SSH are generated in Qubes dom0 by
+<code>qubes-remote-support-</code><u><code>receiver</code></u>. At no
+point, any Whonix VM on
+<code>qubes-remote-support-</code><u><code>receiver</code></u> has
+access to any SSH keys.<br />
+<br />
+SSH keys are transferred from
+<code>qubes-remote-support-</code><u><code>receiver</code></u> to
+<code>qubes-remote-support-</code><u><code>provider</code></u> using <a href="../File_Sharing/#Magic-Wormhole">magic-wormhole</a>
+tool over Tor.</li>
+<li id="cite_note-5"><a href="https://github.com/QubesOS/qubes-remote-support">https://github.com/QubesOS/qubes-remote-support</a></li>
+<li id="cite_note-6">* <a href="https://github.com/QubesOS/qubes-issues/issues/6364">https://github.com/QubesOS/qubes-issues/issues/6364</a>
+* <a href="https://github.com/QubesOS/updates-status/issues/2353">https://github.com/QubesOS/updates-status/issues/2353</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

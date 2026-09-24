@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix-Gateway Security Hardening</title>
+<meta name="description" content="Optional Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; Security Hardening for advanced users.">
+<meta property="og:description" content="Optional Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; Security Hardening for advanced users.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Whonix-Gateway_Security_Hardening/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Whonix-Gateway_Security_Hardening/">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Gatewayhardening.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Whonix-Gateway">Whonix-Gateway</a></li><li class="toc-l3"><a href="#Deactivate_onion-grater_in_Firewall">Deactivate onion-grater in
+Firewall</a></li><li class="toc-l3"><a href="#Deactivate_onion-grater">Deactivate onion-grater</a></li><li class="toc-l3"><a href="#Deactivate_whonixcheck_onion-grater_Running_Test">Deactivate
+whonixcheck onion-grater Running Test</a></li><li class="toc-l2"><a href="#Whonix-Workstation&#8482;">Whonix-Workstation&#8482;</a></li><li class="toc-l3"><a href="#Deactivate_whonixcheck_Tor_Bootstrap_Test">Deactivate
+whonixcheck Tor Bootstrap Test</a></li><li class="toc-l3"><a href="#Deactivate_sdwdate_Connectivity_Test">Deactivate sdwdate
+Connectivity Test</a></li><li class="toc-l3"><a href="#Tor_Browser_Updater">Tor Browser Updater</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Gatewayhardening.jpg.webp" alt="Gatewayhardening.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Optional Whonix-Gateway Security Hardening for advanced users.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p><img src="../../media/Kicksecure-badge.svg" width="150" alt="Kicksecure-badge.svg" />
+<a href="../About/">Whonix</a> comes with
+[Broken-ExtLink--no-url-was-provided]. Whonix is
+[Broken-ExtLink--no-url-was-provided] hardened by default and also
+provides extensive <a href="../Documentation/">Documentation</a> including a <a href="../System_Hardening_Checklist/">System Hardening
+Checklist</a>. The more you know, the safer you can be.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<strong>Tip:</strong> Disabling <a href="https://www.whonix.org/wiki/Dev/onion-grater">Control Port Filter
+Proxy</a> (onion-grater) can improve security by decreasing the attack
+surface, while sacrificing usability.</p>
+</div>
+<p>Note that if onion-grater is disabled, users will no longer receive
+helpful Whonix notifications when Tor is not fully bootstrapped, since
+the whonixcheck and sdwdate tools rely upon it.</p>
+<h1 id="How-to:_Disable_Control_Port_Filter_Proxy">How-to: Disable
+Control Port Filter Proxy</h1>
+<h2 id="Whonix-Gateway">Whonix-Gateway</h2>
+<h3 id="Deactivate_onion-grater_in_Firewall">Deactivate onion-grater in
+Firewall</h3>
+<div class="info-box ">
+<p><strong>1.</strong> <strong>Modify Whonix-Gateway User Firewall
+Settings.</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/usr/local/etc/whonix_firewall.d/50_user.conf</code> appears empty
+(because it does not exist). This is expected.</p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>Settings</code> &#8594; <code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p>In Whonix-Gateway, open the whonix_firewall configuration file in an
+editor.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Gateway App Qube (commonly called </code><em><span><code>sys-whonix</code></span></em><code>)</code>
+&#8594; <code>User Firewall Settings</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>.</p>
+<p><strong>Note</strong>: The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>See also <a href="../Moved:Configuration_Files/">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="../Qubes/">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template:</code> <code>whonix-gateway-18</code> &#8594;
+<code>Global Firewall Settings</code></p>
+<p><u>If using a graphical Whonix-Gateway</u>, complete these steps.</p>
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>Settings</code> &#8594; <code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Gateway</u>, complete these steps.</p>
+<p>In Whonix-Gateway, view the global firewall configuration file in an
+editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_gateway_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Add the following content.</p>
+<p><span class="code-select">CONTROL_PORT_FILTER_PROXY_ENABLE=0</span></p>
+<p><strong>3.</strong> Save the file.</p>
+<p><strong>4.</strong> <strong>Reload Whonix-Gateway
+Firewall.</strong></p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_2">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>System</code> &#8594; <code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_2">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_2"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Gateway ProxyVM (commonly named sys-whonix)</code> &#8594;
+<code>Reload Firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h3 id="Deactivate_onion-grater">Deactivate onion-grater</h3>
+<div class="info-box ">
+<p><strong>1.</strong> Stop onion-grater.</p>
+<p><span class="code-select">sudo service onion-grater stop</span></p>
+<p><strong>2.</strong> Disable autostart of onion-grater.</p>
+<p><span class="code-select">sudo systemctl mask onion-grater</span></p>
+<p><strong>3.</strong> Reboot.</p>
+<p><strong>4.</strong> Check if onion-grater is still running or
+disabled.</p>
+<p><span class="code-select">ps aux | grep onion-grater</span></p>
+<p>If output similar to the following appears, then disabling did not
+work.</p>
+<pre><code>onion-g+   911  3.2  1.9  66444 20644 ?        Ss   12:21   0:00 /usr/bin/python3 -u /usr/lib/onion-grater --debug --listen-interface eth1</code></pre>
+</div>
+<h3 id="Deactivate_whonixcheck_onion-grater_Running_Test">Deactivate
+whonixcheck onion-grater Running Test</h3>
+<div class="info-box ">
+<p><strong>1.</strong> Open file
+<code>/etc/systemcheck.d/50_user.conf</code> in an editor with
+administrative ("<a href="../Moved:Root/"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/systemcheck.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_3">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/systemcheck.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/systemcheck.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Add the following content.</p>
+<p><span class="code-select">systemcheck_skip_functions+="
+check_control_port_filter_running "</span></p>
+<p><strong>3.</strong> Save the file.</p>
+</div>
+<h2 id="Whonix-Workstation&#8482;">Whonix-Workstation<sup>&#8482;</sup></h2>
+<h3 id="Deactivate_whonixcheck_Tor_Bootstrap_Test">Deactivate
+whonixcheck Tor Bootstrap Test</h3>
+<p>Because it relies on onion-grater.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Open file
+<code>/etc/systemcheck.d/50_user.conf</code> in an editor with
+administrative ("<a href="../Moved:Root/"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/systemcheck.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_4">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/systemcheck.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/systemcheck.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Add the following content.</p>
+<p><span class="code-select">systemcheck_skip_functions+="
+check_tor_bootstrap "</span></p>
+<p><strong>3.</strong> Save the file.</p>
+</div>
+<h3 id="Deactivate_sdwdate_Connectivity_Test">Deactivate sdwdate
+Connectivity Test</h3>
+<p>Whonix-Workstation only.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Open file
+<code>/usr/lib/helper-scripts/te_pe_tb_check</code> in an editor with
+administrative ("<a href="../Moved:Root/"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/lib/helper-scripts/te_pe_tb_check</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_5">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/lib/helper-scripts/te_pe_tb_check</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/lib/helper-scripts/te_pe_tb_check</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Replace the existing content with the following
+text.</p>
+<p><span class="code-select">#!/bin/bash exit 0</span></p>
+<p><strong>3.</strong> Save the file.</p>
+<p><strong>4.</strong> Restart sdwdate.</p>
+<p><span class="code-select">sudo systemctl restart sdwdate</span></p>
+<p>The procedure is complete.</p>
+</div>
+<p>Be aware that this setting will not persist after any upgrade of
+sdwdate, nor is sdwdate currently configurable. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h3 id="Tor_Browser_Updater">Tor Browser Updater</h3>
+<p>In order to update <a href="../Tor_Browser/">Tor
+Browser</a> using <a href="../Tor_Browser/#Update_Tor_Browser">Tor Browser Updater by Whonix developers</a> while
+onion-grater is disabled, complete the following step.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p><span class="code-select">update-torbrowser
+--no-tor-con-check</span></p>
+<p>Or create a file <em>/etc/torbrowser.d/50_user.conf</em> with the
+following content.</p>
+<p><span class="code-select">TB_NO_TOR_CON_CHECK="1"</span></p>
+<h1 id="Static_VirtualBox_IP">Static VirtualBox IP</h1>
+<p>Instead of using DHCP to obtain the internal IP address for the
+Whonix-Workstation <code>eth0</code> NAT adapter, a static IP can be
+used instead. This might marginally improve security because the DHCP
+package can then be removed.</p>
+<p>Open <em>/etc/network/interfaces.d/30_non-qubes-whonix</em> <a href="https://github.com/Whonix/whonix-gw-network-conf/blob/master/etc/network/interfaces.d/30_non-qubes-whonix">on
+GitHub</a> and read the comments. Then, comment out DHCP and comment in
+Static VirtualBox IP.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Any Whonix users interested in further development should create a
+relevant ticket on <a href="https://forums.whonix.org/">Whonix
+Forums</a>.</li>
+<li id="cite_note-2">It is far simpler to update using <a href="../Tor_Browser/#Tor_Browser_Internal_Updater">Tor
+Browser's internal updater</a> instead.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

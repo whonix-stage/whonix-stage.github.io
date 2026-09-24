@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Tunnels/Connecting to SSH before Tor</title>
+<meta name="description" content="Instructions on how to connect to SSH before Tor. (User &amp;rarr; SSH &amp;rarr; Tor &amp;rarr; Internet)">
+<meta property="og:description" content="Instructions on how to connect to SSH before Tor. (User &amp;rarr; SSH &amp;rarr; Tor &amp;rarr; Internet)">
+<link rel="canonical" href="https://www.whonix.org/wiki/Tunnels/Connecting_to_SSH_before_Tor/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Tunnels/Connecting_to_SSH_before_Tor/">
+<meta property="og:title" content="Connecting to SSH before Tor">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Norman-79860640.jpg">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Tunnels</span> / <span>Connecting to SSH before Tor</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#By_IP_Address">By IP Address</a></li><li class="toc-l2"><a href="#By_Domain_Name">By Domain Name</a></li><li class="toc-l2"><a href="#Non-Qubes-Whonix_2">Non-Qubes-Whonix</a></li><li class="toc-l2"><a href="#Qubes-Whonix_2">Qubes-Whonix</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../../media/Norman-79860640.jpg.webp" alt="Norman-79860640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Instructions on how to connect to SSH before Tor.</p>
+<p><strong><code>User</code> &#8594; <code>SSH</code> &#8594; <code>Tor</code> &#8594;
+<code>Internet</code></strong></p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<b><u>Before combining Tor with other tunnels, <a href="../Introduction/">be sure to read and
+understand the risks</a>!</u></b></p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="../../Community_Support/">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<p>Connecting to SSH before Tor might enhance privacy and security in
+certain use cases. This setup is particularly useful for bypassing
+restrictive firewalls or for situations where Tor is blocked but SSH is
+allowed.</p>
+<p>The SSH tunnel can be configured on the host <u>o</u>perating
+<u>s</u>ystem (OS) (outside any <u>v</u>irtual <u>m</u>achine (VM)) or
+inside Whonix-Gateway<sup>&#8482;</sup>.</p>
+<h1 id="Prerequisites">Prerequisites</h1>
+<ul>
+<li><u>SSH server:</u> The user needs an already existing SSH server
+where the user is able to successfully login using <code>ssh</code> on
+the command line.</li>
+<li><u>Prerequisite knowledge:</u>
+<ul>
+<li><u>How to setup a SSH server:</u> Setting up an SSH server is
+currently out-of-scope for this wiki page. The process of setting up an
+SSH server is <a href="../../Unspecific/">unspecific to
+Whonix</a>. The SSH server can be set up as usual as if Whonix is not
+involved. <a href="../../Please_Use_Search_Engines_And_See_Documentation_First/">Please use search engines first.</a></li>
+<li><u>How to bypass Tor</u>: <a href="../../Dev/Test/#The_clearnet_User">The clearnet User</a></li>
+</ul></li>
+<li><u>Platform specific:</u>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: It is required to know about how to apply <a href="../../Qubes/#Qubes_Template_Modifications">Qubes
+Template Modifications</a>.</li>
+</ul></li>
+</ul>
+<h1 id="Install_SSH_Client">Install SSH Client</h1>
+<div class="info-box ">
+<p>Install package(s) <code>openssh-client</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="../../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="../../Qubes/">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>openssh-client</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+openssh-client</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>openssh-client</code> is
+complete.</p>
+</div>
+<h1 id="Make_Clearnet_home_persistent">Make Clearnet home
+persistent</h1>
+<p>There is no persistent home for the <code>clearnet</code> user by
+default. Therefore make it persistent so SSH user data (keys,
+known_hosts file) can be saved there.</p>
+<p>Follow instructions to <a href="../../Dev/Test/#Make_Clearnet_home_persistent">make the
+clearnet home persistent</a>.</p>
+<p>This will most likely be simplified in a future Whonix version, where
+user <code>clearnet</code> will have a persistent home folder by
+default.</p>
+<h1 id="DNS_Setup">DNS Setup</h1>
+<p>There are two options for accessing the SSH server. Choose one.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="By_IP_Address">
+<p>By IP Address</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p>Recommended. Connecting to your SSH server by IP address is easier.
+In this case, no DNS setup is required.</p>
+<p>Most SSH servers have static IP addresses. Static here means that
+these do not change.</p>
+<p>Do you already know the IP address of your SSH server?</p>
+<ul>
+<li><strong>A)</strong> <u>Yes, known:</u> Great. No further action
+required.</li>
+<li><strong>B)</strong> <u>No, unknown:</u> Resolve the SSH server
+domain name to IP address. This command can be run on any Linux system
+such as on your SSH server.</li>
+</ul>
+<p><span class="code-select">dig +short example.com</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="By_Domain_Name">
+<p>By Domain Name</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p>Connecting to your SSH server by domain name is possible but a bit
+more difficult. DNS setup is required.</p>
+<p>Allow user <code>clearnet</code> on Whonix-Gateway to use clearnet
+DNS.</p>
+<p><strong>1.</strong> DNS setup.</p>
+<p>See <a href="../../Whonix-Gateway_System_DNS/#Whonix-Gateway_System_DNS_Configuration">Whonix-Gateway System DNS over Clearnet</a>.</p>
+<p><strong>2.</strong> Test.</p>
+<p>Check if the <code>clearnet</code> user can resolve DNS:</p>
+<p><span class="code-select">sudo -u clearnet curl.anondist-orig
+--tlsv1.3 --proto =https <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></p>
+<p>Expected output:</p>
+<p><u>Note:</u> The following output would not contain
+<code>YOUR_SSH_SERVER_PUBLIC_IP</code> but the actual public IP address
+of your SSH server.</p>
+<pre><code>{&quot;IsTor&quot;:false,&quot;IP&quot;:&quot;YOUR_SSH_SERVER_PUBLIC_IP&quot;}</code></pre>
+<p><strong>3.</strong> Done.</p>
+<p>Whonix-Gateway System DNS over Clearnet setup is complete.</p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="Configure_Remote_SSH_Server">Configure Remote SSH Server</h1>
+<p><u>Note:</u> Every key generation and installation must be made with
+the <code>clearnet</code> user.</p>
+<p><strong>1.</strong> Notice.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Be cautious: When using the <code>clearnet</code> user account on
+Whonix-Gateway, traffic will bypass Tor and use the standard internet,
+compromising anonymity! In the context of setting up <code>User</code> &#8594;
+<code>SSH</code> &#8594; <code>Tor</code> &#8594; <code>Internet</code> this is
+OK.</p>
+</div>
+<p><strong>2.</strong> Start a shell as user <code>clearnet</code>.</p>
+<p><span class="code-select">sudo -u clearnet bash</span></p>
+<p><strong>3.</strong> SSH key setup.</p>
+<p>Folder <code>/home/clearnet/.ssh</code> needs to be populated. In
+practice, this means that the following files (or similar) need to
+exist:</p>
+<ul>
+<li><code>/home/clearnet/.ssh/id_ed25519</code></li>
+<li><code>/home/clearnet/.ssh/id_ed25519.pub</code></li>
+<li><code>/home/clearnet/.ssh/known_hosts</code></li>
+</ul>
+<p>How to get these files? There are two options. Choose one.</p>
+<ul>
+<li><strong>A)</strong> <u>Use existing files:</u> The user could copy
+these files over from an existing SSH client setup. <u>Or,</u></li>
+<li><strong>B)</strong> <u>Create a new SSH keypair:</u> See also
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] and
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><strong>4.</strong> Test login to the SSH server:</p>
+<p>Notes:</p>
+<ul>
+<li><u>User name:</u> Replace <code>ssh-user</code> with the actual SSH
+user name.</li>
+<li><u>IP:</u> Replace <code>example.com</code> with the actual IP
+address or hostname of your server.</li>
+</ul>
+<p><span class="code-select">ssh.anondist-orig
+ssh-user@example.com</span></p>
+<p><strong>5.</strong> SSH server configuration.</p>
+<ul>
+<li><strong>A)</strong> <u>SSH default configuration:</u> SSH daemon
+defaults to <code>AllowTcpForwarding yes</code> in
+<code>/etc/ssh/sshd_config</code>.</li>
+<li><strong>B)</strong> <u>User hardened SSH configuration:</u> If the
+user has configured <code>AllowTcpForwarding no</code> in
+<code>/etc/ssh/sshd_config</code>, then see footnote.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+</ul>
+<p><strong>6.</strong> Restart the <code>ssh</code> daemon service in
+case you have modified its settings in the item above:</p>
+<p><span class="code-select">sudo systemctl restart sshd</span></p>
+<p><strong>7.</strong> Exit the SSH session after the connection has
+succeeded:</p>
+<p><span class="code-select">exit</span></p>
+<p><strong>8.</strong> Exit from the <code>clearnet</code> user back to
+the <code>user</code> user:</p>
+<p><span class="code-select">exit</span></p>
+<p><strong>9.</strong> Done.</p>
+<h1 id="Test_SSH_Socks_Proxy">Test SSH Socks Proxy</h1>
+<p><strong>1.</strong> Create a local SOCKS proxy.</p>
+<p>Open a localhost SOCKS proxy listening on port <code>1080</code>
+connected to your SSH server.</p>
+<p>Notes:</p>
+<ul>
+<li><u>User name:</u> Replace <code>ssh-user</code> with the actual SSH
+user name.</li>
+<li><u>IP:</u> Replace <code>example.com</code> with the actual IP
+address or hostname of your server.</li>
+<li><u>Port:</u> Replace <code>22</code> with the actual SSH server
+port. If you have not changed the SSH server port, it will be the
+default <code>22</code> and no port change will be required.</li>
+</ul>
+<p><span class="code-select">sudo -u clearnet ssh.anondist-orig -N -D
+127.0.0.1:1080 <a href="ssh://ssh-user@example.com:22">ssh://ssh-user@example.com:22</a></span></p>
+<p>Expected output: None.</p>
+<p><strong>2.</strong> Test.</p>
+<p>Check if the <code>clearnet</code> user can use the SOCKS5 proxy
+created by the SSH connection.</p>
+<p>Open another terminal tab.</p>
+<p><span class="code-select">sudo -u clearnet curl.anondist-orig --proxy
+socks5h://127.0.0.1:1080 --tlsv1.3 --proto =https <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></p>
+<p>Expected output:</p>
+<p><u>Note:</u> The following output would not contain
+<code>YOUR_SSH_SERVER_PUBLIC_IP</code> but the actual public IP address
+of your SSH server.</p>
+<pre><code>{&quot;IsTor&quot;:false,&quot;IP&quot;:&quot;YOUR_SSH_SERVER_PUBLIC_IP&quot;}</code></pre>
+<p><strong>3.</strong> Close SSH proxy.</p>
+<p>Terminate the local SSH proxy created in step 1 by using the keyboard
+and entering CTRL + C or by closing the terminal tab. This is required
+because for automating the above command, the port must not be in use.
+To ensure the port is closed, the SSH client needs to be terminated.</p>
+<p><strong>4.</strong> Done.</p>
+<p>The SSH SOCKS proxy test has been completed.</p>
+<h1 id="Configure_Proxy_Autostart">Configure Proxy Autostart</h1>
+<p>After all of the above tests have been completed successfully, you
+should configure the SSH connection to start on boot.</p>
+<p><strong>1.</strong> Apply the following changes to
+Whonix-Gateway<sup>&#8482;</sup> or the host.</p>
+<ul>
+<li><a href="../../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: On
+Whonix-Gateway.</li>
+<li><a href="../../Qubes/">Qubes-Whonix</a>: On
+<code>sys-whonix</code> App Qube.</li>
+</ul>
+<p>Open file
+<code>/usr/lib/systemd/system/socks-before-tor.service</code> in an
+editor with administrative ("<a href="../../Moved:Root/"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/lib/systemd/system/socks-before-tor.service</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/lib/systemd/system/socks-before-tor.service</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/lib/systemd/system/socks-before-tor.service</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Add the following to the file:</p>
+<p>Notes:</p>
+<ul>
+<li><u>User name:</u> Replace <code>ssh-user</code> with the actual SSH
+user name.</li>
+<li><u>IP:</u> Replace <code>example.com</code> with the actual IP
+address or hostname of your server.</li>
+<li><u>Port:</u> Replace <code>22</code> with the actual SSH server
+port. If you have not changed the SSH server port, it will be the
+default <code>22</code> and no change is required.</li>
+</ul>
+<p><span class="code-select">[Unit] Description=SOCKS5 Proxy for Tor OR
+connections After=network-online.target nss-lookup.target
+qubes-sysinit.service Before=tor.service
+ConditionPathExists=!/var/run/qubes/this-is-templatevm</p>
+<p>[Service] ExecStart=ssh.anondist-orig -vv -N -D 127.0.0.1:1080 <a href="ssh://ssh-user@example.com:22">ssh://ssh-user@example.com:22</a>
+Restart=on-failure RestartSec=5 User=clearnet Group=clearnet</p>
+<p>[Install] WantedBy=multi-user.target</span></p>
+<p><strong>3.</strong> Reload the systemd system daemon:</p>
+<p><span class="code-select">sudo systemctl daemon-reload</span></p>
+<p><strong>4.</strong> Enable the systemd system service
+<code>socks-before-tor</code>:</p>
+<p><span class="code-select">sudo systemctl enable
+socks-before-tor</span></p>
+<p><strong>5.</strong> Platform specific.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Kicksecure-icon-logo.svg" alt="Kicksecure-icon-logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Non-Qubes-Whonix_2">
+<p>Non-Qubes-Whonix</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><strong>1.</strong> Start the service
+<code>socks-before-tor</code>:</p>
+<p><span class="code-select">sudo systemctl restart
+socks-before-tor</span></p>
+<p><strong>2.</strong> Watch the journal of
+<code>socks-before-tor</code> service:</p>
+<p><span class="code-select">sudo journalctl -fu
+socks-before-tor</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Qubes-logo-blue.png.webp" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading2 widget-headline ">
+<h2 role="heading" aria-level="2" id="Qubes-Whonix_2">
+<p>Qubes-Whonix</p>
+</h2>
+</div>
+</div>
+<div class="tcc-content">
+<p><strong>1.</strong> Shut down <code>whonix-gateway-18</code>
+Template.</p>
+<p><strong>2.</strong> Restart <code>sys-whonix</code> App Qube.</p>
+<p><strong>3.</strong> Watch the journal of
+<code>socks-before-tor</code> service:</p>
+<p>On <code>sys-whonix</code> App Qube.</p>
+<p><span class="code-select">sudo journalctl -fu
+socks-before-tor</span></p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="Configure_Tor">Configure Tor</h1>
+<p>Tor needs to be configured to make use of the locally running SOCKS
+interface.</p>
+<p>Use either Option 1 <u>or</u> Option 2.</p>
+<h4 id="Option_1:_Use_Anon_Connection_Wizard">Option 1: Use
+<em><span>Anon Connection
+Wizard</span></em></h4>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>A proxy can be configured easily using <a href="../../Anon_Connection_Wizard/">Anon Connection
+Wizard</a>.</p>
+<div class="mw-collapsible-content">
+<h5 id="Step_1:_Start_Anon_Connection_Wizard">Step 1: Start Anon
+Connection Wizard</h5>
+<div class="info-box ">
+<p><u>If you are using <a href="../../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+&#8594; <code>Anon Connection Wizard</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>System</code> &#8594; <code>Anon Connection Wizard</code></p>
+<p><u>If you are using a <a href="../../Moved:Software/#Terminal">terminal emulator</a> (such as for example qterminal)
+on Whonix-Gateway</u>, type.</p>
+<p><span class="code-select">anon-connection-wizard</span></p>
+<p><u>If you are using a <a href="../../VirtualBox/"><strong>CLI</strong> Whonix-Gateway</a></u>, see
+footnote. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+</div>
+<h5 id="Step_2:_Use_Proxy_Configuration_Page">Step 2: Use Proxy
+Configuration Page</h5>
+<div class="info-box ">
+<ul>
+<li><strong><u>Proxy type:</u></strong> <code>SOCKS5</code></li>
+<li><strong><u>IP:</u></strong> <code>127.0.0.1</code></li>
+<li><strong><u>Port:</u></strong> <code>1080</code></li>
+</ul>
+</div>
+<div class="info-box ">
+<p><code>Select "Use proxy before connecting to the Tor network" on the Proxy Configuration page</code>
+&#8594; <code>Choose the proxy type</code> &#8594;
+<code>Fill out other necessary information</code></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<u><strong>Tips:</strong></u></p>
+<p><strong>1. Proxy Type</strong></p>
+<p>The proxy type is the protocol which is used to communicate with the
+proxy server. Since there are only three options, they can all be tried
+until one works.</p>
+<p><strong>2. Proxy IP/hostname</strong></p>
+<p>It is necessary to know the proxy IP for attempted connections. If
+the user is trying to connect to a local proxy, then
+<code>127.0.0.1</code> should be specified since it is the
+localhost.</p>
+<p><strong>3. Proxy Port number</strong></p>
+<p>It is necessary to know the port number for attempted connections. It
+should be a positive integer from <code>1</code> to <code>65535</code>.
+If searching for the listening port number of a well-known censorship
+circumvention tool, it can be found online.</p>
+<p><strong>4. Username and Password</strong></p>
+<p>If the username and password are unknown, they should be left blank
+to see if the connection will succeed. In most cases they are not
+needed.</p>
+</div>
+</div>
+</div>
+</div>
+<h4 id="Option_2:_Manually_Configure_Proxy">Option 2: Manually Configure
+Proxy</h4>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>Manual Tor configuration is an alternative.</p>
+<div class="mw-collapsible-content">
+<p><strong>1.</strong> Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../../Moved:Root/"><code>root</code></a>) access first. See also <a href="../../Sysmaint/">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix_3">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../../Sysmaint/">sysmaint</a> session or
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session">Graphical Whonix-Gateway
+USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_3"><a href="../../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../../Sysmaint/">sysmaint</a> session or
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Paste.</p>
+<p><u>Note:</u> Change <code>IP:PORT</code> as needed.</p>
+<ul>
+<li><strong>A)</strong> If SSH tunnel was set up from
+Whonix-Gateway:</li>
+</ul>
+<p><span class="code-select">Socks5Proxy 127.0.0.1:1080</span></p>
+<ul>
+<li><strong>B)</strong> If SSH tunnel was set up from host operating
+system:</li>
+</ul>
+<p><span class="code-select">Socks5Proxy IP:PORT</span></p>
+<p><strong>3.</strong> Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="../../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Service</code> &#8594;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+&#8594; <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p><strong>4.</strong> Done.</p>
+</div>
+</div>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">You can change it on a per-user basis. For example, to allow TCP
+forwarding only for user <code>ssh-user</code>, append to the following
+file: <span class="code-select">Match User ssh-user AllowTcpForwarding
+yes</span></li>
+<li id="cite_note-2">Stop: <span class="code-select">sudo systemctl stop
+tor@default</span> <span class="code-select">sudo systemctl disable
+tor@default</span> Start: <span class="code-select">sudo systemctl
+enable tor@default</span> <span class="code-select">sudo systemctl start
+tor@default</span></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

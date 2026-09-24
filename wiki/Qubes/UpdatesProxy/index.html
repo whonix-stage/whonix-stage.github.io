@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Qubes/UpdatesProxy</title>
+<meta name="description" content="Qubes dom0 Qubes-Whonix UpdatesProxy and UpdateVM Settings.">
+<meta property="og:description" content="Qubes dom0 Qubes-Whonix UpdatesProxy and UpdateVM Settings.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Qubes/UpdatesProxy/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Qubes/UpdatesProxy/">
+<meta property="og:title" content="Qubes-Whonix UpdatesProxy Settings">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Qubesupdateproxy31231235.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Qubes</span> / <span>UpdatesProxy</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Generally">Generally</a></li><li class="toc-l2"><a href="#Qubes">Qubes</a></li><li class="toc-l2"><a href="#Simulate_torified_UpdatesProxy_check_failed">Simulate torified
+UpdatesProxy check failed</a></li><li class="toc-l2"><a href="#Simulate_Broken_Connectivity">Simulate Broken Connectivity</a></li><li class="toc-l2"><a href="#Invalid_response_from_proxy:_HTTP/1.1_500_Unable_to_connect_Server:_tinyproxy">Invalid
+response from proxy: HTTP/1.1 500 Unable to connect Server:
+tinyproxy</a></li><li class="toc-l3"><a href="#Reproduce_the_Tinyproxy_error_by_stopping_Tor_or_unplugging_the_network_cable">Reproduce
+the Tinyproxy error by stopping Tor or unplugging the network cable</a></li><li class="toc-l3"><a href="#Reproduce_the_Tinyproxy_error_by_adding_a_blocked_repository">Reproduce
+the Tinyproxy error by adding a blocked repository</a></li><li class="toc-l3"><a href="#Tinyproxy_error_interpretation">Tinyproxy error
+interpretation</a></li><li class="toc-l2"><a href="#Error_Messages">Error Messages</a></li><li class="toc-l3"><a href="#Proxying_refused_on_filtered_domain_127.0.0.1">Proxying refused
+on filtered domain &quot;127.0.0.1&quot;</a></li><li class="toc-l2"><a href="#Could_not_connect_to_127.0.0.1:8082_(127.0.0.1)._-_connect_(113:_No_route_to_host)">Could
+not connect to 127.0.0.1:8082 (127.0.0.1). - connect (113: No route to
+host)</a></li><li class="toc-l2"><a href="#Reading_from_proxy_failed_-_read_(11:_Resource_temporarily_unavailable)_[IP:_127.0.0.1_8082]">Reading
+from proxy failed - read (11: Resource temporarily unavailable) [IP:
+127.0.0.1 8082]</a></li><li class="toc-l2"><a href="#Qubes_UpdatesProxy_running_test">Qubes UpdatesProxy running
+test</a></li><li class="toc-l2"><a href="#Qubes_UpdatesProxy_reachability_test">Qubes UpdatesProxy
+reachability test</a></li><li class="toc-l2"><a href="#Qubes_UpdatesProxy_Stream_Isolation">Qubes UpdatesProxy Stream
+Isolation</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Tor_Browser/" title="Qubes/Tor Browser"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes/Tor
+Browser</span></a><a class="index internal" href="../../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../../Multiple_Qubes-Whonix_Templates/" title="Multiple Qubes-Whonix Templates"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Multiple
+Qubes-Whonix
+Templates</span></a><span class="info"><span class="prev">Previous page:
+Qubes/Tor Browser</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Multiple Qubes-Whonix
+Templates</span></span></span>Qubes-Whonix<sup>&#8482;</sup> UpdatesProxy
+Settings</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../../Troubleshooting/#Connectivity_Troubleshooting">Connectivity Troubleshooting</a></li>
+<li><a href="../../Troubleshooting/#General_Troubleshooting">General Troubleshooting</a></li>
+<li><a href="../Troubleshooting/">Qubes-Whonix<sup>&#8482;</sup> Tor Connectivity and sdwdate
+Troubleshooting</a></li>
+<li><a href="./">Qubes UpdatesProxy
+Troubleshooting</a></li>
+<li><a href="../../Network_Obstacle/">Network
+Obstacle</a></li>
+<li><a href="../../Tor/">Tor Log Analysis and Connectivity
+Troubleshooting</a></li>
+</ul>
+</div>
+<p><img src="../../../media/Qubesupdateproxy31231235.png.webp" width="180" alt="Qubesupdateproxy31231235.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Qubes dom0 Qubes-Whonix UpdatesProxy and UpdateVM Settings.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box ">
+<p>The following wiki pages have been updated in August 2023 for R4.2
+and contain documentation on how to configure Qubes UpdatesProxy:</p>
+<div class="mininav">
+<ul>
+<li><a href="../../Multiple_Whonix-Gateway/">Multiple
+Whonix-Gateway<sup>&#8482;</sup></a></li>
+<li><a href="../../Multiple_Whonix-Workstation/">Multiple
+Whonix-Workstation<sup>&#8482;</sup></a></li>
+<li><a href="../../Multiple_Qubes-Whonix_Templates/">Multiple
+Qubes-Whonix<sup>&#8482;</sup> Templates</a></li>
+</ul>
+</div>
+<p>By following the above wiki pages, there is no need to follow any
+steps on this wiki page. This wiki page is only needed for
+troubleshooting or when looking for additional information.</p>
+</div>
+<h1 id="Qubes_UpdatesProxy_Setting">Qubes UpdatesProxy Setting</h1>
+<div class="info-box ">
+<p>Note: In Qubes, in <strong><code>dom0</code></strong>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Locating the settings file.</p>
+<p>In <strong><code>dom0</code></strong> check file
+<code>/etc/qubes/policy.d/50-config-updates.policy</code> settings.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+View its contents.</p>
+<p><span class="code-select">cat
+/etc/qubes/policy.d/50-config-updates.policy</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Verify its default entries.</p>
+<p>At the very top of that file, the following text should appear.</p>
+<pre><code>qubes.UpdatesProxy * @tag:whonix-updatevm @default allow target=sys-whonix
+qubes.UpdatesProxy * @tag:whonix-updatevm @anyvm deny</code></pre>
+<p>If these lines are not there, add them.</p>
+</div>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="../../Unsupported/">this</a> for
+potential alternatives.</p>
+</div>
+<h1 id="Qubes_dom0_UpdateVM_Setting">Qubes dom0 UpdateVM Setting</h1>
+<p>Qubes <code>dom0</code> does not use Qubes
+<code>UpdatesProxy</code>.</p>
+<p>Therefore, file <code>/etc/qubes-rpc/policy/qubes.UpdatesProxy</code>
+does not influence which VM <code>dom0</code> will use for fetching
+updates.</p>
+<p>For completeness' sake, see below on how to configure the Qubes
+<code>dom0</code> <code>UpdateVM</code> setting.</p>
+<p>To force <code>dom0</code> updates over Tor, set Qubes'
+<code>dom0</code> UpdateVM to <code>sys-whonix</code>.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<ul>
+<li><code>Qube Manager</code> &#8594; <u><code>S</code></u><code>ystem</code>
+&#8594; <u><code>G</code></u><code>lobal Settings</code> &#8594;
+<code>Dom0 UpdateVM:</code> <code>sys-whonix</code> &#8594;
+<code>OK</code></li>
+</ul>
+<p>To revert this change, set Qubes' <code>dom0</code> UpdateVM to
+<code>sys-firewall</code> or another preferred VM.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<ul>
+<li><code>Qubes Manager</code> &#8594; <u><code>S</code></u><code>ystem</code>
+&#8594; <u><code>G</code></u><code>lobal Settings</code> &#8594;
+<code>Dom0 UpdateVM:</code> <code>sys-firewall</code></code> &#8594;
+<code>OK</code></li>
+</ul>
+<h1 id="No_torified_Qubes_updates_proxy_found_warning">No torified Qubes
+updates proxy found warning</h1>
+<p>How to fix <em><span>WARNING:
+Execution of /usr/bin/apt-get prevented by /etc/uwt.d/40_qubes.conf
+because no torified Qubes updates proxy found.</span></em>?</p>
+<p>If the following warning appears.</p>
+<pre><code>WARNING: Execution of /usr/bin/apt-get prevented by /etc/uwt.d/40_qubes.conf because no torified Qubes updates proxy found.</code></pre>
+<p>If the warning message is transient, it can be safely ignored.
+Otherwise, try the following fix.</p>
+<div class="info-box ">
+<p>In <code>dom0</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Open a terminal.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Use <code>qubesctl</code> (Qubes salt) to set up <code>dom0</code>
+settings. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><span class="code-select">sudo qubesctl state.sls
+qvm.anon-whonix</span></p>
+</div>
+<div class="info-box ">
+<p>In Whonix Template.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Next, check if the problem has been corrected.</p>
+<p>Run the following command in Whonix Template.</p>
+<p><span class="code-select">sudo systemctl restart
+qubes-whonix-torified-updates-proxy-check</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Then try to update or use <code>apt</code> again.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+<u>If there are still problems,</u> try re-installation of
+Qubes-Whonix.</p>
+<ul>
+<li><a href="../Reinstall/">Reinstall Qubes-Whonix
+Templates</a>.</li>
+<li>If re-installation also fails, then ask for support in the <a href="https://forums.whonix.org">Whonix forums</a>.</li>
+</ul>
+</div>
+<h1 id="Additional_Information_for_Advanced_Users">Additional
+Information for Advanced Users</h1>
+<h2 id="Generally">Generally</h2>
+<p>The following Qubes-Whonix and Whonix GitHub development resources
+are recommended for interested readers:</p>
+<ul>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf"><code>/etc/uwt.d/40_qubes.conf</code></a></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service"><code>/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service</code></a></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/torified-updates-proxy-check"><code>/usr/lib/qubes-whonix/init/torified-updates-proxy-check</code></a></li>
+<li><a href="https://github.com/Whonix/uwt">uwt</a></li>
+</ul>
+<h2 id="Qubes">Qubes</h2>
+<ul>
+<li>Qubes qrexec policy configuration can be found in the folder
+<code>/etc/qubes/policy.d/</code>.</li>
+<li>Qubes defaults are configured in file <a href="https://github.com/QubesOS/qubes-core-admin/blob/main/qubes-rpc-policy/90-default.policy"><code>/etc/qubes/policy.d/90-default.policy</code></a>.
+<ul>
+<li>Search this file for lines starting with:
+<span class="code-select">qubes.UpdatesProxy</span></li>
+<li>The following comment at the top of this file explains the general
+principle. <span class="code-select">## Do not modify this file, create
+a new policy file with a lower number in the</li>
+</ul></li>
+</ul>
+<ol>
+<li><ol>
+<li>filename instead. For example 30-user.policy.</span></li>
+</ol></li>
+</ol>
+<ul>
+<li>Check file
+<code>/etc/qubes/policy.d/50-config-updates.policy</code></li>
+<li>As per Qubes default, file
+<code>/etc/qubes/policy.d/50-config-updates.policy</code> is parsed
+before <code>/etc/qubes/policy.d/90-default.policy</code>.</li>
+<li>In case of issues, see also <a href="../Troubleshooting/#qvm-tags_verification"><code>qvm-tags</code> verification</a>.
+<ul>
+<li>See if you can make heads or tails of <a href="../../Dev/Qubes/#qvm-tags">qvm-tags developer notes</a>. If not, skip this
+step.</li>
+</ul></li>
+</ul>
+<h2 id="Simulate_torified_UpdatesProxy_check_failed">Simulate torified
+UpdatesProxy check failed</h2>
+<p>Developers only.</p>
+<p><u>In Template.</u></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Simulate Qubes-Whonix UpdatesProxy check failed.</p>
+<p><span class="code-select">sudo rm
+/run/updatesproxycheck/whonix-secure-proxy</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Run APT.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Result.</p>
+<pre><code>WARNING: Execution of /usr/bin/apt prevented by /etc/uwt.d/40_qubes.conf because no torified Qubes updates proxy found.
+Please make sure Whonix-Gateway (commonly called sys-whonix) is running.
+
+Check your _dom0_ settings in the /etc/qubes/policy.d/ folder.
+
+To see if it is fixed, try running in Whonix Template:
+
+sudo systemctl restart qubes-whonix-torified-updates-proxy-check
+
+Then try to update / use apt-get again.
+
+For more help on this subject see:
+[https://www.whonix.org/wiki/Qubes/UpdatesProxy https://www.whonix.org/wiki/Qubes/UpdatesProxy]
+
+If this warning message is transient, it can be safely ignored.</code></pre>
+<p>Thanks to <a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf"><code>/etc/uwt.d/40_qubes.conf</code></a>
+which checks if <code>/run/updatesproxycheck/whonix-secure-proxy</code>
+exists. It only exists if Qubes UpdatesProxy was reachable and the
+output of the test included <code>tor proxy</code>.</p>
+<h2 id="Simulate_Broken_Connectivity">Simulate Broken Connectivity</h2>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Break networking.</p>
+<p>Unplug the network cable, disable WiFi, or power off the modem or
+router.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+View <code>qubes-updates-proxy.service</code> logs.</p>
+<p><u>In sys-whonix.</u></p>
+<p><span class="code-select">sudo journalctl --boot -u
+qubes-updates-proxy.service</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Result.</p>
+<pre><code>Sep 05 13:24:22 host tinyproxy[33224]: opensock: Could not retrieve address info for deb.debian.org:443: Temporary failure in name resolution</code></pre>
+<h2 id="Invalid_response_from_proxy:_HTTP/1.1_500_Unable_to_connect_Server:_tinyproxy">Invalid
+response from proxy: HTTP/1.1 500 Unable to connect Server:
+tinyproxy</h2>
+<p>Understanding Tinyproxy error messages</p>
+<p>The objective of this documentation is to help understand and
+interpret error messages from Tinyproxy seen in APT output.</p>
+<p>The APT error message:</p>
+<pre><code>HTTP/1.0 500 Unable to connect Server: tinyproxy/1.10.0 Content-Type: text/html Connection: close</code></pre>
+<p>is not necessarily indicative of a Tor connectivity issue or issue
+caused by Whonix.</p>
+<h3 id="Reproduce_the_Tinyproxy_error_by_stopping_Tor_or_unplugging_the_network_cable">Reproduce
+the Tinyproxy error by stopping Tor or unplugging the network cable</h3>
+<p>Developers only. For demonstration purposes.</p>
+<p>Either stop Tor, or unplug the network cable from the router, disable
+WiFi, or similar.</p>
+<p>To reproduce and test the origin of this error message:</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Stop Tor.</p>
+<p>In <code>sys-whonix</code>, execute:</p>
+<p><span class="code-select">sudo systemctl stop tor@default</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Confirm in the journal log that the Tor service has indeed stopped.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Attempt an update.</p>
+<p>Run the update command in <code>whonix-gateway-18</code>
+Template:</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Result.</p>
+<p>Now Tor is stopped while attempting to run an apt update in the
+Template.</p>
+<p>The expected result is:</p>
+<pre><code>Invalid response from proxy: HTTP/1.1 500 Unable to connect  Server: tinyproxy/1.11.1  Content-Type: text/html  Connection: close [IP: 127.0.0.1 8082]</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Restart Tor.</p>
+<p>Optional.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Done.</p>
+<h3 id="Reproduce_the_Tinyproxy_error_by_adding_a_blocked_repository">Reproduce
+the Tinyproxy error by adding a blocked repository</h3>
+<p>Developers only. For demonstration purposes.</p>
+<p>This example uses <code>blocked.com</code> and the website seems to
+block Tor traffic, which is useful for testing.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Mess up APT sources on purpose.</p>
+<p>Add a blocked APT source to
+<code>/etc/apt/sources.list.d/blocked.sources</code>.</p>
+<pre><code>Types: deb
+URIs: tor+https://deb.blocked.com
+Suites: bookworm
+Components: main
+Enabled: yes</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Update.</p>
+<pre><code>sudo apt update</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Result.</p>
+<p>When running an update, all APT sources will function except for
+<code>blocked.com</code>. The output will be:</p>
+<pre><code>Ign:1 tor+https://deb.blocked.com bookworm InRelease                                                                                                         
+Invalid response from proxy: HTTP/1.1 500 Unable to connect  Server: tinyproxy/1.11.1  Content-Type: text/html  Connection: close [IP: 127.0.0.1 8082]
+Reading package lists... Done
+E: Failed to fetch tor+https://deb.blocked.com/dists/bookworm/InRelease  Invalid response from proxy: HTTP/1.1 500 Unable to connect  Server: tinyproxy/1.11.1  Content-Type: text/html  Connection: close [IP: 127.0.0.1 8082]</code></pre>
+<h3 id="Tinyproxy_error_interpretation">Tinyproxy error
+interpretation</h3>
+<p>From the output provided by <code>apt</code> in the Template, based
+on the message from Tinyproxy, it is challenging to differentiate
+between:</p>
+<ul>
+<li><strong>A)</strong> <u>Local connectivity issue:</u> Tinyproxy's
+inability to connect to the destination domain name.</li>
+<li><strong>B)</strong> <u>Blocked by remote server issue:</u> A
+connection being blocked by a remote APT server.</li>
+</ul>
+<p>The symptoms and output from both scenarios are identical.</p>
+<h2 id="Error_Messages">Error Messages</h2>
+<h3 id="Proxying_refused_on_filtered_domain_127.0.0.1">Proxying refused
+on filtered domain "127.0.0.1"</h3>
+<p>In sys-whonix.</p>
+<pre><code>Oct 15 15:34:29 host tinyproxy[846]: Proxying refused on filtered domain &quot;127.0.0.1&quot;</code></pre>
+<p>This is a non-issue.</p>
+<p>File <code>/etc/tinyproxy/updates-blacklist</code> (owned by package
+qubes-core-agent-networking) contains:</p>
+<ul>
+<li><a href="https://github.com/QubesOS/qubes-core-agent-linux/blob/main/network/updates-blacklist">updates-blacklist
+in the qubes-core-agent-linux repository</a></li>
+</ul>
+<p><a href="https://github.com/QubesOS/qubes-issues/issues/8606">Qubes
+issue 8606</a></p>
+<h2 id="Could_not_connect_to_127.0.0.1:8082_(127.0.0.1)._-_connect_(113:_No_route_to_host)">Could
+not connect to 127.0.0.1:8082 (127.0.0.1). - connect (113: No route to
+host)</h2>
+<p>This issue applies to at least Debian and Qubes-Whonix Templates. It
+happens if the UpdatesProxy (in case of Qubes-Whonix most likely:
+<code>sys-whonix</code>) used by the Template has not been started
+yet.</p>
+<p>To reproduce, in Template:</p>
+<p><span class="code-select">sudo systemctl stop
+qubes-updates-proxy-forwarder.socket</span></p>
+<p><span class="code-select">sudo apt update</span></p>
+<p>Expected output:</p>
+<pre><code>Could not connect to 127.0.0.1:8082 (127.0.0.1). - connect (113: No route to host)</code></pre>
+<h2 id="Reading_from_proxy_failed_-_read_(11:_Resource_temporarily_unavailable)_[IP:_127.0.0.1_8082]">Reading
+from proxy failed - read (11: Resource temporarily unavailable) [IP:
+127.0.0.1 8082]</h2>
+<p>In <code>sys-whonix</code>:</p>
+<p><span class="code-select">sudo systemctl stop
+qubes-updates-proxy.service</span></p>
+<p>In Template:</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p>Expected output:</p>
+<pre><code>Reading from proxy failed - read (11: Resource temporarily unavailable) [IP: 127.0.0.1 8082]</code></pre>
+<h2 id="Qubes_UpdatesProxy_running_test">Qubes UpdatesProxy running
+test</h2>
+<p><span class="code-select">sudo systemctl --no-pager --full -l status
+qubes-updates-proxy-forwarder.socket</span></p>
+<h2 id="Qubes_UpdatesProxy_reachability_test">Qubes UpdatesProxy
+reachability test</h2>
+<p>In Template, use <code>curl</code> to check if Qubes UpdatesProxy is
+running on IP <code>127.0.0.1</code>, port <code>8082</code>.</p>
+<p><span class="code-select">curl 127.0.0.1:8082</span></p>
+<p>Expected output:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot; &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+&lt;title&gt;403 Filtered&lt;/title&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+&lt;meta name=&quot;application-name&quot; content=&quot;tor proxy&quot;/&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;tor proxy&lt;/h1&gt;
+
+This customized file /usr/share/tinyproxy/default.html is stored on on a Tor proxy.
+
+&lt;h1&gt;Filtered&lt;/h1&gt;
+
+&lt;p&gt;The request you made has been filtered&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;em&gt;Generated by &lt;a href=&quot;https://tinyproxy.github.io/&quot;&gt;tinyproxy&lt;/a&gt; version 1.11.1.&lt;/em&gt;&lt;/p&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+<h2 id="Qubes_UpdatesProxy_Stream_Isolation">Qubes UpdatesProxy Stream
+Isolation</h2>
+<p>See <a href="../../Stream_Isolation/#Qubes_UpdatesProxy_Stream_Isolation">Qubes UpdatesProxy Stream Isolation</a>.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Or manually set the torified UpdateVM in <code>dom0</code> terminal.
+<span class="code-select">qubes-prefs updatevm sys-whonix</span></li>
+<li id="cite_note-2">To revert this change in <code>dom0</code> terminal, run.
+<span class="code-select">qubes-prefs updatevm sys-firewall</span></li>
+<li id="cite_note-3"><a href="../../Dev/Qubes/#salt">Dev/Qubes#salt</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Tor_Browser/" title="Qubes/Tor Browser"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes/Tor
+Browser</span></a><a class="index internal" href="../../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../../Multiple_Qubes-Whonix_Templates/" title="Multiple Qubes-Whonix Templates"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Multiple
+Qubes-Whonix
+Templates</span></a><span class="info"><span class="prev">Previous page:
+Qubes/Tor Browser</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Multiple Qubes-Whonix
+Templates</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

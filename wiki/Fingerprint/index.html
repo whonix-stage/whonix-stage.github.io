@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Fingerprint</title>
+<meta name="description" content="About Whonix Network, Bridge/Guard, Internet Service Provider (ISP) Fingerprint and Website Traffic Fingerprinting.">
+<meta property="og:description" content="About Whonix Network, Bridge/Guard, Internet Service Provider (ISP) Fingerprint and Website Traffic Fingerprinting.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Fingerprint/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Fingerprint/">
+<meta property="og:title" content="Network, Browser and Website Fingerprint">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Eye-319668-640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Entry_Guards_or_Bridges">Entry Guards or Bridges</a></li><li class="toc-l2"><a href="#ISP_or_Local_Network_Administrators">ISP or Local Network
+Administrators</a></li><li class="toc-l2"><a href="#Advanced_Traffic_Fingerprinting">Advanced Traffic
+Fingerprinting</a></li><li class="toc-l2"><a href="#Visited_Websites">Visited Websites</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Comparison_with_Others/" title="Comparison with Others"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Comparison
+with
+Others</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Download/" title="Download"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Download</span></a><span class="info"><span class="prev">Previous
+page: Comparison with Others</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Download</span></span></span>Network, Browser and Website
+Fingerprint</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="./">Network, Browser and Website
+Fingerprint</a></li>
+<li><a href="../VM_Fingerprinting/">VM
+Fingerprinting</a></li>
+<li><a href="../Protocol-Leak-Protection_and_Fingerprinting-Protection/">Protocol Leak Protection and Fingerprinting
+Protection</a></li>
+</ul>
+</div>
+<p><img src="../../media/Eye-319668-640.jpg.webp" alt="Eye-319668-640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>About Whonix Network, Bridge/Guard, Internet Service Provider (ISP)
+Fingerprint and Website Traffic Fingerprinting.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>In this chapter, the term <em>fingerprint</em> refers to the specific
+way Whonix behaves on the Internet. Those specificities could be used to
+determine whether a particular user is running Whonix or not.</p>
+<p>As explained on the <a href="../Warning/">Warning</a>
+page, the default Whonix configuration does not <a href="../Hide_Tor_from_your_Internet_Service_Provider/">hide Tor use from network observers</a>. However, the
+Whonix design attempts to make Whonix users indistinguishable from the
+rest of the Tor population, particularly <a href="../Tor_Browser/">Tor Browser</a> (TB or TBB) users have distinct
+fingerprints, then this information significantly degrades anonymity
+because the Whonix user base is far smaller than the broader Tor
+population.</p>
+<p>This section briefly addresses possible Whonix fingerprinting issues
+and how adversaries might use this information to verify Whonix is in
+use.</p>
+<p><span class="manually-placed-anchor " id="web_fingerprint"></span>
+<span class="manually-placed-anchor " id="web_fingerprint"></span></p>
+<h1 id="Fingerprinting_Information">Fingerprinting Information</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<strong>Tip:</strong> A unique fingerprint makes the user <a href="../Tips_on_Remaining_Anonymous/#Study:_Anonymity_and_Pseudonymity_are_not_the_same">pseudonymous rather than anonymous</a>.</p>
+</div>
+<p>Various types of information can be leaked about the user's browser,
+(host) <u>o</u>perating <u>s</u>ystem (OS) and hardware depending on the
+external party in question.</p>
+<h2 id="Entry_Guards_or_Bridges">Entry Guards or Bridges</h2>
+<p>As noted in the <a href="../Tor_Entry_Guards/#Guard_Fingerprinting">Guard Fingerprinting</a> chapter, using persistent Tor
+guards or bridges can threaten anonymity under certain
+circumstances:</p>
+<p><blockquote><p>While natural guard rotation is recommended, there are some corner
+cases in which an adversary could fingerprint the entry guards and
+de-anonymize a user. For instance:</p>
+<ul>
+<li>The same entry guards are used across various physical locations and
+access points.</li>
+<li>The same entry guards are used after permanently moving to a
+different physical location.</li>
+</ul></blockquote></p>
+<p>For example, if an adversary monitoring network activity observes a
+user connecting from multiple physical locations with persistent
+guards/bridges, then it can be reasonably assumed that all connections
+stem from the same person. Mitigating this risk requires techniques like
+using new Tor entry guards or configuring alternate bridges for
+different places.</p>
+<p>Nick Mathewson, co-founder of The Tor Project suggests additional
+precautions when moving networks: <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<ul>
+<li><a href="../MAC_Address/">Spoof the MAC address</a>
+with randomized values on each move.</li>
+<li>Absolutely prevent non-Tor connections.</li>
+<li>Ensure a unique set of Tor entry guards (bridges) is utilized for
+each network you connect from. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li>Minimize the threat of stored Tor state files which record every
+network visited.</li>
+</ul>
+<p>"Absolutely prevent non-Tor connections." is useful anyhow for other
+reasons as well, see also <a href="../Tips_on_Remaining_Anonymous/#Only_Connect_to_a_Server_Either_Anonymously_Or_Non-anonymously">Do Not Connect to a Server Anonymously and
+Non-anonymously at the Same Time</a>. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><span class="manually-placed-anchor " id="ISP_fingerprint"></span></p>
+<h2 id="ISP_or_Local_Network_Administrators">ISP or Local Network
+Administrators</h2>
+<table>
+<caption><em>Fingerprinting Domains</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Domain</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Network Stack Hardening</p></td>
+<td><p>Whonix has implemented various <a href="https://github.com/Kicksecure/security-misc">security
+hardening</a> measures like disabling TCP timestamps, ICMP redirections,
+firewalling invalid packages, and more. Unfortunately these measures can
+increase the risk of ISP or Local Network fingerprinting. Despite this,
+security hardening has been prioritized.</p></td>
+</tr>
+<tr class="even">
+<td><p>Random ISN Generation</p></td>
+<td><p>Whonix prevents <a href="https://dl.acm.org/doi/10.1145/1180405.1180410">de-anonymization
+of Tor onion services</a> through <a href="https://github.com/Kicksecure/tirdad">Tirdad kernel module for
+random ISN generation</a>. De-anonymization resistance unfortunately
+reduces ISP or Local Network fingerprinting resistance. Despite this,
+resistance against de-anonymization has been prioritized.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Tor Enforcement</p></td>
+<td><p>Whonix solely generates Tor activity on the network. All traffic
+from both the Whonix-Workstation<sup>&#8482;</sup>
+(<code>whonix-workstation-18</code>) and Whonix-Gateway<sup>&#8482;</sup>
+(<code>whonix-gateway-18</code>) such as Tor Browser Bundle (TBB),
+updates, and sdwdate pass through Tor. Establishing an online connection
+is the task of the host, so the host <sup class="reference"><a href="#cite_note-4">[4]</a></sup> is most likely
+using DHCP to obtain a local IP address.</p>
+<p>In contrast, usually TBB users have additional network activity
+outside of Tor, either from another web browser or other applications.
+This means the proportion or volume of Tor activity might be feasible
+identifiers to predict whether a user is running Whonix or the TBB. It
+is probably harder for the ISP to determine whether a single user is
+solely generating Tor traffic (and potentially using Whonix) if:</p>
+<ul>
+<li>The Internet connection is shared with other users that do not run
+Whonix.</li>
+<li>A browser is also used on the host. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Tor Entry Guards</p></td>
+<td><p>Whonix uses an unmodified version of Tor, <sup class="reference"><a href="#cite_note-6">[6]</a></sup> so
+<a href="../Tor_Entry_Guards/">entry guards</a> are used as
+the default mechanism to connect to the Tor network. <sup class="reference"><a href="#cite_note-7">[7]</a></sup>
+Consequently, a Tor user will maintain the same relay as the first hop
+for an extended period, <sup class="reference"><a href="#cite_note-8">[8]</a></sup> which is a security feature.
+One addition which is unique to Whonix is its Tor configuration
+<sup class="reference"><a href="#cite_note-9">[9]</a></sup> for the
+<code>Stream Isolation</code><sup class="reference"><a href="#cite_note-10">[10]</a></sup> security
+feature.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Time Synchronization</p></td>
+<td><p>When Whonix is started, the system clock is synchronized to make
+sure it slightly differs from the host clock via <a href="../Sdwdate/"><code>sdwdate</code></a>. <sup class="reference"><a href="#cite_note-11">[11]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p>systemcheck</p></td>
+<td><p><a href="../Moved:Systemcheck/"><code>systemcheck</code></a> also issues some network
+traffic over Tor to check for updates and <a href="../Moved:Systemcheck/#Warrant_Canary_Check">Warrant Canary
+Check</a>, which all passes through different circuits. Traffic passes
+through different circuits. This behavior might be specific to
+Whonix.</p></td>
+</tr>
+<tr class="odd">
+<td><p><a href="./#Website_Traffic_Fingerprinting">Website Traffic Fingerprinting</a></p></td>
+<td><p>Website traffic fingerprinting is also an open Tor research
+question, which is unspecific to Whonix. <sup class="reference"><a href="#cite_note-12">[12]</a></sup> A related
+and unresearched issue is whether fingerprinting risks also apply to
+other traffic, such as <code>apt</code> traffic.</p></td>
+</tr>
+<tr class="even">
+<td><p><a href="../Whonix-Host/">Whonix-Host</a></p></td>
+<td><p>Once Whonix-Host is available it will exclusively generate Tor
+traffic in the default configuration. <sup class="reference"><a href="#cite_note-13">[13]</a></sup> This is very
+different from other operating systems, for example a Microsoft Windows
+host running Tor Browser.</p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>In conclusion, the ability of the ISP or local network administrator
+to distinctly identify users who utilize Tor Browser Bundle (TBB),
+Whonix, Tails, a custom transparent Tor proxy or similar project,
+depends on how differently a system is configured.
+Anonymity/security/privacy-focused operating systems will inevitably
+differ from other Tor users using popular operating systems. For
+example, somebody using Tails or Whonix will have a different network
+fingerprint than a Microsoft Windows user utilizing Tor Browser Bundle
+(TBB) since that will be paired with standard clearnet traffic. This is
+a necessary tradeoff to advance the state of technological privacy
+relative to the status quo.</p>
+<p>Improved fingerprinting resistance in the near term is unlikely. This
+would require choosing and emulating the most popular host operating
+system in combination with the most widespread method of accessing Tor,
+which is probably Tor Browser Bundle (TBB) on Microsoft Windows. Without
+running this setup, it is infeasible the Microsoft Windows network
+fingerprint could be sufficiently emulated in order to fool an ISP or
+local network observer. Putting aside the many <a href="../Moved:Windows_Hosts/">reasons to not use Windows</a>, even after lots of
+effort it could not be proven effective.</p>
+<p>A related topic is the potential to <a href="../Hide_Tor_from_your_Internet_Service_Provider/">Hide Tor use from the Internet Service Provider</a>. It
+has been concluded it is possible to circumvent censorship, but hiding
+Tor is impractical. This is especially true with respect to global
+passive adversaries who can record and store all relevant traffic.</p>
+<p><blockquote><p>It is impossible to hide Tor use from the <u>I</u>nternet
+<u>S</u>ervice <u>P</u>rovider (ISP). It has been concluded this goal is
+difficult beyond practicality.</p></blockquote></p>
+<h2 id="Advanced_Traffic_Fingerprinting">Advanced Traffic
+Fingerprinting</h2>
+<p>For example, one could ask why Qubes Debian Template might not look
+the same as Fedora (non-Qubes)?</p>
+<ul>
+<li>Different default Fedora packages.</li>
+<li>Therefore different amount of traffic.</li>
+<li>Connections to Qubes' Fedora repository (qubes-core-agent, ...)</li>
+<li>Qubes Fedora disables TCP timestamps. (Actually good.)</li>
+<li><a href="https://github.com/QubesOS/qubes-core-agent-linux/blob/main/config-overrides/20_tcp_timestamps.conf">qubes-core-agent-linux/config-overrides/20_tcp_timestamps.conf</a>
+<ul>
+<li>Upstream Fedora probably doesn't.</li>
+</ul></li>
+<li>Conclusion: Fingerprintable.</li>
+</ul>
+<p>Other considerations:</p>
+<p><blockquote><p>[...]</p>
+<p>Passive Operating System Identification</p>
+<p>Passive Operating System identification relies on the fact that each
+OS's IP implementation differs slightly, depending on RFC
+interpretation. This is most accurately done by analyzing TCP SYN
+packets, as these have the greatest number of unique identifiers. The
+fields used to make this determination are Initial TTL, Don't Fragment
+flag, Initial SYN Packet Size, IP ID, TOS Field, Source Port and TCP
+Options, such as Window Size, MSS Size, Nop Option, Window Scaling
+Option and SackOK Option.</p>
+<p>Previously, excellent papers on this topic have been published by
+both Lance Spitzner and Toby Miller. Both of these papers are excellent;
+however, they present slightly varied techniques. Currently, there exist
+two automated tools for doing such analysis: Siphon (which doesn't
+appear to have been updated in a while) and p0f (which was recently
+updated). Of these two tools, p0f relies mainly on a combination of IP
+fields and TCP SYN packet options, while Siphon uses mainly IP-level
+information such as TTL and Don't Fragment bit. Automating analysis is
+quite easy with p0f. P0F even detects some not so OS-dependent nuances
+such as Nmap scans, as follows:</p>
+<p>[...]<span class="blockquote-context"><a href="https://www.csd.uoc.gr/~gvasil/old2009/old/stuff/papers/Passive%20Network%20Traffic%20Analysis.pdf">Passive
+Network Traffic Analysis: Understanding a Network Through Passive
+Monitoring</a></span></p></blockquote></p>
+<p>See also <a href="https://www.sciencedirect.com/topics/computer-science/passive-fingerprinting">Passive
+Fingerprinting</a>.</p>
+<p><blockquote><p>The OS fingerprinting result can be used for tethering
+detection.<span class="blockquote-context"><a href="https://conferences2.sigcomm.org/imc/2014/papers/p173.pdf">OS
+Fingerprinting and Tethering Detection in Mobile Networks</a></span></p></blockquote></p>
+<p><blockquote><p>Boot Time: Machine boot time can be inferred from TCP timestamp
+values in packets sent from that machine. Most OS implementations use a
+random number as the starting value of TCP timestamps after booting.
+Hence the estimated boot time is not the real one. However, the value
+can still quite uniquely identify a machine because different machines
+have distinct boot times and distinct initial TCP timestamp values
+[39].<span class="blockquote-context"><a href="https://conferences2.sigcomm.org/imc/2014/papers/p173.pdf">OS
+Fingerprinting and Tethering Detection in Mobile Networks</a></span></p></blockquote></p>
+<p>(Therefore it is a good idea that Kicksecure's security-misc disables
+TCP timestamps.)</p>
+<ul>
+<li><a href="https://security.stackexchange.com/questions/232865/how-do-isps-detect-whether-a-phone-uses-tethering">https://security.stackexchange.com/questions/232865/how-do-isps-detect-whether-a-phone-uses-tethering</a></li>
+<li><a href="https://onlinelibrary.wiley.com/doi/10.1155/2023/8658278">https://onlinelibrary.wiley.com/doi/10.1155/2023/8658278</a></li>
+<li><a href="https://yewtu.be/watch?v=vfQSY0-Tzns">https://yewtu.be/watch?v=vfQSY0-Tzns</a></li>
+<li><a href="https://yewtu.be/watch?v=hQJZrLOVwYY">https://yewtu.be/watch?v=hQJZrLOVwYY</a></li>
+<li><a href="https://yewtu.be/watch?v=MbSPxCEuAi4">https://yewtu.be/watch?v=MbSPxCEuAi4</a></li>
+<li><a href="https://threatpicture.com/terms/tcp-fingerprinting/">https://threatpicture.com/terms/tcp-fingerprinting/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/TCP/IP_stack_fingerprinting">https://en.wikipedia.org/wiki/TCP/IP_stack_fingerprinting</a></li>
+<li><a href="https://arxiv.org/html/2404.12738v1">https://arxiv.org/html/2404.12738v1</a></li>
+<li><a href="https://blog.foxio.io/ja4+-network-fingerprinting">https://blog.foxio.io/ja4+-network-fingerprinting</a></li>
+<li><a href="https://incolumitas.com/2021/03/13/tcp-ip-fingerprinting-for-vpn-and-proxy-detection/">https://incolumitas.com/2021/03/13/tcp-ip-fingerprinting-for-vpn-and-proxy-detection/</a></li>
+</ul>
+<p>TCP timestamps:</p>
+<ul>
+<li><a href="https://www.sysnet.ucsd.edu/sysnet/miscpapers/YoshiTDSC05.pdf">https://www.sysnet.ucsd.edu/sysnet/miscpapers/YoshiTDSC05.pdf</a></li>
+<li><a href="https://censoredplanet.org/fingerprint-rtt">https://censoredplanet.org/fingerprint-rtt</a></li>
+</ul>
+<h2 id="Visited_Websites">Visited Websites</h2>
+<p>Destination websites can retrieve <a href="../Data_Collection_Techniques/">a lot of
+information</a> about a user's browser and system, while <a href="../Tor_Browser/Advanced_Users/#Adversary_Attack_Capabilities">advanced adversaries</a> have even greater
+capabilities. <sup class="reference"><a href="#cite_note-14">[14]</a></sup> This information can include:</p>
+<div>
+<ul>
+<li>the browser name and version</li>
+<li>CSS media queries:
+<ul>
+<li>window dimensions</li>
+<li>desktop size</li>
+<li>widget size</li>
+<li>display type</li>
+<li>DPI (dots per inch)</li>
+</ul></li>
+<li>a list of available extensions</li>
+<li>timezone <sup class="reference"><a href="#cite_note-15">[15]</a></sup></li>
+<li>available fonts</li>
+<li>user agent</li>
+<li>video card in use <sup class="reference"><a href="#cite_note-16">[16]</a></sup></li>
+<li>CPU and interpreter speed</li>
+<li>browser history <sup class="reference"><a href="#cite_note-17">[17]</a></sup></li>
+<li>via exploited plugins:
+<ul>
+<li>leak the non-Tor IP address</li>
+<li>interface addresses and other machine information</li>
+<li>list all plugins to fingerprint the user</li>
+<li>retrieve unique plugin identifiers</li>
+</ul></li>
+<li>read / store identifiers related to HTTP auth, DOM storage, cached
+scripts, client certificates and TLS session IDs</li>
+<li>browser cache</li>
+<li>giving the user a unique favicon <sup class="reference"><a href="#cite_note-18">[18]</a></sup>
+<sup class="reference"><a href="#cite_note-19">[19]</a></sup></li>
+</ul>
+</div>
+<p>To make it difficult to distinguish Whonix and Tor Browser Bundle
+(TBB) users, Tor Browser (TB) is included on the platform. Therefore,
+Whonix should provide the same information as TBB in order to generate
+very similar fingerprints.</p>
+<h1 id="Website_Traffic_Fingerprinting">Website Traffic
+Fingerprinting</h1>
+<p>"Website fingerprinting" is an attack where the adversary observes a
+user's encrypted data traffic, and uses traffic timing and quantity to
+guess what website is being visited. In order to find potential target
+matches, the adversary utilizes a database of web pages -- which are
+regularly downloaded in order to record their traffic timing and
+quantity characteristics -- for comparison against encrypted traffic.
+This attack is carried out by adversaries external to the Tor network
+who observe traffic between a user and the Tor relay or bridge.
+<sup class="reference"><a href="#cite_note-20">[20]</a></sup> <sup class="reference"><a href="#cite_note-21">[21]</a></sup> The observer will not know the
+exact contents of the page (such as user names, passwords, etc.), but
+they can know with reasonable certainty that a specific website was
+visited, such as <code>google.com</code>.</p>
+<p>This <a href="https://blog.torproject.org/new-low-cost-traffic-analysis-attacks-mitigations">Tor
+Project blog post</a> suggests this attack on clearnet sites visited
+through Tor is impractical. The reason is the sheer variety of traffic
+and the vast number of pages visited through Tor results in a very high
+rate of false positives. <sup class="reference"><a href="#cite_note-22">[22]</a></sup> However, the attack might
+be more practical against users visiting Onion services because the
+classifier leverages real-time ad network bidding and DNS to further
+narrow down the possible set of pages accessed to the Onion-space and
+further still, picking out which one. Onion service padding is deployed
+to mitigate this threat.</p>
+<p>This attack should not be confused with end-to-end correlation
+attacks performed by malicious Entry guards set up by Tor-relay level
+adversaries.</p>
+<p>More sources: <sup class="reference"><a href="#cite_note-23">[23]</a></sup></p>
+<h1 id="Whonix_Fingerprint_Comparison">Whonix Fingerprint
+Comparison</h1>
+<ul>
+<li><a href="../Comparison_with_Others/#Fingerprint">Fingerprint: Whonix vs other anonymity systems or
+tools</a></li>
+</ul>
+<h1 id="Further_Reading">Further Reading</h1>
+<ul>
+<li><a href="../Protocol-Leak-Protection_and_Fingerprinting-Protection/">Protocol Leak Protection and Fingerprinting
+Protection</a></li>
+</ul>
+<h1 id="Forum_Discussions">Forum Discussions</h1>
+<ul>
+<li><a href="https://forums.kicksecure.com/t/how-many-details-are-there-in-kicksecures-fingerprint-revealing-to-isp-the-os/1044">https://forums.kicksecure.com/t/how-many-details-are-there-in-kicksecures-fingerprint-revealing-to-isp-the-os/1044</a></li>
+<li><a href="https://forums.kicksecure.com/t/outbound-traffic-security-kicksecure-and-qubes/1059">https://forums.kicksecure.com/t/outbound-traffic-security-kicksecure-and-qubes/1059</a></li>
+<li><a href="https://forums.whonix.org/t/what-exaclty-tells-to-isp-generating-by-whonix-traffic/21549">https://forums.whonix.org/t/what-exaclty-tells-to-isp-generating-by-whonix-traffic/21549</a></li>
+<li><a href="https://forum.qubes-os.org/t/question-to-develepors-what-hardware-information-reveals-qubes-system-clearnet-traffic-to-an-isp/33778">https://forum.qubes-os.org/t/question-to-develepors-what-hardware-information-reveals-qubes-system-clearnet-traffic-to-an-isp/33778</a></li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../VM_Fingerprinting/">VM
+Fingerprinting</a></li>
+<li><a href="../Hide_Tor_from_your_Internet_Service_Provider/">Hide Tor use from the Internet Service
+Provider</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://lists.torproject.org/pipermail/tor-dev/2013-September/005424.html">tor-dev:
+entry guards and linkability</a></li>
+<li id="cite_note-2">Note: this is not a recommendation for non-persistent guards because
+a hostile DHCP server might provide new IPs until a hostile guard is
+chosen.</li>
+<li id="cite_note-3">Qubes feature request: <a href="https://github.com/QubesOS/qubes-issues/issues/7586">document how
+to route all traffic over Tor / how to disable Qubes default clearnet
+traffic</a></li>
+<li id="cite_note-4">In case of Default/Download version, it is the host's task to
+establish an online connection. In the case of <a href="../Dev/Build_Documentation/Physical_Isolation/">Physical Isolation</a>, it is the gateway's task to
+establish an online connection.</li>
+<li id="cite_note-5">This comes with the attendant risk of the user confusing one browser
+with another.</li>
+<li id="cite_note-6"><a href="../Tor/#Does_Whonix_Modify_Tor?"> Whonix uses
+an unmodified version of Tor</a></li>
+<li id="cite_note-7"><a href="https://support.torproject.org/#about_entry-guards">https://support.torproject.org/#about_entry-guards</a></li>
+<li id="cite_note-8">Typically the entry guards are rotated after a few months.</li>
+<li id="cite_note-9"><a href="https://github.com/Whonix/anon-gw-anonymizer-config">https://github.com/Whonix/anon-gw-anonymizer-config</a></li>
+<li id="cite_note-10"><a href="../Stream_Isolation/">Stream
+Isolation</a></li>
+<li id="cite_note-11">It is unknown if an ISP can detect whether a user has many different
+Tor circuits open. On the other hand, Tor seems to only open X entry
+guards and maintain them for a period, thus not opening as many entry
+guards as streams.</li>
+<li id="cite_note-12">See <a href="https://2019.www.torproject.org/projects/torbrowser/design/">Tor
+Browser Design</a> for further exploration of this issue.</li>
+<li id="cite_note-13"><a href="https://forums.whonix.org/t/should-whonix-host-be-fully-torified-by-default/7404">Should
+Whonix host be fully torified by default?</a></li>
+<li id="cite_note-14">Information that is leaked depends on the browser in use, JavaScript
+settings, Tor Browser's security slider settings, whether it is a
+malicious attack or not, and other factors.</li>
+<li id="cite_note-15">Via the date object.</li>
+<li id="cite_note-16">Via WebGL.</li>
+<li id="cite_note-17">For example, using CSS and JavaScript to perform history disclosure
+attacks.</li>
+<li id="cite_note-18">Note that in the Tor Browser, favicons are wiped after pressing the
+'New Identity' button or exiting the current session. The Tor Browser
+cannot protect you from this method while you are in a session though.
+This method is usually only used to detect if a user of the site that
+previously browsed the site at a different connection is accessing the
+site from the same browser regardless if they try to obfuscate where
+they are connecting from. There are no recorded attacks of this being
+used against Whonix or regular users in the wild, but practical
+implementations do exist.</li>
+<li id="cite_note-19">An example of an implementation is the supercookie project at <a href="https://github.com/jonasstrehle/supercookie">https://github.com/jonasstrehle/supercookie</a></li>
+<li id="cite_note-20">Quote research paper by University of Waterloo, <a href="https://uwspace.uwaterloo.ca/handle/10012/10123">Website
+Fingerprinting: Attacks and Defenses</a>: <blockquote><p>Website fingerprinting attacks allow a local, passive eavesdropper to
+determine a client's web activity by leveraging features from her packet
+sequence. These attacks break the privacy expected by users of privacy
+technologies, including low-latency anonymity networks such as proxies,
+VPNs, or Tor. As a discipline, website fingerprinting is an application
+of machine learning techniques to the diverse field of privacy. To
+perform a website fingerprinting attack, the eavesdropping attacker
+passively records the time, direction, and size of the client's packets.
+Then, he uses a machine learning algorithm to classify the packet
+sequence so as to determine the web page it came from.</p></blockquote></li>
+<li id="cite_note-21"><a href="https://forums.whonix.org/t/new-low-cost-traffic-analysis-attacks-and-mitigations/8708">https://forums.whonix.org/t/new-low-cost-traffic-analysis-attacks-and-mitigations/8708</a>
+forum discussion</li>
+<li id="cite_note-22"><a href="https://blog.torproject.org/critique-website-traffic-fingerprinting-attacks">https://blog.torproject.org/critique-website-traffic-fingerprinting-attacks</a></li>
+<li id="cite_note-23">* <a href="https://thehackernews.com/2021/11/researchers-demonstrate-new.html">https://thehackernews.com/2021/11/researchers-demonstrate-new.html</a>
+* <a href="https://witestlab.poly.edu/blog/de-anonymizing-tor-traffic-with-website-fingerprinting/">https://witestlab.poly.edu/blog/de-anonymizing-tor-traffic-with-website-fingerprinting/</a>
+* <a href="https://www.cs.sfu.ca/~taowang/wf/Ca-Tamaraw.pdf">https://www.cs.sfu.ca/~taowang/wf/Ca-Tamaraw.pdf</a>
+* <a href="https://www.usenix.org/conference/usenixsecurity22/presentation/smith">https://www.usenix.org/conference/usenixsecurity22/presentation/smith</a></li>
+</ol>
+</div>
+<h1 id="License">License</h1>
+<p><blockquote><p>Whonix Fingerprint wiki page Copyright (C) Amnesia
+<br />
+Whonix Fingerprint wiki page Copyright (C) 2012 - 2026 ENCRYPTED SUPPORT
+LLC
+&lt;<span class="antispam-email-tooltip"><span class="robots-nocontent" data-nosnippet=""><code>adrelanos(at)whonix.org</code>
+(Replace <code>(at)</code> with
+<code>@</code>.)<span class="tooltip"><span>Please <strong>DO
+NOT</strong> use e-mail for one of the following
+reasons:</span><span class="icon-bullet-list"><span><i class="fa-solid fa-lock cs-yellow"></i><span><u>Private
+Contact:</u> Please avoid e-mail whenever possible. (&lt;a
+href="../Contact/#Private_Communications_Policy"&gt;Private
+Communications
+Policy&lt;/a&gt;)</span></span><span><i class="fas fa-headset cs-red"></i><span><u>User
+Support Questions:</u> No. (See &lt;a
+href="../Support/"&gt;Support&lt;/a&gt;.)</span></span><span><i class="fa-solid fa-droplet cs-red"></i><span><u>Leaks
+Submissions:</u> No. (&lt;a href="../Contact/#No_Leaks_Policy"&gt;No
+Leaks
+Policy&lt;/a&gt;)</span></span><span><i class="fa-solid fa-ban cs-red"></i><span><u>Sponsored
+posts:</u>
+No.</span></span><span><i class="fa-solid fa-link cs-red"></i><span><u>Paid
+links:</u>
+No.</span></span><span><i class="fa-solid fa-chart-line cs-red"></i><span><u>SEO
+reviews:</u>
+No.</span></span><span><i class="fa-solid fa-bullhorn cs-red"></i><span><u>Advertisement
+deals:</u>
+No.</span></span><span><i class="fa-solid fa-box-open cs-red"></i><span><u>Default
+application installation:</u> No. (&lt;a
+href="../Contact/#Default_Application_Policy"&gt;Default Application
+Policy&lt;/a&gt;)</span></span></span></span></span>&gt;</p>
+<p>This program comes with ABSOLUTELY NO WARRANTY; for details see the
+wiki source code.<br />
+This is free software, and you are welcome to redistribute it under
+certain conditions; see the wiki source code for details.</p></blockquote></p>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Comparison_with_Others/" title="Comparison with Others"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Comparison
+with
+Others</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Download/" title="Download"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Download</span></a><span class="info"><span class="prev">Previous
+page: Comparison with Others</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Download</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a> <a href="../Category:Design/">Design</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

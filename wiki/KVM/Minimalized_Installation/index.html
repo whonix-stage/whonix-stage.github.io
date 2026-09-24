@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>KVM/Minimalized Installation</title>
+<link rel="canonical" href="https://www.whonix.org/wiki/KVM/Minimalized_Installation/">
+<meta property="og:url" content="https://www.whonix.org/wiki/KVM/Minimalized_Installation/">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>KVM</span> / <span>Minimalized Installation</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../../media/0.png.webp" width="1200" alt="0.png" /></p>
+<p>This page is for minimalized guide written by community members.</p>
+<p><em>Note (1) You are encouraged to read the <a href="../">official KVM guide</a> and documentation first and only
+refer here if are still unsure about what to do. Please report any
+uncertainties about the official guide on the <a href="https://forums.whonix.org/c/kvm/11">KVM support
+forum</a>.</em></p>
+<p>'' Note (2) This fast instructions for amd processors with debian as
+a host if you want other installation commands for different distro
+please check <a href="../#Install_KVM">Install KVM</a>,
+if you are first time user please check this <a href="../#First-time_User?">guide section</a>.</p>
+<p>'' Note (3) Copy&amp;Paste each command separately then press Enter
+to run them.</p>
+<ul>
+<li>You need to add your username to the sudoers:</li>
+</ul>
+<p>Setup sudoers. Add the operating system user name to sudoers.</p>
+<div class="info-box ">
+<p>Become root.</p>
+<p><span class="code-select">su</span></p>
+<p>Add the <em><span>user</span></em>
+account to the sudoer's group. Replace
+<em><span>user</span></em> with the
+actual operating system user name.</p>
+<p><span class="code-select">adduser user sudo</span></p>
+<p>Reboot so group changes take effect.</p>
+<p><span class="code-select">reboot</span></p>
+</div>
+<ul>
+<li>Then follow the rest of the commands:</li>
+</ul>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt install
+--no-install-recommends qemu-kvm libvirt-daemon-system libvirt-clients
+virt-manager gir1.2-spiceclientgtk-3.0 dnsmasq qemu-utils -y</span>
+<span class="code-select">sudo adduser "$(whoami)" libvirt</span>
+<span class="code-select">sudo adduser "$(whoami)" kvm</span>
+<span class="code-select">sudo reboot</span></p>
+<ul>
+<li>After Reboot:</li>
+</ul>
+<p><span class="code-select">virsh -c qemu:///system net-autostart
+default</span> <span class="code-select">virsh -c qemu:///system
+net-start default</span></p>
+<ul>
+<li><big>For simplicity, you can copy and paste the following commands
+without changes, download and store Whonix image in your home folder
+(which is the default for most of the browsers to save downloads in
+/home/username but if you like to use the commands in
+/home/username/Downloads because you downloaded whonix kvm image there
+then up to you)</big></li>
+</ul>
+<ul>
+<li><big>To download the qcow2 images please press on <a href="../#Download_Whonix_&amp;trade;">Download Whonix
+icon</a></big></li>
+</ul>
+<ul>
+<li>After whonix kvm image finished downloading follow the rest of the
+commands:</li>
+</ul>
+<p><span class="code-select">tar -xvf Whonix*.libvirt.xz</span>
+<span class="code-select">sudo virsh -c qemu:///system net-define
+Whonix_external*.xml</span> <span class="code-select">sudo virsh -c
+qemu:///system net-define Whonix_internal*.xml</span>
+<span class="code-select">sudo virsh -c qemu:///system net-autostart
+Whonix-External</span> <span class="code-select">sudo virsh -c
+qemu:///system net-start Whonix-External</span>
+<span class="code-select">sudo virsh -c qemu:///system net-autostart
+Whonix-Internal</span> <span class="code-select">sudo virsh -c
+qemu:///system net-start Whonix-Internal</span>
+<span class="code-select">sudo virsh -c qemu:///system define
+Whonix-Gateway*.xml</span> <span class="code-select">sudo virsh -c
+qemu:///system define Whonix-Workstation*.xml</span>
+<span class="code-select">sudo mv Whonix-Gateway*.qcow2
+/var/lib/libvirt/images/Whonix-Gateway.qcow2</span>
+<span class="code-select">sudo mv Whonix-Workstation*.qcow2
+/var/lib/libvirt/images/Whonix-Workstation.qcow2</span></p>
+<ul>
+<li>Depend on your desktop environment these images for KDE as e.g:</li>
+</ul>
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>System</code> &#8594; <code>Virtual Machine Manager</code></p>
+<p><img src="../../../media/13.jpg.webp" width="468" alt="13.jpg" />
+<img src="../../../media/14.jpg.webp" width="468" alt="14.jpg" /></p>
+<p><code>Whonix-Gateway</code> &#8594; <code>Open</code> &#8594;
+<code>Play symbol</code></p>
+<p><img src="../../../media/15.jpg.webp" width="468" alt="15.jpg" />
+<img src="../../../media/16_good.jpg.webp" width="468" alt="16 good.jpg" /></p>
+<p><big>To take snapshots, please follow the instructions
+below</big>:</p>
+<p><code>Manage VM snapshots</code> &#8594; <code>Create new snapshot</code> &#8594;
+<code>Type Name &amp; Description</code> &#8594; <code>Finish</code></p>
+<p><img src="../../../media/Snapshot22.png.webp" width="1200" alt="snapshot22.png" />
+<img src="../../../media/Snapshot23.png.webp" width="1200" alt="snapshot23.png" />
+<img src="../../../media/Snapshot244.png.webp" width="1200" alt="snapshot244.png" />
+<img src="../../../media/4.png.webp" width="1200" alt="4.png" />
+<img src="../../../media/5.png.webp" width="1200" alt="5.png" /></p>
+<p><big>To start the snapshot, please follow the instructions
+below</big>:-</p>
+<p><code>Right click on snapshot</code> &#8594; <code>Start snapshot</code> &#8594;
+<code>Yes</code></p>
+<p><img src="../../../media/7.png.webp" width="1200" alt="7.png" /></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

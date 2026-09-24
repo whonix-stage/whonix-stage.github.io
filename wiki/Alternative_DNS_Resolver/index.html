@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Alternative DNS Resolver</title>
+<meta name="description" content="Authenticated/Encrypted DNS over Tor, DNSSEC over Tor, DNSCrypt by OpenDNS, httpsdnsd by JonDos">
+<meta property="og:description" content="Authenticated/Encrypted DNS over Tor, DNSSEC over Tor, DNSCrypt by OpenDNS, httpsdnsd by JonDos">
+<link rel="canonical" href="https://www.whonix.org/wiki/Alternative_DNS_Resolver/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Alternative_DNS_Resolver/">
+<meta property="og:title" content="Alternative DNS Resolver">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Connect-20333640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#Installation">Installation</a></li><li class="toc-l2"><a href="#Introduction_3">Introduction</a></li><li class="toc-l2"><a href="#Installation_2">Installation</a></li><li class="toc-l2"><a href="#Testing">Testing</a></li><li class="toc-l2"><a href="#DNSCrypt_In_Use">DNSCrypt In Use</a></li><li class="toc-l2"><a href="#FAQ">FAQ</a></li><li class="toc-l3"><a href="#Why_not_Use_DNSCrypt_by_Default_in_Whonix?">Why not Use DNSCrypt
+by Default in Whonix?</a></li><li class="toc-l3"><a href="#Can_I_Use_DNSCrypt_on_the_Host_or_Router_for_Clearnet?">Can I Use
+DNSCrypt on the Host or Router for Clearnet?</a></li><li class="toc-l3"><a href="#Does_DNSCrypt_on_the_Host_or_Router_Harm_Anonymity_when_Using_Tor_/_Whonix?">Does
+DNSCrypt on the Host or Router Harm Anonymity when Using Tor /
+Whonix?</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Connect-20333640.jpg.webp" width="200" alt="Connect-20333640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Authenticated/Encrypted DNS over Tor, DNSSEC over Tor, DNSCrypt by
+OpenDNS, httpsdnsd by JonDos</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>By Whonix default, Tor is used for DNS resolution. If you suspect a
+Tor exit relay of tampering with DNS, you can get a second opinion from
+another non-Tor DNS server. This may also be useful in special cases if
+you want to resolve DNS record types over Tor that are unsupported by
+Tor itself, such as MX <sup class="reference"><a href="#cite_note-1">[1]</a></sup>, SRV, or DNSSEC.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>It is recommended against to use non-Tor DNS resolvers for an
+extended period. Although it is technically possible to completely
+replace DNS resolution (not using Tor for DNS resolution at all), this
+is discouraged. Doing so would grant too much power to a single DNS
+server. Using a permanent DNS server is discouraged for the same reason
+as using a permanent Tor exit relay is discouraged.</p>
+<p>Note that even if you correctly configure everything, it might still
+fail. Sometimes Tor or the DNS server causes a timeout. This becomes
+even worse when the DNS request is tunneled through an additional proxy
+(for example: Tor &#8594; JonDonym &#8594; DNS server).</p>
+<p>Read first: <a href="../Stream_Isolation/">Stream
+Isolation</a>.</p>
+<p>Required knowledge:</p>
+<ul>
+<li>Difference between encryption and authentication.</li>
+<li>All traffic originating from <a href="../Whonix-Workstation/">Whonix-Workstation<sup>&#8482;</sup></a> and <a href="../Whonix-Gateway/">Whonix-Gateway<sup>&#8482;</sup></a> is
+routed to the <a href="../Tor/">Tor</a> software.</li>
+</ul>
+<div class="toccolours mw-collapsible mw-collapsed mwc-headline-normal-text-size">
+<p>For technical details, click on "Learn More" on the right side.</p>
+<div class="mw-collapsible-content">
+<ul>
+<li><u>Traffic from Whonix-Gateway also routed over Tor:</u> Starting
+from Whonix version <code>0.2.1</code>, traffic from Whonix-Gateway is
+also routed over Tor. This approach conceals the use of Whonix from
+entities monitoring the network.</li>
+<li><u>Gateway's own traffic not essential for anonymity:</u> To
+preserve the anonymity of a user's Whonix-Workstation activities, it is
+not essential to route Whonix-Gateway's own traffic through Tor. (Note:
+The gateway is mainly a tool that helps route traffic; it does not
+typically contain personal activity data.)</li>
+<li><u>DNS configuration on Whonix-Gateway has limited impact:</u>
+Altering DNS settings on Whonix-Gateway in <code>/etc/resolv.conf</code>
+only impacts DNS requests made by Whonix-Gateway's applications that
+utilize the system's default DNS resolver. (DNS is like the internet's
+phonebook - it translates website names to IP addresses.) By default, no
+applications on Whonix-Gateway that generate network traffic use this
+default resolver. All default applications on Whonix-Gateway that
+produce network traffic (like apt, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>, <a href="../Sdwdate/">sdwdate</a>) are explicitly configured,
+or forced by uwt wrappers, to use their dedicated Tor
+<code>SocksPort</code> (refer to <a href="../Stream_Isolation/">Stream Isolation</a>).</li>
+<li><u>Whonix-Workstation DNS requests handled via Tor:</u>
+Whonix-Workstation's default applications are configured to use
+dedicated Tor <code>SocksPorts</code> (see <a href="../Stream_Isolation/">Stream Isolation</a>), avoiding the system's default
+DNS resolver. Any applications in Whonix-Workstation not set up for
+stream isolation - such as <code>nslookup</code> - will use the default
+DNS server configured in Whonix-Workstation (through
+<code>/etc/network/interfaces</code>), which points to Whonix-Gateway.
+These DNS requests are then redirected to Tor's <code>DnsPort</code> by
+the Whonix-Gateway firewall. (This ensures DNS lookups still go through
+Tor even if they use the default method.) Changes in Whonix-Gateway's
+<code>/etc/resolv.conf</code> do not influence Whonix-Workstation's DNS
+queries.</li>
+<li><u>Tor process traffic allowed direct internet access:</u> Traffic
+produced by the Tor process, which by Debian's default operates under
+the account <code>debian-tor</code> and originates from Whonix-Gateway,
+can access the internet directly. This is permitted because the Linux
+user account <code>debian-tor</code> is exempted in the <a href="../Whonix-Gateway_Firewall/">Whonix-Gateway
+Firewall</a> and allowed to use the "regular" internet. (This is
+necessary for Tor to establish its connections.)</li>
+<li><u>Tor mostly uses TCP traffic:</u> As of Tor version
+<code>0.4.5.6</code> (with no changes announced at the time of writing),
+the Tor software predominantly relies on TCP traffic. (TCP is a common
+protocol used for stable internet connections.) For further details, see
+<a href="../Tor/#UDP">Tor wiki page, chapter UDP</a>. For
+DNS, please refer to the next footnote.</li>
+<li><u>Tor's DNS independence and exceptions:</u> Tor does not depend
+on, nor use, a functional (system) DNS for most of its operations. IP
+addresses of Tor directory authorities are hardcoded in the Tor software
+by Tor developers. (That means Tor knows important addresses in advance
+and doesn't need to look them up.) Exceptions include:
+<ul>
+<li><u>Proxy with domain name:</u> Proxy settings that use proxies with
+domain names instead of IP addresses.</li>
+<li><u>Pluggable transport domain resolution:</u> Some Tor pluggable
+transports, such as meek lite, which resolve domains set in
+<code>url=</code> and <code>front=</code> to IP addresses, or
+snowflake's <code>-front</code>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Note that most applications, such as <a href="../Tor_Browser/">Tor Browser</a>, will <strong>not</strong>
+<em>automatically</em> benefit from setting up an alternative DNS
+resolver.</p>
+<ul>
+<li>This is because applications in Whonix are configured to use
+<code>SocksPort</code> instead of <code>Trans</code>- or
+<code>DnsPort</code>. See <a href="../Stream_Isolation/">Stream Isolation</a> for details.</li>
+<li>Another reason is that many applications do not yet support
+authenticated DNS (DNSSEC).</li>
+</ul>
+<p>However, you can use alternative DNS resolvers with these
+applications when <a href="../Stream_Isolation/Disable_Easy/">deconfiguring</a> socks proxy settings.</p>
+</div>
+<p>For example, Tor Browser would be unaffected by these changes alone.
+In theory, a user who wanted to change Tor Browser DNS settings would
+have to enable transparent proxying in Tor Browser, which is discouraged
+as it alters the web <a href="../Fingerprint/">fingerprint</a>.</p>
+<p><strong>Advanced users only!</strong></p>
+<h1 id="Recursive_Authenticated_DNSSEC_over_Tor">Recursive Authenticated
+DNSSEC over Tor</h1>
+<h2 id="Introduction_2">Introduction</h2>
+<p>DNSSEC-aware, <u>DNSSEC validating</u>, recursive DNS resolution over
+TCP, over Tor using <code>Unbound</code>. <u>Unencrypted</u>, because <a href="https://en.wikipedia.org/wiki/Root_name_server">Root name
+servers</a> <a href="https://root-servers.org/media/news/Statement_on_DNS_Encryption.pdf">do
+not support encryption yet</a>. There is a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p>These instructions completely replace Tor's DNS resolver on the whole
+Whonix-Workstation<sup>&#8482;</sup>. Not recommended for long-term use, see
+the warning above.</p>
+<h2 id="Installation">Installation</h2>
+<p>Everything inside Whonix-Workstation<sup>&#8482;</sup>.</p>
+<p><strong>1.</strong> Create folder
+<code>/etc/unbound/unbound.conf.d</code>.</p>
+<p><span class="code-select">mkdir --parents
+/etc/unbound/unbound.conf.d</span></p>
+<p><strong>2.</strong> <code>Unbound</code> configuration.</p>
+<p>Open file <code>/etc/unbound/unbound.conf.d/50_user.conf</code> in an
+editor with administrative ("<a href="../Moved:Root/"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/unbound/unbound.conf.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/unbound/unbound.conf.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/unbound/unbound.conf.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Paste the following lines.</p>
+<p><span class="code-select">server:</p>
+<p><code>&#160;&#160;&#160;hide-identity:&#160;yes</code><br />
+<code>&#160;&#160;&#160;hide-version:&#160;yes</code><br />
+<code>&#160;&#160;&#160;interface:&#160;127.0.0.1</code><br />
+<code>&#160;&#160;&#160;do-ip6:&#160;no</code><br />
+<code>&#160;&#160;&#160;tcp-upstream:&#160;yes</code></p>
+<ol>
+<li><ol>
+<li>TODO: onion resolution over Tor-only does not work yet.</li>
+<li>Please use search engines, see unbound documentation,</li>
+<li>find out how to fix this and improve this documentation!</li>
+<li></li>
+<li>Optional: leave resolving onion to Tor.</li>
+<li>Feel free to comment the following 4 lines out,</li>
+<li>but this would break onion resolving since unbound</li>
+<li>cannot resolve '.onion' domains.</li>
+</ol></li>
+<li>forward-zone:</li>
+<li>name: "onion"</li>
+<li>forward-addr: 10.152.152.10@9050</li>
+<li>forward-no-cache: yes</span></li>
+</ol>
+<p><strong>4.</strong> Save.</p>
+<p><strong>5.</strong> Install <code>dnssec-trigger</code>, which
+automatically installs and configures the <code>unbound</code> DNS
+resolver.</p>
+<div class="info-box ">
+<p>Install package(s) <code>dnssec-trigger</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="../Qubes/">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>dnssec-trigger</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+dnssec-trigger</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>dnssec-trigger</code> is
+complete.</p>
+</div>
+<p><strong>6.</strong> Done.</p>
+<p><strong>7.</strong>
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</p>
+<h1 id="DNSCrypt">DNSCrypt</h1>
+<h2 id="Introduction_3">Introduction</h2>
+<p>DNSCrypt supports encryption and DNSSEC but <a href="https://github.com/DNSCrypt/dnscrypt-proxy/discussions/1954">DNSCrypt
+does not validate DNSSEC signatures yet</a>. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p>These instructions completely replace Tor's DNS resolver with a
+DNSCrypt-enabled resolver for all users and the whole
+Whonix-Workstation<sup>&#8482;</sup>. Not recommended for long-term use, see
+the warning above.</p>
+<h2 id="Installation_2">Installation</h2>
+<p>Apply all instructions inside your Whonix-Workstation.</p>
+<p>1) Install the <code>dnscrypt-proxy</code> package.</p>
+<div class="info-box ">
+<div class="info-box ">
+<p>Install package(s) <code>dnscrypt-proxy</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="../Qubes/">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>dnscrypt-proxy</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+dnscrypt-proxy</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>dnscrypt-proxy</code> is
+complete.</p>
+</div>
+</div>
+<p>2) Open file <code>/etc/dnscrypt-proxy/dnscrypt-proxy.toml</code> in
+an editor with administrative ("<a href="../Moved:Root/"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/dnscrypt-proxy/dnscrypt-proxy.toml</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_2">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/dnscrypt-proxy/dnscrypt-proxy.toml</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/dnscrypt-proxy/dnscrypt-proxy.toml</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add the following text <u>at the very top of the file</u>. Note: The
+default server did not work for the author of this page. Therefore, the
+following instructions advise commenting that server out and adding a
+random alternative server that worked. <sup class="reference"><a href="#cite_note-4">[4]</a></sup> This is not an
+endorsement or rejection of any server. Pick your own server. DNSCrypt
+publishes a list of servers <a href="https://dnscrypt.info/public-servers/">here</a>.</p>
+<p><span class="code-select">force_tcp = true</p>
+<ol>
+<li>proxy = "socks5://127.0.0.1:9050"</li>
+</ol>
+<p>server_names = ['arvind-io']</span></p>
+<p>Comment out:</p>
+<p><span class="code-select">server_names = ['cloudflare']</span></p>
+<p>In other words, rewrite <code>server_names = ['cloudflare']</code> to
+<code>#server_names = ['cloudflare']</code> by adding a hash
+<code>#</code> in front of it. So it would look like this:</p>
+<p><span class="code-select">#server_names = ['cloudflare']</span></p>
+<p>Save.</p>
+<p>Restart dnscrypt-proxy.service.</p>
+<p><span class="code-select">sudo systemctl restart
+dnscrypt-proxy.service</span></p>
+<p>Restart dnscrypt-proxy.socket.</p>
+<p><span class="code-select">sudo systemctl restart
+dnscrypt-proxy.socket</span></p>
+<p>3) Open file <code>/etc/resolv.conf</code> in an editor with
+administrative ("<a href="../Moved:Root/"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_3">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>4) Comment out everything and add <sup class="reference"><a href="#cite_note-5">[5]</a></sup> (It is
+<u>not</u> <code>127.0.0.1</code>. It really is
+<code>127.0.</code><strong><code>2</code></strong><code>.1</code>.):</p>
+<p><span class="code-select">options use-vc nameserver
+127.0.2.1</span></p>
+<p>Save.</p>
+<h2 id="Testing">Testing</h2>
+<h2 id="DNSCrypt_In_Use">DNSCrypt In Use</h2>
+<p>Stop dnscrypt-proxy systemd socket.</p>
+<p><span class="code-select">sudo systemctl stop
+dnscrypt-proxy.socket</span></p>
+<p>Test again. Now it is expected to fail.</p>
+<p>Restart dnscrypt-proxy systemd socket.</p>
+<p><span class="code-select">sudo systemctl restart
+dnscrypt-proxy.socket</span></p>
+<p>Test again. Now it is expected to work.</p>
+<h2 id="FAQ">FAQ</h2>
+<h3 id="Why_not_Use_DNSCrypt_by_Default_in_Whonix?">Why not Use DNSCrypt
+by Default in Whonix?</h3>
+<p><a href="https://dnscrypt.info/">DNSCrypt</a> may have good use cases
+for clearnet activities. However, it is not useful in Whonix and
+therefore should not be installed or activated by default. Although some
+users may have high expectations, DNSCrypt does not magically solve all
+DNS-related security issues, nor does it implement end-to-end DNS
+encryption to the destination server. <sup class="reference"><a href="#cite_note-6">[6]</a></sup> Most
+importantly, the server will still see all DNS requests in cleartext.
+<sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<p>There are several other reasons why DNSCrypt is not activated by
+default. Firstly, Tor distributes trust because the DNS server changes
+as circuits are rotated. For pre-installed applications, circuits are
+also stream-isolated and change every ten minutes by default. Notably,
+in early 2018 there were <a href="https://github.com/DNSCrypt/dnscrypt-resolvers/blob/0449410030b784334c53006cf043ccba911fb88b/v1/dnscrypt-resolvers.csv">78
+open resolvers</a> that supported the protocol.</p>
+<p>Public resolvers supporting DNSCrypt have not yet acted in a way that
+caused mistrust. However, even if the operators were absolutely
+trustworthy, complete confidence is also needed in their servers. It is
+unwise to let the DNS security for all Whonix users depend on a few
+servers. Another consideration is load balancing. If Whonix relied upon
+a DNSCrypt-supporting server by default, DNS would break for all users
+if that server ever decided to forbid connections from the Tor network
+<sup class="reference"><a href="#cite_note-8">[8]</a></sup> or if the servers went down for maintenance.</p>
+<p>This would result in a unique <a href="../Fingerprint/#Visited_Websites">web fingerprint</a>, i.e. visited websites could
+distinguish Whonix users using DNSCrypt from other Tor users relying on
+Tor for DNS resolution.</p>
+<h3 id="Can_I_Use_DNSCrypt_on_the_Host_or_Router_for_Clearnet?">Can I Use
+DNSCrypt on the Host or Router for Clearnet?</h3>
+<p>This configuration is possible; read the next section before
+proceeding.</p>
+<h3 id="Does_DNSCrypt_on_the_Host_or_Router_Harm_Anonymity_when_Using_Tor_/_Whonix?">Does
+DNSCrypt on the Host or Router Harm Anonymity when Using Tor /
+Whonix?</h3>
+<p>The short answer is no. The longer answer is that DNSCrypt on the
+host or in the router only affects clearnet activities. Tor assumes in
+advance that a user's local network and ISP are completely unsafe and
+untrustworthy. Tor and Whonix are unaffected by DNS settings made on the
+host or in the router.</p>
+<p>It is debatable whether DNSCrypt is useful or not for clearnet
+activities, since there are various pros and cons. It is useful when
+using foreign or untrusted Wi-Fi networks shared with others, since DNS
+requests could potentially be modified or read. That said, trust is
+simply shifted from the ISP to a DNSCrypt-supporting DNS server, such as
+OpenDNS. If the DNS server supporting DNSCrypt leaks a user's network
+address and/or logs queries as part of their business model, then it
+might actually be worse than using the ISP. It is hard to argue which
+party is more trustworthy, the ISP or a third-party provider.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Was required for some Mixmaster servers over Tor when Mixmaster was
+still available.</li>
+<li id="cite_note-2">* <a href="https://gitlab.torproject.org/tpo/core/tor/-/issues/7829">https://gitlab.torproject.org/tpo/core/tor/-/issues/7829</a>
+* Tor feature request: <a href="https://gitlab.torproject.org/tpo/core/tor/-/issues/34004">Support
+for full DNS and DNSSEC resolution</a> * Some Tor exit relays provide
+DNSSEC? <a href="https://docs.pi-hole.net/guides/misc/tor/dnssec/">https://docs.pi-hole.net/guides/misc/tor/dnssec/</a></li>
+<li id="cite_note-3">Quote <a href="https://github.com/DNSCrypt/dnscrypt-proxy/issues/167#issuecomment-367689381">https://github.com/DNSCrypt/dnscrypt-proxy/issues/167#issuecomment-367689381</a>
+<blockquote><p>dnscrypt-proxy doesn't validate dnssec signatures yet :)</p></blockquote></li>
+<li id="cite_note-4">Test was done using: <span class="code-select">dig +dnssec
+google.com</span></li>
+<li id="cite_note-5"><code>options use-vc</code> is optional, as it also works without
+it.</li>
+<li id="cite_note-6">Conceptually, end-to-end DNS encryption is illogical. If the IP
+address of the destination server was already known, then DNS would not
+be required in the first place.</li>
+<li id="cite_note-7"><a href="https://security.stackexchange.com/questions/162601/what-are-the-privacy-advantages-of-a-dns-encryption-service-such-as-dnscrypt">https://security.stackexchange.com/questions/162601/what-are-the-privacy-advantages-of-a-dns-encryption-service-such-as-dnscrypt</a></li>
+<li id="cite_note-8">Due to Tor network abuse such as DDOS attacks on their servers.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

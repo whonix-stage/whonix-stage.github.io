@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix-Gateway System DNS</title>
+<meta name="description" content="Information about Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; System DNS, /etc/resolv.conf, and nslookup. Getting System DNS working on Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt;.">
+<meta property="og:description" content="Information about Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; System DNS, /etc/resolv.conf, and nslookup. Getting System DNS working on Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt;.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Whonix-Gateway_System_DNS/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Whonix-Gateway_System_DNS/">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Robot-162087640.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Whonix-Gateway_System_DNS_over_Clearnet">Whonix-Gateway System
+DNS over Clearnet</a></li><li class="toc-l3"><a href="#Setup">Setup</a></li><li class="toc-l3"><a href="#Test">Test</a></li><li class="toc-l2"><a href="#Whonix-Gateway_System_DNS_over_Tor">Whonix-Gateway System DNS
+over Tor</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Robot-162087640.png.webp" width="200" alt="Robot-162087640.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Information about Whonix-Gateway System DNS,
+<code>/etc/resolv.conf</code>, and <code>nslookup</code>. Getting System
+DNS working on Whonix-Gateway.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box ">
+<p>System DNS is defined as:</p>
+<ul>
+<li>Resolving DNS:
+<ul>
+<li>Without the use of a socksifier such as <code>torsocks</code>,</li>
+<li>Without application proxy settings,</li>
+<li>Without a Tor <code>SocksPort</code>.</li>
+</ul></li>
+<li>Using the standard mechanisms on Linux for DNS resolution.</li>
+<li>Typically configured through the configuration file
+<code>/etc/resolv.conf</code>.</li>
+<li>The process that occurs when running <code>nslookup</code>.</li>
+</ul>
+</div>
+<div class="info-box ">
+<p>All traffic originating from <a href="../Whonix-Workstation/">Whonix-Workstation<sup>&#8482;</sup></a> and <a href="../Whonix-Gateway/">Whonix-Gateway<sup>&#8482;</sup></a> is
+routed to the <a href="../Tor/">Tor</a> software.</p>
+<div class="toccolours mw-collapsible mw-collapsed mwc-headline-normal-text-size">
+<p>For technical details, click on "Learn More" on the right side.</p>
+<div class="mw-collapsible-content">
+<ul>
+<li><u>Traffic from Whonix-Gateway also routed over Tor:</u> Starting
+from Whonix version <code>0.2.1</code>, traffic from Whonix-Gateway is
+also routed over Tor. This approach conceals the use of Whonix from
+entities monitoring the network.</li>
+<li><u>Gateway's own traffic not essential for anonymity:</u> To
+preserve the anonymity of a user's Whonix-Workstation activities, it is
+not essential to route Whonix-Gateway's own traffic through Tor. (Note:
+The gateway is mainly a tool that helps route traffic; it does not
+typically contain personal activity data.)</li>
+<li><u>DNS configuration on Whonix-Gateway has limited impact:</u>
+Altering DNS settings on Whonix-Gateway in <code>/etc/resolv.conf</code>
+only impacts DNS requests made by Whonix-Gateway's applications that
+utilize the system's default DNS resolver. (DNS is like the internet's
+phonebook - it translates website names to IP addresses.) By default, no
+applications on Whonix-Gateway that generate network traffic use this
+default resolver. All default applications on Whonix-Gateway that
+produce network traffic (like apt, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>, <a href="../Sdwdate/">sdwdate</a>) are explicitly configured,
+or forced by uwt wrappers, to use their dedicated Tor
+<code>SocksPort</code> (refer to <a href="../Stream_Isolation/">Stream Isolation</a>).</li>
+<li><u>Whonix-Workstation DNS requests handled via Tor:</u>
+Whonix-Workstation's default applications are configured to use
+dedicated Tor <code>SocksPorts</code> (see <a href="../Stream_Isolation/">Stream Isolation</a>), avoiding the system's default
+DNS resolver. Any applications in Whonix-Workstation not set up for
+stream isolation - such as <code>nslookup</code> - will use the default
+DNS server configured in Whonix-Workstation (through
+<code>/etc/network/interfaces</code>), which points to Whonix-Gateway.
+These DNS requests are then redirected to Tor's <code>DnsPort</code> by
+the Whonix-Gateway firewall. (This ensures DNS lookups still go through
+Tor even if they use the default method.) Changes in Whonix-Gateway's
+<code>/etc/resolv.conf</code> do not influence Whonix-Workstation's DNS
+queries.</li>
+<li><u>Tor process traffic allowed direct internet access:</u> Traffic
+produced by the Tor process, which by Debian's default operates under
+the account <code>debian-tor</code> and originates from Whonix-Gateway,
+can access the internet directly. This is permitted because the Linux
+user account <code>debian-tor</code> is exempted in the <a href="../Whonix-Gateway_Firewall/">Whonix-Gateway
+Firewall</a> and allowed to use the "regular" internet. (This is
+necessary for Tor to establish its connections.)</li>
+<li><u>Tor mostly uses TCP traffic:</u> As of Tor version
+<code>0.4.5.6</code> (with no changes announced at the time of writing),
+the Tor software predominantly relies on TCP traffic. (TCP is a common
+protocol used for stable internet connections.) For further details, see
+<a href="../Tor/#UDP">Tor wiki page, chapter UDP</a>. For
+DNS, please refer to the next footnote.</li>
+<li><u>Tor's DNS independence and exceptions:</u> Tor does not depend
+on, nor use, a functional (system) DNS for most of its operations. IP
+addresses of Tor directory authorities are hardcoded in the Tor software
+by Tor developers. (That means Tor knows important addresses in advance
+and doesn't need to look them up.) Exceptions include:
+<ul>
+<li><u>Proxy with domain name:</u> Proxy settings that use proxies with
+domain names instead of IP addresses.</li>
+<li><u>Pluggable transport domain resolution:</u> Some Tor pluggable
+transports, such as meek lite, which resolve domains set in
+<code>url=</code> and <code>front=</code> to IP addresses, or
+snowflake's <code>-front</code>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="info-box ">
+<p>Whonix-Workstation<sup>&#8482;</sup> is configured to use various <a href="https://2019.www.torproject.org/docs/tor-manual.html.en#SocksPort"><code>SocksPort</code>s</a>,
+<a href="https://2019.www.torproject.org/docs/tor-manual.html.en#DNSPort"><code>DNSPort</code></a>,
+and <a href="https://2019.www.torproject.org/docs/tor-manual.html.en#TransPort"><code>TransPort</code></a>.
+See also <a href="../Stream_Isolation/">Stream
+Isolation</a>. By default, using system DNS on
+Whonix-Workstation<sup>&#8482;</sup> does not require Whonix-Gateway system
+DNS. <sup class="reference"><a href="#cite_note-1">[1]</a></sup> Modifications to <code>/etc/resolv.conf</code>
+on Whonix-Gateway do not affect Whonix-Workstation.</p>
+</div>
+<div class="info-box ">
+<p>Whonix-Gateway is only configured to use various
+<code>SocksPort</code>s. A global system DNS resolver for resolving DNS
+requests from applications running on Whonix-Gateway isn't necessary for
+most common use cases, so it isn't enabled by default. Potential use
+cases where this could be beneficial include:</p>
+<ul>
+<li>Resolving the hostname of a proxy specified in
+<code>/usr/local/etc/torrc.d/50_user.conf</code> via Tor.</li>
+<li>Resolving the hostname of a VPN. However, a VPN configuration using
+only IPs would be more suitable.</li>
+<li>One could consider using <code>/etc/hosts</code> for such scenarios
+instead of enabling system DNS.</li>
+</ul>
+</div>
+<h1 id="Whonix-Gateway_Default_System_DNS_Setting">Whonix-Gateway
+Default System DNS Setting</h1>
+<p>As of this writing, no DNS server is pre-configured.</p>
+<p>To verify this, users can run the command below. This command will
+display all lines in the system DNS configuration file
+<code>/etc/resolv.conf</code> except those that are commented out (lines
+starting with a hash ("<code>#</code>")).</p>
+<p><span class="code-select">cat /etc/resolv.conf | grep --invert-match
+\#</span></p>
+<p>Modifying this configuration may be safe, beneficial, and necessary
+for certain use cases such as <a href="../Bridges/">Bridges</a>, pluggable transports, simplified meek and
+<a href="../Bridges/#Snowflake">snowflake</a> support.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<h1 id="Whonix-Gateway_System_DNS_Configuration">Whonix-Gateway System
+DNS Configuration</h1>
+<div class="tab-content-controller info-box">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h2 id="Whonix-Gateway_System_DNS_over_Clearnet">Whonix-Gateway System
+DNS over Clearnet</h2>
+</div>
+<div class="tcc-content">
+<h3 id="Setup">Setup</h3>
+<p><u>Notes:</u></p>
+<ul>
+<li><strong>This is often unnecessary.</strong></li>
+<li>However, it simplifies the setup when using:
+<ul>
+<li><a href="../Bridges/">Bridges</a> that require DNS such
+as <a href="../Bridges/#Snowflake">Snowflake</a> or <a href="../Bridges/#lyrebird">lyrebird</a>.</li>
+<li><a href="../Tunnels/Connecting_to_SSH_before_Tor/">
+connect to SSH before Tor</a> (<code>User</code> &#8594; <code>SSH</code> &#8594;
+<code>Tor</code> &#8594; <code>Internet</code>)</li>
+</ul></li>
+</ul>
+<p>Clearnet Whonix-Gateway System DNS.</p>
+<p><a href="./">Whonix-Gateway
+System DNS</a> is required when using DNS hostnames.
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">1</i>
+Apply the following changes to Whonix-Gateway<sup>&#8482;</sup>.</p>
+<p>Open file <code>/etc/resolv.conf.whonix</code> in an editor with
+administrative ("<a href="../Moved:Root/"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf.whonix</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf.whonix</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf.whonix</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">2</i>
+Uncomment the line <code>#nameserver 10.0.2.3</code>.</p>
+<p>Remove the hash ("<code>#</code>") before <code>nameserver</code>.
+This means you should change <code>#nameserver 10.0.2.3</code> to
+<code>nameserver 10.0.2.3</code>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">3</i>
+Follow platform-specific steps:</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>:
+Done.</li>
+<li><a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>: This
+should typically work. If not, refer to the footnote.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">4</i>
+Done.</p>
+<p>The configuration for Whonix-Gateway System DNS is complete.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">5</i>
+Note for wiki editors.</p>
+<p>Once Whonix 17.2.2.6 (Non-Qubes-WHonix) / 18.1.5.9 (Qubes-Whonix) or
+above is released, <a href="https://github.com/Whonix/anon-gw-anonymizer-config/tree/master/usr/bin/anon-dns"><code>anon-dns</code></a>
+can be used and then the DNS enabling part can be simplified.</p>
+</div>
+<h3 id="Test">Test</h3>
+<p><u>Notes:</u></p>
+<ul>
+<li>If you're using <a href="../Bridges/#Snowflake">Snowflake</a>, testing this is typically
+unnecessary.</li>
+</ul>
+<p>To test, use the Whonix-Gateway user named <code>clearnet</code>.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Be cautious: When using the <code>clearnet</code> user account, traffic
+will bypass Tor and use the standard internet, compromising
+anonymity!</p>
+</div>
+<p>Run <code>bash</code> as user <code>clearnet</code>.</p>
+<p><sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p><span class="code-select">sudo -u clearnet bash</span></p>
+<p>To verify, you can use a tool like <code>dig</code>:</p>
+<p><span class="code-select">dig +short example.com</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h2 id="Whonix-Gateway_System_DNS_over_Tor">Whonix-Gateway System DNS
+over Tor</h2>
+</div>
+<div class="tcc-content">
+<p><strong>This approach is generally not recommended and is often
+unnecessary.</strong></p>
+<p>Torified Whonix-Gateway System DNS.</p>
+<p><a href="../Unsupported/">Undocumented</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="Impact_of_enabling_Whonix-Gateway_System_DNS">Impact of enabling
+Whonix-Gateway System DNS</h1>
+<p>What is the impact of enabling Whonix-Gateway System DNS?</p>
+<ul>
+<li><u>Tor has always had full internet access:</u> Tor running under
+account <code>debian-tor</code> on Whonix-Gateway has always had full
+internet access: TCP, UDP, DNS. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></li>
+<li><u>System DNS enables internal DNS resolution:</u> Tor could always
+have resolved DNS for any internal purpose if it had DNS resolving
+capability built-in. Enabling system DNS on Whonix-Gateway grants Tor
+the ability to resolve DNS for any internal purpose.</li>
+<li><u>Useful in specific scenarios:</u> DNS is usually unnecessary, but
+in cases like <a href="../Bridges/">Bridges</a>, it can be
+useful. For example, domains used by meek such as
+<code>1098762253.rsc.cdn77.org</code> or <code>stun.voipgate.com</code>
+can be resolved by Tor.</li>
+<li><u>No direct fingerprinting risk:</u> Enabling system DNS on
+Whonix-Gateway does not directly leak to network observers that a user
+is using Tor or Whonix. However, this is a complex topic where other
+factors besides DNS play a role. See <a href="../Hide_Tor_from_your_Internet_Service_Provider/">Hide Tor and
+Whonix from your ISP</a> and <a href="../Fingerprint/">Fingerprint</a>.</li>
+<li><u>Disabling DNS does not provide anonymity:</u> Keeping
+Whonix-Gateway system DNS disabled does not hide the fact that a user is
+using Tor or Whonix. Same rationale as above.</li>
+<li><u>Whonix-Workstation unaffected:</u> Whonix-Workstation cannot
+resolve DNS over clearnet. It still has no method to use clearnet DNS
+whatsoever.</li>
+<li><u>Whonix-Gateway system upgrades are unaffected:</u> Whonix-Gateway
+is upgraded using APT, which requires administrative ("<a href="../Moved:Root/">root</a>") rights and runs under the <code>root</code>
+account, which has no access to system DNS because APT is configured for
+<a href="../Stream_Isolation/">Stream Isolation</a> using a
+<code>uwt</code> wrapper, which essentially redirects calls to
+<code>apt</code> / <code>apt-get</code> to <code>torsocks</code>, and
+because <a href="../Whonix-Gateway_Firewall/">Whonix-Gateway Firewall</a> does not permit the account
+<code>root</code> to use system DNS / UDP / TCP by default. Only the
+account <code>debian-tor</code> is permitted to use the system's default
+networking.</li>
+<li><u>Introduction chapter remains valid:</u> Everything stated in <a href="../Reliable_IP_Hiding/">Reliable IP Hiding</a> and <a href="./#Introduction">Introduction</a> still applies. Also refer to the
+"learn more" button in the introduction chapter.</li>
+<li><u>Disabled by default for caution:</u> Whonix-Gateway system DNS is
+disabled by default out of an abundance of caution. There are no
+practically known risks from enabling it.</li>
+<li><u>Expected in user systems:</u> This behavior aligns with Tor and
+Linux distribution specifications, where a functional system DNS is
+reasonably expected on a typical user system.</li>
+<li><u>Forum discussion:</u> <a href="https://forums.whonix.org/t/censorship-circumvention-tor-pluggable-transports/2601/37">https://forums.whonix.org/t/censorship-circumvention-tor-pluggable-transports/2601/37</a></li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Whonix-Gateway_Own_Traffic_Transparent_Proxy/">Enable Transparent Proxying for Whonix-Gateway own
+traffic</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">This is because DNS traffic originating from Whonix-Workstation is
+redirected to Tor's <code>DNSPort</code> running on Whonix-Gateway by
+the <a href="../Whonix-Gateway_Firewall/">Whonix-Gateway
+Firewall</a>.</li>
+<li id="cite_note-2"><a href="https://forums.whonix.org/t/censorship-circumvention-tor-pluggable-transports/2601/40">https://forums.whonix.org/t/censorship-circumvention-tor-pluggable-transports/2601/40</a></li>
+<li id="cite_note-3">Or <a href="../Advanced_Users/">Advanced Users</a>
+would need to hardcode IP addressed rather than using hostnames.)</li>
+<li id="cite_note-4">Replace <code>10.0.2.3</code>. ** To identify the IP to substitute,
+execute the command below: ** <span class="code-select">qubesdb-read
+/qubes-netvm-primary-dns</span> ** For example, the output might be: **
+<blockquote><p>10.139.1.1</p></blockquote> ** In this case, replace <code>10.0.2.3</code> with
+<code>10.139.1.1</code>. Note: Use the actual IP from the output of the
+<code>qubesdb-read /qubes-netvm-primary-dns</code> command.</li>
+<li id="cite_note-5">This is analogous to logging in as the user
+<code>clearnet</code>.</li>
+<li id="cite_note-6">In theory, UDP could be blocked, but that would not provide any
+actual benefit. If Tor ever added any use of UDP, it would later break.
+Tor does not use UDP anyway. And Tor is necessarily trusted anyhow.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

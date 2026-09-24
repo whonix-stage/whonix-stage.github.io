@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Multiple Workstations</title>
+<meta name="description" content="Development notes.">
+<meta property="og:description" content="Development notes.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Multiple_Workstations/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Multiple_Workstations/">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Multiple Workstations</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../../Multiple_Whonix-Gateway/">Multiple
+Whonix-Gateway<sup>&#8482;</sup></a></li>
+<li><a href="../../Multiple_Whonix-Workstation/">Multiple
+Whonix-Workstation<sup>&#8482;</sup></a></li>
+<li><a href="../../Multiple_Qubes-Whonix_Templates/">Multiple
+Qubes-Whonix<sup>&#8482;</sup> Templates</a></li>
+</ul>
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Development notes.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Single_Tor-Gateway_with_Multiple_Workstations">Single
+Tor-Gateway with Multiple Workstations</h1>
+<p>Pros:</p>
+<ul>
+<li>Not subverting Tor guard selection and cycling.</li>
+<li>Single Gateway VM uses less resources.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Some unforeseen way malicious VM "X" can link activities of or
+influence traffic of VM "Y"</li>
+<li>Maybe sending NEWNYM requests in a timed pattern that changes exit
+IPs of VM Y's traffic, revealing they are behind the same client?</li>
+<li><b>[XXX] perhaps some discovery attacks even with a control port
+filter can leak VM's guards and even entire circuits</b></li>
+<li>Maybe eavesdropping on HSes running on VM Y's behalf?</li>
+<li>caching of DNS</li>
+<li>caching of HS descriptors</li>
+<li>preemptive circuits.</li>
+<li>circuit cannibalization (cannot be isolated)</li>
+<li>SSL state</li>
+<li>guard state</li>
+<li>consensus availability and content</li>
+<li>descriptor availability and content</li>
+<li>connectivity (or lack thereof)</li>
+<li>uptime</li>
+<li>ControlPort config information</li>
+<li>ControlPort config changes</li>
+<li>And many more.</li>
+<li><sup class="reference"><a href="#cite_note-1">[1]</a></sup> <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li>"We don't even recommend running a SOCKS client and an onion service
+on the same instance."</li>
+<li>If the host or Whonix-Gateway<sup>&#8482;</sup> internet connection goes
+down, all workstations will go offline at the same time which could aid
+to link them to the same pseudonym.</li>
+</ul>
+<p><a href="../../Stream_Isolation/">Stream Isolation</a>
+defends at the remote end. Not at the client end.</p>
+<h1 id="Multiple_Tor-Gateways_mapped_1:1_to_Workstation_VMs">Multiple
+Tor-Gateways mapped 1:1 to Workstation VMs</h1>
+<p>Pros:</p>
+<ul>
+<li>Conceptually simple. Uses a different Tor instance so no need to
+worry about all these questions.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Subverting Tor guard selection. (For better anonymity, Tor
+developers decided to reduce entry guards from 3 to 1.)</li>
+<li>Subverting Tor guard cycling. (For better anonymity, Tor developers
+decided to cycle Tor guards less often.)</li>
+<li>Uses a different entry guard which can increase chance of running
+into a malicious relay that can deanonymize some of the traffic.</li>
+<li>Uses extra resources (though not much as a Tor Gateway can run with
+as little as 192MB RAM).</li>
+<li>Links traffic at different guards to the same source IP address</li>
+<li><b>[XXX] Even VM-level isolation is not proof against some
+attacks</b>
+<ul>
+<li>covert and sidechannel attacks</li>
+<li><a href="../../Advanced_Deanonymization_Attacks/">Advanced
+Deanonymization Attacks</a></li>
+<li><a href="../Advanced_Deanonymization_Attacks/">Dev/Advanced Deanonymization Attacks</a></li>
+</ul></li>
+<li>Much worse usability.
+<ul>
+<li>More difficult to explain to and grasp by users.</li>
+<li>More hassle setting up <a href="../../Bridges/">bridges</a>.</li>
+</ul></li>
+<li><a href="../../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>:
+<ul>
+<li>Wastes lots of disk space.</li>
+<li>Lots of more VMs to keep updated.</li>
+</ul></li>
+<li>If the host internet connection goes down, all workstations will go
+offline at the same time which could aid to link them to the same
+pseudonym.</li>
+</ul>
+<h1 id="Multiple_Tor_instances_on_same_Gateway">Multiple Tor instances
+on same Gateway</h1>
+<p>Idea:</p>
+<ul>
+<li>Running multiple Tor instances on the same Gateway. [Tor's systemd
+service supports that. (Would use separate Tor data dirs, thereby Tor
+entry guards.)]</li>
+<li>Ideas:
+<ul>
+<li>*Might* be simpler to make all instances of Tor use the same Tor
+entry guards.</li>
+<li>There could be a Tor "master" instance. It would fetch consensus and
+set entry guard. All other Tor slave instances would use that, perhaps
+using symlinks or so. Might require features that Tor does not provide
+yet.</li>
+</ul></li>
+</ul>
+<p>Pros:</p>
+<ul>
+<li>Just one gateway.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>...more from above</li>
+<li>If the host or Whonix-Gateway internet connection goes down, all
+workstations will go offline at the same time which could aid to link
+them to the same pseudonym.</li>
+</ul>
+<h1 id="Tor_Onion_Services">Tor Onion Services</h1>
+<h2 id="Compartmentalization">Compartmentalization</h2>
+<p><blockquote><p>We don't even recommend running a SOCKS client and an onion service
+on the same instance.</p></blockquote></p>
+<p>Safe to recommend:</p>
+<ul>
+<li>use one gateway / workstation[s] combination for simple client
+activities (browsing, mail, chat)</li>
+<li>use another gateway / workstation[s] combination where add_onion is
+whitelisted, i.e. where using Tor ephemeral onion services is white
+listed</li>
+</ul>
+<p>Deanonymization is more at risk when using Tor onion services
+compared to just using Tor as client. This is because Tor onion services
+can be made to talk by connecting to them. A whole different class of
+attacks.</p>
+<p>So when one just users Tor as a client and that workstation gets
+compromised, it would be a safer if that VM did not have access to Tor
+creating ephemeral onion services, since that allows more
+deanonymization attacks.</p>
+<h2 id="Ephemeral_Detached_Tor_Onion_Services">Ephemeral Detached Tor
+Onion Services</h2>
+<p>When using <u>detached</u> ephemeral onion services, VMs can read
+onion service keys and hostnames of other VM as well as shut them
+down.</p>
+<ul>
+<li>Requires Whonix 14 or above (Whonix 13 control port filter does not
+support ephemeral onion services).</li>
+<li>Only when white listening the command for listing ephemeral onion
+services in control port filter.
+<ul>
+<li>It is not clear that will be required since there are no ephemeral
+HS applications in the wild that would require that command.</li>
+</ul></li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="https://forums.whonix.org/t/research-single-tor-gateway-with-multiple-workstations-vs-multiple-tor-gateways-mapped-1-1-to-workstation-vms/18840">https://forums.whonix.org/t/research-single-tor-gateway-with-multiple-workstations-vs-multiple-tor-gateways-mapped-1-1-to-workstation-vms/18840</a></li>
+<li><a href="../../Advanced_Deanonymization_Attacks/">Advanced
+Deanonymization Attacks</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://lists.torproject.org/pipermail/tor-dev/2016-October/011591.html">https://lists.torproject.org/pipermail/tor-dev/2016-October/011591.html</a></li>
+<li id="cite_note-2"><a href="https://lists.torproject.org/pipermail/tor-dev/2016-November/011634.html">https://lists.torproject.org/pipermail/tor-dev/2016-November/011634.html</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Design/">Design</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

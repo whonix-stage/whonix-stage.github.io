@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix-Gateway Own Traffic Transparent Proxy</title>
+<meta name="description" content="Getting Transparent Proxying working for traffic originating from Whonix-Gateway itself.">
+<meta property="og:description" content="Getting Transparent Proxying working for traffic originating from Whonix-Gateway itself.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Whonix-Gateway_Own_Traffic_Transparent_Proxy/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Whonix-Gateway_Own_Traffic_Transparent_Proxy/">
+<meta property="og:title" content="Whonix-Gateway Traffic: Transparent Proxying">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Traffic-332857640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Traffic-332857640.jpg.webp" alt="Traffic-332857640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Getting Transparent Proxying working for traffic originating from
+Whonix-Gateway itself.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box ">
+<p>All traffic originating from <a href="../Whonix-Workstation/">Whonix-Workstation<sup>&#8482;</sup></a> and <a href="../Whonix-Gateway/">Whonix-Gateway<sup>&#8482;</sup></a> is
+routed to the <a href="../Tor/">Tor</a> software.</p>
+<div class="toccolours mw-collapsible mw-collapsed mwc-headline-normal-text-size">
+<p>For technical details, click on "Learn More" on the right side.</p>
+<div class="mw-collapsible-content">
+<ul>
+<li><u>Traffic from Whonix-Gateway also routed over Tor:</u> Starting
+from Whonix version <code>0.2.1</code>, traffic from Whonix-Gateway is
+also routed over Tor. This approach conceals the use of Whonix from
+entities monitoring the network.</li>
+<li><u>Gateway's own traffic not essential for anonymity:</u> To
+preserve the anonymity of a user's Whonix-Workstation activities, it is
+not essential to route Whonix-Gateway's own traffic through Tor. (Note:
+The gateway is mainly a tool that helps route traffic; it does not
+typically contain personal activity data.)</li>
+<li><u>DNS configuration on Whonix-Gateway has limited impact:</u>
+Altering DNS settings on Whonix-Gateway in <code>/etc/resolv.conf</code>
+only impacts DNS requests made by Whonix-Gateway's applications that
+utilize the system's default DNS resolver. (DNS is like the internet's
+phonebook - it translates website names to IP addresses.) By default, no
+applications on Whonix-Gateway that generate network traffic use this
+default resolver. All default applications on Whonix-Gateway that
+produce network traffic (like apt, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>, <a href="../Sdwdate/">sdwdate</a>) are explicitly configured,
+or forced by uwt wrappers, to use their dedicated Tor
+<code>SocksPort</code> (refer to <a href="../Stream_Isolation/">Stream Isolation</a>).</li>
+<li><u>Whonix-Workstation DNS requests handled via Tor:</u>
+Whonix-Workstation's default applications are configured to use
+dedicated Tor <code>SocksPorts</code> (see <a href="../Stream_Isolation/">Stream Isolation</a>), avoiding the system's default
+DNS resolver. Any applications in Whonix-Workstation not set up for
+stream isolation - such as <code>nslookup</code> - will use the default
+DNS server configured in Whonix-Workstation (through
+<code>/etc/network/interfaces</code>), which points to Whonix-Gateway.
+These DNS requests are then redirected to Tor's <code>DnsPort</code> by
+the Whonix-Gateway firewall. (This ensures DNS lookups still go through
+Tor even if they use the default method.) Changes in Whonix-Gateway's
+<code>/etc/resolv.conf</code> do not influence Whonix-Workstation's DNS
+queries.</li>
+<li><u>Tor process traffic allowed direct internet access:</u> Traffic
+produced by the Tor process, which by Debian's default operates under
+the account <code>debian-tor</code> and originates from Whonix-Gateway,
+can access the internet directly. This is permitted because the Linux
+user account <code>debian-tor</code> is exempted in the <a href="../Whonix-Gateway_Firewall/">Whonix-Gateway
+Firewall</a> and allowed to use the "regular" internet. (This is
+necessary for Tor to establish its connections.)</li>
+<li><u>Tor mostly uses TCP traffic:</u> As of Tor version
+<code>0.4.5.6</code> (with no changes announced at the time of writing),
+the Tor software predominantly relies on TCP traffic. (TCP is a common
+protocol used for stable internet connections.) For further details, see
+<a href="../Tor/#UDP">Tor wiki page, chapter UDP</a>. For
+DNS, please refer to the next footnote.</li>
+<li><u>Tor's DNS independence and exceptions:</u> Tor does not depend
+on, nor use, a functional (system) DNS for most of its operations. IP
+addresses of Tor directory authorities are hardcoded in the Tor software
+by Tor developers. (That means Tor knows important addresses in advance
+and doesn't need to look them up.) Exceptions include:
+<ul>
+<li><u>Proxy with domain name:</u> Proxy settings that use proxies with
+domain names instead of IP addresses.</li>
+<li><u>Pluggable transport domain resolution:</u> Some Tor pluggable
+transports, such as meek lite, which resolve domains set in
+<code>url=</code> and <code>front=</code> to IP addresses, or
+snowflake's <code>-front</code>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="info-box ">
+<p><u>Whonix-Workstation<sup>&#8482;</sup> has the transparent proxying
+feature enabled by default.</u> (You could <a href="../Stream_Isolation/#Better_Protection">disable
+it</a> if you wanted to.)</p>
+</div>
+<div class="info-box ">
+<p><u>Whonix-Gateway has by default <strong>no</strong> transparent
+proxying feature.</u></p>
+<p>The same in other words: Whonix-Gateway by default transparently
+proxies traffic originating from Whonix-Workstation, but does not
+transparently proxy traffic that is generated by Whonix-Gateway.</p>
+<p>Instructions below document how <u>you could enable it</u>. There are
+no known use cases besides <a href="../Dev/Leak_Tests/">leak testing</a>.</p>
+</div>
+<h1 id="How-to:_Enable_Transparent_Proxying_for_Whonix-Gateway_own_Traffic">How-to:
+Enable Transparent Proxying for Whonix-Gateway own Traffic</h1>
+<div class="info-box ">
+<p><strong>Advanced users only!</strong><br />
+<strong>Usually recommended against and unnecessary!</strong></p>
+<p><strong>Modify Whonix-Gateway User Firewall Settings.</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/usr/local/etc/whonix_firewall.d/50_user.conf</code> appears empty
+(because it does not exist). This is expected.</p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>Settings</code> &#8594; <code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p>In Whonix-Gateway, open the whonix_firewall configuration file in an
+editor.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" alt="25x" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Gateway App Qube (commonly called </code><em><span><code>sys-whonix</code></span></em><code>)</code>
+&#8594; <code>User Firewall Settings</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>.</p>
+<p><strong>Note</strong>: The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>See also <a href="../Moved:Configuration_Files/">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="../Qubes/">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template:</code> <code>whonix-gateway-18</code> &#8594;
+<code>Global Firewall Settings</code></p>
+<p><u>If using a graphical Whonix-Gateway</u>, complete these steps.</p>
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>Settings</code> &#8594; <code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Gateway</u>, complete these steps.</p>
+<p>In Whonix-Gateway, view the global firewall configuration file in an
+editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_gateway_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Add the following content.</p>
+<p><span class="code-select">GATEWAY_TRANSPARENT_TCP=1
+GATEWAY_TRANSPARENT_DNS=1</span></p>
+<p>Save.</p>
+<p><strong>Reload Whonix-Gateway Firewall.</strong></p>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Gateway_2">Graphical Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>System</code> &#8594; <code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Gateway_2">Terminal Whonix-Gateway</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_2"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Gateway ProxyVM (commonly named sys-whonix)</code> &#8594;
+<code>Reload Firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<p>Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session">Graphical Whonix-Gateway
+USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway_3">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_3"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add the following content.</p>
+<p><span class="code-select">TransPort 127.0.0.1:9041 DnsPort
+127.0.0.1:54</span></p>
+<p>Save.</p>
+<p>Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Service</code> &#8594;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+&#8594; <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p>Test if you wish.</p>
+<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3 -H
+'Host: check.torproject.org' -k <a href="https://116.202.120.181">https://116.202.120.181</a></span></p>
+</div>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Whonix-Gateway_System_DNS/">Getting the
+global system DNS resolver working on Whonix-Gateway (usually
+recommended against and unnecessary)</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

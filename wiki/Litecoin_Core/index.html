@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Litecoin Core</title>
+<meta name="description" content="Using Litecoin Core in Whonix. Fully verifying a Litecoin wallet.">
+<meta property="og:description" content="Using Litecoin Core in Whonix. Fully verifying a Litecoin wallet.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Litecoin_Core/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Litecoin_Core/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Installation">Installation</a></li><li class="toc-l2"><a href="#Enable_Stream_Isolation">Enable Stream Isolation</a></li><li class="toc-l2"><a href="#Add_a_Litecoin-Qt_Start_Menu_Entry">Add a Litecoin-Qt Start Menu
+Entry</a></li><li class="toc-l2"><a href="#Autostart_Litecoin-Qt">Autostart Litecoin-Qt</a></li><li class="toc-l2"><a href="#Start_from_Command_Line">Start from Command Line</a></li><li class="toc-l2"><a href="#Creating_a_Watch-Only_Wallet">Creating a Watch-Only Wallet</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Using Litecoin Core in Whonix. Fully verifying a Litecoin wallet.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="../Unsupported/">this</a> for
+potential alternatives.</p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="../Community_Support/">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+Security warning: Installing third party software allows the vendor to
+potentially compromise your system. Proceed at your own risk! See <a href="../Install_Software/#Foreign_Sources">Foreign
+Sources</a> for further information.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Whonix default admin password is: changeme" /></span>
+Documentation in the Whonix wiki provides guidance on installing
+third-party software from different upstream sources. This is especially
+useful as upstream often includes generic instructions for various Linux
+distributions, which may be complex for users to follow. Additionally,
+documentation Whonix usually has a higher focus on security, digital
+software signatures verification.</p>
+<p>The instructions provided here serve as a "translation layer" from
+upstream documentation to Whonix, offering assistance in most scenarios.
+Nevertheless, it's important to acknowledge that upstream software may
+undergo changes over time. Consequently, the documentation on this wiki
+might need occasional updates, such as revised signing key fingerprints,
+to stay current and accurate.</p>
+<p>Please note, this is a general wiki template and may not apply to all
+upstream documentation scenarios.</p>
+<p>Users encountering issues, such as connectivity issues, are advised
+to adhere to the <a href="../Self_Support_First_Policy/">Self Support First Policy</a> and engage in <a href="../Reporting_Bugs/#Generic_Bug_Reproduction">Generic
+Bug Reproduction</a>. This involves attempting to replicate the issue on
+Debian <code>trixie</code> (over Tor), contacting upstream directly if
+the issue can be reproduced as such problems are likely <a href="../Unspecific/">unspecific to Whonix</a>. In most
+cases, Whonix is not responsible for, nor capable of resolving, issues
+stemming from third-party software.</p>
+<p>For further information, refer to <a href="../Introduction/#User_Expectations_-_What_Documentation_Is_and_What_It_Is_Not">Introduction, User Expectations - What Documentation Is
+and What It Is Not</a>.</p>
+<p>Should the user encounter bugs related to third-party software, it is
+advisable to report these issues to the respective upstream projects.
+Additionally, users are encouraged to share links to upstream bug
+reports in the Whonix forums and/or make edits to this wiki page. For
+instance, if there are outdated links or key fingerprints in need of
+updating, please feel free to make the necessary changes. Contributions
+aimed at maintaining the currentness and accuracy of information are
+highly valued. These updates not only improve the quality of the wiki
+but also serve as a useful resource for other users.</p>
+<p><a href="../Contribute/#Documentation">The Whonix wiki
+is an open platform where everyone is welcome to contribute improvements
+and edits, with or without an account.</a> Edits to this wiki are
+subject to moderation, so contributors should not worry about making
+mistakes. Your edits will be reviewed before being made public, ensuring
+the integrity and accuracy of the information provided.</p>
+</div>
+<h1 id="Litecoin_Core_Setup">Litecoin Core Setup</h1>
+<h2 id="Installation">Installation</h2>
+<p>Perform these steps inside Whonix-Workstation<sup>&#8482;</sup>
+(Qubes-Whonix<sup>&#8482;</sup>: <code>anon-whonix</code> App Qube).</p>
+<div class="info-box ">
+<p><strong>1.</strong> Retrieve, verify and add the signing key.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Whonix first time users warning" /></span>
+<strong>Warning:</strong></p>
+<p>The following command using <code>gpg</code> with
+<code>--recv-keys</code> is not recommended for security reasons and is
+often non-functional. <sup class="reference"><a href="#cite_note-2">[2]</a></sup> This is not a Whonix-specific
+issue. The OpenPGP public key should be downloaded from the web instead;
+see also <a href="../Moved:Secure_Downloads/">Secure
+Downloads</a>. This procedure is currently <a href="../Unsupported/">undocumented</a> and can be resolved as per the <a href="../Self_Support_First_Policy/">Self Support First
+Policy</a>. Documentation contributions will be happily considered.</p>
+</div>
+<p><span class="code-select">gpg --keyserver keyserver.ubuntu.com
+--recv-keys 0xD35621D53A1CC6A3456758D03620E9D387E55666</span></p>
+<p>Verify the key fingerprint.</p>
+<p><span class="code-select">gpg --fingerprint
+0xD35621D53A1CC6A3456758D03620E9D387E55666</span></p>
+<p>Expected output:</p>
+<pre><code>Key fingerprint = D356 21D5 3A1C C6A3 4567  58D0 3620 E9D3 87E5 5666</code></pre>
+<p><strong>2.</strong> Download the signed hash sum verification
+file.</p>
+<p><span class="code-select">scurl-download <a href="https://web.archive.org/https://download.litecoin.org/litecoin-0.21.2.1/linux/litecoin-0.21.2.1-x86_64-linux-gnu.tar.gz.asc">https://web.archive.org/https://download.litecoin.org/litecoin-0.21.2.1/linux/litecoin-0.21.2.1-x86_64-linux-gnu.tar.gz.asc</a></span></p>
+<p><strong>3.</strong> Download Litecoin.</p>
+<p><span class="code-select">scurl-download <a href="https://web.archive.org/https://download.litecoin.org/litecoin-0.21.2.1/linux/litecoin-0.21.2.1-x86_64-linux-gnu.tar.gz">https://web.archive.org/https://download.litecoin.org/litecoin-0.21.2.1/linux/litecoin-0.21.2.1-x86_64-linux-gnu.tar.gz</a></span></p>
+<p><strong>4.</strong> Verify the hash sum digital signature file.</p>
+<p><span class="code-select">gpg --verify
+litecoin-0.21.2.1-x86_64-linux-gnu.tar.gz.asc</span></p>
+<p><u>If the file is correctly verified</u>, the output will include a
+statement the signature is good:</p>
+<pre><code>Good signature</code></pre>
+<p>This output might be followed by a warning as follows.</p>
+<pre><code>gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.</code></pre>
+<p>This message does not alter the validity of the signature related to
+the downloaded key. Rather, this warning refers to the level of trust
+placed in the Whonix signing key and the <a href="../Moved:OpenPGP/#The_OpenPGP_Web_of_Trust">web of
+trust</a>. To remove this warning, the Whonix signing key must be
+personally signed with your own key.</p>
+<p><strong>5.</strong> Extract the tar file.</p>
+<p><span class="code-select">tar xzf
+litecoin-0.21.2.1-x86_64-linux-gnu.tar.gz</span></p>
+<p><strong>6.</strong> Done.</p>
+<p>Download, digital signature verification and extraction of Litecoin
+Core is complete.</p>
+</div>
+<h2 id="Enable_Stream_Isolation">Enable Stream Isolation</h2>
+<div class="info-box ">
+<p><strong>1.</strong> <em>Optional:</em> Disable networking for the
+virtual machine.</p>
+<p>This step is optional but recommended to ensure stream isolation is
+always used from the first connection. This step can be omitted if:</p>
+<ul>
+<li><strong>A)</strong> The Whonix <a href="../Stream_Isolation/#Transparent_Proxy">transparent
+proxy</a> feature has been <a href="../Stream_Isolation/#Disable_Transparent_Proxying">disabled</a>; <sup class="reference"><a href="#cite_note-3">[3]</a></sup> <u>and/or</u></li>
+<li><strong>B)</strong> Proxy settings are configured using the Litecoin
+Core configuration file <code>~/.litecoin/litecoin.conf</code> before
+the first start. <sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+</ul>
+<p><strong>2.</strong> Start Litecoin-Qt as documented further
+below.</p>
+<p><strong>3.</strong> Enable <a href="../Stream_Isolation/">Stream Isolation</a> in the client.</p>
+<ul>
+<li><strong>A)</strong> navigate to the client settings</li>
+<li><strong>B)</strong> locate the Network tab</li>
+<li><strong>C)</strong> enable the SOCKS proxy as follows:
+<ul>
+<li>Host: <code>10.152.152.10</code></li>
+<li>Port: <code>9111</code></li>
+<li>Proxy: <code>SOCKS5</code></li>
+</ul></li>
+</ul>
+<p><strong>4.</strong> Re-enable networking for the virtual machine.</p>
+</div>
+<h2 id="Add_a_Litecoin-Qt_Start_Menu_Entry">Add a Litecoin-Qt Start Menu
+Entry</h2>
+<p>Perform the following steps to create a <code>litecoin-qt</code>
+start menu entry; this procedure is optional.</p>
+<div class="info-box ">
+<p>Inside Whonix-Workstation (Qubes-Whonix: <code>anon-whonix</code> App
+Qube).</p>
+<p><strong>1.</strong> Create folder
+<code>~/.local/share/applications</code>.</p>
+<p><span class="code-select">mkdir -p
+~/.local/share/applications</span></p>
+<p><strong>2.</strong> Open file
+<code>~/.local/share/applications/litecoin.desktop</code> in an editor
+as a regular, non-root user.</p>
+<p><span class="code-select">mousepad
+~/.local/share/applications/litecoin.desktop</span></p>
+<p><strong>3.</strong> Paste the following contents.</p>
+<p><span class="code-select">[Desktop Entry] Name=Litecoin-Qt
+Comment=litecoin-qt Exec=bash -c '~/litecoin-*/bin/litecoin-qt'
+Terminal=false Type=Application Icon=money-manager-ex
+StartupWMClass=litecoin MimeType=x-scheme-handler/litecoin;
+Categories=Finance;</span></p>
+<p><strong>4.</strong> Save.</p>
+<p><strong>5.</strong> Qubes-Whonix: perform platform-specific
+steps.</p>
+<p>In <code>dom0</code>, refresh Qubes' appmenu:
+<code>VM settings</code> &#8594; <code>Applications</code> &#8594;
+<code>Refresh Applications</code> &#8594;
+<code>Add desktop shortcut</code>.</p>
+<p><strong>6.</strong> Done.</p>
+<p>The <code>Litecoin-Qt</code> start menu entry should now be
+available.</p>
+</div>
+<h2 id="Autostart_Litecoin-Qt">Autostart Litecoin-Qt</h2>
+<p>Perform these steps to automatically start <code>Litecoin-Qt</code>;
+this step is optional.</p>
+<div class="info-box ">
+<p>Inside Whonix-Workstation (Qubes-Whonix: <code>anon-whonix</code> App
+Qube).</p>
+<p><strong>1.</strong> Apply the <a href="#Add_a_Litecoin-Qt_Start_Menu_Entry">Add a
+Litecoin-Qt Start Menu Entry</a> instructions first.</p>
+<p><strong>2.</strong> Create folder
+<code>~/.config/autostart</code>.</p>
+<p><span class="code-select">mkdir -p ~/.config/autostart</span></p>
+<p><strong>3.</strong> Create a symlink from
+<code>~/.local/share/applications/litecoin.desktop</code> to
+<code>~/.config/autostart/litecoin.desktop</code>.</p>
+<p><span class="code-select">ln -s
+~/.local/share/applications/litecoin.desktop
+~/.config/autostart/litecoin.desktop</span></p>
+<p><strong>4.</strong> Done.</p>
+<p><code>Litecoin-Qt</code> will now automatically start the next time
+the VM is booted.</p>
+</div>
+<h2 id="Start_from_Command_Line">Start from Command Line</h2>
+<p>To start <code>Litecoin-Qt</code> (part of Litecoin Core) from the
+command line, run.</p>
+<p><span class="code-select">~/litecoin-*/bin/litecoin-qt</span></p>
+<h2 id="Creating_a_Watch-Only_Wallet">Creating a Watch-Only Wallet</h2>
+<ol>
+<li>Start <code>Litecoin-Qt</code>.</li>
+<li><code>Window</code> &#8594; <code>Console</code></li>
+<li>Import address.</li>
+</ol>
+<p>Note: replace <code>address</code> with the actual address to be
+watched.</p>
+<p><span class="code-select">importaddress address</span></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">* <a href="https://github.com/litecoin-project/litecoin/issues/769">https://github.com/litecoin-project/litecoin/issues/769</a>
+* <a href="https://web.archive.org/web/20220903191335/https://litecoin.org/">https://web.archive.org/web/20220903191335/https://litecoin.org/</a></li>
+<li id="cite_note-2"><a href="https://forums.whonix.org/t/gpg-recv-keys-fails-no-longer-use-keyservers-for-anything/5607">https://forums.whonix.org/t/gpg-recv-keys-fails-no-longer-use-keyservers-for-anything/5607</a></li>
+<li id="cite_note-3">Because then Litecoin Core cannot connect using transparent proxying
+anyhow.</li>
+<li id="cite_note-4">Perhaps as part of the <a href="../ElectrumX/">ElectrumX</a> instructions.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

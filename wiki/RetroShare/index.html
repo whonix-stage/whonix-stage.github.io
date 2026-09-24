@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>RetroShare</title>
+<meta name="description" content="Decentralized social sharing network with strong cryptography. Supports chat, mail, file sharing and experimental video/voice features.">
+<meta property="og:description" content="Decentralized social sharing network with strong cryptography. Supports chat, mail, file sharing and experimental video/voice features.">
+<link rel="canonical" href="https://www.whonix.org/wiki/RetroShare/">
+<meta property="og:url" content="https://www.whonix.org/wiki/RetroShare/">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Retroshare34235423423.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Whonix first time users warning" /></span>
+RetroShare builds on SUSE's open build system haven't been updated in
+approximately two years at the time of this writing. No packages are
+available for Debian Trixie / Whonix 18.</p>
+</div>
+<p><img src="../../media/Retroshare34235423423.png.webp" alt="Retroshare34235423423.png" /></p>
+<h1 id="Introduction">Introduction</h1>
+<p><a href="https://retroshare.cc/index.html">RetroShare</a> is not an
+<a href="https://en.wikipedia.org/wiki/Anonymous_proxy">anonymizing
+network</a>, it is a <a href="https://en.wikipedia.org/wiki/Friend-to-friend">friend-to-friend</a>
+(F2F) network, or optionally a <a href="https://en.wikipedia.org/wiki/Darknet">darknet</a>. RetroShare has
+a very different audience and threat model.</p>
+<p>RetroShare is in active development. Users can operate servers for
+themselves, but the architecture doesn't depend on them. Communications
+are encrypted end-to-end and provide for messaging, mail, forums,
+pubsub, file exchange and even telephony. The problems with RetroShare
+are the confused user interface, the necessity to have it run most of
+the time and contribute to the distributed hashtable (DHT, causing
+continuous CPU usage) and three relevant privacy aspects: You expose
+your social graph to a global passive adversary because friends connect
+to friends directly. Your public IP is available in the DHT, allowing to
+track your physical locations. And your visible user name is exposed in
+the TLS certificate when somebody connects to your RetroShare node.</p>
+<p>Several of these problems can be solved by disabling the built-in DHT
+and hiding RetroShare behind a Tor onion service. People who scan Tor
+onion services will however still be able to connect the service and see
+the RetroShare user name in the self-signed certificate. This can be
+prevented by setting up <a href="../Onion_Services/#Onion_Service_Authentication">Authenticated Onion Services</a> and limiting
+connections only to trusted people.</p>
+<p>On November 4, 2014, RetroShare scored 6 out of 7 points on the
+Electronic Frontier Foundation's secure messaging scorecard. It lost a
+point because there has not been an independent code audit.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup> A recent audit by the pen-testing group Elttam
+uncovered many bugs in the code (some remotely exploitable) that were
+promptly fixed. The auditor's opinion was that RetroShare's codebase
+lacked secure coding practice. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>Running RetroShare through Tor enables you, to do things, which are
+normally potentially dangerous, such as adding random people (from a
+forum), while staying anonymous. (For example, to join a RetroShare
+forum.) This is <strong>not</strong> a recommendation, just stating a
+possibility.</p>
+<p>After adding tons of random "friends" from a public forum, connection
+to a very few people over TCP. <sup class="reference"><a href="#cite_note-3">[3]</a></sup> <sup class="reference"><a href="#cite_note-4">[4]</a></sup>
+Approximately only 5% were online. Although probably only a very small
+portion of the network could be seen, the content of the network looked
+pretty interesting.</p>
+<p>RetroShare reports Right click &#8594; DHT Details: NET WARNING No DHT;
+Behind NAT UNKNOWN NAT STATE MANUAL FORWARD</p>
+<p>There still may be some privacy caveats left with RetroShare trying
+to communicate outside of Tor, but that doesn't matter if Whonix makes
+any non-Tor traffic impossible.</p>
+<h1 id="Installation">Installation</h1>
+<p><strong>WARNING: RetroShare packages are signed with <a href="https://github.com/RetroShare/RetroShare/issues/355">weak</a> 1024
+bit keys. Until this is fixed we recommend using Ricochet IM with
+OnionShare instead.</strong></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+<strong>Security Warning</strong>: Adding a third-party repository
+and/or installing third-party software allows the vendor to replace any
+software on your system, including but not limited to the installation
+of <a href="../Moved:Malware_and_Firmware_Trojans/">malware</a>, file deletion, and
+data harvesting. Proceed at your own risk! See also <a href="../Install_Software/#Foreign_Sources">Foreign
+Sources</a> for further information. For greater safety, users adding
+third-party repositories should always use <a href="../Multiple_Whonix-Workstation/">Multiple
+Whonix-Workstation<sup>&#8482;</sup></a> to compartmentalize VMs with
+additional software.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Whonix default admin password is: changeme" /></span>
+Documentation in the Whonix wiki provides guidance on adding third-party
+software from various upstream repositories. This is especially useful
+since upstream often includes generic instructions for different Linux
+distributions, which may be complex for users to follow. Additionally,
+documentation in Whonix usually places a higher emphasis on security and
+verifying digital software signatures.</p>
+<p>The instructions provided here serve as a "translation layer" from
+upstream documentation to Whonix, offering assistance in most scenarios.
+Nevertheless, it's important to recognize that upstream repositories and
+software may change over time. Consequently, the documentation on this
+wiki might require occasional updates, such as revised signing key
+fingerprints, to remain current and accurate.</p>
+<p>Please note, this is a general wiki template and may not apply to all
+upstream documentation scenarios.</p>
+<p>Users encountering issues, such as signing key problems, are advised
+to follow the <a href="../Self_Support_First_Policy/">Self
+Support First Policy</a> and engage in <a href="../Reporting_Bugs/#Generic_Bug_Reproduction">Generic
+Bug Reproduction</a>. This involves attempting to replicate the issue on
+Debian <code>trixie</code>, and contacting upstream directly if the
+issue can be reproduced, as such problems are likely <a href="../Unspecific/">unspecific to Whonix</a>. In most
+cases, Whonix is not responsible for, nor capable of resolving, issues
+stemming from third-party software.</p>
+<p>For further information, refer to <a href="../Introduction/#User_Expectations_-_What_Documentation_Is_and_What_It_Is_Not">Introduction, User Expectations - What Documentation Is
+and What It Is Not</a>.</p>
+<p>Should the user encounter bugs related to third-party software, it is
+advisable to report these issues to the respective upstream projects.
+Additionally, users are encouraged to share links to upstream bug
+reports in the Whonix forums and/or make edits to this wiki page. For
+example, if there are outdated links or key fingerprints that need
+updating, please feel free to make the necessary changes. Contributions
+aimed at maintaining the accuracy and currency of information are highly
+valued. These updates not only improve the quality of the wiki but also
+serve as a useful resource for other users.</p>
+<p><a href="../Contribute/#Documentation">The Whonix wiki
+is an open platform where everyone is welcome to contribute improvements
+and edits, with or without an account.</a> Edits to this wiki are
+subject to moderation, so contributors should not worry about making
+mistakes. Your edits will be reviewed before being made public, ensuring
+the integrity and accuracy of the information provided.</p>
+</div>
+</div>
+<p><em>RetroShare is currently available on Debian 7.0 Wheezy and 6.0
+Squeeze for armel, armhf, i386 and amd64 architectures and for 8.0
+Jessie.</em></p>
+<p>Before adding the repo <sup class="reference"><a href="#cite_note-5">[5]</a></sup>, fetch the key and verify
+<sup class="reference"><a href="#cite_note-6">[6]</a></sup> fingerprints. Always check the fingerprint for
+yourself. The output at the moment is:</p>
+<pre><code>pub  1024D/0x9418A47921691F91 2011-08-16 home:AsamK OBS Project &lt;home:AsamK@build.opensuse.org&gt;
+      Key fingerprint = E2CE 3677 C801 5772 D097  B0AA 9418 A479 2169 1F91</code></pre>
+<p>Download key with curl to home folder.</p>
+<p><span class="code-select">curl -o retroshare-pubkey.asc <a href="https://download.opensuse.org/repositories/network:retroshare/Debian_11/Release.key">https://download.opensuse.org/repositories/network:retroshare/Debian_11/Release.key</a></span></p>
+<p>Check fingerprints/owners without importing anything.</p>
+<p><span class="code-select">gpg --keyid-format long --with-fingerprint
+retroshare-pubkey.asc</span></p>
+<p>If it looks good import into trusted.gpg.d. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<p><span class="code-select">sudo apt-key --keyring
+/etc/apt/trusted.gpg.d/retroshare-pubkey.gpg add
+retroshare-pubkey.asc</span></p>
+<p>For stable builds:</p>
+<p><span class="code-select">sudo su -c "echo -e 'deb <a href="https://download.opensuse.org/repositories/network:/retroshare/Debian_11/">https://download.opensuse.org/repositories/network:/retroshare/Debian_11/</a>
+/' &gt; /etc/apt/sources.list.d/retroshare06.list"</span></p>
+<p>For nightly builds:</p>
+<p><span class="code-select">sudo su -c "echo -e 'deb <a href="https://download.opensuse.org/repositories/network:/retroshare/Debian_11/">https://download.opensuse.org/repositories/network:/retroshare/Debian_11/</a>
+/' &gt; /etc/apt/retroshare06-git.list"</span></p>
+<p><a href="../Moved:Update/">Update</a> the package lists.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p>Install Retroshare.</p>
+<p><span class="code-select">sudo apt install retroshare06</span></p>
+<p>For the latest nightly package name install
+<code>retroshare06-git</code> instead.</p>
+<p><sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<h1 id="Setup">Setup</h1>
+<p>RetroShare setup:</p>
+<ul>
+<li>Pick a pseudonym and password. Don't use real name or location
+obviously. Move your mouse to generate enough entropy.</li>
+<li>Check <em>Advanced Options</em> &#8594; <em>Create a hidden node</em></li>
+<li>Change key-length to 4096 bits for adequate security then generate
+the new profile.</li>
+</ul>
+<h1 id="Configuration">Configuration</h1>
+<h2 id="I2P">I2P</h2>
+<p>Follow the steps in this <a href="https://blog.kalrong.net/en/2016/09/23/retroshare-over-i2p/">guide</a>
+to connect to others over I2P.</p>
+<h2 id="Tor">Tor</h2>
+<p><strong>INCOMPLETE - Depends on unimplemented features for
+Whonix</strong><sup class="reference"><a href="#cite_note-9">[9]</a></sup> <sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p><u>On your Whonix-Gateway<sup>&#8482;</sup>.</u></p>
+<p>If you want to read an introduction about onion services and to learn
+about about onion service security, see <a href="../Onion_Services/">Onion Services</a>.</p>
+<p>If you also want to run a hidden web server on the same .onion domain
+(nice for testing and learning Onion Services basics), see <a href="../Onion_Services/">Onion Services</a>.</p>
+<p>Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session">Graphical Whonix-Gateway
+USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add. <sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<p><span class="code-select">HiddenServiceDir /var/lib/tor/retroshare/
+HiddenServicePort 7812 10.152.152.11:&lt;Local Address port&gt;
+HiddenServiceVersion 3</span></p>
+<p>Save.</p>
+<p>Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Service</code> &#8594;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+&#8594; <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p>Reminder: To get your onion service url.</p>
+<p><span class="code-select">sudo cat
+/var/lib/tor/retroshare/hostname</span></p>
+<p>Reminder: Always backup the onion service key. This is necessary in
+order to restore it on another machine, on a newer
+Whonix-Gateway<sup>&#8482;</sup>, after HDD/SSD failure, etc. Follow the
+instructions below to find its location; root permission is required to
+access it.</p>
+<p><code>/var/lib/tor/retroshare/hs_ed25519_secret_key</code></p>
+<div class="info-box ">
+<p><u><a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u></p>
+<p>The following example shows how to copy the
+<em><span>/var/lib/tor/retroshare/hs_ed25519_secret_key</span></em>
+from the
+<em><span>sys-whonix</span></em> VM to
+the <em><span>vault</span></em> VM
+(which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a>.
+A dialog will appear asking for the destination VM.</p>
+<p><span class="code-select">sudo qvm-copy
+/var/lib/tor/retroshare/hs_ed25519_secret_key</span></p>
+<p>When the dialog appears asking to confirm, select
+<em><span>vault</span></em>. This
+copies the Tor onion service private key file to the
+<em><span>QubesIncoming</span></em>
+folder of the
+<em><span>vault</span></em> VM.</p>
+<p><span class="code-select">/home/user/QubesIncoming/sys-whonix/hs_ed25519_secret_key</span></p>
+<p>Consider moving the file from the
+<em><span>QubesIncoming</span></em>
+folder to another preferred location.</p>
+<p>Qubes VM Manager can be used to conveniently backup the
+<em><span>vault</span></em> and/or
+other VMs. Please refer to the Qubes backups documentation for necessary
+steps to accomplish that.</p>
+<p><u><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a></u></p>
+<p>See also:</p>
+<ul>
+<li>file manager
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="../File_Transfer/">File Transfer</a></li>
+</ul>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="../Unsupported/">this</a> for
+potential alternatives.</p>
+</div>
+</div>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://www.eff.org/pages/secure-messaging-scorecard">https://www.eff.org/pages/secure-messaging-scorecard</a></li>
+<li id="cite_note-2"><a href="https://www.elttam.com/blog/a-review-of-the-eff-secure-messaging-scorecard-pt1/">https://www.elttam.com/blog/a-review-of-the-eff-secure-messaging-scorecard-pt1/</a></li>
+<li id="cite_note-3">Chance of working better (<strong>untested</strong>): <a href="../Tunnel_UDP_over_Tor/">Tunnel UDP over
+Tor</a>.</li>
+<li id="cite_note-4">Note, in case you are using the previous footnote, <a href="../Security_Guide/#Other_Anonymizing_Networks_over_Tor_UDP_Tunnel">Other Anonymizing Networks over Tor UDP Tunnel</a>
+applies.</li>
+<li id="cite_note-5"><a href="https://retroshare.cc/downloads.html">https://retroshare.cc/downloads.html</a></li>
+<li id="cite_note-6"><a href="https://download.opensuse.org/repositories/network:retroshare/Debian_11/Release.key">https://download.opensuse.org/repositories/network:retroshare/Debian_11/Release.key</a></li>
+<li id="cite_note-7">T o import asc key files into trusted.gpg.d they must be converted
+into a .gpg keychain file first.</li>
+<li id="cite_note-8"><a href="https://retroshare.cc/downloads.html">RetroShare .deb
+Packages installation instructions from RetroShare's third party
+repository</a></li>
+<li id="cite_note-9"><a href="https://github.com/RetroShare/RetroShare/issues/356">https://github.com/RetroShare/RetroShare/issues/356</a></li>
+<li id="cite_note-10">This task is up for grabs: <a href="https://phabricator.whonix.org/T560">https://phabricator.whonix.org/T560</a></li>
+<li id="cite_note-11">Arbitrary choice of port to avoid conflicts with custom RetroShare
+setups.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Disaster Recovery</title>
+<meta name="description" content="Disaster Recovery after Compromise">
+<meta property="og:description" content="Disaster Recovery after Compromise">
+<link rel="canonical" href="https://www.whonix.org/wiki/Disaster_Recovery/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Disaster_Recovery/">
+<meta property="og:title" content="Compromise Recovery">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Recovery43324.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Host_Compromise">Host Compromise</a></li><li class="toc-l2"><a href="#Workstation_Compromise_without_Virtual_Machine_Escape">Workstation
+Compromise without Virtual Machine Escape</a></li><li class="toc-l2"><a href="#Gateway_Compromise_without_Virtual_Machine_Escape">Gateway
+Compromise without Virtual Machine Escape</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Recovery43324.jpg.webp" alt="Recovery43324.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Disaster Recovery after Compromise</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>In the event a system compromise is suspected or confirmed, the
+ultimate goal is to re-establish a trusted, private environment for
+future activities. This is essential to protect yourself and other
+parties that are communicated with.</p>
+<p>This entry assumes you still have or have regained access to your
+digital property. In order to move forward, it is necessary to adopt a
+reasonable compromise recovery technique that poses an acceptable
+trade-off between difficulty and security. The possible methods outlined
+below are listed in order of increasing security:</p>
+<ul>
+<li>powered on, Internet-connected compromised machines</li>
+<li>powered on, LAN-connected compromised machines</li>
+<li>powered on machines without connectivity (shared folder for VM or
+USB for host)</li>
+<li>powered off machines and mount</li>
+<li>the Qubes method</li>
+</ul>
+<p>The threat models below currently utilize the "powered on,
+LAN-connected compromised machines" method. Community contributions to
+outline additional techniques are most welcome.</p>
+<h1 id="Threat_Models">Threat Models</h1>
+<h2 id="Host_Compromise">Host Compromise</h2>
+<p>This threat model assumes a host compromise has been confirmed or is
+strongly suspected. In this case, it is important to remember that
+hardware is expendable, but data is precious. Consider your current
+hardware and everything attached to it as compromised.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+It is strongly recommended to no longer use the hardware, other than to
+salvage existing data. It is safest to assume all private data has been
+seized, copied, scrutinized and maliciously altered. Unless precautions
+are taken, the continued use of data from compromised hosts/VMs in clean
+systems risks reinfection.</p>
+</div>
+<div class="info-box ">
+<p><strong>1.</strong> Acquire a new laptop/desktop and external storage
+with cash from a store.</p>
+<p><strong>2.</strong> Set up Debian with Whonix.</p>
+<p><strong>3.</strong> The compromised computer should never be allowed
+to connect to the Internet again; see footnote. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p><strong>4.</strong> Change the WiFi access point password.</p>
+<p>This step is not foolproof as an intelligent virus can attempt to
+connect from open hot-spots, but that might be a rare occurrence in your
+area. Also bear in mind that infected cellphones might be another
+exfiltration vector via ultrasound. For this reason it is safest to turn
+them off and keep them in a <a href="https://en.wikipedia.org/wiki/Faraday_cage">Faraday Cage</a> like
+a microwave for the duration of this procedure. Use a LAN connection
+only for the next steps.</p>
+<p><strong>5.</strong> Turn on your compromised machine and connect any
+infected external USB or HDDs to that device and copy everything over to
+the main disk.</p>
+<ul>
+<li>Install <a href="https://syncthing.net/">Syncthing</a> (file
+synchronization program) on that machine by transferring the package
+offline from the new computer via a fresh USB.</li>
+<li>Afterwards, discard the USB.</li>
+<li>Start the Syncthing session.</li>
+<li>It is recommended to keep the compromised machine in another room
+far away from the new computer. This will minimize the risk of hardware
+electromagnetic side-channel leaks that can expose key material and the
+information on your screen to the infected device.</li>
+</ul>
+<p><strong>6.</strong> Start Syncthing in a Debian VM on the uninfected
+machine.</p>
+<p>Connect both machines to a LAN only connection and initiate a
+transfer session -- copy over everything that needs to be salvaged. Once
+finished, move these files out of the Debian VM via a shared folder.</p>
+<p><strong>7.</strong> Connect new external storage to the uninfected
+machine and format it with encryption following the <a href="../Full_Disk_Encryption_and_Encrypted_Images/#New_Removable_Media">Whonix guidelines</a>.</p>
+<p>Move the files back onto the storage device without opening them.
+Files are innocuous if not opened, so they can be copied over safely to
+the backup device. Since you cannot be sure if some file types were
+infected (PDFs, media), it is recommended you always copy the data you
+will be working on into the Workstation shared folder and execute it
+there from within the VM.</p>
+<p><strong>8.</strong> Once data from the old computer has been backed
+up, shut it down and permanently discard it along with the infected
+storage.</p>
+<p><strong>9.</strong> Consider any and all passwords as
+compromised.</p>
+<p>Immediately change all passwords following the recommendations
+outlined on the <a href="../Moved:Passwords/">Passwords
+page</a>.</p>
+<p><strong>10.</strong> Revoke all keys and generate new key pairs.</p>
+<p>Announce this key migration action to all contacts and the reason
+behind it. Put notices on your code repositories to alert potential
+users so they can inspect them for foul play and take necessary
+precautions.</p>
+<p><strong>11.</strong> Study your failures to prevent similar
+situations reoccurring in the future.</p>
+<p>If/when a host compromise occurs in the future, you may not be lucky
+enough to detect it. Understanding why your system was infiltrated is a
+crucial piece of information that should be gathered and shared with
+others.</p>
+<p>If Whonix wiki recommendations and instructions are followed
+diligently and hardware has not been left unattended, then software
+vulnerabilities are the most plausible possibility for the breach. In
+this case, post Tor logs and report what Tor guard was in operation at
+the time. This can help the community to investigate whether the event
+was part of a coordinated attack on the network. Also disclose what
+hypervisor was used to the upstream security team and explain the
+situation in detail to bring it to their attention.</p>
+</div>
+<h2 id="Workstation_Compromise_without_Virtual_Machine_Escape">Workstation
+Compromise without Virtual Machine Escape</h2>
+<p>This threat model assumes a Workstation compromise has been confirmed
+or is strongly suspected, but there has not been a <a href="https://en.wikipedia.org/wiki/Virtual_machine_escape">VM escape
+(breakout)</a>.</p>
+<p>1. Transfer the data out of the Workstation via a shared
+folder.<br />
+2. Apply steps 9 and 10 from the section above.<br />
+3. Discard the infected Workstation snapshot or VM image.</p>
+<p>More complex ideas for recovering from an AppVM compromise on Qubes
+can be found <a href="https://www.qubes-os.org/news/2017/04/26/qubes-compromise-recovery/">here</a>.
+However this may not be necessary because the steps above should equally
+apply to any hypervisor and are easier to grasp. Qubes does not have the
+concept of shared folders, so it is best to draw inspiration from ideas
+suggested in that link.</p>
+<h2 id="Gateway_Compromise_without_Virtual_Machine_Escape">Gateway
+Compromise without Virtual Machine Escape</h2>
+<p>This threat model assumes a Gateway compromise has been confirmed or
+is strongly suspected, but there has not been a VM escape
+(breakout).</p>
+<p>Firstly, it should be noted that a compromised Gateway has no access
+to the host resources. Further, a compromised Gateway does not
+automatically lead to a compromised Whonix Workstation.</p>
+<p>In the hypothetical case that a remote code execution vulnerability
+was found in Tor, this would compromise Tor but would only cause the
+following limited Workstation breaches:</p>
+<ul>
+<li>Ability to read (non-https) clearnet traffic originating from the
+Workstation (unless the Workstation has the following configuration:
+<code>User</code> &#8594; <code>Tor</code> &#8594; <code>VPN</code> &#8594;
+<code>Destination tunnel</code>).</li>
+<li>Ability to read onion traffic originating from the Workstation.</li>
+<li>Loss of anonymity.</li>
+</ul>
+<p>The Gateway does not occupy a more privileged position to exploit the
+Workstation compared to a Tor exit. It is true the Gateway does not need
+to find a specific target, but a compromise of the Workstation still
+requires an additional vulnerability.</p>
+<p>A compromised Gateway should not lead to a compromised (as in
+unwanted code, malware running) Workstation. This means the
+Workstation's shared folder should be safe, along with any locally
+stored data that has never been transmitted unencrypted over the
+Internet. For example, any OpenPGP encrypted messages from the
+Workstation sent through a compromised Gateway should still be
+confidential.</p>
+<p>The recovery process is similar to the Workstation section above,
+except for the steps that involve key revocation:</p>
+<p>1. Transfer the data out of the Gateway via a shared folder.<br />
+2. Discard the infected Gateway snapshot or VM image.</p>
+<p>The most likely reasons for a Gateway compromise are:</p>
+<ul>
+<li>Installation of third party software on the Gateway.</li>
+<li>Purposefully browsing clearnet sites from software purposefully
+installed on the Gateway.</li>
+<li>Installing vulnerable services on the Gateway (like DHCP) that a
+malicious Workstation can access and compromise.</li>
+<li>Using a vulnerable version of apt to perform software updates; this
+happens on occasion and Whonix routinely notifies users of the risk
+beforehand.</li>
+<li>A remote code execution vulnerability exists in Tor itself or
+pluggable transports; this is considered extremely improbable according
+to The Tor Project's track record.</li>
+</ul>
+<h1 id="Forum_Discussion">Forum Discussion</h1>
+<p><a href="https://forums.whonix.org/t/document-recovery-procedure-after-compromise/3296">Document
+recovery procedure after compromise</a></p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Risk of booting a malicious VM without an Internet connection: * If
+disconnected from the Internet for too long, malware might be programmed
+to trigger the deletion or malicious editing of files (adding fabricated
+evidence), or perform actions which damage the hardware. Risk of
+maintaining an Internet connection when compromised: * Malware could
+load more code which might include capabilities to infect more hardware
+or perform a VM escape. * The possibility of exfiltration may not be a
+simple binary (yes or no) proposition. For example: ** Imagine a
+scenario whereby the attacker is using malware to remotely search
+images/videos/other files in succession (there are screenshots/videos
+available about malware features). ** Not all attackers will immediately
+fetch a whole image dump. ** Malware might upload more files over time;
+upload over Tor is slow. ** Depending on when the compromise was
+noticed, everything may not be in the hands of the attacker yet. This is
+particularly true with large files such as video recordings. * The
+attacker might upload illegal files (non-torified) somewhere that result
+in a raid by authorities. * The attacker might come up with a new
+strategy, such as uploading false evidence files to the victim's
+computer followed by authority tip-offs that result in a police raid and
+false accusations. * When a malicious computer is connected, it might
+perform illegal activities like becoming part of a spam botnet. * The
+longer a compromised machine is connected to the Internet -- imagine a
+user following poor advice and taking days to search for all relevant
+data and making backups -- it is harder to explain away a decision to
+continue operating it. For example, stating "my computer was
+compromised, it wasn't me" is hard to reconcile with evidence that it
+was used in an attack for days on end. Refer to the following image to
+understand what compromised computers can be used for: <a href="https://krebsonsecurity.com/wp-content/uploads/2012/10/HackedPC2012.png">https://krebsonsecurity.com/wp-content/uploads/2012/10/HackedPC2012.png</a>
+It is far safer to avoid these risks, so <u>do not</u> connect a
+compromised VM or machine to the Internet.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

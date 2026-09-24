@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>IPv6</title>
+<meta name="description" content="Enabling and using IPv6 in Whonix.">
+<meta property="og:description" content="Enabling and using IPv6 in Whonix.">
+<link rel="canonical" href="https://www.whonix.org/wiki/IPv6/">
+<meta property="og:url" content="https://www.whonix.org/wiki/IPv6/">
+<meta property="og:title" content="IPv6 support in Whonix">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#VirtualBox">VirtualBox</a></li><li class="toc-l2"><a href="#KVM">KVM</a></li><li class="toc-l2"><a href="#Qubes_OS">Qubes OS</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Troubleshooting/" title="Troubleshooting"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Troubleshooting</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Leaks/" title="Leaks"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Leaks</span></a><span class="info"><span class="prev">Previous
+page: Troubleshooting</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Leaks</span></span></span>IPv6 support in Whonix</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="./">IPv6 - User Documentation</a></li>
+<li><a href="../Dev/ipv6/">IPv6 - Developers</a></li>
+</ul>
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Enabling and using IPv6 in Whonix.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<ul>
+<li><u>Protocol overview:</u> IPv6 is the newer version of the
+Internet's addressing system. Like the older IPv4, it helps devices find
+and talk to each other over a network or the Internet.</li>
+<li><u>Main advantage:</u> IPv6 offers many more unique addresses than
+IPv4, which helps solve the problem of running out of IP addresses.</li>
+<li><u>Adoption issues:</u> Some networks still only support IPv4.
+Others support both IPv4 and IPv6. A few newer networks only support
+IPv6, which can cause connection problems for older systems or software
+that don't support IPv6.</li>
+</ul>
+<h1 id="Support_in_Whonix">Support in Whonix</h1>
+<ul>
+<li><u>Tor Browser access:</u> Websites and services that use IPv6 can
+be accessed without issues from Whonix-Workstation.</li>
+<li><u>Workstation to Gateway communication:</u> Uses IPv4 by default,
+but applications inside Whonix-Workstation can connect to Whonix-Gateway
+over IPv6 to access Tor.</li>
+<li><u>Gateway to Tor network:</u> Whonix-Gateway can use either IPv4 or
+IPv6 to reach the Tor network. It prefers IPv4, but will use IPv6 if
+configured that way or if IPv4 isn't available. This only works if your
+virtualization software supports IPv6 NAT and autoconfiguration.</li>
+<li><u>Command-line utilities:</u> Tools like <code>curl</code> in
+Whonix-Workstation can access IPv6 sites without extra setup. Other
+tools may still need manual configuration or workarounds.</li>
+</ul>
+<h1 id="Host_Networking_IPv4_versus_IPv6_Connectivity_Status">Host
+Networking IPv4 versus IPv6 Connectivity Status</h1>
+<p>Not sure if your Internet connection supports IPv6, IPv4, or both?
+Use the following websites to check.</p>
+<p><u>Notes:</u></p>
+<ul>
+<li><u>Run tests on host:</u> You must visit these websites on the host
+operating system (not inside Whonix).</li>
+<li><u>Link disclaimer:</u> <a href="../Terms_of_Service/#Links_To_Other_Web_Sites">These
+links</a> are <a href="../Terms_of_Service/#Non-Endorsement">not endorsements</a>. They are only examples. Many
+similar test websites exist.</li>
+</ul>
+<ul>
+<li><u>Tests overview:</u>
+<ul>
+<li><u>Normal Test:</u> Checks if your connection supports both IPv4 and
+IPv6.</li>
+<li><u>IPv4 only Test:</u> If this doesn't work, it may mean your
+network only supports IPv6, or something is misconfigured.</li>
+<li><u>IPv6 only Test:</u> If this doesn't work, that's usually
+okay.</li>
+</ul></li>
+</ul>
+<ul>
+<li><u>Example test websites:</u>
+<ul>
+<li>ip6.me
+<ul>
+<li><a href="https://ip6.me/">ip6.me: Normal Test</a></li>
+<li><a href="https://ip4.me/">ip6.me: IPv4 only Test</a></li>
+<li><a href="https://ip6only.me/">ip6.me: IPv6 only Test</a></li>
+</ul></li>
+<li><a href="https://test-ipv6.com">test-ipv6.com</a>: Provides a
+detailed test of IPv4 and IPv6 connectivity.</li>
+</ul></li>
+</ul>
+<h1 id="Enabling_IPv6_Support">Enabling IPv6 Support</h1>
+<p><span class="manually-placed-anchor " id="Enabling_IPv6_support_in_virtualizers"></span></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<u>Platform specific notice.</u> Not all virtualizers supported by
+Whonix will allow Whonix-Gateway to configure IPv6 routing
+automatically. If the virtualizer does not properly support IPv6,
+Whonix-Gateway will only be able to communicate to the Tor network via
+IPv4. This will block connectivity for users on IPv6-only networks.</p>
+</div>
+<p>The steps below explain how to enable IPv6 support in each
+virtualization platform supported by Whonix.</p>
+<p>Platform specific. Select your virtualizer.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Virtualbox_logo.png.webp" width="25" alt="Virtualbox_logo.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="VirtualBox">VirtualBox</h2>
+</div>
+<div class="tcc-content">
+<ul>
+<li><u>Versions 7.1 and later:</u> IPv6 NAT works by default. No changes
+needed. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Kvm-new-logo.png.webp" width="25" alt="Kvm-new-logo.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="KVM">KVM</h2>
+</div>
+<div class="tcc-content">
+<p>libvirt supports IPv6 NAT starting with version 6.5.0.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>To check your installed libvirt version:</p>
+<p><span class="code-select">virsh --version</span></p>
+<p>However, by default, IPv6 autoconfiguration does <strong>not</strong>
+work in Whonix 18. This is because Whonix disables the use of
+<code>dnsmasq</code> on the host for Whonix VMs. This improves security
+by reducing the risk of attacks from VMs to the host.
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p>But disabling <code>dnsmasq</code> also prevents IPv6
+autoconfiguration from working. <code>dnsmasq</code> is the tool that
+sends the "router advertisement" signals needed to automatically set up
+IPv6 in Whonix-Gateway.</p>
+<p>To fix this, you can re-enable <code>dnsmasq</code> for Whonix's
+virtual networks by following these steps:</p>
+<div class="info-box ">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+These changes will make the host more vulnerable to attacks from
+compromised VMs or other devices on your local network. Carefully
+consider your threat model before following these instructions.</p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Make sure <code>dnsmasq-base</code> (or the equivalent package for your
+host operating system) is installed.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Launch "Virtual Machine Manager" (<code>virt-manager</code>) on the
+host.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Click <code>Edit</code> &#8594; <code>Preferences</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Enable <code>Enable XML editing</code> by checking the box.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Click <code>Close</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Click <code>Edit</code> &#8594; <code>Connection Details</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Go to the <code>Virtual Networks</code> tab.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+Select the <code>Whonix-External</code> network.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+In the settings viewer on the right side of the connection details
+window, click the <code>XML</code> tab.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">10</i>
+Remove this line:</p>
+<p><span class="code-select">&lt;dns enable="no"/&gt;</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">11</i>
+Click <code>Apply</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">12</i>
+Click the <code>Stop Network</code> button underneath the connection
+details window's left sidebar. (This button is the third button from the
+left, hover over it to see the name of the button.)</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">13</i>
+Click the <code>Start Network</code> button underneath the connection
+details window's left sidebar. (This button is the second button from
+the left.)</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">14</i>
+Select the <code>Whonix-Internal</code> network.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">15</i>
+Remove the same line again:</p>
+<p><span class="code-select">&lt;dns enable="no"/&gt;</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">16</i>
+Click <code>Apply</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">17</i>
+Stop this network too.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">18</i>
+Start it again.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">19</i>
+Fully shut down and restart both the Whonix-Gateway and
+Whonix-Workstation VMs.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">20</i>
+Done.</p>
+<p>IPv6 autoconfiguration should now work in libvirt.</p>
+</div>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="Qubes_OS">Qubes OS</h2>
+</div>
+<div class="tcc-content">
+<p>Qubes OS does support IPv6, but it is turned off by default. To turn
+it on, follow the guide in the <a href="https://doc.qubes-os.org/en/latest/developer/system/networking.html#ipv6">Qubes
+OS networking documentation</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="Disabling_IPv6_Support">Disabling IPv6 Support</h1>
+<ul>
+<li><a href="https://forums.whonix.org/t/how-to-disable-ipv6-in-whonix-18/22584">https://forums.whonix.org/t/how-to-disable-ipv6-in-whonix-18/22584</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><u>Confirmed working:</u> IPv6 has been successfully tested with
+VirtualBox 7.2.2.</li>
+<li id="cite_note-2"><a href="https://libvirt.org/news.html#v6-5-0-2020-07-03">https://libvirt.org/news.html#v6-5-0-2020-07-03</a></li>
+<li id="cite_note-3"><a href="https://forums.whonix.org/t/whonix-kvm-dnsmasq-listen-port-on-host-operating-system-attack-surface-reduction/15973">https://forums.whonix.org/t/whonix-kvm-dnsmasq-listen-port-on-host-operating-system-attack-surface-reduction/15973</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Troubleshooting/" title="Troubleshooting"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Troubleshooting</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Leaks/" title="Leaks"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Leaks</span></a><span class="info"><span class="prev">Previous
+page: Troubleshooting</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Leaks</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Network Manager</title>
+<meta name="description" content="Development Notes about Network Manager">
+<meta property="og:description" content="Development Notes about Network Manager">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Network_Manager/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Network_Manager/">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Network Manager</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<h1 id="Network_Manager">Network Manager</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Whonix first time users warning" /></span>
+This page is out of date.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Whonix first time users warning" /></span>
+At time of writing, Qubes(-Whonix) does not use ifupdown, but Qubes
+custom implementation.</p>
+</div>
+<p>It would be desirable to have a graphical network manager installed
+in Whonix-Workstation<sup>&#8482;</sup>. There are a few main use cases.
+Changing Whonix-Workstation<sup>&#8482;</sup> internal IP address for <a href="../../Multiple_Whonix-Workstation/">Multiple
+Whonix-Workstation<sup>&#8482;</sup></a>, setting up a post-Tor-VPN using a
+graphical user interface and other kinds of advanced network
+configurations over Tor which are simpler to set up using a grapical
+user interface.</p>
+<p>At the moment networking still managed by the ordinary ifupdown way.
+(<a href="../../Template:Network_Config/">Template:Network_Config</a>)</p>
+<p>If you want to install the KDE Network Manager.</p>
+<pre><code>sudo apt install network-manager-kde</code></pre>
+<p>Then it can be started from the Start Menu.</p>
+<pre><code>Start menu &amp;rarr; System Settings &amp;rarr; Network Settings</code></pre>
+<p>You won't see Whonix internal network interface right away. You could
+make it visible in Network Manger, by editing
+/etc/NetworkManager/NetworkManager.conf and setting managed to true.</p>
+<pre><code>[main]
+plugins=ifupdown,keyfile
+
+[ifupdown]
+managed=true</code></pre>
+<p>That would be quite useful, if changing settings where possible.
+However, the NetworkManager.conf man page says, write support for
+ifupdown managed devices is not planned.</p>
+<p>The Fedora wiki has a nice page about <a href="https://fedoraproject.org/wiki/Tools/NetworkManager">Network
+Manager</a> which is useful for a distro packager perspective.</p>
+<p>Quote: "<em>NM is slowly changing from a desktop network connection
+configurator to a universal network configuration software that could be
+used as a part of the base system.</em>"</p>
+<p>Once NM can do everything ifupdown can do (i.e. suitable for all
+tasks also from command line), ifupdown in Whonix could get completely
+replaced with NM.</p>
+<p>Since IPv6 support in NM is said to be not in a production state yet,
+I am hesitate to switch to NM. Tor recently added support for IPv6
+bridges and full IPv6 support could come in future. If Tor fixes IPv6
+support first, there would eventually still (again) need for ifupdown.
+Therefore I think at the moment it is best to let NM mature.</p>
+<p>For running NM on Whonix-Gateway<sup>&#8482;</sup> it would be required to
+check if the pre-up hook to start the firewall works flawless. Having a
+pre-up hook which fails closed like ifupdown currently provides is
+desirable, because when there is a tiny syntax error in the firewall,
+the network won't come up and nothing leaks. Alternatively, an init.d
+script could be developed, it would have to be researched, if it can
+provide the same fail closed protections.</p>
+<p>Since many people are interested in post-Tor-VPNs (user &#8594; Tor &#8594; VPN),
+it is open for debate if network-manager-kde should be pre-installed on
+Whonix-Workstation. Would the user be confused because it won't show the
+(virtual) wired internal network interface? Would it be less/more
+confusing if the (virtual) wired internal network interface where shown
+but impossible to edit? Shouldn't it be pre-installed for these
+confusion reasons and recommended to be installed manually for users
+interested in post-Tor-VPNs?</p>
+<p>As a footnote, it is also possible to use Gnome applications in
+Whonix (KDE based), such as <a href="../../Tunnels/Examples/#GNOME_Network_Manager">Gnome
+Network Manager chapter on Tunnels/Examples page</a>.</p>
+<p><a href="https://bugzilla.gnome.org/show_bug.cgi?id=689339#c4">Quote</a>:</p>
+<p><blockquote><p>"<em>Please also understand that currently networkmanager is not a
+security tool at all. VPN plugins are regarded as connectivity plugins,
+not security plugins.</em>"</p></blockquote></p>
+<p>Missing auto-reconnect feature: <a href="https://bugzilla.gnome.org/show_bug.cgi?id=349151">https://bugzilla.gnome.org/show_bug.cgi?id=349151</a></p>
+<p>So perhaps using NM to set up VPNs for security is not a good
+idea.</p>
+<p>Doesn't look like NM has a fail closed mechanism: <a href="../../VPN-Firewall/">VPN-Firewall</a></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Development/">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

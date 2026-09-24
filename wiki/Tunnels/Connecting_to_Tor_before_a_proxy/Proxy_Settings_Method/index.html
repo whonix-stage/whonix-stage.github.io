@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Tunnels/Connecting to Tor before a proxy/Proxy Settings Method</title>
+<meta name="description" content="Instructions on how to connect to Tor before a proxy (User &amp;rarr; Tor &amp;rarr; Proxy &amp;rarr; Internet) using Proxy Settings Method">
+<meta property="og:description" content="Instructions on how to connect to Tor before a proxy (User &amp;rarr; Tor &amp;rarr; Proxy &amp;rarr; Internet) using Proxy Settings Method">
+<link rel="canonical" href="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/">
+<meta property="og:title" content="Connecting to Tor before a Proxy using Proxy Settings Method">
+<link rel="stylesheet" href="../../../../style.css">
+<link rel="stylesheet" href="../../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../../Download/">Download</a></li><li><a href="../../../Documentation/">Docs</a></li><li><a href="../../../FAQ/">FAQ</a></li><li><a href="../../../Support/">Help</a></li><li><a href="../../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Tunnels</span> / <span>Connecting to Tor before a proxy</span> / <span>Proxy Settings Method</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Configure_Applications_to_use_Proxy_Settings_Method">Configure
+Applications to use Proxy Settings Method</a></li><li class="toc-l2"><a href="#Tor_Browser_Notes">Tor Browser Notes</a></li><li class="toc-l2"><a href="#Misc_Application_Notes">Misc Application Notes</a></li><li class="toc-l2"><a href="#uwt_wrapped_application_notes">uwt wrapped application
+notes</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p>There are 3 different ways to configure an additional proxy.</p>
+<p><strong><code>User</code> &#8594; <code>Tor</code> &#8594; <code>Proxy</code> &#8594;
+<code>Internet</code></strong></p>
+<div class="mininav">
+<ul>
+<li><a href="./">Proxy Settings Method</a></li>
+<li><a href="../Proxyfier_Method/">Proxyfier Method</a></li>
+<li><a href="../Transparent_Proxying_Method/">Transparent Proxying Method</a></li>
+</ul>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<b><u>Before combining Tor with other tunnels, <a href="../../Introduction/">be sure to read and
+understand the risks</a>!</u></b></p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../../../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="../../../Community_Support/">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+See also <a href="../#Proxy_Warning">proxy warning</a>!</p>
+</div>
+<p><strong><code>User</code> &#8594; <code>Tor</code> &#8594; <code>Proxy</code> &#8594;
+<code>Internet</code></strong></p>
+<h2 id="Configure_Applications_to_use_Proxy_Settings_Method">Configure
+Applications to use Proxy Settings Method</h2>
+<p><strong>General information (<a href="../../../Unspecific/">unspecific to Whonix</a>):</strong></p>
+<ul>
+<li><u>Essentials:</u> See the notices on top of this wiki chapter.
+These links should be read first.</li>
+<li><u>Different methods available:</u> One option to make an
+application use a proxy is to use the application's native proxy
+settings. This is explained in this wiki chapter. For alternative
+methods, see the mini navigation on the very top of this wiki page.</li>
+<li><u>Essentials:</u> This of course supposes, that the application has
+proxy settings.</li>
+<li><u>Leak Potential:</u> There could be leaks.</li>
+<li><u>Leak Definition:</u> What is a leak in this context? A means,
+that the user thinks the application is using the proxy but actually the
+application is not using the proxy.
+<ul>
+<li><u>Application Specific:</u> If proxy settings are honored by an
+application or not is another question and out of scope of this
+documentation because this is difficult.</li>
+<li><u>Difficulty:</u> Since manual proxy configuration using the
+application's proxy settings is very difficult and very vulnerable to
+leaks, the Whonix project had been founded.</li>
+<li><u>Reliability:</u> Whonix is a project which does only one thing
+but does that one thing well. That one thing is to configure a (virtual)
+machine to securely, reliability and always use <a href="../../../Why_does_Whonix_use_Tor/">Tor</a> which is similar
+to a proxy but much better. Also called a leak shield or fail-safe
+mechanism.</li>
+<li><u>No dedicated proxy project:</u> There is no software / project
+that ensures that a proxy is always reliably used, i.e. a leak shield /
+fail-safe mechanism for proxies.</li>
+<li><u>Instructions Quality:</u> There is generally very little
+information on the subject of configuring a proxy including a leak
+shield. Development activity is very low to non-existing. For some old
+instructions on how to set proxy settings for some applications, the
+user could have a look at the <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO">TorifyHOWTO</a>.</li>
+</ul></li>
+</ul>
+<p><strong>Whonix specific part:</strong></p>
+<ul>
+<li><u>Location:</u> Run the application inside inside
+Whonix-Workstation<sup>&#8482;</sup>.</li>
+<li><u>Deactivation of Stream Isolation required:</u> There is a
+<strong><a href="../../../Stream_Isolation/#List">list of
+applications that come where extra steps are required</a></strong>.
+<u>Before proceeding, it is highly recommended for the user to look up
+the application which should be configured for use with an extra-tunnel
+link in that list.</u> This is because these applications are
+pre-configured for <a href="../../../Stream_Isolation/">Stream
+Isolation</a>. These settings have to be undone. This is documented in
+the chapters below on this wiki page.</li>
+<li><u>Proxy Settings:</u> Other than that there is no difference from
+using proxy settings in a usual way it would be done outside of
+Whonix.</li>
+<li><u>Internet Traffic Routing:</u> If the application:
+<ul>
+<li><strong>A)</strong> honors the proxy settings: traffic goes:
+<strong><code>User</code> &#8594; <code>Tor</code> &#8594; <code>Proxy</code> &#8594;
+<code>Internet</code></strong></li>
+<li><strong>B)</strong> does not honor the proxy settings / has a leak
+bug: traffic goes <strong><code>User</code> &#8594; <code>Tor</code> &#8594;
+<code>Internet</code></strong></li>
+</ul></li>
+</ul>
+<p><span class="manually-placed-anchor " id="Tor_Browser_Proxy_Configuration"></span></p>
+<h1 id="Important_Application_Specific_Notes">Important Application
+Specific Notes</h1>
+<h2 id="Tor_Browser_Notes">Tor Browser Notes</h2>
+<p><strong>1.</strong> Check applicability of these instructions.</p>
+<p>Does the user need to follow these instructions? Only if the user
+intents to use Tor Browser with an extra tunnel-link. For example, if
+the user only intents to use a different application such as curl with
+an extra tunnel-link, then the instructions in this very wiki chapter
+can be skipped. In that case, see the other wiki chapters on this
+page.</p>
+<p><strong>2.</strong> Remove default proxy settings by Tor Browser and
+set custom proxy settings.</p>
+<div class="info-box ">
+<p><u>Configuration for use of Tor Browser with a HTTP, HTTPS or SOCKS
+proxy using proxy settings method.</u></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../../media/Ambox_notice.png.webp" width="40" alt="info" /></span>
+<u>Why is this difficult?</u></p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p><u>This is difficult and may not work for you.</u></p>
+<p>To learn why this is difficult, please press on Expand on the
+right.</p>
+<div class="mw-collapsible-content">
+<p>Tor Browser, which is developed by upstream, The Tor Project (TPO),
+an independent entity has hard configured to use Tor as a proxy.</p>
+<ul>
+<li>Upstream does not support user using Tor Browser with an additional
+extra proxy at the end of the chain, i.e.: <code>user</code> &#8594;
+<code>Tor</code> &#8594; <code>proxy</code> &#8594; <code>destination</code></li>
+<li>Upstream does also not support using Tor Browser with a proxy other
+than Tor, i.e.: <code>user</code> &#8594; <code>custom proxy</code> &#8594;
+<code>destination</code>. This may or may not currently be possible but
+upstream does not provide documentation on how to do this.</li>
+<li>Upstream does also not support using Tor Browser with a VPN instead
+of Tor, i.e. <code>user</code> &#8594; <code>VPN</code> &#8594;
+<code>destination</code>.</li>
+<li>Upstream does also not support using Tor Browser with a VPN in
+addition before Tor, i.e. <code>user</code> &#8594; <code>Tor</code> &#8594;
+<code>VPN</code> &#8594; <code>destination</code>.</li>
+</ul>
+<p>That makes sense from TPO's perspective as a project that maintains a
+browser that should always connect using the Tor network. Due to that
+perspective, proxy settings have been removed from Tor Browser to avoid
+user confusion and accidental misconfiguration. Little attention is
+spend on custom proxy settings. That, from TPO's perspective is assumed
+to only make sense for users using a Tor transparent proxy and that are
+already running Tor on a different computer in their LAN. Only a
+minority of users is using such configurations.</p>
+<p>Because of this organisational and technical background, the highly
+specialized use case of configuring Tor Browser running inside
+Whonix-Workstation<sup>&#8482;</sup> to use an additional proxy
+(<code>user</code> -&gt; <code>Tor</code> -&gt; <code>proxy</code> -&gt;
+<code>destination</code>) is difficult to accomplish.</p>
+<p>To learn more about this organisational and technical background see
+also
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</p>
+</div>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-chapter has-icon">
+<p><span class="info-box-icon"><img src="../../../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS wiki <u>CHAPTER
+only</u></strong> is only supported by the community. Whonix developers
+are <strong>very unlikely</strong> to provide free support for this
+content. See <a href="../../../Community_Support/">Community
+Support</a> for further information, including implications and possible
+alternatives.</p>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p><u>Archived instructions.</u></p>
+<p>NOTE: The following archived instructions are most likely currently
+broken due to changes by upstream, The Tor Project. To resolve this
+issue, the user would have to proceed as per <a href="../../../Self_Support_First_Policy/">Self Support First
+Policy</a>. Please post in Whonix forums to notify if this method is
+currently working, broken or if any solution has been found. To view the
+archived instructions, please press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p>Complete the following steps inside Whonix-Workstation<sup>&#8482;</sup>
+(<code>anon-whonix</code>).</p>
+<p><strong>1.</strong> Launch Tor Browser.</p>
+<p><strong>2.</strong> And enter <a href="about:config"><code>about:config</code></a> into the URL bar and
+press enter.</p>
+<p><strong>3.</strong> Change the following settings.</p>
+<p><strong>4.</strong> Set
+<code>extensions.torbutton.use_nontor_proxy</code> to
+<code>true</code>.</p>
+<p><strong>5.</strong> Set <code>network.proxy.no_proxies_on</code> to
+<code>0</code>.</p>
+<p><strong>6.</strong> Proxy specific settings.</p>
+<p>Depending on using a HTTP, HTTPS or SOCKS proxy.</p>
+<p><strong>A)</strong> HTTP proxy</p>
+<p>If a HTTP proxy is being used, modify address and port number to the
+following strings.</p>
+<ul>
+<li><code>network.proxy.http</code></li>
+<li><code>network.proxy.http_port</code></li>
+</ul>
+<p><strong>B)</strong> HTTPS proxy</p>
+<p>If a HTTPS proxy is being used, modify the following strings
+instead.</p>
+<ul>
+<li><code>network.proxy.ssl</code></li>
+<li><code>network.proxy.ssl_port</code></li>
+</ul>
+<p><strong>C)</strong> SOCKS proxy</p>
+<p>This process can be repeated with socks proxies, but it is redundant
+and does not provide any advantage over the former types. The reason is
+because only Tor Browser is modified and no other programs are being
+tunneled through it.</p>
+<ul>
+<li>Set <code>network.proxy.socks</code> to the IP of proxy server.</li>
+<li>Set <code>network.proxy.socks_port</code> to the port number of the
+proxy server.</li>
+<li>Set <code>network.proxy.socks_remote_dns</code> to
+<ul>
+<li><code>false</code> - if the proxy server does not support resolving
+DNS. In this case, DNS will go through Tor exit nodes thanks to Whonix,
+<u>or</u></li>
+<li><code>true</code> - if the proxy server does resolving DNS which is
+better.</li>
+</ul></li>
+<li>Set <code>network.proxy.socks_version</code> to either
+<code>4</code> or <code>5</code> depending on the version of the proxy
+server.</li>
+</ul>
+<p><strong>7.</strong> Done.</p>
+<p>Tor Browser proxy configuration has been completed.</p>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Done.</p>
+<p>The process of configuring an extra tunnel-link for Tor Browser has
+been completed.</p>
+<h2 id="Misc_Application_Notes">Misc Application Notes</h2>
+<p><strong>1.</strong> Check applicability of these instructions.</p>
+<p>Do the user need to follow these instructions? Only if the user
+intents to use any of the applications which are on the <a href="../../../Stream_Isolation/#By_Settings">list of stream
+isolated by proxy settings</a> with an extra tunnel-link. For example,
+if the user only intents to use Tor Browser with an extra tunnel-link,
+then the instructions in this very wiki chapter can be skipped. In that
+case, see above chapter.</p>
+<p><strong>2.</strong> Remove default proxy settings by Whonix.</p>
+<p>Whonix ships a number of applications pre-configured for using proxy
+settings by default. This is for a different purpose. For the purpose of
+<a href="../../../Stream_Isolation/">Stream Isolation</a>. If the
+application you want to tunnel through the extra tunnel-link is on that
+list, it would conflict with your custom proxy settings. In that case,
+you need to first remove these proxy settings.</p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For information on how to remove Whonix default proxy settings,
+please press Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p>On the <a href="../../../Stream_Isolation/">Stream
+Isolation</a> page, there is a list of applications that are
+pre-configured to use <a href="../../../Stream_Isolation/#By_Settings">socks proxy settings</a> via application configuration
+files. To disable this the Whonix system default must be removed from
+the application's settings.</p>
+<p>TODO: document and expand.</p>
+<div class="info-box ">
+<p><strong>Remove proxy settings for APT repository files.</strong></p>
+<p><strong>1.</strong> Platform specific notice:</p>
+<ul>
+<li><a href="../../../Non-Qubes-Whonix/">Non-Qubes-Whonix<sup>&#8482;</sup></a>: No platform specific
+notice.</li>
+<li><a href="../../../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>: In
+Template. (<code>whonix-workstation-18</code>)</li>
+</ul>
+<p><strong>2.</strong> If you previously onionized any repositories,
+that has to be undone; see <a href="../../../Onionizing_Repositories/">Onionizing Repositories</a>.</p>
+<p><strong>3.</strong> Remove any mention of <code>tor+</code> in file
+<code>/etc/apt/sources.list</code> (if it was previously configured;
+that file is empty by default in Whonix / Kicksecure) or any file in
+folder <code>/etc/apt/sources.list.d</code>.</p>
+<p><strong>4.</strong> Open file
+<code>/etc/apt/sources.list /etc/apt/sources.list.d/*</code> in an
+editor with administrative ("<a href="../../../Moved:Root/"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/apt/sources.list
+/etc/apt/sources.list.d/*</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../../../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/apt/sources.list
+/etc/apt/sources.list.d/*</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../../../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../../../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/apt/sources.list
+/etc/apt/sources.list.d/*</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>5.</strong> Remove any mention of <code>tor+</code>.</p>
+<p><strong>6.</strong> Done.</p>
+<p>The process of removing proxy settings from APT repository files is
+now complete.</p>
+</div>
+<div class="info-box ">
+<p><strong>Remove proxy settings for <a href="../../../Tor_Browser/#Tor_Browser_Downloader_by_Whonix">Tor
+Browser Downloader by Whonix</a>.</strong></p>
+<p><strong>1.</strong> Platform specific notice:</p>
+<ul>
+<li><a href="../../../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: No
+platform specific notice.</li>
+<li><a href="../../../Qubes/">Qubes-Whonix</a>: In Template.
+(<code>whonix-workstation-18</code>) <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+</ul>
+<p><strong>2.</strong> Open file
+<code>/etc/torbrowser.d/50_user.conf</code> in an editor with
+administrative ("<a href="../../../Moved:Root/"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_2">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../../../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../../../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../../../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Paste. <sup class="reference"><a href="#cite_note-2">[2]</a></sup> <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><span class="code-select">TB_NO_TOR_CON_CHECK=1
+CURL_PROXY="--fail"</span></p>
+<p><strong>4.</strong> Save and exit.</p>
+<p><strong>5.</strong> Done.</p>
+<p>Proxy settings have been removed from Tor Browser Downloader by
+Whonix (and Mullvad Browser by Kicksecure developers).</p>
+</div>
+<p>For some applications, this is impossible:</p>
+<ul>
+<li><a href="../../../Sdwdate/">sdwdate</a></li>
+<li><a href="../../../OnionShare/">OnionShare</a></li>
+<li><a href="../../../Chat/#Ricochet_IM">Ricochet IM</a></li>
+</ul>
+<p>These applications can only talk to Tor <a href="../../../Onion_Services/">Onion Services</a> directly and cannot be configured to
+use the system default. Therefore you can only deactivate sdwdate and/or
+not use applications like OnionShare and Ricochet IM.</p>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Set custom proxy settings.</p>
+<p>This is <a href="../../../Unspecific/">unspecific to
+Whonix</a> and <a href="../../../Unsupported/">undocumented</a>.</p>
+<p><strong>4.</strong> Done.</p>
+<p>The process of configuring an extra tunnel-link for a miscellaneous
+application has been completed.</p>
+<h2 id="uwt_wrapped_application_notes">uwt wrapped application
+notes</h2>
+<p><strong>1.</strong> Check applicability of these instructions.</p>
+<p>Do the user need to follow these instructions? Only if the user
+intents to use any application in the <a href="../../../Stream_Isolation/#By_uwt_wrapper">list of uwt
+wrapped applications</a> with an extra tunnel-link. For example, if the
+user only intents to use Tor Browser with an extra tunnel-link, then the
+instructions in this very wiki chapter can be skipped. In that case, see
+above chapter.</p>
+<p><strong>2.</strong> Remove uwt wrapper by Whonix.</p>
+<p>Whonix ships a number of applications pre-configured for using uwt
+wrappers by default. If the application you want to tunnel through the
+extra tunnel-link is on that list, it would conflict with your custom
+proxy settings. In that case, you need to disable that uwt wrapper
+first.</p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For information on how to disable Whonix uwt wrappers, please press
+Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p>On the <a href="../../../Stream_Isolation/">Stream
+Isolation</a> page, there is a list of applications that are
+pre-configured to use <a href="../../../Stream_Isolation/#By_uwt_wrapper">uwt wrappers</a>. Follow the instructions below in
+order to disable this.</p>
+<div class="info-box ">
+<p>The following instructions permanently deactivate all uwt wrappers
+and remove stream isolation for <a href="../../../Stream_Isolation/#By_uwt_wrapper">uwt-wrapped
+applications</a> system-wide. Consequently, all uwt-wrapped applications
+revert to the default system networking configuration.</p>
+<p>For more granular control of uwt wrapper deactivation, see: <a href="../../../Stream_Isolation/#Deactivate_uwt_Stream_Isolation_Wrapper">Deactivate uwt Stream Isolation Wrapper</a>.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Platform specific notice:</p>
+<ul>
+<li><a href="../../../Non-Qubes-Whonix/">Non-Qubes-Whonix<sup>&#8482;</sup></a>: No platform specific
+notice.</li>
+<li><a href="../../../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>: In
+Template. (<code>whonix-workstation-18</code>) <sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+</ul>
+<p><strong>2.</strong> Open file <code>/etc/uwt.d/50_user.conf</code> in
+an editor with administrative ("<a href="../../../Moved:Root/"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_3">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../../../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../../../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../../../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Add.</p>
+<p><span class="code-select">uwtwrapper_global="0"</span></p>
+<p><strong>4.</strong> Save and exit.</p>
+<p><strong>5.</strong> Check that the changes have taken effect. Run in
+terminal: <span class="code-select">uwt_settings_show</span></p>
+<p>It should print</p>
+<pre><code>uwt INFO: disabled.</code></pre>
+<p><strong>6.</strong> Done.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Set custom proxy settings.</p>
+<p>This is <a href="../../../Unspecific/">unspecific to
+Whonix</a> and <a href="../../../Unsupported/">undocumented</a>.</p>
+<p><strong>4.</strong> Done.</p>
+<p>The process of configuring an extra tunnel-link for a miscellaneous
+application has been completed.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Qubes-Whonix users note: In App Qube
+(<code>whonix-workstation-18</code>) could also use file
+<code>/usr/local/etc/torbrowser.d/50_user.conf</code> instead.
+<div class="info-box ">
+<p><strong>1.</strong> Create folder
+<code>/usr/local/etc/torbrowser.d</code> (if using Tor Browser
+Downloader by Whonix developers) and optionally
+<code>/usr/local/etc/mullvadbrowser.d</code> (if using Mullvad Browser
+by Kicksecure developers). <span class="code-select">mkdir -p
+/usr/local/etc/torbrowser.d</span> <span class="code-select">mkdir -p
+/usr/local/etc/mullvadbrowser.d</span> <strong>2.</strong> Open file
+<code>/usr/local/etc/torbrowser.d/50_user.conf</code> in an editor with
+administrative ("<a href="../../../Moved:Root/"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes. * <u>Sudoedit guidance:</u> See
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it. * <u>Editor
+requirement:</u> Close Featherpad (or the chosen text editor) before
+running the <code>sudoedit</code> command.
+<i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights. <span class="code-select">sudoedit
+/usr/local/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+<div class="tcc-section info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix_4">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes. * <u>Sudoedit guidance:</u> See
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it. * <u>Editor
+requirement:</u> Close Featherpad (or the chosen text editor) before
+running the <code>sudoedit</code> command. * <u>Template
+requirement:</u> When using <a href="../../../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.
+<i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights. <span class="code-select">sudoedit
+/usr/local/etc/torbrowser.d/50_user.conf</span>
+<i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes. * <u>Shut down Template:</u> After applying this change, shut
+down the Template. * <u>Restart App Qubes:</u> All App Qubes based on
+the Template need to be restarted if they were already running. *
+<u>Qubes persistence:</u> See also
+<img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] * <u>General procedure:</u> This
+is a general procedure required for Qubes and is <a href="../../../Unspecific/">unspecific to Qubes-Whonix</a>.</p>
+</div>
+</div>
+<div class="tcc-section info-box">
+<div class="tcc-image">
+<p><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes. * <u>Example only:</u> This is just an example. Other tools could
+achieve the same goal. * <u>Troubleshooting and alternatives:</u> If
+this example does not work for you, or if you are not using Whonix,
+please refer to <a href="../../../Moved:Software/#Open_File_with_Root_Rights">Open File with Root Rights</a>.
+<i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights. <span class="code-select">sudoedit
+/usr/local/etc/torbrowser.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>And/or: <span class="code-select">sudoedit
+/usr/local/etc/mullvadbrowser.d/50_user.conf</span></p>
+</div></li>
+<li id="cite_note-2"><code>TB_NO_TOR_CON_CHECK=1</code> needs to be set because there is
+no filtered Tor ControlPort access when Whonix tunnel firewall is
+enabled, which would break tb-updater's Tor connectivity check.</li>
+<li id="cite_note-3">By tb-updater default, if unset, variable <code>CURL_PROXY</code>
+will be dynamically set to a Tor SocksPort on
+Whonix-Gateway<sup>&#8482;</sup>. For example to
+<code>CURL_PROXY="--proxy socks5h://user:password@10.137.6.1:9115"</code>.<br />
+By utilizing a curl parameter we are using anyhow --
+<code>CURL_PROXY="--fail"</code> -- the environment variable can be
+disabled even if it is technically still set. This will result in
+downloading via the system's default networking.</li>
+<li id="cite_note-4">Qubes-Whonix users note: Or alternatively in App Qube.
+<div class="info-box ">
+<p><strong>1.</strong> Create folder <code>/usr/local/etc/uwt.d</code>.
+<span class="code-select">sudo mkdir -p /usr/local/etc/uwt.d</span>
+<strong>2.</strong> Open with root rights:
+<span class="code-select">sudoedit
+/usr/local/etc/uwt.d/50_user.conf</span></p>
+</div></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../../Privacy_Policy/">Privacy Policy</a>, <a href="../../../Cookie_Policy/">Cookie Policy</a>, <a href="../../../Terms_of_Service/">Terms of Service</a>, and <a href="../../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../../search-index.js" defer></script>
+<script src="../../../../page-previews.js" defer></script>
+<script src="../../../../app.js" defer></script>
+</body>
+</html>

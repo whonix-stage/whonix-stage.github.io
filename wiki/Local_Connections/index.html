@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Local Connections</title>
+<meta name="description" content="Connect to Localhost from inside Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt;. This might be useful for the use case of Hosting Location Hidden Services and Onion Services.">
+<meta property="og:description" content="Connect to Localhost from inside Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt;. This might be useful for the use case of Hosting Location Hidden Services and Onion Services.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Local_Connections/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Local_Connections/">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Local_connections123123.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="./">Local
+Connections</a></li>
+<li><a href="../Whonix-Workstation_to_Whonix-Workstation_Connections/">Whonix-Workstation to Whonix-Workstation
+Connections</a></li>
+<li><a href="../Access_Local_Network_or_Host_or_Clearnet_Internet_from_VM/">Access Local Network, Host or Clearnet Internet from
+VM</a></li>
+<li><a href="../Logging_in_to_captive_portals/">Logging
+into Captive Portals</a></li>
+<li><a href="../Dev/Test/">Enable Clearnet
+Networking</a></li>
+</ul>
+</div>
+<p><img src="../../media/Local_connections123123.jpg.webp" alt="Local_connections123123.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>This wiki page documents how to connect to localhost from inside
+Whonix-Workstation. This might be useful for the use case of <a href="../Hosting_Location_Hidden_Services/">Hosting
+Location Hidden Services</a> and <a href="../Onion_Services/">Onion Services</a>.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Local_Connections">Local Connections</h1>
+<p>Local connections are often dysfunctional default. (<a href="#Why">Why?</a>)</p>
+<ul>
+<li><a href="../Tor_Browser/">Tor Browser</a> cannot
+connect to localhost by default.
+<ul>
+<li>See chapter <a href="../Tor_Browser/#Local_Connections">Local Connections</a> on how to accomplish connections
+to localhost.</li>
+<li>How to connect to <code>10.152.152.11</code> (Whonix-Workstation
+default internal IP address) using Tor Browser is <a href="../Unsupported/">undocumented</a>, however <a href="../Unspecific/">unspecific</a> to Whonix and should be researched as
+per <a href="../Reporting_Bugs/#Generic_Bug_Reproduction">Generic Bug Reproduction</a>. This is because Whonix
+does not develop Tor Browser. Upstream, The Tor Project does.</li>
+<li>If connecting to your very own server running in your own VM which
+is completely self-hosted, since there is no risk of browser
+fingerprinting, an easy workaround would be to use a browser other than
+Tor Browser such as for example <a href="../Chromium/">Chromium</a>.</li>
+</ul></li>
+<li><code>curl</code>, <code>scurl</code>, <code>wget</code> might not
+be able to connect to localhost by default.
+<ul>
+<li>This is because these are wrapped by <code>uwt</code> by default for
+the purpose of <a href="../Stream_Isolation/Easy/">stream
+isolation</a>. See <a href="../Stream_Isolation/#Deactivate_uwt_Stream_Isolation_Wrapper">Deactivate uwt Stream Isolation Wrapper</a>.</li>
+<li>This is possibly no longer required thanks to the Whonix default <a href="https://github.com/Whonix/uwt/blob/master/etc/tor/torsocks.conf.anondist"><code>/etc/tor/torsocks.conf</code></a>
+configuration file which sets <code>AllowOutboundLocalhost 1</code>.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+</ul></li>
+<li><a href="../Whonix-Workstation_Firewall/">Whonix-Workstation Firewall</a> might be interfering.
+<ul>
+<li>If that is suspected, consider (temporarily) disabling it. For
+higher security, this could be done while offline and inside a dedicated
+VM using for testing purposes only.</li>
+</ul></li>
+</ul>
+<h1 id="Why">Why</h1>
+<p>Local connections are often dysfunctional default, because:</p>
+<ul>
+<li>most applications installed by default are pre-configured from a
+client (not server) perspective.</li>
+<li>These are pre-configured for <a href="../Stream_Isolation/">Stream Isolation</a>.</li>
+</ul>
+<h1 id="References">References</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><pre><code> # Set Torsocks to allow outbound connections to the loopback interface. # If set to 1, connect() will be allowed to be used to the loopback interface # bypassing Tor. If set to 2, in addition to TCP connect(), UDP operations to # the loopback interface will also be allowed, bypassing Tor. This option # should not be used by most users. (Default: 0) AllowOutboundLocalhost 1 </code></pre></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

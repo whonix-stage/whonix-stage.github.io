@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Electrum/Manual Installation</title>
+<meta name="description" content="Manual installation from upstream (electrum.org) of Electrum AppImage.">
+<meta property="og:description" content="Manual installation from upstream (electrum.org) of Electrum AppImage.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Electrum/Manual_Installation/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Electrum/Manual_Installation/">
+<meta property="og:title" content="How-to: Use Electrum Bitcoin Wallet in Whonix - Manual Installation">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Electrum.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Electrum</span> / <span>Manual Installation</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../../media/Electrum.png.webp" width="250" alt="Electrum.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Manual installation from upstream (electrum.org) of Electrum
+AppImage.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>See <a href="../">Electrum</a> wiki page for
+introduction and warnings!</p>
+<p>Primarily refer to the <a href="../">Electrum</a> wiki page! Use this page only in case
+newer versions of <a href="../">Electrum</a> are
+desired!</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<u>Prerequisite knowledge</u>: refer to the <a href="../../Moved:Operating_System_Software_and_Updates/#Frozen_Packages">Frozen Packages</a> and <a href="../../Moved:Operating_System_Software_and_Updates/#Application_Specific_Update_Indicators">Application Specific Update Indicators</a> entries in
+the <a href="../../Moved:Operating_System_Software_and_Updates/">Operating System Software and Updates</a> chapter.</p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="../../Community_Support/">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<h1 id="Install_Electrum">Install Electrum</h1>
+<h2 id="Installation_Steps">Installation Steps</h2>
+<div class="info-box ">
+<p><strong>Note:</strong> The following instructions should be applied
+in Whonix-Workstation<sup>&#8482;</sup> (<a href="../../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>:
+<code>anon-whonix</code>).</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Import the gpg public key of Electrum developer Thomas Voegtlin.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<div class="info-box ">
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="../../Advanced_Users/"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="../../Moved:Verifying_Software_Signatures/"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<p><a href="../../Moved:Secure_Downloads/">Securely download</a> the
+signing key.</p>
+<p><span class="code-select">scurl-download <a href="https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/ThomasV.asc">https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/ThomasV.asc</a></span></p>
+<p>Display the key's fingerprint.</p>
+<p><span class="code-select">gpg --keyid-format long --import
+--import-options show-only --with-fingerprint ThomasV.asc</span></p>
+<p>Verify the fingerprint. It should show.</p>
+<p><u>Note</u>: Key fingerprints provided on the Whonix website are for
+convenience only. The Whonix project does not have the authorization or
+the resources to function as a certificate authority, and therefore
+cannot verify the identity or authenticity of key fingerprints. The
+ultimate responsibility for verifying the authenticity of the key
+fingerprint and correctness of the verification instructions rests with
+the user.</p>
+<p><blockquote><p>At the time of writing, the output is identical to the following
+image.</p>
+<p><strong>Figure:</strong> <em>Fingerprint Verification</em></p>
+<p><img src="../../../media/Electrum_verify_gpg_fingerprint.png.webp" alt="electrum_verify_gpg_fingerprint.png" /></p>
+<p><code>&#160;&#160;&#160;&#160;&#160;Key&#160;fingerprint&#160;=&#160;6694&#160;D8DE&#160;7BE8&#160;EE56&#160;31BE&#160;&#160;D950&#160;2BD5&#160;824B&#160;7F94&#160;70E6</code></p></blockquote></p>
+<p>The most important check is confirming the key fingerprint
+<u>exactly</u> matches the output above. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+<strong>Warning:</strong></p>
+<p>Do not continue if the fingerprint does not match! This risks using
+infected or erroneous files! The whole point of verification is to
+confirm file integrity.</p>
+</div>
+<p>Add the signing key.</p>
+<p><span class="code-select">gpg --import ThomasV.asc</span></p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Download the Electrum AppImage.</p>
+<p><u>Note:</u> At the time of writing, <code>electrum-4.7.0</code> was
+the latest stable release. Before starting the Electrum download, browse
+to <a href="https://electrum.org/#download">electrum.org/#download</a>
+to verify the correct file path. Then download the file with <a href="../../Moved:Secure_Downloads/#Downloads_with_scurl_-_SSL_Command_Line_Downloader">scurl</a>. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><span class="code-select">scurl-download <a href="https://download.electrum.org/4.7.0/electrum-4.7.0-x86_64.AppImage">https://download.electrum.org/4.7.0/electrum-4.7.0-x86_64.AppImage</a></span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Check the Electrum AppImage is not corrupted after download.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<p>To check the Electrum AppImage, run.</p>
+<p><span class="code-select">file electrum*.AppImage</span></p>
+<p>The following output indicates a corrupted and/or non-existent
+AppImage file.</p>
+<pre><code>electrum-4.7.0-x86_64.AppImage: HTML document, ASCII text, with very long lines</code></pre>
+<p>In that case, delete the file and try downloading the AppImage
+again.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Download the corresponding gpg signature.</p>
+<p>It is necessary to verify the integrity of the AppImage with the
+correct signature.</p>
+<p><u>Note:</u> If users downloaded a later Electrum version at <i>step
+3</i>, then modify the following command to match the corresponding
+signature file. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p><span class="code-select">scurl-download <a href="https://download.electrum.org/4.7.0/electrum-4.7.0-x86_64.AppImage.ThomasV.asc">https://download.electrum.org/4.7.0/electrum-4.7.0-x86_64.AppImage.ThomasV.asc</a></span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Verify the integrity of the AppImage.</p>
+<p><u>Note:</u> This command must be run in the same directory as the
+downloaded AppImage and signature.</p>
+<p><span class="code-select">gpg --verify
+electrum-4.7.0-x86_64.AppImage.ThomasV.asc
+electrum-4.7.0-x86_64.AppImage</span></p>
+<p><u>If the file is verified successfully</u>, the output will include
+<code>Good signature</code>, which is the most important thing to
+check.</p>
+<p><strong>Figure:</strong> <em>Good Signature</em>
+<sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p><img src="../../../media/Electrum_gpg_good_signature.png.webp" alt="electrum_gpg_good_signature.png" /></p>
+<pre><code>gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.</code></pre>
+<p>This message does not alter the validity of the signature related to
+the downloaded key. Rather, this warning refers to the level of trust
+placed in the Whonix signing key and the <a href="../../Moved:OpenPGP/#The_OpenPGP_Web_of_Trust">web of
+trust</a>. To remove this warning, the Whonix signing key must be
+personally signed with your own key.</p>
+<p>If the following "gpg: BAD signature" message appears, the AppImage
+has been corrupted or altered during the download process.</p>
+<p><strong>Figure:</strong> <em>Bad Signature</em></p>
+<p><img src="../../../media/Electrum_bad_gpg_signature.png.webp" alt="Electrum_bad_gpg_signature.png" /></p>
+<p>In this event, delete both the AppImage and signature and either wait
+10-15 minutes for the Tor circuits to change, or open up the <a href="../../Tor_Controller/#Nyx">Nyx Tor Controller</a> in
+Whonix-Gateway<sup>&#8482;</sup> (<a href="../../Qubes/">Qubes-Whonix</a>: <code>sys-whonix</code>) and type "n"
+to create new Tor circuits. Wait for a random period of time before
+repeating the steps to download the AppImage and signature.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Change file permissions.</p>
+<p>Make the Electrum AppImage executable.</p>
+<p><span class="code-select">chmod +x
+electrum-4.7.0-x86_64.AppImage</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+Done.</p>
+<p>The installation of the Electrum AppImage has been completed.</p>
+</div>
+<h1 id="Start_Electrum">Start Electrum</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Users should create a wallet with a <a href="../../Moved:Passwords/#Generating_Unbreakable_Passwords">strong password</a>!</p>
+</div>
+<p>Please refer to the official documentation at <a href="https://docs.electrum.org/en/latest/">docs.electrum.org</a> for
+comprehensive instructions, as well as more advanced topics like <a href="https://docs.electrum.org/en/latest/coldstorage.html">Cold
+Storage</a> of private keys.</p>
+<p>To start Electrum on all platforms, run.</p>
+<p><span class="code-select">./electrum-4.7.0-x86_64.AppImage</span></p>
+<p><a href="../../Qubes/">Qubes-Whonix</a> users are
+recommended to configure a <a href="https://github.com/Qubes-Community/Contents/blob/master/docs/security/split-bitcoin.md">Split
+Bitcoin Wallet</a> to better protect their private keys. To protect
+against identity correlation through Tor circuit sharing, follow the
+instructions below (see <a href="../../Stream_Isolation/">Stream Isolation</a> for more information).</p>
+<h1 id="Electrum:_First_Run">Electrum: First Run</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+These steps enable <a href="../../Stream_Isolation/">Stream
+Isolation</a> for the Electrum application.</p>
+</div>
+<div class="info-box ">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Configure a manual server connection.</p>
+<p>When Electrum is started for the first time, users are met with the
+prompt: <code>"How do you want to connect to a server?"</code>.</p>
+<p>Choose <code>Select server manually</code> and press
+<code>Next</code>.</p>
+<p><strong>Figure:</strong> <em>Server Setting</em></p>
+<p><img src="../../../media/Electrum_select_server_manually.png.webp" alt="Electrum_select_server_manually.png" /></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Change the proxy settings.</p>
+<p>The necessary settings are:</p>
+<ul>
+<li>Proxy: <code>SOCKS5</code></li>
+<li>Host: <code>10.152.152.10</code></li>
+<li>Port: <code>9111</code></li>
+</ul>
+<p>Press <code>Next</code> and the application should be fully
+functional.</p>
+<p><strong>Figure:</strong> <em>SOCKS5 Proxy Configuration</em></p>
+<p><img src="../../../media/Electrum_use_proxy_socks5_.png.webp" alt="Electrum_use_proxy_socks5_.png" /></p>
+<p><strong>Note:</strong> If Electrum is already set up but stream
+isolation was not enabled, then navigate to <code>Tools</code> &#8594;
+<code>Network</code> in Electrum to bring up the server and proxy
+settings.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Done.</p>
+<p>Electrum first run stream isolation configuration steps have been
+completed.</p>
+</div>
+<h1 id="Add_Application_Launcher_to_Start_Menu">Add Application Launcher
+to Start Menu</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+This step is optional.</p>
+</div>
+<div class="info-box ">
+<p><strong>1.</strong> Create folder
+<code>~/.local/share/applications</code>.</p>
+<p><span class="code-select">mkdir -p
+~/.local/share/applications</span></p>
+<p><strong>2.</strong> Create a new file
+<code>~/.local/share/applications/electrum.desktop</code> using an
+editor.</p>
+<p><span class="code-select">mousepad
+~/.local/share/applications/electrum.desktop</span></p>
+<p><strong>3.</strong> Paste the following contents.</p>
+<p><span class="code-select">[Desktop Entry] Type=Application
+Exec=/home/user/electrum-4.7.0-x86_64.AppImage Name=electrum
+Categories=Other</span></p>
+<p><strong>4.</strong> Save the file.</p>
+<p><strong>5.</strong> Done.</p>
+<p>The procedure is now complete.</p>
+<p><strong>6.</strong> Start using the launcher.</p>
+<p>The launcher can be found here:</p>
+<p><code>Start Menu</code> &#8594; <code>Other</code> &#8594;
+<code>electrum</code></p>
+</div>
+<h1 id="Donations">Donations</h1>
+<p>After installing Electrum, please consider making a <a href="../../Donate/">donation</a> to Whonix to keep it running for years to
+come.</p>
+<p><img src="../../../media/BC_Logo_.png.webp" width="25" alt="Bitcoin accepted here" />
+Donate Bitcoin (BTC) to Whonix.</p>
+<p><span class="code-select">1HeXtk2iEXSeLr7WhVeCmWgHDw3oE2PKTY</span></p>
+<p><img src="../../../media/Whonix_donate_bitcoin.png.webp" width="100" alt="Whonix_donate_bitcoin.png" /></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://github.com/spesmilo/electrum/issues/4789">https://github.com/spesmilo/electrum/issues/4789</a></li>
+<li id="cite_note-2">Minor changes in the output such as new uids (email addresses) or
+newer expiration dates are inconsequential.</li>
+<li id="cite_note-3">To find the correct AppImage download:
+<i><code>"Right-click"</code></i> <code>AppImage</code> &#8594;
+<i><code>"Select"</code></i> <code>Copy Link Location</code> &#8594;
+<i><code>"Append"</code></i> to <code>scurl</code> command.</li>
+<li id="cite_note-4">Due to occasional DDoS attacks.</li>
+<li id="cite_note-5">To find the correct signature file download:
+<i><code>"Right-click"</code></i> <code>signature</code> &#8594;
+<i><code>"Select"</code></i> <code>Copy Link Location</code> &#8594;
+<i><code>"Append"</code></i> to <code>scurl</code> command.</li>
+<li id="cite_note-6"><pre><code> gpg: Signature made Mon 19 Jul 2021 02:22:33 PM EDT gpg: using RSA key 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6 gpg: Good signature from &quot;Thomas Voegtlin (https://electrum.org) &lt;thomasv@electrum.org&gt;&quot; [unknown] gpg: aka &quot;ThomasV &lt;thomasv1@gmx.de&gt;&quot; [unknown] gpg: aka &quot;Thomas Voegtlin &lt;thomasv1@gmx.de&gt;&quot; [unknown] gpg: WARNING: This key is not certified with a trusted signature! gpg: There is no indication that the signature belongs to the owner. Primary key fingerprint: 6694 D8DE 7BE8 EE56 31BE D950 2BD5 824B 7F94 70E6 </code></pre></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

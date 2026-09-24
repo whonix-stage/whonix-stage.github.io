@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>PyLRU</title>
+<meta name="description" content="PyLRU python library">
+<meta property="og:description" content="PyLRU python library">
+<link rel="canonical" href="https://www.whonix.org/wiki/PyLRU/">
+<meta property="og:url" content="https://www.whonix.org/wiki/PyLRU/">
+<meta property="og:title" content="How-to: Install PyLRU in Whonix">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Py123123.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Download">Download</a></li><li class="toc-l2"><a href="#Digital_Signature_Verification">Digital Signature
+Verification</a></li><li class="toc-l2"><a href="#Installation">Installation</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Chrome/" title="Chrome"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Chrome</span></a><a class="index internal" href="../Advanced_Documentation/" title="Advanced Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Advanced
+Documentation</span></a><a class="next internal" href="../Local_Connections/" title="Local Connections"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Local
+Connections</span></a><span class="info"><span class="prev">Previous
+page: Chrome</span><span class="index">Index page: Advanced
+Documentation</span><span class="next">Next page: Local
+Connections</span></span></span>How-to: Install PyLRU in Whonix</p>
+</div>
+<p><img src="../../media/Py123123.png.webp" alt="Py123123.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>PyLRU python library</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>PyLRU is: <sup class="reference"><a href="#cite_note-1">[1]</a></sup> <blockquote><p>...a true LRU cache along with several support classes. The cache is
+efficient and written in pure Python. It works with Python 2.6+
+including the 3.x series. Basic operations (lookup, insert, delete) all
+run in a constant amount of time. Pylru provides a cache class with a
+simple dict interface. It also provides classes to wrap any object that
+has a dict interface with a cache. Both write-through and write-back
+semantics are supported. Pylru also provides classes to wrap functions
+in a similar way, including a function decorator.</p></blockquote></p>
+<h1 id="PyLRU_Setup">PyLRU Setup</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Perform the following procedure in Whonix-Workstation<sup>&#8482;</sup> (<a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>:
+<code>anon-whonix</code> App Qube).</p>
+</div>
+<h2 id="Download">Download</h2>
+<p>Acquire the <a href="https://github.com/jlhutch/pylru">PyLRU</a>
+source code by Jay Hutchinson (<a href="https://github.com/jlhutch"><code>jlhutch</code> on
+GitHub</a>).</p>
+<p><span class="code-select">git clone <a href="https://github.com/jlhutch/pylru">https://github.com/jlhutch/pylru</a>
+~/pylru</span></p>
+<h2 id="Digital_Signature_Verification">Digital Signature
+Verification</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+This section is optional, but provides better security.</p>
+</div>
+<div class="info-box ">
+<p><strong>1.</strong> Import Jay Hutchinson signing key.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>Note: File name and URL might change in the future from
+<code>.gpg</code> to <code>.asc</code> in the future as per <a href="https://github.com/jlhutch/pylru/issues/33">PyLRU github issue:
+please upload your OpenPGP / gpg public key</a>.</p>
+<div class="info-box ">
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="../Advanced_Users/"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="../Moved:Verifying_Software_Signatures/"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<p><a href="../Moved:Secure_Downloads/">Securely download</a> the
+signing key.</p>
+<p><span class="code-select">scurl-download <a href="https://github.com/jlhutch.gpg">https://github.com/jlhutch.gpg</a></span></p>
+<p>Display the key's fingerprint.</p>
+<p><span class="code-select">gpg --keyid-format long --import
+--import-options show-only --with-fingerprint jlhutch.gpg</span></p>
+<p>Verify the fingerprint. It should show.</p>
+<p><u>Note</u>: Key fingerprints provided on the Whonix website are for
+convenience only. The Whonix project does not have the authorization or
+the resources to function as a certificate authority, and therefore
+cannot verify the identity or authenticity of key fingerprints. The
+ultimate responsibility for verifying the authenticity of the key
+fingerprint and correctness of the verification instructions rests with
+the user.</p>
+<p><blockquote><p>In late-2023, the output is identical to the following.</p>
+<p><code>&#160;&#160;&#160;&#160;&#160;Key&#160;fingerprint&#160;=&#160;1E0B&#160;4C97&#160;BD81&#160;966B&#160;3BDC&#160;&#160;F84D&#160;2FF6&#160;B003&#160;25E9&#160;519C</code></p></blockquote></p>
+<p>The most important check is confirming the key fingerprint
+<u>exactly</u> matches the output above. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+<strong>Warning:</strong></p>
+<p>Do not continue if the fingerprint does not match! This risks using
+infected or erroneous files! The whole point of verification is to
+confirm file integrity.</p>
+</div>
+<p>Add the signing key.</p>
+<p><span class="code-select">gpg --import jlhutch.gpg</span></p>
+</div>
+<p><strong>2.</strong> Enter the repository.
+<span class="code-select">cd ~/pylru</span></p>
+<p><strong>3.</strong> Perform digital signature verification.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<p><span class="code-select">git verify-commit HEAD</span></p>
+<p><u>If the file is verified successfully</u>, the output will include
+<code>Good signature</code>, which is the most important thing to
+check.</p>
+<pre><code>gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.</code></pre>
+<p>This message does not alter the validity of the signature related to
+the downloaded key. Rather, this warning refers to the level of trust
+placed in the Whonix signing key and the <a href="../Moved:OpenPGP/#The_OpenPGP_Web_of_Trust">web of
+trust</a>. To remove this warning, the Whonix signing key must be
+personally signed with your own key.</p>
+</div>
+<h2 id="Installation">Installation</h2>
+<div class="info-box ">
+<p><strong>1.</strong> Create folder
+<code>/usr/local/lib/python3.11/dist-packages/</code>.</p>
+<p><span class="code-select">sudo mkdir -p
+/usr/local/lib/python3.11/dist-packages/</span></p>
+<p><strong>2.</strong> Install <code>pylru.py</code> in folder
+<code>/usr/local/lib/python3.11/dist-packages/</code>.</p>
+<p><span class="code-select">sudo cp ~/pylru/pylru.py
+/usr/local/lib/python3.11/dist-packages/</span></p>
+<p><strong>3.</strong> Done.</p>
+<p>PyLRU installation is now complete.</p>
+</div>
+<h1 id="Troubleshooting">Troubleshooting</h1>
+<pre><code>electrumx_server[]: PermissionError: [Errno 13] Permission denied: &#39;/usr/local/lib/python3.11/dist-pa...pylru.py&#39;</code></pre>
+<p><strong>Permission fix.</strong></p>
+<p>Required in some build versions of Whonix. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p><span class="code-select">sudo chmod --recursive o+r
+/usr/local/lib/python3.11/dist-packages</span></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://pypi.org/project/pylru/">https://pypi.org/project/pylru/</a></li>
+<li id="cite_note-2">* <a href="https://github.com/jlhutch/pylru/issues/33">https://github.com/jlhutch/pylru/issues/33</a>
+* <a href="https://web.archive.org/web/20231219165732/https://api.github.com/users/jlhutch/gpg_keys">https://web.archive.org/web/20231219165732/https://api.github.com/users/jlhutch/gpg_keys</a></li>
+<li id="cite_note-3">Minor changes in the output such as new uids (email addresses) or
+newer expiration dates are inconsequential.</li>
+<li id="cite_note-4">Alternative command: <span class="code-select">git log -1
+--show-signature</span> }}</li>
+<li id="cite_note-5">The issue is the read permission for "<code>others</code>" than root
+were not set during file creation. Related issue: <a href="https://github.com/Kicksecure/security-misc/issues/185">Restrict
+umask to 027 except for sudo/root broken</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Chrome/" title="Chrome"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Chrome</span></a><a class="index internal" href="../Advanced_Documentation/" title="Advanced Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Advanced
+Documentation</span></a><a class="next internal" href="../Local_Connections/" title="Local Connections"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Local
+Connections</span></a><span class="info"><span class="prev">Previous
+page: Chrome</span><span class="index">Index page: Advanced
+Documentation</span><span class="next">Next page: Local
+Connections</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

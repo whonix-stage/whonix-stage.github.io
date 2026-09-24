@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Main/Project Signing Key</title>
+<meta name="description" content="Get Whonix OpenPGP signing key. Verify Whonix Downloads, APT Repository and/or Source Code.">
+<meta property="og:description" content="Get Whonix OpenPGP signing key. Verify Whonix Downloads, APT Repository and/or Source Code.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Main/Project_Signing_Key/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Main/Project_Signing_Key/">
+<meta property="og:title" content="Download the Whonix Signing Key">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Keysigning.jpg">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Main</span> / <span>Project Signing Key</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Windows,_macOS,_Linux">Windows, macOS, Linux</a></li><li class="toc-l2"><a href="#Kicksecure_or_Whonix">Kicksecure or Whonix</a></li><li class="toc-l2"><a href="#Debian">Debian</a></li><li class="toc-l2"><a href="#OpenPGP_Web_of_Trust">OpenPGP Web of Trust</a></li><li class="toc-l2"><a href="#Download_the_signify_Key">Download the signify Key</a></li><li class="toc-l2"><a href="#Troubleshooting">Troubleshooting</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../../media/Keysigning.jpg.webp" alt="Keysigning.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Get Whonix OpenPGP signing key. Verify Whonix Downloads, APT
+Repository and/or Source Code.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Since all Whonix releases are signed with the same key, it is
+unnecessary to verify the key every time a new release is announced.
+Trust in the key might gradually increase over time, but cryptographic
+signatures must still be verified every time a new release is
+downloaded.</p>
+<p>This page is strongly related to the <a href="../../Trust/">Placing Trust in Whonix</a> page.</p>
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="../../Advanced_Users/"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="../../Moved:Verifying_Software_Signatures/"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<p><span class="manually-placed-anchor " id="Download_the_Key"></span></p>
+<h1 id="Download_the_OpenPGP_Key">Download the OpenPGP Key</h1>
+<p><img src="../../../media/GnuPG-Logo.svg" width="100" alt="GnuPG logo" /></p>
+<div class="info-box ">
+<p><u><em>Optional:</em></u> Complete the steps below if you are
+unfamiliar with GnuPG or if they have not already been performed. This
+will fix potential <code>gpg: WARNING: unsafe ownership</code>
+warnings.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+<strong>GnuPG data folder initialization.</strong></p>
+<p>Initialize your GnuPG user data folder.</p>
+<p><span class="code-select">gpg --fingerprint</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+<strong>File permission setup.</strong></p>
+<p>Set warning-free permissions.</p>
+<p><span class="code-select">chmod --recursive og-rwx
+~/.gnupg</span></p>
+<p><u>Expected output on success:</u> <strong>None.</strong> Many Linux
+commands simply perform the action and remain quiet. Unless there is an
+error, no output is expected. If there is any issue, an error message
+will be shown.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+<strong>Done.</strong></p>
+<p>The process of GnuPG initialization is complete.</p>
+</div>
+<div class="info-box ">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Select your operating system.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="Windows,_macOS,_Linux">Windows, macOS, Linux</h2>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+<a href="../../Moved:Secure_Downloads/">Securely</a> download <a href="../../Patrick_Schleizer/">Patrick Schleizer</a>'s
+(adrelanos') <a href="../../Moved:OpenPGP/">OpenPGP</a> key.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup> <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p><a rel="noreferrer" data-no-instant="" href="../../../keys/derivative.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix OpenPGP Key</span></span></a></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Store the key as <code>derivative.asc</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Check fingerprints/owners without importing anything.</p>
+<p><span class="code-select">gpg --keyid-format long --import
+--import-options show-only --with-fingerprint derivative.asc</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Verify the output.</p>
+<p>The most important check is confirming the key fingerprint
+<u>exactly</u> matches the output below. <sup class="reference"><a href="#cite_note-3">[3]</a></sup> (If you have
+an existing copy of the signing key, see the footnote:
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup>)</p>
+<pre><code>      Key fingerprint = 916B 8D99 C38E AF5E 8ADC  7A2A 8D66 066A 2EEA CCDA</code></pre>
+<p>In case there is a message
+<code>gpg: key 8D66066A2EEACCDA: 104 signatures not checked due to missing keys</code>
+is related to the <a href="../../Moved:OpenPGP/#The_OpenPGP_Web_of_Trust">The OpenPGP Web of Trust</a>. <a href="../../Advanced_Users/">Advanced users</a> can learn more about this <a href="#OpenPGP_Web_of_Trust">below</a>.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="warning" /></span>
+<strong>Warning:</strong></p>
+<p>Do not continue if the fingerprint does not match! This risks using
+infected or erroneous files! The whole point of verification is to
+confirm file integrity.</p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Configure the trust level for the GPG key.</p>
+<p><u>Optional.</u> <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p><span class="code-select">echo
+"916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA:6:" | gpg
+--import-ownertrust</span></p>
+<p>The output should show the trust database (<code>trustdb</code>) was
+created.</p>
+<pre><code>gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: inserting ownertrust of 6</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Import the key.</p>
+<p><span class="code-select">gpg --import derivative.asc</span></p>
+<p>The output should include the key was imported.</p>
+<pre><code>gpg: key 8D66066A2EEACCDA: public key &quot;Patrick Schleizer &lt;adrelanos@kicksecure.com&gt;&quot; imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+gpg: next trustdb check due at 2026-01-23</code></pre>
+<p><em>If the Whonix signing key was already imported in the past</em>,
+the output should include the key is unchanged.</p>
+<pre><code>gpg: Total number processed: 1
+gpg:              unchanged: 1</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+Web of trust.</p>
+<p><a href="../../Advanced_Users/">Advanced users</a> can
+check <a href="#Web_of_Trust">Web of Trust</a> further
+below for better security.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="Kicksecure_or_Whonix">Kicksecure or Whonix</h2>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Configure the trust level for the GPG key.</p>
+<p><u>Optional.</u> <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p><span class="code-select">echo
+"916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA:6:" | gpg
+--import-ownertrust</span></p>
+<p>The output should show the trust database (<code>trustdb</code>) was
+created.</p>
+<pre><code>gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: inserting ownertrust of 6</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Import the key.</p>
+<p>Since the key is already available in Kicksecure or Whonix, importing
+the key is simpler than for other operating systems.</p>
+<p><span class="code-select">gpg --import
+/usr/share/keyrings/derivative.asc</span></p>
+<p>In case there is a message
+<code>gpg: key 8D66066A2EEACCDA: 104 signatures not checked due to missing keys</code>
+is related to the <a href="../../Moved:OpenPGP/#The_OpenPGP_Web_of_Trust">The OpenPGP Web of Trust</a>. <a href="../../Advanced_Users/">Advanced users</a> can learn more about this <a href="#OpenPGP_Web_of_Trust">below</a>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Skip a few steps.</p>
+<p>Steps
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+to
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+(which would be required for Windows, macOS and other Linux) can be
+skipped here. Proceed to step
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+below.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../../media/Debian.png.webp" width="25" alt="Debian.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="Debian">Debian</h2>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Install <code>extrepo</code>. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p>Because it can fetch the signing key.</p>
+<div class="info-box ">
+<p>Install package(s) <code>extrepo</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="../../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="../../Qubes/">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>extrepo</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+extrepo</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>extrepo</code> is
+complete.</p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Configure the trust level for the GPG key.</p>
+<p><u>Optional.</u> <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p><span class="code-select">echo
+"916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA:6:" | gpg
+--import-ownertrust</span></p>
+<p>The output should show the trust database (<code>trustdb</code>) was
+created.</p>
+<pre><code>gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: inserting ownertrust of 6</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Enable the Whonix repository.</p>
+<p>The purpose of this is to (temporarily) enable the Whonix APT
+repository by utilizing Debian's extrepo to acquire the signing key.
+Once the repository is no longer needed, it can be disabled (removed),
+which is documented below. (Related: <a href="../../Packages_for_Debian_Hosts/">Packages for Debian Hosts</a>.)</p>
+<p><span class="code-select">sudo extrepo enable whonix</span></p>
+<p>This will create two files. The repository file
+<code>/etc/apt/sources.list.d/extrepo_whonix.sources</code> and the
+signing key <code>/var/lib/extrepo/keys/whonix.asc</code>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Import the public key.</p>
+<p><span class="code-select">gpg --import
+/var/lib/extrepo/keys/whonix.asc</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+Disable the Whonix APT repository.</p>
+<p><u>Optional.</u> The Whonix APT repository was only temporarily
+enabled to utilize Debian's extrepo to acquire the signing key. The
+repository is no longer needed. It can be disabled (removed).</p>
+<p><span class="code-select">sudo extrepo disable whonix</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+Skip a few steps.</p>
+<p>Proceed to step
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+below.</p>
+</div>
+</div>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+Complete the Whonix verification steps.</p>
+<p>If verifying Whonix images, navigate to the relevant verification
+page below to finish the process:</p>
+<ul>
+<li><img src="../../../media/Tux.png.webp" width="15" alt="Tux.png" /> <a href="../../Verify_the_images_using_Linux/">In Linux</a></li>
+<li><img src="../../../media/Logo-windows-500x500.png.webp" width="15" alt="Logo-windows-500x500.png" />
+<a href="../../Verify_the_images_using_Windows/">In
+Windows</a></li>
+<li><img src="../../../media/Logo-apple-500x500.png.webp" width="15" alt="logo-apple-500x500.png" />
+<a href="../../Verify_the_images_using_macOS/">In
+macOS</a></li>
+</ul>
+</div>
+<h1 id="OpenPGP_Key_Features">OpenPGP Key Features</h1>
+<ul>
+<li>sign/verify Whonix images: yes</li>
+<li>sending encrypted e-mails to Whonix developer Patrick: yes</li>
+</ul>
+<h1 id="Advanced_Users">Advanced Users</h1>
+<p><span class="manually-placed-anchor " id="Web_of_Trust"></span></p>
+<h2 id="OpenPGP_Web_of_Trust">OpenPGP Web of Trust</h2>
+<p><u>Optional.</u></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<a href="../../Advanced_Users/">Advanced users</a> only!</p>
+</div>
+<p>If you have a good understanding of <a href="../../Moved:Verifying_Software_Signatures/">Verifying Software
+Signatures</a>, users can check the signing key for additional
+security.</p>
+<p>Wiki page <a href="../../Moved:OpenPGP/#The_OpenPGP_Web_of_Trust">The OpenPGP Web of Trust</a> and chapter <a href="../../Moved:OpenPGP/#Bootstrapping_OpenPGP_Keys_from_the_Internet">Bootstrapping OpenPGP Keys from the Internet</a> may be
+helpful.</p>
+<p>Third-party signatures attached to the key file or acquired from
+OpenPGP keyservers are deprecated. For reasons and old documentation,
+see footnote. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<p>Nowadays a trust path to the key fingerprint can be established
+through Debian because Debian package <a href="https://packages.debian.org/trixie/extrepo-offline-data">extrepo-offline-data</a>
+contains file
+<span class="code-select inline-style">/usr/share/extrepo/offline-data/debian/trixie/whonix.asc</span>
+. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<h2 id="Download_the_signify_Key">Download the signify Key</h2>
+<p><img src="../../../media/Signify_Logo.svg" width="100" alt="signify" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<a href="../../Advanced_Users/">Advanced users</a> only!</p>
+</div>
+<p><sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<p><a rel="noreferrer" data-no-instant="" href="../../../keys/derivative.pub" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix signify Key</span></span></a></p>
+<h1 id="Further_Reading">Further Reading</h1>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/GNU_Privacy_Guard">GnuPG
+wikipedia</a> - Freedom Software OpenPGP software.</li>
+<li><a href="https://www.apache.org/dev/openpgp.html">Apache: How To
+OpenPGP</a>.</li>
+<li><a href="https://www.debian.org/events/keysigning">Debian:
+Keysigning</a> - a tutorial on signing keys of other people.</li>
+<li><a href="https://www.rubin.ch/pgp/weboftrust.en.html">rubin.ch: An
+explanation of the PGP web of trust</a>.</li>
+</ul>
+<h2 id="Troubleshooting">Troubleshooting</h2>
+<p>Try using <code>ls</code> instead of <code>gpg</code> first to
+confirm existence of the files before using <code>gpg</code>.</p>
+<p>When a GPG error is encountered, first try a web search for the
+relevant error. The <a href="https://security.stackexchange.com">security stackexchange
+website</a> can also help to resolve GPG problems. Describe the problem
+thoroughly, but be sure it is GPG-related and not specific to
+Whonix.</p>
+<p>More help resources are available on the <a href="../../Support/">Support</a> page.</p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../../Verify_the_images/">Verify Whonix
+Images</a></li>
+<li><a href="../../Moved:Verifying_Software_Signatures/">Verifying
+Software Signatures</a></li>
+<li><a href="../../Trust/">Placing Trust in Whonix</a></li>
+<li><a href="../../Moved:OpenPGP/">OpenPGP key distribution
+strategies</a></li>
+</ul>
+<h1 id="License">License</h1>
+<p><blockquote><p>Whonix Main/Project Signing Key wiki page Copyright (C) Amnesia
+<br />
+Whonix Main/Project Signing Key wiki page Copyright (C) 2012 - 2026
+ENCRYPTED SUPPORT LLC
+&lt;<span class="antispam-email-tooltip"><span class="robots-nocontent" data-nosnippet=""><code>adrelanos(at)whonix.org</code>
+(Replace <code>(at)</code> with
+<code>@</code>.)<span class="tooltip"><span>Please <strong>DO
+NOT</strong> use e-mail for one of the following
+reasons:</span><span class="icon-bullet-list"><span><i class="fa-solid fa-lock cs-yellow"></i><span><u>Private
+Contact:</u> Please avoid e-mail whenever possible. (&lt;a
+href="../../Contact/#Private_Communications_Policy"&gt;Private
+Communications
+Policy&lt;/a&gt;)</span></span><span><i class="fas fa-headset cs-red"></i><span><u>User
+Support Questions:</u> No. (See &lt;a
+href="../../Support/"&gt;Support&lt;/a&gt;.)</span></span><span><i class="fa-solid fa-droplet cs-red"></i><span><u>Leaks
+Submissions:</u> No. (&lt;a href="../../Contact/#No_Leaks_Policy"&gt;No
+Leaks
+Policy&lt;/a&gt;)</span></span><span><i class="fa-solid fa-ban cs-red"></i><span><u>Sponsored
+posts:</u>
+No.</span></span><span><i class="fa-solid fa-link cs-red"></i><span><u>Paid
+links:</u>
+No.</span></span><span><i class="fa-solid fa-chart-line cs-red"></i><span><u>SEO
+reviews:</u>
+No.</span></span><span><i class="fa-solid fa-bullhorn cs-red"></i><span><u>Advertisement
+deals:</u>
+No.</span></span><span><i class="fa-solid fa-box-open cs-red"></i><span><u>Default
+application installation:</u> No. (&lt;a
+href="../../Contact/#Default_Application_Policy"&gt;Default Application
+Policy&lt;/a&gt;)</span></span></span></span></span>&gt;</p>
+<p>This program comes with ABSOLUTELY NO WARRANTY; for details see the
+wiki source code.<br />
+This is free software, and you are welcome to redistribute it under
+certain conditions; see the wiki source code for details.</p></blockquote></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><span class="code-select">curl --tlsv1.3 --proto =https --max-time
+180 --output derivative.asc <a href="https://www.whonix.org/keys/derivative.asc">https://www.whonix.org/keys/derivative.asc</a></span></li>
+<li id="cite_note-2"><div class="info-box ">
+<p><span class="manually-placed-anchor mpa-visible" id="signing-key-mirrors">signing-key-mirrors</span>
+* extrepo ** <a href="https://forums.whonix.org/t/extrepo-safely-adding-repos/8539">https://forums.whonix.org/t/extrepo-safely-adding-repos/8539</a>
+** <a href="https://salsa.debian.org/extrepo-team/extrepo-data/-/blob/master/repos/debian/kicksecure.yaml">https://salsa.debian.org/extrepo-team/extrepo-data/-/blob/master/repos/debian/kicksecure.yaml</a>
+** <a href="https://salsa.debian.org/extrepo-team/extrepo-data/-/blob/master/repos/debian/whonix.yaml">https://salsa.debian.org/extrepo-team/extrepo-data/-/blob/master/repos/debian/whonix.yaml</a>
+* Kicksecure: ** <a href="https://www.kicksecure.com/keys/derivative.asc">https://www.kicksecure.com/keys/derivative.asc</a>
+** <a href="https://github.com/derivative-maker/derivative-maker/blob/master/keys/derivative.asc">https://github.com/derivative-maker/derivative-maker/blob/master/keys/derivative.asc</a>
+** <a href="https://github.com/Kicksecure/repository-dist/blob/master/usr/share/keyrings/derivative.asc">https://github.com/Kicksecure/repository-dist/blob/master/usr/share/keyrings/derivative.asc</a>
+** <a href="https://github.com/Kicksecure/usability-misc/blob/master/usr/bin/repo-add-dist">https://github.com/Kicksecure/usability-misc/blob/master/usr/bin/repo-add-dist</a>
+** <a href="https://github.com/Kicksecure/qubes-template-kicksecure/blob/master/keys/kicksecure-developer-patrick.asc">https://github.com/Kicksecure/qubes-template-kicksecure/blob/master/keys/kicksecure-developer-patrick.asc</a>
+** <code>/usr/share/keyrings/derivative.asc</code> * Whonix: ** <a href="https://www.whonix.org/keys/derivative.asc">https://www.whonix.org/keys/derivative.asc</a>
+** <a href="https://github.com/Whonix/qubes-template-whonix/blob/master/keys/whonix-developer-patrick.asc">https://github.com/Whonix/qubes-template-whonix/blob/master/keys/whonix-developer-patrick.asc</a>
+* Qubes: ** <a href="https://github.com/adrelanos/qubes-builderv2/blob/main/qubesbuilder/plugins/fetch/keys/916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA.asc">https://github.com/adrelanos/qubes-builderv2/blob/main/qubesbuilder/plugins/fetch/keys/916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA.asc</a>
+*** <a href="https://github.com/QubesOS/qubes-builderv2/pull/229">https://github.com/QubesOS/qubes-builderv2/pull/229</a>
+** <a href="https://github.com/QubesOS/qubes-builderv2-github/blob/main/keys/916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA.asc">https://github.com/QubesOS/qubes-builderv2-github/blob/main/keys/916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA.asc</a>
+*** <a href="https://github.com/QubesOS/qubes-builderv2-github/pull/29">https://github.com/QubesOS/qubes-builderv2-github/pull/29</a>
+* Misc: ** <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA">https://keys.openpgp.org/vks/v1/by-fingerprint/916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA</a>
+** <a href="https://keybase.io/adrelanos">https://keybase.io/adrelanos</a> **
+<a href="https://api.github.com/users/adrelanos/gpg_keys">https://api.github.com/users/adrelanos/gpg_keys</a></p>
+</div></li>
+<li id="cite_note-3">Minor changes in the output such as new uids (email addresses) or
+newer expiration dates are inconsequential.</li>
+<li id="cite_note-4">If you have an existing (potentially expired) copy of the signing
+key file, and wish to verify that a newer copy is valid, you may use the
+command
+<code>gpg --keyid-format long --import --import-options show-only --with-fingerprint /path/to/old/derivative.asc</code>
+to display the older key's fingerprint. If the fingerprint of the older
+copy matches the fingerprint of the newer copy, the newer copy is
+valid.</li>
+<li id="cite_note-5">The trust level will be increased to <code>ultimately</code>. (This
+is because the command contains trust level "<code>:6:</code>".)<br />
+The purpose of this command is: *
+<i class="padded-content-icon pci-text fa-solid cs-blue iconset-h2">A</i>
+to avoid the following warning when importing the key. And,
+<pre><code> gpg: no ultimately trusted keys found </code></pre>
+<p>*
+<i class="padded-content-icon pci-text fa-solid cs-blue iconset-h2">B</i>
+to avoid the following warning when verifying a file signed by that
+key.</p>
+<pre><code> gpg: WARNING: This key is not certified with a trusted signature! gpg: There is no indication that the signature belongs to the owner. </code></pre>
+<p>Advanced users are free to skip this step or use a different GPG
+trust level.</p></li>
+<li id="cite_note-6">The extrepo-offline-data Debian package unfortunately is too old and
+lacks the most recent (extended) version of the signing key. * <a href="https://forums.whonix.org/t/extrepo-safely-adding-repos/8539">https://forums.whonix.org/t/extrepo-safely-adding-repos/8539</a>
+* <a href="https://forums.whonix.org/t/expkeysig-error-gpg-key-whonix/22721">https://forums.whonix.org/t/expkeysig-error-gpg-key-whonix/22721</a></li>
+<li id="cite_note-7"><div class="info-box ">
+<p>Deprecated. Kept for historical reasons. A few people have signed <a href="../../Patrick_Schleizer/">Patrick Schleizer</a>'s
+(adrelanos') OpenPGP key. Jan Dittberner
+(<em><span>Debian
+Developer</span></em>) * <a href="https://jan.dittberner.info/">https://jan.dittberner.info/</a> *
+<a href="https://qa.debian.org/developer.php?login=Jan+Dittberner">https://qa.debian.org/developer.php?login=Jan+Dittberner</a>
+signed Patrick's key. So did intrigeri (Tails developer,
+<em><span>Debian
+Developer</span></em>); Peter Palfrader
+(<em><span>Debian
+Developer</span></em>); Richard King; and Michael Carbone
+(accessnow.org). <u>Notes:</u> * Key signatures are old (around year
+2014). * This wiki chapter does not account for ** key migration by
+signers, ** lack of a key transition message, or ** the lack of a key
+signer signing their new key with their old key. ** signature algorithm
+SHA1 (<code>gpg</code> <code>--allow-weak-key-signatures</code>) Users
+relying on Debian or one of the many Debian derivatives (like Ubuntu)
+already trust apt, the APT repository of the relevant distribution. This
+means the Debian keyring can be installed as a trusted source for
+obtaining Jan's, intrigeri's or Peter's key, to check their signature on
+Patrick's key.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+<a href="../../Moved:Update/">Update</a> the package lists.
+<span class="code-select">sudo apt update</span>
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Install the Debian keyring. <span class="code-select">sudo apt install
+debian-keyring</span>
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Extract a signer's key from the Debian keyring and import it into your
+own keyring. Here is an example using Jan's key.
+<span class="code-select">gpg --no-default-keyring --keyring
+/usr/share/keyrings/debian-keyring.gpg --armor --export
+B2FF1D95CE8F7A22DF4CF09BA73E0055558FB8DD | gpg --import</span>
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+<u>Optional.</u> Try to establish a better trust path to the signer by
+checking signatures on the signer's key. Check signatures on Patrick's
+key. <span class="code-select">gpg --check-sigs
+916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA</span> The output of the above
+command should show signatures on Patrick's key, which should include
+the signer's signature.</p>
+</div>
+</div></li>
+<li id="cite_note-8"><pre><code> -----BEGIN PGP SIGNED MESSAGE----- Hash: SHA512 untrusted comment: Patrick Schleizer adrelanos@whonix.org signify public key RWQ6KRormNEETq+M8IysxRe/HAWlqZRlO8u7ACIiv5poAW0ztsirOjCQ -----BEGIN PGP SIGNATURE----- iQKTBAEBCgB9FiEEbpebKKbzfEO+MK+hy41Qu3e7PEgFAmInQmhfFIAAAAAALgAo aXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5maWZ0aGhvcnNlbWFuLm5ldDZF OTc5QjI4QTZGMzdDNDNCRTMwQUZBMUNCOEQ1MEJCNzdCQjNDNDgACgkQy41Qu3e7 PEhSyg/+J2R20mA5xVDT0FlZrtHXnNkZzg48FbSteak6utpmd9HGZlTxlEA3ou8z MlDGDHAYgpfe74suqQl2dEql6Mio4YuUou8GW2aEJ+AVa5jRlHMj4H9alTGmUtok UdaCVVQQO/FCE3y1N00TmuxyDghP9dm1cT8mho0P0RbVoqQyMTDIzLiXCa5aPwu/ nyBGwxdVPuGNZ0WYJfKXLRdb/3q2xprYDQOTehLDHnUVins2kKnsbwVTBY4u4575 KQfOwZD176oQZlZOuw6qxhOd0RWF33TMnQXKPjmaTpTjtsbKOascNBqnjDZbDNhl MSmRKvPZ4bi3IbpSsZdRiwXEOEnyeRhqlwhGX8UecU5e31iMRx8vJDA3u2oSQnrZ l8vnFvnnkGe3/COMAAlIEH+bFofFui3QMWYzX5A2g4jHzfgdrYJcNEZmaeptIRJj qs2eteI7FFt/hQaEZimN6TES0o91+JDLQPHDkEbbE8V9qOxUE6+pqLnRmr/uAMbc 3WA73dphJQfBHQOT2k+ByrrZ/h18x5YrMhvr8HB0f8ejU9YiWG/YnbPvvPNuSdQb 1xSaWmWrXpFgDMOJuG0H7uQi+IcZgQj+JsPaMXTZ6ehHyAr50c61TBoG/UzOXTJg YlD+NW0yh7b2XBXsL4Xj0X1lrHBxFGHiaM7zC//pIPKTG7kfyJ4= =n5bK -----END PGP SIGNATURE----- </code></pre></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Documentation/">Documentation</a> <a href="../../Category:MultiWiki/">MultiWiki</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

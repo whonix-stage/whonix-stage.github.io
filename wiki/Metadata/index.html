@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Metadata</title>
+<meta name="description" content="Anonymize Files - Clear Metadata - Remove Location Tracking - Use the Metadata Anonymisation Toolkit v2 (MAT2)">
+<meta property="og:description" content="Anonymize Files - Clear Metadata - Remove Location Tracking - Use the Metadata Anonymisation Toolkit v2 (MAT2)">
+<link rel="canonical" href="https://www.whonix.org/wiki/Metadata/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Metadata/">
+<meta property="og:title" content="Metadata">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Mat2icon.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#General_Principles">General Principles</a></li><li class="toc-l2"><a href="#Specific_File_Format_Data_Leakage">Specific File Format Data
+Leakage</a></li><li class="toc-l2"><a href="#File_System_Data_Leakage">File System Data Leakage</a></li><li class="toc-l2"><a href="#Scrubbing_Metadata">Scrubbing Metadata</a></li><li class="toc-l2"><a href="#Warning_on_Leaking_Original_Source_Documents">Warning on Leaking
+Original Source Documents</a></li><li class="toc-l2"><a href="#Use_Instructions">Use Instructions</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Stylometry/" title="Stylometry"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Stylometry</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Geo-blocking/" title="Geo-blocking"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Geo-blocking</span></a><span class="info"><span class="prev">Previous
+page: Stylometry</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Geo-blocking</span></span></span>Metadata</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../Surfing_Posting_Blogging/">Surfing Posting
+Blogging</a></li>
+<li><a href="../Keystroke_and_Mouse_Deanonymization/">Keystroke and Mouse Deanonymization</a></li>
+<li><a href="../Stylometry/">Stylometry</a></li>
+<li><a href="./">Metadata</a></li>
+</ul>
+</div>
+<p><img src="../../media/Mat2icon.png.webp" width="250" alt="MAT2 Icon" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Anonymize Files - Clear Metadata - Remove Location Tracking - Use the
+Metadata Anonymisation Toolkit v2 (MAT2)</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong> Office documents, pictures, videos and other
+files contain significant information in the meta tags that may
+de-anonymize the author. Before they are uploaded to the Internet or
+shared, this metadata should be removed.</p>
+</div>
+<p>For more information about metadata, refer to the <a href="https://packages.debian.org/trixie/mat2">Metadata anonymisation
+toolkit v2 (MAT2)</a> Debian package or the <a href="https://0xacab.org/jvoisin/mat2">MAT2 homepage</a>. Additional
+information can be found on the Warning page; see <a href="../Warning/#Document_Metadata">Whonix does not clear
+Document Metadata</a>.</p>
+<h1 id="Metadata_Risk">Metadata Risk</h1>
+<p>Metadata attached to files cannot be used to de-anonymize the user if
+the guidelines in this section are followed. However, whistleblowers
+should be aware of a host of other metadata and techniques that can be
+used to narrow the search for (or identify) leakers, including:
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<div>
+<ul>
+<li>A list of persons who searched for, accessed or printed relevant
+documents.</li>
+<li>Persons inserting hardware devices like USBs into corporate
+computers, or those taking screenshots.</li>
+<li>Location data for handheld devices.</li>
+<li>Downloads and use of Tor Browser, Tails, Whonix or other anonymity,
+privacy, security and encryption (or related) software which is
+relatively unpopular.</li>
+<li>Inspection of ISP/corporate metadata associated with:
+<ul>
+<li>Usernames, email addresses, physical addresses, phone numbers and
+credit card numbers.</li>
+<li>Internet IP addresses and log on data.</li>
+<li>Clearnet browsing and use of the Tor network.</li>
+<li>All communications metadata, including the type, source and
+destination, and the file size and duration of the communication. This
+includes emails and (encrypted) messaging.</li>
+</ul></li>
+<li>Via search warrants, sourcing all data from Google, Facebook and
+other corporate accounts; for example, all Gmail messages, Google
+History, web browser activity based on web browser cookies, and backups
+of (Android) phones.</li>
+<li>Other information discovered after forensic analysis of personal
+computers, external HDDs/SSDs, phones and other devices.</li>
+</ul>
+</div>
+<p>Be aware that most whistleblowers are identified by events and
+patterns of behavior that happen <u>before</u> they decide to blow the
+whistle or contact the media.</p>
+<h1 id="Guidelines">Guidelines</h1>
+<h2 id="General_Principles">General Principles</h2>
+<ul>
+<li>Always think twice before uploading/sharing anything.</li>
+<li>Only upload/share files which were either created or downloaded
+inside the Whonix-Workstation<sup>&#8482;</sup> and personally stripped of
+metadata.</li>
+<li>Before uploading/sharing photos or videos, it is safest to utilize a
+separate camera that is only used for anonymous purposes (unless the
+user is an expert).</li>
+</ul>
+<h2 id="Specific_File_Format_Data_Leakage">Specific File Format Data
+Leakage</h2>
+<ul>
+<li>Anonymous photo sharing requires consideration of both metadata
+<u>and</u> <a href="../Surfing_Posting_Blogging/#Photographs">fingerprintable camera anomalies</a>.</li>
+<li>Files created by editing software -- such as Microsoft Word,
+LibreOffice, Excel and so on -- can leak information about incremental
+edits and updates. Re-saving a final copy of the document might be
+enough to mitigate this risk, but further research is required.</li>
+<li>If <a href="https://en.wikipedia.org/wiki/JPEG">JPEG images</a> are
+stored in PDFs in their complete form without modification, EXIF data
+can be leaked.</li>
+<li>It is possible for adversaries to link 'anonymous' <a href="../Surfing_Posting_Blogging/#Audio_Recordings">audio
+recordings</a> to specific hardware (microphone) that is used, as well
+as fingerprint embedded audio acoustics associated with particular
+speakers -- the same <a href="../Surfing_Posting_Blogging/#Operational_Security_Advice">operational security advice</a> recommended for
+photographs must be followed.</li>
+<li>This is an inexhaustive list of file format leak problems and the
+user should understand that file format specifications are not designed
+with potential adversaries in mind. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+</ul>
+<h2 id="File_System_Data_Leakage">File System Data Leakage</h2>
+<ul>
+<li>Formats of metadata added by filesystems such as timing resolution
+of the datetime field, can reveal information about the origin, time and
+transport method of source files in question.</li>
+</ul>
+<p>Case study: WikiLeaks DNC release. <sup class="reference"><a href="#cite_note-3">[3]</a></sup> MAT2 cannot
+help in this instance. <sup class="reference"><a href="#cite_note-4">[4]</a></sup> Copying files with
+<code>rsync</code> or <code>cp</code> has been shown to destroy the
+metadata contained in the "birth" field <sup class="reference"><a href="#cite_note-5">[5]</a></sup> and is
+therefore the recommended precaution. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p>Linux filesystems like EXT4 have recently been extended to include
+file creation time. It can be read using debugfs <sup class="reference"><a href="#cite_note-7">[7]</a></sup>,
+crtime <sup class="reference"><a href="#cite_note-8">[8]</a></sup> or xstat <sup class="reference"><a href="#cite_note-9">[9]</a></sup>. Dedicated tools
+to scrub this is preferred. <sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p>N.B. A file's ctime (time created), mtime (time modified) and atime
+(time accessed) metadata are not related to the crtime/brtime issue
+discussed above. These can be reset to the current time using
+<code>touch</code>:</p>
+<p><span class="code-select">touch newfile &lt;file&gt;</span></p>
+<p>To check their values use <code>stat</code>:
+<span class="code-select">stat &lt;file&gt;</span></p>
+<h2 id="Scrubbing_Metadata">Scrubbing Metadata</h2>
+<p>Generally speaking, the only reliable way to scrub any type of
+document and avoid unintended leaks is to first use Imagemagick to
+convert them to images, then import them into a new PDF before
+distribution. This technique is reportedly used by advanced adversaries.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>This recommendation comes with an important caveat: untrusted files
+that are downloaded cannot be sanitized in this way, since malicious
+data can be crafted to remain intact even if processed by a format
+encoder. Therefore, the best way to interact with these files is to
+utilize the Whonix-Workstation and sanitize them with the pre-installed
+<a href="https://0xacab.org/jvoisin/mat2">MAT2</a> program.
+<sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<p>Failure to remove metadata does not always lead to de-anonymization,
+but it still may result in identity correlation to the same pseudonym.
+Consider the following example:</p>
+<ul>
+<li>A video is created with media software and uploaded to a popular
+video portal under pseudonym A.</li>
+<li>Another video is created using the same software and computer and
+uploaded under pseudonym B.</li>
+<li>An adversary who checks the metadata of both video files would
+quickly correlate both pseudonyms.</li>
+</ul>
+<h2 id="Warning_on_Leaking_Original_Source_Documents">Warning on Leaking
+Original Source Documents</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+In recent times, leakers of high-value or high-security source documents
+have been identified (and jailed) via <a href="https://web.archive.org/web/20190228085002/https://blog.fastforwardlabs.com/2017/06/23/fingerprinting-documents-with-steganography.html">embedded
+steganographic messages</a> or the <a href="https://www.zachaysan.com/writing/2017-12-30-zero-width-characters">zero-width
+space (homoglyph substitution)</a> technique. <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+</div>
+<p>It is highly unlikely that file cleaners will defeat these advanced
+fingerprinting methods. Persons who are considering leaking valuable,
+original source documents should adopt a far safer approach to avoid the
+threat of embedded signatures. Recommendations include:
+<sup class="reference"><a href="#cite_note-13">[13]</a></sup></p>
+<ul>
+<li>Manually retype the related disclosures in a basic text editor which
+can easily be stripped of meta-data.</li>
+<li>Only leak short excerpts so the amount of information shared is kept
+to a minimum.</li>
+<li>At all times, avoid releasing the original documents in their raw
+form.</li>
+<li>Source the same documents from multiple leakers to confirm the
+content is identical byte-wise.</li>
+</ul>
+<p>Specific cleaning tools do exist that strip non-whitelisted
+characters from the text. However, this is the least preferred approach
+for "safely" sharing documents if personal liberty is at stake.</p>
+<h1 id="MAT2:_Metadata_Anonymisation_Toolkit_v2">MAT2: Metadata
+Anonymisation Toolkit v2</h1>
+<p>At the time of writing, the latest version of MAT2 currently supports
+the following file formats: <sup class="reference"><a href="#cite_note-14">[14]</a></sup></p>
+<div>
+<p><blockquote><ul>
+<li>Audio Video Interleave (.avi)</li>
+<li>Electronic Publication (.epub)</li>
+<li>Free Lossless Audio Codec (.flac)</li>
+<li>Graphics Interchange Format (.gif)</li>
+<li>Hypertext Markup Language (.html)</li>
+<li>Portable Network Graphics (PNG)</li>
+<li>JPEG (.jpeg, .jpg, ...)</li>
+<li>MPEG Audio (.mp3, .mp2, .mp1, .mpa)</li>
+<li>MPEG-4 (.mp4)</li>
+<li>Office Openxml (.docx, .pptx, .xlsx, ...)</li>
+<li>Ogg Vorbis (.ogg)</li>
+<li>Open Document (.odt, .odx, .ods, ...)</li>
+<li>Portable Document Fileformat (.pdf)</li>
+<li>Tape ARchive (.tar, .tar.bz2, .tar.gz)</li>
+<li>Torrent (.torrent)</li>
+<li>Windows Media Video (.wmv)</li>
+<li>ZIP (.zip)</li>
+</ul></blockquote></p>
+</div>
+<p>Take careful note of MAT2's limitations: <sup class="reference"><a href="#cite_note-14">[14]</a></sup></p>
+<p><blockquote><p>MAT2 only removes metadata from your files, it does not anonymise
+their content, nor can it handle watermarking, steganography, or any too
+custom metadata field/system.</p>
+<p>If you really want to be anonymous, use file formats that do not
+contain any metadata, or better: use plain-text.</p></blockquote></p>
+<h2 id="Use_Instructions">Use Instructions</h2>
+<p>MAT2 does not have a GUI option and must be run from the command
+line. For a list of available MAT2 options, launch a terminal in
+Whonix-Workstation and run.</p>
+<p><span class="code-select">mat2</span></p>
+<p><u>Note</u>: MAT2 does not clean files in-place. Instead, once
+'dirty' files (with removable metadata) are cleaned, the clean files are
+created in the same directory with the
+<span>.cleaned</span> extension. For
+example, "myfile.png" will lead to a new version named
+"myfile.cleaned.png".</p>
+<p>Users also report that MAT2 is broken if bubblewrap is installed,
+since it is automatically used for MAT2 sandboxing which is currently
+incompatible with Whonix <code>hidepid</code> settings.
+<sup class="reference"><a href="#cite_note-15">[15]</a></sup> <sup class="reference"><a href="#cite_note-16">[16]</a></sup> <sup class="reference"><a href="#cite_note-17">[17]</a></sup> If this
+error is encountered, it can be bypassed with the
+<code>--no-sandbox</code> flag.</p>
+<h1 id="Other_Tools">Other Tools</h1>
+<ul>
+<li><a href="https://packages.debian.org/search?keywords=Exiftool">Exiftool</a>
+- a Perl application for editing metadata in a wide variety of
+files.</li>
+<li><a href="https://packages.debian.org/search?keywords=exiv2">exiv2</a> - a
+C++ application to manage image metadata.</li>
+<li><a href="https://packages.debian.org/search?keywords=jhead">jhead</a> - a
+JPEG header manipulation tool.</li>
+<li><a href="https://github.com/kanzure/pdfparanoia">pdfparanoia</a> - a
+tool to remove watermarks from academic papers.</li>
+<li><a href="https://github.com/firstlookmedia/pdf-redact-tools">pdf-redact-tools</a>
+- Deprecated.</li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Surfing_Posting_Blogging/">Surfing Posting
+Blogging</a></li>
+</ul>
+<h1 id="License">License</h1>
+<p>Gratitude is expressed to <a href="https://web.archive.org/web/20230329090736/https://anonymous-proxy-servers.net/">JonDos</a>
+for <a href="https://web.archive.org/web/20131225084524/https://anonymous-proxy-servers.net/forum/viewtopic.php?p=31220">permission</a>
+to use material from their website. The Metadata page contains content
+from the JonDonym documentation <a href="https://web.archive.org/web/20120508222640/https://anonymous-proxy-servers.net/en/help-live-cd/jondo-live-cd9.html">Anonymizing
+Documents and Pictures</a> page.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://theintercept.com/2019/08/04/whistleblowers-surveillance-fbi-trump/">https://theintercept.com/2019/08/04/whistleblowers-surveillance-fbi-trump/</a></li>
+<li id="cite_note-2"><a href="https://speakerdeck.com/ange/an-overview-of-pdf-potential-leaks">https://speakerdeck.com/ange/an-overview-of-pdf-potential-leaks</a></li>
+<li id="cite_note-3">WikiLeaks failed to redact some metadata from the DNC release that
+indicated that the docs were transported to WL via a USB flash drive.
+USB flash drives are fairly unique in that they usually use FAT32, and
+FAT32 is unique in that its datetime fields have a resolution of 2
+seconds. So it's really easy to tell if files were on a USB flash drive
+(all the datetime values will be even numbers) unless the datetime
+metadata is scrubbed. Obviously this exposes some details about how the
+leak was pulled off, and could potentially expose info about the source,
+thus WL should have wiped that metadata, but apparently this method of
+tracing USB flash drive usage via datetime metadata was not widely known
+(even to WL) at the time that the leak was published. To be clear, my
+point is not to bash WL, I'm just pointing out that metadata scrubbing
+is really hard and has a lot of subtlety to it, and it's therefore
+probably not very wise to totally entrust your safety to such tools,
+given that even WL hasn't always gotten it right. for bonus points,
+there's an additional leakage if the datetime values are stored in 2
+different archive formats, one of which uses UTC and another uses local
+time zone (just subtract the datetime values and you get the timezone).
+This was the case for one of the Guccifer2 releases, thus revealing that
+the Guccifer2 docs were being moved around on a USB flash drive in the
+Eastern US time zone several months after the DNC announced that they
+had been compromised. (Figuring out what this means about the accuracy
+of media claims regarding that release's origin is left as an exercise
+for the reader -- but from a forensics standpoint it's definitely
+something that the leaker wasn't expecting nor intending, and it relies
+on undocumented behavior in the archiving software.) So yeah. Metadata
+anonymization is hard. -Jeremy Rand (Namecoin dev)</li>
+<li id="cite_note-4">mat2 doesn't do anything about this: cleaned files will have a
+timestamp corresponding to their date of creation, there is little that
+can be done here, unfortunately. -jvoisin (MAT2 dev)</li>
+<li id="cite_note-5">crtime on Linux / btime on Windows</li>
+<li id="cite_note-6"><a href="https://www.linuxquestions.org/questions/linux-newbie-8/how-do-i-preserve-crtime-creation-birth-time-when-copying-from-windows-ntfs-to-linux-ext4-4175625229/">https://www.linuxquestions.org/questions/linux-newbie-8/how-do-i-preserve-crtime-creation-birth-time-when-copying-from-windows-ntfs-to-linux-ext4-4175625229/</a></li>
+<li id="cite_note-7"><a href="https://tecadmin.net/file-creation-time-linux/">https://tecadmin.net/file-creation-time-linux/</a></li>
+<li id="cite_note-8"><a href="https://github.com/planetlabs/crtime">https://github.com/planetlabs/crtime</a></li>
+<li id="cite_note-9"><a href="https://github.com/bernd-wechner/Linux-Tools/blob/master/xstat">https://github.com/bernd-wechner/Linux-Tools/blob/master/xstat</a></li>
+<li id="cite_note-10">In some cases, opening and re-saving a file can help, but that will
+only set the "modified" time field. A lot of filesystems also store a
+"created" time field, which will not be affected by opening/saving.
+Also, some file formats will actually leak additional info about what
+software opened them if you open/resave them. So I wouldn't really
+recommend that approach. I think there exist tools that will wipe
+filesystem timestamp metadata; if such tools exist (I haven't looked
+very carefully) then they're probably preferable. -Jeremy Rand (Namecoin
+dev) 3</li>
+<li id="cite_note-11">Refer to the Metadata anonymisation toolkit v2 website for further
+information.</li>
+<li id="cite_note-12">In the latter method, the leaker is unable to see additional
+zero-width or zero-width non-joiner characters which are used to
+fingerprint text. Even a single type of zero-width character provides
+enough bits of entropy to fingerprint the relevant text.</li>
+<li id="cite_note-13"><a href="https://www.zachaysan.com/writing/2017-12-30-zero-width-characters">https://www.zachaysan.com/writing/2017-12-30-zero-width-characters</a></li>
+<li id="cite_note-14"><a href="https://packages.debian.org/trixie/mat2">https://packages.debian.org/trixie/mat2</a></li>
+<li id="cite_note-15"><a href="https://forums.whonix.org/t/install-bubblewrap-by-default-to-make-use-of-mat2s-sandboxing/8177">https://forums.whonix.org/t/install-bubblewrap-by-default-to-make-use-of-mat2s-sandboxing/8177</a></li>
+<li id="cite_note-16"><a href="https://0xacab.org/jvoisin/mat2/issues/120">https://0xacab.org/jvoisin/mat2/issues/120</a></li>
+<li id="cite_note-17"><a href="https://github.com/containers/bubblewrap/issues/198">https://github.com/containers/bubblewrap/issues/198</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Stylometry/" title="Stylometry"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Stylometry</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Geo-blocking/" title="Geo-blocking"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Geo-blocking</span></a><span class="info"><span class="prev">Previous
+page: Stylometry</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Geo-blocking</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

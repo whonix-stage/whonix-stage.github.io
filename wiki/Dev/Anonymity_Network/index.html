@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Anonymity Network</title>
+<meta name="description" content="Comparison of anonymizers considered for the implementation of the Anonymous Operating System Whonix.">
+<meta property="og:description" content="Comparison of anonymizers considered for the implementation of the Anonymous Operating System Whonix.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Anonymity_Network/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Anonymity_Network/">
+<meta property="og:title" content="Anonymity Network">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Anonymity Network</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l2"><a href="#Tor">Tor</a></li><li class="toc-l2"><a href="#Whonix_and_other_Anonymity_Networks">Whonix and other Anonymity
+Networks</a></li><li class="toc-l2"><a href="#Security_considerations">Security considerations</a></li><li class="toc-l2"><a href="#Other_Anonymity_Networks_reviewed_for_Whonix">Other Anonymity
+Networks reviewed for Whonix</a></li><li class="toc-l3"><a href="#High_latency_networks">High latency networks</a></li><li class="toc-l3"><a href="#AdvOR">AdvOR</a></li><li class="toc-l3"><a href="#I2P">I2P</a></li><li class="toc-l3"><a href="#VPN">VPN</a></li><li class="toc-l3"><a href="#Freenet">Freenet</a></li><li class="toc-l3"><a href="#RetroShare">RetroShare</a></li><li class="toc-l3"><a href="#Proxies_/_Proxy_Chains">Proxies / Proxy Chains</a></li><li class="toc-l3"><a href="#Combinations_of_Anonymity_Networks">Combinations of Anonymity
+Networks</a></li><li class="toc-l2"><a href="#Tunneling_other_Other_Anonymizing_Networks_over_Tor">Tunneling
+other Other Anonymizing Networks over Tor</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Comparison of anonymizers considered for the implementation of the
+Anonymous Operating System Whonix.</p>
+<div class="post-intro-p">
+</div>
+<h2 id="Introduction">Introduction</h2>
+<p>This page describes why <a href="../../Tor/">Tor</a> was
+chosen for the <em>Whonix Example Implementation</em> as the anonymity
+network and also discusses alternatives that were considered. See also
+<a href="../../Why_does_Whonix_use_Tor/">Why does Whonix use
+Tor</a>.</p>
+<h2 id="Tor">Tor</h2>
+<p>Tor was chosen for the <em>Whonix Example Implementation</em> because
+it is the best-researched and most widely used network. Whonix developer
+Patrick believes Tor is currently the most secure anonymity network
+legally available to most users. See <a href="https://www.freehaven.net/anonbib/">anonbib</a> for a collection
+of research papers about Tor and other anonymity networks.</p>
+<p>Many users are important because you can only be anonymous within a
+large group of people. More secure networks exist in theory, such as the
+Mixminion high latency network, but without enough users, they are less
+secure in practice. See <a href="https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg00022.html">Roger
+Dingledine's explanation</a> for details.</p>
+<p>On the <a href="../../Warning/">Warning</a> page, some
+shortcomings of Tor are listed.</p>
+<h2 id="Whonix_and_other_Anonymity_Networks">Whonix and other Anonymity
+Networks</h2>
+<p>The <em>Whonix Framework</em> is agnostic regarding the anonymity
+network being used. In theory, Tor could be completely replaced with any
+other suitable anonymizing network, see <a href="../Technical_Introduction/#Whonix_Framework">Technical Introduction, chapter Whonix Framework</a>.
+Development in this area has stalled due to lack of interest from users,
+upstream developers, and Whonix developers. However, there has been some
+research and practical work done toward such integration; see <a href="../Inspiration/">Inspiration</a> if you are
+interested.</p>
+<h2 id="Security_considerations">Security considerations</h2>
+<p>Any successful attacks against Tor also affect Whonix and will
+compromise location/identity. <sup>1</sup></p>
+<p>Whonix does not attempt to defend against network attacks such as a
+large number of malicious Tor nodes, end-to-end correlation attacks, and
+so on. The Tor software package from the Debian repository is installed
+in Whonix without modifications. This is left to the Tor developers and
+Debian packagers.</p>
+<p>If <code>TransPort</code>, <code>DnsPort</code>, or
+<code>SocksPort</code>, which Whonix heavily relies on, can be
+exploited, then it is also game over.</p>
+<p>There is no known bug (or "feature") that reveals the user's real IP
+address through either SocksPort, TransPort, or DnsPort. If such a bug
+were found in the future, which is possible, it would be a major issue
+in Tor. We would hope that the Tor developers fix it.</p>
+<p>Other conceivable attacks cannot be defended against. For example, if
+an adversary controls your entry node or can observe your ISP and has
+access to the Whonix-Workstation<sup>&#8482;</sup>, they could use a pattern
+(e.g., 5 seconds of heavy traffic, 10 seconds of no traffic...) (similar
+to <a href="https://en.wikipedia.org/wiki/Morse_code">morse code</a>)
+and then observe incoming connections. That would also result in
+compromise.</p>
+<p><sup>1</sup> Unless Tor is combined with other means of anonymization
+(available as an optional feature).</p>
+<h2 id="Other_Anonymity_Networks_reviewed_for_Whonix">Other Anonymity
+Networks reviewed for Whonix</h2>
+<h3 id="High_latency_networks">High latency networks</h3>
+<p>In theory, high latency networks would be safer than Tor.
+Unfortunately, there is no high latency network with enough users that
+is well-designed, developed, and maintained.</p>
+<h3 id="AdvOR">AdvOR</h3>
+<p>Not suited for Whonix at all.</p>
+<p><a href="https://sourceforge.net/projects/advtor/">AdvOR</a>, the
+"Advanced" Onion Router, is not suited for Whonix. Reasons:</p>
+<ul>
+<li>No interest from the research community.</li>
+<li>No source control (e.g., git).</li>
+<li>Licensing issues (See Nick Mathewson's (Tor's Chief Architect)
+analysis below.)</li>
+<li>Absence in the Tor community.</li>
+<li>No Linux support.</li>
+<li>Whonix developer believes the Tails and Tor developers are modest
+and genuine. They generally work thoroughly and come to, in Patrick's
+opinion, clever conclusions. A Tails developer and a Tor developer wrote
+about AdvOR. Patrick believes it is best not to summarize their
+writings. Please read them yourself if interested.
+<ul>
+<li><a href="https://web.archive.org/web/20130625055229/https://tails.boum.org/forum/Facebook_doesn__39__t_block_a_profile_if_logged_into_thru_AdvOR/">Answer
+from a Tails developer about AdvOR</a>.</li>
+<li><a href="https://archives.seul.org/or/talk/Oct-2010/msg00026.html">Nick
+Mathewson's (Tor's Chief Architect) analysis</a> recommends against
+it.</li>
+</ul></li>
+<li>In Patrick's opinion: less safe than Tor.</li>
+</ul>
+<h3 id="I2P">I2P</h3>
+<h4 id="Review">Review</h4>
+<p>It may not be possible to reliably replace the Tor network with the
+<a href="https://geti2p.net/en/">I2P network</a> for
+Whonix-Gateway<sup>&#8482;</sup>. The I2P network is mainly designed to host
+all services within the I2P network. We need to update the
+Whonix-Workstation operating system and software packages, which is not
+possible with I2P. Outproxies existed in the past (http, https, and
+socks), but were too few? <s>They were also not suited for use with
+Whonix. Too unreliable (often offline). As of March 2012, when the I2P
+chapter was written, there were no working https or socks outproxies
+usable for apt.</s> (Still the case today?)</p>
+<p>I2P can only be used in addition to Whonix (tunnel I2P over Tor). See
+<a href="../../I2P/">I2P</a>.</p>
+<p>Even if there were enough reliable outproxies, the question remains:
+Is I2P designed to withhold the external IP from a Workstation? For
+instance, does the I2P web interface expose the external IP, and if so,
+can it be configured not to? &#8594; We could configure I2P to listen only on
+Whonix-Gateway localhost, and have services such as the outproxy listen
+only on the internal interface accessible by Whonix-Workstation(s).</p>
+<p>There was a <a href="../Inspiration/#I2P">I2P
+development idea</a> to install Tor and optionally I2P on
+Whonix-Gateway, but this stalled due to lack of interest from Whonix
+developers and the I2P community.</p>
+<p>That I2P is not in the Debian package sources would also complicate
+integration.</p>
+<ul>
+<li><a href="https://i2pgit.org/i2p-hackers/i2p.www/-/issues/5">I2P
+users can be deanonymized using browser fingerprinting</a>.</li>
+<li><a href="https://web.archive.org/web/20210418224735/https://lists.randombit.net/pipermail/cryptography/2013-June/004580.html">About
+I2P insecurity</a>.</li>
+</ul>
+<h4 id="Summary">Summary</h4>
+<p>Not suited for Whonix for the Default-Download-Version.</p>
+<ul>
+<li><s>No outproxies at the moment. (Cannot connect to any servers
+outside the I2P network. I2P is much different than Tor.) Clearnet
+websites could not be reached, APT wouldn't work, etc.</s> Still up to
+date as of today?</li>
+<li>Less interest from the research community.</li>
+<li>No interest from the I2P community.</li>
+<li>In Patrick's opinion: less safe than Tor.</li>
+</ul>
+<h3 id="VPN">VPN</h3>
+<p>Not suited for Whonix for the Default-Download-Version. For details,
+see <a href="../../Whonix_versus_VPNs/">Whonix versus
+VPNs</a>.</p>
+<h3 id="Freenet">Freenet</h3>
+<p>Not suited for Whonix for the Default-Download-Version.</p>
+<p>Replacing Tor with Freenet is impossible, as Freenet is a separate
+network, not designed to exit to the clearnet; clearnet websites could
+not be reached, APT wouldn't work, etc.</p>
+<p>There was a <a href="../Inspiration/#Freenet">Freenet development idea</a> to install Tor and
+optionally Freenet on Whonix-Gateway. This raises the question: Is
+Freenet designed to withhold the external IP from a Workstation, i.e.,
+does the Freenet web interface leak the external IP, and if so, can it
+be configured not to?</p>
+<h3 id="RetroShare">RetroShare</h3>
+<p>Not suited for Whonix for the Default-Download-Version.</p>
+<p>In fact, <a href="https://retroshare.cc/index.html">RetroShare</a> is
+not an <a href="https://en.wikipedia.org/wiki/Anonymous_proxy">anonymizing
+network</a>; it is a <a href="https://en.wikipedia.org/wiki/Friend-to-friend">friend-to-friend</a>
+(F2F) network or optionally a <a href="https://en.wikipedia.org/wiki/Dark_web">darknet</a>. RetroShare
+serves a different audience and threat model. RetroShare does not yet
+support outproxy usage; thus, it cannot replace Tor on the
+Whonix-Gateway.</p>
+<h3 id="Proxies_/_Proxy_Chains">Proxies / Proxy Chains</h3>
+<p>This is a summary of <a href="../../Whonix_versus_Proxies/">Whonix versus Proxies</a>.</p>
+<p>"(High) Anonymous" Proxies or even "Elite" Proxy Chains are not
+suited for Whonix for the Default-Download-Version. The reasons are as
+follows:</p>
+<ul>
+<li>Inferior to Onion Routing (Tor). Just two strong points (many more
+exist): no encryption between the user and the proxy is possible (only
+end-to-end encryption); no onion routing (i.e., changing circuits).</li>
+<li>Difficult (or impossible?) to find a free, stable proxy legally
+usable as a proxy and capable of handling enough
+Default-Download-Version users.</li>
+<li>In Patrick's opinion: less safe than Tor.</li>
+</ul>
+<h3 id="Combinations_of_Anonymity_Networks">Combinations of Anonymity
+Networks</h3>
+<p>Not suited for Whonix for the Default-Download-Version.</p>
+<p>There is too much controversy; see <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorPlusVPN">Tor
+Plus VPN or Proxy</a>.</p>
+<p>Controversy is avoided as a political project strategy to protect the
+project:</p>
+<p>Quoted from the [FAQ]: <em>"Whonix tries to be as less special as
+possible to ease security auditing of Whonix. Any changes to the Tor
+routing algorithm should be proposed, discussed and eventually
+implemented upstream in Tor on torproject.org. And if discussion fails,
+a Tor fork could be created. Tor has already been forked at least once.
+Doing such changes directly in Whonix would limit discussions about
+Whonix to the security of the modified routing algorithm. To allow
+further exploration of Whonix security, it is required to be as agnostic
+as possible about all parts of Whonix."</em></p>
+<p>The user is able to tunnel other anonymizing networks over Tor (see
+<a href="../../Other_Anonymizing_Networks/">Other Anonymizing
+Networks</a> if interested).</p>
+<h2 id="Tunneling_other_Other_Anonymizing_Networks_over_Tor">Tunneling
+other Other Anonymizing Networks over Tor</h2>
+<p>It is possible with Whonix. (<a href="../../Other_Anonymizing_Networks/">Other Anonymizing Networks</a>).</p>
+<h1 id="See_Also">See Also</h1>
+<div class="mininav">
+<ul>
+<li><a href="../../Tor/">Tor</a></li>
+<li><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="../../Anon_Connection_Wizard/">Anon Connection
+Wizard</a></li>
+<li><a href="../../Tor-control-panel/">tor-control-panel</a></li>
+<li><a href="../../Why_does_Whonix_use_Tor/">Why does Whonix
+use Tor?</a></li>
+<li><a href="../../Tor_Entry_Guards/">Tor Entry
+Guards</a></li>
+<li><a href="../../Tor_Myths_and_Misconceptions/">Tor Myths
+and Misconceptions</a></li>
+<li><a href="../../Tor_Controller/">Tor Controller</a></li>
+<li><a href="../../Tor-ctrl-observer/">tor-ctrl-observer</a></li>
+<li><a href="../../Onion-grater/">onion-grater</a></li>
+<li><a href="../Tor/">Tor (Developer)</a></li>
+<li><a href="../onion-grater/">onion-grater
+(Developer)</a></li>
+<li><a href="../anon-ws-disable-stacked-tor/">anon-ws-disable-stacked-tor (Developer)</a></li>
+</ul>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../../Whonix_versus_VPNs/">Whonix versus
+VPNs</a></li>
+<li><a href="../../Whonix_versus_Proxies/">Whonix versus
+Proxies</a></li>
+<li><a href="../../Why_does_Whonix_use_Tor/">Why does Whonix
+use Tor</a></li>
+</ul>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Design/">Design</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

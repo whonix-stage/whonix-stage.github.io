@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Remailer</title>
+<meta name="description" content="Anonymous Mail/Messages. Remailer over Tor. Tunnelling remailer through Tor. Connection Schema: user &amp;rarr; Tor &amp;rarr; remailer &amp;rarr; recipient">
+<meta property="og:description" content="Anonymous Mail/Messages. Remailer over Tor. Tunnelling remailer through Tor. Connection Schema: user &amp;rarr; Tor &amp;rarr; remailer &amp;rarr; recipient">
+<link rel="canonical" href="https://www.whonix.org/wiki/Remailer/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Remailer/">
+<meta property="og:title" content="Remailers: Send Emails without Registration">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Remailer.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Remailer.png.webp" alt="Remailer.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Anonymous Mail/Messages. Remailer over Tor. Tunnelling remailer
+through Tor. Connection Schema:<br />
+<code>user</code> &#8594; <code>Tor</code> &#8594; <code>remailer</code> &#8594;
+<code>recipient</code></p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>An anonymous remailer is: <sup class="reference"><a href="#cite_note-1">[1]</a></sup>: <blockquote><p>... a server that receives messages with embedded instructions on
+where to send them next, and that forwards them without revealing where
+they originally came from. There are <a href="https://en.wikipedia.org/wiki/Cypherpunk_anonymous_remailer">Cypherpunk
+anonymous remailers</a>, <a href="https://en.wikipedia.org/wiki/Mixmaster_anonymous_remailer">Mixmaster
+anonymous remailers</a>, and <a href="https://en.wikipedia.org/wiki/Pseudonymous_remailer">nym
+servers</a>, among others, which differ in how they work, in the
+policies they adopt, and in the type of attack on anonymity of e-mail
+they can (or are intended to) resist.</p></blockquote></p>
+<p>In Whonix-Workstation<sup>&#8482;</sup>, remailers can be used over Tor.
+The goal is access to a cheap tool that can send messages without
+registration, rather than offering more anonymity for (web) messages
+than Tor can provide.</p>
+<p>In theory, remailers are high latency networks that should provide
+more security than using low latency networks like Tor in isolation; see
+<a href="../Dev/Anonymity_Network/">Anonymity Network</a>
+for further details. However, the unfortunate reality is there are no
+known high latency networks which meet the following criteria at the
+time of writing (2019):</p>
+<ul>
+<li><u>Development</u>: active development is indicated by regular:
+<ul>
+<li>developer commits addressing bugs, maintenance and design
+improvements</li>
+<li>press releases and blog posts</li>
+<li>forum/mailing list activity</li>
+</ul></li>
+<li><u>Infrastructure</u>: users have reliable access to multiple
+servers.</li>
+<li><u>User Base</u>: a significant population regularly utilizes
+remailers for (pseudo)-anonymous messages.</li>
+</ul>
+<p>In practice, the dearth of users and servers means it is safest to
+assume that remailers provide little to no additional anonymity. Whonix
+developers would welcome a rebirth of high latency networks and an
+active, sizable user/developer community, but this is an unlikely
+outcome in the near-medium term.</p>
+<h1 id="Remailer_Tips">Remailer Tips</h1>
+<table>
+<caption><em>Remailer Recommendations</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Domain</strong></p></th>
+<th><p><strong>Recommendation</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Message Encryption</p></td>
+<td><ul>
+<li>Dependent on your requirements, it is suggested to encrypt the
+content of the mail/message, otherwise the last (or only) remailer and
+the recipient's mail provider can read it.</li>
+<li>It is safer to use a subject line that does not provide any hints
+about the contents -- therefore an empty or random subject is
+recommended.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Remailer Chain</p></td>
+<td><ul>
+<li>Due to the small existing remailer ecosystem, it is recommended to
+only use one remailer at a time and not a chain of them. This will
+ensure the message/mail is delivered quickly and more reliably.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Remailer Software/Interface</p></td>
+<td><ul>
+<li>It is safest to install and use remailer software directly inside
+Whonix-Workstation over Tor.</li>
+<li>The alternative is to utilize a <a href="./#Third_Party_Web_Interface">Third Party
+Web Interface</a> (see further below). For security reasons this is
+recommended against, since the website owner can monitor various <a href="../Metadata/">metadata</a>, conduct <a href="../Surfing_Posting_Blogging/#Keystroke_Fingerprinting">keystroke fingerprinting</a> and inspect 'cleartext'
+(unencrypted content) communications.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Remailer Test</p></td>
+<td><ul>
+<li>Do <u>not</u> test the remailer by sending a remailed mail/message
+to yourself.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Remailer_Attacks">Remailer Attacks</h1>
+<p>If remailers are not careful, various attacks are possible when
+attempts are made to send mail/messages.</p>
+<table>
+<caption><em>Remailer Threats</em> <sup class="reference"><a href="#cite_note-3">[3]</a></sup></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Threat</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Adversary Threat Model</p></td>
+<td><ul>
+<li>Adversaries can record the contents of all unencrypted messages into
+and out of remailers, as well as time metadata related to arrival and
+departure.</li>
+<li>Adversaries can send an unlimited number of messages through emails,
+and also try to prevent messages arriving at their destintation.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Man-in-the-Middle Attack</p></td>
+<td><ul>
+<li>It is possible for adversaries to intercept the very first message
+to a correspondent, and substitute a genuine public key with a fake one.
+If undetected, the respondent will write a 'confidential' message using
+the fake public key for encryption, which when intercepted can be read
+by the adversary using the private key they created.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Reordering</p></td>
+<td><ul>
+<li>Messages <em>can</em> be traced through chains of remailers with
+encryption if the incoming messages are processed and forwarded
+directly.</li>
+<li>Delaying messages for a period of time does not fully address this
+problem, since remailers generally have little traffic
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup> to disguise the messages.</li>
+<li>'Reordering' tries to address this threat by keeping some messages
+in the remailer at all times ('message pool') and then randomly sending
+out one of the messages in the pool. However, this is susceptible to
+spam attacks. This threat is mitigated by sending out all messages
+periodically and at random intervals.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Replay Attack</p></td>
+<td><ul>
+<li>If remailer settings do not refuse to send a message more than once,
+<sup class="reference"><a href="#cite_note-6">[6]</a></sup> then adversaries can follow a message to the final
+destination or trace the original sender. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Size and Distinguishability</p></td>
+<td><ul>
+<li>Messages can be tracked by their size, even though default messages
+decrease in size by a fraction at each hop due to the removal of
+padding.</li>
+<li>Very large messages will stand out to adversaries and can be
+pinpointed for attacks.</li>
+<li>Mitigating this threat requires each mail/message to be exactly the
+same size.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Trivial Attacks</p></td>
+<td><ul>
+<li>A number of attacks are possible when a message is sent unencrypted,
+or when the message is encrypted but the remailer is compromised (since
+the operator knows both originating and final addresses).</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Mixmaster:_Tor_Remailer">Mixmaster: Tor Remailer</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+This option is now deprecated. Mixmaster is dead upstream and has been
+<a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=880101">permanently
+removed from Debian</a>.</p>
+</div>
+<p>Mixmaster remailers do several things: <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><blockquote><ul>
+<li>They send a message to another e-mail address or post it to a news
+group.</li>
+<li>They accept encrypted messages with instructions for processing
+hidden inside the encrypted envelope.</li>
+<li>They strip all mail headers.</li>
+<li>They add new headers such as subject lines.</li>
+<li>They remove some information from the end of the message.</li>
+<li>They encrypt part of a message using a key specified in the
+message.</li>
+</ul></blockquote></p>
+<p>Interested readers are still free to peruse the <a href="../Mixmaster/">Mixmaster</a> documentation. Historical tests with this
+software were successful -- when utilizing one remailer, mail/messages
+took between 10-120 minutes before arriving in the recipient's
+inbox.</p>
+<h1 id="Third_Party_Web_Interface">Third Party Web Interface</h1>
+<p>As noted earlier, Tor Browser can be paired with a third party web
+interface. However, this configuration is less secure and should be used
+with care because the server administrator is capable of snooping on
+cleartext as it is typed or pasted.</p>
+<h2 id="Mixmaster">Mixmaster</h2>
+<ul>
+<li><a href="https://www.awxcnx.de/handbuch_34.htm">German Privacy
+Foundation (awxcnx) email</a></li>
+<li>German Privacy Foundation (awxcnx) <a href="https://en.wikipedia.org/wiki/Usenet">usenet</a></li>
+<li><a href="http://webmixmaster.paranoici.org/">Webmixmaster paranoici
+(clearnet SSL)</a></li>
+<li><a href="https://gilc.org/speech/anonymous/remailer.html">W3-
+Anonymous Remailer (clearnet)</a></li>
+</ul>
+<p><u>Note</u>: The <a href="https://www.cotse.net/cgi-bin/mixnews.cgi">Cotse.net clearnet
+SSL</a> mixmaster public usenet interface has been taken offline due to
+repeated abuse by botnets. It is now only possible to pay for a
+subscription to the service.</p>
+<h2 id="Unknown">Unknown</h2>
+<ul>
+<li><a href="https://web.archive.org/web/20220424062910/http://anonymouse.org/anonemail_de.html">Anonymouse
+(clearnet, German website)</a></li>
+<li><a href="https://send-email.org/">send-email.org (clearnet)</a></li>
+<li><a href="https://www.ngz-server.de/">NGZ-Server.de (clearnet,
+SSL)</a></li>
+<li><a href="https://www.guerrillamail.com/">Guerrilla Mail</a></li>
+</ul>
+<h1 id="Cypherpunk_Remailer">Cypherpunk Remailer</h1>
+<p><u>Note</u>: Readers are welcome to correct any inaccuracies in this
+section.</p>
+<p>The Wikipedia <a href="https://en.wikipedia.org/wiki/Cypherpunk_anonymous_remailer">Cypherpunk
+anonymous remailer</a> article and <a href="https://web.archive.org/web/20160509032241/http://remailer.paranoici.org/rlist2.html">list
+of Cypherpunk remailer services</a> suggests these services utilize
+Mixmaster. Online, associated help files <sup class="reference"><a href="#cite_note-8">[8]</a></sup> also explain
+that it is safer to use Mixmaster, since Cypherpunk remailers just
+provide an email based interface.</p>
+<p>Since the full list of type I and type II remailer servers
+<sup class="reference"><a href="#cite_note-9">[9]</a></sup> reveals that most type I (Cypherpunk) are also type
+II (Mixmaster) servers, it does not appear necessary to learn and
+document how Cypherpunk remailers work. In fact, it does not appear to
+be an actual alternative, since Cypherpunk remailers cannot be used if
+Mixmaster is non-functional for some reason. This option would also
+defeat the purpose of this wiki entry (sending mail without
+registration), since it still requires a mail provider.</p>
+<h1 id="Footnotes_/_References">Footnotes / References</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://en.wikipedia.org/wiki/Anonymous_remailer">https://en.wikipedia.org/wiki/Anonymous_remailer</a></li>
+<li id="cite_note-2">Those who believe remailer chains will improve anonymity are free to
+disregard this advice and create a path length of their choosing.</li>
+<li id="cite_note-3"><a href="https://mason.gmu.edu/~afinn/html/tele/components/anonymous_remailers.htm">https://mason.gmu.edu/~afinn/html/tele/components/anonymous_remailers.htm</a></li>
+<li id="cite_note-4">This can be averted by exchanging public keys in person and on disk,
+downloading public keys over a secure website, or using a digital
+signature certificate from a qualified company.</li>
+<li id="cite_note-5">Or experience network outages.</li>
+<li id="cite_note-6">By including a random ID number for each hop.</li>
+<li id="cite_note-7">Tracing a message forward requires an adversary to capture the
+message and then send many copies to the first remailer. When multiple,
+identical messages emerge from the remailer and move to the next hop,
+the 'bump' in remailer traffic reveals the route it took.</li>
+<li id="cite_note-8">Broken link: <a href="https://web.archive.org/web/20160423030615/http://cypherpunks.to/remailers/help.txt">https://web.archive.org/web/20160423030615/http://cypherpunks.to/remailers/help.txt</a></li>
+<li id="cite_note-9"><a href="https://web.archive.org/web/20160509032241/http://remailer.paranoici.org/rlist2.html">https://web.archive.org/web/20160509032241/http://remailer.paranoici.org/rlist2.html</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

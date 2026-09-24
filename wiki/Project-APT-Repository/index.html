@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Project-APT-Repository</title>
+<meta name="description" content="Whonix stable / testers / developers APT Repository. How to change from one suite to another? How to disable Whonix APT Repository?">
+<meta property="og:description" content="Whonix stable / testers / developers APT Repository. How to change from one suite to another? How to disable Whonix APT Repository?">
+<link rel="canonical" href="https://www.whonix.org/wiki/Project-APT-Repository/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Project-APT-Repository/">
+<meta property="og:title" content="Whonix APT Repository">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Whonix_Repository_Wizard_install_updates.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Qubes-Whonix&#8482;">Qubes-Whonix&#8482;</a></li><li class="toc-l2"><a href="#Whonix">Whonix</a></li><li class="toc-l2"><a href="#Command_Line_Interface">Command Line Interface</a></li><li class="toc-l2"><a href="#Verify_Whonix_APT_Repository_is_Disabled">Verify Whonix APT
+Repository is Disabled</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../VirtualBox/" title="VirtualBox"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">VirtualBox</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Data_Collection_Techniques/" title="Data Collection Techniques"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Data
+Collection
+Techniques</span></a><span class="info"><span class="prev">Previous
+page: VirtualBox</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Data Collection
+Techniques</span></span></span>Whonix APT Repository</p>
+</div>
+<p><img src="../../media/Whonix_Repository_Wizard_install_updates.png.webp" alt="Graphical Whonix Derivative Repository Tool (GUI)" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Whonix stable / testers / developers APT Repository. How to change
+from one suite to another? How to disable Whonix APT Repository?</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Whonix_APT_Repository_Overview">Whonix APT Repository
+Overview</h1>
+<p>Whonix currently provides four repository choices:</p>
+<ul>
+<li><u>Whonix <code>stable</code> APT repository</u>: Recommended for
+most users. The production level packages focus on providing the most
+reliable Whonix experience. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+<li><u>Whonix <code>stable-proposed-updates</code> APT repository</u>:
+After testing by a wider audience, these packages migrate to the stable
+repository. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li><u>Whonix <code>testers</code> APT repository</u>: Recommended for
+testers, since it is only briefly tested by Whonix developers. It could
+break APT during an upgrade, requiring terminal commands to rectify the
+problem. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li><u>Whonix <code>developers</code> APT repository</u>: As above,
+except it includes untested changes. These changes <em>may</em>
+eventually migrate to the testers repository there is reasonable
+certainty that these changes will not break the update system. It is not
+recommended, unless the user is in touch with the development team.</li>
+</ul>
+<p>Due to the Whonix design, a user's security is unlikely to be
+materially affected by preferring the "beta"
+(<code>stable-proposed-updates</code>) or "alpha" (<code>testers</code>)
+repositories over the default stable one. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<h1 id="Change_Whonix_APT_Repository">Change Whonix APT Repository</h1>
+<p>It is easy for users to switch between Whonix repositories using the
+Graphical Whonix Derivative Repository Tool (GUI).</p>
+<h2 id="Qubes-Whonix&#8482;">Qubes-Whonix<sup>&#8482;</sup></h2>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>If you are using <a href="../Qubes/">Qubes-Whonix</a>,
+please press Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template:</code> <code>whonix</code> &#8594; <code>Repository</code></p>
+<p><strong>Figure:</strong> <em>Wizard Repository Selection</em></p>
+<p><img src="../../media/Whonix_Repository_Wizard_select_repo.png.webp" alt="Whonix_Repository_Wizard_select_repo.png" /></p>
+<p><strong>Figure:</strong> <em>Wizard Auto-update
+Configuration</em></p>
+<p><img src="../../media/Whonix_Repository_Wizard_install_updates.png.webp" alt="Whonix_Repository_Wizard_install_updates.png" /></p>
+</div>
+</div>
+<h2 id="Whonix">Whonix</h2>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>If you are using <a href="../About/">Whonix</a>, please
+press Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p><code>Start Menu</code> &#8594; <code>System</code> &#8594;
+<code>Derivative Repository</code> &#8594;
+<code>choose either "stable", "stable-proposed-updates" , "Testers" or "Developers" repository</code></p>
+<p><strong>Figure:</strong> <em>Start Menu</em></p>
+<p><img src="../../media/Whonixrepoxfce1.png.webp" width="600" alt="whonixrepoxfce1.png" /></p>
+<p><strong>Figure:</strong> <em>super user password</em></p>
+<p><img src="../../media/Whonixrepoxfce2.png.webp" width="600" alt="whonixrepoxfce2.png" /></p>
+</div>
+</div>
+<p>Afterwards, the following window will appear.</p>
+<p><strong>Figure:</strong> <em>Auto-update Configuration</em></p>
+<p><img src="../../media/Whonixrepoxfce3.png.webp" width="600" alt="whonixrepoxfce3.png" /></p>
+<p><strong>Figure:</strong> <em>Repository Selection</em></p>
+<p><img src="../../media/Whonixrepoxfce4.png.webp" width="600" alt="whonixrepoxfce4.png" /></p>
+<h2 id="Command_Line_Interface">Command Line Interface</h2>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>If you are a terminal user, please press Expand on the right.</p>
+<div class="mw-collapsible-content">
+<p>In Terminal, run.</p>
+<p><span class="code-select">sudo repository-dist</span></p>
+<p><strong>Figure:</strong> <em>Launch Terminal</em></p>
+<p><img src="../../media/Whonixrepocli.png.webp" width="600" alt="whonixrepocli.png" /></p>
+<p><strong>Figure:</strong> <em>Run repository-dist</em></p>
+<p><img src="../../media/Whonixrepocli2.png.webp" width="600" alt="whonixrepocli2.png" /></p>
+<p>Choose one of the following repositories based on personal
+preferences.</p>
+<p><span class="code-select">sudo repository-dist --enable --repository
+stable</span></p>
+<p><span class="code-select">sudo repository-dist --enable --repository
+stable-proposed-updates</span></p>
+<p><span class="code-select">sudo repository-dist --enable --repository
+testers</span></p>
+<p><span class="code-select">sudo repository-dist --enable --repository
+developers</span></p>
+</div>
+</div>
+<p>To use the repository, follow the <a href="../Moved:Operating_System_Software_and_Updates/">usual
+update instructions</a>.</p>
+<h1 id="Onionizing_Repository">Onionizing Repository</h1>
+<p>This is not yet possible with the GUI. Only with the CLI.</p>
+<p>See <a href="../Onionizing_Repositories/#Onionize_derivative.sources">Onionize derivative.sources</a>.</p>
+<h1 id="Disable_Whonix_APT_Repository">Disable Whonix APT
+Repository</h1>
+<p>For <a href="../Trust/">Trust</a> reasons some users may
+prefer not to use Whonix APT Repository. In that case, it is necessary
+to <a href="../Dev/Build_Documentation/">update Debian
+packages in Whonix from source code</a>, which is inconvenient.</p>
+<p>All Default-Download-Version Whonix variants have the Whonix APT
+repository enabled. It can be disabled via the GUI or in a terminal with
+the Derivative Repository Tool.</p>
+<table>
+<caption><em>Whonix APT Repository Disabling</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Platform / Method</strong></p></th>
+<th><p><strong>Instructions</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Whonix Built from Source Code</p></td>
+<td><p>If <a href="../Dev/Build_Documentation/">Whonix is
+built from source code</a>, Whonix APT Repository is not added by
+default. The only exception is if users <a href="../Build_Configuration/">opt in using a build configuration</a>. It is also
+possible to <a href="./#Verify_Whonix_APT_Repository_is_Disabled">verify</a> that it is already disabled.</p></td>
+</tr>
+<tr class="even">
+<td><p>Whonix Default-Download-Version: GUI</p></td>
+<td><ul>
+<li>Qubes-Whonix: <code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template:</code> <code>whonix</code> &#8594; <code>Repository</code> &#8594;
+<code>"No, I will manually update from source code."</code><br />
+</li>
+<li>Whonix: <code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>System</code> &#8594; <code>Whonix Repository</code> &#8594;
+<code>"No, I will manually update from source code."</code></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Whonix Default-Download-Version: Terminal</p></td>
+<td><p>To disable it in a terminal, run.<br />
+<span class="code-select">sudo repository-dist --disable</span></p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Users can <a href="./#Verify_Whonix_APT_Repository_is_Disabled">optionally verify</a> Whonix APT repository is disabled
+after this procedure.</p>
+<h2 id="Verify_Whonix_APT_Repository_is_Disabled">Verify Whonix APT
+Repository is Disabled</h2>
+<p>To check the Whonix APT repository was successfully disabled, run the
+following tests.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Use
+<em><span>apt-key</span></em>.</p>
+<p><span class="code-select">sudo apt-key finger</span></p>
+<p>This test should not show any Whonix-specific keys, such as <a href="../Patrick_Schleizer/">Patrick Schleizer's OpenPGP
+key</a>.</p>
+<p><strong>2.</strong> Check if file
+<code>/etc/apt/sources.list.d/derivative.sources</code> exists.</p>
+<p>If it does not exist, the procedure was successful.</p>
+<p><strong>3.</strong> <em>Optional:</em> conduct additional tests as a
+precaution.</p>
+<p>Examine the <code>/etc/apt/sources.list</code> file. It should not
+include the Whonix APT Repository.</p>
+<p><span class="code-select">cat /etc/apt/sources.list</span></p>
+<p>Next examine the </code>/etc/apt/sources.list.d/</code> folder as
+well.</p>
+<p><span class="code-select">cat /etc/apt/sources.list.d/*</span></p>
+</div>
+<h1 id="Further_Reading">Further Reading</h1>
+<ul>
+<li><a href="../Trust/">Trust</a></li>
+<li><a href="../Debian_Packages/">Whonix Debian package -
+which ones are safe to remove?</a></li>
+<li><a href="../Dev/Build_Documentation/">Building/upgrading Whonix Debian packages from source
+code</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">If possible, users are requested to run a separate testers-only
+Whonix-Gateway<sup>&#8482;</sup> (<code>sys-whonix</code>) and
+Whonix-Workstation<sup>&#8482;</sup> (<code>anon-whonix</code>) that has the
+<code>testers</code> repository enabled. If too few people test Whonix,
+undiscovered issues might migrate to the stable repository.</li>
+<li id="cite_note-2">Users are recommended to make a VM clone for this repository just in
+case it breaks. That way changes can be rolled back if necessary.</li>
+<li id="cite_note-3">The terms <code>alpha</code> and <code>beta</code> are avoided
+because they have generally lost their meaning in the software field;
+many applications remain in <code>alpha</code> or <code>beta</code>
+status for years, even though they work perfectly well.</li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../VirtualBox/" title="VirtualBox"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">VirtualBox</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Data_Collection_Techniques/" title="Data Collection Techniques"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Data
+Collection
+Techniques</span></a><span class="info"><span class="prev">Previous
+page: VirtualBox</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Data Collection
+Techniques</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

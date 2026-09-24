@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Post Install Advice</title>
+<meta name="description" content="This page provides security advice, steps that can be applied after installation of Whonix for better security such as changing passwords.">
+<meta property="og:description" content="This page provides security advice, steps that can be applied after installation of Whonix for better security such as changing passwords.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Post_Install_Advice/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Post_Install_Advice/">
+<meta property="og:title" content="Post-installation Security Advice">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Ball-63527-640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Increase_Virtual_Machine_RAM">Increase Virtual Machine RAM</a></li><li class="toc-l3"><a href="#VirtualBox">VirtualBox</a></li><li class="toc-l3"><a href="#KVM">KVM</a></li><li class="toc-l2"><a href="#Change_Keyboard_Layout">Change Keyboard Layout</a></li><li class="toc-l2"><a href="#Test_Keyboard_Layout">Test Keyboard Layout</a></li><li class="toc-l2"><a href="#Change_Password">Change Password</a></li><li class="toc-l2"><a href="#How_do_I_Check_the_Current_Whonix_Version?">How do I Check the
+Current Whonix Version?</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Ball-63527-640.jpg.webp" alt="Ball-63527-640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>This page provides security advice, steps (such as changing
+passwords) that can be applied after installation of Whonix for better
+security.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p><img src="../../media/Kicksecure-badge.svg" width="150" alt="Kicksecure-badge.svg" />
+<a href="../About/">Whonix</a> comes with
+[Broken-ExtLink--no-url-was-provided]. Whonix is
+[Broken-ExtLink--no-url-was-provided] hardened by default and also
+provides extensive <a href="../Documentation/">Documentation</a> including a <a href="../System_Hardening_Checklist/">System Hardening
+Checklist</a>. The more you know, the safer you can be.</p>
+<p>This page provides security advice, including steps that can be
+applied after installation of Whonix for better security.</p>
+<h1 id="On_Whonix-Gateway&#8482;_and_Whonix-Workstation&#8482;">On
+Whonix-Gateway<sup>&#8482;</sup> and Whonix-Workstation<sup>&#8482;</sup></h1>
+<h2 id="Increase_Virtual_Machine_RAM">Increase Virtual Machine RAM</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Whonix default password info box" /></span>
+<a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> users can
+skip this section. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+</div>
+<ul>
+<li>Whonix-Workstation: No changes are necessary for most users.</li>
+<li>Whonix-Gateway: If enough host RAM is available, ideally the virtual
+RAM setting of Whonix-Gateway should be increased to <code>2048</code>
+MB RAM. <sup class="reference"><a href="#cite_note-2">[2]</a></sup> If it is infeasible to increase the virtual
+RAM setting, Whonix-Gateway will still function properly.
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+</ul>
+<p>If it is unknown how much RAM is available, follow these steps on the
+host: <sup class="reference"><a href="#cite_note-4">[4]</a></sup> <sup class="reference"><a href="#cite_note-5">[5]</a></sup> <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<ul>
+<li><u>Windows 10</u>: <code>Task Manager in More details view</code> &#8594;
+<code>Click/tap on the Performance tab</code> &#8594;
+<code>Click/tap on Memory</code>; or <code>Open a command prompt</code>
+&#8594; <i><code>Run</code></i>
+<code>wmic MemoryChip get /format:list</code></li>
+<li><u>macOS</u>: <code>Apple menu</code> &#8594;
+<code>About This Mac</code></li>
+<li><u>Linux</u>: <code>Open a terminal</code> &#8594; <i><code>Run</code></i>
+<code>free -h</code> <sup class="reference"><a href="#cite_note-7">[7]</a></sup></li>
+</ul>
+<p>Related:</p>
+<ul>
+<li><a href="../Troubleshooting/#Low_RAM_Issues">Low RAM
+Issues</a></li>
+<li><a href="../RAM/">Advice for Systems with Low
+RAM</a></li>
+</ul>
+<h3 id="VirtualBox">VirtualBox</h3>
+<ol>
+<li>To add RAM in VirtualBox the VM <u>must</u> first be powered
+down.</li>
+<li><code>Virtual machine</code> &#8594; <code>Menu</code> &#8594;
+<code>Settings</code> &#8594; <i><code>Adjust</code></i>
+<code>Memory slider</code> &#8594;
+<i><code>Hit:</code></i><code> OK</code></li>
+</ol>
+<h3 id="KVM">KVM</h3>
+<div class="info-box ">
+<p><strong>1.</strong> Shut down the virtual machine(s).</p>
+<p><span class="code-select">virsh -c qemu:///system shutdown
+&lt;vm_name&gt;</span></p>
+<p><strong>2.</strong> Increase the maximum memory.</p>
+<p><span class="code-select">virsh setmaxmem &lt;vm_name&gt;
+&lt;memsize&gt; --config</span></p>
+<p><strong>3.</strong> Set the actual memory.</p>
+<p><span class="code-select">virsh setmem &lt;vm_name&gt;
+&lt;memsize&gt; --config</span></p>
+<p><strong>4.</strong> Restart the virtual machine(s).</p>
+<p><span class="code-select">virsh -c qemu:///system start
+&lt;vm_name&gt;</span></p>
+</div>
+<h2 id="Change_Keyboard_Layout">Change Keyboard Layout</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="WhonixChange Keyboard Layout info box" /></span>
+<a href="../Qubes/">Qubes-Whonix</a> users can skip this
+section. <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+</div>
+<p>If you are using a keyboard layout other than <code>qwerty</code>
+(US), consider changing the keyboard layout. Refer to the dedicated <a href="../Moved:Keyboard_Layout/">Keyboard Layout</a> entry for
+further details.</p>
+<h2 id="Test_Keyboard_Layout">Test Keyboard Layout</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="WhonixTest Keyboard Layout info box" /></span>
+<a href="../Qubes/">Qubes-Whonix</a> users can skip this
+section.</p>
+</div>
+<ul>
+<li><code>Start menu</code> &#8594; <code>Accessories</code> &#8594;
+<code>Mousepad</code>; or</li>
+<li>Open file <code>~/testfile</code> in a <a href="../Moved:Software/#Text_Editor">text editor</a> of your
+choice as a regular, non-root user.</li>
+</ul>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad ~/testfile</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano ~/testfile</span></p>
+</div>
+<p>Try typing the words <code>user</code>, <code>changeme</code> and
+<code>qwerty</code>. Try typing further words to ensure the desired
+keyboard layout is functional.</p>
+<p><span class="manually-placed-anchor " id="Change_Passwords"></span></p>
+<h2 id="Change_Password">Change Password</h2>
+<p>See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<h1 id="Upstream">Upstream</h1>
+<p><img src="../../media/Kicksecure-seal.png.webp" width="130" alt="Kicksecure Hardened" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-info cs-red"></i></span>
+<span class="template-styled-text ">Redirection
+to Kicksecure Documentation </span></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-exclamation-triangle cs-yellow"></i></span>
+<span class="template-styled-text "><u>NOT-SELFCONTAINED:</u>
+This wiki page is not self-contained by design. This It only includes
+details specific to Whonix. For full understanding, please follow the
+link below to the Kicksecure wiki, which provides more complete
+background and instructions. </span></p>
+</div>
+<ul>
+<li><i class="fa-solid fa-circle-info cs-blue"></i><span><u>Introduction</u>:
+&lt;a href="../Introduction/"&gt;Whonix Documentation Introduction,
+User Expectations, Footnotes and References, User Expectations - What
+Documentation Is and What It Is Not&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-link cs-green"></i><span><u>&lt;a
+href="../About/#Based_on_Kicksecure"&gt;Whonix is based on
+Kicksecure<sup>&amp;trade;</sup>&lt;/a&gt;</u>: Whonix is built on top
+of Kicksecure. This means it uses many of the same security tools,
+design concepts, and configurations.</span></li>
+<li><i class="fa-solid fa-server cs-gray"></i><span><u>&lt;a href="<a href="https://www.kicksecure.com/wiki/Based_on_Debian%22%3EKicksecure">https://www.kicksecure.com/wiki/Based_on_Debian"&gt;Kicksecure</a>
+is based on Debian&lt;/a&gt;:</u> Kicksecure is developed using Debian
+as its base. Debian is a widely used, stable, and free Linux operating
+system.</span></li>
+<li><i class="fa-solid fa-arrow-down cs-blue"></i><span><u>Inheritance:</u>
+As a result, Whonix is also &lt;a href="../Based_on_Debian/"&gt;based
+on Debian&lt;/a&gt;.</span></li>
+<li><i class="fa-brands fa-linux cs-black"></i><span><u>Debian is
+GNU/Linux-based:</u> Debian is built using the GNU/Linux operating
+system. GNU provides essential tools and Linux is the system's kernel
+(core).</span></li>
+<li><i class="fa-solid fa-users cs-green"></i><span><u>Shared
+documentation benefits:</u> Since each system is based on the one below
+it, a lot of documentation and guides are shared. This reduces the need
+to duplicate information.</span></li>
+<li><i class="fa-solid fa-file-alt cs-gray"></i><span><u>Inherited
+documentation:</u> Most instructions and explanations are inherited from
+Kicksecure or Debian, unless otherwise specified.</span></li>
+<li><i class="fa-solid fa-check cs-green"></i><span><u>Shared
+principles:</u> The systems share similar security goals and setup
+instructions. In most cases, users can follow Kicksecure documentation
+when using Whonix.</span></li>
+<li><i class="fa-solid fa-thumbs-up cs-blue"></i><span><u>Keep using
+Whonix:</u> This does <u>not</u> mean users should switch to Kicksecure.
+This page only points to related, helpful information.</span></li>
+<li><i class="fa-solid fa-keyboard cs-gray"></i><span><u>Where to apply
+the instructions:</u> Follow the instructions inside Whonix unless
+specifically stated otherwise.</span></li>
+<li><i class="fa-solid fa-pencil cs-orange"></i><span><u>Wiki editors
+notice:</u> This information is pulled from a reusable wiki template:
+&lt;a href="../Template:Upstream_wiki/"&gt;upstream_wiki&lt;/a&gt;.
+(&lt;a href="../Special:WhatLinksHere/Template:Upstream_wiki/"&gt;See
+which pages use this&lt;/a&gt;.)</span></li>
+<li><i class="fa-solid fa-balance-scale cs-blue"></i><span><u>Comparison:</u>
+&lt;a href="../Comparison_with_Kicksecure/"&gt;Whonix versus
+Kicksecure&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-sync-alt cs-gray"></i><span><u>Documentation
+compatibility:</u> Because Whonix is based on Kicksecure, you can often
+follow Kicksecure's instructions as long as you apply them in the right
+place.</span></li>
+<li><i class="fa-solid fa-layer-group cs-gray"></i><span><u>Summary:</u>
+Whonix is built on top of <b>Kicksecure</b>, which itself is based on
+<b>Debian</b>. Debian is a GNU/Linux operating system. This layered
+design means Whonix inherits many features, tools, and documentation
+from both Kicksecure and Debian.</span></li>
+<li><i class="fa-solid fa-mouse-pointer cs-blue"></i><span><u>Click
+here:</u> Visit the related page in the Kicksecure wiki for full
+documentation and background:</span></li>
+</ul>
+<p><span class="template-styled-text "><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] </span></p>
+<ul>
+<li><i class="fa-solid fa-sticky-note cs-yellow"></i><span><u>Note:</u>
+Re-interpretation...</span></li>
+</ul>
+<div class="info-box ib-dark">
+<p>Apply the instructions inside Whonix, <u>not</u> inside
+Kicksecure.</p>
+<p><blockquote><p>Kicksecure: Perform these steps inside Kicksecure.</p></blockquote></p>
+<p>Instead, apply the steps inside Whonix-Workstation.</p>
+<p><blockquote><p>Kicksecure for Qubes: Perform these steps inside Qubes
+<code>kicksecure-18</code> Template.</p></blockquote></p>
+<p>Instead, use the <code>whonix-workstation-18</code> Template for
+these steps.</p>
+</div>
+</div>
+<h1 id="Security_Updates">Security Updates</h1>
+<p>Regularly check for security updates and apply them in a timely
+fashion; see <a href="../Moved:Operating_System_Software_and_Updates/#Updates">Operating System Updates</a>.</p>
+<h1 id="Network_Time_Syncing">Network Time Syncing</h1>
+<p>This is a short summary of the <a href="../Network_Time_Synchronization/">Network Time Synchronization</a> wiki page which is
+recommended reading.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Timezone information.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong> The system clock inside Whonix is set to UTC
+to prevent against <a href="../Timezone/">timezone</a>
+leaks. This means it may be a few hours ahead or behind the user's host
+system clock. <u>It is strongly recommended not to change this
+setting.</u></p>
+</div>
+<p><strong>2.</strong> Check the host clock is reasonably accurate.</p>
+<p>A reasonably accurate host clock is required for many general
+security properties because an inaccurate clock can lead to:</p>
+<ul>
+<li>Broken internet connectivity; and</li>
+<li><a href="../Time_Attacks/">Time Attacks</a>.</li>
+</ul>
+<p>Therefore, at all times ensure the host clock has an accuracy of up
+to &#177; 30 minutes.</p>
+<p><strong>3.</strong> Avoid pause / suspend / save / hibernate
+functions.</p>
+<p>In simple terms, most users should avoid the pause / suspend / save /
+hibernate features. Although discouraged, see <a href="../Network_Time_Synchronization/">Network Time
+Synchronization</a> for further details on when this is possible.</p>
+</div>
+<h1 id="Better_Security">Better Security</h1>
+<p>This chapter is aimed at newcomers and only provides a short and
+simple overview for basic protection. Anonymity and platform security
+can be improved by following recommendations outlined in the Security
+Guide and Advanced Security Guide sections, along with the <a href="../Time_Attacks/">Time Attacks</a> and <a href="../Network_Time_Synchronization/">Network Time
+Synchronization</a> page.</p>
+<h1 id="Appendix">Appendix</h1>
+<h2 id="How_do_I_Check_the_Current_Whonix_Version?">How do I Check the
+Current Whonix Version?</h2>
+<p>See <code>/etc/*_version</code>.</p>
+<p><span class="code-select">cat /etc/*_version</span></p>
+<p>Should show.</p>
+<p><code>13.1</code><br />
+<code>18</code></p>
+<p>The first line shows the version of the major and minor version of
+Debian. The second line shows the version of the derivative
+(Whonix).</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Qubes has dynamic RAM assignment.</li>
+<li id="cite_note-2">This provides higher performance during upgrades and lowers the
+likelihood of <a href="https://forums.whonix.org/t/swap-swap-file-whonix-gateway-freezing-during-apt-get-dist-upgrade-encrypted-swap-file-creator/8317">issues</a>.</li>
+<li id="cite_note-3">Although non-ideal, <a href="https://github.com/Whonix/swap-file-creator">swap-file-creator</a>
+will create an encrypted swap file and the <a href="https://forums.whonix.org/t/vm-swappiness-1-set-swapiness-to-lowest-setting-still-useful-swappiness-lowest/9278">system
+is configured to swap as little as possible</a>.</li>
+<li id="cite_note-4"><a href="https://www.tenforums.com/tutorials/66809-determine-system-memory-size-speed-type-windows-10-a.html">https://www.tenforums.com/tutorials/66809-determine-system-memory-size-speed-type-windows-10-a.html</a></li>
+<li id="cite_note-5"><a href="https://vitux.com/how-to-check-installed-ram-on-debian/">https://vitux.com/how-to-check-installed-ram-on-debian/</a></li>
+<li id="cite_note-6"><a href="https://support.apple.com/en-us/HT201191">https://support.apple.com/en-us/HT201191</a></li>
+<li id="cite_note-7">This command works in Red Hat, CentOS, Suse, Ubuntu, Fedora, Debian
+and other distributions. Alternative commands include:
+<code>cat /proc/meminfo |grep MemTotal</code>, <code>top</code>, and
+<code>vmstat -s</code>.</li>
+<li id="cite_note-8">By default, Qubes VMs use the same keyboard layout as Qubes
+<code>dom0</code>.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

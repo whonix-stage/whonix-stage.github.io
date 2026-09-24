@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Homepage</title>
+<meta name="description" content="Development of Whonix Homepage">
+<meta property="og:description" content="Development of Whonix Homepage">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Homepage/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Homepage/">
+<meta property="og:title" content="Homepage Speed Tests">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Homepage</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Older_Tests">Older Tests</a></li><li class="toc-l2"><a href="#26.11.2014">26.11.2014</a></li><li class="toc-l3"><a href="#whonix.org">whonix.org</a></li><li class="toc-l3"><a href="#26.11.2014_2">26.11.2014</a></li><li class="toc-l3"><a href="#https://www.whonix.org/wiki/About">https://www.whonix.org/wiki/About</a></li><li class="toc-l3"><a href="#https://www.whonix.org/old-forum/">https://www.whonix.org/old-forum/</a></li><li class="toc-l3"><a href="#nowikihttps://www.whonix.org/blog/">&lt;nowiki&gt;https://www.whonix.org/blog/</a></li><li class="toc-l2"><a href="#whonix.org_2">whonix.org</a></li><li class="toc-l2"><a href="#26.11.2014_3">26.11.2014</a></li><li class="toc-l2"><a href="#https://www.whonix.org/wiki/About_2">https://www.whonix.org/wiki/About</a></li><li class="toc-l2"><a href="#https://www.whonix.org/old-forum/_2">https://www.whonix.org/old-forum/</a></li><li class="toc-l2"><a href="#nowikihttps://www.whonix.org/blog/_2">&lt;nowiki&gt;https://www.whonix.org/blog/</a></li><li class="toc-l2"><a href="#whonix.org_3">whonix.org</a></li><li class="toc-l2"><a href="#26.11.2014_4">26.11.2014</a></li><li class="toc-l2"><a href="#https://www.whonix.org/wiki/About_3">https://www.whonix.org/wiki/About</a></li><li class="toc-l2"><a href="#https://www.whonix.org/old-forum/_3">https://www.whonix.org/old-forum/</a></li><li class="toc-l2"><a href="#nowikihttps://www.whonix.org/blog/_3">&lt;nowiki&gt;https://www.whonix.org/blog/</a></li><li class="toc-l2"><a href="#wiki/VirtualBox">wiki/VirtualBox</a></li><li class="toc-l2"><a href="#homepage">homepage</a></li><li class="toc-l2"><a href="#end_of_year_banner_performance_testing">end of year banner
+performance testing</a></li><li class="toc-l3"><a href="#download_sub_domain_is_very_fast">download sub domain is very
+fast</a></li><li class="toc-l3"><a href="#hello.php">hello.php</a></li><li class="toc-l3"><a href="#hello2.php">hello2.php</a></li><li class="toc-l3"><a href="#Testpage-no-header-no-footer">Testpage-no-header-no-footer</a></li><li class="toc-l3"><a href="#Comparison_with_Upstream_MediaWiki">Comparison with Upstream
+MediaWiki</a></li><li class="toc-l2"><a href="#wiki_speed_tests">wiki speed tests</a></li><li class="toc-l3"><a href="#Motivation">Motivation</a></li><li class="toc-l3"><a href="#summary_and_conclusions_from_above_tests">summary and
+conclusions from above tests</a></li><li class="toc-l3"><a href="#comparison_2">comparison #2</a></li><li class="toc-l3"><a href="#ideas_for_future_investigation">ideas for future
+investigation</a></li><li class="toc-l3"><a href="#Tests_2">Tests</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../../Moved:OpenPGP_Signed_Website/" title="Dev/OpenPGP Signed Website"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/OpenPGP
+Signed
+Website</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../../Moved:About_Infrastructure/" title="Dev/Web Backend"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Web
+Backend</span></a><span class="info"><span class="prev">Previous page:
+Dev/OpenPGP Signed Website</span><span class="index">Index page:
+Design</span><span class="next">Next page: Dev/Web
+Backend</span></span></span>Homepage Speed Tests</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Internet_Archive_logo.png.webp" width="40" alt="Info" /></span>
+This page is archived.</p>
+</div>
+<h1 id="...">...</h1>
+<p>Experimenting with the contents and speed of Whonix homepage.</p>
+<ul>
+<li>Current homepage: <a href="../../About/">Overview</a></li>
+<li>Copy of <a href="../../About/">Overview</a> as per
+26.11.2014: <code><a href="26.11.2014/">Dev/Homepage/26.11.2014</a></li>
+</ul>
+<p></code></p>
+<h1 id="Testing_Services_Used">Testing Services Used</h1>
+<ul>
+<li><a href="https://tools.pingdom.com">https://tools.pingdom.com</a></li>
+<li><a href="https://gtmetrix.com">https://gtmetrix.com</a></li>
+</ul>
+<h1 id="Tests">Tests</h1>
+<h2 id="Older_Tests">Older Tests</h2>
+<p>https://github.com/Whonix/Whonix/issues/172</p>
+<h2 id="26.11.2014">26.11.2014</h2>
+<p><strong>Using mediawiki 1.23.</strong></p>
+<h3 id="whonix.org">whonix.org</h3>
+<p>Typing just "whonix.org" so redirections and https add up.</p>
+<p><blockquote><p>This specific test was done on November 26 at 17:22:09 from
+Amsterdam, Netherlands. The web page took 2.82 s to load, used 43
+requests, and weighed in at 493.2 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+93/100</p></blockquote></p>
+<p><blockquote><p>This specific test was done on November 26 at 17:23:58 from New York
+City, New York, USA. The web page took 4.66 s to load, used 43 requests,
+and weighed in at 493.2 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+93/100</p></blockquote></p>
+<p><blockquote><p>This specific test was done on November 26 at 17:24:56 from Dallas,
+Texas, USA. The web page took 6.05 s to load, used 43 requests, and
+weighed in at 493.2 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+92/100</p></blockquote></p>
+<h3 id="26.11.2014_2">26.11.2014</h3>
+<pre><code>https://www.whonix.org/wiki/Dev/Homepage/26.11.2014</code></pre>
+<p>Using direct page link to remove redirections and https from
+equation.</p>
+<p><blockquote><p>This specific test was done on November 26 at 17:44:49 from unknown.
+The web page took 7.62 s to load, used 40 requests, and weighed in at
+491.3 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+92/100</p></blockquote></p>
+<p><blockquote><p>This specific test was done on November 26 at 17:46:30 from Dallas,
+Texas, USA. The web page took 4.46 s to load, used 40 requests, and
+weighed in at 491.3 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+94/100</p></blockquote></p>
+<p><blockquote><p>40 Requests 462.3 KB 5.75s (onload: 6.06s)</p></blockquote></p>
+<h3 id="https://www.whonix.org/wiki/About"><a href="https://www.whonix.org/wiki/About">https://www.whonix.org/wiki/About</a></h3>
+<p>Comparison with a much simpler page that does not have an rss reader
+or a lot pictures.</p>
+<p><blockquote><p>This specific test was done on November 26 at 17:27:51 from unknown.
+The web page took 2.55 s to load, used 21 requests, and weighed in at
+276.2 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+90/100</p></blockquote></p>
+<p><blockquote><p>22 Requests 259.6 KB 4.63s (onload: 4.97s)</p></blockquote></p>
+<p><blockquote><p>21 Requests 259.6 KB 4.36s (onload: 4.71s)</p></blockquote></p>
+<h3 id="https://www.whonix.org/old-forum/">https://www.whonix.org/old-forum/</h3>
+<p>Comparison with Whonix forums.</p>
+<p><blockquote><p>This specific test was done on November 26 at 17:38:37 from unknown.
+The web page took 1.55 s to load, used 21 requests, and weighed in at
+73.1 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+95/100</p></blockquote></p>
+<p><blockquote><p>This specific test was done on November 26 at 17:39:35 from New York
+City, New York, USA. The web page took 1.38 s to load, used 21 requests,
+and weighed in at 73.1 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+95/100</p></blockquote></p>
+<h3 id="nowikihttps://www.whonix.org/blog/">&lt;nowiki&gt;https://www.whonix.org/blog/</h3>
+<p>Comparison with Whonix blog.</p>
+<p><blockquote><p>This specific test was done on November 26 at 17:48:33 from
+Amsterdam, Netherlands. The web page took 1.35 s to load, used 10
+requests, and weighed in at 90.0 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+100/100</p></blockquote></p>
+<p><blockquote><p>10 Requests 83.2 KB 3.42s (onload: 4.06s)</p></blockquote></p>
+<h1 id="01.03.2015">01.03.2015</h1>
+<ul>
+<li>nginx &#8594; varnish &#8594; apache2</li>
+<li>no tweaks</li>
+</ul>
+<h2 id="whonix.org_2">whonix.org</h2>
+<p><blockquote><p>This specific test was done on March 1 at 17:11:57 from Dallas,
+Texas, USA. The web page took 3.11 s to load, used 41 requests, and
+weighed in at 757.0 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+86/100</p></blockquote></p>
+<p><blockquote><p>This specific test was done on March 1 at 17:46:53 from San Jose,
+California, USA. The web page took 4.33 s to load, used 41 requests, and
+weighed in at 756.9 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+86/100</p></blockquote></p>
+<p><blockquote><p>Page load time: 4.55s Total page size: 742KB Total number of
+requests: 42</p></blockquote></p>
+<h2 id="26.11.2014_3">26.11.2014</h2>
+<pre><code>https://www.whonix.org/wiki/Dev/Homepage/26.11.2014</code></pre>
+<p><blockquote><p>This specific test was done on March 1 at 17:46:04 from Stockholm,
+Sweden. The web page took 1.06 s to load, used 37 requests, and weighed
+in at 737.0 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+88/100</p></blockquote></p>
+<p><blockquote><p>Page load time: 4.32s Total page size: 723KB Total number of
+requests: 38</p></blockquote></p>
+<h2 id="https://www.whonix.org/wiki/About_2"><a href="https://www.whonix.org/wiki/About">https://www.whonix.org/wiki/About</a></h2>
+<p><blockquote><p>This specific test was done on March 1 at 17:48:01 from Stockholm,
+Sweden. The web page took 957 ms to load, used 19 requests, and weighed
+in at 546.1 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+88/100</p></blockquote></p>
+<p><blockquote><p>Page load time: 3.62s Total page size: 539KB Total number of
+requests: 20</p></blockquote></p>
+<h2 id="https://www.whonix.org/old-forum/_2">https://www.whonix.org/old-forum/</h2>
+<p><blockquote><p>This specific test was done on March 1 at 17:48:53 from Amsterdam,
+Netherlands. The web page took 226 ms to load, used 21 requests, and
+weighed in at 67.2 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+85/100</p></blockquote></p>
+<p><blockquote><p>Page load time: 2.12s Total page size: 58.5KB Total number of
+requests: 20</p></blockquote></p>
+<h2 id="nowikihttps://www.whonix.org/blog/_2">&lt;nowiki&gt;https://www.whonix.org/blog/</h2>
+<p><blockquote><p>This specific test was done on March 1 at 17:50:00 from Dallas,
+Texas, USA. The web page took 1.11 s to load, used 38 requests, and
+weighed in at 111.2 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+88/100</p></blockquote></p>
+<p><blockquote><p>Page load time: 2.25s Total page size: 107KB Total number of
+requests: 10</p></blockquote></p>
+<h1 id="12.03.2015">12.03.2015</h1>
+<ul>
+<li>nginx &#8594; varnish &#8594; apache2</li>
+<li>varnish vcl improvements, ocsp, session resumption, spdy</li>
+</ul>
+<h2 id="whonix.org_3">whonix.org</h2>
+<p><blockquote><p>This specific test was done on March 12 at 23:43:35 from Dallas,
+Texas, USA. The web page took 2.16 s to load, used 40 requests, and
+weighed in at 439.1 kB.</p></blockquote></p>
+<p><blockquote><p>Page load time: 3.75s Total page size: 408KB Total number of
+requests: 41</p></blockquote></p>
+<h2 id="26.11.2014_4">26.11.2014</h2>
+<pre><code>https://www.whonix.org/wiki/Dev/Homepage/26.11.2014</code></pre>
+<p><blockquote><p>This specific test was done on March 12 at 23:47:43 from Stockholm,
+Sweden. The web page took 1.53 s to load, used 36 requests, and weighed
+in at 418.0 kB.</p></blockquote></p>
+<p><blockquote><p>Page load time: 3.93s Total page size: 389KB Total number of
+requests: 36</p></blockquote></p>
+<h2 id="https://www.whonix.org/wiki/About_3"><a href="https://www.whonix.org/wiki/About">https://www.whonix.org/wiki/About</a></h2>
+<p><blockquote><p>This specific test was done on March 12 at 23:49:23 from Stockholm,
+Sweden. The web page took 533 ms to load, used 18 requests, and weighed
+in at 219.4 kB.</p></blockquote></p>
+<p><blockquote><p>Page load time: 2.97s Total page size: 205KB Total number of
+requests: 19</p></blockquote></p>
+<h2 id="https://www.whonix.org/old-forum/_3">https://www.whonix.org/old-forum/</h2>
+<p><blockquote><p>This specific test was done on March 12 at 23:50:44 from Amsterdam,
+Netherlands. The web page took 238 ms to load, used 21 requests, and
+weighed in at 75.6 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+98/100</p></blockquote></p>
+<p><blockquote><p>Page load time: 2.13s Total page size: 58.5KB Total number of
+requests: 20</p></blockquote></p>
+<h2 id="nowikihttps://www.whonix.org/blog/_3">&lt;nowiki&gt;https://www.whonix.org/blog/</h2>
+<p><blockquote><p>This specific test was done on March 12 at 23:52:12 from Dallas,
+Texas, USA. The web page took 1.36 s to load, used 13 requests, and
+weighed in at 89.5 kB.</p>
+<p>The Google Page Speed performance grade for this web page is
+100/100</p></blockquote></p>
+<p><blockquote><p>Page load time: 1.99s Total page size: 80.3KB Total number of
+requests: 11</p></blockquote></p>
+<h1 id="misc">misc</h1>
+<p><a href="https://www.whonix.org/wiki/Dev/Homepage/17.03.2015">https://www.whonix.org/wiki/Dev/Homepage/17.03.2015</a></p>
+<h1 id="CodeSelect_JavaScript_Speed_Issue">CodeSelect JavaScript Speed
+Issue</h1>
+<ul>
+<li><a href="https://phabricator.whonix.org/T420">CodeSelect template /
+widget unusably slow on big pages</a></li>
+<li><a href="https://www.whonix.org/w/index.php?title=KVM&amp;oldid=18211">https://www.whonix.org/w/index.php?title=KVM&amp;oldid=18211</a>
+-- https://gtmetrix.com/reports/www.whonix.org/yJv9ZEO2 -- 3,4 s</li>
+<li><a href="https://www.whonix.org/w/index.php?title=KVM&amp;oldid=18786">https://www.whonix.org/w/index.php?title=KVM&amp;oldid=18786</a>
+-- https://gtmetrix.com/reports/www.whonix.org/tvZ0qzS5 -- 30,6 s</li>
+</ul>
+<h1 id="14.12.2021">14.12.2021</h1>
+<p><u>To first content (readable text!) visible in video.</u></p>
+<h2 id="wiki/VirtualBox">wiki/VirtualBox</h2>
+<ul>
+<li>Vancouver https://gtmetrix.com/reports/www.whonix.org/kTw2Dvn3/video
+1,7 s</li>
+<li>London https://gtmetrix.com/reports/www.whonix.org/fnYMD2Ec/video
+0,7 s</li>
+</ul>
+<h2 id="homepage">homepage</h2>
+<ul>
+<li>London https://gtmetrix.com/reports/whonix.org/I12hJQ1u/video 0,6
+s</li>
+</ul>
+<h1 id="08.08.2022">08.08.2022</h1>
+<ul>
+<li>London <a href="https://www.whonix.org/wiki/Testpage-no-header-no-footer">https://www.whonix.org/wiki/Testpage-no-header-no-footer</a>
+1,1 s
+<ul>
+<li>https://gtmetrix.com/reports/www.whonix.org/pevrlSPz/#video</li>
+</ul></li>
+<li>London <a href="https://www.whonix.org/wiki/Testpage-with-header-and-footer">https://www.whonix.org/wiki/Testpage-with-header-and-footer</a>
+1,3 s
+<ul>
+<li>https://gtmetrix.com/reports/www.whonix.org/2y0ZdiAH/</li>
+</ul></li>
+<li>London <a href="https://www.whonix.org/wiki/Testpage-mass-headline-test#test_headline_50">https://www.whonix.org/wiki/Testpage-mass-headline-test#test_headline_50</a>
+1,3 s
+<ul>
+<li>https://gtmetrix.com/reports/www.whonix.org/QMhjfReD/</li>
+</ul></li>
+</ul>
+<h1 id="23.11.2022">23.11.2022</h1>
+<h2 id="end_of_year_banner_performance_testing">end of year banner
+performance testing</h2>
+<p>It's been reported that the website got slower due to the end of year
+banner. Could you compare/check please?</p>
+<p><strong>DEV</strong></p>
+<ul>
+<li>After the speedup (see task before) pages were tested again.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>Grade</p></th>
+<th><p>performace</p></th>
+<th><p>structure</p></th>
+<th><p>content paint</p></th>
+<th><p>total block</p></th>
+<th><p>content shift</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Before (slow)</p></td>
+<td><p>C</p></td>
+<td><p>70%</p></td>
+<td><p>94%</p></td>
+<td><p>3.6s</p></td>
+<td><p>0ms</p></td>
+<td><p>0%</p></td>
+</tr>
+<tr class="even">
+<td><p>After (faster)</p></td>
+<td><p>B</p></td>
+<td><p>80%</p></td>
+<td><p>94%</p></td>
+<td><p>2.2s</p></td>
+<td><p>0ms</p></td>
+<td><p>0%</p></td>
+</tr>
+<tr class="odd">
+<td><p>Without banner</p></td>
+<td><p>B</p></td>
+<td><p>86%</p></td>
+<td><p>94%</p></td>
+<td><p>1.6s</p></td>
+<td><p>0ms</p></td>
+<td><p>0%</p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="25.11.2022">25.11.2022</h1>
+<h3 id="download_sub_domain_is_very_fast">download sub domain is very
+fast</h3>
+<p>Still using hetzer server. Still testing gtmetrix from London.</p>
+<ul>
+<li>https://gtmetrix.com/reports/download.kicksecure.com/xSUX9tow/#video
+0.3 s / 151ms TTFB
+<ul>
+<li>pagespeed: Initial server response time was short Root document took
+140 ms</li>
+<li>https://pagespeed.web.dev/report?url=https%3A%2F%2Fdownload.kicksecure.com%2F</li>
+</ul></li>
+<li>https://gtmetrix.com/reports/download.whonix.org/jifLiJJv/ 0.2 s
+<ul>
+<li>pagespeed: Initial server response time was short Root document took
+140 ms</li>
+<li>https://pagespeed.web.dev/report?url=https%3A%2F%2Fdownload.whonix.org%2F</li>
+</ul></li>
+</ul>
+<h3 id="hello.php">hello.php</h3>
+<ul>
+<li>https://gtmetrix.com/reports/www.kicksecure.com/h6FaRwcP/ TTFB
+130ms</li>
+<li>pagespeed: Initial server response time was short Root document took
+110 ms</li>
+</ul>
+<h3 id="hello2.php">hello2.php</h3>
+<ul>
+<li>pagespeed: Initial server response time was short Root document took
+40 ms</li>
+</ul>
+<h3 id="Testpage-no-header-no-footer">Testpage-no-header-no-footer</h3>
+<p><a href="https://www.kicksecure.com/wiki/Testpage-no-header-no-footer">https://www.kicksecure.com/wiki/Testpage-no-header-no-footer</a></p>
+<ul>
+<li>gtmetrix: 0.9 s
+<ul>
+<li>https://gtmetrix.com/reports/www.kicksecure.com/oGas1t35/</li>
+</ul></li>
+<li>pagespeed: Initial server response time was short Root document took
+420 ms</li>
+</ul>
+<h3 id="Comparison_with_Upstream_MediaWiki">Comparison with Upstream
+MediaWiki</h3>
+<p><a href="https://www.mediawiki.org/wiki/Extension:SSL_authentication">https://www.mediawiki.org/wiki/Extension:SSL_authentication</a></p>
+<ul>
+<li>gtmetrix: 0.3 s
+<ul>
+<li>https://gtmetrix.com/reports/www.mediawiki.org/2wUII1Dc/</li>
+</ul></li>
+<li>pagespeed: Initial server response time was short Root document took
+340 ms</li>
+</ul>
+<h1 id="25.12.2022">25.12.2022</h1>
+<h2 id="wiki_speed_tests">wiki speed tests</h2>
+<h3 id="Motivation">Motivation</h3>
+<ul>
+<li>google pagespeed: Discover what your real users are
+experiencing</li>
+<li>Core Web Vitals Assessment: Failed</li>
+<li>mobile FCP: 2.7 s</li>
+<li>desktop FCP: 2.1 s</li>
+</ul>
+<h3 id="summary_and_conclusions_from_above_tests">summary and
+conclusions from above tests</h3>
+<ul>
+<li>download.kicksecure.com and download.whonix.org (simple nginx
+autoindex generated single file html page) are very fast - 0.3 s / 151ms
+TTFB</li>
+<li>PHP is also very fast (tested with a hello world -
+kicksecure.com/w/hello.php script) - 0.2 s / 130ms TTFB</li>
+<li>So the server, location of the server and/or absence of a CDN cannot
+be the cause of Kicksecure / Whonix wiki slowness because above simple
+HTML and PHP pages are fast too.</li>
+<li><a href="https://www.kicksecure.com/wiki/Testpage-no-header-no-footer">https://www.kicksecure.com/wiki/Testpage-no-header-no-footer</a>
+takes 0.9 seconds before something is visible for the user. TTFB (time
+to first byte) is 420 ms)
+<ul>
+<li>By comparison a simple wiki page in the MediaWiki <a href="https://www.mediawiki.org/wiki/Extension:SSL_authentication">https://www.mediawiki.org/wiki/Extension:SSL_authentication</a>
+takes only 0.3 seconds. TTFB with 340 ms is a bit faster but that could
+either be a measurement tolerance, server location and probably does not
+explain why even simple Kicksecure / Whonix wiki pages are 3x
+slower.</li>
+</ul></li>
+</ul>
+<h3 id="comparison_2">comparison #2</h3>
+<ul>
+<li>complex but still fast website <a href="https://www.fandom.com/">https://www.fandom.com/</a> 0.3 s
+FCP</li>
+</ul>
+<h3 id="ideas_for_future_investigation">ideas for future
+investigation</h3>
+<ul>
+<li>compare with a freshly installed mediawiki</li>
+<li>compare with server caching enabled</li>
+</ul>
+<h3 id="Tests_2">Tests</h3>
+<ul>
+<li>performed testing and comparing</li>
+<li>main result: The slowness of the pages might be simply due to the
+amount of data that is transferred</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>Whonix homepage</p></th>
+<th><p>Whonix testpage<br />
+(no browser caching)</p></th>
+<th><p>Whonix testpage<br />
+(with browser caching)</p></th>
+<th><p>mediawiki.org simple</p></th>
+<th><p>download.whonix.org</p></th>
+<th><p>zerobounce.net</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>time</p></td>
+<td><p>1870 ms</p></td>
+<td><p>1420 ms</p></td>
+<td><p>536 ms</p></td>
+<td><p>294 ms</p></td>
+<td><p>76 ms</p></td>
+<td><p>1100 ms</p></td>
+</tr>
+<tr class="even">
+<td><p>FCP</p></td>
+<td><p>1.6 s</p></td>
+<td><p>0.9 s</p></td>
+<td><p>1.7 s</p></td>
+<td><p>0.3 s</p></td>
+<td><p>0.3 s</p></td>
+<td><p>0.3 s</p></td>
+</tr>
+<tr class="odd">
+<td><p>data</p></td>
+<td><p>2.3 MB</p></td>
+<td><p>1.1 MB</p></td>
+<td><p>1.1 MB</p></td>
+<td><p>125 KB</p></td>
+<td><p>2 KB</p></td>
+<td><p>5.1 MB</p></td>
+</tr>
+<tr class="even">
+<td><p>files</p></td>
+<td><p>74</p></td>
+<td><p>34</p></td>
+<td><p>34</p></td>
+<td><p>18</p></td>
+<td><p>1</p></td>
+<td><p>107</p></td>
+</tr>
+<tr class="odd">
+<td><p>largest file</p></td>
+<td><p>198 KB<br />
+whonix-explainer.mp4</p></td>
+<td><p>172 KB<br />
+Cousine-Regular.woff (font)</p></td>
+<td><p>172 KB<br />
+Cousine-Regular.woff (font)</p></td>
+<td><p>42 KB<br />
+load.php</p></td>
+<td><p>2 KB<br />
+index</p></td>
+<td><p>410 KB<br />
+853704336.json</p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>It might be hard to improve on speed, because we have more
+functionality and therefore more files</li>
+<li>In the browser cached version our wiki is "only" 82% slower than the
+basic media wiki (browser caching does not seem to make much speed
+difference there). This might be tolerable</li>
+<li>Ideas for improvement
+<ul>
+<li>Identify files which are not needed in particular loads. For example
+on the testpage some images are unnecessarily loaded. This process can
+take a while</li>
+<li>Make a lot features "lazy load". This is a new trend examplified by
+the new JS framework qwik. You load the JS or even the HTML only when
+you need it. This process would mean however that a lot of files are
+moved out of the autogen-files again and are loaded only when or if they
+are needed. This either complicates operations or takes a while - even
+longer than the previous suggestion. And the mw-combined files are also
+pretty small so there might not be so much saving potential here
+anyways.</li>
+</ul></li>
+<li>Also regarding the 536 ms for the testpage WITH browser cache : the
+real load time is about 215 ms. Then it takes a while to load the rest
+from disk cache. For example the favicon comes late (I don't know why)
+at about 460 ms from disk cache. And the images for the share-tooltip
+come late. That for example might be some small saving potential to not
+the the share-modal load the images if it's not needed. But again that
+would be option 2 "lazy load". There might be a "light" version of the
+task: only apply the search for lazy load to the heaviest loads or load
+with the most saving potential</li>
+</ul>
+<h1 id="20.01.2023">20.01.2023</h1>
+<p>The hero image (web jargon: main image above the fold on landing
+page) needs to load quickly so Lighthouse (analysis tool for page
+loading) analysis gives a good feedback. This is important as an
+indicator how well the page loads for visitors.</p>
+<p>A couple of tests were written and moved to the /test folder on
+kicksecure.com. These tests included</p>
+<ol>
+<li>having preview image and hero image with decoding=sync and
+loading=eager</li>
+<li>having preview image and hero image with decoding=async and
+loading=eager</li>
+<li>having preview image and hero image with decoding=sync and the
+preview loading=eager, but the main image loading=lazy</li>
+<li>using a background image on the image wrapper instead of a separate
+preview image</li>
+<li>using a background image on the hero image itself</li>
+<li>using a CSS gradient instead of a preview image</li>
+<li>having no preview image at all</li>
+</ol>
+<p>Results with Google pageview (including Lighthouse)</p>
+<ul>
+<li>Tests 4-7 have 100% for best practices, tests 1-3 lack a little bit
+there</li>
+<li>Tests 1,2,4,7 have the best performance resuts. But that can vary if
+this test is performed multiple times</li>
+<li>Generally lazy loading the hero image is severely punished by the
+metric, because the LCP (largest contentful paint) is very much delayed
+by this practice (for the hero image)</li>
+</ul>
+<p>Results with gtmetrix</p>
+<ul>
+<li>Tests 1,2,4,7 had a performance of 96%, 5 and 6 had 95%, but 3 had
+81% due to bad LCD (due to lazy loading the hero image)</li>
+<li>Tests 1,2,4,5,6 had a structure of 93%, 7 had 90% and 3 had 85%</li>
+<li>LCP 1 through 7: 1.1s / 1.1s / 2.9s / 1.1s / 1.1s / 1.1s / 1.1s</li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../../Moved:OpenPGP_Signed_Website/" title="Dev/OpenPGP Signed Website"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/OpenPGP
+Signed
+Website</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../../Moved:About_Infrastructure/" title="Dev/Web Backend"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Web
+Backend</span></a><span class="info"><span class="prev">Previous page:
+Dev/OpenPGP Signed Website</span><span class="index">Index page:
+Design</span><span class="next">Next page: Dev/Web
+Backend</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Development/">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

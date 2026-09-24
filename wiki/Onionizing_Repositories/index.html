@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Onionizing Repositories</title>
+<meta name="description" content="The guide explains how to configure Tor onion services for APT repositories to enhance security and privacy, but it may cause system updates to fail due to unreliability. The configuration provides protection against targeted and man-in-the-middle attacks, and prevents tracking of installed programs.">
+<meta property="og:description" content="The guide explains how to configure Tor onion services for APT repositories to enhance security and privacy, but it may cause system updates to fail due to unreliability. The configuration provides protection against targeted and man-in-the-middle attacks, and prevents tracking of installed programs.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Onionizing_Repositories/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Onionizing_Repositories/">
+<meta property="og:title" content="Onionizing Repositories">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Onionrepository23234.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Non-Qubes-Whonix_VMs">Non-Qubes-Whonix VMs</a></li><li class="toc-l3"><a href="#Debian_sources">Debian sources</a></li><li class="toc-l3"><a href="#derivative_sources">derivative sources</a></li><li class="toc-l3"><a href="#Non-Qubes-Whonix_Notes">Non-Qubes-Whonix Notes</a></li><li class="toc-l2"><a href="#Qubes-Whonix_Hosts">Qubes-Whonix Hosts</a></li><li class="toc-l3"><a href="#dom0">dom0</a></li><li class="toc-l3"><a href="#Debian_Templates">Debian Templates</a></li><li class="toc-l3"><a href="#Whonix_Templates">Whonix Templates</a></li><li class="toc-l2"><a href="#Debian_Hosts">Debian Hosts</a></li><li class="toc-l2"><a href="#Kicksecure_Hosts">Kicksecure Hosts</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Onionrepository23234.jpg.webp" alt="Onionrepository23234.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>The guide explains how to configure experimental Tor onion services
+for APT repositories. The configuration provides additional security and
+privacy benefits, such as protection against targeted attacks,
+man-in-the-middle attacks, and preventing tracking of installed
+programs, but it may cause system updates to fail due to
+unreliability.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>When software packages from Debian, Whonix, Fedora, Qubes (and
+others) are downloaded prior to the installation of new packages or
+upgrades, the package repository sources default to the http / https
+transport protocol, which is non-ideal for security. Instead,
+experimental Tor onion services can be configured for a number of
+platforms, which provides several security and privacy benefits:
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<ul>
+<li>The user cannot be uniquely targeted for malicious updates --
+attackers are forced to attack everyone requesting the update.</li>
+<li>The package repository, or observers watching it, cannot track what
+programs are installed.</li>
+<li>The ISP cannot easily learn what packages are fetched.</li>
+<li>End-to-end authentication and encryption provides protection against
+man-in-the-middle attacks, like version downgrade attacks.</li>
+</ul>
+<p>Be aware that enabling onion repositories may cause system updates to
+periodically fail due to their <a href="https://forums.whonix.org/t/disable-onions-by-default-due-to-unreliability/6650">unreliability</a>.
+If this becomes an issue, it is encouraged to <a href="../Moved:Operating_System_Software_and_Updates/#Non-functional_Onion_Services">Re-enable Clearnet Repositories</a> so packages can be
+updated.</p>
+<p>If the term "comment" is unfamiliar, please follow <a href="https://www.howtogeek.com/118389/how-to-comment-out-and-uncomment-lines-in-a-configuration-file/">this
+link</a> to learn how to comment / uncomment lines in a configuration
+file.</p>
+<h1 id="Platform_Specific">Platform Specific</h1>
+<p>Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="Non-Qubes-Whonix_VMs">Non-Qubes-Whonix VMs</h2>
+</div>
+<div class="tcc-content">
+<ul>
+<li><u>What to change:</u> Non-Qubes-Whonix <u>v</u>irtual
+<u>m</u>achines (VM) can be onionized by editing both the Debian
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup> and Whonix repository configuration files so they
+point to the corresponding onion mirrors.</li>
+<li><u>Where to apply:</u> Complete the following steps in <u>both</u>
+Whonix-Gateway and Whonix-Workstation.</li>
+</ul>
+<h3 id="Debian_sources">Debian sources</h3>
+<div class="info-box ">
+<p><strong>1.</strong> Open the Debian <code>sources</code> file using
+an editor with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apt/sources.list.d/debian.sources</span></p>
+<p><strong>2.</strong> Enable the onionized Debian repositories and
+disable the clearnet repositories.</p>
+<p>Enable the following .onion mirrors and disable the corresponding
+https repositories (except the fasttrack repository).</p>
+<p><span class="code-select">######## ENABLED SOURCES ########</p>
+<p>Types: deb URIs: tor+https://deb.debian.org/debian Suites: trixie
+trixie-updates trixie-backports Components: main contrib non-free
+non-free-firmware Enabled: no # &lt;&lt;&lt;&lt;&lt; change this line
+from "yes" to "no" Signed-By:
+/usr/share/keyrings/debian-archive-keyring.gpg</p>
+<p>Types: deb URIs: tor+https://deb.debian.org/debian-security Suites:
+trixie-security Components: main contrib non-free non-free-firmware
+Enabled: no # &lt;&lt;&lt;&lt;&lt; change this line from "yes" to "no"
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg</p>
+<p>Types: deb URIs: tor+https://fasttrack.debian.net/debian-fasttrack
+Suites: trixie-fasttrack trixie-backports-staging Components: main
+contrib non-free Enabled: yes # &lt;&lt;&lt;&lt;&lt; keep this line
+saying "yes" Signed-By:
+/usr/share/keyrings/fasttrack-archive-keyring.gpg</p>
+<ol>
+<li><ol>
+<li>DISABLED BY DEFAULT SOURCES ########</li>
+</ol></li>
+</ol>
+<ol>
+<li><ol>
+<li>deb ####</li>
+</ol></li>
+</ol>
+<p>Types: deb URIs:
+tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
+Suites: trixie trixie-updates trixie-backports Components: main contrib
+non-free non-free-firmware Enabled: yes # &lt;&lt;&lt;&lt;&lt; change
+this line from "no" to "yes" Signed-By:
+/usr/share/keyrings/debian-archive-keyring.gpg</p>
+<p>Types: deb URIs:
+tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion/debian-security
+Suites: trixie-security Components: main contrib non-free
+non-free-firmware Enabled: yes # &lt;&lt;&lt;&lt;&lt; change this line
+from "no" to "yes" Signed-By:
+/usr/share/keyrings/debian-archive-keyring.gpg</p>
+<ol>
+<li><ol>
+<li>No onion for fasttrack yet: <a href="https://salsa.debian.org/fasttrack-team/support/-/issues/27">https://salsa.debian.org/fasttrack-team/support/-/issues/27</a></span></li>
+</ol></li>
+</ol>
+<p><strong>3.</strong> Save and exit.</p>
+</div>
+<h3 id="derivative_sources">derivative sources</h3>
+<p>Follow these steps to point the Whonix repository to the onion
+mirror. See <a href="../Project-APT-Repository/#Whonix_APT_Repository_Overview">Whonix APT Repository overview</a> for details on the
+four repository choices.</p>
+<p>Note: On Whonix, <code>repository-dist</code> configures onion
+transport for the Whonix repository and the inherited Kicksecure
+repository (if enabled).</p>
+<p>This can be done using <code>repository-dist</code> <u>c</u>ommand
+<u>l</u>ine <u>i</u>nterface (CLI) tool with the
+<code>--transport onion</code> option.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Run the following command:</p>
+<p><span class="code-select">sudo repository-dist --enable --transport
+onion</span></p>
+<p><strong>2.</strong> Confirm the onionized repository is
+functional.</p>
+<p><span class="code-select">upgrade-nonroot</span></p>
+</div>
+<h3 id="Non-Qubes-Whonix_Notes">Non-Qubes-Whonix Notes</h3>
+<ul>
+<li>Reminder: Onionize both, Whonix-Gateway and Whonix-Workstation.</li>
+<li>Host operating system: If you are using a Debian (based) host or <a href="../Moved:Kicksecure/">Kicksecure</a>, you could optionally
+also onionize the host operating system. See tab Debian below. If you
+are using a Kicksecure host, see also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="Qubes-Whonix_Hosts">Qubes-Whonix Hosts</h2>
+</div>
+<div class="tcc-content">
+<ul>
+<li><u>What to change:</u> Qubes <code>dom0</code> and VMs can be
+onionized by editing the repository configuration files so they point to
+the corresponding onion mirrors. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+<li><u>Where to apply:</u> Complete the following steps in <a href="#dom0"><code>dom0</code></a> and for each
+template.</li>
+<li><u>Limitation:</u> Not all templates can be completely
+onionized.</li>
+<li><u>Templates covered:</u> The instructions below consider <a href="#Debian_Templates">Debian Templates</a>, <a href="#Whonix_Templates">Whonix Templates</a>.</li>
+</ul>
+<h3 id="dom0">dom0</h3>
+<p><code>dom0</code> can be updated exclusively over onion services.</p>
+<div class="info-box ">
+<p><strong>1.</strong> In a <code>dom0</code> terminal, open the
+<code>qubes-dom0.repo</code> configuration file in a text editor.</p>
+<p><span class="code-select">sudoedit
+/etc/yum.repos.d/qubes-dom0.repo</span></p>
+<ul>
+<li>comment the lines that contain <code>metalink</code></li>
+<li>uncomment the lines that contain
+<code>qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion</code></li>
+</ul>
+<p>Once completed, each of the four code blocks will have http(s)
+repository lines similar to the following example.</p>
+<p><span class="code-select">#baseurl = <a href="https://yum.qubes-os.org/r$releasever/current/host/fc37">https://yum.qubes-os.org/r$releasever/current/host/fc37</a>
+baseurl = <a href="http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/current/host/fc37">http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/current/host/fc37</a></p>
+<ol>
+<li>metalink = <a href="https://yum.qubes-os.org/r$releasever/current/host/fc37/repodata/repomd.xml.metalink">https://yum.qubes-os.org/r$releasever/current/host/fc37/repodata/repomd.xml.metalink</a></span></li>
+</ol>
+<p><strong>2.</strong> Save and exit.</p>
+<p><strong>3.</strong> In a <code>dom0</code> terminal, open the
+<code>qubes-templates.repo</code> configuration file in a text
+editor.</p>
+<p><span class="code-select">sudoedit
+/etc/qubes/repo-templates/qubes-templates.repo</span></p>
+<ul>
+<li>comment the lines that contain <code>metalink</code></li>
+<li>uncomment the lines that contain
+<code>qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion</code></li>
+</ul>
+<p>Once completed, each of the two code blocks will have http(s)
+repository lines similar to the following example.</p>
+<p><span class="code-select">#baseurl = <a href="https://yum.qubes-os.org/r$releasever/templates-itl">https://yum.qubes-os.org/r$releasever/templates-itl</a>
+baseurl = <a href="http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/templates-itl">http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/templates-itl</a></p>
+<ol>
+<li>metalink = <a href="https://yum.qubes-os.org/r$releasever/templates-itl/repodata/repomd.xml.metalink">https://yum.qubes-os.org/r$releasever/templates-itl/repodata/repomd.xml.metalink</a></span></li>
+</ol>
+<p><strong>3.</strong> Save and exit.</p>
+<p><strong>4.</strong> In <code>dom0</code> terminal, confirm both onion
+repositories are functional.</p>
+<p>Using <code>--show-output --console</code> is optional but
+recommended because of a Qubes upstream bug. <sup class="reference"><a href="#cite_note-4">[4]</a></sup><br />
+<span class="code-select">sudo qubes-dom0-update --show-output
+--console</span></p>
+</div>
+<h3 id="Debian_Templates">Debian Templates</h3>
+<p>Debian templates can be updated exclusively over onion services.
+Simply edit the Qubes and Debian sources.list files so they point to the
+respective onion repositories.</p>
+<p>Note: to use the <code>tor+http</code> configuration below,
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] must be installed.
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup> Remove <code>tor+</code> from the code block if
+updates over Tor are unwanted.</p>
+<h4 id="Onionize_qubes-r4.list">Onionize qubes-r4.list</h4>
+<div class="info-box ">
+<p><strong>1.</strong> In Debian TemplateVM, open the
+<code>qubes-r4.list</code> file in a text editor.</p>
+<p><span class="code-select">sudoedit
+/etc/apt/sources.list.d/qubes-r*.list</span></p>
+<p><strong>2.</strong> Comment the first line underneath "Main qubes
+updates repository".</p>
+<p>The first code block should look similar to this.</p>
+<p><span class="code-select"># Main qubes updates repository</p>
+<ol>
+<li>deb [arch=amd64
+signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg] <a href="https://deb.qubes-os.org/r4.3/vm">https://deb.qubes-os.org/r4.3/vm</a>
+trixie main</li>
+<li>deb-src [arch=amd64
+signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg] <a href="https://deb.qubes-os.org/r4.3/vm">https://deb.qubes-os.org/r4.3/vm</a>
+trixie main</span></li>
+</ol>
+<p><strong>3.</strong> Uncomment the corresponding line underneath
+"Qubes Tor updates repositories".</p>
+<p>The first code block should look similar to this.</p>
+<p><span class="code-select"># Qubes Tor updates repositories</p>
+<ol>
+<li>Main qubes updates repository</li>
+</ol>
+<p>deb [arch=amd64
+signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg]
+tor+http://deb.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r4.3/vm
+trixie main</p>
+<ol>
+<li>deb-src [arch=amd64
+signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg ]
+tor+http://deb.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r4.3/vm
+trixie main</span></li>
+</ol>
+<p>Save and exit.</p>
+<p><strong>4.</strong> Confirm the onionized repositories are
+functional.</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+</div>
+<h4 id="Onionize_Debian_sources.list">Onionize Debian sources.list</h4>
+<p>The <code>sources.list</code> file can be edited so it points to the
+Debian onion mirror. <sup class="reference"><a href="#cite_note-2">[2]</a></sup> This is a more secure method
+than clearnet for updates and software installation.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Open the Debian <code>sources.list</code> file
+using an editor with root rights.</p>
+<p><span class="code-select">sudo nano /etc/apt/sources.list</span></p>
+<p><strong>2.</strong> Reference the onionized Debian repositories.</p>
+<p>Cut and paste the following <i>.onion</i> mirrors and comment out (#)
+the corresponding https repositories.</p>
+<p><span class="code-select">#deb <a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a>
+trixie main contrib non-free deb
+tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
+trixie main contrib non-free</p>
+<ol>
+<li>deb <a href="https://deb.debian.org/debian-security">https://deb.debian.org/debian-security</a>
+trixie-security main contrib non-free</li>
+</ol>
+<p>deb
+tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion
+trixie-security main contrib non-free</p>
+<ol>
+<li>Optional Backports</li>
+<li>deb <a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a>
+trixie-backports main contrib non-free</li>
+</ol>
+<p>deb
+tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
+trixie-backports main contrib non-free</span></p>
+<p>Save and exit.</p>
+<p><strong>3.</strong> Confirm the onionized repositories are
+functional.</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+</div>
+<h3 id="Whonix_Templates">Whonix Templates</h3>
+<p>Whonix templates can be updated exclusively over onion services by
+editing the Qubes, Debian <sup class="reference"><a href="#cite_note-2">[2]</a></sup> and Whonix
+<code>sources</code> files so they point to the respective onion
+repositories.</p>
+<p>Complete the following steps in <u>both</u>
+Whonix-Gateway<sup>&#8482;</sup> and Whonix-Workstation<sup>&#8482;</sup>.</p>
+<h4 id="Onionize_qubes-r4.list_2">Onionize qubes-r4.list</h4>
+<div class="info-box ">
+<p><strong>1.</strong> In Whonix TemplateVM, open
+<code>qubes-r4.list</code> in a text editor.</p>
+<p><span class="code-select">sudoedit
+/etc/apt/sources.list.d/qubes-r*.list</span></p>
+<p><strong>2.</strong> Comment the first line underneath "Main qubes
+updates repository".</p>
+<p>The first code block should look similar to this.</p>
+<p><span class="code-select"># Main qubes updates repository</p>
+<ol>
+<li>deb [arch=amd64
+signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg ] <a href="https://deb.qubes-os.org/r4.3/vm">https://deb.qubes-os.org/r4.3/vm</a>
+trixie main</li>
+<li>deb-src [arch=amd64
+signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg ] <a href="https://deb.qubes-os.org/r4.3/vm">https://deb.qubes-os.org/r4.3/vm</a>
+trixie main</span></li>
+</ol>
+<p><strong>3.</strong> Uncomment the corresponding line underneath
+"Qubes Tor updates repositories".</p>
+<p>The first code block should look similar to this.</p>
+<p><span class="code-select"># Qubes Tor updates repositories</p>
+<ol>
+<li>Main qubes updates repository</li>
+</ol>
+<p>deb [arch=amd64
+signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg]
+tor+http://deb.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r4.3/vm
+trixie main</p>
+<ol>
+<li>deb-src [arch=amd64
+signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg]
+tor+http://deb.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r4.3/vm
+trixie main</span></li>
+</ol>
+<p>Save and exit.</p>
+<p><strong>4.</strong> Confirm the onionized repositories are
+functional.</p>
+<p><span class="code-select">upgrade-nonroot</span></p>
+</div>
+<h4 id="Onionize_debian.sources">Onionize debian.sources</h4>
+<div class="info-box ">
+<p><strong>1.</strong> Open the Debian <code>sources</code> file using
+an editor with root rights.</p>
+<p><span class="code-select">sudoedit
+/etc/apt/sources.list.d/debian.sources</span></p>
+<p><strong>2.</strong> Enable the onionized Debian repositories and
+disable the clearnet repositories.</p>
+<p>Enable the following .onion mirrors and disable the corresponding
+https repositories (except the fasttrack repository).</p>
+<p><span class="code-select">######## ENABLED SOURCES ########</p>
+<p>Types: deb URIs: tor+https://deb.debian.org/debian Suites: trixie
+trixie-updates trixie-backports Components: main contrib non-free
+non-free-firmware Enabled: no # &lt;&lt;&lt;&lt;&lt; change this line
+from "yes" to "no" Signed-By:
+/usr/share/keyrings/debian-archive-keyring.gpg</p>
+<p>Types: deb URIs: tor+https://deb.debian.org/debian-security Suites:
+trixie-security Components: main contrib non-free non-free-firmware
+Enabled: no # &lt;&lt;&lt;&lt;&lt; change this line from "yes" to "no"
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg</p>
+<p>Types: deb URIs: tor+https://fasttrack.debian.net/debian-fasttrack
+Suites: trixie-fasttrack trixie-backports-staging Components: main
+contrib non-free Enabled: yes # &lt;&lt;&lt;&lt;&lt; keep this line
+saying "yes" Signed-By:
+/usr/share/keyrings/fasttrack-archive-keyring.gpg</p>
+<ol>
+<li><ol>
+<li>DISABLED BY DEFAULT SOURCES ########</li>
+</ol></li>
+</ol>
+<ol>
+<li><ol>
+<li>deb ####</li>
+</ol></li>
+</ol>
+<p>Types: deb URIs:
+tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
+Suites: trixie trixie-updates trixie-backports Components: main contrib
+non-free non-free-firmware Enabled: yes # &lt;&lt;&lt;&lt;&lt; change
+this line from "no" to "yes" Signed-By:
+/usr/share/keyrings/debian-archive-keyring.gpg</p>
+<p>Types: deb URIs:
+tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion/debian-security
+Suites: trixie-security Components: main contrib non-free
+non-free-firmware Enabled: yes # &lt;&lt;&lt;&lt;&lt; change this line
+from "no" to "yes" Signed-By:
+/usr/share/keyrings/debian-archive-keyring.gpg</p>
+<ol>
+<li><ol>
+<li>No onion for fasttrack yet: <a href="https://salsa.debian.org/fasttrack-team/support/-/issues/27">https://salsa.debian.org/fasttrack-team/support/-/issues/27</a></span></li>
+</ol></li>
+</ol>
+<p>Save and exit.</p>
+<p><strong>3.</strong> Confirm the onionized repositories are
+functional.</p>
+<p><span class="code-select">upgrade-nonroot</span></p>
+</div>
+<h4 id="Onionize_derivative.sources">Onionize derivative.sources</h4>
+<p>Follow these steps to point the Whonix <code>sources</code> file to
+the onion mirror. See <a href="../Project-APT-Repository/">Whonix APT Repository overview</a> for details on the
+four repository choices.</p>
+<p>This can be done using <code>repository-dist</code> <u>c</u>ommand
+<u>l</u>ine <u>i</u>nterface (CLI) tool with the
+<code>--transport onion</code> option.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Run the following command:</p>
+<p><span class="code-select">sudo repository-dist --enable --transport
+onion</span></p>
+<p><strong>2.</strong> Confirm the onionized repository is
+functional.</p>
+<p><span class="code-select">upgrade-nonroot</span></p>
+</div>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Debian.png.webp" width="25" alt="Debian.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="Debian_Hosts">Debian Hosts</h2>
+</div>
+<div class="tcc-content">
+<ul>
+<li><u>What to change:</u> Debian hosts and VMs can be onionized by
+editing the Debian <sup class="reference"><a href="#cite_note-2">[2]</a></sup> <sup class="reference"><a href="#cite_note-6">[6]</a></sup> repository
+configuration files so they point to the corresponding onion
+mirrors.</li>
+<li><u>Where to apply:</u> Complete the following steps on Debian hosts
+or in Debian VMs.</li>
+<li><u>Requirement:</u> To use the <code>tor+http</code> configuration
+below,
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] must be installed.
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup></li>
+<li><u>Optional:</u> Remove "tor+" from the code block if updates over
+Tor are unwanted.</li>
+</ul>
+<div class="info-box ">
+<p><strong>1.</strong> Open the Debian <code>sources.list</code> file
+using an editor with root rights.</p>
+<p><span class="code-select">sudo nano /etc/apt/sources.list</span></p>
+<p><strong>2.</strong> Reference the onionized Debian repositories.</p>
+<p>Cut and paste the following <i>.onion</i> mirrors and comment out (#)
+the corresponding https repositories.</p>
+<p><span class="code-select">#deb <a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a>
+trixie main contrib non-free deb
+tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
+trixie main contrib non-free</p>
+<ol>
+<li>deb <a href="https://deb.debian.org/debian-security">https://deb.debian.org/debian-security</a>
+trixie-security main contrib non-free</li>
+</ol>
+<p>deb
+tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion
+trixie-security main contrib non-free</p>
+<ol>
+<li>Optional Backports</li>
+<li>deb <a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a>
+trixie-backports main contrib non-free</li>
+</ol>
+<p>deb
+tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
+trixie-backports main contrib non-free</span></p>
+<p>Save and exit.</p>
+<p><strong>3.</strong> Confirm the onionized repositories are
+functional.</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+</div>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Kicksecure-icon-logo.svg" width="25" alt="Kicksecure-icon-logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="Kicksecure_Hosts">Kicksecure Hosts</h2>
+</div>
+<div class="tcc-content">
+<p>If your host operating system is Kicksecure, follow the Kicksecure
+documentation (separate project / separate wiki):</p>
+<p><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="Onionize_Tor_Project_Updates">Onionize Tor Project Updates</h1>
+<p>For enhanced security, advanced users and testers can onionize Tor
+Project updates; see
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for further details.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://blog.torproject.org/tor-heart-apt-transport-tor-and-debian-onions">https://blog.torproject.org/tor-heart-apt-transport-tor-and-debian-onions</a></li>
+<li id="cite_note-2"><a href="https://onion.debian.org/">https://onion.debian.org/</a></li>
+<li id="cite_note-3">At present, the <a href="https://www.qubes-os.org/news/2019/04/17/tor-onion-services-available-again/">available
+Qubes onion service URLs</a> are: <blockquote><p>Website:
+www.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion<br />
+Yum repo:
+yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion<br />
+Deb repo:
+deb.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion<br />
+ISOs:
+iso.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion</p></blockquote></li>
+<li id="cite_note-4"><a href="https://github.com/QubesOS/qubes-issues/issues/7254"><code>qubes-dom0-update</code>
+shows <code>No updates available</code> in case of network is down /
+<code>qubes-dom0-update</code> fails to notice if repositories are
+unreachable / network is down</a></li>
+<li id="cite_note-5">For support in downloading APT packages anonymously via the Tor
+network. To install it: <span class="code-select">sudo apt install
+--no-install-recommends apt-transport-tor</span></li>
+<li id="cite_note-6">Also edit Whonix <code>sources.list</code> if you are using <a href="../Packages_for_Debian_Hosts/">Whonix Packages for
+Debian Hosts</a>.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

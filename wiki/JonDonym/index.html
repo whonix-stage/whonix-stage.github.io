@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>JonDonym</title>
+<meta name="description" content="Combining Whonix with JonDonym. JonDonym over Tor. Connecting to Tor before JonDonym (User &amp;rarr; Tor &amp;rarr; JonDonym &amp;rarr; Internet ) OR Connecting to JonDonym before Tor (User &amp;rarr; JonDonym &amp;rarr; Tor &amp;rarr; Internet ).">
+<meta property="og:description" content="Combining Whonix with JonDonym. JonDonym over Tor. Connecting to Tor before JonDonym (User &amp;rarr; Tor &amp;rarr; JonDonym &amp;rarr; Internet ) OR Connecting to JonDonym before Tor (User &amp;rarr; JonDonym &amp;rarr; Tor &amp;rarr; Internet ).">
+<link rel="canonical" href="https://www.whonix.org/wiki/JonDonym/">
+<meta property="og:url" content="https://www.whonix.org/wiki/JonDonym/">
+<meta property="og:title" content="Combining Whonix with JonDonym">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Logo.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#JonDonym">JonDonym</a></li><li class="toc-l2"><a href="#Tor_Network">Tor Network</a></li><li class="toc-l2"><a href="#Summary">Summary</a></li><li class="toc-l2"><a href="#Advanced_Adversary_Analysis">Advanced Adversary Analysis</a></li><li class="toc-l2"><a href="#Law_Enforcement_Assessment">Law Enforcement Assessment</a></li><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#JonDo_IP_Changer_Proxy_Tool_Installation">JonDo IP Changer Proxy
+Tool Installation</a></li><li class="toc-l2"><a href="#Launch_JonDonym">Launch JonDonym</a></li><li class="toc-l2"><a href="#Free_vs_Premium_Accounts">Free vs Premium Accounts</a></li><li class="toc-l3"><a href="#JonDonym_HTTPS_Proxy_Test">JonDonym HTTPS Proxy Test</a></li><li class="toc-l3"><a href="#JonDonym_SOCKS_Proxy_Test">JonDonym SOCKS Proxy Test</a></li><li class="toc-l2"><a href="#JonDoFox_vs_Tor_Browser">JonDoFox vs Tor Browser</a></li><li class="toc-l2"><a href="#Future_Integration">Future Integration</a></li><li class="toc-l2"><a href="#Introduction_3">Introduction</a></li><li class="toc-l2"><a href="#Installation_and_Configuration">Installation and
+Configuration</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Logo.png.webp" alt="JonDonym Logo" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Internet_Archive_logo.png.webp" width="40" alt="Info" /></span>
+This page is archived.</p>
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Combining Whonix with JonDonym. JonDonym over Tor. Connecting to Tor
+before JonDonym (User &#8594; Tor &#8594; JonDonym &#8594; Internet ) OR Connecting to
+JonDonym before Tor (User &#8594; JonDonym &#8594; Tor &#8594; Internet ).</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+As of June 2021, the <a href="https://web.archive.org/web/20230329090736/https://anonymous-proxy-servers.net/">JonDonym
+website</a> states: <blockquote><p>Unfortunately, we have to close our service until 2021-08-31. Until
+then, our operators will ensure you that you can consume your existing
+plans. Purchasing new plans is not possible any more.</p></blockquote></p>
+</div>
+<p>Similar to Tor, JonDonym has a design based on multiple layers of
+encryption: <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p><blockquote><p>The JonDonym / AN.ON technology is based on the principle of multiple
+(layered) encryption, distribution and processing. This procedure does
+not only protect your Internet activities from being observed by third
+parties (against your access provider, WLAN hackers, advertising
+services and websites), but also against observation by the individual
+JonDonym providers themselves. ... It consists of multiple user
+selectable mix cascades. A cascade consists of two or three separately
+encrypted mix servers. These mix servers are operated by independent and
+non interrelated organizations or private individuals who all publish
+their identity. The operators have to abide by strict provisions which
+prohibit saving connection data or exchanging such data with other
+operators.</p>
+<p>Every connection from a user is differently encrypted for every mix
+server within a cascade and transferred through the cascade to the
+target, e.g. a website. Thereby no mix operator alone can by himself
+expose the user. Eavesdroppers on the connections to JonDonym cascades
+get garbage data only, as the connection to every mix is separately
+encrypted. Also, since a lot of users surf the anonymization service
+simultaneously, and thus share the same IP address, all connections of
+every user are concealed amidst each other: a correlation is not
+possible any more.</p></blockquote></p>
+<h1 id="JonDonym_vs_Tor_Comparison">JonDonym vs Tor Comparison</h1>
+<h2 id="JonDonym">JonDonym</h2>
+<p>JonDonym is an alternative anonymity network which is briefly
+compared with <a href="../Tor/">Tor</a>. <sup class="reference"><a href="#cite_note-2">[2]</a></sup>
+It is easy to tunnel JonDonym over Tor inside Whonix-Workstation
+(<code>anon-whonix</code>), which will be discussed further below. In
+theory, Tor on Whonix-Gateway <code>sys-whonix</code> could be replaced
+with JonDonym.</p>
+<p>The <a href="https://anonymous-proxy-servers.net">JonDonym
+network</a> is much smaller than the Tor network, but may be faster. In
+general, the JonDonym network receives far less attention from security
+researchers compared to Tor. In 2020, there are 4 premium cascades, 1
+free cascade and 2 experimental services. <sup class="reference"><a href="#cite_note-3">[3]</a></sup> The size of
+the network has decreased since February 2012], when a random snapshot
+at that time revealed there were 5 two hop free mix cascades, 11 three
+hop premium mix cascades and 1 test/experimental, free one-hop
+service.</p>
+<p>Mix servers are operated by independent and unassociated
+organizations or private individuals who publish their identity.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup>. All JonDonym operators must abide by strict
+provisions which prohibit saving connection data or exchanging such data
+with other operators. Placing faith in JonDonym requires trusting in
+their policy and server administration skills. Neither the mix server
+administration nor the JonDo software can prevent a man-in-the-middle
+attack between the mix server and the destination server.</p>
+<p>The free two-hop mix cascade currently has a limit of 600 free users,
+while the premium three-hop mixes have an unlimited amount of users.
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup> Free users also have other restrictions such as a
+maximum file size for up- and downloads (2 MB), no SOCKS5 support, and a
+maximum of two different countries in the path. <sup class="reference"><a href="#cite_note-6">[6]</a></sup> A
+random snapshot of user data in 2020 showed: <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<ul>
+<li>30 premium users active.</li>
+<li>133 users relying on free cascades.</li>
+<li>185 users relaying on experimental cascades. <sup class="reference"><a href="#cite_note-8">[8]</a></sup></li>
+</ul>
+<h2 id="Tor_Network">Tor Network</h2>
+<p>The JonDonym network is tiny in comparison to the Tor network. A
+snapshot of Tor metrics on the same day in 2020 reveals around 2.1
+million users <sup class="reference"><a href="#cite_note-9">[9]</a></sup>, nearly 7,000 relays and over 1,000
+bridges. <sup class="reference"><a href="#cite_note-10">[10]</a></sup> <sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<p>The path (circuit) chosen by a Tor client is not predictable and
+changes every 10 minutes, unless a long-lived onion connection is
+established. In contrast, a JonDonym user relying on a free two-hop mix
+cascade will have a predictable entry and exit to the network until the
+user manually changes it; this similarly applies to all other mix
+cascades. If a network observer knows the entry or exit, the whole path
+the client is using through the network is obvious.</p>
+<p>The Tor network is run by volunteers from many different countries.
+Anybody can run a Tor relay -- no formal process or verification of
+identity is necessary for administrators. The open source software can
+simply be downloaded, configured and a node volunteered to the network.
+Due to the open nature of the network, there are obviously both
+legitimate and malicious nodes. This stands in contrast to JonDonym's
+small network of known private operators and companies.</p>
+<p>A number of attacks have already been performed on the Tor network,
+such as <a href="../Warning/#Exit_Relays_can_Eavesdrop_on_Communications">sniffing of private usernames and passwords by Tor exit
+relays</a> on unencrypted or SSL-stripped connections. Tor attracts
+significant interest from researchers, government agencies and adherents
+due to its popularity and proven track record. Far less attention is
+given to JonDonym due to the size of the network and user pool which are
+both serious weaknesses. <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+<h2 id="Summary">Summary</h2>
+<p>Although they are selling a product, the JonDonym developers seem to
+be honest about the capabilities and limitations of their network. They
+constructively participate in the Tor bug tracker, on JonDonym forums,
+<sup class="reference"><a href="#cite_note-13">[13]</a></sup> and have been amenable to Whonix reusing their
+material under an Open Source license (with or without modification) to
+improve our own documentation.</p>
+<p>In some aspects JonDonym is more or less secure than Tor; this
+depends on the the threat model adopted by the user. Interested readers
+are suggested to review the <a href="https://web.archive.org/web/20220120211949/https://anonymous-proxy-servers.net/en/help/jondonym.html">network
+comparison</a> and <a href="https://web.archive.org/web/20230330171711/https://anonymous-proxy-servers.net/en/law_enforcement.html">law
+enforcement</a> entries to draw a conclusion for their own
+circumstances.</p>
+<p>Tunneling JonDonym over Tor (<code>User</code> &#8594; <code>Tor</code> &#8594;
+<code>JonDonym</code> &#8594; <code>Internet</code>) makes sense in some cases
+and the JonDonym developers state it is safe; see footnotes.
+<sup class="reference"><a href="#cite_note-14">[14]</a></sup> <sup class="reference"><a href="#cite_note-15">[15]</a></sup> It is inadvisable to do this for
+a long period of time, because it adds a permanent exit server, see: <a href="../Tunnels/Introduction/">Combining Tunnels with
+Tor</a> for background details.</p>
+<p>In conclusion, if it is necessary to download something which cannot
+be done over TLS (and if there are also no hash sums or signatures), the
+JonDonym exit might be more trustworthy than a random Tor exit in your
+personal threat model. However, an alternative is to try and use a
+specific Tor exit from someone that is trusted.</p>
+<h1 id="Surveillance_Concerns">Surveillance Concerns</h1>
+<h2 id="Advanced_Adversary_Analysis">Advanced Adversary Analysis</h2>
+<p>Intelligence disclosures in recent years have revealed the assessment
+of JonDonym by government agencies. <sup class="reference"><a href="#cite_note-16">[16]</a></sup></p>
+<p><blockquote><p>(S//REL) Open Source Multi-Hop Networks</p>
+<p>(S//REL) Jondo Anonymous Proxy (JAP)</p>
+<p>(S//REL) Championed by German University (Dresden)</p>
+<p>(S//REL) (Mostly?) Open source software - some Docs in German
+(S//REL) Uses a technology known as Cascades</p>
+<ul>
+<li>(S//REL) Each cascade is set of 2 or 3 Mixes</li>
+</ul>
+<ul>
+<li>(S//REL) All internal traffic encrypted</li>
+</ul>
+<ul>
+<li>(S//REL) Free service AN.ON: 5 Cascades</li>
+</ul>
+<ul>
+<li>(S//REL) Premium service JonDoNym: 10 Cascades</li>
+</ul>
+<p>(S//REL) Countries: BG, CA, CH, CZ, DE, DK, FR, GB, IT, LU, US,
+(S//REL) Less than 50 mixes total</p>
+<p>(S//REL) Open Source Multi-Hop Networks</p>
+<p>(S//REL) Jondo Anonymous Proxy (JAP)</p>
+<p>(S//REL) Comparison with Tor</p>
+<p>&#8226; (S//REL) Not nearly as well studied</p>
+<ul>
+<li>(S//REL) Much smaller contained development community</li>
+</ul>
+<p>&#8226; (S//REL) More centralized structure (all mixes centrally
+approved)</p>
+<p>&#8226; (S//REL) Not as diverse geographically or scalable</p>
+<ul>
+<li>(S//REL) Not as well used or publicized</li>
+</ul>
+<p>(S//REL) Not analyzed in great detail here at NSA (or FVEY?)
+(TS//SI//REL) Much better chance for Global Adversary (SIGINT :-))</p>
+<ul>
+<li>(TS//SI//REL) Sessionization of DNI still would be a problem</li>
+</ul></blockquote></p>
+<p>In summary, the tone of the IC disclosure suggests they have greater
+confidence in deanonymizing JonDonym users due to: less geographical
+divergence; the smaller network size; a relative lack of scrutiny from
+researchers; and the centralized structure.</p>
+<h2 id="Law_Enforcement_Assessment">Law Enforcement Assessment</h2>
+<p>Quoted from the JonDonym Law enforcement page
+<sup class="reference"><a href="#cite_note-17">[17]</a></sup>:</p>
+<p><blockquote><p>JonDonym does not make it impossible to uncover individual users, as
+there is no such thing as a 100% security. However, such a disclosure is
+by magnitudes more difficult than for other VPN or proxy services, as
+this would require the cooperation of several states and
+organizations.</p>
+<p>JonDonym is no technology for preventing law enforcement on the
+internet. In very serious cases, it is possible to uncover the abuse of
+Mix services. User connections may be individually observed, if all
+operators of a Mix cascade get such an official order, valid in their
+respective country (in Germany accourding to &#167;100a/b StPO). The official
+order has to provide an identification feature for individually observed
+connections (like the IP address used by the observed person or
+something else).</p>
+<p>However, the independence of JonDonym operators vastly lowers the
+danger of an illegitimate law enforcement done by non-democratic states
+or arbitrary individual public officers. Any disclosure basically needs
+the cooperation of all operators of a Mix cascade. This was never
+realized for premium mix cascades in the past.</p></blockquote></p>
+<p>Each year, JonDonym publishes a report regarding any surveillance
+actions that have been taken and reported by mix operators. It shows
+that since 2006, five surveillance court orders have been received which
+affected a total of 6 years of operation (2006, 2009-12, 2014). It is
+believed that up until now, no JonDonym user has ever been
+de-anonymized.</p>
+<p>It should be noted the Tor network also suffers from legal attacks --
+for instance there have been some raids of Tor exit servers -- but this
+also did not (and could not) lead to de-anonymization. It is suspected
+that both networks provide strong protections against compromise if they
+are correctly used. However, they will fail to protect users who
+deanonymize themselves by posting private information, failing to follow
+documentation, connecting without going through the anonymity network /
+without proxy bypass, being affected by viruses and so on.</p>
+<h1 id="Connecting_to_Tor_before_JonDonym">Connecting to Tor before
+JonDonym</h1>
+<h2 id="Introduction_2">Introduction</h2>
+<p>It is possible to run JonDonym inside Whonix-Workstation:
+<code>User</code> &#8594; <code>Tor</code> &#8594; <code>JonDonym</code> &#8594;
+<code>Internet</code></p>
+<p>If this tunnel configuration is desired, it is suggested to first
+read the following two related wiki entries:</p>
+<ul>
+<li><a href="../Tunnels/Introduction/">Combining Tunnels
+with Tor</a></li>
+<li><a href="../Tunnels/Connecting_to_Tor_before_a_proxy/">Connecting to Tor before a Proxy</a></li>
+</ul>
+<p>By tunneling JonDonym over Tor, this might be useful in circumventing
+Tor bans. However, this configuration will also <a href="../Tunnels/Introduction/#Connecting_to_Tor_before_a_Tunnel-link_.28Proxy.2FVPN.2FSSH.29">add a permanent exit relay</a>, which is harmful to
+anonymity. <sup class="reference"><a href="#cite_note-18">[18]</a></sup> Other <a href="../Tunnels/Introduction/#Comparison_Table">negative
+impacts</a> include the loss of stream isolation, a worsened browser
+fingerprint, and unavailability of Tor onion services connections.</p>
+<p>The instructions below install <a href="https://web.archive.org/web/20221104035201/https://anonymous-proxy-servers.net/en/software.html">JonDo
+- the IP changer</a> software package (GUI version) manually by hand; a
+console version is also available. If installation from the JonDonym
+GNU/Linux repository is preferred, follow the relevant steps <a href="https://web.archive.org/web/20210511011817/https://anonymous-proxy-servers.net/en/help/firststeps2.html">here</a>.
+At the time of writing, the JonDonym repository does not appear to
+support Debian buster which Whonix is based on; also see footnote.
+<sup class="reference"><a href="#cite_note-19">[19]</a></sup></p>
+<h2 id="JonDo_IP_Changer_Proxy_Tool_Installation">JonDo IP Changer Proxy
+Tool Installation</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<u>Note</u>:</p>
+<ul>
+<li>Non-Qubes-Whonix only.</li>
+<li>If packages are installed by hand, it is not possible to update the
+software automatically. You will receive a notice later on if new
+software versions are ready for download. In this case, the new deb
+package must be downloaded and installed again manually.</li>
+<li>Perform the following steps in Whonix-Workstation terminal. It is
+recommended to clone the Whonix-Workstation beforehand, as numerous
+dependencies are installed during this procedure.</li>
+</ul>
+</div>
+<div class="info-box ">
+<p><strong>1.</strong> Download the signing key. <sup class="reference"><a href="#cite_note-20">[20]</a></sup></p>
+<p><span class="code-select">scurl-download <a href="https://anonymous-proxy-servers.net/downloads/Software_JonDos_GmbH.asc">https://anonymous-proxy-servers.net/downloads/Software_JonDos_GmbH.asc</a></span></p>
+<p>Note: All PGP signature files were created with the OpenPGP key
+<code>0x2B3CAA3E</code>.</p>
+<p><strong>2.</strong> Display the fingerprint without importing
+anything.</p>
+<p><span class="code-select">gpg --keyid-format long --import
+--import-options show-only --with-fingerprint
+Software_JonDos_GmbH.asc</span></p>
+<p><strong>3.</strong> Verify the output.</p>
+<p>The output should be identical to the following.</p>
+<pre><code>pub   rsa4096/2146D0CD2B3CAA3E 2014-10-20 [SC] [expires: 2024-10-17]
+      Key fingerprint = 6899 5C53 D2CE E11B 0E41  82F6 2146 D0CD 2B3C AA3E
+uid   JonDos GmbH (Software Signing Key) &lt;software@jondos.de&gt;
+sub   rsa4096/435B56FDF9115DBF 2014-10-20 [E] [expires: 2024-10-17]</code></pre>
+<p><strong>4.</strong> Import the key.</p>
+<p><span class="code-select">gpg --import
+Software_JonDos_GmbH.asc</span></p>
+<p>The output should confirm the key was imported.</p>
+<pre><code>gpg: key 0x2146D0CD2B3CAA3E: public key &quot;JonDos GmbH (Software Signing Key) &lt;software@jondos.de&gt;&quot; imported
+gpg: Total number processed: 1
+gpg:               imported: 1</code></pre>
+<p><strong>5.</strong> Download the JonDo Debian package
+(<code>jondo_all.deb</code>). <sup class="reference"><a href="#cite_note-21">[21]</a></sup></p>
+<p><span class="code-select">scurl-download <a href="https://anonymous-proxy-servers.net/downloads/jondo_all.deb">https://anonymous-proxy-servers.net/downloads/jondo_all.deb</a></span></p>
+<p><strong>6.</strong> Download the package signature
+(<code>jondo_all.deb.asc</code>). <sup class="reference"><a href="#cite_note-22">[22]</a></sup></p>
+<p><span class="code-select">scurl-download <a href="https://anonymous-proxy-servers.net/downloads/jondo_all.deb.asc">https://anonymous-proxy-servers.net/downloads/jondo_all.deb.asc</a></span></p>
+<p><strong>7.</strong> Verify the JonDo Debian package.</p>
+<p><span class="code-select">gpg --verify jondo_all.deb.asc</span></p>
+<p>The output should show.</p>
+<pre><code>gpg: Signature made Mon 06 Feb 2017 10:14:57 AM UTC
+gpg:                using RSA key 0x2146D0CD2B3CAA3E
+gpg: Good signature from &quot;JonDos GmbH (Software Signing Key) &lt;software@jondos.de&gt;&quot; [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 6899 5C53 D2CE E11B 0E41  82F6 2146 D0CD 2B3C AA3E</code></pre>
+<p><strong>8.</strong> Install the JonDo deb package.</p>
+<p><span class="code-select">sudo dpkg -i jondo_all.deb</span></p>
+<p><strong>9.</strong> Install all unmet dependencies.</p>
+<p><span class="code-select">sudo apt -f install</span></p>
+</div>
+<h2 id="Launch_JonDonym">Launch JonDonym</h2>
+<p>After installation a placeholder for JonDonym should appear in the
+application menu. If it does not appear, it can simply be launched from
+the terminal.</p>
+<p><span class="code-select">jondo</span></p>
+<h2 id="Free_vs_Premium_Accounts">Free vs Premium Accounts</h2>
+<p>Free accounts can connect only to ports <code>80</code> and
+<code>443</code>. Further, only a HTTPS proxy interface is provided, not
+a SOCKS proxy. <sup class="reference"><a href="#cite_note-23">[23]</a></sup> Premium accounts have unrestricted
+port options and support the SOCKS proxy. The full comparison can be
+found <a href="https://web.archive.org/web/20230330184651/https://anonymous-proxy-servers.net/en/premium.html">here</a>.</p>
+<h3 id="JonDonym_HTTPS_Proxy_Test">JonDonym HTTPS Proxy Test</h3>
+<p>This also works with JonDonym free accounts.</p>
+<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
+--proxytunnel --proxy 127.0.0.1:4001 <a href="https://check.torproject.org">https://check.torproject.org</a></span></p>
+<h3 id="JonDonym_SOCKS_Proxy_Test">JonDonym SOCKS Proxy Test</h3>
+<p>This requires a JonDonym premium (paid) account.</p>
+<p>Try this test command.
+<span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
+--socks5-hostname socks5h://127.0.0.1:4001 <a href="https://check.torproject.org">https://check.torproject.org</a></span></p>
+<p>If the following message appears, it indicates the local JonDo has
+not opened a listener. Check if JonDonym has been started or configured
+to use a non-default port.</p>
+<pre><code>curl: (7) couldn&#39;t connect to host</code></pre>
+<p>If the following message appears, you are likely only using a free
+account (therefore SOCKS is unavailable).</p>
+<pre><code>curl: (7) Unable to receive initial SOCKS5 response.</code></pre>
+<h2 id="JonDoFox_vs_Tor_Browser">JonDoFox vs Tor Browser</h2>
+<p>Users must make an informed decision whether to prefer JonDoFox or
+Tor Browser.</p>
+<p>It may be more sensible to use JonDoFox in order to blend in better
+with other JonDonym users, but this is unclear. In this case, no special
+settings are required.</p>
+<p>If Tor Browser is preferred for browsing: user &#8594; Tor &#8594; JonDonym &#8594;
+destination server, then the proxy settings must be changed via
+TorButton. Start Tor Browser, open TorButton settings and choose custom
+proxy settings. HTTP should be set to <code>127.0.0.1</code>, with port
+set to <code>4001</code> and leave all other fields free except no proxy
+for <code>127.0.0.1</code>. Browse to <a href="https://ip-check.info/">https://ip-check.info/</a> to see if it
+correctly configured.</p>
+<h2 id="Future_Integration">Future Integration</h2>
+<p>See <a href="../Dev/JonDo/">Dev/JonDo</a> if you are
+interested in a development discussion about JonDo(Fox) being
+pre-installed in Whonix.</p>
+<p><span class="manually-placed-anchor " id="Connecting_to_JonDo_before_Tor"></span></p>
+<h1 id="Connecting_to_JonDonym_before_Tor">Connecting to JonDonym before
+Tor</h1>
+<h2 id="Introduction_3">Introduction</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<u>Note</u>:</p>
+<ul>
+<li>Testers only!</li>
+<li><a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> only!
+<a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a> is <a href="../Unsupported/">unsupported</a>.</li>
+</ul>
+</div>
+<p>It is possible to configure Tor to use JonDonym as a proxy to
+establish the following tunnel: <code>User</code> &#8594;
+<code>JonDonym</code> &#8594; <code>Tor</code> &#8594; <code>Internet</code></p>
+<p>A JonDonym premium account is not required; this configuration is
+functional with JonDonym free. If this tunnel configuration is desired,
+it is recommended to first read the following two related wiki
+entries:</p>
+<ul>
+<li><a href="../Tunnels/Introduction/">Combining Tunnels
+with Tor</a></li>
+<li><a href="../Tunnels/Connecting_to_a_proxy_before_Tor/">Connecting to Proxy before Tor</a></li>
+</ul>
+<p>The anonymity effects are disputed when tunneling Tor over JonDonym;
+see <a href="../Tunnels/Introduction/#Comparison_Table">here</a> for further information. The instructions
+below also have a number of current limitations: <sup class="reference"><a href="#cite_note-24">[24]</a></sup></p>
+<ul>
+<li>JonDonym is installed in a separate ProxyVM behind
+<code>sys-whonix</code>. <sup class="reference"><a href="#cite_note-25">[25]</a></sup></li>
+<li>This configuration is very impractical. Since Qubes does not yet
+support static IP addresses, the Tor configuration setting
+<code>/etc/tor/torrc</code> 'HTTPSProxy 10.137.10.1:4001' is not stable.
+When the JonDonym ProxyVM has its IP changed, connectivity breaks and
+<code>/etc/tor/torrc</code> in <code>sys-whonix</code> needs a manual
+update.</li>
+<li>It would be preferable to increased usability by documenting how to
+run JonDonym directly in <code>sys-whonix</code> -- under user tunnel
+with TUNNEL_FIREWALL=true etc. -- however, this would mean less
+isolation.</li>
+<li>This configuration does not yet autostart JonDonym.</li>
+</ul>
+<h2 id="Installation_and_Configuration">Installation and
+Configuration</h2>
+<div class="info-box ">
+<p><strong>1.</strong> Create a new standalone ProxyVM called
+<code>JonDo-Gateway</code>.</p>
+<p><strong>2.</strong> Install JonDonym in the new
+<code>JonDo-Gateway</code> ProxyVM.</p>
+<p>Follow <a href="https://web.archive.org/web/20210511011817/https://anonymous-proxy-servers.net/en/help/firststeps2.html">these
+instructions</a> to install JonDonym from JonDonymn's Debian APT
+repository. The <em><span>Using the
+repository at command line</span></em> chapter is recommended for
+installation.</p>
+<p><strong>3.</strong> Test if JonDonym's https proxy is functional.</p>
+<p><span class="code-select">curl --tlsv1.3 --proxytunnel --proxy
+127.0.0.1:4001 <a href="https://check.torproject.org">https://check.torproject.org</a></span></p>
+<p><sup class="reference"><a href="#cite_note-26">[26]</a></sup></p>
+<p><strong>4.</strong> Enable the extended view.</p>
+<pre><code>Config &amp;rarr; user interface &amp;rarr; extended view.</code></pre>
+<p><strong>5.</strong> Configure JonDonymn to listen on all interfaces
+so it will be reachable from <code>sys-whonix</code>.</p>
+<p>Under network, <u>un</u>check:<br />
+<code>[ ] Allow access to JAP/JonDo from localhost only (recommended)</code></p>
+<p><strong>6.</strong> In <code>JonDo-Gateway</code> ProxyVM, The
+iptables rules must be unloaded.</p>
+<p>If using Qubes, disable qubes-iptables and qubes-firewall systemd
+services. Non-Qubes users can skip this.</p>
+<pre><code>sudo systemctl mask qubes-iptables
+sudo systemctl stop qubes-iptables
+sudo systemctl mask qubes-firewall
+sudo systemctl stop qubes-firewall</code></pre>
+<p>Open file <code>~/fw-unload</code> in a <a href="../Moved:Software/#Text_Editor">text editor</a> of your
+choice as a regular, non-root user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select">featherpad ~/fw-unload</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select">nano ~/fw-unload</span></p>
+</div>
+<p>Add.</p>
+<pre><code>#!/bin/bash
+
+## Copyright (C) 2012 - 2015 Patrick Schleizer &lt;adrelanos@whonix.org&gt;
+## See the file COPYING for copying conditions.
+
+set -o pipefail
+
+error_handler() {
+  echo &quot;ERROR!&quot; &gt;&amp;2
+  exit 1
+}
+
+trap &quot;error_handler&quot; ERR
+
+[ -n &quot;$iptables_cmd&quot; ] || iptables_cmd=&quot;iptables --wait&quot;
+[ -n &quot;$ip6tables_cmd&quot; ] || ip6tables_cmd=&quot;ip6tables --wait&quot;
+
+$iptables_cmd -P INPUT ACCEPT
+$iptables_cmd -P FORWARD ACCEPT
+$iptables_cmd -P OUTPUT ACCEPT
+
+$iptables_cmd -F
+$iptables_cmd -X
+$iptables_cmd -t nat -F
+$iptables_cmd -t nat -X
+$iptables_cmd -t mangle -F
+$iptables_cmd -t mangle -X
+$iptables_cmd -t raw -F
+$iptables_cmd -t raw -X
+
+$ip6tables_cmd -P INPUT ACCEPT
+$ip6tables_cmd -P OUTPUT ACCEPT
+$ip6tables_cmd -P FORWARD ACCEPT
+
+$ip6tables_cmd -F
+$ip6tables_cmd -X
+$ip6tables_cmd -t mangle -F
+$ip6tables_cmd -t mangle -X
+$ip6tables_cmd -t raw -F
+$ip6tables_cmd -t raw -X
+
+exit 0</code></pre>
+<p>Save.</p>
+<p>Make ~/fw-unload executable.</p>
+<pre><code>chmod +x ~/fw-unload</code></pre>
+<p>Unload all iptables firewall rules.</p>
+<pre><code>sudo ~/fw-unload</code></pre>
+<p>After firewall unload, run the following command to see if all
+firewall rules are really unloaded.</p>
+<pre><code>sudo iptables-save | sed -e &#39;s/\[[0-9:]*\]/[0,0]/&#39; -e &#39;/^#/d&#39;</code></pre>
+<p>The output should show.</p>
+<pre><code>*mangle
+:PREROUTING ACCEPT [0,0]
+:INPUT ACCEPT [0,0]
+:FORWARD ACCEPT [0,0]
+:OUTPUT ACCEPT [0,0]
+:POSTROUTING ACCEPT [0,0]
+COMMIT
+*raw
+:PREROUTING ACCEPT [0,0]
+:OUTPUT ACCEPT [0,0]
+COMMIT
+*nat
+:PREROUTING ACCEPT [0,0]
+:INPUT ACCEPT [0,0]
+:OUTPUT ACCEPT [0,0]
+:POSTROUTING ACCEPT [0,0]
+COMMIT
+*filter
+:INPUT ACCEPT [0,0]
+:FORWARD ACCEPT [0,0]
+:OUTPUT ACCEPT [0,0]
+COMMIT</code></pre>
+<p><strong>7.</strong> Disable IP Forwarding in the
+<code>JonDo-Gateway</code> ProxyVM.</p>
+<p>IP Forwarding could/should be disabled, since it is not required.
+TODO: document how.</p>
+<p><strong>8.</strong> Shut down <code>sys-whonix</code>.</p>
+<ul>
+<li>Next set the <code>sys-whonix</code> NetVM to
+<code>JonDo-Gateway</code>.</li>
+<li>Restart <code>sys-whonix</code>.</li>
+</ul>
+<p><strong>9.</strong> Add the IP address of
+<code>JonDo-Gateway</code>.</p>
+<p>In <code>sys-whonix</code>: Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session">Graphical Whonix-Gateway
+USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add the following.</p>
+<p>Note: <code>10.137.10.1</code> is just an example and needs to be
+replaced with the IP address of the <code>JonDo-Gateway</code> ProxyVM.
+To discover the IP address of the <code>JonDo-Gateway</code> ProxyVM,
+run the following command in <code>sys-whonix</code>:
+<code>qubesdb-read /qubes-gateway</code></p>
+<pre><code>HTTPSProxy 10.137.10.1:4001</code></pre>
+<p>Save.</p>
+<p><strong>10.</strong> Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Service</code> &#8594;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+&#8594; <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p><strong>11.</strong> In <code>sys-whonix</code>, test if Tor is able
+to use the https proxy that JonDonym is providing.</p>
+<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
+--socks5-hostname socks5h://127.0.0.1:9050 <a href="https://check.torproject.org">https://check.torproject.org</a></span></p>
+<p>The procedure is complete and Tor will use JonDonym as a proxy.</p>
+</div>
+<h1 id="JonDoBox:_Substituting_Tor_with_JonDonym">JonDoBox: Substituting
+Tor with JonDonym</h1>
+<p>This was just a development idea with some limited progress.
+Interested readers can review the material <a href="../Dev/Inspiration/">here</a>.</p>
+<h1 id="Screenshots">Screenshots</h1>
+<p><strong>Figure:</strong> <em>Java Anon Proxy (JonDonym) Client
+Software in Whonix</em></p>
+<p><img src="../../media/JonDo.png.webp" alt="JonDo.png" /></p>
+<p><strong>Figure:</strong> <em>JonDonym Client Software
+Settings</em></p>
+<p><img src="../../media/JonDosettings.png.webp" alt="JonDosettings.png" /></p>
+<h1 id="License">License</h1>
+<p>Gratitude is expressed to <a href="https://web.archive.org/web/20230329090736/https://anonymous-proxy-servers.net/">JonDos</a>
+for <a href="https://web.archive.org/web/20131225084524/https://anonymous-proxy-servers.net/forum/viewtopic.php?p=31220">permission</a>
+to use material from their website. The "Whonix JonDonym" wiki page
+contains content from the JonDonym documentation <a href="https://web.archive.org/web/20220120211949/https://anonymous-proxy-servers.net/en/help/jondonym.html">Network</a>
+page.</p>
+<h1 id="Footnotes_/_References">Footnotes / References</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://web.archive.org/web/20220120211949/https://anonymous-proxy-servers.net/en/help/jondonym.html">https://web.archive.org/web/20220120211949/https://anonymous-proxy-servers.net/en/help/jondonym.html</a></li>
+<li id="cite_note-2">This is an informal opinion by lead Whonix developer Patrick
+Schleizer. Last updated in May, 2020.</li>
+<li id="cite_note-3"><a href="https://web.archive.org/web/20160707165220/https://anonymous-proxy-servers.net/en/status/">https://web.archive.org/web/20160707165220/https://anonymous-proxy-servers.net/en/status/</a></li>
+<li id="cite_note-4"><a href="https://web.archive.org/web/20211108140444/https://anonymous-proxy-servers.net/en/help/certificates.html">https://web.archive.org/web/20211108140444/https://anonymous-proxy-servers.net/en/help/certificates.html</a></li>
+<li id="cite_note-5">In 2012, the random snapshot identified the two-hop free mix
+cascades had 1940 users with a maximum available capacity of 2750 users.
+1367 users were using the test/experimental free one hop service which
+did not advertise a maximum user capacity. From 16 to 63 users used one
+of the 11 three-hop premium mix cascades and no maximum user restriction
+was advertised. There were 350 premium users in total.</li>
+<li id="cite_note-6"><a href="https://web.archive.org/web/20230330184651/https://anonymous-proxy-servers.net/en/premium.html">https://web.archive.org/web/20230330184651/https://anonymous-proxy-servers.net/en/premium.html</a></li>
+<li id="cite_note-7"><a href="https://web.archive.org/web/20160707165220/https://anonymous-proxy-servers.net/en/status/">https://web.archive.org/web/20160707165220/https://anonymous-proxy-servers.net/en/status/</a></li>
+<li id="cite_note-8">With no advertised limit on the number of users.</li>
+<li id="cite_note-9"><a href="https://metrics.torproject.org/userstats-relay-country.html">https://metrics.torproject.org/userstats-relay-country.html</a></li>
+<li id="cite_note-10"><a href="https://metrics.torproject.org/networksize.html">https://metrics.torproject.org/networksize.html</a></li>
+<li id="cite_note-11">A similarly large difference was evident in 2012: according to Tor
+metrics page ([ on that same day] the Tor network had on that day had
+around 3,000 relays (approximately 1,000 had the guard flag and around
+900 had the entry guard flag). An estimated 500,000 users were using the
+Tor network at that time].</li>
+<li id="cite_note-12">For instance, it is likely trivial for advanced adversaries to
+conduct end-to-end correlation attacks.</li>
+<li id="cite_note-13">For example, see: <a href="https://web.archive.org/web/20210125110454/https://anonymous-proxy-servers.net/forum/viewtopic.php?f=10&amp;t=7319">ip-check.info
+some false values and confuses TBB users</a>.</li>
+<li id="cite_note-14">Quoted from the <a href="https://web.archive.org/web/20220120211949/https://anonymous-proxy-servers.net/en/help/jondonym.html">JonDonym
+network comparison page</a>: <blockquote><p>[...] making surfing considerably slower but, in some individual
+cases, even more secure than with JonDonym alone.</p></blockquote></li>
+<li id="cite_note-15">According to the <a href="https://web.archive.org/web/20220116104101/https://anonymous-proxy-servers.net/en/help/services_tor.html">Access
+to the Tor network with JonDo</a> page, JonDonym natively supports being
+tunneled over Tor. This also implies the developers do <u>not</u> argue
+that tunneling JonDo through Tor is less safe. This option is unneeded
+in Whonix, since all traffic originating from
+Whonix-Workstation<sup>&#8482;</sup> is tunneled through Tor in the first
+place. Enabling that JonDonym option inside
+Whonix-Workstation<sup>&#8482;</sup> is discouraged, since it would lead to a
+<a href="../Tips_on_Remaining_Anonymous/#Refrain_from_&quot;Tor_over_Tor&quot;_Scenarios">Tor over Tor</a> scenario.</li>
+<li id="cite_note-16"><a href="https://web.archive.org/web/20210617211029/https://search.edwardsnowden.com/docs/InternetAnonymity20112014-12-28nsadocs">https://web.archive.org/web/20210617211029/https://search.edwardsnowden.com/docs/InternetAnonymity20112014-12-28nsadocs</a></li>
+<li id="cite_note-17"><a href="https://web.archive.org/web/20230330171711/https://anonymous-proxy-servers.net/en/law_enforcement.html">https://web.archive.org/web/20230330171711/https://anonymous-proxy-servers.net/en/law_enforcement.html</a></li>
+<li id="cite_note-18">See also: <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorPlusVPN">Tor
+Plus VPN or Proxy</a></li>
+<li id="cite_note-19">In the section stating "The repository is signed with the OpenPGP
+key 0x2B3CAA3E", it is unrecommended to download the key from a
+keyserver with <code>apt-key</code>, using only the short key
+fingerprint. Instead, it is more secure -- equivalent to using the long
+key fingerprint -- to download the signing key over https with your
+browser:<br />
+1. Right-click on 0x2B3CAA3E and "Save Link As..."<br />
+2. Save the key in the home folder<br />
+3. Run <code>gpg --import 0x2B3CAA3E</code></li>
+<li id="cite_note-20">Alternatively use Tor Browser to download the signing key <a href="https://web.archive.org/web/20220604074647/https://anonymous-proxy-servers.net/en/jondo.html">here</a>.</li>
+<li id="cite_note-21">Alternatively use Tor Browser to download the package from <a href="https://web.archive.org/web/20220604074647/https://anonymous-proxy-servers.net/en/jondo.html">here</a>.</li>
+<li id="cite_note-22">Alternatively use Tor Browser to download the signature from <a href="https://web.archive.org/web/20220604074647/https://anonymous-proxy-servers.net/en/jondo.html">here</a>.
+Right-click and select "Save Page As..." to save the signature.</li>
+<li id="cite_note-23"><a href="https://web.archive.org/web/20210511005748/https://anonymous-proxy-servers.net/en/help/otherApplications.html">https://web.archive.org/web/20210511005748/https://anonymous-proxy-servers.net/en/help/otherApplications.html</a></li>
+<li id="cite_note-24"><a href="https://forums.whonix.org/t/connecting-to-jondonym-before-tor-user-jondonym-tor-internet">https://forums.whonix.org/t/connecting-to-jondonym-before-tor-user-jondonym-tor-internet</a></li>
+<li id="cite_note-25">The motivation behind this is better security. JonDonym is not
+installable from Debian, but instead is a package from the
+anonymous-proxy-servers.net website / Debian apt repository. In theory,
+Tor should not be compromised if JonDonym is compromised. Also, if
+JonDonym is compromised to begin with or more easily exploited than Tor,
+then it is desirable to run it in a separate ProxyVM for better
+isolation.</li>
+<li id="cite_note-26">Socks proxy test - premium accounts only.
+<span class="code-select">curl --tlsv1.3 --socks5-hostname
+socks5h://127.0.0.1:4001 <a href="https://check.torproject.org">https://check.torproject.org</a></span></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

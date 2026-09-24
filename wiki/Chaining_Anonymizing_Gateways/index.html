@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Chaining Anonymizing Gateways</title>
+<meta name="description" content="By default, all Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt; traffic is forced through Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt;. Alternatively, a chain of anonymizing gateways can be built, with sample tunnel configurations outlined below.">
+<meta property="og:description" content="By default, all Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt; traffic is forced through Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt;. Alternatively, a chain of anonymizing gateways can be built, with sample tunnel configurations outlined below.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Chaining_Anonymizing_Gateways/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Chaining_Anonymizing_Gateways/">
+<meta property="og:title" content="Chaining Anonymizing Gateways">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Chaininganon23234.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Pre-Tor-VPN">Pre-Tor-VPN</a></li><li class="toc-l2"><a href="#Post-Tor-VPN">Post-Tor-VPN</a></li><li class="toc-l2"><a href="#Pre-_and_Post-Tor-VPN">Pre- and Post-Tor-VPN</a></li><li class="toc-l2"><a href="#Post-Tor-Proxy">Post-Tor-Proxy</a></li><li class="toc-l2"><a href="#Other_Connection_Schemes">Other Connection Schemes</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Chaininganon23234.jpg.webp" alt="Chaininganon23234.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>By default, all Whonix-Workstation traffic is forced through
+Whonix-Gateway. Alternatively, a chain of anonymizing gateways can be
+built, with sample tunnel configurations outlined below.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Only advanced users should attempt these configurations!</p>
+</div>
+<p>Before attempting complex tunnel configurations, the following basic
+knowledge is required:</p>
+<ul>
+<li><a href="../Tunnels/Introduction/">Tunnels
+Introduction</a></li>
+<li><a href="../Stream_Isolation/">Stream
+Isolation</a></li>
+</ul>
+<p>This <a href="../Dev/Inspiration/">Inspiration</a>
+resource may also be useful.</p>
+<h1 id="Possible_Configurations">Possible Configurations</h1>
+<h2 id="Pre-Tor-VPN">Pre-Tor-VPN</h2>
+<p><span class="code-select">## chain: Whonix-Workstation -&gt;
+VPN-Gateway -&gt; Whonix-Gateway -&gt; clearnet</p>
+<ol>
+<li><ol>
+<li>connection scheme:</li>
+</ol></li>
+</ol>
+<p>user -&gt; VPN -&gt; Tor -&gt; Internet</span></p>
+<p>For instructions, see <a href="../Tunnels/Connecting_to_a_VPN_before_Tor/">here</a>.
+To learn more details about this configuration, refer to this <a href="../Tunnels/Introduction/#Connecting_to_a_tunnel-link_.28proxy.2FVPN.2FSSH.29_before_Tor">entry</a>.</p>
+<h2 id="Post-Tor-VPN">Post-Tor-VPN</h2>
+<p><span class="code-select">## chain: Whonix-Workstation -&gt;
+Whonix-Gateway -&gt; VPN-Gateway -&gt; clearnet</p>
+<ol>
+<li><ol>
+<li>connection scheme:</li>
+</ol></li>
+</ol>
+<p>user -&gt; Tor -&gt; VPN -&gt; Internet</span></p>
+<p>For instructions, see <a href="../Tunnels/Connecting_to_Tor_before_a_VPN/">here</a>.
+To learn more details about this configuration, refer to this <a href="../Tunnels/Introduction/#Connecting_to_Tor_before_a_tunnel-link_.28proxy.2FVPN.2FSSH.29">entry</a>.</p>
+<h2 id="Pre-_and_Post-Tor-VPN">Pre- and Post-Tor-VPN</h2>
+<p><span class="code-select">## chain: Whonix-Workstation -&gt;
+VPN-Gateway -&gt; Whonix-Gateway -&gt; VPN-Gateway -&gt; Internet</p>
+<ol>
+<li><ol>
+<li>connection scheme:</li>
+</ol></li>
+</ol>
+<p>user -&gt; VPN -&gt; Tor -&gt; VPN -&gt; Internet</span></p>
+<p>Whonix is not limited to VPN-Gateways; the VPN can be replaced with a
+Proxy-Gateway.</p>
+<h2 id="Post-Tor-Proxy">Post-Tor-Proxy</h2>
+<p><span class="code-select">## chain: Whonix-Workstation -&gt;
+Proxy-Gateway -&gt; Whonix-Gateway -&gt; clearnet</p>
+<ol>
+<li><ol>
+<li>connection scheme:</li>
+</ol></li>
+</ol>
+<p>user -&gt; Tor -&gt; Proxy -&gt; Internet</span></p>
+<p>For instructions, see <a href="../Tunnels/Connecting_to_Tor_before_a_proxy/">here</a>. To learn more details about this
+configuration, refer to this <a href="../Tunnels/Introduction/#Connecting_to_Tor_before_a_tunnel-link_.28proxy.2FVPN.2FSSH.29">entry</a>.</p>
+<h2 id="Other_Connection_Schemes">Other Connection Schemes</h2>
+<p>Virtually any combination is possible: a Post-Tor-Proxy; a
+Pre/Post-Tor-SSH; or the proxy being replaced with JonDo or perhaps
+I2P.</p>
+<p>Always remember that the connection will be created in reverse order;
+see the example below. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p><span class="code-select">## chain: Whonix-Workstation -&gt;
+Proxy-Gateway -&gt; Whonix-Gateway -&gt; VPN-Gateway -&gt; clearnet</p>
+<ol>
+<li><ol>
+<li>connection scheme:</li>
+</ol></li>
+</ol>
+<p>user -&gt; VPN -&gt; Tor -&gt; Proxy -&gt; Internet</span></p>
+<p>Upon reflection, it becomes clear why the connection happens in
+reverse order:</p>
+<ul>
+<li>Whonix-Workstation has no option but to pass through the
+Proxy-Gateway.</li>
+<li>The Proxy-Gateway has no option but to pass through
+Whonix-Gateway.</li>
+<li>In this case, the last element in the chain is the VPN-Gateway,
+which must obviously connect via <a href="../FAQ/#What_is_Clearnet.3F">clearnet</a>.</li>
+</ul>
+<p>In other terms:</p>
+<ul>
+<li>The VPN-Gateway uses clearnet.</li>
+<li>Whonix-Gateway uses the VPN-Gateway to connect.</li>
+<li>The Proxy-Gateway uses Whonix-Gateway to connect.</li>
+<li>Whonix-Workstation uses the Proxy-Gateway to connect.</li>
+</ul>
+<p>Since the Proxy-Gateway can only pass through Whonix-Gateway followed
+by the VPN-Gateway, it is clear why it will be the last hop in front of
+the destination server.</p>
+<h1 id="Other_Considerations">Other Considerations</h1>
+<p>Whether these combinations make sense in terms of security and
+anonymity is hotly debated and depends on your personal threat model,
+see <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorPlusVPN">Tor
+plus VPN or Proxy</a>. Advanced tunneling configurations also require
+knowledge of how to properly edit <em>/etc/network/interfaces</em> on
+Whonix-Gateway and/or on Whonix-Workstation. In the case of <a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>, this
+refers to the virtual internal network name in VirtualBox settings.</p>
+<p>This process is generally difficult because there are no other
+anonymizing gateways (VPN / JonDo / I2P / Proxy / SSH / VPN) available
+for download in Whonix, just the Whonix-Gateway which uses Tor to
+anonymize traffic. This means a search for instructions is often
+required and/or an anonymizing gateway must be built from scratch.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>For a VPN-Gateway, see also:<br />
+* <a href="https://www.ivpn.net/privacy-guides/advanced-privacy-and-anonymity-part-6">VPN-Gateway</a></p>
+<h1 id="Forum_Discussions">Forum Discussions</h1>
+<ul>
+<li><a href="https://forums.whonix.org/t/a-proxy-between-whonix-workstation-and-whonix-gateway-whonix-workstation-another-vm-whonix-gateway/10525">a
+Proxy between Whonix-Workstation and Whonix-Gateway (Whonix-Workstation
+-&gt; another VM -&gt; Whonix-Gateway)</a></li>
+<li><a href="https://forums.whonix.org/t/connecting-another-virtual-machine-to-the-same-nat-subnet-of-the-whonix-gateway-whonix-external/9052">https://forums.whonix.org/t/connecting-another-virtual-machine-to-the-same-nat-subnet-of-the-whonix-gateway-whonix-external/9052</a></li>
+<li><a href="https://forums.whonix.org/t/how-to-add-a-proxyvm-between-anon-whonix-and-sys-whonix-whonix-ws-email-sys-fw-whonix-whonix-gw-sys-firewall-sys-net/2238">https://forums.whonix.org/t/how-to-add-a-proxyvm-between-anon-whonix-and-sys-whonix-whonix-ws-email-sys-fw-whonix-whonix-gw-sys-firewall-sys-net/2238</a></li>
+<li><a href="https://forums.whonix.org/t/how-to-configure-tor-in-whonix-gateway-connect-to-other-vm-running-proxy/10727">https://forums.whonix.org/t/how-to-configure-tor-in-whonix-gateway-connect-to-other-vm-running-proxy/10727</a></li>
+<li><a href="https://forums.whonix.org/t/whonix-gateway-stuck-at-5-bootstrapping-behind-pfsense-in-proxmox-default-route-10-0-2-2/23149">https://forums.whonix.org/t/whonix-gateway-stuck-at-5-bootstrapping-behind-pfsense-in-proxmox-default-route-10-0-2-2/23149</a></li>
+</ul>
+<h1 id="Related">Related</h1>
+<ul>
+<li><a href="../Tunnels/Introduction/">Combining Tunnels
+with Tor</a></li>
+<li><a href="../Dev/Inspiration/">Dev/Inspiration -
+Whonix</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">"Internet" below refers to the destination server, such as a
+website.</li>
+<li id="cite_note-2">Instructions for a pfSense based VPN-Gateway can be found with
+search engines, but it is untested for leaks.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

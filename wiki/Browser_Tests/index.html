@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Browser Tests</title>
+<meta name="description" content="check.torproject.org says &quot;Sorry. You are not using Tor.&quot;? On false positives. And browser fingerprinting. How unique are you? On Browser Tests and Browser Security. Notes on sites such as ip-check.info and whoer.net.">
+<meta property="og:description" content="check.torproject.org says &quot;Sorry. You are not using Tor.&quot;? On false positives. And browser fingerprinting. How unique are you? On Browser Tests and Browser Security. Notes on sites such as ip-check.info and whoer.net.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Browser_Tests/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Browser_Tests/">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Testschecklist.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#AmIUnique">AmIUnique</a></li><li class="toc-l2"><a href="#cpuid_visualiser">cpuid visualiser</a></li><li class="toc-l2"><a href="#CreepJS">CreepJS</a></li><li class="toc-l2"><a href="#Doileak.com">Doileak.com</a></li><li class="toc-l2"><a href="#Fingerprint_Central">Fingerprint Central</a></li><li class="toc-l2"><a href="#Fingerprint.com">Fingerprint.com</a></li><li class="toc-l2"><a href="#Cover_Your_Tracks">Cover Your Tracks</a></li><li class="toc-l2"><a href="#schemeflood.com">schemeflood.com</a></li><li class="toc-l2"><a href="#The_Tor_Project">The Tor Project</a></li><li class="toc-l2"><a href="#WebCPU">WebCPU</a></li><li class="toc-l2"><a href="#WhatIsMyBrowser.com">WhatIsMyBrowser.com</a></li><li class="toc-l2"><a href="#Whoer.net">Whoer.net</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../Tor_Browser/">Tor Browser
+Essentials</a></li>
+<li><a href="../Tor_Browser/Advanced_Users/">Tor Browser
+Advanced</a></li>
+<li><a href="./">Browser Tests</a></li>
+<li><a href="../Other_Browsers/">Other Browsers</a></li>
+<li><a href="../Geo-blocking/">Geo-blocking - Unreachable
+Websites</a></li>
+</ul>
+</div>
+<p><img src="../../media/Testschecklist.png.webp" width="200" alt="Testschecklist.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>check.torproject.org says "Sorry. You are not using Tor."? On false
+positives. And browser fingerprinting. How unique are you? On Browser
+Tests and Browser Security. Notes on sites such as ip-check.info and
+whoer.net.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Interpreting_Test_Results">Interpreting Test Results</h1>
+<p>Sites like <code>whoer.net</code> or <code>ip-check.info</code> are
+unable to adequately assess and demonstrate the threat of fingerprinting
+techniques with respect to <a href="../Tor_Browser/">Tor
+Browser</a>. These sites generally check for various browser
+characteristics as well as enabled functionality to reveal specific
+identifiers. Many of these identifiers require JavaScript, but reports
+commonly include elements like HTTP headers and attributes, the User
+Agent, numerous JavaScript attributes, IP address, operating system
+indicators, browser plugins, cookies, cache, browser window dimensions,
+fonts and so on. If these elements are enabled/activated, then the
+browser test sites provide more fine-grained results -- although the <a href="https://2019.www.torproject.org/projects/torbrowser/design/">Tor
+Browser design</a> has already taken many into account.</p>
+<p>Tor Browser developers have carefully considered <a href="https://2019.www.torproject.org/projects/torbrowser/design/#identifier-linkability">Cross-Origin
+Identifier Unlinkability</a> and <a href="https://2019.www.torproject.org/projects/torbrowser/design/#fingerprinting-linkability">Cross-Origin
+Fingerprinting Unlinkability</a> defenses in their anonymity design.
+Efforts are focused upon:</p>
+<ul>
+<li>First party isolation of all browser identifier sources (such as
+cookies, cache etc.) by browser tab. These are deleted after closing the
+browser, but are saved temporarily while the browser is open so most
+sites are accessible.</li>
+<li>Specific fingerprinting defenses such as disabling browser plugins,
+preventing HTML5 data extraction, preventing access to the local host
+and WebRTC API, resizing browser windows to specific dimensions, and
+many more.</li>
+</ul>
+<p>A fundamental principle adopted to improve Tor Browser anonymity is
+to make all users appear as uniform (similar) as possible, thereby
+greatly reducing the effectiveness of tracking efforts by various
+websites and network observers who rely on identifiers. To learn more
+about how The Tor Project is preparing to defend against future
+fingerprinting threats, refer to this recent (2019) blog post: <a href="https://blog.torproject.org/browser-fingerprinting-introduction-and-challenges-ahead">Browser
+Fingerprinting: An Introduction and the Challenges Ahead</a>.</p>
+<h1 id="Making_Browsers_Safer">Making Browsers Safer</h1>
+<p>Browser fingerprinting defenses are imperfect and most probably
+always will be. <sup class="reference"><a href="#cite_note-1">[1]</a></sup> However, steady improvements are
+being made over time despite the emergence of novel tracking threats
+identified by researchers and developers alike. There are certainly too
+few volunteers who are <u>seriously</u> focused on testing browsers and
+defeating browser fingerprinting methods.</p>
+<p>If you are reading this page, then it is safe to assume being
+anonymous (less unique), and remaining so is of great interest. Users
+with a serious intention to research these issues are encouraged to
+assist in accordance with their skills. Testing, bug reporting or even
+bug fixing are laudable endeavors. If this process is unfamiliar,
+understand that about thirty minutes is required per message /
+identifier to ascertain if the discovered result <sup class="reference"><a href="#cite_note-2">[2]</a></sup> is a
+false positive, regression, known or unknown issue.</p>
+<p>To date, none of the various leak testing websites running inside
+Whonix-Workstation<sup>&#8482;</sup> were ever able to discover the real
+(external), clearnet IP address of a user during tests. This held true
+even when using JavaScript or plugins such as Flash Player and/or Java
+were activated, despite the known fingerprinting risks. Messages such as
+"Something Went Wrong! Tor is not working in this browser."
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup> (from <a href="./#about:tor"><span>about:tor</span></a>) or "Sorry. You are not
+using Tor." (from <a href="./#The_Tor_Project">check.torproject.org</a>) are in most cases non-issues.
+If the real, external IP address can be revealed from inside
+Whonix-Workstation, then this would constitute a serious and heretofore
+unknown issue (otherwise not).</p>
+<p>It is unhelpful to ask questions in forums, issue trackers and on
+various mailing lists with concerns that have already been discussed, or
+which are known issues / false positives. In all cases, please first
+search thoroughly for the result that was found. Otherwise, the noise to
+signal ratio increases and Whonix development is hindered. Users valuing
+anonymity don't want this, otherwise this would violate the
+aforementioned assumption.</p>
+<p>If something is identified that appears to be a Whonix-specific
+issue, please first read the <a href="../Self_Support_First_Policy/">Whonix Self Support First Policy</a> before making a
+notification.</p>
+<h1 id="Browser_Test_Sites">Browser Test Sites</h1>
+<h2 id="AmIUnique">AmIUnique</h2>
+<ul>
+<li><a href="https://amiunique.org/">https://amiunique.org/</a> -- <a href="https://github.com/DIVERSIFY-project/amiunique">GitHub source
+code</a>. This is a general fingerprinting site relying on common
+identifiers.</li>
+</ul>
+<p><strong>Figure:</strong> <em>AmIUnique Test in Whonix</em></p>
+<p><img src="../../media/Amiunique.png.webp" alt="Amiunique.png" /></p>
+<h2 id="cpuid_visualiser">cpuid visualiser</h2>
+<p>The cpuid visualiser is not a browser test. As its website <a href="https://cpuid.apps.poly.nomial.co.uk/"><code>cpuid.apps.poly.nomial.co.uk</code></a>
+correctly states, it is a CPUID visualizer. It does not claim that it
+can detect the CPUID from the user's computer. This is further evidenced
+by the website writing <code>sample cpuid data</code>. The functionality
+of the cpuid visualiser is for a user to voluntarily, locally gather
+their CPU binary register data and paste it into the cpuid visualiser so
+it can be decoded and visualized.</p>
+<p>CPU model and capabilities cannot be remotely detected by a website
+even if the browser has JavaScript (JS) enabled. See <a href="../Protocol-Leak-Protection_and_Fingerprinting-Protection/#CPUID">CPUID</a>.</p>
+<p>If a user wants to verify this, the following footnote could be
+considered. <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<h2 id="CreepJS">CreepJS</h2>
+<ul>
+<li><a href="https://abrahamjuliot.github.io/creepjs/">https://abrahamjuliot.github.io/creepjs/</a></li>
+<li><a href="https://github.com/abrahamjuliot/creepjs">https://github.com/abrahamjuliot/creepjs</a></li>
+</ul>
+<h2 id="Doileak.com">Doileak.com</h2>
+<ul>
+<li><a href="https://www.doileak.com">https://www.doileak.com</a> --
+This is another site testing the most common leaks such as IP address,
+operating system, browser, connection type, timezone difference, WebGL
+support and so on. However, it also includes some uncommon tests such as
+UDP and torrent leak tests.</li>
+</ul>
+<p><strong>Figure:</strong> <em>Doileak.com Test in Whonix</em></p>
+<p><img src="../../media/Doileak.png.webp" alt="Doileak.png" /></p>
+<h2 id="Fingerprint_Central">Fingerprint Central</h2>
+<p><a href="https://web.archive.org/web/20210920040850/https://fpcentral.tbb.torproject.org/">Fingerprint
+Central</a> is the successor to the <a href="https://web.archive.org/web/20170207112813/https://fpcentral.irisa.fr/">https://web.archive.org/web/20170207112813/https://fpcentral.irisa.fr/</a>
+website, which now appears defunct. The original code is still <a href="https://github.com/plaperdr/fp-central">found on GitHub</a> and
+can be run locally to help Tor Browser developers rapidly create
+prototype defenses. <sup class="reference"><a href="#cite_note-5">[5]</a></sup> The same researchers run
+Fingerprint Central and have designed the test to differ from
+Panopticlick, as it is dedicated to testing discrepancies between Tor
+Browser instances only. This assists Tor Browser developers with testing
+before releases.</p>
+<p><strong>Figure:</strong> <em>Fingerprint Central Test in
+Whonix</em></p>
+<p><img src="../../media/Fpcentral.png.webp" alt="Fpcentral.png" /></p>
+<p><span class="manually-placed-anchor " id="FingerprintJS"></span></p>
+<h2 id="Fingerprint.com">Fingerprint.com</h2>
+<p>The <a href="https://fingerprint.com/demo/">Fingerprint.com Demo</a>
+(formerly FingerprintJS) (<a href="https://github.com/fingerprintjs/fingerprintjs/">on GitHub</a>) is
+a particularly important test, since <a href="../The_World_Wide_Web_And_Your_Privacy/#Fingerprint.com">"12% of the largest 500 websites use
+Fingerprint.com"</a>. Through use of <a href="../Data_Collection_Techniques/#Browser_Fingerprinting">browser fingerprinting</a>, fingerprint.com attempts to
+assign a unique identifier to the user that is similar to an <a href="../Data_Collection_Techniques/#IP_Address">IP
+address</a>. Fingerprint.com refers to that unique identifier as
+<code>visitorID</code>.</p>
+<p><u>Note:</u> The following table is further explained below.</p>
+<table>
+<caption><em>Fingerprint.com Tracking Capabilities and Defenses in
+Whonix</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Tracking Attack</strong></p></th>
+<th><p><strong>Defend Tracking</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>cannot track <a href="../Tor_Browser/">Tor
+Browser</a> after browser restart</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="even">
+<td><p>cannot track Tor Browser after using its <a href="../Tor_Browser/#New_Identity_Function">new identity
+function</a></p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="odd">
+<td><p>cannot track Tor Browser running in different Whonix VMs on the
+same computer</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="even">
+<td><p>cannot correlate multiple browser tabs in the same browser on the
+same top level domain</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="odd">
+<td><p>cannot correlate multiple browser tabs in the same browser on
+different top level domains</p></td>
+<td><p>Unknown.</p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Figure:</strong> <em>Fingerprint.com <code>visitorID</code>
+Demo in Whonix</em></p>
+<p><img src="../../media/TBfingerprint1.png.webp" width="600" alt="TBfingerprint1.png" /></p>
+<p>Using <a href="../Tor_Browser/">Tor Browser</a>'s <a href="../Tor_Browser/#New_Identity_Function">new identity
+function</a> results in a different browser fingerprint. Fingerprint.com
+will detect a different <code>visitorID</code>. The same applies after
+restarting Tor Browser.</p>
+<p>Fortunately, fingerprint.com is unable to assign the same
+<code>visitorID</code> to different instances of <a href="../Tor_Browser/">Tor Browser</a> running in different <a href="../Whonix-Workstation/">Whonix-Workstation<sup>&#8482;</sup></a>. In other words,
+when using <a href="../Multiple_Whonix-Workstation/">multiple Whonix-Workstation<sup>&#8482;</sup></a>,
+fingerprint.com fails to correlate them to the same pseudonym. This
+benefits users who wish to avoid tracking.</p>
+<p><strong>Figure:</strong> <em>Different Fingerprint.com
+<code>visitorID</code> after browser restart</em></p>
+<p><img src="../../media/TBfingerprint2.png.webp" width="600" alt="TBfingerprint2.png" /></p>
+<p>When opening the fingerprint.com demo in multiple browser tabs in the
+same browser, fingerprint.com detects the same <code>visitorID</code>.
+This is because Tor Browser only attempts to provide a different
+identity in different browser tabs for different top level domain
+names.</p>
+<p>See also:</p>
+<ul>
+<li><a href="../Tor_Browser/#Unsafe_Tor_Browser_Habits">Unsafe Tor Browser Habits</a> for mitigations.</li>
+<li>Internet Corporations and Privacy Concerns: <a href="../The_World_Wide_Web_And_Your_Privacy/#Fingerprint.com">Fingerprint.com</a></li>
+<li>Related, see also <a href="#schemeflood.com">schemeflood.com</a>.</li>
+</ul>
+<p><span class="manually-placed-anchor " id="coveryourtracks.eff.org"></span></p>
+<p><span class="manually-placed-anchor " id="Panopticlick"></span></p>
+<h2 id="Cover_Your_Tracks">Cover Your Tracks</h2>
+<p>Cover Your Tracks (previously called Panopticlick) was first launched
+in 2010. It is designed to gather information about common identifiers
+such as operating system version, browser, plugins and so on, and
+compare it against a central database of many other Internet users'
+configurations. In addition, it tests tracker blocker effectiveness,
+including tools like AdBlock, Disconnect and Ghostery.
+<sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p>To learn more about <a href="https://coveryourtracks.eff.org/">EFF's
+Cover Your Tracks test</a> and what it signifies for Tor Browser, refer
+to the following blog post by The Tor Project: <a href="https://blog.torproject.org/effs-panopticlick-and-torbutton">EFF's
+<s>Panopticlick</s> Cover Your Tracks and Torbutton</a>.</p>
+<p><strong>Figure:</strong> <em>Cover Your Tracks (previously
+Panopticlick) v3 Test in Whonix</em></p>
+<p><img src="../../media/Panopticlickv3.png.webp" alt="Panopticlickv3.png" /></p>
+<h2 id="schemeflood.com">schemeflood.com</h2>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="../Unsupported/">this</a> for
+potential alternatives.</p>
+</div>
+<p>The following identifier is a good identifier since shared [...]</p>
+<pre><code>0FVVVV</code></pre>
+<p><a href="https://web.archive.org/web/20210527065854/https://twitter.com/mfsylv/status/1397808321244110849">Quote</a>
+M. Sylvester, @mfsylv, creator of schemeflood.com:</p>
+<p><blockquote><p>The same identifier OFVVVV being generated is immediately concerning
+until its uselessness is observed. This identifier is generated ~8.9% of
+the time, when none of the matching applications are detected.</p></blockquote></p>
+<p>See <a href="../Tor_Browser/#Unsafe_Tor_Browser_Habits">Unsafe Tor Browser Habits</a> for mitigations.</p>
+<p>Related, see also <a href="#Fingerprint.com">Fingerprint.com</a> and <a href="../VM_Fingerprinting/">VM Fingerprinting</a>.</p>
+<p>Forum discussion: <a href="https://forums.whonix.org/t/protocol-flooding-attack-scheme-flood-browser-fingerprinting/11729">https://forums.whonix.org/t/protocol-flooding-attack-scheme-flood-browser-fingerprinting/11729</a></p>
+<h2 id="The_Tor_Project">The Tor Project</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<u>Note</u>: For information concerning the <a href="about:tor"><code>about:tor</code></a> message, refer to the
+following <a href="https://forums.whonix.org/t/something-went-wrong">forum</a>
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup> <a href="https://forums.whonix.org/t/sorry-you-are-not-using-tor">discussions</a>.</p>
+</div>
+<p><a href="https://check.torproject.org">https://check.torproject.org</a></p>
+<p>Users are requested not to post any "Sorry. You are not using Tor."
+questions in the Whonix forums unless certain it is not a false
+positive. If this message appears, there is no need to be concerned
+because:</p>
+<ul>
+<li>Whonix is designed to tunnel everything over Tor.</li>
+<li><a href="https://check.torproject.org">https://check.torproject.org</a>
+(<code>check.tpo</code>) sometimes fails to detect Tor exit relays. This
+is a bug in <code>check.tpo</code>, which only The Tor Project can
+fix.</li>
+<li>Previous reports involved IP addresses unassociated with the user's
+real, external, clearnet IP address. To discover your clearnet
+(non-Whonix) IP address, visit one of the sites on this page from the
+host or a non-Tor virtual machine.</li>
+<li>ExoneraTor can be accessed with Tor Browser on the host. <a href="../ExoneraTor/">ExoneraTor</a> is a <a href="https://metrics.torproject.org/exonerator.html">website</a> hosted
+by <a href="https://www.torproject.org">The Tor Project</a> that
+indicates whether a given IP address was a Tor relay on a specified
+date.</li>
+</ul>
+<p><strong>Figure:</strong> <em>Successful Tor Network Check in
+Whonix</em></p>
+<p><img src="../../media/Checktorproject.png.webp" alt="Checktorproject.png" /></p>
+<h2 id="WebCPU">WebCPU</h2>
+<p><a href="https://github.com/darionco/WebCPU">WebCPU</a>. See <a href="https://darionco.github.io/WebCPU/">WebCPU (live demo)</a>.</p>
+<p>Fingerprinting Tor Browser using WebCPU is probably not possible. The
+WebCPU test results differ in different browser tabs. Test results are
+also different in Tor Browser versus other browsers.</p>
+<h2 id="WhatIsMyBrowser.com">WhatIsMyBrowser.com</h2>
+<ul>
+<li><a href="https://www.whatismybrowser.com/">https://www.whatismybrowser.com/</a>
+-- This is a general fingerprinting site that tests for common leaks
+including web browser settings, screen resolution, IP address, use of
+the Tor network and so on.</li>
+</ul>
+<p><strong>Figure:</strong> <em>WhatIsMyBrowser.com Test in
+Whonix</em></p>
+<p><img src="../../media/Whatismybrowser.png.webp" alt="Whatismybrowser.png" /></p>
+<h2 id="Whoer.net">Whoer.net</h2>
+<p><a href="https://whoer.net/">https://whoer.net/</a> -- This is
+another site relying on common fingerprinting methods, including browser
+attributes, IP address, language localization, time, WebRTC, plugins,
+cookies and so on.</p>
+<p><strong>Figure:</strong> <em>Whoer.net Test in Whonix</em></p>
+<p><img src="../../media/Whoernet.png.webp" alt="Whoernet.png" /></p>
+<h1 id="Benchmarks">Benchmarks</h1>
+<ul>
+<li><a href="https://web.archive.org/web/20220512115604/https://www.matthew-x83.com/online/cpu-benchmark.php">https://web.archive.org/web/20220512115604/https://www.matthew-x83.com/online/cpu-benchmark.php</a></li>
+<li><a href="https://silver.urih.com/">https://silver.urih.com/</a></li>
+</ul>
+<h1 id="Other_Services">Other Services</h1>
+<p>Interested readers are encouraged to try the browser test sites
+below, as well as research and add further resources here:</p>
+<ul>
+<li><a href="https://browserleaks.com/css">Browserleaks.com CSS Media
+Queries Test</a> -- Screen resolution fingerprinting without the need
+for JavaScript. It utilizes CSS features to fetch information.</li>
+<li><a href="https://audiofingerprint.openwpm.com/">AudioContext
+Fingerprint Test Page</a> -- Audio stack and Canvas API
+fingerprinting.</li>
+<li><a href="https://www.cloudflare.com/ssl/encrypted-sni/">Cloudflare
+ESNI Checker</a> -- DNSSEC test.</li>
+<li><a href="https://arkenfox.github.io/TZP/tzp.html">TorZillaPrint</a>
+-- Tor Browser fingerprinting.</li>
+<li><a href="https://stackoverflow.com/a/38950845/2605155">Get
+CPU/GPU/memory information</a></li>
+<li><a href="https://www.deviceinfo.me/">deviceinfo.me</a></li>
+</ul>
+<h1 id="Miscellaneous">Miscellaneous</h1>
+<ul>
+<li>The Tor Project task: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/6119">Create
+our own instance of Panopticlick</a></li>
+<li><a href="https://privacytests.org/">PrivacyTests.org - Open-source
+tests of web browser privacy</a> <sup class="reference"><a href="#cite_note-7">[7]</a></sup></li>
+</ul>
+<h1 id="More_Tests">More Tests</h1>
+<p><img src="../../media/Kicksecure-seal.png.webp" width="130" alt="Kicksecure Hardened" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-info cs-red"></i></span>
+<span class="template-styled-text ">Redirection
+to Kicksecure Documentation </span></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-exclamation-triangle cs-yellow"></i></span>
+<span class="template-styled-text "><u>NOT-SELFCONTAINED:</u>
+This wiki page is not self-contained by design. This It only includes
+details specific to Whonix. For full understanding, please follow the
+link below to the Kicksecure wiki, which provides more complete
+background and instructions. </span></p>
+</div>
+<ul>
+<li><i class="fa-solid fa-circle-info cs-blue"></i><span><u>Introduction</u>:
+&lt;a href="../Introduction/"&gt;Whonix Documentation Introduction,
+User Expectations, Footnotes and References, User Expectations - What
+Documentation Is and What It Is Not&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-link cs-green"></i><span><u>&lt;a
+href="../About/#Based_on_Kicksecure"&gt;Whonix is based on
+Kicksecure<sup>&amp;trade;</sup>&lt;/a&gt;</u>: Whonix is built on top
+of Kicksecure. This means it uses many of the same security tools,
+design concepts, and configurations.</span></li>
+<li><i class="fa-solid fa-server cs-gray"></i><span><u>&lt;a href="<a href="https://www.kicksecure.com/wiki/Based_on_Debian%22%3EKicksecure">https://www.kicksecure.com/wiki/Based_on_Debian"&gt;Kicksecure</a>
+is based on Debian&lt;/a&gt;:</u> Kicksecure is developed using Debian
+as its base. Debian is a widely used, stable, and free Linux operating
+system.</span></li>
+<li><i class="fa-solid fa-arrow-down cs-blue"></i><span><u>Inheritance:</u>
+As a result, Whonix is also &lt;a href="../Based_on_Debian/"&gt;based
+on Debian&lt;/a&gt;.</span></li>
+<li><i class="fa-brands fa-linux cs-black"></i><span><u>Debian is
+GNU/Linux-based:</u> Debian is built using the GNU/Linux operating
+system. GNU provides essential tools and Linux is the system's kernel
+(core).</span></li>
+<li><i class="fa-solid fa-users cs-green"></i><span><u>Shared
+documentation benefits:</u> Since each system is based on the one below
+it, a lot of documentation and guides are shared. This reduces the need
+to duplicate information.</span></li>
+<li><i class="fa-solid fa-file-alt cs-gray"></i><span><u>Inherited
+documentation:</u> Most instructions and explanations are inherited from
+Kicksecure or Debian, unless otherwise specified.</span></li>
+<li><i class="fa-solid fa-check cs-green"></i><span><u>Shared
+principles:</u> The systems share similar security goals and setup
+instructions. In most cases, users can follow Kicksecure documentation
+when using Whonix.</span></li>
+<li><i class="fa-solid fa-thumbs-up cs-blue"></i><span><u>Keep using
+Whonix:</u> This does <u>not</u> mean users should switch to Kicksecure.
+This page only points to related, helpful information.</span></li>
+<li><i class="fa-solid fa-keyboard cs-gray"></i><span><u>Where to apply
+the instructions:</u> Follow the instructions inside Whonix unless
+specifically stated otherwise.</span></li>
+<li><i class="fa-solid fa-pencil cs-orange"></i><span><u>Wiki editors
+notice:</u> This information is pulled from a reusable wiki template:
+&lt;a href="../Template:Upstream_wiki/"&gt;upstream_wiki&lt;/a&gt;.
+(&lt;a href="../Special:WhatLinksHere/Template:Upstream_wiki/"&gt;See
+which pages use this&lt;/a&gt;.)</span></li>
+<li><i class="fa-solid fa-balance-scale cs-blue"></i><span><u>Comparison:</u>
+&lt;a href="../Comparison_with_Kicksecure/"&gt;Whonix versus
+Kicksecure&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-sync-alt cs-gray"></i><span><u>Documentation
+compatibility:</u> Because Whonix is based on Kicksecure, you can often
+follow Kicksecure's instructions as long as you apply them in the right
+place.</span></li>
+<li><i class="fa-solid fa-layer-group cs-gray"></i><span><u>Summary:</u>
+Whonix is built on top of <b>Kicksecure</b>, which itself is based on
+<b>Debian</b>. Debian is a GNU/Linux operating system. This layered
+design means Whonix inherits many features, tools, and documentation
+from both Kicksecure and Debian.</span></li>
+<li><i class="fa-solid fa-mouse-pointer cs-blue"></i><span><u>Click
+here:</u> Visit the related page in the Kicksecure wiki for full
+documentation and background:</span></li>
+</ul>
+<p><span class="template-styled-text "><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] </span></p>
+<ul>
+<li><i class="fa-solid fa-sticky-note cs-yellow"></i><span><u>Note:</u>
+Re-interpretation...</span></li>
+</ul>
+<div class="info-box ib-dark">
+<p>Apply the instructions inside Whonix, <u>not</u> inside
+Kicksecure.</p>
+<p><blockquote><p>Kicksecure: Perform these steps inside Kicksecure.</p></blockquote></p>
+<p>Instead, apply the steps inside Whonix-Workstation.</p>
+<p><blockquote><p>Kicksecure for Qubes: Perform these steps inside Qubes
+<code>kicksecure-18</code> Template.</p></blockquote></p>
+<p>Instead, use the <code>whonix-workstation-18</code> Template for
+these steps.</p>
+</div>
+</div>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Dev/Leak_Tests/">Leak Tests</a></li>
+<li><a href="../Tor-ctrl-observer/">tor-ctrl-observer - Tor
+Connection Destination Viewer</a></li>
+<li><a href="../VM_Fingerprinting/">VM
+Fingerprinting</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">See <a href="https://gitlab.torproject.org/search?group_id=268&amp;scope=issues&amp;search=linkability&amp;state=opened">tbb-linkability</a>
+and <a href="https://gitlab.torproject.org/search?group_id=268&amp;repository_ref=&amp;scope=issues&amp;search=fingerprinting&amp;snippets=&amp;state=opened">tbb-fingerprinting</a>.</li>
+<li id="cite_note-2">From a browser test website, in a log file and so on.</li>
+<li id="cite_note-3"><a href="https://forums.whonix.org/uploads/default/original/1X/c2c9bb5dc7efee7a933dd00d3bf0c30c29c99daa.png">https://forums.whonix.org/uploads/default/original/1X/c2c9bb5dc7efee7a933dd00d3bf0c30c29c99daa.png</a></li>
+<li id="cite_note-4"><u>cpuid visualiser is a visualizer, not a CPUID detector</u>
+<div class="info-box ">
+<p>This is not required for most users. Only for users who wish to
+verify the above statements. Please test on different computers with
+different CPUs and check if the detected CPU information by the website
+is different. <strong>1.</strong> Make sure JavaScript (JS) has not been
+disabled (NoScript users). <strong>2.</strong> If using Tor Browser,
+make sure the Tor Browser security slider setting is not set to
+"safest". <strong>3.</strong> Go to <a href="https://cpuid.apps.poly.nomial.co.uk/">https://cpuid.apps.poly.nomial.co.uk/</a>
+with one computer. <strong>4.</strong> Go to <a href="https://cpuid.apps.poly.nomial.co.uk/">https://cpuid.apps.poly.nomial.co.uk/</a>
+with another computer that has a different CPU model.
+<strong>5.</strong> Compare the results. * <u>If it is the same,</u>
+then no differences in the CPUs were detected. * <u>If it would be
+different,</u> then the visualizer was updated to a detector, but this
+is highly unlikely. <strong>6.</strong> Optional: Report the result in
+the forums. Note: Do not paste your actual CPU information. <a href="https://forums.whonix.org/t/computer-hardware-leaking/14238/7">forum
+discussion</a> <strong>7.</strong> Done.</p>
+</div></li>
+<li id="cite_note-5"><a href="https://lists.torproject.org/pipermail/tor-dev/2016-July/011233.html">https://lists.torproject.org/pipermail/tor-dev/2016-July/011233.html</a></li>
+<li id="cite_note-6"><a href="https://coveryourtracks.eff.org/about">https://coveryourtracks.eff.org/about</a></li>
+<li id="cite_note-7">* <a href="https://twitter.com/privacytests">https://twitter.com/privacytests</a>
+* <a href="https://twitter.com/Whonix/status/1628364747698589702">https://twitter.com/Whonix/status/1628364747698589702</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

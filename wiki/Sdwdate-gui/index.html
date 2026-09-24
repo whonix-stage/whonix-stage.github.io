@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Sdwdate-gui</title>
+<meta name="description" content="sdwdate - Secure Distributed Web Date - systray - graphical user interface (GUI) - Homepage">
+<meta property="og:description" content="sdwdate - Secure Distributed Web Date - systray - graphical user interface (GUI) - Homepage">
+<link rel="canonical" href="https://www.whonix.org/wiki/Sdwdate-gui/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Sdwdate-gui/">
+<meta property="og:title" content="sdwdate-gui: Secure Distributed Web Date Graphical User Interface">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Sdwdate1.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Qubes_Specific">Qubes Specific</a></li><li class="toc-l3"><a href="#Denied_sdwdate-gui.ConnectCheck_from_anon-whonix_to_sys-whonix">Denied
+sdwdate-gui.ConnectCheck from anon-whonix to sys-whonix</a></li><li class="toc-l3"><a href="#Qubes-Whonix&#8482;_-_Unexpected_Autostart_of_sys-whonix">Qubes-Whonix&#8482;
+- Unexpected Autostart of sys-whonix</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Sdwdate/" title="sdwdate"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">sdwdate</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Tunnels/Introduction/" title="Tunnels/Introduction"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Tunnels/Introduction</span></a><span class="info"><span class="prev">Previous
+page: sdwdate</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Tunnels/Introduction</span></span></span>sdwdate-gui: Secure Distributed
+Web Date Graphical User Interface</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../Network_Time_Synchronization/">Network Time
+Synchronization</a></li>
+<li><a href="../Timezone/">Timezone</a></li>
+<li><a href="../Sdwdate/">sdwdate</a></li>
+<li><a href="./">sdwdate-gui</a></li>
+<li><a href="../Moved:Boot_Clock_Randomization/">Boot Clock
+Randomization</a></li>
+<li><a href="../Time_Attacks/">Time Attacks</a></li>
+<li><a href="../Moved:Dev_sdwdate/">Dev/sdwdate</a></li>
+<li><a href="../Dev/TimeSync/">Dev/TimeSync</a></li>
+</ul>
+</div>
+<p><img src="../../media/Sdwdate1.png.webp" alt="sdwdate-gui systray with popup on mouse hover" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>sdwdate - Secure Distributed Web Date - systray - graphical user
+interface (GUI) - Homepage</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Overview">Overview</h1>
+<p>sdwdate-gui is an optional graphical user interface (GUI) for <a href="../Sdwdate/">sdwdate</a>.</p>
+<p>sdwdate-gui ensures the user knows whether network time
+synchronization has been completed, a critical factor for security,
+privacy, and anonymity. Ideally, after boot, users should wait with
+activities until sdwdate has completed. See also <a href="../Sdwdate/#Do_sdwdate_issues_impact_anonymity.3F">Do
+sdwdate issues impact anonymity?</a>.</p>
+<p>sdwdate can optionally be configured to <a href="../Network_Time_Synchronization/#Block_Networking_until_sdwdate_Finishes">block networking until sdwdate finishes</a>, preventing
+potential leakage of the time before it is changed.</p>
+<h1 id="Troubleshooting">Troubleshooting</h1>
+<h2 id="Qubes_Specific">Qubes Specific</h2>
+<h3 id="Denied_sdwdate-gui.ConnectCheck_from_anon-whonix_to_sys-whonix">Denied
+sdwdate-gui.ConnectCheck from anon-whonix to sys-whonix</h3>
+<p>This might happen when the required dom0 <code>qvm-tags</code> are
+missing.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+<strong>Reboot.</strong></p>
+<p>The easiest and safest way to fix this is to reboot.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+<strong>Done.</strong></p>
+<ul>
+<li><u>Forum discussion:</u> <a href="https://forums.whonix.org/t/qubes-4-2-4-3-whonix-17-18-denied-sdwdate-gui-connectcheck-from-anon-whonix-to-sys-whonix/22656">Qubes
+4.2 -&gt; 4.3 (Whonix 17 -&gt; 18) - Denied sdwdate-gui.ConnectCheck
+from anon-whonix to sys-whonix</a></li>
+<li><u>Similar wiki chapter:</u> <a href="../Qubes/Troubleshooting/#qvm-tags_verification">qvm-tags verification</a></li>
+<li><u>Older instructions:</u> <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li><u>Developer documentation:</u> <a href="../Dev/Qubes/#qvm-tags">qvm-tags developer notes</a></li>
+</ul>
+<h3 id="Qubes-Whonix&#8482;_-_Unexpected_Autostart_of_sys-whonix">Qubes-Whonix<sup>&#8482;</sup>
+- Unexpected Autostart of sys-whonix</h3>
+<p>Follow instructions <a href="../Multiple_Whonix-Workstation/#Qubes-Whonix">multiple Qubes-Whonix
+Whonix-Workstation<sup>&#8482;</sup></a>. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<h1 id="Upstream">Upstream</h1>
+<p><img src="../../media/Kicksecure-seal.png.webp" width="130" alt="Kicksecure Hardened" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-info cs-red"></i></span>
+<span class="template-styled-text ">Redirection
+to Kicksecure Documentation </span></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-exclamation-triangle cs-yellow"></i></span>
+<span class="template-styled-text "><u>NOT-SELFCONTAINED:</u>
+This wiki page is not self-contained by design. This It only includes
+details specific to Whonix. For full understanding, please follow the
+link below to the Kicksecure wiki, which provides more complete
+background and instructions. </span></p>
+</div>
+<ul>
+<li><i class="fa-solid fa-circle-info cs-blue"></i><span><u>Introduction</u>:
+&lt;a href="../Introduction/"&gt;Whonix Documentation Introduction,
+User Expectations, Footnotes and References, User Expectations - What
+Documentation Is and What It Is Not&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-link cs-green"></i><span><u>&lt;a
+href="../About/#Based_on_Kicksecure"&gt;Whonix is based on
+Kicksecure<sup>&amp;trade;</sup>&lt;/a&gt;</u>: Whonix is built on top
+of Kicksecure. This means it uses many of the same security tools,
+design concepts, and configurations.</span></li>
+<li><i class="fa-solid fa-server cs-gray"></i><span><u>&lt;a href="<a href="https://www.kicksecure.com/wiki/Based_on_Debian%22%3EKicksecure">https://www.kicksecure.com/wiki/Based_on_Debian"&gt;Kicksecure</a>
+is based on Debian&lt;/a&gt;:</u> Kicksecure is developed using Debian
+as its base. Debian is a widely used, stable, and free Linux operating
+system.</span></li>
+<li><i class="fa-solid fa-arrow-down cs-blue"></i><span><u>Inheritance:</u>
+As a result, Whonix is also &lt;a href="../Based_on_Debian/"&gt;based
+on Debian&lt;/a&gt;.</span></li>
+<li><i class="fa-brands fa-linux cs-black"></i><span><u>Debian is
+GNU/Linux-based:</u> Debian is built using the GNU/Linux operating
+system. GNU provides essential tools and Linux is the system's kernel
+(core).</span></li>
+<li><i class="fa-solid fa-users cs-green"></i><span><u>Shared
+documentation benefits:</u> Since each system is based on the one below
+it, a lot of documentation and guides are shared. This reduces the need
+to duplicate information.</span></li>
+<li><i class="fa-solid fa-file-alt cs-gray"></i><span><u>Inherited
+documentation:</u> Most instructions and explanations are inherited from
+Kicksecure or Debian, unless otherwise specified.</span></li>
+<li><i class="fa-solid fa-check cs-green"></i><span><u>Shared
+principles:</u> The systems share similar security goals and setup
+instructions. In most cases, users can follow Kicksecure documentation
+when using Whonix.</span></li>
+<li><i class="fa-solid fa-thumbs-up cs-blue"></i><span><u>Keep using
+Whonix:</u> This does <u>not</u> mean users should switch to Kicksecure.
+This page only points to related, helpful information.</span></li>
+<li><i class="fa-solid fa-keyboard cs-gray"></i><span><u>Where to apply
+the instructions:</u> Follow the instructions inside Whonix unless
+specifically stated otherwise.</span></li>
+<li><i class="fa-solid fa-pencil cs-orange"></i><span><u>Wiki editors
+notice:</u> This information is pulled from a reusable wiki template:
+&lt;a href="../Template:Upstream_wiki/"&gt;upstream_wiki&lt;/a&gt;.
+(&lt;a href="../Special:WhatLinksHere/Template:Upstream_wiki/"&gt;See
+which pages use this&lt;/a&gt;.)</span></li>
+<li><i class="fa-solid fa-balance-scale cs-blue"></i><span><u>Comparison:</u>
+&lt;a href="../Comparison_with_Kicksecure/"&gt;Whonix versus
+Kicksecure&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-sync-alt cs-gray"></i><span><u>Documentation
+compatibility:</u> Because Whonix is based on Kicksecure, you can often
+follow Kicksecure's instructions as long as you apply them in the right
+place.</span></li>
+<li><i class="fa-solid fa-layer-group cs-gray"></i><span><u>Summary:</u>
+Whonix is built on top of <b>Kicksecure</b>, which itself is based on
+<b>Debian</b>. Debian is a GNU/Linux operating system. This layered
+design means Whonix inherits many features, tools, and documentation
+from both Kicksecure and Debian.</span></li>
+<li><i class="fa-solid fa-mouse-pointer cs-blue"></i><span><u>Click
+here:</u> Visit the related page in the Kicksecure wiki for full
+documentation and background:</span></li>
+</ul>
+<p><span class="template-styled-text "><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] </span></p>
+<ul>
+<li><i class="fa-solid fa-sticky-note cs-yellow"></i><span><u>Note:</u>
+Re-interpretation...</span></li>
+</ul>
+<div class="info-box ib-dark">
+<p>Apply the instructions inside Whonix, <u>not</u> inside
+Kicksecure.</p>
+<p><blockquote><p>Kicksecure: Perform these steps inside Kicksecure.</p></blockquote></p>
+<p>Instead, apply the steps inside Whonix-Workstation.</p>
+<p><blockquote><p>Kicksecure for Qubes: Perform these steps inside Qubes
+<code>kicksecure-18</code> Template.</p></blockquote></p>
+<p>Instead, use the <code>whonix-workstation-18</code> Template for
+these steps.</p>
+</div>
+</div>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Alternatively, in dom0, restart the <code>qubesd.service</code>
+systemd unit. <u>Warning:</u> Restarting <code>qubesd</code> can cause
+some odd behavior, for instance Qube Manager might crash, so make sure
+you aren't doing any important work when you try this.
+<span class="code-select">sudo systemctl restart
+qubesd.service</span></li>
+<li id="cite_note-2">Manual instructions for checking the <code>qvm-tags</code>. Should
+not be required. Only kept for reference.
+<div class="info-box ">
+<p>The fix is to make sure <code>sys-whonix</code> has the server tag
+and <code>anon-whonix</code> has the client tag.<br />
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">0</i>
+<strong>In dom0:</strong><br />
+Open a <code>dom0</code> terminal.<br />
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+<strong>Check sys-whonix tags:</strong> Show which tags are currently
+set for <code>sys-whonix</code>. <span class="code-select">qvm-tags
+sys-whonix</span>
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+<strong>Expected output:</strong> You should see
+<code>sdwdate-gui-server</code> in the list.</p>
+<pre><code> anon-gateway audiovm-dom0 created-by-dom0 guivm-dom0 sdwdate-gui-server </code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+<strong>Add missing server tag:</strong> Only needed if
+<code>sdwdate-gui-</code><u><code>server</code></u> is missing. This
+command is idempotent, so it is OK to run it even if the tag already
+exists. <span class="code-select">qvm-tags sys-whonix add anon-gateway
+sdwdate-gui-server</span>
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+<strong>Multiple gateways:</strong> Repeat steps
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+to
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+for any <a href="../Multiple_Whonix-Gateway/">Multiple
+Whonix-Gateway</a>, if any.
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+<strong>Check anon-whonix tags:</strong> Show which tags are currently
+set for <code>anon-whonix</code>. <span class="code-select">qvm-tags
+anon-whonix</span>
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
+<strong>Expected output:</strong> You should see
+<code>sdwdate-gui-client</code> in the list.</p>
+<pre><code> anon-vm audiovm-dom0 created-by-dom0 guivm-dom0 sdwdate-gui-client </code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+<strong>Add missing client tag:</strong> Only needed if
+<code>sdwdate-gui-</code><u><code>client</code></u> is missing. This
+command is idempotent, so it is OK to run it even if the tag already
+exists. <span class="code-select">qvm-tags anon-whonix add anon-vm
+sdwdate-gui-client</span>
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
+<strong>Multiple workstations:</strong> Repeat steps
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+to
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
+for any <a href="../Multiple_Whonix-Workstation/">Multiple
+Whonix-Workstation</a>, if any.
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
+<strong>Done.</strong></p>
+</div></li>
+<li id="cite_note-3">Qubes bug report: <a href="https://github.com/QubesOS/qubes-issues/issues/5253">https://github.com/QubesOS/qubes-issues/issues/5253</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Sdwdate/" title="sdwdate"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">sdwdate</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Tunnels/Introduction/" title="Tunnels/Introduction"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Tunnels/Introduction</span></a><span class="info"><span class="prev">Previous
+page: sdwdate</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Tunnels/Introduction</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

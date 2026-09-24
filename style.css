@@ -701,3 +701,196 @@ code {
   font: inherit; font-size: 0.82rem;
 }
 .storage-del:hover { background: var(--surface); }
+
+/* Donor card (#donorcard) -- ported from DonorCard.css; tier + range are shown by
+   the .range-<tier> class, images resolved via /w/images rewrite. */
+.donor-card {
+  border: 1px solid #ccc; width: 200px; border-radius: 8px;
+  box-shadow: 3px 3px 3px rgb(0 0 0 / 7%); padding: 10px 10px 20px;
+  background: #fff; color: #202122; display: inline-block;
+}
+:root {
+  --donor-card-gradient-white: #ffffff1a;
+  --donor-card-gradient-xs-color: #98aab73d; --donor-card-gradient-xs-dark-color: #c1c1c1;
+  --donor-card-gradient-s-color: #7aad7b3d; --donor-card-gradient-s-dark-color: #9ec5a7;
+  --donor-card-gradient-m-color: #569bd53d; --donor-card-gradient-m-dark-color: #7caac3;
+  --donor-card-gradient-l-color: #f5bf443d; --donor-card-gradient-l-dark-color: #cb8b44;
+  --donor-card-gradient-xl-color: #9636ff26; --donor-card-gradient-xl-dark-color: #b480d1;
+}
+.donor-card.range-dis, .donor-card.range-xs {
+  background-image:
+    linear-gradient(135deg, var(--donor-card-gradient-xs-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(225deg, var(--donor-card-gradient-xs-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(to bottom, var(--donor-card-gradient-white) calc(100% - 10px), var(--donor-card-gradient-xs-color) calc(100% - 10px));
+  border-color: var(--donor-card-gradient-xs-dark-color);
+}
+.donor-card.range-s {
+  background-image:
+    linear-gradient(135deg, var(--donor-card-gradient-s-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(225deg, var(--donor-card-gradient-s-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(to bottom, var(--donor-card-gradient-white) calc(100% - 10px), var(--donor-card-gradient-s-color) calc(100% - 10px));
+  border-color: var(--donor-card-gradient-s-dark-color);
+}
+.donor-card.range-m {
+  background-image:
+    linear-gradient(135deg, var(--donor-card-gradient-m-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(225deg, var(--donor-card-gradient-m-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(to bottom, var(--donor-card-gradient-white) calc(100% - 10px), var(--donor-card-gradient-m-color) calc(100% - 10px));
+  border-color: var(--donor-card-gradient-m-dark-color);
+}
+.donor-card.range-l {
+  background-image:
+    linear-gradient(135deg, var(--donor-card-gradient-l-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(225deg, var(--donor-card-gradient-l-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(to bottom, var(--donor-card-gradient-white) calc(100% - 10px), var(--donor-card-gradient-l-color) calc(100% - 10px));
+  border-color: var(--donor-card-gradient-l-dark-color);
+}
+.donor-card.range-xl {
+  background-image:
+    linear-gradient(135deg, var(--donor-card-gradient-xl-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(225deg, var(--donor-card-gradient-xl-color) 40%, var(--donor-card-gradient-white) 40%),
+    linear-gradient(to bottom, var(--donor-card-gradient-white) calc(100% - 10px), var(--donor-card-gradient-xl-color) calc(100% - 10px));
+  border-color: var(--donor-card-gradient-xl-dark-color);
+}
+.donor-card .logo {
+  padding-top: 56.25%; width: 100%; position: relative;
+  background-image: linear-gradient(0deg, #bbb, #ebebeb);
+  border-radius: 6px; box-shadow: 1px 1px 3px 1px rgb(0 0 0 / 15%); border: 1px solid #777;
+}
+.donor-card .logo span.logo-image img {
+  position: absolute; left: 5%; top: 5%; width: 90%; height: 90% !important; object-fit: contain;
+}
+.donor-card .logo span.external-link-symbol img {
+  position: absolute; top: 3px; right: 3px; width: 25px; height: 24px; background: #333;
+  border-radius: 100px; padding: 5px 0 6px; filter: brightness(3); object-fit: contain;
+}
+.donor-card .logo span.external-link-symbol img:hover { transform: scale(1.2); filter: brightness(2) contrast(2); }
+.donor-card .tag-donor { text-align: center; font-size: .85em; margin-top: 8px; }
+.donor-card .tag-donor > div {
+  display: none; margin: 15px 0 8px; padding: 5px 0;
+  text-shadow: 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff;
+}
+.donor-card.range-dis .tag-donor > div.dis, .donor-card.range-xs .tag-donor > div.xs,
+.donor-card.range-s .tag-donor > div.s, .donor-card.range-m .tag-donor > div.m,
+.donor-card.range-l .tag-donor > div.l, .donor-card.range-xl .tag-donor > div.xl { display: block; }
+.donor-card.range-s .tag-donor > div.s { font-weight: bold; letter-spacing: 1px; }
+.donor-card.range-m .tag-donor > div.m, .donor-card.range-l .tag-donor > div.l,
+.donor-card.range-xl .tag-donor > div.xl { letter-spacing: 1px; border-radius: 50px; }
+.donor-card.range-m .tag-donor > div.m { background: var(--donor-card-gradient-m-color); box-shadow: 0 1px 0 #00000029; }
+.donor-card.range-l .tag-donor > div.l { background: var(--donor-card-gradient-l-color); box-shadow: 0 1px 0 #00000020; font-weight: bold; }
+.donor-card.range-xl .tag-donor > div.xl { background: var(--donor-card-gradient-xl-color); box-shadow: 0 1px 0 #00000029; font-weight: bold; }
+.donor-card.range-xs .tag-donor i { color: var(--donor-card-gradient-xs-dark-color); }
+.donor-card.range-s .tag-donor i { color: var(--donor-card-gradient-s-dark-color); }
+.donor-card.range-m .tag-donor i { color: var(--donor-card-gradient-m-dark-color); }
+.donor-card.range-l .tag-donor i { color: var(--donor-card-gradient-l-dark-color); }
+.donor-card.range-xl .tag-donor i { color: var(--donor-card-gradient-xl-dark-color); }
+.donor-card .name { text-align: center; font-weight: 700; font-size: 1.5em; margin: 1px 0 2px; line-height: 1.2; }
+.donor-card .date { text-align: center; font-size: .85em; letter-spacing: 2px; }
+.donor-card .message { text-align: center; font-size: .85em; line-height: 1.4; margin-top: 4px; }
+.donor-card .range { text-align: center; letter-spacing: 1px; font-size: 1.3em; margin: 8px 0 2px; }
+.donor-card .range > div { display: none; }
+.donor-card.range-dis .range > div.dis, .donor-card.range-xs .range > div.xs,
+.donor-card.range-s .range > div.s, .donor-card.range-m .range > div.m,
+.donor-card.range-l .range > div.l, .donor-card.range-xl .range > div.xl { display: block; }
+
+/* Site-notice banner (#siteNotice, the id=38 donation promo) -- adapted from
+   Sitenotice.css: shown by default (no-JS friendly), JS dismisses; a vendored FA
+   icon replaces the former wiki image. */
+#siteNotice { display: block; margin: 0 0 1rem; text-align: center; }
+.sitenotice { position: relative; display: inline-block; max-width: 100%; }
+.sitenotice-close {
+  width: 30px; height: 30px; position: absolute; top: -10px; right: -10px; z-index: 10;
+  cursor: pointer; border: 0; border-radius: 100px; background: #111; color: #fff;
+  line-height: 1; padding: 0; font-size: 15px;
+}
+.sitenotice-close:hover { transform: scale(1.2); }
+.sitenotice-banner[data-banner-id="38"] > a {
+  display: inline-flex; align-items: center; padding: 7px 30px 7px 12px;
+  background: linear-gradient(#22a7df, #43b3f1); color: #fff; font-size: 20px;
+  border-radius: 10px; border: 1px solid #22a7df; text-decoration: none;
+}
+.sitenotice-banner[data-banner-id="38"] > a:hover { background: linear-gradient(#1297cf, #43b3f1); }
+.sitenotice-banner[data-banner-id="38"] .icon { font-size: 28px; margin-right: 12px; }
+.sitenotice-banner[data-banner-id="38"] span { text-shadow: 1px 1px 2px rgb(0 0 0 / 10%); }
+
+/* Fly-in donate toast (#fly-in-notification-panel) -- adapted from
+   FlyInNotification.css. JS-only gadget: the [hidden] attribute keeps it hidden
+   until app.js shows it. The former promo photo is dropped. */
+#fly-in-notification-panel {
+  width: 300px; background: #fff; color: #555; box-shadow: 3px 3px 7px rgba(0,0,0,.2);
+  border-radius: 10px 0 0 10px; position: fixed; right: 0; top: calc(50% - 160px);
+  z-index: 1000; overflow: hidden; border: 6px solid #22a7df; border-right: none;
+}
+@media (max-width: 550px) { #fly-in-notification-panel { width: 230px; } }
+#fly-in-notification-panel .close-panel {
+  color: #fff; font-size: 26px; padding: 10px; cursor: pointer; position: absolute;
+  left: 3px; top: -1px; z-index: 10;
+  text-shadow: 0 0 1px #000, 0 0 2px #000, 0 0 3px #000;
+}
+#fly-in-notification-panel .close-panel:hover { transform: scale(1.2); }
+#fly-in-notification-panel .content { padding: 10px 18px; }
+#fly-in-notification-panel .content .headline {
+  font-size: 22px; margin: 10px 0; text-align: center; line-height: 1.5em;
+  color: #2490c5; font-weight: bold; border-bottom: 1px solid #22a7df; padding-bottom: 8px;
+}
+#fly-in-notification-panel .content .headline a { color: #2490c5; text-decoration: none; }
+#fly-in-notification-panel .content p { font-size: 18px; line-height: 24px; color: #555; }
+#fly-in-notification-panel .content p a { color: #2490c5; font-weight: bold; }
+
+/* End-of-year donation banner (sitenotice-end-of-year) -- shown when built with
+   MW_STATIC_EOY; reuses the crypto panel. Ported from Sitenotice.css section 4. */
+.sitenotice-banner.sitenotice-end-of-year { width: 100%; display: block; text-align: left; }
+.sitenotice-end-of-year > * { display: inline-block; vertical-align: top; }
+.sitenotice-end-of-year > .eoy-left { width: calc(100% - 330px); margin-right: 20px; }
+.sitenotice-end-of-year > .eoy-right { width: 100%; max-width: 300px; }
+@media (max-width: 680px) {
+  .sitenotice-end-of-year > .eoy-left, .sitenotice-end-of-year > .eoy-right { width: 100%; max-width: 100%; }
+}
+.sitenotice-end-of-year > .eoy-right > .eoy-headline {
+  font-weight: bold; text-align: center; font-size: 21px; padding-bottom: 3px;
+  border-bottom: 3px solid currentColor; margin-bottom: 19px; color: #c00;
+}
+.sitenotice-end-of-year > .eoy-right > .eoy-donate-button {
+  border: 3px solid currentColor; border-radius: 10px; text-align: center; font-weight: bold;
+  font-size: 21px; letter-spacing: 1px; margin-top: 20px; display: block;
+  text-decoration: none; color: #22a7df; padding: 6px;
+}
+.sitenotice-end-of-year > .eoy-right > .eoy-donate-button:hover { background-color: #fffccf; }
+.sitenotice-end-of-year > .eoy-left > p { font-size: 15px; margin: 10px 0 15px; }
+
+/* Generic modal (MiniModal) + the download-button donate/countdown modal. */
+.mini-modal { position: fixed; inset: 0; z-index: 2000; display: none; }
+.mini-modal.active { display: block; }
+.mini-modal .underlay { position: absolute; inset: 0; background: rgb(0 0 0 / 55%); }
+.mini-modal .content {
+  position: relative; margin: 8vh auto; max-width: 520px; width: calc(100% - 32px);
+  max-height: 84vh; overflow: auto; background: var(--surface, #fff); color: inherit;
+  border-radius: 10px; box-shadow: 0 8px 30px rgb(0 0 0 / 35%); padding: 24px;
+}
+.mini-modal .mm-close {
+  position: absolute; top: 8px; right: 10px; z-index: 3; background: transparent;
+  border: 0; color: inherit; font-size: 22px; cursor: pointer; line-height: 1;
+}
+.mini-modal .mm-close:hover { opacity: .7; }
+body.mini-modal-active { overflow: hidden; }
+.download-button-modal .donation-appeal { font-size: 1.05em; margin: 0 0 16px; }
+.download-button-modal .eoy-donate-button { margin: 0 0 16px; color: #22a7df; }
+.download-button-modal .dl-status { font-size: .95em; }
+/* Table-expand: caption button + a wide modal holding the cloned table. */
+.wiki-content table caption .expand-table-button {
+  border: 0; border-radius: 7px; background: #dfdfdf; color: #111; cursor: pointer;
+  font: inherit; letter-spacing: 1px; padding: 4px 10px; margin: 0 0 6px;
+}
+.wiki-content table caption .expand-table-button:hover { background: #d8d8d8; color: #000; }
+.table-expand-modal .content { max-width: 95vw; }
+.table-expand-modal .table-wrapper { overflow-x: auto; }
+
+/* Hovercards (reference + page previews) -- positioned by app.js via el.style. */
+.hovercard {
+  position: absolute; z-index: 2100; max-width: 320px; background: var(--surface, #fff);
+  color: inherit; border: 1px solid var(--border, #ccc); border-radius: 8px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 25%); padding: 10px 12px; font-size: .9rem; line-height: 1.4;
+}
+.hovercard .hovercard-title { font-weight: 700; margin-bottom: 4px; }
+.hovercard .hovercard-extract { margin: 0; }
+.hovercard .hovercard-ref { font-size: .85rem; }

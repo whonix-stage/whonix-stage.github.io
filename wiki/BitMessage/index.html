@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>BitMessage</title>
+<meta name="description" content="BitMessage email alternative. Asynchronous, decentralized, encrypted communication.">
+<meta property="og:description" content="BitMessage email alternative. Asynchronous, decentralized, encrypted communication.">
+<link rel="canonical" href="https://www.whonix.org/wiki/BitMessage/">
+<meta property="og:url" content="https://www.whonix.org/wiki/BitMessage/">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Bitmessage.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Design">Design</a></li><li class="toc-l2"><a href="#Email_Bridging_Services">Email Bridging Services</a></li><li class="toc-l2"><a href="#Installation">Installation</a></li><li class="toc-l2"><a href="#Start_BitMessage">Start BitMessage</a></li><li class="toc-l2"><a href="#Upgrade_BitMessage">Upgrade BitMessage</a></li><li class="toc-l2"><a href="#Send_Attachments">Send Attachments</a></li><li class="toc-l2"><a href="#Backup_User_Data">Backup User Data</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Bitmessagelogo.png.webp" alt="Bitmessage Logo" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>BitMessage email alternative. Asynchronous, decentralized, encrypted
+communication.</p>
+<div class="post-intro-p">
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong></p>
+<ul>
+<li>Bitmessage still relies on Python 2 (end-of-life since 2020). While
+efforts to port it to Python 3 exist, some build scripts still uses
+Python 2.</li>
+<li>Do your own research before using it</li>
+</ul>
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p><a href="https://wiki.bitmessage.org/index.php/Main_Page">BitMessage</a> is
+a P2P asynchronous communications protocol used to send encrypted
+messages to another person or to many subscribers. The PyBitmessage
+client is written in Python with a Qt GUI. BitMessage is decentralized
+and trustless, meaning that users do not need to place faith in entities
+like root certificate authorities. The design employs strong,
+self-authenticating, Bitcoin-style addresses which prevents adversaries
+from spoofing messages so they appear to be legitimate.</p>
+<p>For a comparison of BitMessage with other open source communications
+software, refer to the <a href="https://wiki.bitmessage.org/index.php/FAQ#How_does_Bitmessage_compare_to_other_messaging_methods">FAQ</a>.</p>
+<h2 id="Design">Design</h2>
+<p>The BitMessage protocol is quite flexible and robust:
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<ul>
+<li>Messages for offline recipients are stored for up to 28 days before
+being deleted.</li>
+<li>Proof-of-Work is relied upon to prevent spamming.</li>
+<li>Sender and recipient metadata is hidden by broadcasting all messages
+to everyone, thereby acting as a simple private information retrieval
+(PIR) system.</li>
+<li><a href="#Email_Bridging_Services">Bridging
+services</a> between the BitMessage network and legacy / regular email
+exist. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li>Additional features include subscription support and Chans
+(Decentralized Mailing Lists). <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+<li>Stronger anonymity is possible by running BitMessage in Whonix,
+since it works reliably.</li>
+</ul>
+<p>For other use cases, refer to the <a href="https://wiki.archlinux.org/title/Bitmessage">Arch BitMessage
+wiki</a>.</p>
+<p>BitMessage has not yet been independently audited by professionals to
+verify its security claims. That said, miscreants did use it to run a
+ransomware operation (over Tor) without being caught, demonstrating that
+it is somewhat "battle-tested." <sup class="reference"><a href="#cite_note-4">[4]</a></sup> While the Whonix
+Project will never condone criminal abuse of technology, it is hoped
+that dissidents in oppressive states can profit from the protocol's
+underlying strength.</p>
+<h2 id="Email_Bridging_Services">Email Bridging Services</h2>
+<p><u>Note</u>: Bridging services are not required to use
+Bitmessage.</p>
+<p>Bitmessage Mail Gateway (BMG) is a service that allows for seamless
+integration of email (webmail or email client) and the Bitmessage
+network.</p>
+<p>As of January 1, 2020, the service at bitmessage.ch that was
+referenced in this section is offline. For more information, see: <a href="https://bitmessage.ch/term.html">Notice of Service
+Termination</a>.</p>
+<h1 id="BitMessage_Installation_and_Operations">BitMessage Installation
+and Operations</h1>
+<h2 id="Installation">Installation</h2>
+<p>The following instructions perform steps to install BitMessage from
+source code as well as digital signature verification, which is optional
+but recommended for better security. Once the installation process is
+complete, BitMessage can be started and the networking appropriately
+configured.</p>
+<p>Bitmessage developers use <a href="https://git-scm.com/">git</a> to
+sign their source code. <sup class="reference"><a href="#cite_note-5">[5]</a></sup> Git is a distributed version
+control system (<a href="https://en.wikipedia.org/wiki/Version_control">VCS</a>) that has
+the ability to tag specific points in history -- such as version release
+points -- as being important. These (git) tags can be signed and
+verified with GNU Privacy Guard (GPG). For a basic overview of Tagging
+please read: <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">Git Basics -
+Tagging</a>.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+While git is cryptographically secure, it is <u>not</u> foolproof. See
+<a href="https://en.wikipedia.org/wiki/Web_of_trust">Web of Trust</a>
+for further information.</p>
+</div>
+<p>Note: Unless directed otherwise, run the following commands in
+Whonix-Workstation<sup>&#8482;</sup> (<a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>: <code>anon-whonix</code>
+App Qube).</p>
+<div class="info-box ">
+<p>Installation from source code method part 1/2.</p>
+<p><strong>1.</strong> Install package dependencies for compilation.</p>
+<p>(<a href="../Qubes/">Qubes-Whonix</a> users note: Run
+this single command in <code>whonix-workstation-18</code> Template.)</p>
+<p><span class="code-select">sudo apt install git python3 openssl
+libssl-dev python3-msgpack python3-qtpy</span></p>
+<p><strong>2.</strong> Download the source code from GitHub.</p>
+<p><span class="code-select">git clone <a href="https://github.com/Bitmessage/PyBitmessage">https://github.com/Bitmessage/PyBitmessage</a>
+$HOME/PyBitmessage</span></p>
+<p><strong>3.</strong> Navigate to any Bitmessage directory.</p>
+<p><span class="code-select">cd ~/PyBitmessage</span></p>
+<p><strong>4.</strong> List all git tags.</p>
+<p><span class="code-select">git tag</span></p>
+<p>Example printout:</p>
+<pre><code>0.6.2
+0.6.3
+0.6.3.2</code></pre>
+<p>Note: The output has been truncated.</p>
+<p><strong>5.</strong> Further steps.</p>
+<p>The next box will document digital signature verification and the
+over next box how to complete the installation.</p>
+</div>
+<div class="info-box ">
+<p>Digital signature verification.</p>
+<p><strong>1.</strong> Download the GPG public key of Pete &#352;urda,
+BitMessage core developer.</p>
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="../Advanced_Users/"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="../Moved:Verifying_Software_Signatures/"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Whonix first time users warning" /></span>
+<strong>Warning:</strong></p>
+<p>The following command using <code>gpg</code> with
+<code>--recv-keys</code> is not recommended for security reasons and is
+often non-functional. <sup class="reference"><a href="#cite_note-6">[6]</a></sup> This is not a Whonix-specific
+issue. The OpenPGP public key should be downloaded from the web instead;
+see also <a href="../Moved:Secure_Downloads/">Secure
+Downloads</a>. This procedure is currently <a href="../Unsupported/">undocumented</a> and can be resolved as per the <a href="../Self_Support_First_Policy/">Self Support First
+Policy</a>. Documentation contributions will be happily considered.</p>
+</div>
+<p><span class="code-select">gpg --keyserver hkps://keyserver.ubuntu.com
+--recv-keys 52C97EBC095A2C0863C098C80C5F50C0B5F37D87</span></p>
+<p>When finished, the output should appear similar to the following
+screenshot.</p>
+<p><strong>Figure:</strong> <em>GPG Key Importation</em></p>
+<p><img src="../../media/Bitmessage_import_gpg_key.png.webp" alt="Bitmessage_import_gpg_key.png" /></p>
+<p><strong>2.</strong> Verify the public key fingerprint.</p>
+<p><span class="code-select">gpg --fingerprint
+52C97EBC095A2C0863C098C80C5F50C0B5F37D87</span></p>
+<p>At the time of writing, the output will appear like the following
+screenshot.</p>
+<p><strong>Figure:</strong> <em>GPG Key Verification</em></p>
+<p><img src="../../media/Bitmessage_verify_gpg_fingerprint.png.webp" alt="Bitmessage_verify_gpg_fingerprint.png" /></p>
+<p><strong>3.</strong> Verify the git tag(s).</p>
+<p>At the time of writing, <code>0.6.3.2</code> was the most current
+tag. There might be a newer tag.</p>
+<p><span class="code-select">git tag --verify 0.6.3.2</span></p>
+<p>When the tag has been verified the output should show a "Good
+signature" similar to the screenshot below.</p>
+<p><strong>Figure:</strong> <em>Successful Verification</em></p>
+<p><img src="../../media/Bitmessage_verify_git_tag.png.webp" alt="Bitmessage_verify_git_tag.png" /></p>
+<pre><code>gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.</code></pre>
+<p>This message does not alter the validity of the signature related to
+the downloaded key. Rather, this warning refers to the level of trust
+placed in the Whonix signing key and the <a href="../Moved:OpenPGP/#The_OpenPGP_Web_of_Trust">web of
+trust</a>. To remove this warning, the Whonix signing key must be
+personally signed with your own key.</p>
+<p>If the following "gpg: BAD signature" message appears, the source
+code has been corrupted or altered during the download process.</p>
+<pre><code>gpg: BAD signature from &quot;Peter Surda &lt;admin@mailchuck.com&gt;&quot; [unknown]</code></pre>
+<p>In this event, delete the source code and either wait 10-15 minutes
+for the Tor circuits to change, or open up the <a href="../Tor_Controller/#Arm">Arm</a> Tor Controller in Whonix-Gateway<sup>&#8482;</sup>
+(<a href="../Qubes/">Qubes-Whonix</a>:
+<code>sys-whonix</code>) and type "n" to create new Tor circuits. Wait
+for a random period of time before repeating the steps to download the
+source code and verify the git tag(s).</p>
+<p><strong>4.</strong> Done.</p>
+<p>The process of digital signature verification is complete.</p>
+</div>
+<div class="info-box ">
+<p>Installation from source code method part 2/2.</p>
+<p><strong>1.</strong> Checkout the git tag version.</p>
+<p><span class="code-select">git checkout --quiet 0.6.3.2</span></p>
+<p><strong>2.</strong> Done.</p>
+<p>Installation of Bitmessage is complete.</p>
+</div>
+<h2 id="Start_BitMessage">Start BitMessage</h2>
+<p>Start BitMessage by running the following command.</p>
+<p><span class="code-select">~/PyBitmessage/src/bitmessagemain.py</span></p>
+<p>When BitMessage starts for the first time, this prompt will appear:
+<i>"Bitmessage won't connect unless you let it."</i> Choose: <i>"Let me
+configure special network setting first"</i> &#8594; press
+&lt;<i>OK</i>&gt;.</p>
+<p><strong>Figure:</strong> <em>BitMessage Network Settings</em></p>
+<p><img src="../../media/Bitmessage_enable_networking.png.webp" alt="Bitmessage_enable_networking.png" /></p>
+<p>Make the following changes:</p>
+<ul>
+<li>Proxy type: <code>SOCKS5</code></li>
+<li>Server hostname: <code>127.0.0.1</code></li>
+<li>Port: <code>9050</code>.</li>
+</ul>
+<p>Press &lt;<i>OK</i>&gt; and the application should be fully
+functional.</p>
+<p><strong>Figure:</strong> <em>SOCKS5 Proxy Configuration</em></p>
+<p><img src="../../media/Bitmessage_configure_networking.png.webp" alt="Bitmessage_configure_networking.png" /></p>
+<h2 id="Upgrade_BitMessage">Upgrade BitMessage</h2>
+<p>To upgrade BitMessage run the following command.</p>
+<pre><code>cd $HOME/PyBitmessage
+git pull</code></pre>
+<h2 id="Send_Attachments">Send Attachments</h2>
+<p>While explicitly attaching files is not supported, technically any
+file can be sent within the message body. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<p>First convert the file with base64 and then copy and paste the
+contents of the text file.</p>
+<pre><code>base64 &lt; binary.file &gt; text.file</code></pre>
+<p>Do not forget to include receiver instructions on how to decode it.
+In order to decode the file, the recipient can copy and paste the code
+into a file and convert it with the following command.</p>
+<pre><code>base64 -d &lt; text.file &gt; binary.file</code></pre>
+<p>It is not very practical to send large files with BitMessage.
+Alternatively, a file or archive containing a collection can be
+GPG-encrypted and uploaded to untrusted cloud storage, with a link sent
+to the intended recipient(s). Two methods of encryption are possible:
+relying on a contact's public key or using symmetric encryption and
+sending the password in BitMessage. For GPG symmetric encryption, follow
+this example:</p>
+<pre><code>gpg -vv -c --cipher-algo AES256 your-file.tar.gz</code></pre>
+<p>Note that the output of <code>diceware</code> (pre-installed from
+Whonix 14 onward) can be used for secure passwords.</p>
+<h2 id="Backup_User_Data">Backup User Data</h2>
+<p>To backup the BitMessage profile and all user-generated program
+data:</p>
+<ul>
+<li>Copy the folder under this path to your shared folder:
+<em>/home/user/.config/PyBitmessage</em>
+<ul>
+<li>Private keys are stored in the <code>keys.dat</code> database file.
+<sup class="reference"><a href="#cite_note-8">[8]</a></sup></li>
+<li>Other data-like inbox contents, contacts and black / white-list
+information are stored in the <code>messages.dat</code>
+<sup class="reference"><a href="#cite_note-9">[9]</a></sup> database file.</li>
+</ul></li>
+<li>Copy the folder to this location to restore BitMessage data for new
+installs.</li>
+</ul>
+<p>It is recommended to use <a href="../Multiple_Whonix-Workstation/">Multiple Whonix-Workstation</a> to safely separate
+BitMessage identities and running instances. For better security, do not
+run separate BitMessage instances concurrently in this
+configuration.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">The development of Android clients has unfortunately stalled.
+Connecting with a mobile client also requires a full node running on the
+user's PC.</li>
+<li id="cite_note-2">The popular <a href="https://bitmessage.ch/term.html">bitmessage.ch</a> service was
+taken offline on 1 January 2020.</li>
+<li id="cite_note-3"><a href="https://wiki.bitmessage.org/index.php/Decentralized_Mailing_List">https://wiki.bitmessage.org/index.php/Decentralized_Mailing_List</a></li>
+<li id="cite_note-4"><a href="https://www.bleepingcomputer.com/news/security/chimera-ransomware-uses-a-peer-to-peer-decryption-service/">https://www.bleepingcomputer.com/news/security/chimera-ransomware-uses-a-peer-to-peer-decryption-service/</a></li>
+<li id="cite_note-5"><a href="https://github.com/Bitmessage/PyBitmessage/issues/108">https://github.com/Bitmessage/PyBitmessage/issues/108</a></li>
+<li id="cite_note-6"><a href="https://forums.whonix.org/t/gpg-recv-keys-fails-no-longer-use-keyservers-for-anything/5607">https://forums.whonix.org/t/gpg-recv-keys-fails-no-longer-use-keyservers-for-anything/5607</a></li>
+<li id="cite_note-7"><a href="https://tedjonesweb.blogspot.com/2013/06/how-to-send-files-like-e-mail.html">https://tedjonesweb.blogspot.com/2013/06/how-to-send-files-like-e-mail.html</a></li>
+<li id="cite_note-8"><a href="https://wiki.bitmessage.org/index.php/Keys.dat">https://wiki.bitmessage.org/index.php/Keys.dat</a></li>
+<li id="cite_note-9"><a href="https://wiki.bitmessage.org/index.php/Messages.dat">https://wiki.bitmessage.org/index.php/Messages.dat</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Encrypted_Email_with_Thunderbird/" title="Encrypted Email with Thunderbird"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Encrypted
+Email with
+Thunderbird</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Chat/" title="Chat"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Chat</span></a><span class="info"><span class="prev">Previous
+page: Encrypted Email with Thunderbird</span><span class="index">Index
+page: Documentation</span><span class="next">Next page:
+Chat</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Tunnels/Connecting to Tor before SSH</title>
+<meta name="description" content="Instructions on how to connect to Tor before SSH. (User &amp;rarr; Tor &amp;rarr; SSH &amp;rarr; Internet)">
+<meta property="og:description" content="Instructions on how to connect to Tor before SSH. (User &amp;rarr; Tor &amp;rarr; SSH &amp;rarr; Internet)">
+<link rel="canonical" href="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_SSH/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_SSH/">
+<meta property="og:title" content="Connecting to Tor before SSH">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Fractal-429037640.jpg">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Tunnels</span> / <span>Connecting to Tor before SSH</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../../media/Fractal-429037640.jpg.webp" alt="Fractal-429037640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Instructions on how to connect to Tor before SSH.</p>
+<p><strong><code>User</code> &#8594; <code>Tor</code> &#8594; <code>SSH</code> &#8594;
+<code>Internet</code></strong></p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<b><u>Before combining Tor with other tunnels, <a href="../Introduction/">be sure to read and
+understand the risks</a>!</u></b></p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="../../Community_Support/">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<div class="info-box ib-for-thumb has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Documentation for this is incomplete. Contributions are happily
+considered! See <a href="../../Unsupported/">this</a> for
+potential alternatives.</p>
+</div>
+<h1 id="Procedure">Procedure</h1>
+<p>Note that even though SSH supports SOCKS5, SSH is still not able to
+forward UDP on its own. Read the <a href="https://web.archive.org/web/20210204194850/https://www.zarb.org/~gc/html/udp-in-ssh-tunneling.html">Performing
+UDP tunneling through an SSH connection</a> instructions for further
+details. To summarize: to tunnel UDP over SSH, the client and shell
+admin need a special setup, which is not going to happen for most
+shells:</p>
+<ol>
+<li>A SSH tunnel will provide a local SOCKS5 proxy.</li>
+<li>Create the SSH tunnel in the Whonix-Workstation<sup>&#8482;</sup>; this
+will provide a local SOCKS5 proxy.</li>
+<li>Utilize the SOCKS5 proxy by following the <a href="../Connecting_to_Tor_before_a_proxy/">
+Connecting to Tor before a Proxy (User &#8594; Tor &#8594; proxy &#8594; Internet)</a>
+instructions.</li>
+<li>Once the SSH tunnel is established, there are not many differences
+except the UDP issue canvassed above and the fact the warning about
+missing proxy encryption does not apply to SSH tunnels (since SSH is
+encrypted).</li>
+<li>The SSH process needs to be allowed to access the Internet directly
+-- if you use transparent proxying, run the SSH process under an account
+which is privileged to access the Internet directly.</li>
+</ol>
+<p>Another possible, untested method may be <a href="https://github.com/apenwarr/sshuttle">sshuttle</a> (<a href="https://sshuttle.readthedocs.io/en/stable/">stable
+documentation</a>). <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><blockquote><p>As far as I know, sshuttle is the only program that solves the
+following common case: * Your client machine (or router) is Linux,
+MacOS, FreeBSD, OpenBSD or pfSense. * You have access to a remote
+network via ssh. * You don't necessarily have admin access on the remote
+network. * The remote network has no VPN, or only stupid/complex VPN
+protocols (IPsec, PPTP, etc). Or maybe you are the admin and you just
+got frustrated with the awful state of VPN tools. * You don't want to
+create an ssh port forward for every single host/port on the remote
+network. * You hate openssh's port forwarding because it's randomly slow
+and/or stupid. * You can't use openssh's PermitTunnel feature because
+it's disabled by default on openssh servers; plus it does TCP-over-TCP,
+which has terrible performance (see below).</p></blockquote></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

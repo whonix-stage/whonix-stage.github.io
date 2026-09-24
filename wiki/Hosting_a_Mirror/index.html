@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Hosting a Mirror</title>
+<meta name="description" content="Instructions on how to set up a Whonix Download Mirror">
+<meta property="og:description" content="Instructions on how to set up a Whonix Download Mirror">
+<link rel="canonical" href="https://www.whonix.org/wiki/Hosting_a_Mirror/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Hosting_a_Mirror/">
+<meta property="og:title" content="Hosting a Whonix Mirror">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Hosting-13348640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Overview">Overview</a></li><li class="toc-l2"><a href="#preparation">preparation</a></li><li class="toc-l2"><a href="#unencrypted_rsync">unencrypted rsync</a></li><li class="toc-l2"><a href="#encrypted_rsync_over_TLS">encrypted rsync over TLS</a></li><li class="toc-l2"><a href="#encrypted_rsync_over_onion">encrypted rsync over onion</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Instructions on how to set up a Whonix Download Mirror</p>
+<div class="post-intro-p">
+</div>
+<p><img src="../../media/Hosting-13348640.jpg.webp" alt="Hosting-13348640.jpg" /></p>
+<h1 id="New_Mirrors">New Mirrors</h1>
+<p>Currently not looking for mirrors.</p>
+<p>Please post your contact information and/or website in the forums if
+you would like to offer a mirror in case in the future more mirrors are
+needed.</p>
+<p>Old forum thread can be used: <s><a href="https://forums.whonix.org/t/looking-for-mirror-hosts-mirroring-instructions-updated/231/15">https://forums.whonix.org/t/looking-for-mirror-hosts-mirroring-instructions-updated/231/15</a></s></p>
+<h1 id="Requirements">Requirements</h1>
+<p>Both, a Kicksecure mirror as well as a Whonix mirror will be
+required. This is because for simplicity there is only 1 list of mirrors
+which is shared in both wikis.</p>
+<h1 id="rsync_from_whonix.org">rsync from whonix.org</h1>
+<h2 id="Overview">Overview</h2>
+<ul>
+<li>Available over encrypted clearnet port <code>874</code>. (Default
+port by <code>openssl-rsync</code>.)</li>
+<li>Available over encrypted clearnet port <code>1874</code>. (Default
+port by Debian ftpsync package, <code>rsync-ssl-tunnel</code>
+script.)</li>
+<li>Available over <a href="../Onion_Services/#Notes_about_End-to-end_Security_of_Onion_Services">encrypted</a> onion, port <code>873</code>.
+(<code>rsync</code> default port.)</li>
+</ul>
+<p>Security advice:</p>
+<ul>
+<li>Encrypted rsync is better.</li>
+<li>rsync over onion is best.</li>
+</ul>
+<p>Commands below use for testing:</p>
+<ul>
+<li><code>--dry-run</code></li>
+</ul>
+<p>Therefore:</p>
+<ul>
+<li>Later for production you might wish to drop <code>--dry-run</code>
+and change the destination folder from <code>~/whonix</code> to a folder
+of your choice such as <code>/var/www/whonix</code>.</li>
+</ul>
+<h2 id="preparation">preparation</h2>
+<p><span class="code-select">sudo apt install rsync</span></p>
+<h2 id="unencrypted_rsync">unencrypted rsync</h2>
+<p>Deprecated. Please use either,</p>
+<ul>
+<li><strong>A)</strong> TLS encrypted rsync, or</li>
+<li><strong>B)</strong> rsync over onion as documented below.</li>
+</ul>
+<h2 id="encrypted_rsync_over_TLS">encrypted rsync over TLS</h2>
+<p><span class="code-select">rsync-ssl --dry-run --recursive --delete
+--times --perms <a href="rsync://whonix.org/whonix">rsync://whonix.org/whonix</a>
+~/whonix</span></p>
+<h2 id="encrypted_rsync_over_onion">encrypted rsync over onion</h2>
+<p>Preparation.</p>
+<p><span class="code-select">sudo apt install torsocks rsync</span></p>
+<p>rsync over onion from Whonix onion.</p>
+<p><span class="code-select">torsocks rsync --dry-run --recursive
+--delete --times --perms "<a href="rsync://dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonix%22">rsync://dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonix"</a>;
+~/whonix</span></p>
+<h1 id="Current_Mirrors">Current Mirrors</h1>
+<ul>
+<li><a href="https://mirrors.dotsrc.org/whonix/">https://mirrors.dotsrc.org/whonix/</a>
+[permitted use exclusivity] [no traffic limit for now] [permitted to
+hotlink]</li>
+<li><a href="https://quantum-mirror.hu/mirrors/pub/whonix">https://quantum-mirror.hu/mirrors/pub/whonix</a>
+[permitted use exclusivity] [no traffic limit for now] [permitted to
+hotlink] <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
+<li><a href="https://ftp.icm.edu.pl/pub/Linux/dist/whonix/">https://ftp.icm.edu.pl/pub/Linux/dist/whonix/</a>
+[only updated daily for now] [could ask to update more frequently]
+[rsync-ssl broken] <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li><a href="https://mirrors.cicku.me/whonix/">https://mirrors.cicku.me/whonix/</a>
+[only updated weekly for now] [could ask to update more frequently]</li>
+<li><a href="https://mirror.vulnseeker.org/pub/whonix/">https://mirror.vulnseeker.org/pub/whonix/</a>
+[updated every hour]</li>
+</ul>
+<h1 id="Mirror_Speed_Test">Mirror Speed Test</h1>
+<p>03 Mai 2020</p>
+<ul>
+<li>dotsrc 103 MB/s in in 16s [acting as primary mirror since]</li>
+</ul>
+<p>21 April 2020</p>
+<ul>
+<li>whonix.org 44 MB/s in 39s</li>
+<li>dotsrc 138 MB/s in in 12s</li>
+</ul>
+<p>October 2022</p>
+<ul>
+<li>dotsrc: Download speed 7-10 MByte/s (normal for that 50-100 Mbit
+connection). Took about 3 - 4.5 minutes.</li>
+</ul>
+<p>Forum discussion:</p>
+<ul>
+<li><a href="https://forums.whonix.org/t/whonix-vm-images-download-speed-issues-and-automated-download-speed-tests/15858/2">https://forums.whonix.org/t/whonix-vm-images-download-speed-issues-and-automated-download-speed-tests/15858/2</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://quantum-mirror.hu/web/status_en.html">https://quantum-mirror.hu/web/status_en.html</a>
+[stale, reported] quantum-mirror.hu (DNS round robin)
+super.quantum-mirror.hu 1000/350 Mb/s 78.131.56.189
+nova.quantum-mirror.hu 1000/350 Mb/s 195.38.126.147 IPv4 only no FTP
+supports rsync</li>
+<li id="cite_note-2">* <a href="ftp://ftp.icm.edu.pl/pub/Linux/dist/whonix/">ftp://ftp.icm.edu.pl/pub/Linux/dist/whonix/</a>
+* <a href="rsync://ftp.icm.edu.pl/pub/Linux/dist/whonix/">rsync://ftp.icm.edu.pl/pub/Linux/dist/whonix/</a>
+* <a href="gopher://ftp.icm.edu.pl/1/pub/Linux/dist/whonix/">gopher://ftp.icm.edu.pl/1/pub/Linux/dist/whonix/</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Development/">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

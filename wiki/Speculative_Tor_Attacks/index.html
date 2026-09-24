@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Speculative Tor Attacks</title>
+<meta name="description" content="Speculative Attacks against Tor">
+<meta property="og:description" content="Speculative Attacks against Tor">
+<link rel="canonical" href="https://www.whonix.org/wiki/Speculative_Tor_Attacks/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Speculative_Tor_Attacks/">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Speculativetor.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Speculativetor.jpg.webp" alt="Speculativetor.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Speculative Attacks against Tor</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Tor is not invulnerable to attacks. Many users are familiar with
+research highlighting that the Tor network is susceptible to <a href="../Warning/#Traffic_Analysis">Traffic Analysis</a>,
+<a href="../Warning/#Confirmation_Attacks">Confirmation
+Attacks</a> and potential <a href="../Warning/#Guard_Discovery">Guard Discovery</a>. These techniques similarly affect
+Whonix and could potentially lead to deanonymization under specific
+circumstances.</p>
+<p>However, a number of other lesser-known attacks are mentioned in the
+literature, and these should not be withheld from the reader. Note that
+many of these may have already been addressed by the Tor Project, but
+they have been listed for completeness. Any additional attacks that are
+not mentioned can be freely added by the reader.</p>
+<h1 id="Tor_Ecosystem_Attacks">Tor Ecosystem Attacks</h1>
+<p>Since Tor's inception, studies conducted on onion networks have found
+adversaries are capable of attacking three different entities:
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<ol>
+<li><u>Client:</u> a client of the Tor network is targeted to identify
+it.</li>
+<li><u>Server:</u> the Tor onion (hidden) service is targeted to reveal
+its identity or to weaken it.</li>
+<li><u>Network:</u> the broader Tor network itself is targeted, usually
+via multiple malicious Tor nodes.</li>
+</ol>
+<p>Note that generic attacks also exist for more than one Tor entity;
+typically both the client and server are targeted at the same time.</p>
+<h2 id="Overview">Overview</h2>
+<p>The following table summarizes known (speculative) Tor attacks and
+the specific target categories. The various attacks can be used by
+malicious actors to either retrieve information or to perpetrate harmful
+activities. Those attacks which have been addressed by The Tor Project
+or do not affect Whonix are marked accordingly.</p>
+<table>
+<caption><em>Tor Entity Attack Vectors</em> <sup class="reference"><a href="#cite_note-1">[1]</a></sup></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Tor Threat</strong></p></th>
+<th><p><strong>Tor Entity</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Induced Tor Guard Selection <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p></td>
+<td><p>Client</p></td>
+<td><p>Tor clients can be induced to adopt a malicious Tor guard (entry)
+node via: altering traffic capabilities of the target, blocking
+connections to legitimate entry nodes at the network level, and so on.
+This greatly assists end-to-end correlation and other attacks.</p></td>
+</tr>
+<tr class="even">
+<td><p>Low-resources Routing <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p></td>
+<td><p>Client</p></td>
+<td><p><strong>Note:</strong> This attack variant is no longer possible
+since directory servers now control the declaration of effective
+bandwidth. Adversaries commit or compromise high-bandwidth, high-uptime
+Tor routers. Exploiting the ability to report incorrect bandwidth
+values, the capacity of the node it lowered to low-bandwidth (but still
+reported as high-bandwidth), increasing the chances it is chosen for a
+Tor circuit and thereby aiding traffic correlation attacks.</p></td>
+</tr>
+<tr class="odd">
+<td><p>P2P Information Leakage</p></td>
+<td><p>Client</p></td>
+<td><p><strong>Note:</strong> this vector does not affect Whonix; see <a href="../File_Sharing/#Please_limit.21">here</a>.
+Connections to peer-to-peer systems are exploited to retrieve the IP
+address of the client. For example, adversaries can retrieve the IP
+address of clients connecting over Tor with the BitTorrent protocol when
+they communicate with the torrent tracker. <sup class="reference"><a href="#cite_note-4">[4]</a></sup> While
+tracker lists can be retrieved anonymously over Tor, the actual P2P
+connection is not -- meaning a MitM attack on this connection can
+redirect to a list that includes the IP address of a malicious torrent
+peer. This means the IP address of the client that originated the
+tracker request (over Tor) can be retrieved.</p></td>
+</tr>
+<tr class="even">
+<td><p>Plug-in based Attacks</p></td>
+<td><p>Client</p></td>
+<td><p><strong>Note:</strong> This vector does not affect Whonix; see <a href="../Whonix_against_Real_Attacks/#Browser_Plugins:_Flash,_Java_etc_(2011_-_currently)">here</a>. Plug-ins (external software) in the user's
+browser like Flash, Java and ActiveX Controls are exploited. Since these
+plug-ins run with user permissions on the operating system, they can
+bypass Tor Browser's proxy configuration settings and connect directly
+to the Internet. <sup class="reference"><a href="#cite_note-5">[5]</a></sup> <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p>Raptor Attacks <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p></td>
+<td><p>Client</p></td>
+<td><p><a href="https://www.techopedia.com/definition/11063/autonomous-system-as">Autonomous
+Systems (ASes)</a> that carry Tor traffic have significant eavesdropping
+capabilities. An AS or colluding ASes can perform timing analysis
+between the client and first relay, and between the last relay and
+destination, to deanonymize clients. <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p>Torben Attacks <sup class="reference"><a href="#cite_note-9">[9]</a></sup> <sup class="reference"><a href="#cite_note-10">[10]</a></sup></p></td>
+<td><p>Client</p></td>
+<td><p>Information is revealed about webpages visited with Tor by
+manipulating web pages to force users to access content from untrusted
+sources, as well as exploiting Tor's low-latency characteristics to
+infer webpage indicators that are transmitted.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Unpopular Ports Exploitation</p></td>
+<td><p>Client</p></td>
+<td><p>This attack requires both a malicious service host contacted by
+the Tor client and an adversary-controlled set of exit nodes working in
+tandem. The malicious service injects a script into the client-requested
+webpage, leading the browser to open a connection to an Internet service
+on an unpopular port (through Tor). Since the adversary controls a set
+of exit nodes supporting this communication, the probability of
+increasing control over the exit node increases.
+<sup class="reference"><a href="#cite_note-11">[11]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p>Caronte Attacks <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p></td>
+<td><p>Server</p></td>
+<td><p>This attack uses a tool to automatically identify location leaks
+in onion (hidden) services. For example, content might reveal sensitive
+information served by the onion service, or configurations that disclose
+the IP address. Specifically, Internet endpoints are extracted as well
+as unique strings from the onion service's content, followed by
+examination of the service's certificate chain to identify possible
+Internet endpoints where the hidden service might be hosted.
+<sup class="reference"><a href="#cite_note-13">[13]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p>Cell Counting and Padding <sup class="reference"><a href="#cite_note-14">[14]</a></sup></p></td>
+<td><p>Server</p></td>
+<td><p>In this attack, an onion (hidden) service is forced to connect to
+a malicious rendezvous point. A specially crafted (specific number) of
+Tor padding cells and a cookie/token generated by the client adds a
+signature to the traffic. If an entry node controlled by an adversary
+monitors and identifies these signatures, it can be deduced the guard
+node they operate was chosen by the onion service, thereby revealing its
+IP address.</p></td>
+</tr>
+<tr class="even">
+<td><p>Off-path MitM Attacks <sup class="reference"><a href="#cite_note-15">[15]</a></sup></p></td>
+<td><p>Server</p></td>
+<td><p>An adversary who is capable of compromising (assuming) the onion
+service's private key can launch man-in-the-middle attacks on the
+targeted service. Without a revocation mechanism for onion services, it
+is difficult to mitigate this attack and the only available option is to
+abandon the .onion address and create a new one.
+<sup class="reference"><a href="#cite_note-16">[16]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p>Tor Cells Manipulation <sup class="reference"><a href="#cite_note-17">[17]</a></sup></p></td>
+<td><p>Server</p></td>
+<td><p>Tor cells/packets are manipulated so it is possible to locate an
+onion (hidden) service. An adversary-controlled rendezvous point detects
+the request and applies small changes to the message/cell data before
+forwarding the message to the onion service. This acts as a timestamp of
+the modified cell, which is relayed to the central server under the
+adversary's control. The onion service sends back a destroy message to
+the client (since the cell is not intact). The combination of command
+specific on the cell (CELL DESTROY), the cell's timestamp, circuit ID
+and source IP address, means a central server might discover the IP
+address of the onion service via time correlation.</p></td>
+</tr>
+<tr class="even">
+<td><p>Denial of Service <sup class="reference"><a href="#cite_note-18">[18]</a></sup></p></td>
+<td><p>Network</p></td>
+<td><p>Adversaries can mount Denial of service (DoS) attacks so that
+network components or services have reduced or no availability. In the
+case of 'CellFlood', malicious clients flood a targeted node with
+specially crafted cells. Since private key 1024-bit server operations
+are far (20 times) slower than operations with the public key -- and it
+takes four times longer to process rather than create a Tor cell -- all
+the computing resources of the target can be quickly exhausted by a
+continuous stream of CREATE cells.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Malicious Relays <sup class="reference"><a href="#cite_note-19">[19]</a></sup></p></td>
+<td><p>Network</p></td>
+<td><p>Adversaries can theoretically operate an increased proportion of
+malicious relays in the Tor network. For instance, network statistics
+suggest suspicious relay groups have at times gradually increased their
+total share of the Tor network's guard capacity <sup class="reference"><a href="#cite_note-20">[20]</a></sup>,
+while also introducing high bandwidth relays in the network (with no
+contact information being provided). This improves the chances of
+successful confirmation attacks. <sup class="reference"><a href="#cite_note-21">[21]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p>Sniper Attacks <sup class="reference"><a href="#cite_note-22">[22]</a></sup></p></td>
+<td><p>Network</p></td>
+<td><p>Sniper attacks allow adversaries to perform anonymous DoS attacks
+that disable arbitrary Tor relays (killing the Tor process on the
+machine). A Tor node is forced to buffer large amounts of data (with
+valid protocol messages), until it is overloaded and goes offline. By
+attacking a large set of nodes and degrading network capability, this
+increases the chance a client chooses an adversary-controlled node.
+<sup class="reference"><a href="#cite_note-23">[23]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p>Tor Bridge Discovery <sup class="reference"><a href="#cite_note-24">[24]</a></sup></p></td>
+<td><p>Network</p></td>
+<td><p>In order to retrieve information on Tor bridge nodes which is not
+publicly available, two methods are used: bridges are enumerated through
+bulk emails and HTTPS servers over Tor; or malicious Tor middle nodes
+exploit the weighted bandwidth routing algorithms to discover
+bridges.</p></td>
+</tr>
+<tr class="even">
+<td><p>Traffic Analysis <sup class="reference"><a href="#cite_note-25">[25]</a></sup></p></td>
+<td><p>Client + Server</p></td>
+<td><p>Adversaries capable of network traffic analysis insert packets
+server-side (specific, repetitive traffic in the TCP connection), and
+then try to observe these packets client-side via statistical
+correlation. Therefore, if a client is connected to a malicious server
+and the adversary controls a large number of entry (guard) nodes -- one
+of which is chosen in a given Tor circuit -- Tor client traffic can be
+identified. Recent research suggests that <a href="#Website_Oracles">Website Oracles</a> (see below) can be used to improve
+traffic analysis attacks.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Timing Attacks <sup class="reference"><a href="#cite_note-26">[26]</a></sup> <sup class="reference"><a href="#cite_note-27">[27]</a></sup></p></td>
+<td><p>Client + Server</p></td>
+<td><p>This is a variant of the traffic analysis attack noted above,
+whereby packets exchanged between the client and the server are observed
+to try and identify a temporal connection. To be successful, the
+adversary must control both the entry (guard) and exit node of the
+target's Tor circuit. To improve the accuracy of the attack, adversaries
+can temporarily interrupt traffic at predetermined intervals. Note that
+Tor utilizes packet buffering, delays and shuffling techniques to
+protect from this attack class.</p></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Website_Oracles">Website Oracles</h1>
+<p>Notably, the Tor Project has recently highlighted research that has
+identified a number of new, low cost, website traffic (fingerprinting)
+analysis attacks and potential mitigations. <sup class="reference"><a href="#cite_note-28">[28]</a></sup>
+<sup class="reference"><a href="#cite_note-29">[29]</a></sup> These attacks involve the use of various "Website
+Oracles", which are public Internet infrastructure that act as <a href="https://en.wikipedia.org/wiki/Side-channel_attack">side
+channels</a> to help adversaries narrow down the set of websites
+possibly visited and at what times (reducing the false positive
+rate).</p>
+<table>
+<caption><em>Website Oracles and Fingerprinting Risk</em>
+<sup class="reference"><a href="#cite_note-30">[30]</a></sup></caption>
+<thead>
+<tr class="header">
+<th></th>
+<th><p><strong>Availability</strong></p></th>
+<th><p><strong>False Positive Rate</strong></p></th>
+<th><p><strong>Coverage</strong></p></th>
+<th><p><strong>Effort</strong></p></th>
+<th><p><strong>Access</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Dragnet Surveillance Programs</p></td>
+<td><p>Retroactive</p></td>
+<td><p>Negligible</p></td>
+<td><p>High</p></td>
+<td><p>High</p></td>
+<td><p>Intelligence agencies</p></td>
+</tr>
+<tr class="even">
+<td><p>Content Delivery Networks (CDNs)</p></td>
+<td><p>Retroactive</p></td>
+<td><p>Negligible</p></td>
+<td><p>High</p></td>
+<td><p>High</p></td>
+<td><p>Operators</p></td>
+</tr>
+<tr class="odd">
+<td><p>Real-time Bidding</p></td>
+<td><p>Real-time (retroactive)</p></td>
+<td><p>Negligible</p></td>
+<td><p>High</p></td>
+<td><p>Modest</p></td>
+<td><p>Customers (operator)</p></td>
+</tr>
+<tr class="even">
+<td><p>Webserver Access Logs</p></td>
+<td><p>Retroactive</p></td>
+<td><p>Negligible</p></td>
+<td><p>High</p></td>
+<td><p>Medium</p></td>
+<td><p>Operators</p></td>
+</tr>
+<tr class="odd">
+<td><p>Middleboxes</p></td>
+<td><p>Retroactive</p></td>
+<td><p>Negligible</p></td>
+<td><p>Medium</p></td>
+<td><p>Medium</p></td>
+<td><p>Operators</p></td>
+</tr>
+<tr class="even">
+<td><p>OCSP</p></td>
+<td><p>Retroactive</p></td>
+<td><p>Low</p></td>
+<td><p>High</p></td>
+<td><p>Medium</p></td>
+<td><p>Few CAs, plaintext</p></td>
+</tr>
+<tr class="odd">
+<td><p>8.8.8.8 Operator</p></td>
+<td><p>Retroactive</p></td>
+<td><p>Low</p></td>
+<td><p>16.8%
+of visits</p></td>
+<td><p>High</p></td>
+<td><p>Google, plaintext</p></td>
+</tr>
+<tr class="even">
+<td><p>1.1.1.1 Operator</p></td>
+<td><p>Retroactive</p></td>
+<td><p>Low</p></td>
+<td><p>7.4%
+of visits</p></td>
+<td><p>High</p></td>
+<td><p>Cloudflare, plaintext</p></td>
+</tr>
+<tr class="odd">
+<td><p>Exit Relays</p></td>
+<td><p>Real-time</p></td>
+<td><p>Negligible</p></td>
+<td><p>Low</p></td>
+<td><p>Low</p></td>
+<td><p>Operators</p></td>
+</tr>
+<tr class="even">
+<td><p>Exit Relays DNS Cache</p></td>
+<td><p>Real-time</p></td>
+<td><p>Medium</p></td>
+<td><p>High</p></td>
+<td><p>Medium</p></td>
+<td><p>Anyone</p></td>
+</tr>
+<tr class="odd">
+<td><p>Query DNS Resolvers</p></td>
+<td><p>Real-time</p></td>
+<td><p>High</p></td>
+<td><p>Low</p></td>
+<td><p>Low</p></td>
+<td><p>Anyone</p></td>
+</tr>
+<tr class="even">
+<td><p>Onion (v3)</p></td>
+<td><p>Real-time</p></td>
+<td><p>Negligible</p></td>
+<td><p>Low</p></td>
+<td><p>High</p></td>
+<td><p>Anyone</p></td>
+</tr>
+</tbody>
+</table>
+<p>Whonix users cannot mitigate many of these threats, although the
+following actions help: <sup class="reference"><a href="#cite_note-28">[28]</a></sup></p>
+<ul>
+<li>Perform multiple things simultaneously with your Tor client -- this
+makes it harder for adversaries observing Tor client traffic to perform
+classification due to encrypted TLS connections over multiple
+circuits.</li>
+<li>If operating an Tor exit relay, run a local resolver instead of
+relying on public DNS resolvers like <code>1.1.1.1</code> and
+<code>8.8.8.8</code>. <sup class="reference"><a href="#cite_note-31">[31]</a></sup> Also, do not rely on public,
+centralized DNS-over-HTTPS resolvers. DNS caching on the local resolver
+should be disabled once The Tor Project addresses issues with Tor's DNS
+caches; see <a href="https://gitlab.torproject.org/legacy/trac/-/issues/32678">Ticket
+32678</a>.</li>
+<li>Staple OCSP and avoid Real Time Bidding advertisement networks, as
+well as large-scale CDNs (since log retention policies are outside your
+control). Logs should not have IP address retention, and log timestamps
+should be truncated so high-end timing resolution is unavailable.</li>
+</ul>
+<h1 id="Conclusion">Conclusion</h1>
+<p>Whonix does not vouch for the accuracy, completeness or currency of
+any of the attacks mentioned in this entry. However, it does highlight
+that in research settings, Tor processes and anonymity protection might
+be seriously degraded under specific conditions. Therefore, users who
+are likely to be targeted by advanced adversaries should bear this in
+mind when undertaking anonymous activities -- for a small subset,
+defaulting to offline activities (whenever possible) might be the only
+safe course of action in their circumstances.</p>
+<h1 id="References">References</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://ceur-ws.org/Vol-2315/paper10.pdf">Darknet Security:
+A Categorization of Attacks to the Tor Network</a></li>
+<li id="cite_note-2"><a href="https://www.researchgate.net/publication/288841807_A_Stealthy_Attack_Against_Tor_Guard_Selection">A
+stealthy attack against tor guard selection</a></li>
+<li id="cite_note-3"><a href="https://cs.gmu.edu/~mccoy/papers/wpes25-bauer.pdf">Low-Resource
+Routing Attacks Against Tor</a></li>
+<li id="cite_note-4">Torrent trackers retrieve information about peers who can share the
+requested resource, that is, IP address and listening port.</li>
+<li id="cite_note-5">Browser attacks come in two forms: malicious server system embeds on
+public-facing servers (like Adobe Flash contents on the page); or using
+a malicious exit node to intercept clear HTTP connections and inject
+harmful plug-in contents.</li>
+<li id="cite_note-6">Explaining why browser plug-ins are disabled by default in Tor
+Browser.</li>
+<li id="cite_note-7"><a href="https://www.princeton.edu/~pmittal/publications/bgptor-hotnets14.pdf">Anonymity
+on QuickSand: Using BGP to Compromise Tor</a></li>
+<li id="cite_note-8">This is done in three different ways: <a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol">BGP
+routing</a> changes that increase the number of ASes that can analyze a
+user's traffic; manipulating BGP announcements so ASes are selected on
+paths to and from relay nodes; and performing timing analysis on
+unidirectional traffic at both communication ends.</li>
+<li id="cite_note-9"><a href="https://web.archive.org/web/20220909064814/https://www.sec.cs.tu-bs.de/pubs/2015-asiaccs.pdf">Torben:
+A Practical Side-Channel Attack for Deanonymizing Tor
+Communication</a></li>
+<li id="cite_note-10">The research suggests these markers can be detected with an accuracy
+of over 91%, with no false positives.</li>
+<li id="cite_note-11"><a href="https://www.researchgate.net/publication/261347478_Attacking_Tor_through_Unpopular_Ports">Attacking
+Tor through Unpopular Ports</a>: <blockquote><p>The experimental analysis shows that by injecting a relatively small
+number of compromised relays (30 pairs of relays) allowing a certain
+unpopular port, more than 50% of constructed circuits are
+compromised.</p></blockquote></li>
+<li id="cite_note-12"><a href="https://software.imdea.org/~juanca/papers/caronte_ccs15.pdf">CARONTE:
+Detecting Location Leaks for Deanonymizing Tor Hidden Services</a></li>
+<li id="cite_note-13">When applied to 1,974 hidden services, the IP address was fully
+recovered in 101 (5%) of cases. This is technically not a Tor
+vulnerability, since it relies on mistakes by the hidden service
+administrator in the server configuration.</li>
+<li id="cite_note-14"><a href="https://web.archive.org/web/20220909064813/https://www.cs.uml.edu/~xinwenfu/paper/HiddenServer.pdf">Protocol-level
+hidden server discovery</a></li>
+<li id="cite_note-15"><a href="https://www.ccs.neu.edu/home/amirali/publications/tor_mitm_nesd.pdf">Off-path
+Man-in-the-Middle Attack on Tor Hidden Services</a></li>
+<li id="cite_note-16">Notably the adversary does not need to be located in the path
+between the client and the server for this attack.</li>
+<li id="cite_note-17"><a href="https://ieeexplore.ieee.org/document/7057949/">Deanonymizing
+schemes of hidden services in tor network: A survey</a></li>
+<li id="cite_note-18"><a href="https://www.cs.columbia.edu/~vpk/papers/cellflood.esorics13.pdf">CellFlood:
+Attacking Tor Onion Routers on the Cheap</a></li>
+<li id="cite_note-19"><a href="https://nusenu.medium.com/the-growing-problem-of-malicious-relays-on-the-tor-network-2f14198af548">https://nusenu.medium.com/the-growing-problem-of-malicious-relays-on-the-tor-network-2f14198af548</a></li>
+<li id="cite_note-20">The first relay in the chain of three Tor relays that form a Tor
+circuit.</li>
+<li id="cite_note-21">Removing suspicious operators is difficult because in this case the
+relays: * initially had limited capacity * were added gradually over the
+course of time * spread their presence across multiple hosting providers
+In short, the ability to add new Tor relays without restriction and the
+imperfect countermeasures currently in place increase the likelihood of
+confirmation attacks.</li>
+<li id="cite_note-22"><a href="https://www.robgjansen.com/publications/sniper-ndss2014.pdf">The
+Sniper Attack: Anonymously Deanonymizing and Disabling the Tor
+Network</a></li>
+<li id="cite_note-23">The source paper notes: <blockquote><p>...our experiments show that an adversary may consume a victim
+relay's memory by as much as 2187 KiB/s while using at most only 92
+KiB/s of upstream bandwidth. We extend our experimental results to
+estimate the threat against the live Tor network and find that a
+strategic adversary could disable all of the top 20 exit relays in only
+29 minutes, thereby reducing Tor's bandwidth capacity by 35 percent.</p></blockquote></li>
+<li id="cite_note-24"><a href="https://ieeexplore.ieee.org/document/6616552/">Tor Bridge
+Discovery: Extensive Analysis and Large-scale Empirical
+Evaluation</a></li>
+<li id="cite_note-25"><a href="https://murdoch.is/papers/oakland05torta.pdf">Low-Cost
+Traffic Analysis of Tor</a></li>
+<li id="cite_note-26"><a href="https://www.mit.edu/~ecprice/papers/tor.pdf">Browser-based
+attacks on Tor</a></li>
+<li id="cite_note-27"><a href="https://www.freehaven.net/anonbib/cache/timing-fc2004.pdf">Timing
+Attacks in Low-Latency Mix Systems</a></li>
+<li id="cite_note-28"><a href="https://blog.torproject.org/new-low-cost-traffic-analysis-attacks-mitigations">https://blog.torproject.org/new-low-cost-traffic-analysis-attacks-mitigations</a></li>
+<li id="cite_note-29"><blockquote><p>"Website fingerprinting" is a category of attack where an adversary
+observes a user's encrypted data traffic, and uses traffic timing and
+quantity to guess what website that user is visiting. In this attack,
+the adversary has a database of web pages, and regularly downloads all
+of them in order to record their traffic timing and quantity
+characteristics, for comparison against encrypted traffic, to find
+potential target matches.</p></blockquote></li>
+<li id="cite_note-30"><a href="https://petsymposium.org/2020/files/papers/issue1/popets-2020-0013.pdf">https://petsymposium.org/2020/files/papers/issue1/popets-2020-0013.pdf</a></li>
+<li id="cite_note-31">Public resolvers are easy to monitor and log retention policies are
+unknown or unverifiable.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

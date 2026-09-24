@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Host Firewall</title>
+<meta name="description" content="Host Firewall Settings and Testing">
+<meta property="og:description" content="Host Firewall Settings and Testing">
+<link rel="canonical" href="https://www.whonix.org/wiki/Host_Firewall/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Host_Firewall/">
+<meta property="og:title" content="Host Firewall">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Hostfirewall213213.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Filtering_Ports">Filtering Ports</a></li><li class="toc-l3"><a href="#Introduction">Introduction</a></li><li class="toc-l3"><a href="#Incoming">Incoming</a></li><li class="toc-l3"><a href="#Outgoing">Outgoing</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="mininav">
+<ul>
+<li><a href="./">Host (or <code>dom0</code>)
+Firewall</a></li>
+<li><a href="../Whonix-Gateway_Firewall/">Whonix-Gateway
+Firewall</a></li>
+<li><a href="../Whonix-Workstation_Firewall/">Whonix-Workstation Firewall</a></li>
+<li><a href="../Qubes/Firewall/">Qubes specific</a></li>
+</ul>
+</div>
+<p><img src="../../media/Hostfirewall213213.jpg.webp" alt="Hostfirewall213213.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Host Firewall Settings and Testing</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Upstream">Upstream</h1>
+<p><img src="../../media/Kicksecure-seal.png.webp" width="130" alt="Kicksecure Hardened" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-info cs-red"></i></span>
+<span class="template-styled-text ">Redirection
+to Kicksecure Documentation </span></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-exclamation-triangle cs-yellow"></i></span>
+<span class="template-styled-text "><u>NOT-SELFCONTAINED:</u>
+This wiki page is not self-contained by design. This It only includes
+details specific to Whonix. For full understanding, please follow the
+link below to the Kicksecure wiki, which provides more complete
+background and instructions. </span></p>
+</div>
+<ul>
+<li><i class="fa-solid fa-circle-info cs-blue"></i><span><u>Introduction</u>:
+&lt;a href="../Introduction/"&gt;Whonix Documentation Introduction,
+User Expectations, Footnotes and References, User Expectations - What
+Documentation Is and What It Is Not&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-link cs-green"></i><span><u>&lt;a
+href="../About/#Based_on_Kicksecure"&gt;Whonix is based on
+Kicksecure<sup>&amp;trade;</sup>&lt;/a&gt;</u>: Whonix is built on top
+of Kicksecure. This means it uses many of the same security tools,
+design concepts, and configurations.</span></li>
+<li><i class="fa-solid fa-server cs-gray"></i><span><u>&lt;a href="<a href="https://www.kicksecure.com/wiki/Based_on_Debian%22%3EKicksecure">https://www.kicksecure.com/wiki/Based_on_Debian"&gt;Kicksecure</a>
+is based on Debian&lt;/a&gt;:</u> Kicksecure is developed using Debian
+as its base. Debian is a widely used, stable, and free Linux operating
+system.</span></li>
+<li><i class="fa-solid fa-arrow-down cs-blue"></i><span><u>Inheritance:</u>
+As a result, Whonix is also &lt;a href="../Based_on_Debian/"&gt;based
+on Debian&lt;/a&gt;.</span></li>
+<li><i class="fa-brands fa-linux cs-black"></i><span><u>Debian is
+GNU/Linux-based:</u> Debian is built using the GNU/Linux operating
+system. GNU provides essential tools and Linux is the system's kernel
+(core).</span></li>
+<li><i class="fa-solid fa-users cs-green"></i><span><u>Shared
+documentation benefits:</u> Since each system is based on the one below
+it, a lot of documentation and guides are shared. This reduces the need
+to duplicate information.</span></li>
+<li><i class="fa-solid fa-file-alt cs-gray"></i><span><u>Inherited
+documentation:</u> Most instructions and explanations are inherited from
+Kicksecure or Debian, unless otherwise specified.</span></li>
+<li><i class="fa-solid fa-check cs-green"></i><span><u>Shared
+principles:</u> The systems share similar security goals and setup
+instructions. In most cases, users can follow Kicksecure documentation
+when using Whonix.</span></li>
+<li><i class="fa-solid fa-thumbs-up cs-blue"></i><span><u>Keep using
+Whonix:</u> This does <u>not</u> mean users should switch to Kicksecure.
+This page only points to related, helpful information.</span></li>
+<li><i class="fa-solid fa-keyboard cs-gray"></i><span><u>Where to apply
+the instructions:</u> Follow the instructions inside Whonix unless
+specifically stated otherwise.</span></li>
+<li><i class="fa-solid fa-pencil cs-orange"></i><span><u>Wiki editors
+notice:</u> This information is pulled from a reusable wiki template:
+&lt;a href="../Template:Upstream_wiki/"&gt;upstream_wiki&lt;/a&gt;.
+(&lt;a href="../Special:WhatLinksHere/Template:Upstream_wiki/"&gt;See
+which pages use this&lt;/a&gt;.)</span></li>
+<li><i class="fa-solid fa-balance-scale cs-blue"></i><span><u>Comparison:</u>
+&lt;a href="../Comparison_with_Kicksecure/"&gt;Whonix versus
+Kicksecure&lt;/a&gt;</span></li>
+<li><i class="fa-solid fa-sync-alt cs-gray"></i><span><u>Documentation
+compatibility:</u> Because Whonix is based on Kicksecure, you can often
+follow Kicksecure's instructions as long as you apply them in the right
+place.</span></li>
+<li><i class="fa-solid fa-layer-group cs-gray"></i><span><u>Summary:</u>
+Whonix is built on top of <b>Kicksecure</b>, which itself is based on
+<b>Debian</b>. Debian is a GNU/Linux operating system. This layered
+design means Whonix inherits many features, tools, and documentation
+from both Kicksecure and Debian.</span></li>
+<li><i class="fa-solid fa-mouse-pointer cs-blue"></i><span><u>Click
+here:</u> Visit the related page in the Kicksecure wiki for full
+documentation and background:</span></li>
+</ul>
+<p><span class="template-styled-text "><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] </span></p>
+<ul>
+<li><i class="fa-solid fa-sticky-note cs-yellow"></i><span><u>Note:</u>
+Re-interpretation...</span></li>
+</ul>
+<div class="info-box ib-dark">
+<p>Apply the instructions inside Whonix, <u>not</u> inside
+Kicksecure.</p>
+<p><blockquote><p>Kicksecure: Perform these steps inside Kicksecure.</p></blockquote></p>
+<p>Instead, apply the steps inside Whonix-Workstation.</p>
+<p><blockquote><p>Kicksecure for Qubes: Perform these steps inside Qubes
+<code>kicksecure-18</code> Template.</p></blockquote></p>
+<p>Instead, use the <code>whonix-workstation-18</code> Template for
+these steps.</p>
+</div>
+</div>
+<h1 id="Whonix_specific">Whonix specific</h1>
+<h2 id="Filtering_Ports">Filtering Ports</h2>
+<h3 id="Introduction">Introduction</h3>
+<p>From time to time a user asks which incoming/outgoing ports are
+required by Whonix-Gateway<sup>&#8482;</sup>. The answer is:</p>
+<ul>
+<li>Incoming: <code>none</code>.</li>
+<li>Outgoing: <code>all</code>.</li>
+</ul>
+<p>An alternative technique for controlling ports might be <a href="../Corridor/">corridor (a Tor traffic whitelisting
+gateway)</a>, since it can act as a firewall. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h3 id="Incoming">Incoming</h3>
+<p>Whonix-Gateway itself does not open any ports. Users are advised to
+close all ports on the host as outlined in the <a href="../Moved:Host_Firewall_Basics/#How-to:_Install_and_Configure_a_Firewall">Host Firewall Essentials</a> entry.</p>
+<h3 id="Outgoing">Outgoing</h3>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong> This procedure is not recommended. Port-based
+filtering of outgoing traffic is not applicable (as in useful) in the
+case of Whonix-Gateway.</p>
+</div>
+<p>Filtering outgoing ports is difficult, since Tor entry guards or
+bridges listen on a variety of different ports. Limiting ports Tor uses
+for outgoing traffic is still possible, but recommended against, since
+it reduces anonymity. The effect is fewer entry guards or bridges are
+made available to the user. If users wish to proceed despite the risk,
+follow the instructions below.</p>
+<p>On Whonix-Gateway.</p>
+<p>Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session">Graphical Whonix-Gateway
+USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<p><span class="code-select">ReachableDirAddresses *:80
+ReachableORAddresses *:443</p>
+<ol>
+<li><ol>
+<li>maybe: FirewallPorts PORTS</li>
+<li>See Tor manual: <a href="https://2019.www.torproject.org/docs/tor-manual.html.en">https://2019.www.torproject.org/docs/tor-manual.html.en</a></span></li>
+</ol></li>
+</ol>
+<p>Save.</p>
+<p>Reload Tor.</p>
+<div class="info-box ">
+<p>After changing Tor configuration, Tor must be reloaded for changes to
+take effect.</p>
+<p><strong>Note:</strong> If Tor does not connect after completing all
+these steps, then a user mistake is the most likely explanation. Recheck
+<code>/usr/local/etc/torrc.d/50_user.conf</code> and repeat the steps
+outlined in the sections above. If Tor then connects successfully, all
+the necessary changes have been made.</p>
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a></u>, complete the
+following steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Service</code> &#8594;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named 'sys-whonix')</code>
+&#8594; <code>Reload Tor</code></p>
+<p><u>If you are using a graphical Whonix-Gateway</u>, complete the
+following steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Tor</code></p>
+<p><u>If you are using a terminal Whonix-Gateway</u>, click
+<span class="mw-customtoggle-myDivision"><u><code>HERE</code></u></span>
+for instructions.</p>
+<div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
+<p>Complete the following steps.</p>
+<p>Reload Tor.</p>
+<p><span class="code-select">sudo systemctl reload
+tor@default.service</span></p>
+<p>Check Tor's daemon status.</p>
+<p><span class="code-select">sudo systemctl status
+tor@default.service</span></p>
+<p>It should include a a message saying.</p>
+<pre><code>Active: active (running) since ...</code></pre>
+<p>In case of issues, try the following debugging steps.</p>
+<p>Check Tor's config.</p>
+<p><span class="code-select">sudo -u debian-tor tor
+--verify-config</span></p>
+<p>The output should be similar to the following.</p>
+<pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
+Configuration was valid</code></pre>
+</div>
+</div>
+<p>This issue was also discussed <a href="https://web.archive.org/web/20211028042010/https://sourceforge.net/projects/whonix/discussion/general/thread/3a0b673a/">in
+the old Whonix forum</a>.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://phabricator.whonix.org/T524">corridor for Whonix
+KVM ticket</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix-Gateway Security</title>
+<meta name="description" content="This page is targeted at users who wish to improve the security of their Whonix-Gateway to become even more secure.">
+<meta property="og:description" content="This page is targeted at users who wish to improve the security of their Whonix-Gateway to become even more secure.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Whonix-Gateway_Security/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Whonix-Gateway_Security/">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Whonixgatewaysecur23234234.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Whonixgatewaysecur23234234.jpg.webp" alt="whonixgatewaysecur23234234.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>This page is targeted at users who wish to improve the security of
+their Whonix-Gateway to become even more secure.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p><img src="../../media/Kicksecure-badge.svg" width="150" alt="Kicksecure-badge.svg" />
+<a href="../About/">Whonix</a> comes with
+[Broken-ExtLink--no-url-was-provided]. Whonix is
+[Broken-ExtLink--no-url-was-provided] hardened by default and also
+provides extensive <a href="../Documentation/">Documentation</a> including a <a href="../System_Hardening_Checklist/">System Hardening
+Checklist</a>. The more you know, the safer you can be.</p>
+<p>This page is targeted at users who wish to improve the security of
+their Whonix-Gateway to become even more secure.</p>
+<h1 id="AppArmor">AppArmor</h1>
+<p>According to debian.org: <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p><blockquote><p>AppArmor is a Mandatory Access Control framework. When enabled,
+AppArmor confines programs according to a set of rules that specify what
+files a given program can access. This proactive approach helps protect
+the system against both known and unknown vulnerabilities.</p></blockquote></p>
+<p>AppArmor provides a number of advantages: <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<ul>
+<li>It protects the operating system and applications from external or
+internal threats, including zero-day attacks.</li>
+<li>"Good behavior" is enforced and it mitigates exploits via unknown
+application flaws.</li>
+<li>AppArmor security policies define the system resources that
+individual applications can access, and with what privileges. For
+instance:
+<ul>
+<li>Network access.</li>
+<li>Raw socket access.</li>
+<li>Read, write or execute file permissions on specific paths.</li>
+</ul></li>
+</ul>
+<p>It is recommended to use the <a href="../Moved:AppArmor/">Whonix AppArmor profiles</a> which are available for
+various programs that run in both Whonix-Gateway<sup>&#8482;</sup> and
+Whonix-Workstation<sup>&#8482;</sup>, such as Tor, Tor Browser, Thunderbird
+and more. The profiles are easy to apply and provide a considerable
+security benefit.</p>
+<h1 id="General_Advice">General Advice</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong> Only use Whonix-Gateway
+(<code>sys-whonix</code>) for running Tor!</p>
+</div>
+<p>If Whonix-Gateway (<code>sys-whonix</code>) is ever compromised, the
+attacker can discover:</p>
+<ul>
+<li>The user's identity (public IP address).</li>
+<li>All destinations visited.</li>
+<li>The entirety of clear-text and onion service communication over
+Tor.</li>
+</ul>
+<p>Before installing any extra packages in Whonix-Gateway, first consult
+the developers to check whether that is necessary and wise. As a rule of
+thumb, no additional programs should be run in Whonix-Gateway
+(<code>sys-whonix</code>).</p>
+<h1 id="Seccomp">Seccomp</h1>
+<p>According to Mozilla: <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><blockquote><p>Seccomp stands for secure computing mode. It is a simple sandboxing
+tool in the Linux kernel, available since Linux version 2.6.12. When
+enabling seccomp, the process enters a "secure mode" where a very small
+number of system calls are available (exit(), read(), write(),
+sigreturn()). Writing code to work in this environment is difficult; for
+example, dynamic memory allocation (using brk() or mmap(), either
+directly or to implement malloc()) is not possible.</p></blockquote></p>
+<p>It is recommended to enable seccomp on Whonix-Gateway (<a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>:
+<code>sys-whonix</code>), since it is easily applied and provides
+additional sandboxing protection for the Tor process. Be aware that <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/PluggableTransports/list">pluggable
+transports</a> like obfs4, meek-lite and Snowflake are incompatible with
+seccomp. <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<u>Note</u>: Enabling seccomp on Whonix-Gateway currently prevents Tor
+from connecting. Help is most welcome, see: <a href="https://forums.whonix.org/t/cannot-use-seccomp-in-sys-whonix-after-update/10267">Cannot
+use Seccomp in sys-whonix after update</a>. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+</div>
+<p>Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session">Graphical Whonix-Gateway
+USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<pre><code>Sandbox 1</code></pre>
+<p>Save and exit.</p>
+<h1 id="Tor_Connection_Padding">Tor Connection Padding</h1>
+<p>From Tor <code>3.1.7</code> onward, connection padding is available
+for the Tor process. This setting helps to resist traffic analysis, as
+The Tor Project explains (emphasis added): <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p><blockquote><p>Connections between clients and relays now send a padding cell in
+each direction every 1.5 to 9.5 seconds (tunable via consensus
+parameters). This padding will not resist specialized eavesdroppers, but
+it should be enough to make many ISPs' routine network flow logging less
+useful in traffic analysis against Tor users.</p>
+<p>Padding is negotiated using Tor's link protocol, so both relays and
+clients must upgrade for this to take effect. <strong>Clients may still
+send padding despite the relay's version by setting ConnectionPadding 1
+in torrc</strong>, and may disable padding by setting ConnectionPadding
+0 in torrc.</p></blockquote></p>
+<p>Note that since most relays are on the latest versions, keeping it on
+automatic is acceptable for anonymity, but setting it to 1 will not
+cause significant security or usability issues and may even help if you
+are connected to a relay running an older version of Tor.</p>
+<p>Follow these steps to enable connection padding.</p>
+<p>Tor configuration file.</p>
+<div class="info-box ">
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] of your choice with administrative
+rights.</p>
+</div>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
+Sysmaint notice.</p>
+<p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
+Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Non-Qubes-Whonix_2">Non-Qubes-Whonix</h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_USER_Session_2">Graphical
+Whonix-Gateway USER Session</h5>
+</div>
+<div class="tcc-content">
+<p>This is not possible.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_SYSMAINT_Session_2">Graphical
+Whonix-Gateway SYSMAINT Session</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway booted into
+<code>PERSISTENT Mode | SYSMAINT Session</code></u>, take the following
+step.</p>
+<p><code>System Maintenance Panel</code> -&gt;
+<code>Open Terminal</code> -&gt; run
+<code>/usr/libexec/gateway-shortcuts/torrc</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Whonix-Gateway_Unrestricted_Admin_Mode_2">Graphical
+Whonix-Gateway Unrestricted Admin Mode</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using a graphical Whonix-Gateway</u> and enabled
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+<p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
+<code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Whonix-Gateway_2">Terminal Whonix-Gateway</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
+<u>i</u>nterface (CLI)</u>, take the following step.
+<span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix_2"><a href="../Qubes/">Qubes-Whonix</a></h4>
+</div>
+<div class="tcc-content">
+<div class="intro-like">
+<p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Graphical_Qubes-Whonix_2">Graphical Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a graphical
+desktop</u>, take the following step.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> -&gt;
+<code>Service</code> -&gt;
+<code>Whonix-Gateway</code><sup><code>&#8482;</code></sup><code> ProxyVM (commonly named sys-whonix)</code>
+-&gt; <code>Tor User Config</code></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h5 id="Terminal_Qubes-Whonix_2">Terminal Qubes-Whonix</h5>
+</div>
+<div class="tcc-content">
+<p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
+a terminal in <code>sys-whonix</code> and run the following command.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/torrc.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<pre><code>ConnectionPadding 1</code></pre>
+<p>Save and exit.</p>
+<p>Forum discussion:<br />
+<a href="https://forums.whonix.org/t/tor-connection-padding/7477">Tor
+Connection Padding</a></p>
+<h1 id="Warning:_Bridged_Networking">Warning: Bridged Networking</h1>
+<p><u>Note:</u> While similar in name, there are two very different
+things.</p>
+<ul>
+<li><strong>A)</strong> <u>Bridges:</u> These are used for censorship
+circumvention, to get around network bans. These are unrealted to this
+topic. For bridges, see its dedicated wiki page <a href="../Bridges/">Bridges</a>.</li>
+<li><strong>B)</strong> <u>Bridged Networking:</u> This is a virtualizer
+specific setting such as in <a href="../VirtualBox/">VirtualBox</a> that can in theory be changed on the
+host operating system. For more information, see below in this wiki
+chapter.</li>
+</ul>
+<p>Do not change VirtualBox settings on the host operating system for
+Whonix-Gateway's first or second network interface to a bridged network!
+This is <a href="../Unsupported/">unsupported</a>, untested
+and should not be necessary. Users who feel it is necessary in their
+circumstances should get in <a href="../Contact/">contact</a> for the purpose of <a href="../Reporting_Bugs/#Community_Feedback">community
+feedback</a>.</p>
+<p>For further interest, here is a <a href="https://web.archive.org/web/20211023133804/https://sourceforge.net/projects/whonix/discussion/general/thread/1e6a8675/">discussion
+thread</a>, and <a href="https://web.archive.org/web/20211028042010/https://sourceforge.net/projects/whonix/discussion/general/thread/3a0b673a/">another
+one</a>, debating whether NAT or a bridged network is more secure.
+<sup class="reference"><a href="#cite_note-7">[7]</a></sup> <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<ul>
+<li><a href="https://forums.whonix.org/t/no-internet-connection-whonix-gateway/9077">https://forums.whonix.org/t/no-internet-connection-whonix-gateway/9077</a></li>
+<li><a href="https://forums.whonix.org/t/help-connecting-2-network-cards-virtualbox/20113">https://forums.whonix.org/t/help-connecting-2-network-cards-virtualbox/20113</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://wiki.debian.org/AppArmor">https://wiki.debian.org/AppArmor</a></li>
+<li id="cite_note-2"><a href="https://gitlab.com/apparmor/apparmor/-/wikis/home">https://gitlab.com/apparmor/apparmor/-/wikis/home</a></li>
+<li id="cite_note-3"><a href="https://wiki.mozilla.org/Security/Sandbox/Seccomp">https://wiki.mozilla.org/Security/Sandbox/Seccomp</a></li>
+<li id="cite_note-4">See the following <a href="https://forums.whonix.org/t/seccomp-not-working/5398">forum
+discussion</a> for further consideration of this issue.</li>
+<li id="cite_note-5">This might relate to a <a href="https://lists.torproject.org/pipermail/tor-dev/2021-March/014532.html">bug</a>
+in Tor code.</li>
+<li id="cite_note-6"><a href="https://blog.torproject.org/tor-0317-now-released">https://blog.torproject.org/tor-0317-now-released</a></li>
+<li id="cite_note-7"><a href="https://www.virtualbox.org/manual/ch06.html#network_bridged">https://www.virtualbox.org/manual/ch06.html#network_bridged</a></li>
+<li id="cite_note-8"><a href="https://forums.whonix.org/t/bridged-adapter-required/11770">https://forums.whonix.org/t/bridged-adapter-required/11770</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

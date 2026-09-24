@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Advanced Deanonymization Attacks</title>
+<meta name="description" content="Notes on Advanced Deanonymization Attacks.">
+<meta property="og:description" content="Notes on Advanced Deanonymization Attacks.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Advanced_Deanonymization_Attacks/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Advanced_Deanonymization_Attacks/">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Advanced Deanonymization Attacks</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Notes on Advanced Deanonymization Attacks.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Covert_Channels">Covert Channels</h1>
+<p>This page is a brain-dump of all known covert channels and mitigation
+ideas. A refined version for users will be written later when
+countermeasures are deployed.</p>
+<p>See also: <a href="../../Advanced_Deanonymization_Attacks/">Advanced Deanonymization Attacks</a></p>
+<p>Ticket: <a href="https://phabricator.whonix.org/T540">Covert Channels
+Meta Ticket</a></p>
+<h2 id="Topics">Topics</h2>
+<p>Some covert channels can be eliminated outright, while others need to
+be sufficiently degraded. The good news is that it is possible to defend
+against all of them, though not without cost.</p>
+<p>All problems are interconnected: keystroke dynamics, CPU-induced
+network latency, TCP ISN CPU temperature-induced timer skew, DRAMA
+cross-VM keystroke monitoring, and CPU-cache cryptographic side
+channels.</p>
+<p>Covert channels are part of the TEMPEST category of attacks.
+Cryptographers have dealt with them for a long time, but they pose
+serious challenges for systems aiming to isolate untrusted, malicious
+processes. They can be classified as either snooping on activity outside
+a VM or secretly communicating with the outside world.</p>
+<h1 id="Keystroke_Fingerprinting">Keystroke Fingerprinting</h1>
+<p>An excellent paper on covert channels in general: <a href="https://www.usenix.org/legacy/events/sec06/tech/shah/shah_html/jbug-Usenix06.html">USENIX
+Paper</a></p>
+<p>CPU stress as a solution for keystroke fingerprinting? Not
+effective.</p>
+<p><strong>Question: How to delay keystrokes?</strong> <a href="https://stackoverflow.com/a/33134735">StackOverflow answer</a>:
+Funnel all system input events through a local network interface and
+inject random latency. This must be done on the host to apply
+system-wide.</p>
+<p><code>uinput</code> is the kernel input device API, but it requires C
+expertise to write a program for direct implementation.</p>
+<p><code>usbip</code>? It is in the mainline kernel but not a solution
+for PCI input devices, which most PCs use.</p>
+<p><strong>Network latency mitigation:</strong> Use the iperf stress
+tool or Ethan's netfilter_queue solution.</p>
+<p><strong>Alternatives:</strong></p>
+<ul>
+<li><a href="https://superuser.com/questions/67659/linux-share-keyboard-over-network">Linux
+share keyboard over network</a></li>
+<li><a href="https://unix.stackexchange.com/questions/46363/share-keyboard-over-network-as-separate-device">Share
+keyboard over network as a separate device</a></li>
+<li><a href="https://github.com/Blub/netevent/wiki/Share-devices-over-the-net">NetEvent
+- Share devices over the network</a></li>
+</ul>
+<p>NetEvent cobbles together netcat host/client on a loopback interface.
+It runs as a service with the client as localhost. Applying
+netfilter_queue on the loopback interface introduces random delays.</p>
+<ul>
+<li>Pros: Kernel-based solution, display server agnostic (it captures
+all events using the uinput interface).</li>
+</ul>
+<p><strong>New research results on obfuscation: No working tool
+yet.</strong> Contact researchers to inquire if they can develop
+one.</p>
+<ul>
+<li><a href="https://github.com/vmonaco/keystroke-obfuscation">Keystroke
+Obfuscation GitHub</a></li>
+<li><a href="https://github.com/vmonaco/keystroke-obfuscation/issues/1">Open
+issues on Keystroke Obfuscation</a></li>
+</ul>
+<h1 id="TCP_ISN">TCP ISN</h1>
+<p>Blocking TCP ISN at the firewall? Rewriting TCP ISN?</p>
+<ul>
+<li>Not possible and necessary for security. TCP ISN is a fundamental
+part of all modern operating systems.</li>
+</ul>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://fahrplan.events.ccc.de/congress/2006/Fahrplan/attachments/1211-23c3hotornotpres.pdf">23C3
+Presentation</a></li>
+<li><a href="https://fahrplan.events.ccc.de/congress/2006/Fahrplan/events/1513.en.html">23C3
+Event</a></li>
+<li><a href="https://events.ccc.de/congress/2005/fahrplan/events/798.en.html">22C3
+Event</a></li>
+<li><a href="https://murdoch.is/papers/ccs06hotornot.pdf">Hot or Not:
+Revealing Hidden Services by Their Clock Skew</a></li>
+<li><a href="https://murdoch.is/talks/eurobsdcon07hotornot.pdf">EuroBSDCon
+Presentation</a></li>
+<li><a href="https://www.lightbluetouchpaper.org/2006/09/04/hot-or-not-revealing-hidden-services-by-their-clock-skew/">Light
+Blue Touchpaper Analysis</a></li>
+</ul>
+<p><strong>23C3 Slide 30:</strong></p>
+<ul>
+<li>Running the CPU at full load is an inefficient mitigation
+method.</li>
+<li>Different tasks have varying temperature effects.</li>
+<li>Full CPU stress is required for TCP ISN mitigation to maintain
+constant CPU temperature and foil skew patterns in timers/crystal
+clocks.</li>
+</ul>
+<p>Mitigation must be applied on the host to remain out of reach of
+malicious code inside the VM.</p>
+<h2 id="CPU_Activity-Induced_Latency">CPU Activity-Induced Latency</h2>
+<p><strong>Mitigation:</strong> Quality of Service (QoS) solution by
+Ethan White.</p>
+<p>Originally proposed in 23C3 slides and later realized.</p>
+<p><strong>Status:</strong> Stalled.</p>
+<h1 id="DRAM_Addressing">DRAM Addressing</h1>
+<p>A severe risk: A process inside an anonymous VM can sniff keystrokes
+from other VMs, leading to data leaks. <strong>Scenario:</strong>
+JavaScript running in a browser can exploit this.</p>
+<p><a href="https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/pessl">DRAMA:
+Exploiting DRAM Addressing for Cross-CPU Attacks</a></p>
+<p><strong>Test Proof-of-Concept (PoC):</strong></p>
+<ul>
+<li><a href="https://github.com/IAIK/drama">DRAMA PoC GitHub
+Repository</a></li>
+</ul>
+<p><strong>Mitigation: Memory stress</strong></p>
+<ul>
+<li>The stress-m2 method, when applied in parallel (i.e., the attacker's
+core is under stress), makes measurements impossible.</li>
+<li>No false positives occurred in tests, but only 9 events were
+correctly detected.</li>
+<li>The attack is susceptible to noise, especially if the attacker only
+has a fraction of CPU time.</li>
+</ul>
+<p><strong>NUMA combined with CPU pinning:</strong></p>
+<ul>
+<li>Described as a valid mitigation, but NUMA environments are mostly
+available for server systems.</li>
+</ul>
+<p>Mitigation must be applied on the host to stay out of reach of
+malicious code inside the VM.</p>
+<p><blockquote><p>In this attack, the spy and the victim can run on separate CPUs and
+do not share memory, i.e., there is no access to shared libraries and no
+page deduplication between VMs.</p></blockquote></p>
+<h1 id="Cryptographic_Side_Channels">Cryptographic Side Channels</h1>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>vCPU pinning to physical CPUs ensures no cross-cache attacks on
+cryptographic processes.</li>
+<li>This also makes other attacks significantly harder.</li>
+</ul>
+<h1 id="See_also">See also</h1>
+<ul>
+<li><a href="../../Advanced_Deanonymization_Attacks/">Advanced
+Deanonymization Attacks</a></li>
+<li>Ticket: <a href="https://phabricator.whonix.org/T540">Covert
+Channels Meta Ticket</a></li>
+</ul>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Development/">Development</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Encrypted Email with Thunderbird</title>
+<meta name="description" content="Encrypted Anonymous Email with Thunderbird">
+<meta property="og:description" content="Encrypted Anonymous Email with Thunderbird">
+<link rel="canonical" href="https://www.whonix.org/wiki/Encrypted_Email_with_Thunderbird/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Encrypted_Email_with_Thunderbird/">
+<meta property="og:title" content="Encrypted Email with Thunderbird">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Encryptedemail.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Overview">Overview</a></li><li class="toc-l2"><a href="#Warnings">Warnings</a></li><li class="toc-l2"><a href="#Glossary">Glossary</a></li><li class="toc-l2"><a href="#Choose_an_Appropriate_Email_Provider">Choose an Appropriate
+Email Provider</a></li><li class="toc-l2"><a href="#Registration_Steps">Registration Steps</a></li><li class="toc-l2"><a href="#Create_an_OpenPGP_Key_Pair_by_Thunderbird">Create an OpenPGP Key
+Pair by Thunderbird</a></li><li class="toc-l2"><a href="#Export_and_Store_your_Keys">Export and Store your Keys</a></li><li class="toc-l2"><a href="#Encrypt_the_Revocation_Certificate">Encrypt the Revocation
+Certificate</a></li><li class="toc-l2"><a href="#Configure_Thunderbird_Folders_from_Account_Settings">Configure
+Thunderbird Folders from Account Settings</a></li><li class="toc-l2"><a href="#General_Thunderbird_Settings">General Thunderbird Settings</a></li><li class="toc-l2"><a href="#Import_Public_Keys_(From_File)">Import Public Keys (From
+File)</a></li><li class="toc-l2"><a href="#Add_User_ID_to_Key_Properties">Add User ID to Key
+Properties</a></li><li class="toc-l2"><a href="#Export_the_Public_Key_to_a_GPG_Server">Export the Public Key to
+a GPG Server</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><code>&#160;</code><img src="../../media/Thunderbird256.png.webp" width="128" alt="Mozilla Thunderbird Icon" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Encrypted Anonymous Email with Thunderbird</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Due to the complexity of software in the past, one of the most
+underutilized forms of protection for users is email encryption.
+However, it is now easier to take advantage of encrypted email via the
+use of Thunderbird (Mozilla's email client), which includes a <a href="https://support.mozilla.org/en-US/kb/openpgp-thunderbird-howto-and-faq">built-in
+OpenPGP</a> encryption program.</p>
+<p>Thunderbird in Whonix comes with anonymity, privacy and security
+settings pre-configuration through the pre-installed <a href="https://github.com/Whonix/anon-apps-config"><code>anon-apps-config</code></a>
+package. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p>The following guide provides a higher security and privacy standard
+than relying upon online services such as ProtonMail or Tutanota, that
+promise "encrypted email" in transit or storage. Online systems can
+still be broken by an attacker capable of exploiting JavaScript flaws or
+undermining certificate authorities that provide encryption certificates
+for websites; see <a href="../E-Mail/#Webmail">Webmail</a>.
+Further, online providers can be hacked or coerced by adversaries to
+provide access for extended periods.</p>
+<p>To minimize these risks and improve security, the following guide
+uses a suitable <a href="../E-Mail/#Email_Clients">Desktop
+Email Client</a> instead of webmail, paired with strong, end-to-end
+encryption that protects the contents so it can only be read by the
+intended recipient. Further, a strong encryption key-pair is created so
+the user has strict control over the private key, which is stored
+securely. Keep in mind this method does not make email infallible --
+advanced adversaries can easily penetrate Internet-facing endpoints of
+targets with today's cutting-edge surveillance and offensive systems.
+Also, mistakes or poor security practices on behalf of the email
+recipient can inadvertently lead to disclosures of plaintext.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+<strong>Tip:</strong> If possible, critical information that is of high
+value should not traverse computer networks at all, or even risk
+exposure to Internet-facing computers. <sup class="reference"><a href="#cite_note-2">[2]</a></sup> High-risk
+users might also consider creating an <a href="../Moved:Air_Gapped_OpenPGP_Key/">airgapped OpenPGP key pair</a> rather than relying on
+Thunderbird as per these instructions.</p>
+</div>
+<h2 id="Overview">Overview</h2>
+<p>The following guide provides steps to:</p>
+<ol>
+<li>Install the Thunderbird email client.</li>
+<li>Visit your suitable email provider website anonymously via Tor
+Browser (Preferable if it support onion hidden services).</li>
+<li>Create your login password and store the credentials in <a href="https://packages.debian.org/trixie/keepassxc">KeePassXC</a>
+(optional). <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+<li>Setup the new email account: Thunderbird account settings, and
+enforce connections to the email provider's Onion Service.</li>
+<li>Create an OpenPGP encryption key pair and revocation certificate
+using the Thunderbird Setup Wizard.</li>
+<li>Encrypt and store the revocation certificate securely.</li>
+<li>Configure Thunderbird preferences for greater security and
+anonymity.</li>
+<li>Configure additional OpenPGP preferences.</li>
+<li>Key management: import GPG public keys.</li>
+<li>Export the public key to a GPG key server (optional).</li>
+<li>Prepare an email signature with the public GPG key ID and
+fingerprint (optional).</li>
+<li>Compose and send a test encrypted email</li>
+<li>Open an encrypted email received in Thunderbird.</li>
+</ol>
+<h2 id="Warnings">Warnings</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Due to email's design, it is a very insecure system where privacy and
+anonymity are concerned. Use it sparingly, and only with great
+discipline and caution.</p>
+</div>
+<p>Operational security is imperative to maintain the integrity of
+properly encrypted email. Consider the following scenarios which would
+allow an adversary access to the plaintext or other metadata that might
+help deanonymize a user:</p>
+<ul>
+<li>Even if all email sent to a recipient is encrypted, if the recipient
+fails to encrypt the email response, then adversaries will be able to
+read the message and likely a quote of the original one sent.</li>
+<li>The names of email recipients cannot be encrypted and are therefore
+visible to adversaries. The subject line and references email header
+will also be visible in the following configuration.</li>
+<li>There are several different types of <a href="https://web.archive.org/web/20170823095126/https://easycrypt.co/email-privacy-crash-course-part-3-metadata-and-anonymity/">metadata</a>
+that can be harvested from email, depending on how it is used.
+Therefore, users must be careful when relying on email for sensitive
+communications.</li>
+</ul>
+<h2 id="Glossary">Glossary</h2>
+<p>Terms that are commonly used in reference to email encryption are
+outlined below.</p>
+<table>
+<caption><em>Email Encryption Terms</em> <sup class="reference"><a href="#cite_note-4">[4]</a></sup></caption>
+<thead>
+<tr class="header">
+<th><p>Term</p></th>
+<th><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Key Pair</p></td>
+<td><p>A pair of asymmetric keys, commonly known as public and private
+keys.</p></td>
+</tr>
+<tr class="even">
+<td><p>Public Key</p></td>
+<td><p>The half of a key pair that is distributed publicly and used for
+encrypting.</p></td>
+</tr>
+<tr class="odd">
+<td scope="row"><p>Private Key</p></td>
+<td><p>The half of a key pair that is kept secret, and is used for
+decryption.</p></td>
+</tr>
+<tr class="even">
+<td scope="row"><p>Key Server</p></td>
+<td><p>A server or website used for the distribution and verification of
+public keys.</p></td>
+</tr>
+<tr class="odd">
+<td scope="row"><p>Integrity</p></td>
+<td><p>A verification that the enclosed contents have not been tampered
+with in transit.</p></td>
+</tr>
+<tr class="even">
+<td scope="row"><p>Confidentiality</p></td>
+<td><p>A verification that the enclosed contents are unreadable, except
+for the intended recipient.</p></td>
+</tr>
+<tr class="odd">
+<td scope="row"><p>Authentication</p></td>
+<td><p>A verification that the person who is sending / signing is who
+they say they are.</p></td>
+</tr>
+<tr class="even">
+<td scope="row"><p>Non-repudiation</p></td>
+<td><p>Assurance that nobody, including the author, can dispute the
+origin of the message itself.</p></td>
+</tr>
+<tr class="odd">
+<td scope="row"><p>Asymmetric Keys</p></td>
+<td><p>Commonly referred to as a 'keypair'. It is two separate keys: one
+public, one private.</p></td>
+</tr>
+<tr class="even">
+<td scope="row"><p>Symmetric Keys</p></td>
+<td><p>Symmetric encryption depends on using a password to encrypt the
+single key used for both encryption and decryption.</p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Warning: Unless otherwise instructed to do so, manual installation of
+packages should be avoided, even trusted ones. <sup class="reference"><a href="#cite_note-5">[5]</a></sup> To
+install software users should prefer the APT secure package manager. For
+more information on this, See:
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<h1 id="Install_the_Thunderbird_Email_Client">Install the Thunderbird
+Email Client</h1>
+<p>For users that would like to learn more about Thunderbird refer to
+the <a href="https://support.mozilla.org/en-US/products/thunderbird">official
+support page</a>. However, modifications should not be made to
+Thunderbird unless you know what you are doing.</p>
+<p>The Thunderbird email client can be installed from the terminal using
+<code>APT</code> secure package manager.</p>
+<p>In Whonix-Workstation<sup>&#8482;</sup> (<code>whonix-workstation-18</code>
+Template <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>)
+konsole, run.</p>
+<p><span class="code-select">sudo apt install thunderbird</span></p>
+<p>Sequoia-PGP. Optional.</p>
+<p><span class="code-select">sudo apt install
+libsequoia-octopus-librnp</span></p>
+<p><u>Note:</u> If the following output appears Thunderbird is already
+installed and no further action is needed.</p>
+<pre><code>Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+thunderbird is already the newest version.</code></pre>
+<h1 id="Create_a_New_Email_Account_with_Tor_Browser">Create a New Email
+Account with Tor Browser</h1>
+<h2 id="Choose_an_Appropriate_Email_Provider">Choose an Appropriate
+Email Provider</h2>
+<p>First and foremost, there are multiple email providers that users can
+choose from. For the purpose of this tutorial,
+<code>danwin1210.de</code> is used as an example. This is not an
+endorsement (<a href="../Terms_of_Service/#Non-Endorsement">terms of service non-endorsement</a>) for
+<code>danwin1210.de</code>. No e-mail providers are explicitly
+recommended by the Whonix team. The Whonix project is not an e-mail
+provider review project that recommend specific e-mail providers. Refer
+to the list of <a href="../E-Mail/#Anonymity_Friendly_Email_Provider_List">Anonymity Friendly Email Provider List</a> for possible
+alternatives. If problems are experienced with
+<code>danwin1210.de</code>, refer to the <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/EmailProvider">list
+of providers by The Tor Project</a>, <a href="../E-Mail/#Email_Provider_Comparison">Whonix</a> or
+<a href="https://web.archive.org/web/20210511003745/https://anonymous-proxy-servers.net/en/help/email-provider.html">JonDonym</a>.</p>
+<p>At the time of writing, <code>danwin1210.de</code> is one of the few
+free and reliable email providers offering POP3 email access through an
+<code>.onion</code> address, which does not require additional
+verification details to register an account. You will have 25MB of disk
+space available for your emails. For more details regarding the features
+and offerings of <code>danwin1210.de</code>, visit <a href="http://danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/">http://danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/</a>.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+Never forget this is an <a href="../Onion_Services/#How_Onion_Services_Connections_Work">Onion Service</a> which means there is no way of
+determining who is running it. If GPG is not used to encrypt email
+and/or the recipient of email does not encrypt it either, <u>it can be
+easily read by the email service provider, random computers on the
+internet that relay a sent email message, or anyone else who manages to
+gain access to the account!</u></p>
+</div>
+<h2 id="Registration_Steps">Registration Steps</h2>
+<div class="info-box ">
+<p><strong>1.</strong> Create an email account name and password for the
+mail provider.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+When creating an account and password do not use <a href="../Tips_on_Remaining_Anonymous/#Always_Withhold_your_Identifying_Data">identifying or familiar data</a> in either! Also
+consider the <a href="../Moved:Passwords/#Principles_for_Stronger_Passwords">principles for stronger passwords</a> and the option of
+lengthy <a href="../Moved:Passwords/#Generating_Unbreakable_Passwords">Diceware passphrases</a>.</p>
+</div>
+<ul>
+<li>When the page opens, open up KeePassXC and create an account and
+password entry for your new email account. Alternatively, write it down
+at home and store it in a safe place.</li>
+<li>When finished creating your Email Name/Username and password in
+KeePassXC, Follow these steps:</li>
+</ul>
+<p><strong>Figure:</strong> <em>Email Registration</em></p>
+<p><img src="../../media/Thunderbird1.png.webp" width="600" alt="Thunderbird1.png" /></p>
+<p><strong>2.</strong> Confirm successful creation of the anonymous
+account.</p>
+<p><strong>Figure:</strong> <em>Account Confirmation</em></p>
+<p><img src="../../media/Thunderbird2.png.webp" width="600" alt="Thunderbird2.png" /></p>
+<p><strong>3.</strong> Close Tor Browser</p>
+<p>Since the email account is created, Tor Browser can be closed.</p>
+</div>
+<h1 id="Setup_the_New_Email_Account_in_Thunderbird">Setup the New Email
+Account in Thunderbird</h1>
+<div class="info-box ">
+<p><strong>1.</strong> Open Thunderbird.</p>
+<ul>
+<li><u>Non-Qubes-Whonix</u>: <code>Click the start menu button</code> &#8594;
+<code>Search and select Thunderbird</code></li>
+<li><u>Qubes-Whonix</u>: <code>Click the blue "Q" button</code> &#8594;
+<code>Click on anon-whonix</code> &#8594;
+<code>Select "Thunderbird"</code></li>
+</ul>
+<p><strong>Figure:</strong> <em>Thunderbird Email Client
+(Non-Qubes-Whonix)</em></p>
+<p><img src="../../media/Tempestupdate5.png.webp" alt="Tempestupdate5.png" /></p>
+<p><strong>2.</strong> Set up the Email Account.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>IMPORTANT NOTE:</strong> Thunderbird does not store passwords in
+an encrypted format. Therefore, if Whonix-Workstation
+(<code>anon-whonix</code>) is compromised, an attacker may be able to
+gain access to the email account if they view Thunderbird's unencrypted
+password storage file.</p>
+</div>
+<p>The first window that will appear upon running Thunderbird for the
+first time will prompt you to "Set Up an Existing Email Account." Follow
+these steps:</p>
+<ul>
+<li>Type the alias/username that you created in the field "Your name."
+This will appear next to your email address in emails you send to
+others.</li>
+<li>Type the <code>danwin1210.de</code> onion email address you just
+created into the field "Email address." example
+<code>youremailusername@danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion</code>
+<ul>
+<li>In case you will use the clearnet version then your email going to
+be <code>youremailusername@danwin1210.de</code></li>
+</ul></li>
+<li>Paste your newly created password.</li>
+<li>Finally, Tick "remember password" (Better user friendly method) and
+click the "Configure Manually" button.</li>
+</ul>
+<p><strong>Figure:</strong> <em>Email Account Set Up</em></p>
+<p><img src="../../media/Thunderbird3.png.webp" width="600" alt="Thunderbird3.png" /></p>
+<p><strong>3.</strong> Configure Email Incoming (POP3) and Outgoing
+(SMTP) Connection.</p>
+<p>You need to configure Thunderbird to connect to the hidden server
+(onion service) of <code>danwin1210.de</code>. The fields you need to
+change are:</p>
+<ul>
+<li>Protocol: Pick POP3, avoid the usage of IMAP as this makes you more
+exposed into the internet (as it require persistent connection to
+function properly), drain your account limited capacity storage (which
+way much less than your own operating system available storage).</li>
+<li>Type
+<code>danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion</code>
+in the field next to "Hostname"</li>
+<li>Type <code>995</code> into "Port" field.</li>
+<li>Choose "SSL/TLS" for "Connect security".
+<ul>
+<li>Avoid the usage of <a href="https://nostarttls.secvuln.info/">STARTTLS</a></li>
+<li>Some email (onion) providers doesnt add TLS/SSL for their onion
+domain, if so then its fine to choose "None" as an option because all
+communications to onion domains are encrypted. Therefore, your password
+is not transmitted insecurely (but in our case
+<code>danwin1210.de</code> is using self signed TLS/SSL
+certificate).</li>
+</ul></li>
+<li>Choose "Normal Password" for "Authentication Method".
+<ul>
+<li>In case there was no TLS/SSL support for your email onion service
+its fine to choose "Password, transmitted insecurely" (but in our case
+<code>danwin1210.de</code> onion service support TLS/SSL).</li>
+</ul></li>
+<li>Type the email user name you have chosen earlier into the field next
+to "UserName".</li>
+</ul>
+<p><strong>Figure:</strong> <em>Thunderbird Server
+Configuration</em></p>
+<p><img src="../../media/Thunderbird4.png.webp" width="600" alt="Thunderbird4.png" /></p>
+<ul>
+<li>Press on "Confirm Security Exception" its safe to confirm it because
+this is self-signed certificate</li>
+</ul>
+<p><strong>Figure:</strong> <em>Confirm Self-Signed TLS/SSL inside
+Thunderbird</em></p>
+<p><img src="../../media/Thunderbird5.png.webp" width="600" alt="Thunderbird5.png" /></p>
+<p>Your account is now successfully connected with thunderbird.</p>
+</div>
+<h1 id="Create_an_OpenPGP_Key_Pair_and_Revocation_Certificate">Create an
+OpenPGP Key Pair and Revocation Certificate</h1>
+<p>There are two methods for creating an OpenPGP key pair and revocation
+certificate -- using either the Thunderbird OpenPGP Setup Wizard, or
+manually creating them from the command line. The easier Thunderbird
+OpenPGP method is outlined below, but the <a href="../Moved:Air_Gapped_OpenPGP_Key/">manual creation of
+stronger keys from the command line</a> is recommended for advanced
+users or those at high risk.</p>
+<h2 id="Create_an_OpenPGP_Key_Pair_by_Thunderbird">Create an OpenPGP Key
+Pair by Thunderbird</h2>
+<ul>
+<li>After successfully linked your account with thunderbird click on
+"End-to-end encryption".</li>
+</ul>
+<p><img src="../../media/Thunderbird6.png.webp" width="600" alt="Thunderbird6.png" /></p>
+<ul>
+<li>If you missed that, you can press on your email then "End-to-end
+encryption" option will show up.</li>
+</ul>
+<p><img src="../../media/Thunderbird6-1.png.webp" width="600" alt="Thunderbird6-1.png" /></p>
+<ul>
+<li>Press on "Add Key..." Option.</li>
+</ul>
+<p><img src="../../media/Thunderbird7.png.webp" width="600" alt="Thunderbird7.png" /></p>
+<ul>
+<li>Since we are creating new fresh keys, choose "Create a new OpenPGP
+Key" then press "Continue".</li>
+</ul>
+<p><img src="../../media/Thunderbird8.png.webp" width="600" alt="Thunderbird8.png" /></p>
+<ul>
+<li>For better usability we gonna choose "Key does not expire" option,
+though you can later change that to whatever suits you.</li>
+<li>We are going to choose the most common key type and size options
+which are RSA with 4096 (Other option provided by thunderbird is
+ECC).</li>
+</ul>
+<p><img src="../../media/Thunderbird9.png.webp" width="600" alt="Thunderbird9.png" /></p>
+<ul>
+<li>Make sure to read the info message then press on "Confirm".</li>
+</ul>
+<p><img src="../../media/Thunderbird10.png.webp" width="500" alt="Thunderbird10.png" /></p>
+<ul>
+<li>After waiting for short time your keys are now successfully created
+for your account.</li>
+</ul>
+<p><img src="../../media/Thunderbird11.png.webp" width="600" alt="Thunderbird11.png" /></p>
+<ul>
+<li>Scroll down in the same page then choose "Enable encryption for new
+messages" (This will require to have recipient OpenPGP key otherwise
+messages wont be encrypted).</li>
+<li>"Sign unencrypted messages" and "Attach my public key when adding an
+OpenPGP digital signature" are for better authenticity and usability but
+they are left to the user to decide.</li>
+<li>Make sure these options are ticked "Encrypt the subject of OpenPGP
+messages" and "Store draft messages in encrypted format"</li>
+</ul>
+<p><img src="../../media/Thunderbird12.png.webp" width="600" alt="Thunderbird12.png" /></p>
+<h2 id="Export_and_Store_your_Keys">Export and Store your Keys</h2>
+<div class="info-box ">
+<p><strong>1.</strong> Go to "End-to-end encryption".</p>
+<p><img src="../../media/Thunderbird6-1.png.webp" width="500" alt="Thunderbird6-1.png" /></p>
+<p><strong>2.</strong> Then press on "OpenPGP Key Manager".</p>
+<p><img src="../../media/Thunderbird13.png.webp" width="600" alt="Thunderbird13.png" /></p>
+<p><strong>3.</strong> Then press on your email (highlight it) if there
+is more than one email then "File".</p>
+<p><img src="../../media/Thunderbird14.png.webp" width="600" alt="Thunderbird14.png" /></p>
+<p><strong>4.</strong> Then Export your Public and Secret Keys for
+backup as your public key used by the recipients to encrypt messages and
+secret key used for decrypting messages (Make sure to save them in a
+secure place, otherwise anybody can decrypt and read your encrypted
+emails if your secret key lost).</p>
+<p><img src="../../media/Thunderbird15.png.webp" width="600" alt="Thunderbird15.png" /></p>
+<p><strong>5.</strong> At the moment thunderbird doesn't give UI way to
+export your revoke key <sup class="reference"><a href="#cite_note-6">[6]</a></sup> <sup class="reference"><a href="#cite_note-7">[7]</a></sup>, But you
+can revoke your key from "OpenPGP Key Manager" (Read the warning
+message, don't proceed unless you really want to get rid/change of your
+current key).</p>
+<p><img src="../../media/Thunderbird16.png.webp" width="600" alt="Thunderbird16.png" /></p>
+<p><img src="../../media/Thunderbird17.png.webp" width="600" alt="Thunderbird17.png" /></p>
+</div>
+<h2 id="Encrypt_the_Revocation_Certificate">Encrypt the Revocation
+Certificate</h2>
+<p>The revocation certificate can be encrypted and stored in the
+persistent storage directory. The GPG revocation certificate can be used
+to revoke the public encryption key that is added to key servers, even
+if access to the GPG secret key is lost or the password is
+forgotten.</p>
+<p>If an attacker accesses the GPG revocation certificate, they can
+revoke the keys. Encrypting the GPG revocation certificate with a
+passphrase will protect against this action.</p>
+<p>At the moment of writing there isn't a UI/graphical friendly way of
+doing this through thunderbird <sup class="reference"><a href="#cite_note-8">[8]</a></sup>.</p>
+<p>As encryption tool you can use <a href="https://packages.debian.org/stable/zulucrypt-gui">zulucrypt</a> as
+an example (installed by default in Whonix).</p>
+<h1 id="Final_Thunderbird_and_Email_Account_Settings">Final Thunderbird
+and Email Account Settings</h1>
+<h2 id="Configure_Thunderbird_Folders_from_Account_Settings">Configure
+Thunderbird Folders from Account Settings</h2>
+<div class="info-box ">
+<p><strong>1.</strong> Go to your "Account Settings"</p>
+<p><img src="../../media/Thunderbird18.png.webp" width="600" alt="Thunderbird18.png" /></p>
+<p><strong>2.</strong> Click on "Copies &amp; Folders" in the left
+column. Each option to change is highlighted in red in the figure
+below:</p>
+<ul>
+<li>In the pull down menu next to "Sent Folder on", select "Local
+Folders."</li>
+<li>In the pull down menu next to "Archives Folder on", select "Local
+Folders."</li>
+<li>In the pull down menu next to "Drafts Folder on", select "Local
+Folders."</li>
+<li>In the pull down menu next to "Templates Folder on", select "Local
+Folders."</li>
+<li>Check the box next to "Show confirmation dialog when messages are
+saved."</li>
+</ul>
+<p><strong>Figure:</strong> <em>Folder Configuration</em></p>
+<p><img src="../../media/Thunderbird19.png.webp" width="600" alt="Thunderbird19.png" /></p>
+<p><img src="../../media/Thunderbird20.png.webp" width="600" alt="Thunderbird20.png" /></p>
+<p><strong>3.</strong> (<strong>Optional</strong>) Empty Thunderbird
+trash on exit.</p>
+<p>Click on "Local Folders" in the left column. Then, check the box next
+to "Empty trash on exit."</p>
+<p><strong>Figure:</strong> <em>Empty Local Folders</em></p>
+<p><img src="../../media/Thunderbird21.png.webp" width="600" alt="Thunderbird21.png" /></p>
+</div>
+<h2 id="General_Thunderbird_Settings">General Thunderbird Settings</h2>
+<div class="info-box ">
+<p><strong>1.</strong> Set the Menu Bar.</p>
+<ul>
+<li>Right-Click in the empty top bar of thunderbird.</li>
+<li>Then tick "Menu Bar"</li>
+</ul>
+<p><strong>Figure:</strong> <em>Thunderbird Menu Bar</em></p>
+<p><img src="../../media/Thunderbird22.png.webp" width="600" alt="Thunderbird22.png" /></p>
+<p><strong>2.</strong> Access Thunderbird Settings.</p>
+<ul>
+<li>In the menu bar, click on "Edit" and then click "Settings".</li>
+<li>Or press the cog icon which will lead you to "Settings" as
+well.</li>
+</ul>
+<p><strong>Figure:</strong> <em>Thunderbird Preferences</em></p>
+<p><img src="../../media/Thunderbird23.png.webp" width="600" alt="Thunderbird23.png" /></p>
+<p><strong>3.</strong> Disable the return receipt function.</p>
+<ul>
+<li>Scroll down then press on "Return Receipts..."</li>
+<li>In the next window that appears, mark the circle next to "Never send
+a return receipt." Then, click the "OK" button.</li>
+</ul>
+<p><strong>Figure:</strong> <em>Disable Return Receipts</em></p>
+<p><img src="../../media/Thunderbird24.png.webp" width="600" alt="Thunderbird24.png" /></p>
+<p><img src="../../media/Thunderbird25.png.webp" width="600" alt="Thunderbird25.png" /></p>
+<p><strong>4.</strong> (Optional) Receive confirmation mail when message
+sent to the recipient</p>
+<ul>
+<li>From "General" scroll down to "Config Editor..."</li>
+<li>Search for <code>mail.dsn.always_request_on</code></li>
+<li>Double click on it to turn it from <code>false</code> to
+<code>true</code></li>
+<li>You will receive "Successful Mail Delivery Report" after sending
+successful message.</li>
+</ul>
+<p><img src="../../media/Thunderbirddsn.png.webp" width="600" alt="Thunderbirddsn.png" /></p>
+<p><img src="../../media/Thunderbirddsn2.png.webp" width="600" alt="Thunderbirddsn2.png" /></p>
+<p><img src="../../media/Thunderbirddsn3.png.webp" width="600" alt="Thunderbirddsn3.png" /></p>
+<p><strong>5.</strong> Send and receive plain text messages.</p>
+<ul>
+<li>One of <a href="https://efail.de/">Efail</a> prevention is to avoid
+HTML messages all together</li>
+<li>Click on "Composition" then choose "Only Plain Text".</li>
+<li>From Menu Bar click on "View" then "Message Body As" then tick
+"Plain Text".</li>
+</ul>
+<p><strong>Figure:</strong> <em>Plain Text Messages</em></p>
+<p><img src="../../media/Thunderbird25-1.png.webp" width="600" alt="Thunderbird25-1.png" /></p>
+<p><img src="../../media/Thunderbird25-2.png.webp" width="600" alt="Thunderbird25-2.png" /></p>
+<p><strong>6.</strong> Disable website history and Sites cookies.</p>
+<ul>
+<li>Next, click the "Privacy &amp; Security" button. Then, untick the
+box next to "Remember websites and links I've visited" and "Accept
+cookies from sites".</li>
+</ul>
+<p><strong>Figure:</strong> <em>Modify Privacy Settings</em></p>
+<p><img src="../../media/Thunderbird26.png.webp" width="600" alt="Thunderbird26.png" /></p>
+</div>
+<h2 id="Import_Public_Keys_(From_File)">Import Public Keys (From
+File)</h2>
+<div class="info-box ">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Always search with the long fingerprint of a GPG key in the key manager
+-- short or even long key IDs can be forged. <sup class="reference"><a href="#cite_note-9">[9]</a></sup>. The
+results are more secure and work more often. Everyone who shares a
+public GPG key should share a long fingerprint.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Important:</strong> It is critical to verify any GPG public key
+that is added to the keyring with a fingerprint provided by the person
+you intend to communicate with.</p>
+</div>
+<p>Import GPG public key of an intended email recipient keys into
+Thunderbird:</p>
+<ul>
+<li>Go to "End-to-end encryption"</li>
+</ul>
+<p><img src="../../media/Thunderbird6-1.png.webp" width="600" alt="Thunderbird6-1.png" /></p>
+<ul>
+<li>Then press on "OpenPGP Key Manager"</li>
+</ul>
+<p><img src="../../media/Thunderbird13.png.webp" width="600" alt="Thunderbird13.png" /></p>
+<ul>
+<li>Go to "File" then choose "Import Public Key(s) From File"</li>
+</ul>
+<p><img src="../../media/Thunderbird27.png.webp" width="600" alt="Thunderbird27.png" /></p>
+<ul>
+<li>Go to the path that where the public key is located and double-click
+it</li>
+</ul>
+<p><img src="../../media/Thunderbird28.png.webp" width="600" alt="Thunderbird28.png" /></p>
+<ul>
+<li>It will show you key fingerprint, if you can verify/sure that the
+person with this fingerprint match what you have added then press on
+"Accepted (unverified)" otherwise use the default "Not Accepted
+(Undecided)"</li>
+</ul>
+<p><img src="../../media/Thunderbird29.png.webp" width="600" alt="Thunderbird29.png" /></p>
+<ul>
+<li>Key is now imported successfully, if you want to change the
+acceptance level press on "View Details and and manage key
+acceptance"</li>
+</ul>
+<p><img src="../../media/Thunderbird30.png.webp" width="600" alt="Thunderbird30.png" /></p>
+<ul>
+<li>See which option do you prefer to choose for the added keys</li>
+</ul>
+<p><img src="../../media/Thunderbird30-1.png.webp" width="600" alt="Thunderbird30-1.png" /></p>
+</div>
+<h1 id="Compose_and_Send_Encrypted_Email">Compose and Send Encrypted
+Email</h1>
+<div class="info-box ">
+<p><strong>1.</strong> Compose a new email message.</p>
+<ul>
+<li>Press on "Write"</li>
+</ul>
+<p><img src="../../media/Thunderbird31-1.png.webp" width="600" alt="Thunderbird31-1.png" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
+Since the <code>danwin1210.de</code> email service is hosted on the
+<code>.onion</code> Tor server
+<code>danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion</code>
+you are going to send an email to the <code>.onion</code> domain. This
+keeps the transit of the email inside the Tor network, which is safer
+than transporting it in the clear. If an email provider of someone you
+want to send an email to uses a <code>.onion</code> domain, always use
+that domain in the <code>To</code> field if possible.</p>
+</div>
+<p><strong>2.</strong> Send the email message.</p>
+<ul>
+<li>Make sure padlock "Encrypt" is active.</li>
+<li>Press on the down arrow near "OpenPGP" then make sure "Encrypt" and
+"Encrypt Subject" are ticked.</li>
+<li><strong>Optional</strong> For the authenticity and easiness:
+<ul>
+<li>Tick "Digitally Sign".</li>
+<li>Tick "My OpenPGP Public Key" from "Attachment".</li>
+</ul></li>
+<li>When the message is ready, click the "Send" button (preferable to
+just send small message without details for testing purposes as a
+beginner).</li>
+</ul>
+<p><img src="../../media/Thunderbird31.png.webp" width="600" alt="Thunderbird31.png" /></p>
+<p><img src="../../media/Thunderbird31-2.png.webp" width="600" alt="Thunderbird31-2.png" /></p>
+<p><strong>3.</strong> How the message will look like on recipient
+side.</p>
+<ul>
+<li>To receive new messages click "Get Messages"</li>
+<li>OpenPGP with green tick and padlock mean the message encrypted.</li>
+<li>@danwin1210.de mean the message sent over clearnet.</li>
+</ul>
+<p><img src="../../media/Thunderbird32-1.png.webp" width="600" alt="Thunderbird32-1.png" /></p>
+<p><img src="../../media/Thunderbird32.png.webp" width="600" alt="Thunderbird32.png" /></p>
+<p><strong>4.</strong> Recipient importing key attached by email.</p>
+<ul>
+<li>Right-Click on the attachment then choose "Import OpenPGP Key"</li>
+<li>Then check steps explained in <a href="./#Import_Public_Keys_(From_File)">Import Public Keys</a>.</li>
+</ul>
+<p><img src="../../media/Thunderbird33.png.webp" width="600" alt="Thunderbird33.png" /></p>
+<p><img src="../../media/Thunderbird34.png.webp" width="600" alt="Thunderbird34.png" /></p>
+</div>
+<h2 id="Add_User_ID_to_Key_Properties">Add User ID to Key
+Properties</h2>
+<div class="info-box ">
+<p>Undocumented</p>
+</div>
+<h2 id="Export_the_Public_Key_to_a_GPG_Server">Export the Public Key to
+a GPG Server</h2>
+<div class="info-box ">
+<p>Undocumented</p>
+</div>
+<h1 id="Using_Thunderbird_with_the_System_GnuPG_Keyring">Using
+Thunderbird with the System GnuPG Keyring</h1>
+<div class="info-box ">
+<p>Undocumented</p>
+</div>
+<h1 id="Final_Warnings">Final Warnings</h1>
+<p>If all steps have been successfully completed then you now have an
+anonymous email account paired with strong encryption.</p>
+<p>It should be emphasized this wiki entry is not a substitute for an
+all-inclusive tutorial on the safest way to use GPG/PGP encryption,
+however it provides a solid foundation for fundamental practices.
+Numerous advanced resources and expert opinions exist on the Internet,
+and these can provide additional tips that might better address a user's
+perceived threat model and circumstances. <sup class="reference"><a href="#cite_note-10">[10]</a></sup> At a
+minimum, it is recommended to review the <a href="../E-Mail/#Safe_Email_Principles">Safe Email
+Principles</a> section, along with <a href="#Further_Reading">additional learning resources</a>.</p>
+<p>Finally, always heed the following warnings regarding email:</p>
+<ul>
+<li>Email is a <em>very insecure</em> means of communication where
+anonymity is concerned. A lot of metadata is leaked with email, so it
+should be used sparingly and only when strictly necessary.</li>
+<li>Do not contact people you know in real life at non-anonymous email
+addresses with the email account that was created here. Always separate
+real world identities from online identities used with Whonix.</li>
+<li>Be circumspect about sharing personal information in email!
+Encrypted email does not protect against the email recipient storing
+personal emails in an unencrypted format. Nor does encryption protect
+against an email recipient maliciously using personal information in
+order to exploit you.</li>
+<li>If an email is sent to a recipient without encryption, assume it can
+be read by anyone!</li>
+<li>Utilize the Tor Onion Service (.onion domain) whenever it is made
+available by the email provider. After first confirming the domain is
+controlled by the email provider, it will afford greater protection than
+a clearnet address.</li>
+</ul>
+<h1 id="Further_Reading">Further Reading</h1>
+<p>Interested readers can refer to the following additional resources on
+GPG, GPA, and safe email practices:</p>
+<ul>
+<li><a href="https://www.gnupg.org/documentation/">GnuPG
+documentation</a></li>
+<li><a href="https://www.gnupg.org/software/gpa/index.html">GPA
+Upstream</a></li>
+<li><a href="../Moved:OpenPGP/"> OpenPGP key distribution
+strategies</a></li>
+<li><a href="https://help.riseup.net/en/security/message-security/openpgp/best-practices">Best
+Practices</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://github.com/Whonix/anon-apps-config/tree/master/etc/thunderbird">https://github.com/Whonix/anon-apps-config/tree/master/etc/thunderbird</a></li>
+<li id="cite_note-2">Similarly, that same information should not be stored on electronic
+media in the first place, if that is feasible in the circumstances.</li>
+<li id="cite_note-3">Installed by default in Whonix 15.</li>
+<li id="cite_note-4">Source:<br />
+<a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/GnuPG">torproject.org
+Gnu Privacy Guard / GnuPG</a><br />
+<a href="https://www.torproject.org/about/trademark/">license</a>:<br />
+Content on this site is Copyright The Tor Project, Inc.. Reproduction of
+content is permitted under a <a href="https://creativecommons.org/licenses/by/3.0/us/">Creative Commons
+Attribution 3.0 United States License</a>. All use under such license
+must be accompanied by a clear and prominent attribution that identifies
+The Tor Project, Inc. as the owner and originator of such content. The
+Tor Project Inc. reserves the right to change licenses and permissions
+at any time in its sole discretion.</li>
+<li id="cite_note-5">This is because packages are often unsigned, and users may forget to
+update the software in a timely fashion.</li>
+<li id="cite_note-6"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1657901">https://bugzilla.mozilla.org/show_bug.cgi?id=1657901</a></li>
+<li id="cite_note-7"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1722825">https://bugzilla.mozilla.org/show_bug.cgi?id=1722825</a></li>
+<li id="cite_note-8"><a href="https://thunderbird.topicbox.com/groups/e2ee/Tb249a2dc3984e8e3/getting-the-revoke-certificate">https://thunderbird.topicbox.com/groups/e2ee/Tb249a2dc3984e8e3/getting-the-revoke-certificate</a></li>
+<li id="cite_note-9">Due to the threat of collisions, see: <a href="https://superuser.com/questions/769452/what-is-a-openpgp-gnupg-key-id">https://superuser.com/questions/769452/what-is-a-openpgp-gnupg-key-id</a></li>
+<li id="cite_note-10">For instance, users at high risk might generate a strong <a href="../Moved:Air_Gapped_OpenPGP_Key/">airgapped OpenPGP key
+pair</a> on the command line for greater security, rather than rely on
+Thunderbird.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

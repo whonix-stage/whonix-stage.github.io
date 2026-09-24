@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/vanguards</title>
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/vanguards/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/vanguards/">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>vanguards</span></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p>design for notification GUI</p>
+<ul>
+<li>systray
+<ul>
+<li>with two buttons:
+<ul>
+<li>show logs</li>
+<li>clear logs</li>
+</ul></li>
+<li>with two colors
+<ul>
+<li>yellow (new logs)</li>
+<li>green (no new logs)</li>
+</ul></li>
+</ul></li>
+<li>Show only messages of type WARN.</li>
+<li>advice users to scrub relay fingerprints - how - where?</li>
+</ul>
+<hr />
+<ul>
+<li><a href="https://www.linux.com/news/open-source-logging-tools-linux/">https://www.linux.com/news/open-source-logging-tools-linux/</a></li>
+<li><a href="https://packages.debian.org/stable/gnome/gnome-logs">https://packages.debian.org/stable/gnome/gnome-logs</a></li>
+<li><a href="https://screenshots.debian.net/package/glogg">https://screenshots.debian.net/package/glogg</a></li>
+<li><a href="https://askubuntu.com/questions/20173/gui-for-watching-logs-tail-and-grep">https://askubuntu.com/questions/20173/gui-for-watching-logs-tail-and-grep</a></li>
+</ul>
+<pre><code>~/vanguards $ grep -A 2 -r &quot;plog&quot;
+
+src/vanguards/vanguards.py:    plog(&quot;INFO&quot;, &quot;Honoring ExcludeNodes line: &quot;+conf_line)
+src/vanguards/vanguards.py:      plog(&quot;INFO&quot;, &quot;Excluding networks &quot;+str(self.networks))
+src/vanguards/vanguards.py:      plog(&quot;INFO&quot;, &quot;Excluding idhexes &quot;+str(self.idhexes))
+src/vanguards/vanguards.py:      plog(&quot;INFO&quot;, &quot;Excluding nicks &quot;+str(self.nicks))
+src/vanguards/vanguards.py:        plog(&quot;WARN&quot;, &quot;ExcludeNodes contains countries, but Tor has no GeoIP file! &quot;+
+src/vanguards/vanguards.py-             &quot;Tor is not excluding countries!&quot;)
+src/vanguards/vanguards.py:        plog(&quot;INFO&quot;, &quot;Excluding countries &quot;+str(self.countries))
+src/vanguards/vanguards.py:      plog(&quot;ERROR&quot;,
+src/vanguards/vanguards.py-           &quot;You must set a DataDirectory location option in your torrc.&quot;)
+
+src/vanguards/vanguards.py:      plog(&quot;ERROR&quot;, &quot;Cannot write state to &quot;+self.state_file+&quot;: &quot;+str(e))
+src/vanguards/vanguards.py:      plog(&quot;NOTICE&quot;, &quot;Tor got SIGHUP. Reapplying vanguards.&quot;)
+src/vanguards/vanguards.py:      plog(&quot;ERROR&quot;,
+src/vanguards/vanguards.py-           &quot;Vanguards requires Tor 0.3.3.x (and ideally 0.3.4.x or newer).&quot;)
+src/vanguards/vanguards.py:    plog(&quot;INFO&quot;, &quot;New layer2 guard: &quot;+guard.fingerprint)
+src/vanguards/vanguards.py:    plog(&quot;INFO&quot;, &quot;New layer3 guard: &quot;+guard.fingerprint)
+src/vanguards/vanguards.py:        plog(&quot;INFO&quot;, &quot;Removing newly-excluded guard &quot;+g.idhex)
+src/vanguards/vanguards.py:        plog(&quot;INFO&quot;, &quot;Removing expired guard &quot;+g.idhex)
+src/vanguards/vanguards.py:        plog(&quot;INFO&quot;, &quot;Removing down guard &quot;+g.idhex)
+src/vanguards/logger.py:    plog(&quot;ERROR&quot;, &quot;Invalid loglevel: &quot;+str(level))
+src/vanguards/logger.py:    plog(&quot;ERROR&quot;, &quot;Can&#39;t open log file &quot;+str(filename)+&quot;: &quot;+str(e))
+src/vanguards/cbtverify.py:      plog(&quot;ERROR&quot;, &quot;Circuit &quot;+event.id+&quot; just changed from non-HS to HS: &quot;\
+src/vanguards/cbtverify.py-                   +event.raw_content())
+src/vanguards/cbtverify.py:    plog(&quot;INFO&quot;, &quot;CBT Timeout rate: &quot;+str(event.timeout_rate)+&quot;; Our measured timeout rate: &quot;+str(self.timeout_rate_all())+&quot;; Hidden service timeout rate: &quot;+str(self.timeout_rate_hs()))
+src/vanguards/cbtverify.py:    plog(&quot;DEBUG&quot;, event.raw_content())
+src/vanguards/cbtverify.py:      plog(&quot;ERROR&quot;, &quot;Circuit &quot;+circ_id+&quot; already exists in map!&quot;)
+src/vanguards/rendguard.py:      plog(&quot;INFO&quot;, &quot;Relay &quot;+r+&quot; is not in our consensus.&quot;)
+src/vanguards/rendguard.py-      r_name = r+&quot; (not in-consensus)&quot;
+src/vanguards/rendguard.py:    plog(&quot;DEBUG&quot;, &quot;Relay &quot;+r_name+&quot; used %d times out of %d, &quot;+\
+src/vanguards/rendguard.py-                   &quot;for a use rate of %f%%. It has a consensus &quot;
+src/vanguards/rendguard.py-                   &quot;weight of %f%%&quot;, int(self.use_counts[r].used),
+src/vanguards/rendguard.py:        plog(loglevel, &quot;Relay &quot;+r_name+&quot; used %d times out of %d, &quot;+\
+src/vanguards/rendguard.py-                     &quot;for a use rate of %f%%. This is above its consensus &quot;
+src/vanguards/rendguard.py-                     &quot;weight of %f%%&quot;, int(self.use_counts[r].used),
+src/vanguards/rendguard.py:      plog(&quot;INFO&quot;, &quot;Total use counts %d reached the scale count %d. Scaling.&quot;,
+src/vanguards/rendguard.py-           self.total_use_counts, REND_USE_SCALE_AT_COUNT)
+src/vanguards/rendguard.py:    plog(&quot;DEBUG&quot;, event.raw_content())
+src/vanguards/NodeSelection.py:      plog(&quot;NOTICE&quot;, &quot;No routers left after restrictions applied: &quot;+str(self.rstr_list))
+src/vanguards/NodeSelection.py:      plog(&quot;NOTICE&quot;, &quot;No routers left after restrictions applied: &quot;+str(self.rstr_list))
+src/vanguards/bandguards.py:        plog(&quot;NOTICE&quot;, &quot;Reconnected to the Tor network after %d seconds.&quot;,
+src/vanguards/bandguards.py-             disconnected_secs)
+src/vanguards/bandguards.py:            plog(&quot;INFO&quot;, &quot;Marking possibly destroyed circ %s at %d&quot;,
+src/vanguards/bandguards.py-                 c.circ_id, event.arrived_at)
+src/vanguards/bandguards.py:    plog(&quot;INFO&quot;, event.raw_content())
+src/vanguards/bandguards.py:      plog(&quot;NOTICE&quot;, &quot;The connection to guard &quot;+guardfp+&quot; was closed with &quot;+\
+src/vanguards/bandguards.py-           &quot;a live circuit.&quot;)
+src/vanguards/bandguards.py:    plog(&quot;INFO&quot;, &quot;The connection to guard &quot;+guardfp+&quot; was closed with &quot;+\
+src/vanguards/bandguards.py-         &quot;circuit &quot;+event.id+&quot; on it.&quot;)
+src/vanguards/bandguards.py:            plog(&quot;INFO&quot;,
+src/vanguards/bandguards.py-                 &quot;Circuit %s possibly destroyed, but outside of the time window (%d - %d)&quot;,
+src/vanguards/bandguards.py:        plog(&quot;DEBUG&quot;, &quot;Closed hs circ for &quot;+event.raw_content())
+src/vanguards/bandguards.py:      plog(&quot;DEBUG&quot;, &quot;Added circ for &quot;+event.raw_content())
+src/vanguards/bandguards.py:        plog(&quot;NOTICE&quot;, &quot;Circuit use resumed after %d seconds.&quot;,
+src/vanguards/bandguards.py-             disconnected_secs)
+src/vanguards/bandguards.py:        plog(&quot;DEBUG&quot;, &quot;Circ &quot;+event.id+&quot; now in-use. %d delivered bytes.&quot;,
+src/vanguards/bandguards.py-             self.circs[event.id].delivered_read_bytes)
+src/vanguards/bandguards.py:        plog(&quot;NOTICE&quot;, &quot;Circuit use resumed after %d seconds.&quot;,
+src/vanguards/bandguards.py-             disconnected_secs)
+src/vanguards/bandguards.py:        plog(&quot;DEBUG&quot;, &quot;Circ &quot;+event.id+&quot; now in-use. %d delivered bytes.&quot;,
+src/vanguards/bandguards.py-             self.circs[event.id].delivered_read_bytes)
+src/vanguards/bandguards.py-
+src/vanguards/bandguards.py:    plog(&quot;DEBUG&quot;, event.raw_content())
+src/vanguards/bandguards.py:      plog(&quot;NOTICE&quot;, &quot;Circuit use resumed after %d seconds.&quot;,
+src/vanguards/bandguards.py-           disconnected_secs)
+src/vanguards/bandguards.py:      plog(&quot;DEBUG&quot;, event.raw_content())
+src/vanguards/bandguards.py:        plog(&quot;ERROR&quot;,
+src/vanguards/bandguards.py-             &quot;Application read data exceeds cell data:&quot;+event.raw_content());
+src/vanguards/bandguards.py-      if delivered_written + overhead_written &gt; event.written*_CELL_DATA_RATE:
+src/vanguards/bandguards.py:        plog(&quot;ERROR&quot;,
+src/vanguards/bandguards.py-             &quot;Application written data exceeds cell data:&quot;+event.raw_content());
+src/vanguards/bandguards.py-
+src/vanguards/bandguards.py:          plog(&quot;WARN&quot;, &quot;We&#39;ve been disconnected from the Tor network for %d seconds!&quot;
+src/vanguards/bandguards.py-               % disconnected_secs)
+src/vanguards/bandguards.py:            plog(&quot;WARN&quot;, &quot;Tor has been disconnected for %d seconds, &quot;+\
+src/vanguards/bandguards.py-                 &quot;and failing all circuits for %d seconds!&quot;,
+src/vanguards/bandguards.py-                  now - self.network_down_since,
+src/vanguards/bandguards.py:            plog(&quot;NOTICE&quot;, &quot;Tor has been failing all circuits for %d seconds!&quot;
+src/vanguards/bandguards.py-                 % disconnected_secs)
+src/vanguards/bandguards.py:    plog(&quot;DEBUG&quot;, event.raw_content())
+src/vanguards/bandguards.py:        plog(&quot;NOTICE&quot;, &quot;Tor bug #29699: Got %d dropped cell on circ %s &quot;\
+src/vanguards/bandguards.py-                       +&quot;(in state %s %s; old state %s %s).&quot;,
+src/vanguards/bandguards.py:       plog(&quot;INFO&quot;, &quot;Tor bug #29927: Got a dropped cell on circ %s &quot;\
+src/vanguards/bandguards.py-                       +&quot;(in state %s %s; old state %s %s).&quot;, circ.circ_id,
+src/vanguards/bandguards.py:        plog(&quot;WARN&quot;, &quot;Possible Tor bug, or possible attack if very frequent: &quot;\
+src/vanguards/bandguards.py-                     +&quot;Got %d dropped cell on circ %s &quot;\
+src/vanguards/bandguards.py:        plog(&quot;INFO&quot;, &quot;Tor bug #29786: Got a dropped cell on circ %s &quot;\
+src/vanguards/bandguards.py-                       +&quot;(in state %s %s; old state %s %s).&quot;, circ.circ_id,
+src/vanguards/bandguards.py:        plog(&quot;INFO&quot;, &quot;Tor bug #29700: Got a dropped cell on circ %s &quot;\
+src/vanguards/bandguards.py-                       +&quot;(in state %s %s; old state %s %s).&quot;, circ.circ_id,
+src/vanguards/bandguards.py:        plog(&quot;INFO&quot;, &quot;Tor bug #29927: Got a dropped cell on circ %s &quot;\
+src/vanguards/bandguards.py-                       +&quot;(in state %s %s; old state %s %s).&quot;, circ.circ_id,
+src/vanguards/bandguards.py:    plog(level, &quot;Circ &quot;+str(circ_id)+&quot; exceeded &quot;+str_name+&quot;: &quot;+str(cur_val)+
+src/vanguards/bandguards.py-                  &quot; &gt; &quot;+str(max_val)+&quot;. &quot;+extra)
+src/vanguards/control.py:  plog(&quot;NOTICE&quot;, &quot;Vanguards %s connected to Tor %s using stem %s&quot;,
+src/vanguards/control.py-       __version__, controller.get_version(), stem.__version__)
+src/vanguards/control.py:      plog(&quot;NOTICE&quot;, &quot;We force-closed circuit &quot;+str(circ_id))
+src/vanguards/control.py:      plog(&quot;INFO&quot;, &quot;Failed to close circuit &quot;+str(circ_id)+&quot;: &quot;+str(e.message))
+src/vanguards/config.py:    plog(&quot;NOTICE&quot;, &quot;Wrote config to &quot;+options.write_file)
+src/vanguards/main.py:    plog(&quot;NOTICE&quot;, &quot;Got CTRL+C. Exiting.&quot;)
+src/vanguards/main.py:      plog(&quot;ERROR&quot;,
+src/vanguards/main.py-           &quot;Specified config file &quot;+options.config_file+\
+src/vanguards/main.py-           &quot; can&#39;t be read: &quot;+str(e))
+src/vanguards/main.py:    plog(&quot;INFO&quot;, &quot;Current layer2 guards: &quot;+state.layer2_guardset())
+src/vanguards/main.py:    plog(&quot;INFO&quot;, &quot;Current layer3 guards: &quot;+state.layer3_guardset())
+src/vanguards/main.py:    plog(&quot;NOTICE&quot;, &quot;Creating new vanguard state file at: &quot;+config.STATE_FILE)
+src/vanguards/main.py:        plog(&quot;WARN&quot;, &quot;Tor daemon connection &quot;+ret+&quot;. Trying again...&quot;)
+src/vanguards/main.py:        plog(&quot;NOTICE&quot;, &quot;Tor daemon connection &quot;+ret+&quot;. Trying again...&quot;)
+src/vanguards/main.py:      plog(&quot;NOTICE&quot;, &quot;Tor needs descriptors: &quot;+str(e)+&quot;. Trying again...&quot;)
+src/vanguards/main.py:      plog(&quot;NOTICE&quot;, &quot;Tor can&#39;t save its own config file: &quot;+str(e))
+src/vanguards/main.py:    plog(&quot;NOTICE&quot;, &quot;Updated vanguards in torrc. Exiting.&quot;)
+src/vanguards/main.py:      plog(&quot;NOTICE&quot;, &quot;In order for bandwidth-based protections to be &quot;+
+src/vanguards/main.py-                      &quot;enabled, you must use Tor 0.3.4.10 or newer.&quot;)</code></pre>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../MAC/" title="Dev/MAC"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/MAC</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../../Moved:Remount-secure/" title="Dev/remount-secure"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/remount-secure</span></a><span class="info"><span class="prev">Previous
+page: Dev/MAC</span><span class="index">Index page:
+Design</span><span class="next">Next page:
+Dev/remount-secure</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+</main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

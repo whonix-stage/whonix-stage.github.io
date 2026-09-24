@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Deprecated/Ricochet IM</title>
+<meta name="description" content="Deprecated">
+<meta property="og:description" content="Deprecated">
+<link rel="canonical" href="https://www.whonix.org/wiki/Deprecated/Ricochet_IM/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Deprecated/Ricochet_IM/">
+<meta property="og:title" content="Using Ricochet IM inside Whonix">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Deprecated</span> / <span>Ricochet IM</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l2"><a href="#Whonix_Configuration">Whonix Configuration</a></li><li class="toc-l3"><a href="#Add_a_Ricochet_Python_Profile">Add a Ricochet Python
+Profile</a></li><li class="toc-l3"><a href="#Modify_Firewall_Settings">Modify Firewall Settings</a></li><li class="toc-l2"><a href="#Start_Ricochet">Start Ricochet</a></li><li class="toc-l2"><a href="#Backup/Restore_Ricochet_ID">Backup/Restore Ricochet ID</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><u><strong><a href="../../Unsupported/">Unsupported</a>
+because it is broken since Whonix 15 <a href="https://forums.whonix.org/t/ricochet-support/7174">despite all
+efforts to fix it</a>.</strong></u></p>
+<p>If you would like to experiment and try to fix it, you can find the
+archived documentation here.</p>
+<p>For alternatives, see <a href="../../Chat/">Chat</a>.
+Advanced users can also attempt to install <a href="https://www.ricochetrefresh.net/">Ricochet Refresh</a> (<a href="https://github.com/blueprint-freespeech/ricochet-refresh">GitHub</a>),
+although preliminary tests in Whonix 16 have proven unsuccessful.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p><img src="../../../media/Ricochet342344.png.webp" width="100" alt="ricochet342344.png" /></p>
+<h2 id="Introduction">Introduction</h2>
+<p>Ricochet IM is is a portable, P2P, python chat application that is
+installed in Whonix by default. It is the new successor to the
+unmaintained TorChat. <sup class="reference"><a href="#cite_note-2">[2]</a></sup> The Ricochet site describes how
+the application works: <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><blockquote><p>Ricochet uses the Tor network to reach your contacts without relying
+on messaging servers. It creates a hidden service, which is used to
+rendezvous with your contacts without revealing your location or IP
+address.</p>
+<p>Instead of a username, you get a unique address that looks like
+ricochet:rs7ce36jsj24ogfw. Other Ricochet users can use this address to
+send a contact request - asking to be added to your contacts list.</p>
+<p>You can see when your contacts are online, and send them messages
+(and soon, files!). Your list of contacts is only known to your computer
+- never exposed to servers or network traffic monitoring.</p>
+<p>Everything is encrypted end-to-end, so only the intended recipient
+can decrypt it, and anonymized, so nobody knows where it's going and
+where it came from.</p></blockquote></p>
+<p>In summary, the benefits of Ricochet IM include:</p>
+<ul>
+<li>No saving of chat history.</li>
+<li>Reliance on Tor onion services for identity creation.
+<ul>
+<li>Encryption and authentication properties therefore match Tor's
+strength.</li>
+</ul></li>
+<li>The server-less design means no metadata is ever collected.</li>
+<li>An OTF sponsored audit in early 2016 only identified a few minor
+problems (since fixed). <sup class="reference"><a href="#cite_note-4">[4]</a></sup> <sup class="reference"><a href="#cite_note-5">[5]</a></sup></li>
+</ul>
+<h2 id="Whonix_Configuration">Whonix Configuration</h2>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="Ambox_notice.png" /></span>
+This application requires incoming connections through a <a href="../../Tor/">Tor</a> onion service. Supported <a href="../../Whonix-Gateway/">Whonix-Gateway<sup>&#8482;</sup></a>
+modifications are therefore necessary for full functionality; see the
+instructions below.</p>
+<p>For better security, consider using <a href="../../Multiple_Whonix-Gateway/">Multiple Whonix-Gateway</a> and <a href="../../Multiple_Whonix-Workstation/">Multiple
+Whonix-Workstation<sup>&#8482;</sup></a>. In any case, <a href="../../About/">Whonix</a> is the safest choice for running it.
+<sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+</div>
+<p>Ricochet should be fully functional in Whonix. If any problems are
+encountered, please leave comments on the <a href="https://phabricator.whonix.org/T444">open Phabricator
+ticket</a>.</p>
+<h3 id="Add_a_Ricochet_Python_Profile">Add a Ricochet Python
+Profile</h3>
+<p>In Whonix-Gateway<sup>&#8482;</sup> (<code>sys-whonix</code>), onion-grater
+requires some adjustments.</p>
+<p><strong>Extend the onion-grater whitelist.</strong></p>
+<div class="info-box ">
+<p>On Whonix-Gateway (<code>sys-whonix</code>).</p>
+<p>Add <a href="../../Onion-grater/">onion-grater</a>
+profile.</p>
+<p><span class="code-select">sudo onion-grater-add
+40_ricochet</span></p>
+</div>
+<h3 id="Modify_Firewall_Settings">Modify Firewall Settings</h3>
+<p>In Whonix-Workstation<sup>&#8482;</sup> (<code>anon-whonix</code>), the
+firewall requires some adjustments.</p>
+<p><strong>Modify Whonix-Workstation User Firewall Settings</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/etc/whonix_firewall.d/50_user.conf</code> appears empty (because
+it does not exist). This is expected.</p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, you must boot into this mode before these steps will work.</p>
+<p>Platform specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_USER_Session">Graphical
+Whonix-Workstation USER Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>User Firewall Settings</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session">Graphical
+Whonix-Workstation SYSMAINT Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
+run <code>/usr/libexec/whonix-firewall/firewall50user</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix-Workstation"><a href="../../Qubes/">Qubes-Whonix-Workstation</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Workstation App Qube (commonly called </code><em><span><code>anon-whonix</code></span></em><code>)</code>
+&#8594; <code>QTerminal</code> &#8594; run
+<code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Workstation">Terminal Whonix-Workstation</h4>
+</div>
+<div class="tcc-content">
+<p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
+with root rights.</p>
+<p><span class="code-select">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Learn More on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>.</p>
+<p>The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>Also see: <a href="../../Moved:Configuration_Files/">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="../../Qubes/">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template</code> &#8594; <code>whonix-workstation-18</code> &#8594;
+<code>QTerminal</code> &#8594; run
+<code>nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf</code></p>
+<p><u>If using a graphical Whonix-Workstation</u>, complete these
+steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Workstation</u>, complete these
+steps.</p>
+<p>In Whonix-Workstation, view the global firewall configuration file in
+an editor. <span class="code-select">nano
+/etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<p><span class="code-select">EXTERNAL_OPEN_ALL=true</span></p>
+<p>Save.</p>
+<p><strong>Reload Whonix-Workstation Firewall.</strong></p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, and you are not booted into it, reboot the VM to reload the
+firewall.</p>
+<p>Platform-specific. Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_USER_Session_2">Graphical
+Whonix-Workstation USER Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_2">Graphical
+Whonix-Workstation SYSMAINT Session</h4>
+</div>
+<div class="tcc-content">
+<p><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
+run <code>sudo whonix_firewall</code></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Terminal_Whonix-Workstation_2">Terminal Whonix-Workstation</h4>
+</div>
+<div class="tcc-content">
+<p><span class="code-select">sudo whonix_firewall</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Qubes-Whonix-Workstation_2"><a href="../../Qubes/">Qubes-Whonix-Workstation</a></h4>
+</div>
+<div class="tcc-content">
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
+<code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="Start_Ricochet">Start Ricochet</h2>
+<p>In Whonix-Workstation (<code>anon-whonix</code>), launch ricochet
+either through the start menu or from the command line.</p>
+<p><span class="code-select">ricochet</span></p>
+<h2 id="Backup/Restore_Ricochet_ID">Backup/Restore Ricochet ID</h2>
+<p>Ricochet identities are ephemeral by design, meaning on program
+restart, a new identity will be generated and the last one with the
+added contacts will be lost. This is safer as long lived identities are
+easier to track over time. However one can preserve a certain username
+string and re-use it.</p>
+<p>Backup <code>ricochet.json</code> in the config directory path below
+which contains the private key under <code>identity</code> in
+<code>serviceKey</code>. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+<p>You need to replace <code>/path/to/backup/location</code> with the
+actual location of your backup folder.</p>
+<p><span class="code-select">cp
+/home/user/.local/share/Ricochet/ricochet/ricochet.json
+/path/to/backup/location</span></p>
+<p>For now this is enough. Alternatively you could also backup the whole
+folder <code>/home/user/.local/share/Ricochet</code>.</p>
+<p><span class="code-select">cp -r /home/user/.local/share/Ricochet
+/path/to/backup/location</span></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Ricochet Refresh fails to complete the Tor bootstrapping
+process.</li>
+<li id="cite_note-2"><a href="https://github.com/ricochet-im/ricochet/issues/30">https://github.com/ricochet-im/ricochet/issues/30</a></li>
+<li id="cite_note-3"><a href="https://ricochet.im/">https://ricochet.im/</a></li>
+<li id="cite_note-4"><a href="https://ricochet.im/files/ricochet-ncc-audit-2016-01.pdf">https://ricochet.im/files/ricochet-ncc-audit-2016-01.pdf</a></li>
+<li id="cite_note-5"><a href="https://en.wikipedia.org/wiki/Ricochet_(software)">https://en.wikipedia.org/wiki/Ricochet_(software)</a></li>
+<li id="cite_note-6"><u>Security considerations:</u> * By using Whonix, additional
+protections are in place for enhanced security. * This application
+requires access to Tor's control protocol. * In the Whonix context,
+Tor's control protocol has dangerous features. The Tor control command
+<em><span>GETINFO address</span></em>
+reveals the real, external IP of the Tor client. * Whonix provides <a href="../../Dev/onion-grater/">onion-grater, a Tor Control
+Port Filter Proxy - filtering dangerous Tor Control Port commands</a>. *
+When this application is run inside Whonix-Gateway with an onion-grater
+whitelist extension, it limits Whonix-Workstation application rights to
+Tor control protocol access only. Non-whitelisted Tor control commands
+such as <em><span>GETINFO
+address</span></em> are rejected by onion-grater in these circumstances.
+In this event, Whonix-Workstation cannot determine its own IP address
+via requests to the Tor Controller, as onion-grater filters the reply. *
+In comparison with other operating systems: ** If the application is run
+on a non-Tor-focused operating system like Debian: The application will
+have unlimited access to Tor's control protocol (a less secure
+configuration). ** Whonix: The application's access to Tor's control
+protocol is limited. Only whitelisted Tor control protocol commands
+required by the application are allowed. * Comparison of using Tor as a
+client versus hosting Tor onion services. ** Using Tor only as a client:
+More secure. ** When hosting Tor onion services: Users are more
+vulnerable to attacks against the Tor network. This is elaborated in
+chapter <a href="../../Onion_Services/#Onion_Services_Security">Onion Services Security</a>. In conclusion, Whonix is
+the safest and correct choice for running this application.</li>
+<li id="cite_note-7"><a href="https://github.com/ricochet-im/ricochet/issues/577">https://github.com/ricochet-im/ricochet/issues/577</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

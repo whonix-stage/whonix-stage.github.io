@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Known Issues</title>
+<meta name="description" content="Known Issues in Whonix">
+<meta property="og:description" content="Known Issues in Whonix">
+<link rel="canonical" href="https://www.whonix.org/wiki/Known_Issues/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Known_Issues/">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Question-mark-738813-640.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#apt_source_package_will_show_dpkg-source:_warning:_failed_to_verify_signature">&quot;apt
+source package&quot; will show &quot;dpkg-source: warning: failed to verify
+signature&quot;</a></li><li class="toc-l2"><a href="#Proxychains_Tor_Browser_Issue">Proxychains Tor Browser
+Issue</a></li><li class="toc-l2"><a href="#ATA_Freeze">ATA Freeze</a></li><li class="toc-l2"><a href="#Mounting_(CD_/_DVD)_Devices">Mounting (CD / DVD) Devices</a></li><li class="toc-l2"><a href="#Network_Manager_Systray_Unmanaged_Devices">Network Manager
+Systray Unmanaged Devices</a></li><li class="toc-l2"><a href="#Suspend_/_Hibernate_Issues">Suspend / Hibernate Issues</a></li><li class="toc-l2"><a href="#VLC_/_Video_Player_Crash">VLC / Video Player Crash</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Question-mark-738813-640.png.webp" width="200" alt="Question-mark-738813-640.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Known Issues in Whonix</p>
+<div class="post-intro-p">
+</div>
+<h1 id="All_Platforms">All Platforms</h1>
+<h2 id="apt_source_package_will_show_dpkg-source:_warning:_failed_to_verify_signature">"apt
+source package" will show "dpkg-source: warning: failed to verify
+signature"</h2>
+<p>This is not a security issue, but only a warning. Read the entire
+thread <a href="https://lists.debian.org/debian-derivatives/2013/08/msg00000.html">here</a>
+for more information.</p>
+<p>This warning message can be removed with the following workaround
+below.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Modify
+<code>/etc/dpkg/origins/default</code>.</p>
+<p><span class="code-select">sudo unlink
+/etc/dpkg/origins/default</span> <span class="code-select">sudo ln -s
+/etc/dpkg/origins/debian /etc/dpkg/origins/default</span></p>
+<p><strong>2.</strong> Download the source package.</p>
+<p><span class="code-select">apt source package</span></p>
+<p><strong>3.</strong> Undo afterwards to prevent unexpected issues.</p>
+<p><span class="code-select">sudo unlink
+/etc/dpkg/origins/default</span> <span class="code-select">sudo ln -s
+/etc/dpkg/origins/whonix /etc/dpkg/origins/default</span></p>
+</div>
+<h2 id="Proxychains_Tor_Browser_Issue">Proxychains Tor Browser
+Issue</h2>
+<p>Using Tor Browser in conjunction with proxychains for the connection
+scheme: <code>User</code> &#8594; <code>Tor</code> &#8594; <code>Proxy</code> &#8594;
+<code>Internet</code><br />
+does not currently work. For more information, see <a href="../Tunnels/Connecting_to_Tor_before_a_proxy/">here</a>.</p>
+<h1 id="VirtualBox">VirtualBox</h1>
+<p>See also <a href="../Moved:VirtualBox/Troubleshooting/">VirtualBox/Troubleshooting</a></p>
+<h2 id="ATA_Freeze">ATA Freeze</h2>
+<p>If you see the following error and freezing.</p>
+<pre><code>433.348893] mptscsih: ioc0: attempting target reset! (sc=ffff81021b950940)
+433.348896] sd 0:0:0:0: [sda] CDB: ATA command pass through(16): 85 08
+0e 00 d5 00 01 00 09 00 4f 00 c2 00 b0 00
+433.605026] mptscsih: ioc0: target reset: SUCCESS (sc=ffff81021b950940</code></pre>
+<p>It is a <a href="https://web.archive.org/web/20210122015240/https://github.com/Whonix/Whonix/issues/274">known</a>
+issue and hardware-specific - VirtualBox upstream bug report: <a href="https://www.virtualbox.org/ticket/10031">https://www.virtualbox.org/ticket/10031</a><br />
+This cannot be fixed by the Whonix team and patches are required.</p>
+<p>It has been <a href="https://forums.whonix.org/t/kernel-panic-error-in-whonix-gateway-vbox/1487/3">reported</a>
+that running from an internal HDD/SSD works better than running from
+external devices.<br />
+One workaround might be avoiding high load on your host operating
+system. If this bug causes a lot of problems, then your only option is
+to switch to <a href="../Download/">another
+platform</a>.</p>
+<h1 id="Non-Qubes-Whonix">Non-Qubes-Whonix</h1>
+<p>Non-Qubes-Whonix<sup>&#8482;</sup> means all Whonix platforms except <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>. This
+includes Whonix <a href="../KVM/">KVM</a>, Whonix <a href="../VirtualBox/">VirtualBox</a> and Whonix <a href="../Dev/Build_Documentation/Physical_Isolation/">Physical Isolation</a>.</p>
+<h2 id="Mounting_(CD_/_DVD)_Devices">Mounting (CD / DVD) Devices</h2>
+<p>If the device auto mounter is broken, see if <code>Start menu</code>
+&#8594; <code>System Settings</code> &#8594; <code>Removable Media</code> helps.</p>
+<p>The following workaround can be used.</p>
+<p><span class="code-select">sudo mkdir /mnt/cdrom</span>
+<span class="code-select">sudo mount -o ro /dev/cdrom
+/mnt/cdrom/</span></p>
+<p>Using the <b>ro</b> flag will mount the CD / DVD in read-only mode.
+If a CD / DVD is not being mounted, then drop the "-o ro" parameter.</p>
+<p>Forum discussion:<br />
+<a href="https://forums.whonix.org/t/workstation11-doesnt-mount-hdds/1313">https://forums.whonix.org/t/workstation11-doesnt-mount-hdds/1313</a></p>
+<p>Help fixing this bug is welcome! (<a href="https://phabricator.whonix.org/T139">ticket</a>)</p>
+<h2 id="Network_Manager_Systray_Unmanaged_Devices">Network Manager
+Systray Unmanaged Devices</h2>
+<p><img src="../../media/Network_manger_question_mark.png.webp" width="30" alt="network_manger_question_mark.png" />
+Short answer: Unmanaged devices are unrelated to Whonix functioning and
+should not concern the user.<br />
+Long answer: <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h2 id="Suspend_/_Hibernate_Issues">Suspend / Hibernate Issues</h2>
+<p>Short: Avoid suspending or hilbernating the computer or Whonix VMs
+while Whonix is running.</p>
+<p>Long: <a href="../Post_Install_Advice/#Network_Time_Syncing">Network Time Syncing</a>, <a href="../Troubleshooting/#Clock_Fix">Clock Fix</a>.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<h2 id="VLC_/_Video_Player_Crash">VLC / Video Player Crash</h2>
+<p>The following workaround can be used; this is the default in recent
+builds (like Whonix 14). <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><code>VLC</code> &#8594; <code>Tools</code> &#8594; <code>Preferences</code> &#8594;
+<code>Video</code> &#8594; <code>Output</code> &#8594; <code>X11</code> &#8594;
+<code>Save</code></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">Whonix does not use network manager to manage either eth0 or eth1. *
+In <a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>,
+networking is managed by ifupdown. * <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> uses a custom <a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-network.service">/lib/systemd/system/qubes-whonix-network.service</a>
+and is unaffected by this issue. It is unnecessary to port to network
+manager at this point, because there is no reason besides this issue.
+Ifupdown has functioned admirably in Whonix for a long time and is well
+tested. It is unclear if network manager, specifically cli, is ready for
+the prime time yet. Network manager is simply reporting information that
+it does not manage these devices; this is not an error.<br />
+To reduce confusion, the ideal Whonix default would either: prevent the
+systray item starting, hide the systray item, or suppress the
+information being presented. Network manager is installed so users can
+easily setup VPNs with its intuitive graphical user interface.<br />
+All attempts to fix this long-standing issue have failed. Help is
+welcome to fix it.<br />
+<a href="https://forums.whonix.org/t/fix-unmanaged-devices-network-manager/507">Fix
+Unmanaged Devices Network Manager</a><br />
+</li>
+<li id="cite_note-2"><a href="https://github.com/QubesOS/qubes-issues/issues/1764">https://github.com/QubesOS/qubes-issues/issues/1764</a></li>
+<li id="cite_note-3">* <a href="https://phabricator.whonix.org/T798">https://phabricator.whonix.org/T798</a>
+* <a href="https://github.com/Whonix/anon-apps-config/blob/master/etc/skel/.config/vlc/vlcrc">https://github.com/Whonix/anon-apps-config/blob/master/etc/skel/.config/vlc/vlcrc</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

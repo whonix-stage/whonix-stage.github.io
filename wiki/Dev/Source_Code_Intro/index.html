@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Dev/Source Code Intro</title>
+<meta name="description" content="Introduction into Whonix source code.">
+<meta property="og:description" content="Introduction into Whonix source code.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Source_Code_Intro/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Source_Code_Intro/">
+<meta property="og:title" content="Whonix Source Code Introduction">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Accept-47587640.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Source Code Intro</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#build-steps">build-steps</a></li><li class="toc-l2"><a href="#help-steps">help-steps</a></li><li class="toc-l2"><a href="#derivative-maker">derivative-maker</a></li><li class="toc-l2"><a href="#Overview">Overview</a></li><li class="toc-l2"><a href="#Modularity">Modularity</a></li><li class="toc-l2"><a href="#File_sizes">File sizes</a></li><li class="toc-l2"><a href="#Chroot_Scripts">Chroot Scripts</a></li><li class="toc-l2"><a href="#Summary">Summary</a></li><li class="toc-l2"><a href="#Another_Introduction">Another Introduction</a></li><li class="toc-l2"><a href="#Build_Configuration">Build Configuration</a></li><li class="toc-l2"><a href="#Building_without_derivative-maker_main_script">Building without
+derivative-maker main script</a></li><li class="toc-l3"><a href="#most_basic">most basic</a></li><li class="toc-l3"><a href="#optional">optional</a></li><li class="toc-l2"><a href="#Unpacking_.ova_images">Unpacking .ova
+images</a></li><li class="toc-l2"><a href="#Converting_.vmdk_images_to_.raw_images">Converting
+.vmdk images to .raw images</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Introduction into Whonix source code.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>This chapter is dedicated to give an introduction into the Whonix
+source code. <strong><em>If you prefer to read and understand the source
+code just by reading scripts you may skip this optional
+chapter.</em></strong> It can be quite difficult to get started with
+hacking existing big complex projects.</p>
+<h2 id="build-steps">build-steps</h2>
+<p>This is a high level overview. Whonix-Example-Implementation can
+currently be build in nine steps. (There is also a derivative-maker
+script, which automates these eight steps for your convenience.)</p>
+<ul>
+<li>*_prepare-build-machine</li>
+<li>*_export-libvirt-xml</li>
+<li>*_create-debian-packages</li>
+<li>*_create-raw-image</li>
+<li>*_install-packages</li>
+<li>*_run-chroot-scripts-post-d</li>
+<li>*_convert-raw-to-qcow2</li>
+<li>*_convert-raw-to-vdi</li>
+<li>*_create-vbox-vm</li>
+<li>*_export-vbox-vm</li>
+<li>*_create-report</li>
+</ul>
+<h2 id="help-steps">help-steps</h2>
+<p><code>help-steps</code> are required by the <code>build-steps</code>
+above.</p>
+<ul>
+<li><code>delete-vbox-vm</code></li>
+<li><code>mount-raw</code></li>
+<li><code>chroot-raw</code></li>
+<li><code>unchroot-raw</code></li>
+<li><code>unmount-raw</code></li>
+<li><code>pre</code> gets sourced by all other scripts.</li>
+<li><code>variables</code> gets sourced by all other scripts.</li>
+</ul>
+<h2 id="derivative-maker">derivative-maker</h2>
+<p>Is a script, which simply runs all other build-steps. Actually it is
+"optional". It has very little functionality besides running all other
+steps. You are free to run all steps one by one. That is useful for
+learning and for debugging purposes. In case you want to fix a bug or in
+case you want to upgrade the distribution or in case you want to switch
+the operating system or whatever you are better off running the steps
+manually. Run it with --help to see available switches.</p>
+<h2 id="Overview">Overview</h2>
+<ol>
+<li>prepare-build-machine: installs build dependencies and applies a few
+other required settings for building from source.</li>
+<li>export-libvirt-xml: Copies files from
+<em><span>libvirt</span></em> folder to
+<em><span>~/whonix_binary</span></em>
+folder and adds version numbers to them.</li>
+<li>create-debian-packages: Recursively works through
+<em><span>packages</span></em> folder,
+builds them one by one and adds them to a local APT repository.</li>
+<li>create-raw-image: <a href="https://grml.org/grml-debootstrap/">grml-debootstrap</a> creates
+virtual machine images in <strong>.raw</strong> image format. It keeps
+care of creating the image, the partition table, grub boot manager,
+minimal system debootstrap and apt installing all Whonix packages. This
+step requires most time in the build process.</li>
+<li>install-packages: Installs meta .deb packages
+whonix-shared-packages-dependencies/recommended, desktop, desktop-kde,
+kde-accessibility and whonix-*-packages-dependencies/recommended and
+whonix-workstation-default-applications. Those only include dependencies
+and recommended packages which are pulled from Debian's apt
+repository.</li>
+<li>run-chroot-scripts-post-d: Post Chroot Scripts are applied.</li>
+<li>convert-raw-to-qcow2: Only having effect when using
+<em><span>--qocw2</span></em> switch.
+The <strong>.raw</strong> image gets converted to a
+<strong>.qcow2</strong> image. Actually not converted, a new file will
+be created and the old <strong>.raw</strong> remains available until
+cleanup is run or manually deleted or grml-debootstrap runs again. The
+<strong>.raw</strong> format is more "generic". VirtualBox does not
+support raw (<strong>.raw</strong>) images, but <strong>.vdi</strong>
+and <strong>.vmdk</strong> (and others).</li>
+<li>convert-raw-to-vdi: The <strong>.raw</strong> image gets converted
+to a <strong>.vdi</strong> image. (Actually not converted, as explained
+above.)</li>
+<li>create-vbox-vm: A virtual machine (VirtualBox) will be created and
+the <strong>.vdi</strong> image will be attached.</li>
+</ol>
+<h2 id="Modularity">Modularity</h2>
+<p>All steps could be easily replaced to add support for additional
+virtualizers, operating systems and so on. The numbers before the script
+names (20_..., 25_..., 30..., ...) are honored by derivative-maker
+(using <a href="https://manpages.ubuntu.com/manpages/kinetic/en/man8/run-parts.8.html">run-parts</a>),
+which runs these steps in lexical order. Therefore you can easily add
+steps to the beginning or the end or even wretch steps in between.</p>
+<h2 id="File_sizes">File sizes</h2>
+<p>Do not get shocked by file sized. Initially the .raw is created with
+a size of 100 GB, but it will actually only take a fraction of that
+space on the harddrive. This is because .raw .vdi and .vmdk are all <a href="../../Moved:Sparse_files/">sparse files</a>, which means they
+do not take their maximum size, but only as much data as really is
+inside these images.</p>
+<h2 id="Chroot_Scripts">Chroot Scripts</h2>
+<ul>
+<li><code>packages/kicksecure/initializer-dist/usr/libexec/initializer-dist/chroot-scripts-post.d/</code></li>
+</ul>
+<h2 id="Summary">Summary</h2>
+<p>Thus, given the nature of the build step orientated scripts, you can
+easily work on the different aspects of Whonix. For example, once you
+have created a clean virtual machine with the operating system only, you
+can make a copy, run either the gateway or the workstation copy routine
+or Chroot Scripts as often as you need to test your changes and if
+something goes wrong, go back to backup. You don't have to build
+everything from scratch again. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<h2 id="Another_Introduction">Another Introduction</h2>
+<p>It is really not that difficult after all. If you like, you could
+read <a href="../../Manually_Creating_Whonix/">Manually
+Creating Whonix</a>, which is a similar topic, which covers part of this
+in other words.</p>
+<h1 id="Debugging">Debugging</h1>
+<p>Stuff you may find helpful for debugging.</p>
+<h2 id="Build_Configuration">Build Configuration</h2>
+<p>See <a href="../../Build_Configuration/">Build
+Configuration</a>.</p>
+<h2 id="Building_without_derivative-maker_main_script">Building without
+derivative-maker main script</h2>
+<h3 id="most_basic">most basic</h3>
+<p>Example using an apt cache (apt-cacher-ng) and building qcow2
+images.</p>
+<pre><code>sudo apt install apt-cacher-ng</code></pre>
+<pre><code>cd derivative-maker </code></pre>
+<pre><code>sudo ./build-steps.d/*_prepare-build-machine --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_export-libvirt-xml --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_create-debian-packages --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_create-raw-image --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_install-packages --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_run-chroot-scripts-post-d --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_convert-raw-to-qcow2 --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_convert-raw-to-vdi --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_create-vbox-vm --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_export-vbox-vm --build --target qcow2 --flavor whonix-gateway</code></pre>
+<pre><code>sudo ./build-steps.d/*_create-report --build --target qcow2 --flavor whonix-gateway</code></pre>
+<h3 id="optional">optional</h3>
+<p>For example for a qcow2 build, the following steps can be safely
+skipped, since these would be doing nothing anyway.</p>
+<ul>
+<li>*_convert-raw-to-vdi</li>
+<li>*_export-vbox-vm</li>
+<li>*_create-report (not in use currently)</li>
+</ul>
+<p>When first creating a gateway build and then building a workstation
+build (or vice versa) the following steps do not need to be
+repeated:</p>
+<ul>
+<li>*_prepare-build-machine</li>
+<li>*_create-debian-packages</li>
+</ul>
+<h1 id="Mount_and_inspect_images">Mount and inspect images</h1>
+<p><a href="../../File_Transfer/#Mount_and_Inspect_Images">Mount and inspect images</a></p>
+<h1 id="Less_Important_Goodies">Less Important Goodies</h1>
+<h2 id="Unpacking_.ova_images">Unpacking <strong>.ova</strong>
+images</h2>
+<p>If you want for some reason to unpack an <strong>.ova</strong>, for
+example to get the <strong>.vdmk</strong> image, you can use tar.</p>
+<p><span class="code-select">tar -xvf Whonix-Gateway.ova</span></p>
+<p>Will show:</p>
+<p><span class="code-select">Whonix-Gateway.ovf
+Whonix-Gateway-disk1.vmdk</span></p>
+<h2 id="Converting_.vmdk_images_to_.raw_images">Converting
+<strong>.vmdk</strong> images to <strong>.raw</strong> images</h2>
+<p><span class="code-select">#qemu-img info
+Whonix-Gateway-disk1.vmdk</span></p>
+<p><span class="code-select">qemu-img convert Whonix-Gateway-disk1.vmdk
+-O raw Whonix-Gateway.raw</span></p>
+<p><span class="code-select">#qemu-img info
+Whonix-Gateway.raw</span></p>
+<h1 id="Build_Script_Features">Build Script Features</h1>
+<p>See <a href="https://www.kicksecure.com/wiki/Dev/Derivative-Maker">https://www.kicksecure.com/wiki/Dev/Derivative-Maker</a></p>
+<h1 id="Notes">Notes</h1>
+<pre><code>sudo ~/derivative-maker/packages/kicksecure/developer-meta-files/debug-steps/interactive-chroot-raw --target raw --flavor whonix-host-lxqt --build --freedom false</code></pre>
+<h1 id="Why_not_Replace_grml-debootstrap_with_'X'?">Why not Replace
+grml-debootstrap with 'X'?</h1>
+<p>Whonix developers are not remotely close to exhausting
+<code>grml-debootstrap</code>'s extensive feature-set yet.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p>There are two sorts of VM image creation tools:</p>
+<ul>
+<li>[A] Those that use virtualization, boot the image and perform
+actions.</li>
+<li>[B] Those that use <code>chroot</code> (or maybe
+<code>systemd-spawn</code>).</li>
+</ul>
+<p>[A] is incompatible with Whonix design principles due to files being
+created during boot, such as entropy seeds. This is a less clean method
+and is not suitable for redistribution. Similar to <a href="../Installation_from_Repository/#Distro_Morphing_vs_Builds">Distro Morphing vs Builds</a>.</p>
+<p>In either case it would be necessary to compare:</p>
+<ol>
+<li>The image created by grml-debootstrap versus the new tool.</li>
+<li>Create an image twice using the new tool and inspect the diff.</li>
+</ol>
+<p>Related:</p>
+<ul>
+<li><a href="https://github.com/Whonix/derivative-maker/blob/master/help-steps/analyze_image">https://github.com/Whonix/derivative-maker/blob/master/help-steps/analyze_image</a></li>
+<li><a href="../../Verifiable_Builds/">Verifiable
+Builds</a></li>
+</ul>
+<h1 id="dm-prepare-release">dm-prepare-release</h1>
+<p><a href="https://github.com/Kicksecure/developer-meta-files/blob/master/usr/bin/dm-prepare-release">dm-prepare-release</a>
+is responsible for:</p>
+<ul>
+<li>Creation of a <a href="https://forums.whonix.org/t/whonix-virtualbox-14-0-1-4-4-unified-ova-downloads-point-release/6996">unified</a>
+<code>.ova</code> image or <code>libvirt.xz</code> archive.</li>
+<li>Creation of torrent files.</li>
+<li>Creation of hash sum files.</li>
+<li>Creation of digital software signatures.
+<ul>
+<li><a href="../../Moved:OpenPGP/">OpenPGP</a> (gpg) signatures</li>
+<li><a href="../../Moved:Signify/">signify</a> signatures</li>
+<li><a href="https://forums.whonix.org/t/use-codecrypt-to-sign-whonix-releases/7844">soon</a>
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] signatures</li>
+</ul></li>
+<li>Adding the license agreement.</li>
+<li>Adding the disclaimer.</li>
+<li><a href="../Redistribution/">Redistribution</a>.</li>
+</ul>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../../Moved:Coding_style/">Coding Style</a></li>
+<li><a href="../../Moved:External_Redirects_Documentation/">Documentation Guidelines</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">If something would go wrong, you would have to reinstall the whole
+operating system every time again. That's why we use separate
+steps.</li>
+<li id="cite_note-2"><a href="https://forums.whonix.org/t/replacing-grml-debootstrap-debos-build-platform/5582/3">https://forums.whonix.org/t/replacing-grml-debootstrap-debos-build-platform/5582/3</a></li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Development/">Development</a> <a href="../../Category:Design/">Design</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

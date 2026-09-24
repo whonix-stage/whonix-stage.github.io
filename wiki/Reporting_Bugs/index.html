@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Reporting Bugs</title>
+<meta name="description" content="How to Report (Security) Bugs in the Whonix Operating System. Software development cycle, patches, and responsiveness to feedback and feature requests.">
+<meta property="og:description" content="How to Report (Security) Bugs in the Whonix Operating System. Software development cycle, patches, and responsiveness to feedback and feature requests.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Reporting_Bugs/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Reporting_Bugs/">
+<meta property="og:title" content="Bug Reports, Software Development and Feature Requests">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Ladybug-156624-640.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Non-critical_Bugs">Non-critical Bugs</a></li><li class="toc-l2"><a href="#Security_Vulnerabilities">Security Vulnerabilities</a></li><li class="toc-l2"><a href="#Reporting_Guidelines">Reporting Guidelines</a></li><li class="toc-l2"><a href="#Sample_Bug_Report">Sample Bug Report</a></li><li class="toc-l2"><a href="#Generic_Bug_Reproduction">Generic Bug Reproduction</a></li><li class="toc-l2"><a href="#Community_Feedback">Community Feedback</a></li><li class="toc-l2"><a href="#Contributions">Contributions</a></li><li class="toc-l2"><a href="#Old_Stable_Support_Policy">Old Stable Support Policy</a></li><li class="toc-l2"><a href="#Package_Upgrade_Policy">Package Upgrade Policy</a></li><li class="toc-l2"><a href="#Issue_Labels">Issue Labels</a></li><li class="toc-l3"><a href="#Forum_Issue_Tracker_Labels">Forum Issue Tracker Labels</a></li><li class="toc-l3"><a href="#Phabricator_Issue_Tracker_Labels">Phabricator Issue Tracker
+Labels</a></li><li class="toc-l2"><a href="#Out_of_Scope_Issues">Out of Scope Issues</a></li><li class="toc-l2"><a href="#Policy_Rationale">Policy Rationale</a></li><li class="toc-l2"><a href="#Transition_to_Discourse_Forums">Transition to Discourse
+Forums</a></li><li class="toc-l2"><a href="#Forum_Tags">Forum Tags</a></li><li class="toc-l2"><a href="#Qubes-Whonix_specific_issues">Qubes-Whonix specific issues</a></li><li class="toc-l2"><a href="#Local_Browser_Homepage_-_Search_Engine_Feature_Request">Local
+Browser Homepage - Search Engine Feature Request</a></li><li class="toc-l2"><a href="#Linux_User_Experience_versus_Commercial_Operating_Systems">Linux
+User Experience versus Commercial Operating Systems</a></li><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l2"><a href="#Linux_Distributions_vs._Commercial_Operating_Systems">Linux
+Distributions vs. Commercial Operating Systems</a></li><li class="toc-l3"><a href="#Overview">Overview</a></li><li class="toc-l3"><a href="#Software_Comparison">Software Comparison</a></li><li class="toc-l3"><a href="#Funding_Comparison">Funding Comparison</a></li><li class="toc-l2"><a href="#Conclusion">Conclusion</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Ladybug-156624-640.png.webp" width="250" alt="Ladybug-156624-640.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>How to Report (Security) Bugs in the Whonix Operating System.
+Software development cycle, patches, and responsiveness to feedback and
+feature requests.</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Bug_Report_Recommendations">Bug Report Recommendations</h1>
+<h2 id="Non-critical_Bugs">Non-critical Bugs</h2>
+<p>Users who find bugs are encouraged to report them to the <a href="https://forums.whonix.org">Whonix forums</a>. To assist
+developers, please refer to the <a href="#Reporting_Guidelines">Reporting Guidelines</a> further below when describing
+the problem.</p>
+<p>Once notified issues are reproduced and confirmed, developers discuss
+the problem in order to find a suitable solution or workaround. All
+Whonix source code fixes and related matters are implemented as quickly
+as possible and the finding is posted for the public benefit.</p>
+<h2 id="Security_Vulnerabilities">Security Vulnerabilities</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Coordinated_vulnerability_disclosure">Responsible
+disclosure</a>: Users are kindly asked to privately report security bugs
+and describe the problem in detail - see the recommended <a href="#Reporting_Guidelines">Reporting Guidelines</a>
+below for guidance. Lead Whonix developer Patrick Schleizer should be
+contacted via OpenPGP encrypted mail <u>before</u> the information is
+published in public forums; see <a href="../Contact/">Contacting Whonix developers</a>. In this way,
+vulnerabilities can be patched without endangering the Whonix population
+and the notifier can be credited with the finding(s) after the change
+reaches the stable repository (or next Whonix release).</li>
+<li>Only Whonix specific vulnerabilities: Only vulnerabilities that are
+directly caused by <a href="https://github.com/Whonix">Whonix source
+code</a> should responsibly disclosed. Vulnerabilities in upstream
+projects (such as Linux, GNU, ...) should be reported upstream.</li>
+</ul>
+<h2 id="Reporting_Guidelines">Reporting Guidelines</h2>
+<p>Before developers take time to answer concerns, the reporter should
+make a reasonable attempt to demonstrate it is an actual issue.</p>
+<ol>
+<li>Make sure it is an actual bug report and not a support request.</li>
+<li><a href="../Please_Use_Search_Engines_And_See_Documentation_First/">Please use Search Engines and see Documentation
+First</a></li>
+<li>Read <a href="../Support/">Support</a>.</li>
+<li>Learn about <a href="../Self_Support_First_Policy/">Self Support First Policy</a>.</li>
+<li><a href="http://www.catb.org/esr/faqs/smart-questions.html">How to
+Ask Smart Questions</a></li>
+<li><a href="https://www.chiark.greenend.org.uk/~sgtatham/bugs.html">How
+to Report Bugs Effectively</a></li>
+<li><a href="https://mywiki.wooledge.org/XyProblem">XyProblem</a></li>
+</ol>
+<p>Whonix, Qubes OS and most other software projects expect thorough
+reports to include: <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<ol>
+<li>Whonix version and platform.</li>
+<li>Affected component(s) or functionality.</li>
+<li>Steps to reproduce the behavior.</li>
+<li>Expected behavior.</li>
+<li>Actual behavior - including detailed console output.</li>
+<li>Context - How has this issue affected you? What are you trying to
+accomplish? Providing context helps us come up with a solution that is
+most useful in the real world.</li>
+<li>Relevant <a href="../Documentation/">Documentation</a>
+that was consulted.</li>
+<li>Any related, <a href="https://forums.whonix.org">non-duplicate
+issues (bugs)</a>.</li>
+</ol>
+<p>The following example report would be considered wholly insufficient
+by Whonix developers:</p>
+<ul>
+<li><u>Platform</u>: Non-Qubes-Whonix 18.</li>
+<li><u>Affected functionality</u>: Updating/upgrading the system.</li>
+<li><u>Steps to reproduce</u>: Update the system in a terminal.</li>
+<li><u>Expected behavior</u>: No error messages appear.</li>
+<li><u>Actual behavior</u>: The message "70 signatures not checked due
+to missing keys" appears.</li>
+<li><u>Context</u>: Curiosity.</li>
+</ul>
+<p>Instead, further indicators are necessary in order to meet the
+threshold of a bug report.</p>
+<h2 id="Sample_Bug_Report">Sample Bug Report</h2>
+<p>In many cases only developers, developers-alike and very technical
+users will be able to report an actual issue based upon console output.
+A sample, thorough bug report is given below.</p>
+<table>
+<caption><em>Example Whonix Bug Report</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Indicator</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Whonix version</p></td>
+<td><p>All Whonix 18 variants (<a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a> and
+Qubes-Whonix<sup>&#8482;</sup>).</p></td>
+</tr>
+<tr class="even">
+<td><p>Affected component(s) or functionality</p></td>
+<td><p>Whonix-Gateway<sup>&#8482;</sup> (<code>sys-whonix</code>)
+firewall.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Steps to reproduce the behavior</p></td>
+<td><ol>
+<li>Enable the fail closed firewall mechanism in Whonix-Gateway
+(<code>sys-whonix</code>). <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+<li>Later on when a sdwdate package upgrade becomes available,
+networking is no longer functional after installation.</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td><p>Expected behavior</p></td>
+<td><p>An upgrade of the sdwdate package should not break
+networking.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Actual behavior</p></td>
+<td><p>An upgrade of the sdwdate package breaks networking.</p></td>
+</tr>
+<tr class="even">
+<td><p>Context</p></td>
+<td><p>Running standard ("everyday") upgrade instructions.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Relevant <a href="../Documentation/">Documentation</a> that was consulted</p></td>
+<td><p>See below.</p></td>
+</tr>
+<tr class="even">
+<td><p>Any related, <a href="https://forums.whonix.org">non-duplicate
+issues (bugs)</a></p></td>
+<td><p>None, but these resources are directly relevant:<br />
+* <a href="https://github.com/Whonix/sdwdate">sdwdate</a></p>
+<ul>
+<li><a href="https://github.com/Whonix/whonix-firewall/blob/master/usr/lib/systemd/system/networking.service.d/30_whonix-gw-firewall-fail-closed.conf"><code>30_whonix-gw-firewall-fail-closed.conf</code></a></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<p>A detailed answer to a reported issue is more likely if:</p>
+<ol>
+<li>Reporters exert more effort, provide detailed analysis, perform
+multiple web searches, and read the source code beforehand; or</li>
+<li>The reporter is a Whonix contributor or developer.</li>
+</ol>
+<h2 id="Generic_Bug_Reproduction">Generic Bug Reproduction</h2>
+<p>The following concepts and principles are related:</p>
+<ul>
+<li><a href="../Please_Use_Search_Engines_And_See_Documentation_First/">Please use Search Engines and see Documentation
+First</a></li>
+<li><a href="../Unspecific/">Unspecific</a></li>
+<li><a href="../Support/">Support</a></li>
+<li><a href="../Self_Support_First_Policy/">Self Support
+First Policy</a></li>
+<li><a href="../Support/#The_User_Co-developer_Concept">The
+User Co-developer Concept</a></li>
+<li><a href="../Moved:Mental_Model/">Mental Model</a></li>
+</ul>
+<p>Issues unspecific to Whonix, in short, due to the <a href="#Linux_User_Experience_versus_Commercial_Operating_Systems">organizational structure of Freedom Software</a>, in
+most cases the only realistic way to resolve questions and issues is to
+reduce the complexity to as few components and to research upstream
+(origin) resources (documentation, forums, mailing lists) and to contact
+upstream if applicable. For that, it is highly useful to remove the
+complexity of Whonix. Rephrasing the question, removing the Whonix
+specific part of it, utilizing other resources might yield more
+information or better help. Therefore all topics which are <a href="../Unspecific/">unspecific</a> to Whonix are
+redirected to upstream resources as per <a href="../Self_Support_First_Policy/">Self Support First
+Policy</a>.</p>
+<p>For issues specific to Whonix it is still highly useful to attempt to
+utilize the same concepts and principles as much as possible. To more
+colorfully explain this, an example will be used. A good example is <a href="https://forums.whonix.org/t/issue-with-failed-to-get-display-change-request/11929">issues
+with VirtualBox showing <code>VERR_INVALID_HANDLE</code></a>. Whonix
+does not develop VirtualBox. Whonix source code does not contain textual
+string <code>VERR_INVALID_HANDLE</code>.
+(<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]) The error message is generated by
+the VirtualBox source code and is not by the Whonix source code. The
+VirtualBox community and developers have more expertise in this
+area.</p>
+<p>Even if the issue is only occurring inside Whonix, perhaps caused by
+Whonix integration source code, i.e. Whonix specific, useful things to
+research are:</p>
+<ul>
+<li>How is this implemented in Whonix?</li>
+<li>How to reproduce this independently of Whonix?</li>
+<li>How to reproduce this in Debian <code>trixie</code>?</li>
+</ul>
+<p>Posting a link to this wiki chapter does not imply the issue should
+not be discussed. On the contrary, it is an invitation according to the
+<a href="../Support/#The_User_Co-developer_Concept">The
+User Co-developer Concept</a> to utilize upstream resources. If
+questions where asked, bug reports posted, helpful information or
+(partial) solution have been found, please consider editing the <a href="../Documentation/">Whonix Documentation</a> and/or
+providing a complete answer in the Whonix User Forums as a contribution
+to Whonix.</p>
+<h1 id="Software_Development_Cycle">Software Development Cycle</h1>
+<h2 id="Community_Feedback">Community Feedback</h2>
+<p>The Whonix project is highly receptive to genuine feedback and
+suggested improvements from users. Software projects flourish from
+community input and every suggestion is noted and considered.</p>
+<p>The Whonix community is asked to remain patient. The development
+cycle involves a number of competing priorities and challenges which
+must be overcome to achieve ambitious roadmap goals. Further, there is
+also an existing
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">1</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">phabricator
+tickets</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">2</i>
+<a href="https://github.com/QubesOS/qubes-issues/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22C%3A%20Whonix%22">qubes-issues
+backlog</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">3</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">forums
+backlog</a> of unresolved bugs and feature requests to address. See also
+<a href="#Policy_Rationale">Policy Rationale</a>.</p>
+<p>If Whonix resources grow over time, development activity and
+responsiveness to user input might increase. See also <a href="https://forums.whonix.org/t/linus-doesnt-scale-and-whonix-social-organization-structure-doesnt-scale-yet-either/9097">Linus
+doesn't scale and Whonix social organization structure doesn't scale yet
+either</a>.</p>
+<p>Often, proposed improvements or fixes to the Whonix platform are
+awaiting implementation due to differing developer priorities, limited
+human resources and/or the inordinate amount of time required to develop
+a particular feature or solution. In a minority of cases, the Whonix
+team is unsure how to resolve a bug or implement a specific change /
+feature. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p>It is generally unhelpful to debate the priorities laid out in the
+future Whonix roadmap, as this diverts energy from core development.
+Some major suggestions might become available in the long-term or might
+never eventuate. See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] to learn about organizational and
+funding issues in the Open Source ecosystem.</p>
+<p>For some requests it might be possible to:</p>
+<ul>
+<li>get the it solved if you <a href="#Contributions">contribute</a> and/or become a <a href="../Contribute/#Contributor">contributor</a>.</li>
+<li>have the same benefit by applying <a href="../Self_Support_First_Policy/">Self Support First
+Policy</a>.</li>
+</ul>
+<p><span class="manually-placed-anchor " id="Patches_are_Welcome"></span></p>
+<h2 id="Contributions">Contributions</h2>
+<p>Volunteer contributions to Whonix are most welcome. All proposed
+patches are carefully reviewed and merged if appropriate. Volunteers
+with the requisite coding ability should refer to the current
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">1</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">phabricator
+tickets</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">2</i>
+<a href="https://github.com/QubesOS/qubes-issues/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22C%3A%20Whonix%22">qubes-issues
+backlog</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">3</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">forums
+backlog</a> and consult with developers before undertaking any
+significant body of work. See also:</p>
+<ul>
+<li><a href="https://forums.whonix.org/t/focus-on-low-effort-maintainability/9067">Focus
+on low-effort maintainability</a></li>
+<li><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><a href="../First_Time_Source_Code_Contributor_Policy/">First-Time Source Code Contributor Policy</a></li>
+<li><a href="../Development_Discussion_Policy/">Development
+Discussion Policy</a></li>
+</ul>
+<h2 id="Old_Stable_Support_Policy">Old Stable Support Policy</h2>
+<p>It is not uncommon for Linux Distributions to support multiple
+release versions. <sup class="reference"><a href="#cite_note-4">[4]</a></sup> The popular Debian Linux
+distribution <a href="../Based_on_Debian/">on which Whonix
+is based</a> not only provides the stable, testing and unstable
+versions, but also maintains support for the old-stable version. The
+main reason is because it can take a long time for some organizations to
+plan, test and upgrade all computers when a new stable version is
+released. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p>Supporting the old-stable version with continued security updates for
+a period of time provides flexibility when migrating to the stable
+version. However, even for distributions like Debian that have a large
+number of developers, it can be very difficult to support both the
+stable and old-stable versions. This is evident by the limited time that
+the old-stable version is supported after the new stable is released -
+currently around one year on average. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p>Providing extended support for previous stable versions is preferred
+for both large and small projects alike, but this is infeasible for
+Whonix due to limited human resources. The reason is the vast majority
+of developer time must be focused on core components of the stable
+release version, otherwise providing support for both stable and
+old-stable would unduly stall its development. Therefore, without a
+significant increase in funding or manpower, the maintenance of two
+stable release versions is unlikely in the near or distant future.</p>
+<h2 id="Package_Upgrade_Policy">Package Upgrade Policy</h2>
+<p>Tickets that have status <code>resolved</code> or
+<code>implemented</code> on the
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">1</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">phabricator
+tickets</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">2</i>
+<a href="https://github.com/QubesOS/qubes-issues/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22C%3A%20Whonix%22">qubes-issues
+backlog</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">3</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">forums
+backlog</a> are not automatically pushed to the <code>stable</code> (or
+even <code>developer</code>) <a href="../Project-APT-Repository/">APT repository of Whonix</a>. Also referenced git
+commits are not intended to imply that.</p>
+<ul>
+<li><span class="manually-placed-anchor " id="standard_package_migration"></span>
+Standard Package Migration (<a href="#standard_package_migration">link</a>):
+<ul>
+<li>Stable package upgrades take time in order to provide a <a href="../Moved:Stable_Version_User_Experience/">Whonix Stable
+Version User Experience</a>.</li>
+<li>Packages are uploaded to the <code>developers</code> repository
+first. After developer testing, these are migrated to the
+<code>testers</code> repository for general testing. After that, these
+are migrated to the <code>stable-proposed-updates</code> repository.
+Eventually, packages are migrated to the <code>stable</code>
+repository</li>
+<li>Standard Package Migration: package upload &#8594; <code>developers</code>
+&#8594; <code>testers</code> &#8594; <code>stable-proposed-updates</code> &#8594;
+<code>stable</code></li>
+</ul></li>
+<li><span class="manually-placed-anchor " id="instant_package_migration"></span>Instant
+Package Migration (<a href="#instant_package_migration">link</a>):
+<ul>
+<li>In one of the following cases:
+<ul>
+<li>A) Annoying bugs, easy to fix bugs,and/or</li>
+<li>B) If critical security security vulnerabilities are
+discovered.</li>
+</ul></li>
+<li>Packages with very low probability of introducing system
+instability. (Such as for example sdwdate-gui)
+<ul>
+<li><a href="../Tor_Browser/#Tor_Browser_Downloader_by_Whonix">Tor Browser Downloader by Whonix</a> (<a href="https://github.com/Kicksecure/tb-updater">tb-updater</a>)</li>
+</ul></li>
+<li>Special purpose packages such as <a href="https://github.com/Kicksecure/debug-misc">debug-misc</a> which are
+not installed by default.</li>
+<li>Instant Package Migration: package upload &#8594; <code>developers</code>
+&#8594; all repositories (<code>testers</code>,
+<code>stable-proposed-updates</code>, <code>stable</code>)</li>
+</ul></li>
+</ul>
+<p>Advanced users who do not wish to wait for package updates can of
+course manually apply fixes to the relevant package(s) before that time.
+<sup class="reference"><a href="#cite_note-7">[7]</a></sup> Often all that is required is opening the files which
+were changed in a git commit(s) with root rights and emulating what the
+git commit would have changed. Do not copy any <code>+</code> or
+<code>-</code> signs that only illustrate which lines where added /
+removed and are not part of the actual file change. Another option is to
+<a href="../Dev/Build_Documentation/">update the package
+from source code</a>.</p>
+<p>(<a href="https://forums.whonix.org/t/package-upgrade-policy/10904">Package
+Upgrade Policy Forum Discussion</a>)</p>
+<h2 id="Issue_Labels">Issue Labels</h2>
+<h3 id="Forum_Issue_Tracker_Labels">Forum Issue Tracker Labels</h3>
+<table>
+<caption><em>Forum Issue Tracker Labels</em></caption>
+<tbody>
+<tr class="odd">
+<td><p><strong>Label Descriptor</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="even">
+<td><p><code>open</code></p></td>
+<td><p>The issue is still in the backlog.</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>confirmed</code></p></td>
+<td><p>Developers or other community members were able to reproduce the
+issue.</p></td>
+</tr>
+<tr class="even">
+<td><p><code>diagnosed</code> / <code>undiagnosed</code></p></td>
+<td><p>Developers or other community members were able/unable to
+identify the cause of the issue.</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>won't fix</code></p></td>
+<td><p>This is an ambiguous label that will hopefully be avoided in
+future. This applies to any issue that could be theoretically fixed, but
+it was rejected because there was no obvious solution, it was deemed too
+expensive to fix (in time or resources), the fix would add too much
+complexity, or for other reasons. See <a href="https://en.opensuse.org/Bug_Status_WONTFIX">this entry</a> for a
+rationale.</p></td>
+</tr>
+<tr class="even">
+<td><p><code>can't fix</code></p></td>
+<td><p>Similar to the entry above.</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>closed</code></p></td>
+<td><p>The issue was fixed, but the solution may not have been deployed
+yet.</p></td>
+</tr>
+<tr class="even">
+<td><p><code>implemented</code></p></td>
+<td><p>The issue was fixed, but the solution may not necessarily have
+been deployed. This is distinct from the <code>closed</code> label
+because code has been devised, but it may not have yet filtered through
+to the Whonix repositories (stable, stable-proposed-updates, testers or
+developers APT repositories).</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>patches welcome</code></p></td>
+<td><p>See <a href="./#Contributions">source code contributions</a> for further
+information.</p></td>
+</tr>
+<tr class="even">
+<td><p><code>unsupported</code></p></td>
+<td><p>The proposed use case is <a href="../Unsupported/">unsupported</a> and no <a href="../Contributors/">contributor</a> is available or volunteering to provide
+<a href="../Support/">Free Support</a> for implementation.
+<a href="./#Contributions">Contributions</a> are welcome.</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>declined</code></p></td>
+<td><p>The feature request was <a href="../Declined/">declined</a>. No contributions will be
+accepted.</p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Phabricator_Issue_Tracker_Labels">Phabricator Issue Tracker
+Labels</h3>
+<p>Phabricator issue tracker labels can be interpreted as follows:</p>
+<ul>
+<li><u>Reviewed</u>: "Completed in the latest source code version of
+Whonix" (but not released). Further testing is required in the next
+Whonix developers-only or testers-only release.</li>
+<li><u>Resolved</u>: "Completed in the development version of
+Whonix".</li>
+<li>There is no specific label to indicate status in the stable Whonix
+release.</li>
+</ul>
+<h1 id="Support_Request_Policy">Support Request Policy</h1>
+<p>Due to <a href="#Policy_Rationale">constraints</a>,</p>
+<ul>
+<li>many support requests <a href="../Unspecific/">unspecific to Whonix</a> have to be redirected
+elsewhere as per the <a href="../Self_Support_First_Policy/">Self Support First Policy</a>,</li>
+<li>many features are presently <a href="../Unsupported/">either undocumented, untested, unsupported</a> or <a href="../Community_Support/">community support only</a>,
+and</li>
+<li>sometimes there are <a href="../Declined/">Declined
+Feature Requests</a>.</li>
+<li>Whonix developers will normally only respond if they are convinced
+an actual technical, privacy or security-related problem has been
+identified. Many issues are unfortunately <a href="#Out_of_Scope_Issues">Out of Scope Issues</a>.</li>
+</ul>
+<p>In the past, Whonix developers provided answers to a wide range of
+reported oddities, such as console output messages that were difficult
+for users to understand. Unfortunately this level of attention is no
+longer possible, for reasons outlined in this chapter. Effective
+December 1, 2018, the policy concerning responses to support requests
+and concerns had changed.</p>
+<p><span class="manually-placed-anchor " id="Sample_Non-issue"></span></p>
+<h2 id="Out_of_Scope_Issues">Out of Scope Issues</h2>
+<p>For example, if a user reported that the following console message
+appeared during an <a href="../Moved:Update/">update</a>, Whonix
+developers would be unlikely to respond.</p>
+<pre><code>70 signatures not checked due to missing keys</code></pre>
+<p>The reason is because developers are aware this is not symptomatic of
+a technical problem, but rather a minor usability issue. In case of this
+example, if the user reporting the problem conducted simple Internet
+research, they would quickly realize the cause of the error is not
+Whonix-specific. <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<p>As a reminder, most anomalies are generally harmless rather than
+security issues. See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><blockquote><p>If trivial changes are noticed on your system -- such as a duplicate
+desktop icon -- this is not evidence of a hack or leak. Similarly, if
+warning or error messages appear that are difficult to understand, in
+most cases there is no need for panic. If something unexpected occurs
+such as the appearance of a "htaccess file in home directory", or
+graphical glitches emerge in some programs, then it is more likely a
+harmless bug and/or usability issue rather than a compromise.</p></blockquote></p>
+<p>Furthermore, it is in most cases unhelpful for non-technical users to
+run arbitrary <a href="../Dev/certification/">certification</a> utilities and test websites. This is
+because non-technical users lack the ability to
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided],
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], contextualize the meaning and
+impact of the test result let alone perform a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p>It is unlikely that arbitrary utilities or test websites used without
+documentation on how to interpret the results would show something
+spectacular, previously unknown to developers, actionable. Examples for
+many false-positives and minor issues can be found for <a href="../Browser_Tests/">Browser Tests</a>,
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided], <a href="../Dev/STIG/">Security Technical Implementation Guides (STIG)</a> and
+<a href="https://forums.whonix.org/t/run-openscap-security-test/9080">OpenSCAP
+security test</a>.</p>
+<h2 id="Policy_Rationale">Policy Rationale</h2>
+<p>There are several reasons for this policy:</p>
+<ul>
+<li><u>Developer Time</u>:
+<ul>
+<li>Providing answers for each and every (duplicate) reported
+(non-)issue costs time, which could be otherwise dedicated to core
+development and the
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">1</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">phabricator
+tickets</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">2</i>
+<a href="https://github.com/QubesOS/qubes-issues/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22C%3A%20Whonix%22">qubes-issues
+backlog</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">3</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">forums
+backlog</a> of existing bugs.</li>
+<li>To get an insight of the existing developer workload, see <a href="../What_we_do/">selection of Whonix project
+activities and maintenance tasks</a> and <a href="https://forums.whonix.org/c/news/">Whonix News</a>.</li>
+<li>Consider the following analogy. A popular speaker at a conference is
+approached by 500 people before their speech. Each individual requests a
+private discussion of only five minutes. The speaker made a rough
+calculation; ~500 people multiplied by five minutes equals 2,500 minutes
+or ~ 41 hours (nearly two days). Clearly it is infeasible for one
+speaker to accommodate everyone's request for a short discussion.</li>
+<li>By comparison, generally the architects of complex structures like
+buildings or hardware (and a myriad of other professions) do not explain
+any technical details for free to the general public.</li>
+</ul></li>
+<li><u>Personal Initiative</u>: Whonix is Freedom Software (<a href="../Reasons_for_Freedom_Software/">Why?</a>), which
+means every aspect of the source code is available for review. This
+level of transparency allows those who spend enough time or monetary
+resources to analyze everything in detail. In the spirit of Freedom
+Software, Whonix is purposefully opposed to artificial boundaries which
+make analysis unnecessarily more difficult.</li>
+<li><u>Feature Richness</u>: Since Whonix is <a href="../Based_on_Debian/">based on Debian</a> there are thousands of software
+packages available for use, and not all oddities can be discussed or
+explained due to time constraints.</li>
+<li><u>Usability Issues</u>: In the main, most usability issues will
+remain out of scope for developer attention. The reason is two-fold:
+either they are outside the control of the Whonix project and/or it is
+not economically viable due to the very structure of Freedom Software
+development; see <a href="#Linux_User_Experience_versus_Commercial_Operating_Systems">Linux User Experience versus Comparable Operating
+Systems</a> for further information.</li>
+<li><u>Legal Liability</u>: Due to <a href="../Moved:Limitations_on_Free_Speech_on_Website_and_Chat/">legal liability</a> and time restraints few
+communications can flow through Whonix Website and Whonix Chat.</li>
+<li><a href="../Self_Support_First_Policy/#Self_Support_First_Policy_Rationale">Self Support First Policy Rationale</a></li>
+</ul>
+<p>There are several reasons for this wiki entry. First, a link can be
+posted whenever necessary, thereby saving developers significant time
+and effort in addressing issues that are out of scope or non-issues.
+This demonstrates acknowledgement of the report, but also signals it is
+not cannot be processed at this time. Secondly, answering with a link is
+better than a non-answer. A nil response makes it unclear if the report
+has been seen or whether project development is even active.</p>
+<p>Users are welcome to report whatever they like, but it is <u>strongly
+recommended</u> to first search <a href="https://forums.whonix.org/search">the forums</a> and Internet as
+per <a href="../Self_Support_First_Policy/">The Self
+Support First Policy</a> to see if it was already reported - this is
+often the case.</p>
+<p>It is also absolutely crucial to subscribe to and read the latest
+Whonix news category 'important-news' to stay in touch with ongoing
+developments. This way users benefit from notifications concerning
+important security vulnerabilities, potential upgrade issues, common
+issues and improved releases which address identified issues, like those
+affecting the updater or other core elements. See <a href="../Stay_Tuned/">Stay Tuned</a>. Often issues which users are about the
+report are already mentioned there for example in the changelogs of
+release announcements.</p>
+<h1 id="Issue_Tracker">Issue Tracker</h1>
+<h2 id="Transition_to_Discourse_Forums">Transition to Discourse
+Forums</h2>
+<p>In the recent past, all issues were posted to the legacy tracker
+application: <a href="https://phabricator.whonix.org/maniphest/query/open/">Whonix
+phabricator</a>. However, the decision has been made to migrate issue
+tracking to the <a href="https://forums.whonix.org">Whonix discourse
+forums</a>. <sup class="reference"><a href="#cite_note-9">[9]</a></sup> <sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p>The links to the existing backlog of open issues (backlog 1) and the
+new discourse forums backlog location (backlog 2) are below.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">1</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">phabricator
+tickets</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">2</i>
+<a href="https://github.com/QubesOS/qubes-issues/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22C%3A%20Whonix%22">qubes-issues
+backlog</a>;
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">3</i>
+<a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">forums
+backlog</a></p>
+<h2 id="Forum_Tags">Forum Tags</h2>
+<p>The goal of forum tags is to maximize the usefulness of the Whonix
+forums as a roadmap and issue tracker for project developers.</p>
+<p>Previously there were no guidelines or rules on how to use discourse
+forum tags; anyone could create, add or change them. <sup class="reference"><a href="#cite_note-11">[11]</a></sup>
+Discourse forums tags can now only be changed by Whonix discourse
+moderators.</p>
+<p>Search query examples:</p>
+<ul>
+<li><a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo">all
+<code>status_open_issue_todo</code> issues</a></li>
+<li><a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_closed_issue_implemented">all
+<code>status_closed_issue_implemented</code> issues</a></li>
+<li><a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Acomponent_security%2Bstatus_open_issue_todo"><code>status_open_issue_todo</code>
+<code>component_security</code> related enhancement requests
+(TODO)</a></li>
+<li><a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Acomponent_security%2Bstatus_closed_issue_implemented"><code>status_closed_issue_implemented</code>
+<code>component_security</code> related enhancement requests
+(done)</a></li>
+<li><a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Acomponent_research%2Bstatus_open_issue_todo"><code>status_open_issue_todo</code>
+<code>component_research</code> tasks</a></li>
+<li><a href="https://forums.whonix.org/tags">list of all forum
+tags</a></li>
+<li><a href="https://forums.whonix.org/search?expanded=true&amp;q=tags%3Astatus_open_issue_todo%2Bmilestone_whonix_17%20order%3Alatest"><code>status_open_issue_todo</code>+<code>milestone_whonix_17</code></a>
+<ul>
+<li><span class="code-select">tags:status_open_issue_todo+milestone_whonix_17</span></li>
+</ul></li>
+</ul>
+<p>You can create a comment in a separate post such as:</p>
+<ul>
+<li><blockquote><p>Please open.</p></blockquote></li>
+<li><blockquote><p>Please close.</p></blockquote></li>
+<li><blockquote><p>Please re-open.</p></blockquote></li>
+<li><blockquote><p>Please add tag <code>testers-wanted</code>.</p></blockquote></li>
+<li><blockquote><p>Please remove tag <code>component_security</code>.</p></blockquote></li>
+</ul>
+<p>If appropriate, the tag will be changed by a forum moderator.
+<sup class="reference"><a href="#cite_note-12">[12]</a></sup> Note that issue-related comments might be deleted if
+inappropriate, duplicated or for the sake of brevity in the discussion
+(like when the status update was not changed due to a mistake). Also,
+tags should not be appended to every discussion or question about the
+related subject. <sup class="reference"><a href="#cite_note-13">[13]</a></sup></p>
+<p>If a forum thread is not tagged with the current stable release of
+Whonix or the next Whonix release (<code>whonix-15</code> and
+<code>whonix-16</code> at the time of writing), then it is not on the
+roadmap. In this case the likelihood the issue will be resolved is
+lower, whether it is a feature implementation, research/task completion,
+or bug fix. Please refrain from debating issue priorities or the
+timeframe for implementation; see <a href="./#Community_Feedback">Community
+Feedback</a>.</p>
+<h2 id="Qubes-Whonix_specific_issues">Qubes-Whonix specific issues</h2>
+<p>On the Qubes issue tracker there is a label <code>C: Whonix</code>
+which intents to list all Qubes-Whonix specific issues.</p>
+<p>Potential search terms for the <a href="https://github.com/QubesOS/qubes-issues/issues">Qubes issue
+tracker</a>:</p>
+<ul>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues?q=is%3Aissue+is%3Aopen+label%3A%22C%3A+Whonix%22">open
+issues with label <code>C: Whonix</code></a>:
+<span class="code-select">is:issue is:open label:"C: Whonix"</span></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues?q=is:issue+is:open+label:%22C:+Whonix%22">open
+and closed issues with label <code>C: Whonix</code></a>:
+<span class="code-select">is:issue label:"C: Whonix"</span></li>
+</ul>
+<p>What does label <code>C: Whonix</code> mean?</p>
+<p><a href="https://github.com/QubesOS/qubes-issues/issues/6110#issuecomment-1035696435">Quote</a>
+Andrew David Wong, Community manager, documentation and website
+maintainer:</p>
+<p><blockquote><p>It means that the affected component (or one of the affected
+components) is Whonix. I'm not a Whonix dev, so when I apply this label,
+it is merely a first-pass, best-effort, provisional, initial triage
+organization attempt. I rely on you, the devs (both Whonix and
+non-Whonix), to inform the accurate updating of these labels, as you all
+are the only ones with the requisite expertise to make authoritative
+technical diagnoses (not me, not users). I welcome any feedback,
+guidance, or advice you may have about how the issue tracker can serve
+you better. Ultimately, it is a tool to support your work, and my aim is
+to maintain it for that primary purpose.</p></blockquote></p>
+<h1 id="Appendix">Appendix</h1>
+<h2 id="Local_Browser_Homepage_-_Search_Engine_Feature_Request">Local
+Browser Homepage - Search Engine Feature Request</h2>
+<p>Same as
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="manually-placed-anchor " id="Linux_Distributions"></span></p>
+<h2 id="Linux_User_Experience_versus_Commercial_Operating_Systems">Linux
+User Experience versus Commercial Operating Systems</h2>
+<h2 id="Introduction">Introduction</h2>
+<p>When newcomers interact with a Linux operating system like Whonix,
+they come with certain expectations in regards to their overall
+experience. For the majority, expectations are based on their
+familiarity with Windows or macOS, since they dominate the desktop and
+laptop markets. <sup class="reference"><a href="#cite_note-14">[14]</a></sup> These commercial platforms
+pre-install a wide variety of popular and fully-featured applications,
+while the graphical user interface (GUI) is easy to use and intuitive.
+As a consequence, the seamless integration of new system software
+packages is the rule rather than the exception.</p>
+<p>Windows and macOS users are now accustomed to an integrated
+experience where "everything just works". Attempts to provide a
+comparable experience in Linux have proven to be very difficult and the
+problem seems insurmountable. Many find the Linux GUI difficult to use
+and counterintuitive. There are software applications that are similar
+in design to those found in Windows or macOS, but they often lack many
+of the same features <sup class="reference"><a href="#cite_note-15">[15]</a></sup> or do not fully integrate with
+other packages. For Linux beginners, it might be difficult to understand
+how applications with similar design goals can have vastly different
+cross-platform functionality. Only by comparing the structural
+differences between a typical corporate hierarchy and a Linux
+distribution's collaborative effort can the discrepancies be
+explained.</p>
+<h2 id="Linux_Distributions_vs._Commercial_Operating_Systems">Linux
+Distributions vs. Commercial Operating Systems</h2>
+<h3 id="Overview">Overview</h3>
+<p>The following table provides a simplified comparison of the major
+organizational structural differences. Quoted figures are accurate for
+the year 2020.</p>
+<table>
+<caption><em>Linux Distribution vs. Commercial Operating
+System</em></caption>
+<thead>
+<tr class="header">
+<th></th>
+<th><p><b>Linux Distributions</b></p></th>
+<th><p><b>Commercial Operating Systems</b></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Software</p></td>
+<td><p>Based on packages from many independent projects which develop
+software according to their own design goals</p></td>
+<td><p>Centralized (in-house) development with unified design
+goals</p></td>
+</tr>
+<tr class="even">
+<td><p>Funding Sources</p></td>
+<td><p>Donations, volunteer payments, grants, corporate sponsorship,
+professional services</p></td>
+<td><p>Revenue from software licensing <sup class="reference"><a href="#cite_note-16">[16]</a></sup>
+<sup class="reference"><a href="#cite_note-17">[17]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><p>Funding Amount</p></td>
+<td><p>Unprofitable, most are underfunded and depend on
+volunteers</p></td>
+<td><p>Profitable, billion dollar profits are the norm</p></td>
+</tr>
+<tr class="odd">
+<td><p>Authority to Issue Directives</p></td>
+<td><p>None, can only ask third party projects nicely</p></td>
+<td><p>CEO issues directives</p></td>
+</tr>
+<tr class="even">
+<td><p>Human Resources</p></td>
+<td><p>Community-based volunteers (limited time and human
+resources)</p></td>
+<td><p>In Windows' case, over 163,000 employees
+<sup class="reference"><a href="#cite_note-18">[18]</a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p>Popularity</p></td>
+<td><p>~ 1.85 per cent of the desktop operating system market
+<sup class="reference"><a href="#cite_note-19">[19]</a></sup></p></td>
+<td><p>Windows: ~ 78 per cent of the desktop operating system market
+<sup class="reference"><a href="#cite_note-19">[19]</a></sup> macOS: ~ 17 per cent of the desktop operating market
+<sup class="reference"><a href="#cite_note-20">[20]</a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p>User Experience</p></td>
+<td><p>Fragmented</p></td>
+<td><p>Unified</p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Software_Comparison">Software Comparison</h3>
+<p>As shown in the table above, Linux distributions are based on many
+third-party projects that develop software according to their own design
+goals. For instance, an application might be initially developed by a
+volunteer for Windows and optimized for that platform. Later on, another
+volunteer joins the project, forks the application, and ports it to the
+Linux platform. When these projects develop software, they do not
+necessarily prioritize the design goals to suit compatibility with Linux
+distributions.</p>
+<p>Linux distributions can only pick software packages that are already
+available, meaning the selected packages might fall short of the design
+goals. Moreover, unlike a traditional company, distributions are not
+structured with a large number of paid employees. Neither do they have
+the authority to issue directives to third-party projects to make
+desirable software changes. If a distribution needs package changes from
+an independent project, there are a few options, but they all require
+time and patience: <sup class="reference"><a href="#cite_note-21">[21]</a></sup></p>
+<ul>
+<li>Try to understand the perspective of the third-party project.</li>
+<li>Politely ask the project if they would be willing to make the
+changes.</li>
+<li>Submit code that makes sense from their point of view.</li>
+<li>Patch and/or fork their software.</li>
+<li>Use an alternative package from a different project.</li>
+</ul>
+<p>In contrast, commercial operating systems are based on software
+expressly designed to provide a fully-unified user experience. While
+Linux distributions rely on third-party packages, commercial platforms
+are developed in large companies with a strict corporate hierarchy. In
+these companies, the CEO can issue a directive to developers to make any
+change needed to improve the integrated experience. Any developer who
+lacks the necessary skills or refuses to make changes is likely to be
+terminated for non-compliance. The human resources department
+(representing the CEO) will not tolerate delays in software development,
+as it might threaten profits.</p>
+<h3 id="Funding_Comparison">Funding Comparison</h3>
+<p>Linux distributions are based on <a href="../Reasons_for_Freedom_Software/">Freedom Software</a> which can be used freely by
+anyone. Without a software licensing fee, options to generate a reliable
+funding stream for development are severely limited. Unless funding is
+available to hire a large contingent of full-time employees, it is
+nearly impossible to provide a unified experience. Instead,
+distributions rely primarily on the goodwill of developers who volunteer
+their time to integrate and maintain software packages. Without a
+salary, the time developers can devote to the task is necessarily
+reduced. Although this problem is attributable to the restricted funding
+sources available, it has less impact for sizeable or popular
+distributions due to:</p>
+<ul>
+<li>Donations or volunteer payment-based funding.</li>
+<li>Professional services provided on a commercial basis such as
+technical support, training and consulting.</li>
+<li>Developmental grants.</li>
+<li>Corporate sponsorship.</li>
+</ul>
+<p>On the other hand, proprietary operating systems like Windows are
+funded through the sale of software licenses and few barriers exist to
+funding growth. Licensing generates billions of dollars in revenue which
+is used to employ a large number of full-time developers. This, in turn,
+allows these employees to focus on developing the software packages from
+the ground up while remaining focused on the primary design goal:
+maintaining and improving the "Windows user experience" that the
+community has come to expect.</p>
+<h2 id="Conclusion">Conclusion</h2>
+<p>Based on the information presented above, it is unrealistic to expect
+any Linux distribution to provide a user experience identical to that of
+Windows or macOS. Linux has gradually improved the quality and
+consistency of the user experience on various devices, particularly for
+larger and more popular distributions like Debian, Fedora, and Ubuntu.
+However, it is impossible for most (if not all) distributions to
+replicate the quality found on commercial platforms. In the case of
+smaller distributions like Whonix, very limited human resources mean it
+is out of the question. Instead, developers must spend a large portion
+of their time on core functionality development.</p>
+<p>One obvious impact is that Whonix developers have limited time to
+answer support requests. Therefore, it is recommended to follow the
+advice outlined in the <a href="../Self_Support_First_Policy/">Self Support First Policy</a> chapter before asking for
+specific help. In addition, please document any steps that were used to
+solve problems in the forums and/or wiki, thereby supporting the <a href="../Self_Support_First_Policy/#The_User_Co-developer_Concept">co-developer concept</a> which has been adopted by the
+Whonix project. <sup class="reference"><a href="#cite_note-22">[22]</a></sup></p>
+<p>On the upside, Linux distributions have unique advantages. Less
+bloatware and other anti-features are imposed on the user. Privacy is
+generally better protected. When Windows breaks, the recommendation is
+usually to "reinstall Windows" which is a non-solution. The underlying
+cause of the problem in many cases has not been identified, understood,
+or reported, hence it is likely to reoccur due to a lack of progress.
+The common experience of Windows users is the platform becomes slower
+over time.</p>
+<p>When the support channels of commercial operating systems are
+utilized to report an issue, the support staff often provide inadequate
+responses. Issues may be ignored or reinterpreted as the fault of the
+end user. Issues are frequently not forwarded to developers and
+therefore never fixed. While it is difficult or near impossible to
+approach the developers of commercial operating systems, <a href="../Reasons_for_Freedom_Software/">Freedom Software</a> developers
+are generally accessible. In contrast to the open development principles
+adopted by Linux, the proprietary, closed-source nature of commercial
+operating systems hinders community efforts to resolve problems or make
+enhancements -- it is very difficult or impossible to perform the
+necessary analysis of internals and source code.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">This recommended format is taken directly from the <a href="https://github.com/QubesOS/qubes-issues/issues/">Qubes OS bug
+tracker</a>; for an example, see <a href="https://github.com/QubesOS/qubes-issues/issues/4842">this
+bug</a>.</li>
+<li id="cite_note-2">So that networking is blocked if sdwdate.service fails to load.</li>
+<li id="cite_note-3">Some of these relate to cross-platform problems which are not
+Whonix-specific.</li>
+<li id="cite_note-4">At the time of writing, Fedora supports 2 release versions - Fedora
+{31,32}; see <a href="https://docs.fedoraproject.org/en-US/releases/#Current-supported-releases">https://docs.fedoraproject.org/en-US/releases/#Current-supported-releases</a></li>
+<li id="cite_note-5"><a href="https://wiki.debian.org/DebianOldStable/#FAQ">https://wiki.debian.org/DebianOldStable/#FAQ</a></li>
+<li id="cite_note-6"><a href="https://www.debian.org/security/faq#lifespan">https://www.debian.org/security/faq#lifespan</a></li>
+<li id="cite_note-7">For example, the Whonix <a href="../Moved:AppArmor/">AppArmor</a> profiles package is a prime candidate for
+manual fixes, as it <a href="../Moved:AppArmor/#Maintain_Tor_Browser_Functionality">frequently breaks Tor Browser functionality</a> when
+later browser versions are released.</li>
+<li id="cite_note-8">For example, see: <a href="https://unix.stackexchange.com/questions/485349/installing-mysql-with-mysql-apt-config-missing-keys">https://unix.stackexchange.com/questions/485349/installing-mysql-with-mysql-apt-config-missing-keys</a></li>
+<li id="cite_note-9"><a href="https://forums.whonix.org/t/abolishing-whonix-phabricator-issue-tracker-moving-issue-tracking-to-forums-migrating-phabricator-whonix-org-to-forums-whonix-org/7112">https://forums.whonix.org/t/abolishing-whonix-phabricator-issue-tracker-moving-issue-tracking-to-forums-migrating-phabricator-whonix-org-to-forums-whonix-org/7112</a></li>
+<li id="cite_note-10">Reasons: * one less web application and account to maintain; *
+phabricator updates occasionally break functionality, such as the
+outbound mailer; * far more users sign up to the forums and wiki
+accounts, giving posted issues more visibility; * developer forum
+threads often duplicate existing phabricator tickets; * the relatively
+"small" number of open tickets at the time of writing (220) makes the
+(slow) migration to the forums feasible; * extraneous tickets can be
+closed during migration; and * forum search functions allow for multiple
+tags which all need to be matched at the same time.</li>
+<li id="cite_note-11">Previously it did not make sense to have a <a href="https://forums.whonix.org/tag/testers-wanted"><code>testers-wanted</code>
+tag</a> since there were around 50 requests for testing that were mostly
+obsolete. Therefore, forum threads listed under that forum tag were
+minimized to reflect up-to-date contents where testing would be
+useful.</li>
+<li id="cite_note-12">This is restricted to forum moderators because <a href="https://meta.discourse.org/t/view-tag-changes/151679">discourse
+does not have a feature to view tag changes</a>.</li>
+<li id="cite_note-13">Because adding tags to everything related does not improve anything.
+All keywords can still be found through internal and/or external search
+engines.</li>
+<li id="cite_note-14">Around 95 per cent combined.</li>
+<li id="cite_note-15">Like Skype.</li>
+<li id="cite_note-16">For example, recent Windows earnings can be found <a href="https://www.windowscentral.com/microsoft-fy18-q1-earnings">here</a>.</li>
+<li id="cite_note-17">Most desktop computers sold worldwide come with Windows
+pre-installed, generating significant revenue from licensing.</li>
+<li id="cite_note-18"><a href="https://www.statista.com/statistics/273475/number-of-employees-at-the-microsoft-corporation-since-2005/">Microsoft
+Corporation: employee count from 2005 onward (in 1,000s)</a></li>
+<li id="cite_note-19"><a href="https://gs.statcounter.com/os-market-share/desktop/worldwide/">Desktop
+Operating System Market Share Worldwide</a></li>
+<li id="cite_note-20"><a href="https://gs.statcounter.com/os-market-share/desktop/worldwide/">https://gs.statcounter.com/os-market-share/desktop/worldwide/</a></li>
+<li id="cite_note-21">If options or features require a substantial time investment, it may
+be infeasible for a distribution with limited resources to implement the
+desired changes.</li>
+<li id="cite_note-22">It is possible to contribute in a number of ways, such as by helping
+to answer questions in the forums.</li>
+</ol>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

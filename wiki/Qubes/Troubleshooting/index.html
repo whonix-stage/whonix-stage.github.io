@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Qubes/Troubleshooting</title>
+<meta name="description" content="Troubleshooting Tor, Network and sdwdate Issues with Whonix">
+<meta property="og:description" content="Troubleshooting Tor, Network and sdwdate Issues with Whonix">
+<link rel="canonical" href="https://www.whonix.org/wiki/Qubes/Troubleshooting/">
+<meta property="og:url" content="https://www.whonix.org/wiki/Qubes/Troubleshooting/">
+<meta property="og:title" content="Qubes-Whonix Tor Connectivity and sdwdate Troubleshooting">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Torconnectivitytroubleshoot.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Qubes</span> / <span>Troubleshooting</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Generally">Generally</a></li><li class="toc-l2"><a href="#Qubes_sys-net_workaround">Qubes sys-net workaround</a></li><li class="toc-l2"><a href="#sdwdate-gui_qrexec_settings">sdwdate-gui qrexec settings</a></li><li class="toc-l3"><a href="#sdwdate-gui_qrexec_settings_fix">sdwdate-gui qrexec settings
+fix</a></li><li class="toc-l3"><a href="#sdwdate-gui_qrexec_debugging">sdwdate-gui qrexec debugging</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../../Moved:Update/" title="Qubes/Update"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes/Update</span></a><a class="index internal" href="../../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Tor_Browser/" title="Qubes/Tor Browser"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Qubes/Tor
+Browser</span></a><span class="info"><span class="prev">Previous page:
+Qubes/Update</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Qubes/Tor
+Browser</span></span></span>Qubes-Whonix<sup>&#8482;</sup> Tor Connectivity
+and sdwdate Troubleshooting</p>
+</div>
+<div class="mininav">
+<ul>
+<li><a href="../../Troubleshooting/#Connectivity_Troubleshooting">Connectivity Troubleshooting</a></li>
+<li><a href="../../Troubleshooting/#General_Troubleshooting">General Troubleshooting</a></li>
+<li><a href="./">Qubes-Whonix<sup>&#8482;</sup> Tor Connectivity and sdwdate
+Troubleshooting</a></li>
+<li><a href="../UpdatesProxy/">Qubes UpdatesProxy
+Troubleshooting</a></li>
+<li><a href="../../Network_Obstacle/">Network
+Obstacle</a></li>
+<li><a href="../../Tor/">Tor Log Analysis and Connectivity
+Troubleshooting</a></li>
+</ul>
+</div>
+<p><img src="../../../media/Torconnectivitytroubleshoot.png.webp" alt="Torconnectivitytroubleshoot.png" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Troubleshooting Tor, Network and sdwdate Issues with Whonix</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<p>Occasionally, Qubes-Whonix user are reporting connectivity issues as
+well as sdwdate issues. However, a lot issues Qubes-Whonix connectivity
+issues are <a href="../../Unspecific/">unspecific to
+Whonix</a>. These issues are often misattributed to Whonix.</p>
+<p>Even though the issue is happening inside Whonix, the cause is most
+often unrelated to Whonix source code. Qubes is developed by <a href="https://www.qubes-os.org">Qubes OS Project</a>, which is an
+independent entity. The is the norm in Linux distributions. To learn
+more about such relationships see
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]. A different issue could be a <a href="../../Network_Obstacle/">Network Obstacle</a>.</p>
+<p>Whonix does integration work Whonix integrated into the Qubes
+platform. To use a simple analogy, Whonix stays "on the outside". Very
+few modifications are made to Qubes through Qubes dom0 package <a href="https://github.com/QubesOS/qubes-core-admin-addon-whonix">qubes-core-admin-addon-whonix</a>
+as described for developers in the <a href="../../Dev/Qubes/#qvm-tags">Qubes-Whonix <code>qvm-tags</code></a> chapter.</p>
+<p>In the past, Qubes was released with some "strange" connectivity bugs
+such as <a href="https://github.com/QubesOS/qubes-issues/issues/7123">this</a>.</p>
+<p>A Qubes user might think the user has updated Qubes which should
+include bug fixes but actually the update might not have happened due to
+Qubes Updater issues. See <a href="../../Moved:Update/">Qubes-Whonix/Update</a>.</p>
+<p>To remedy this kind of issue, <a href="#Connectivity_Troubleshooting_Approaches">there
+are a few approaches</a>.</p>
+<h1 id="Qubes_sdwdate_specific">Qubes sdwdate specific</h1>
+<p>It is often suspected that sdwdate might be the cause.</p>
+<p>This is unlikely. No issues are reported for Whonix on other
+platforms such as Whonix for VirtualBox which has a magnitude of more
+users but no (or very rare) similar connectivity bug reports.</p>
+<p><a href="../../Sdwdate-gui/">sdwdate-gui</a> makes Tor
+issues in Qubes-Whonix more visible due to its graphical indication and
+easily accessible logs.</p>
+<p>However, at time of writing <a href="../../Sdwdate-gui/">sdwdate-gui</a> is mostly a <a href="../../Troubleshooting/#Unsuitable_Connectivity_Troubleshooting_Tools">unsuitable connectivity troubleshooting tool</a>.</p>
+<p>To exclude the possibly that sdwdate is the cause, the user could
+attempt to disable the autostart of sdwdate.</p>
+<ul>
+<li>info: <a href="../../Sdwdate/">sdwdate</a></li>
+<li>try: <a href="https://www.kicksecure.com/wiki/Sdwdate#Disable_Autostart">Disable
+Autostart of sdwdate</a></li>
+</ul>
+<h1 id="Connectivity_Troubleshooting_Approaches">Connectivity
+Troubleshooting Approaches</h1>
+<h2 id="Generally">Generally</h2>
+<p><strong>1.</strong> The user is encouraged to learn about general (<a href="../../Unspecific/">unspecific to Whonix</a>) Qubes
+Updater issues and make sure updates are really installed. See also <a href="../../Moved:Update/">Qubes/Update</a>.</p>
+<p><strong>2.</strong> <a href="../../Troubleshooting/#Connectivity_Troubleshooting">Connectivity Troubleshooting</a></p>
+<p><strong>3.</strong> <a href="../../Tor/#Connectivity_Troubleshooting">Tor Connectivity Troubleshooting</a></p>
+<h2 id="Qubes_sys-net_workaround">Qubes sys-net workaround</h2>
+<p>Complete the following steps:</p>
+<ol>
+<li>Shut down <code>sys-whonix</code>.</li>
+<li>Change the <code>sys-whonix</code> NetVM setting from
+<code>sys-firewall</code> to <code>sys-net</code>.</li>
+<li>Restart <code>sys-whonix</code>.</li>
+</ol>
+<p>This procedure might help, but should not be considered a final
+solution. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p>Please report if this workaround helped.</p>
+<h1 id="systemd-socket-proxyd">systemd-socket-proxyd</h1>
+<ul>
+<li><code>systemd-socket-proxyd</code> using 100% CPU was reported <a href="https://forum.qubes-os.org/t/suspend-swap-and-whonix-gateway-performance-issues/11310">here</a></li>
+<li><code>systemd-socket-proxyd</code>
+<code>Failed to get remote socket: Too many open files</code>
+potentially caused by <a href="https://github.com/QubesOS/qubes-issues/issues/7539">VM logs
+filled with "host kernel: xen:grant_table: g.e x still pending" messages
+#7539</a></li>
+</ul>
+<h1 id="xen:grant_table">xen:grant_table</h1>
+<ul>
+<li>Both,
+<ul>
+<li><code>kernel: xen:grant_table: g.e. redacted still pending</code></li>
+<li><code>kernel: deferring g.e. redacted (pfn redacted)</code></li>
+</ul></li>
+<li>potentially caused by <a href="https://github.com/QubesOS/qubes-issues/issues/7539">VM logs
+filled with "host kernel: xen:grant_table: g.e x still pending" messages
+#7539</a></li>
+</ul>
+<h1 id="suspend_resume_related">suspend resume related</h1>
+<ul>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/7554">VM
+using kernel 5.10.112 unable to resume after suspension #7554</a></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/7548">Windows
+become unresponsive for VMs that were paused before suspend
+#7548</a></li>
+</ul>
+<p>Potential fix:</p>
+<p><a href="https://github.com/QubesOS/qubes-core-admin/pull/473">Properly
+suspend all VMs, not only those with PCI devices #473</a></p>
+<h1 id="clocksource_tsc_vs_xen">clocksource tsc vs xen</h1>
+<ul>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/7404#issuecomment-1113299850">https://github.com/QubesOS/qubes-issues/issues/7404#issuecomment-1113299850</a></li>
+</ul>
+<h1 id="Future">Future</h1>
+<p>The community is encouraged not to wait for Whonix to fix these
+connectivity issues since this unfortunately is unlikely to happen. This
+is because Whonix developers are not affected by these connectivity
+issues, these are non-reproducible issues and sometimes these are caused
+by already fixed Qubes bugs which are not yet fixed on Qubes due to
+Qubes Updater issues.</p>
+<h1 id="Related_Qubes_Bugs">Related Qubes Bugs</h1>
+<ul>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/7013"><code>Denied: whonix.SdwdateStatus</code>
+error message after DispVM has halted</a>
+<ul>
+<li><a href="https://github.com/QubesOS/updates-status/issues/2824">https://github.com/QubesOS/updates-status/issues/2824</a>
+will fix most if not all <code>Denied: whonix.</code> alike issues</li>
+</ul></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/4167">Qubes
+doesn't backup and restore qvm-tags.</a> Therefore, sdwdate
+<code>Denied</code> messages can happen.</li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/7287">Switching
+qube to Whonix template fails to add <code>anon-vm</code> qvm-tag,
+resulting in <code>sys-whonix: denied: denied by policy</code></a></li>
+</ul>
+<h1 id="Unexpected_autostart_of_sys-whonix">Unexpected autostart of
+sys-whonix</h1>
+<p>If using multiple Qubes-Whonix VMs, the user should make sure to have
+followed the relevant documentation.</p>
+<div class="mininav">
+<ul>
+<li><a href="../../Multiple_Whonix-Gateway/">Multiple
+Whonix-Gateway<sup>&#8482;</sup></a></li>
+<li><a href="../../Multiple_Whonix-Workstation/">Multiple
+Whonix-Workstation<sup>&#8482;</sup></a></li>
+<li><a href="../../Multiple_Qubes-Whonix_Templates/">Multiple
+Qubes-Whonix<sup>&#8482;</sup> Templates</a></li>
+</ul>
+</div>
+<p>3 components are related here.</p>
+<ul>
+<li><strong>A)</strong> <a href="https://www.qubes-os.org/doc/how-to-install-software-in-dom0/">Qubes
+dom0 UpdateVM setting</a></li>
+<li><strong>B)</strong> Qubes dom0 <a href="../../Multiple_Qubes-Whonix_Templates/#UpdatesProxy_Settings">UpdatesProxy</a></li>
+<li><strong>C)</strong> Qubes dom0 <a href="#sdwdate-gui_qrexec_settings">sdwdate-gui qrexec
+settings</a>.</li>
+</ul>
+<p>On the <a href="../../Multiple_Qubes-Whonix_Templates/">Multiple Qubes-Whonix Templates</a> wiki page take
+special note of the warning box in the <a href="../../Multiple_Qubes-Whonix_Templates/#UpdatesProxy">UpdatesProxy</a> chapter.</p>
+<p>Related:</p>
+<ul>
+<li><a href="../../Dev/Qubes/#qvm-tags">Developer
+documentation about <code>qvm-tags</code></a></li>
+<li><a href="../../Dev/Qubes/#qvm_tags_issues"><code>qvm-tags</code> issues</a></li>
+</ul>
+<h2 id="sdwdate-gui_qrexec_settings">sdwdate-gui qrexec settings</h2>
+<h3 id="sdwdate-gui_qrexec_settings_fix">sdwdate-gui qrexec settings
+fix</h3>
+<ul>
+<li>A) New installation of Qubes R4.2: These steps are very most likely
+not required.</li>
+<li>B) A fully updated Qubes should not require any of the following
+steps.</li>
+</ul>
+<p><strong>1.</strong> <a href="https://github.com/QubesOS/qubes-core-admin-addon-whonix/blob/master/qubes-rpc-policy/80-whonix.policy"><code>80-whonix.policy</code>
+on github</a> (<a href="https://raw.githubusercontent.com/QubesOS/qubes-core-admin-addon-whonix/master/qubes-rpc-policy/80-whonix.policy">raw</a>)
+should look same as <code>/etc/qubes/policy.d/80-whonix.policy</code> in
+dom0.</p>
+<p><strong>2.</strong> The following files are legacy and could
+optionally be safely removed if step 1 was confirmed.</p>
+<p><span class="code-select">sudo rm
+/etc/qubes-rpc/policy/whonix.GatewayCommand</span></p>
+<p><span class="code-select">sudo rm
+/etc/qubes-rpc/policy/whonix.NewStatus</span></p>
+<p><span class="code-select">sudo rm
+/etc/qubes-rpc/policy/whonix.SdwdateStatus</span></p>
+<h3 id="sdwdate-gui_qrexec_debugging">sdwdate-gui qrexec debugging</h3>
+<h4 id="dom0_journal_log_file_reading">dom0 journal log file
+reading</h4>
+<p>Check, follow dom0 journal log file while reproducing sdwdate-gui
+qrexec messages.</p>
+<p>Look for <code>denied:</code> messages.</p>
+<p>In dom0.</p>
+<p><span class="code-select">sudo journalctl</span></p>
+<p>Or.</p>
+<p><span class="code-select">sudo journalctl -f</span></p>
+<h4 id="sdwdate-watcher_debugging">sdwdate-watcher debugging</h4>
+<p><strong>1.</strong> Inside the Whonix-Workstation App Qube.</p>
+<p><strong>2.</strong> Kill sdwdate-watcher.</p>
+<p>sdwdate-watcher is the part of sdwdate-gui which watches sdwdate
+events from /var/run/sdwdate folder and notifies the
+<code>gateway</code> configured in
+<code>/usr/local/etc/sdwdate-gui.d/50_user.conf</code>.</p>
+<p><span class="code-select">killall sdwdate-watcher</span></p>
+<p><strong>3.</strong> Start sdwdate-watcher.</p>
+<p><span class="code-select">/usr/libexec/sdwdate-gui/start-maybe</span></p>
+<p><strong>4.</strong> Restart sdwdate.</p>
+<p>This is to produce new sdwdate activity that sdwdate-watcher can
+observe.</p>
+<p><span class="code-select">sudo systemctl restart sdwdate</span></p>
+<p><strong>5.</strong> See if there are any error messages.</p>
+<h4 id="qvm-tags_verification">qvm-tags verification</h4>
+<p><u>Notes:</u></p>
+<ul>
+<li>Any commands that follow must be run in Qubes dom0.</li>
+<li>Debugging Qubes qrexec is largely <a href="../../Unspecific/">unspecific to Qubes-Whonix</a>. Qubes qrexec debugging
+instructions from other resources, such as the Qubes website, should
+also apply.</li>
+</ul>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Background information on qvm-tags.</p>
+<p>See if you can make head or tail of <a href="../../Dev/Qubes/#qvm-tags">qvm-tags developer notes</a>. If not, skip this
+step.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Check qvm-tags of Whonix-Gateway<sup>&#8482;</sup> Net Qube.</p>
+<p><u>Note:</u> Replace <code>sys-whonix</code> with the actual name of
+the Whonix-Gateway you are using.</p>
+<p><span class="code-select">qvm-tags sys-whonix</span></p>
+<p>Expected printout should include:</p>
+<pre><code>anon-gateway</code></pre>
+<pre><code>sdwdate-gui-server</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Check qvm-tags of Whonix-Workstation<sup>&#8482;</sup> App Qube.</p>
+<p><u>Note:</u> Replace <code>anon-whonix</code> with the actual name of
+the Whonix-Workstation you are using.</p>
+<p><span class="code-select">qvm-tags anon-whonix</span></p>
+<p>Expected printout should include:</p>
+<pre><code>anon-vm</code></pre>
+<pre><code>sdwdate-gui-client</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Check qvm-tags of Whonix-Gateway Template.</p>
+<p><u>Note:</u> Replace <code>whonix-gateway-18</code> with the actual
+name of the Whonix-Gateway Template you are using.</p>
+<p><span class="code-select">qvm-tags whonix-gateway-18</span></p>
+<p>Expected printout should include:</p>
+<pre><code>whonix-updatevm</code></pre>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Check qvm-tags of Whonix-Workstation Template.</p>
+<p><u>Note:</u> Replace <code>whonix-workstation-18</code> with the
+actual name of the Whonix-Workstation Template you are using.</p>
+<p><span class="code-select">qvm-tags whonix-workstation-18</span></p>
+<p>Expected printout should include:</p>
+<pre><code>whonix-updatevm</code></pre>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../../Troubleshooting/#Connectivity_Troubleshooting">Connectivity Troubleshooting</a></li>
+<li><a href="../../Troubleshooting/#General_Troubleshooting">General Troubleshooting</a></li>
+<li><a href="../../Network_Obstacle/">Network
+Obstacle</a></li>
+<li><a href="../../Tor/">Tor</a></li>
+<li><a href="../../Vanguards/">vanguards</a></li>
+<li><a href="https://forums.whonix.org/t/qubes-whonix-development/13323">Qubes-Whonix
+Development</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">This procedure was useful for <a href="../">Qubes-Whonix</a> R3.2 users, although the Qubes bug
+report is now resolved: <a href="https://github.com/QubesOS/qubes-issues/issues/2141">https://github.com/QubesOS/qubes-issues/issues/2141</a></li>
+</ol>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../../Moved:Update/" title="Qubes/Update"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes/Update</span></a><a class="index internal" href="../../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Tor_Browser/" title="Qubes/Tor Browser"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Qubes/Tor
+Browser</span></a><span class="info"><span class="prev">Previous page:
+Qubes/Update</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Qubes/Tor
+Browser</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy/">Privacy Policy</a>, <a href="../../Cookie_Policy/">Cookie Policy</a>, <a href="../../Terms_of_Service/">Terms of Service</a>, and <a href="../../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>ProxyBOX</title>
+<meta name="description" content="sys-proxy">
+<meta property="og:description" content="sys-proxy">
+<link rel="canonical" href="https://www.whonix.org/wiki/ProxyBOX/">
+<meta property="og:url" content="https://www.whonix.org/wiki/ProxyBOX/">
+<meta property="og:title" content="ProxyBOX">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Proxybox123.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Template">Template</a></li><li class="toc-l2"><a href="#VM_Setup">VM Setup</a></li><li class="toc-l2"><a href="#sys-proxy_Setup">sys-proxy Setup</a></li><li class="toc-l3"><a href="#redsocks_Configuration">redsocks Configuration</a></li><li class="toc-l3"><a href="#Script">Script</a></li><li class="toc-l3"><a href="#Start">Start</a></li><li class="toc-l2"><a href="#anon-proxy_VM_setup">anon-proxy VM setup</a></li></ul></nav><div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Dev/Inspiration/" title="Dev/Inspiration"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Inspiration</span></a><a class="index internal" href="../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../Dev/Zerobox/" title="Dev/Zerobox"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Zerobox</span></a><span class="info"><span class="prev">Previous
+page: Dev/Inspiration</span><span class="index">Index page:
+Design</span><span class="next">Next page:
+Dev/Zerobox</span></span></span>ProxyBOX</p>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Proxybox123.jpg.webp" alt="Proxybox123.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>sys-proxy</p>
+<div class="post-intro-p">
+</div>
+<p>Developed for and tested in Qubes Debian / Kicksecure<sup>&#8482;</sup>
+only.</p>
+<h1 id="Introduction">Introduction</h1>
+<p>TODO: write introduction</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
+<b><u>Before combining Tor with other tunnels, <a href="../Tunnels/Introduction/">be sure to read and
+understand the risks</a>!</u></b></p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="../Community_Support/">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<p>This is for advanced users only!</p>
+<p>Advantage: IP forwarding not required</p>
+<p>For background information, see also: <a href="../Dev/Inspiration/#Proxy">Dev/Inspiration#Proxy</a></p>
+<h1 id="Setup">Setup</h1>
+<h2 id="Template">Template</h2>
+<div class="info-box ">
+<p>Install package(s) <code>redsocks</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="../Qubes/">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</p>
+<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>redsocks</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+redsocks</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided].</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>redsocks</code> is
+complete.</p>
+</div>
+<h2 id="VM_Setup">VM Setup</h2>
+<p><strong>1.</strong> Create a VM <code>sys-proxy</code> with checked
+<code>provides network</code> based on Debian 13 Template.</p>
+<p><strong>2.</strong> Create a VM <code>anon-proxy</code> which uses
+<code>net qube</code>: <code>sys-proxy</code>.</p>
+<h2 id="sys-proxy_Setup">sys-proxy Setup</h2>
+<h3 id="redsocks_Configuration">redsocks Configuration</h3>
+<p>In <code>sys-proxy</code>.</p>
+<p>file: <code>~/redsocks.conf</code></p>
+<pre><code>base {
+    // debug: connection progress &amp; client list on SIGUSR1
+    log_debug = off;
+
+    // info: start and end of client session
+    log_info = on;
+
+    /* possible `log&#39; values are:
+     *   stderr
+     *   &quot;file:/path/to/file&quot;
+     *   syslog:FACILITY  facility is any of &quot;daemon&quot;, &quot;local0&quot;...&quot;local7&quot;
+     */
+    log = &quot;syslog:daemon&quot;;
+
+    // detach from console
+    daemon = on;
+
+    /* Change uid, gid and root directory, these options require root
+     * privileges on startup.
+     * Note, your chroot may requre /etc/localtime if you write log to syslog.
+     * Log is opened before chroot &amp; uid changing.
+     */
+    user = redsocks;
+    group = redsocks;
+    // chroot = &quot;/var/chroot&quot;;
+
+    /* possible `redirector&#39; values are:
+     *   iptables   - for Linux
+     *   ipf        - for FreeBSD
+     *   pf         - for OpenBSD
+     *   generic    - some generic redirector that MAY work
+     */
+    redirector = iptables;
+}
+
+redsocks {
+    /* `local_ip&#39; defaults to 127.0.0.1 for security reasons,
+     * use 0.0.0.0 if you want to listen on every interface.
+     * `local_*&#39; are used as port to redirect to.
+     */
+    // local_ip = 127.0.0.1;
+    local_ip = 0.0.0.0;
+    local_port = 12345;
+
+    // `ip&#39; and `port&#39; are IP and tcp-port of proxy-server
+    // You can also use hostname instead of IP, only one (random)
+    // address of multihomed host will be used.
+    ip = 127.0.0.1;
+    port = 9050;
+    // known types: socks4, socks5, http-connect, http-relay
+    type = socks5;
+    // login = &quot;username&quot;;
+    // password = &quot;password&quot;;
+}
+
+redudp {
+    // `local_ip&#39; should not be 0.0.0.0 as it&#39;s also used for outgoing
+    // packets that are sent as replies - and it should be fixed
+    // if we want NAT to work properly.
+    // local_ip = 127.0.0.1;
+    local_ip = 0.0.0.0;
+    local_port = 10053;
+
+    // `ip&#39; and `port&#39; of socks5 proxy server.
+    ip = 127.0.0.1;
+    port = 9050;
+    // login = &quot;username&quot;;
+    // password = &quot;password&quot;;
+
+    // kernel does not give us this information, so we have to duplicate it
+    // in both iptables rules and configuration file.  By the way, you can
+    // set `local_ip&#39; to 127.45.67.89 if you need more than 65535 ports to
+    // forward ;-)
+    // This limitation may be relaxed in future versions using contrack-tools.
+    dest_ip = 192.0.2.2;
+    dest_port = 53;
+
+    udp_timeout = 30;
+    udp_timeout_stream = 180;
+}
+
+dnstc {
+    // fake and really dumb DNS server that returns &quot;truncated answer&quot; to
+    // every query via UDP, RFC-compliant resolver should repeat same query
+    // via TCP in this case.
+    // local_ip = 127.0.0.1;
+    local_ip = 0.0.0.0;
+    local_port = 5300;
+}
+
+// you can add more `redsocks&#39; and `redudp&#39; sections if you need.</code></pre>
+<h3 id="Script">Script</h3>
+<p>In <code>sys-proxy</code>.</p>
+<p>file: <code>~/firewall</code></p>
+<pre><code>#!/bin/bash
+
+set -x
+set -e
+
+sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sysctl -w net.ipv4.conf.all.forwarding=0
+
+ls /home/user/redsocks.conf /etc/redsocks.conf
+cp /home/user/redsocks.conf /etc/redsocks.conf
+systemctl --no-pager --full restart redsocks
+systemctl --no-pager --full status redsocks
+
+echo &quot;options use-vc
+nameserver 1.1.1.1&quot; | tee /etc/resolv.conf
+
+[ -n &quot;$iptables_cmd&quot; ] || iptables_cmd=&quot;iptables --wait&quot;
+[ -n &quot;$ip6tables_cmd&quot; ] || ip6tables_cmd=&quot;ip6tables --wait&quot;
+
+$iptables_cmd -P INPUT DROP
+$iptables_cmd -P FORWARD DROP
+$iptables_cmd -P OUTPUT DROP
+
+## Flush old rules.
+$iptables_cmd -F
+$iptables_cmd -X
+$iptables_cmd -t nat -F
+$iptables_cmd -t nat -X
+$iptables_cmd -t mangle -F
+$iptables_cmd -t mangle -X
+
+## Allow unlimited traffic on the loopback interface.
+$iptables_cmd -A INPUT -i lo -j ACCEPT
+$iptables_cmd -A OUTPUT -o lo -j ACCEPT
+$iptables_cmd -A OUTPUT --dst 127.0.0.1 -j ACCEPT
+
+## Established incoming connections are accepted.
+$iptables_cmd -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+## Established outgoing connections are accepted.
+$iptables_cmd -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+#$iptables_cmd -A OUTPUT --dst 1.1.1.1 -p udp --dport 53 -j ACCEPT
+#$iptables_cmd -A OUTPUT --dst 1.1.1.1 -p tcp --dport 53 -j ACCEPT
+
+$iptables_cmd -t nat -A OUTPUT --dst 127.0.0.1 -p udp --dport 53 -j ACCEPT
+$iptables_cmd -t nat -A OUTPUT --dst 127.0.0.1 -p tcp --dport 53 -j ACCEPT
+
+## redsocks must be allowed to establish direct connections.
+$iptables_cmd -A OUTPUT -j ACCEPT -m owner --uid-owner redsocks
+$iptables_cmd -t nat -A OUTPUT -j ACCEPT -m owner --uid-owner redsocks
+
+## Used Tor in absence of a stable proxy for testing purposes.
+#$iptables_cmd -A OUTPUT -j ACCEPT -m owner --uid-owner debian-tor
+#$iptables_cmd -t nat -A OUTPUT -j ACCEPT -m owner --uid-owner debian-tor
+
+## redsocks dnstc
+$iptables_cmd -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-port 5300
+
+## redsocks redudp
+$iptables_cmd -t nat -A OUTPUT -p udp -j REDIRECT --to-port 10053
+
+## redsocks redsocks
+$iptables_cmd -t nat -A OUTPUT -p tcp -j REDIRECT --to-port 12345
+
+$iptables_cmd -A INPUT -i vif+ -j ACCEPT
+
+## Best not interering with DNS resolution from anon-proxy VM.
+## redsocks dnstc
+## This fixes &quot;nslookup google.com&quot; when the &quot;proxy is Tor&quot;.
+#$iptables_cmd -t nat -A PREROUTING -i vif+ -p udp --dport 53 -j REDIRECT --to-ports 5300
+## redsocks redudp
+#$iptables_cmd -t nat -A PREROUTING -i vif+ -p udp -j REDIRECT --to-ports 10053
+## Would it make sense to set up a DNS server in sys-proxy?
+#$iptables_cmd -t nat -A PREROUTING -i vif+ -p tcp --dport 53 -j REDIRECT --to-ports 53
+
+## redsocks redsocks
+$iptables_cmd -t nat -A PREROUTING -i vif+ -p tcp --syn -j REDIRECT --to-ports 12345
+
+## Log blocked traffic for debugging.
+$iptables_cmd -A INPUT -j LOG --log-level 4 --log-prefix &quot;iptables blocked input: &quot;
+$iptables_cmd -A OUTPUT -j LOG --log-level 4 --log-prefix &quot;iptables blocked output: &quot;
+$iptables_cmd -A FORWARD -j LOG --log-level 4 --log-prefix &quot;iptables blocked forward: &quot;
+
+## Reject all other traffic.
+$iptables_cmd -A OUTPUT -j REJECT
+
+cat /etc/resolv.conf</code></pre>
+<p><span class="code-select">chmod +x ~/firewall</span></p>
+<h3 id="Start">Start</h3>
+<p>In <code>sys-proxy</code>.</p>
+<p><span class="code-select">sudo ~/firewall</span></p>
+<h2 id="anon-proxy_VM_setup">anon-proxy VM setup</h2>
+<p>In <code>anon-proxy</code> VM.</p>
+<p>Open file <code>/etc/resolv.conf</code> in an editor with
+administrative ("<a href="../Moved:Root/"><code>root</code></a>")
+rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
+<p>Non-Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Qubes-Whonix">
+<p>Qubes-Whonix</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes/">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific/">unspecific to
+Qubes-Whonix</a>.</li>
+</ul>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
+</div>
+<div class="tcc-title">
+<div class="mw-heading mw-heading5 widget-headline ">
+<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
+<p>Others and Alternatives</p>
+</h5>
+</div>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="../Moved:Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Public DNS server. Warning: this example uses cloudflare.</p>
+<p><span class="code-select">options use-vc nameserver 1.1.1.1</p>
+<ol>
+<li><ol>
+<li>alternative: Google</li>
+</ol></li>
+<li>nameserver 8.8.8.8</span></li>
+</ol>
+<h1 id="Tests">Tests</h1>
+<p>TCP test:</p>
+<p><span class="code-select">curl -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181/api/ip">https://116.202.120.181/api/ip</a></span></p>
+<p>TCP + DNS test:</p>
+<p><span class="code-select">curl <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></p>
+<p>DNS test:</p>
+<p><span class="code-select">nslookup check.torproject.org</span></p>
+<h1 id="Leak_Testing">Leak Testing</h1>
+<p>When running <code>sudo systemctl stop tor</code> in
+<code>sys-proxy</code>, TCP test, TCP + DNS test, as well as DNS test
+will be dysfuctional.</p>
+<h1 id="Footnotes">Footnotes</h1>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Dev/Inspiration/" title="Dev/Inspiration"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Inspiration</span></a><a class="index internal" href="../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../Dev/Zerobox/" title="Dev/Zerobox"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Zerobox</span></a><span class="info"><span class="prev">Previous
+page: Dev/Inspiration</span><span class="index">Index page:
+Design</span><span class="next">Next page:
+Dev/Zerobox</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

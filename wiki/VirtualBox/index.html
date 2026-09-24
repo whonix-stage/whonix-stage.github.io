@@ -1,0 +1,1742 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>VirtualBox</title>
+<meta name="description" content="Getting started with Whonix in 4 simple steps.">
+<meta property="og:description" content="Getting started with Whonix in 4 simple steps.">
+<link rel="canonical" href="https://www.whonix.org/wiki/VirtualBox/">
+<meta property="og:url" content="https://www.whonix.org/wiki/VirtualBox/">
+<meta property="og:title" content="Whonix for Windows, macOS, Linux inside VirtualBox">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Virtualbox_logo.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#1_Download_Whonix_LXQt">1
+Download Whonix LXQt</a></li><li class="toc-l2"><a href="#stable_LXQt">stable LXQt</a></li><li class="toc-l2"><a href="#testers_LXQt">testers LXQt</a></li><li class="toc-l2"><a href="#2_Install_VirtualBox">2
+Install VirtualBox</a></li><li class="toc-l3"><a href="#Windows">Windows</a></li><li class="toc-l3"><a href="#macOS">macOS</a></li><li class="toc-l3"><a href="#Ubuntu">Ubuntu</a></li><li class="toc-l3"><a href="#Debian">Debian</a></li><li class="toc-l3"><a href="#Kicksecure">Kicksecure</a></li><li class="toc-l3"><a href="#Linux">Linux</a></li><li class="toc-l2"><a href="#3_Import_Whonix_into_VirtualBox">3
+Import Whonix into VirtualBox</a></li><li class="toc-l2"><a href="#4_Start_Whonix">4
+Start Whonix</a></li><li class="toc-l2"><a href="#5_Support_the_Future_of_Whonix">5
+Support the Future of Whonix</a></li><li class="toc-l2"><a href="#1_Download_Whonix_CLI">1
+Download Whonix CLI</a></li><li class="toc-l2"><a href="#stable_CLI">stable CLI</a></li><li class="toc-l2"><a href="#testers_CLI">testers CLI</a></li><li class="toc-l2"><a href="#2_Install_VirtualBox_2">2
+Install VirtualBox</a></li><li class="toc-l3"><a href="#Windows_2">Windows</a></li><li class="toc-l3"><a href="#macOS_2">macOS</a></li><li class="toc-l3"><a href="#Ubuntu_2">Ubuntu</a></li><li class="toc-l3"><a href="#Debian_2">Debian</a></li><li class="toc-l3"><a href="#Kicksecure_2">Kicksecure</a></li><li class="toc-l3"><a href="#Linux_2">Linux</a></li><li class="toc-l2"><a href="#3_Import_Whonix_into_VirtualBox_2">3
+Import Whonix into VirtualBox</a></li><li class="toc-l2"><a href="#4_Start_Whonix_2">4
+Start Whonix</a></li><li class="toc-l2"><a href="#5_Support_the_Future_of_Whonix_2">5
+Support the Future of Whonix</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div data-pagemeta-preventenhanceheadlines="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Qubes/" title="Qubes"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Project-APT-Repository/" title="Project-APT-Repository"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Project-APT-Repository</span></a><span class="info"><span class="prev">Previous
+page: Qubes</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Project-APT-Repository</span></span></span>Whonix for Windows, macOS,
+Linux inside VirtualBox</p>
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+<p><img src="../../media/Gui-preview.jpg.webp" alt="Gui-preview.jpg" /></p>
+</div>
+<p>Getting started with Whonix in 4 simple steps.</p>
+<div class="post-intro-p">
+</div>
+<div class="show-for-nojs-only">
+</div>
+<div class="tab-content-controller clear-float">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+<p><img src="../../media/Clipart-gui.svg" alt="Symbol representing GUI" /></p>
+</div>
+<div class="tcc-title">
+<h1 id="GUI">GUI</h1>
+</div>
+<div class="tcc-content">
+<p><img src="../../media/Gui-preview.jpg.webp" alt="Whonix LXQt in VirtualBox" /></p>
+<ul>
+<li><i class="fa-solid fa-info cs-blue"></i><span>Whonix with LXQt
+<u>g</u>raphical <u>u</u>ser <u>i</u>nterface (GUI).</span></li>
+<li><i class="fa-solid fa-info cs-blue"></i><span>This version of Whonix
+is designed to run inside VirtualBox.</span></li>
+<li><i class="fa-solid fa-check cs-green"></i><span>Beginner-friendly
+and easy to use.</span></li>
+<li><i class="fa-solid fa-check cs-green"></i><span>It is the right
+choice for most users.</span></li>
+</ul>
+<div class="intro-like">
+<p>Please follow these steps to install Whonix LXQt for VirtualBox.</p>
+</div>
+<div class="show-for-nojs-only">
+<div class="robots-nocontent" data-nosnippet="">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Noscript-logo-full.svg" width="40" alt="NoScript Logo" /></span>
+This page is fully functional without JavaScript, but enabling
+JavaScript significantly enhances the user experience.</p>
+</div>
+</div>
+</div>
+<p><span class="manually-placed-anchor " id="Landing"></span></p>
+<div class="info-box ">
+<h2 id="1_Download_Whonix_LXQt"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Download Whonix LXQt</h2>
+<p>Whonix LXQt is available for Windows, MacOS and Linux.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+<p><img src="../../media/Rg1024_brick_tile.png.webp" alt="Rg1024_brick_tile.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="stable_LXQt">stable LXQt</h2>
+</div>
+<div class="tcc-content">
+<div class="download-wrapper">
+<p><a rel="noreferrer" data-no-instant="" href="../../download/ova/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.ova" class="download-button-v2 dlbtn-modal"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+Whonix LXQt (VirtualBox) (stable)
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-virtualbox.png.webp" alt="VIRTUALBOX" title="VIRTUALBOX" class="virtualbox" /></span></a></p>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p><u>Optional:</u> Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><big>Version (<u>stable</u>):
+<span>18.2.1.9</span></big></p>
+<p><u>Only experienced users:</u> This step is only useful and
+recommended for very experienced users. All other users please skip this
+step.</p>
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="../Advanced_Users/"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="../Moved:Verifying_Software_Signatures/"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<div class="info-box download-unified-table">
+<div class="margin-bottom-20 margin-top-10">
+<p><span class="manually-placed-anchor " id="signature"></span>
+<strong>Choose your verification method below</strong>. This step
+requires that you have already downloaded
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="info-box cs-gray-light">
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+<p><img src="../../media/GnuPG-Logo.svg" width="25" alt="GnuPG-Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="OpenPGP_LXQt_stable">OpenPGP LXQt stable</h4>
+</div>
+<div class="tcc-content">
+<div class="margin-top-20">
+<p><img src="../../media/Icon-openpgp.png.webp" width="40" alt="Icon-openpgp.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.ova.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>OpenPGP
+Signature</span></span></a></p>
+</div>
+<hr />
+<p><img src="../../media/Icon-key.png.webp" width="40" alt="Icon-key.png" />
+<a rel="noreferrer" data-no-instant="" href="../../keys/derivative.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix OpenPGP Key</span></span></a></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Signify_Logo.svg" width="25" alt="Signify_Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="signify_LXQt_stable">signify LXQt stable</h4>
+</div>
+<div class="tcc-content">
+<p><img src="../../media/Icon-sha512.png.webp" width="40" alt="Icon-sha512.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.ova.sha512sums" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>SHA-512
+checksum file</span></span></a></p>
+<hr />
+<p><img src="../../media/Icon-sha512signify.png.webp" width="40" alt="Icon-sha512signify.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.2.1.9/Whonix-LXQt-18.2.1.9.Intel_AMD64.ova.sha512sums.sig" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>SHA-512
+checksum file signify signature</span></span></a></p>
+<hr />
+<p><img src="../../media/Icon-key.png.webp" width="40" alt="Icon-key.png" />
+<a rel="noreferrer" data-no-instant="" href="../../keys/derivative.pub" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix signify Key</span></span></a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="vspacer-20">
+</div>
+<p><i class="padded-content-icon     fa-solid fa-info cs-yellow"></i>
+Read <a href="../Verify_the_images/">Verify the images</a>
+to learn more about the verification process for the images.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Cornues.png.webp" alt="Cornues.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="testers_LXQt">testers LXQt</h2>
+</div>
+<div class="tcc-content">
+<div class="download-wrapper">
+<p><a rel="noreferrer" data-no-instant="" href="../../download/ova/18.1.4.2/Whonix-LXQt-18.1.4.2.Intel_AMD64.ova" class="download-button-v2 dlbtn-modal"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+Whonix LXQt (VirtualBox) (testers)
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-virtualbox.png.webp" alt="VIRTUALBOX" title="VIRTUALBOX" class="virtualbox" /></span></a></p>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p><u>Optional:</u> Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><big>Version (<u>testers</u>):
+<span>18.1.4.2</span></big></p>
+<p><u>Only experienced users:</u> This step is only useful and
+recommended for very experienced users. All other users please skip this
+step.</p>
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="../Advanced_Users/"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="../Moved:Verifying_Software_Signatures/"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<div class="info-box download-unified-table">
+<div class="margin-bottom-20 margin-top-10">
+<p><span class="manually-placed-anchor " id="signature"></span>
+<strong>Choose your verification method below</strong>. This step
+requires that you have already downloaded
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="info-box cs-gray-light">
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+<p><img src="../../media/GnuPG-Logo.svg" width="25" alt="GnuPG-Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="OpenPGP_LXQt_testers">OpenPGP LXQt testers</h4>
+</div>
+<div class="tcc-content">
+<div class="margin-top-20">
+<p><img src="../../media/Icon-openpgp.png.webp" width="40" alt="Icon-openpgp.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.1.4.2/Whonix-LXQt-18.1.4.2.Intel_AMD64.ova.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>OpenPGP
+Signature</span></span></a></p>
+</div>
+<hr />
+<p><img src="../../media/Icon-key.png.webp" width="40" alt="Icon-key.png" />
+<a rel="noreferrer" data-no-instant="" href="../../keys/derivative.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix OpenPGP Key</span></span></a></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Signify_Logo.svg" width="25" alt="Signify_Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="signify_LXQt_testers">signify LXQt testers</h4>
+</div>
+<div class="tcc-content">
+<p><img src="../../media/Icon-sha512.png.webp" width="40" alt="Icon-sha512.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.1.4.2/Whonix-LXQt-18.1.4.2.Intel_AMD64.ova.sha512sums" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>SHA-512
+checksum file</span></span></a></p>
+<hr />
+<p><img src="../../media/Icon-sha512signify.png.webp" width="40" alt="Icon-sha512signify.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.1.4.2/Whonix-LXQt-18.1.4.2.Intel_AMD64.ova.sha512sums.sig" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>SHA-512
+checksum file signify signature</span></span></a></p>
+<hr />
+<p><img src="../../media/Icon-key.png.webp" width="40" alt="Icon-key.png" />
+<a rel="noreferrer" data-no-instant="" href="../../keys/derivative.pub" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix signify Key</span></span></a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="vspacer-20">
+</div>
+<p><i class="padded-content-icon     fa-solid fa-info cs-yellow"></i>
+Read <a href="../Verify_the_images/">Verify the images</a>
+to learn more about the verification process for the images.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="info-box ">
+<h2 id="2_Install_VirtualBox"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Install VirtualBox</h2>
+<p>Download and install VirtualBox for your operating system.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-windows-500x500.png.webp" width="50" alt="Logo Windows" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Windows">Windows</h3>
+</div>
+<div class="tcc-content">
+<p><a rel="noreferrer" data-no-instant="" href="https://download.virtualbox.org/virtualbox/7.2.18/VirtualBox-7.2.18-175117-Win.exe" class="download-button-v2 ibl-fs-18"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+VirtualBox for Windows
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-windows.png.webp" alt="WINDOWS" title="WINDOWS" class="windows" /></span></a></p>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>Microsoft Visual C++ 2019 Redistributable Package</p>
+<div class="mw-collapsible-content">
+<p>If you see the following error message:</p>
+<p><strong>Figure:</strong> <em>Microsoft Visual C++ 2019
+Redistributable Package Error</em></p>
+<p><img src="../../media/VirtualBox_Microsoft_Visual_C_2019_Redistributable_Package.png.webp" alt="Microsoft Visual C++ 2019 Redistributable Package Error" /></p>
+<p><blockquote><p>Oracle VM VirtualBox needs Microsoft Visual C++ 2019 Redistributable
+package installed first. Please install and restart the installation of
+Oracle VM VirtualBox.</p></blockquote></p>
+<p>Microsoft Visual C++ 2019 Redistributable Package must be installed.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p><a rel="noreferrer" data-no-instant="" href="https://aka.ms/vs/17/release/vc_redist.x64.exe" class="download-button-v2 ibl-fs-18"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Microsoft
+Visual C++ 2019 Redistributable Package
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-windows.png.webp" alt="WINDOWS" title="WINDOWS" class="windows" /></span></a></p>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>Optional: Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><strong>VirtualBox for Windows is not signed with OpenPGP / gpg. It
+is signed with authenticode.</strong></p>
+<p>After downloading the VirtualBox installer exe and starting it, the
+user should verify that <code>Verified publisher:</code> is
+<code>Oracle Corporation</code>.</p>
+<p><strong>Figure:</strong> <em>Windows signature signature verification
+window for VirtualBox</em></p>
+<p><img src="../../media/Virtualbox_windows_digital_software_verification.png.webp" width="400" alt="Virtualbox_windows_digital_software_verification.png" /></p>
+<p>Advanced users might wish to learn more about
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] to perform a deeper
+verification.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-apple-500x500.png.webp" width="50" alt="Logo Apple" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="macOS">macOS</h3>
+</div>
+<div class="tcc-content">
+<p>Select your hardware platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h1 id="Intel-based_MacBook">Intel-based MacBook</h1>
+</div>
+<div class="tcc-content">
+<p><a rel="noreferrer" data-no-instant="" href="https://download.virtualbox.org/virtualbox/7.2.18/VirtualBox-7.2.18-175117-OSX.dmg" class="download-button-v2 ibl-fs-18"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+VirtualBox for macOS (Intel)
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-osx.png.webp" alt="OSX" title="OSX" class="osx" /></span></a></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h1 id="Apple_Silicon">Apple Silicon</h1>
+</div>
+<div class="tcc-content">
+<p><a rel="noreferrer" data-no-instant="" href="https://download.virtualbox.org/virtualbox/7.2.18/VirtualBox-7.2.18-175117-macOSArm64.dmg" class="download-button-v2 ibl-fs-18"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+VirtualBox for macOS (Apple Silicon, M1, M2, ...)
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-osx.png.webp" alt="OSX" title="OSX" class="osx" /></span></a></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span></p>
+<ul>
+<li><strong>Developers only:</strong> At time of writing, running Whonix
+on Apple Silicon is still for developers only!</li>
+<li><strong>No downloadable Whonix image available yet:</strong> Whonix
+for VirtualBox OVA is not yet available for Apple Silicon-based
+systems.</li>
+<li><strong>Download link above not functional:</strong> The download
+link above will not be functional. It is for Intel/AMD64-based computers
+only.</li>
+<li><strong>See also:</strong> <a href="../MacOS/">macOS</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>Optional: Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><strong>VirtualBox for macOS is not signed with OpenPGP / gpg. It is
+notarized for macOS's gatekeeper.</strong></p>
+<p>See also Apple's official documentation <a href="https://support.apple.com/en-us/HT202491">Safely open apps on your
+Mac</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-ubuntusvg.png.webp" width="50" alt="Logo Ubuntu" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Ubuntu">Ubuntu</h3>
+</div>
+<div class="tcc-content">
+<p><strong>For Ubuntu host operating systems</strong></p>
+<p>Choose an option from the following table. Choose either
+<strong>Option (A)</strong> OR <strong>Option (B)</strong>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">A</i>
+<strong>Automated VirtualBox Installation</strong> : Ubuntu users could
+alternatively use the <a href="../Linux/">Whonix Linux
+Installer for VirtualBox</a>. In this case, this wiki page can be
+completely ignored. No other steps from this wiki page need to be
+applied because the automated installer will handle everything.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">B</i>
+<strong>Manual VirtualBox Installation</strong> : Follow the
+instructions below.</p>
+<div class="info-box cs-gray-light">
+<p><em>Tested on October 2022 using Ubuntu version <code>22.04</code>.
+Older versions are not recommended.</em></p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="50" alt="command line" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Command_Line_(All_Users)">Command Line (All Users)</h4>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+<strong>On the host : Open a terminal.</strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<strong>Update the package lists.</strong></p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+<strong>Install VirtualBox and Linux kernel headers.</strong></p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+virtualbox-qt linux-headers-generic</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+<strong>Add your current user to group <code>vboxusers</code>.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></strong></p>
+<p><span class="code-select">sudo adduser $(whoami) vboxusers</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+<strong>Prevent KVM from conflicting with VirtualBox.</strong></p>
+<p>This is necessary if your system uses Linux 6.12 or higher.</p>
+<p><span class="code-select">echo 'options kvm enable_virt_at_load=0' |
+sudo tee /etc/modprobe.d/disable-kvm-virt-at-load.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">6</i>
+<strong>Reboot.</strong></p>
+<p>To ensure KVM configuration takes effect.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">7</i>
+<strong>Done.</strong></p>
+<p>The procedure of installing the VirtualBox host software is
+complete.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Ubuntu_software_icon.png.webp" width="50" alt="Logo Ubuntu Software Center" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Software_Center_(only_if_not_using_SecureBoot)">Software Center
+(only if not using SecureBoot)</h4>
+</div>
+<div class="tcc-content">
+<p>Ubuntu Software Center can be used to install VirtualBox. The process
+is similar to installation of most other applications.</p>
+<p>This only works for users with computers that do not have
+"<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]" enabled. If the user's computer
+is using "SecureBoot" the user need to either disable "SecureBoot" in
+the BIOS or use the command line based instructions.
+<sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+<strong>Open the start menu.</strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<strong>Click on the Ubuntu Software Center icon.</strong></p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center icon</em></p>
+<p><img src="../../media/Ubuntu_software_icon.png.webp" alt="Ubuntu Software icon" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+<strong>Click on the magnifying glass to search. &#8594; Type
+<code>virtualbox</code>. &#8594; Press enter. &#8594; In the search results, click
+on VirtualBox.</strong></p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center - Search For
+VirtualBox</em></p>
+<p><img src="../../media/Search_for_Virtualbox.png.webp" alt="search for virtualbox" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+<strong>Click on Install and wait.</strong></p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center Search
+Result</em></p>
+<p><img src="../../media/Install_Virtualbox.png.webp" alt="Install Virtualbox" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+<strong>Installation of VirtualBox has been completed.</strong></p>
+<p>When the installation has completed, the install icon changes to the
+uninstall icon. Do <u>not</u> click the uninstall button.</p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center - VirtualBox has
+been installed</em></p>
+<p><img src="../../media/Uninstall_Virtualbox.png.webp" alt="Uninstall Virtualbox" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">6</i>
+<strong>Click on Show Applications. &#8594; Click on Virtual Box to start the
+VirtualBox <u>g</u>raphical <u>u</u>ser <u>i</u>nterface
+(GUI).</strong></p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center #4</em></p>
+<p><img src="../../media/Show_Applications.png.webp" alt="Show Applications" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">7</i>
+<strong>Prevent KVM from conflicting with VirtualBox.</strong></p>
+<p>This is necessary if your system uses Linux 6.12 or higher.</p>
+<p><span class="code-select">echo 'options kvm enable_virt_at_load=0' |
+sudo tee /etc/modprobe.d/disable-kvm-virt-at-load.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">8</i>
+<strong>Reboot.</strong></p>
+<p>To ensure KVM configuration takes effect.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">9</i>
+<strong>Done.</strong></p>
+<p>The procedure of installing and starting VirtualBox is complete.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-debian-500x500.png.webp" width="50" alt="Logo Debian" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Debian">Debian</h3>
+</div>
+<div class="tcc-content">
+<p><strong>For Debian host operating systems</strong> Choose an option
+from the following table. Choose either <strong>Option (A)</strong> OR
+<strong>Option (B)</strong>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">A</i>
+<strong>Automated VirtualBox Installation</strong> : Debian users could
+alternatively use the <a href="../Linux/">Whonix Linux
+Installer for VirtualBox</a>. In this case, this wiki page can be
+completely ignored. No other steps from this wiki page need to be
+applied because the automated installer will handle everything.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">B</i>
+<strong>Manual VirtualBox Installation</strong> : Follow the
+instructions below.</p>
+<div class="info-box cs-gray-light">
+<p><strong>Select your Debian release below</strong> to get the matching
+instructions.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="Debian_Bookworm_(oldstable)_or_Bullseye_(oldoldstable)">Debian
+Bookworm (oldstable) or Bullseye (oldoldstable)</h4>
+</div>
+<div class="tcc-content">
+<p>To acquire the <a href="Recommended_Version/">Recommended VirtualBox version</a> tested with Whonix,
+package <code>virtualbox-qt</code> should be installed from Debian <a href="https://fasttrack.debian.net/"><code>fasttrack</code>
+repository</a> according to the following instructions.
+<sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+<strong>On the host : Open a terminal.</strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<strong>Update the package lists.</strong></p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+<strong>Install the Debian <code>fasttrack</code> signing
+key.</strong></p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+fasttrack-archive-keyring</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+<strong>Add the Debian <code>fasttrack</code> repository.</strong></p>
+<p><span class="code-select">echo 'Types: deb URIs: <a href="https://fasttrack.debian.net/debian/">https://fasttrack.debian.net/debian/</a>
+Suites: trixie-fasttrack Components: main contrib non-free Enabled: yes
+Signed-By: /usr/share/keyrings/fasttrack-archive-keyring.gpg' | sudo tee
+/etc/apt/sources.list.d/fasttrack.sources</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+<strong>Add the Debian <code>backports</code> repository.</strong>
+<sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p><span class="code-select">echo 'Types: deb URIs: <a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a>
+Suites: trixie-backports Components: main contrib non-free Enabled: yes
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg' | sudo tee
+/etc/apt/sources.list.d/backports.sources</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">6</i>
+<strong>Update the package lists again.</strong> <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">7</i>
+<strong>Install VirtualBox and Linux kernel headers.</strong></p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+virtualbox-qt linux-headers-$(dpkg --print-architecture)</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">8</i>
+<strong>Add your current user to group <code>vboxusers</code>.</strong>
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p><span class="code-select">sudo adduser $(whoami) vboxusers</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">9</i>
+<strong>Done.</strong></p>
+<p>The procedure of installing the VirtualBox host software is
+complete.</p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="Debian_trixie_(stable)_or_Testing">Debian trixie (stable) or
+Testing</h4>
+</div>
+<div class="tcc-content">
+<p>See <a href="../Moved:VirtualBox/Other_Versions/#Install_from_VirtualBox.org_Repository">Install from <code>VirtualBox.org</code>
+Repository</a>.</p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="Debian_Unstable">Debian Unstable</h4>
+</div>
+<div class="tcc-content">
+<p>VirtualBox can be installed by adding the Debian unstable
+(<code>sid</code>) repository.</p>
+<p><strong>1.</strong> Update your package lists.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><strong>2.</strong> Install VirtualBox and Linux headers, which are a
+dependency.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+virtualbox-qt linux-headers-$(dpkg --print-architecture)</span></p>
+<p><strong>3.</strong> Add your Linux user account to Linux user group
+<code>vboxusers</code>.</p>
+<p><span class="code-select">sudo adduser $(whoami) vboxusers</span></p>
+<p>The details of this are <a href="../Unspecific/">unspecific to Whonix</a> and <a href="../Unsupported/">undocumented</a>.</p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="Other_Debian_Releases">Other Debian Releases</h4>
+</div>
+<div class="tcc-content">
+<p>Other Debian releases might work, but this is <a href="../Unsupported/">untested</a>. In case of other Debian release:</p>
+<div class="show-for-nojs-only">
+<p>See also "Linux host operating systems" below.</p>
+</div>
+<div class="show-for-js-only">
+<p>See also "Linux" on the right.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Kicksecure-logo-rectangle.svg" width="50" alt="Kicksecure-logo-rectangle.svg" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Kicksecure">Kicksecure</h3>
+</div>
+<div class="tcc-content">
+<div class="info-box ">
+<p><strong>Kicksecure<sup>&#8482;</sup> host operating systems</strong></p>
+<p>Choose an option from the following table. Choose either
+<strong>Option (A)</strong> OR <strong>Option (B)</strong>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">A</i>
+<strong>Automated VirtualBox Installation</strong> :
+Kicksecure<sup>&#8482;</sup> users could alternatively use the <a href="../Linux/">Whonix Linux Installer for VirtualBox</a>. In this
+case, this wiki page can be completely ignored. No other steps from this
+wiki page need to be applied because the automated installer will handle
+everything.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">B</i>
+<strong>Manual VirtualBox Installation</strong> : Follow the
+instructions below.</p>
+<div class="info-box cs-gray-light">
+<p>See <a href="../Moved:VirtualBox/Other_Versions/#Install_from_VirtualBox.org_Repository">Install from <code>VirtualBox.org</code>
+Repository</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-linux-500x500.png.webp" width="50" alt="Logo Linux" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Linux">Linux</h3>
+</div>
+<div class="tcc-content">
+<div class="info-box ">
+<p><strong>Hosts using a non-Debian operating system:</strong></p>
+<ul>
+<li><strong>Install VirtualBox as per the normal mechanism for your
+Linux distribution</strong>. No special instructions for Whonix are
+required. The installation of a recent VirtualBox host software is <a href="../Unspecific/">unspecific to Whonix</a>. Consult the
+documentation of your Linux distribution.</li>
+<li><strong>You may need to disable KVM's "enable virt at load" feature
+if your system uses kernel 6.12 or later.</strong> This will prevent KVM
+from taking over virtualization-related features on the system
+automatically. This will not prevent KVM virtual machines from being
+used. Add <code>kvm.enable_virt_on_load=0</code> to your system's kernel
+command line, or add <code>options kvm enable_virt_at_load=0</code> to
+your system's modprobe configuration, using the appropriate mechanism
+for your distribution.</li>
+<li>Whonix has been tested with, expects VirtualBox version <a href="Recommended_Version/#Latest_VirtualBox_Version"><code>latest</code></a>.</li>
+<li>For example the outdated VirtualBox version <code>5.2.18</code> is
+incompatible.</li>
+</ul>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="25" alt="info" /></span>
+<strong>General recommendations for users using Linux as a host
+operating system:</strong></p>
+<p><strong>Linux kernel version:</strong></p>
+<ul>
+<li>The recommended <u>host</u> Linux kernel version is the same version
+that Debian <code>trixie</code> is using, see <a href="https://packages.debian.org/trixie/linux-image-amd64"><code>linux-image-amd64</code></a>.</li>
+<li>Newer <u>host</u> Linux kernel versions are likely to break
+VirtualBox VMs <a href="../Moved:Kernel/#Kernel_Issues">in many
+ways</a> since these are unsupported by VirtualBox.
+<sup class="reference"><a href="#cite_note-7">[7]</a></sup></li>
+</ul>
+<p><strong>Host operating system.</strong> The recommended <u>host</u>
+Linux distributions are:</p>
+<ul>
+<li>preferably the stable version of Kicksecure<sup>&#8482;</sup>
+<code>18</code>, or</li>
+<li><a href="https://www.debian.org/">Debian Linux</a> version
+<code>trixie</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="info-box ">
+<h2 id="3_Import_Whonix_into_VirtualBox"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Import Whonix into VirtualBox</h2>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>For Whonix VirtualBox import instructions, please press the learn
+more button on the right.</p>
+<div class="mw-collapsible-content">
+<p><strong>Follow these steps to import Whonix into VirtualBox. Click
+images to enlarge</strong></p>
+<div class="gallery">
+<p><span class="gallery-item"><img src="../../media/OpenVirtualbox1.png.webp" alt="1 &#x27;&#x27;&#x27;Start VirtualBox&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">1
+'''Start
+VirtualBox'''</span></span><span class="gallery-item"><img src="../../media/Select_Import2.png.webp" alt="2 &#x27;&#x27;&#x27;Click on File then choose Import Appliance...&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">2
+'''Click on File then choose Import
+Appliance...'''</span></span><span class="gallery-item"><img src="../../media/Select_whonix_ova_image3.png.webp" alt="3 &#x27;&#x27;&#x27;Navigate and select Whonix image and press next&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">3
+'''Navigate and select Whonix image and press
+next'''</span></span><span class="gallery-item"><img src="../../media/Click_import4.png.webp" alt="4 &#x27;&#x27;&#x27;Do NOT change anything! Just click on Import&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">4
+'''Do NOT change anything! Just click on
+Import'''</span></span><span class="gallery-item"><img src="../../media/Agree5.png.webp" alt="5 &#x27;&#x27;&#x27;Then press Agree&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">5
+'''Then press
+Agree'''</span></span><span class="gallery-item"><img src="../../media/Wait6.png.webp" alt="6 &#x27;&#x27;&#x27;Wait until Whonix .ova has been imported&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">6
+'''Wait until Whonix .ova has been
+imported'''</span></span><span class="gallery-item"><img src="../../media/Start_both_of_them7.png.webp" alt="7 &#x27;&#x27;&#x27;Now start Whonix-Gateway and Whonix-Workstation&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">7
+'''Now start Whonix-Gateway and Whonix-Workstation'''</span></span></p>
+</div>
+</div>
+<p><strong>Miscellaneous</strong></p>
+<p>There are also <a href="../Videos/">Video
+Tutorials</a>.</p>
+<p>If you still need help, please check the <a href="../Support/">Support</a> page.</p>
+<p>For optional, alternative command line import instructions, see <a href="Manual_VM_Import/">VirtualBox, manual
+VM import</a>.</p>
+</div>
+</div>
+<div class="info-box ">
+<p><span class="manually-placed-anchor " id="starting"></span></p>
+<h2 id="4_Start_Whonix"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Start Whonix</h2>
+<p>Starting Whonix is simple:</p>
+<ol>
+<li>Start VirtualBox.</li>
+<li>Double-click the <a href="../Whonix-Gateway/">Whonix-Gateway<sup>&#8482;</sup></a> and <a href="../Whonix-Workstation/">Whonix-Workstation<sup>&#8482;</sup></a>.</li>
+</ol>
+</div>
+<div class="info-box ">
+<h2 id="5_Support_the_Future_of_Whonix"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Support the Future of Whonix</h2>
+<p>Whonix is made possible thanks to the donation of people like you.
+<i class="padded-content-icon     fa-solid fa-heart cs-red-font"></i></p>
+<p><strong>Please support the Whonix development with a
+donation.</strong></p>
+<p><a href="../Donate/"><span class="mw-ui-button mw-ui-progressive" role="button" aria-disabled="false">Donate
+to Whonix</span></a></p>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="50" alt="Symbol representing CLI" /></p>
+</div>
+<div class="tcc-title">
+<h1 id="CLI">CLI</h1>
+</div>
+<div class="tcc-content">
+<div data-nosnippet="">
+<p><img src="../../media/Cli-preview.jpg.webp" alt="Whonix CLI in VirtualBox" /></p>
+<ul>
+<li><i class="fa-solid fa-info cs-blue"></i><span>Whonix with
+<u>c</u>ommand <u>l</u>ine <u>i</u>nterface (CLI).</span></li>
+<li><i class="fa-solid fa-info cs-blue"></i><span>This version of Whonix
+is designed to run inside VirtualBox.</span></li>
+<li><i class="fa-solid fa-exclamation-circle cs-red"></i><span>Whonix
+with CLI is a version suited for advanced users -- those who want Whonix
+without a <u>g</u>raphical <u>u</u>ser <u>i</u>nterface (GUI). Everyone
+else should install the user-friendly Whonix VirtualBox with GUI
+LXQt.</span></li>
+</ul>
+<div class="intro-like">
+<p>Please follow these steps to install Whonix CLI for VirtualBox.</p>
+</div>
+<div class="show-for-nojs-only">
+<div class="robots-nocontent" data-nosnippet="">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Noscript-logo-full.svg" width="40" alt="NoScript Logo" /></span>
+This page is fully functional without JavaScript, but enabling
+JavaScript significantly enhances the user experience.</p>
+</div>
+</div>
+</div>
+<p><span class="manually-placed-anchor " id="Landing"></span></p>
+<div class="info-box ">
+<h2 id="1_Download_Whonix_CLI"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Download Whonix CLI</h2>
+<p>Whonix CLI is available for Windows, MacOS and Linux.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+<p><img src="../../media/Rg1024_brick_tile.png.webp" alt="Rg1024_brick_tile.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="stable_CLI">stable CLI</h2>
+</div>
+<div class="tcc-content">
+<div class="download-wrapper">
+<p><a rel="noreferrer" data-no-instant="" href="../../download/ova/18.2.1.9/Whonix-CLI-18.2.1.9.Intel_AMD64.ova" class="download-button-v2 dlbtn-modal"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+Whonix CLI (VirtualBox) (stable)
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-virtualbox.png.webp" alt="VIRTUALBOX" title="VIRTUALBOX" class="virtualbox" /></span></a></p>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p><u>Optional:</u> Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><big>Version (<u>stable</u>):
+<span>18.2.1.9</span></big></p>
+<p><u>Only experienced users:</u> This step is only useful and
+recommended for very experienced users. All other users please skip this
+step.</p>
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="../Advanced_Users/"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="../Moved:Verifying_Software_Signatures/"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<div class="info-box download-unified-table">
+<div class="margin-bottom-20 margin-top-10">
+<p><span class="manually-placed-anchor " id="signature"></span>
+<strong>Choose your verification method below</strong>. This step
+requires that you have already downloaded
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="info-box cs-gray-light">
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+<p><img src="../../media/GnuPG-Logo.svg" width="25" alt="GnuPG-Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="OpenPGP_CLI_stable">OpenPGP CLI stable</h4>
+</div>
+<div class="tcc-content">
+<div class="margin-top-20">
+<p><img src="../../media/Icon-openpgp.png.webp" width="40" alt="Icon-openpgp.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.2.1.9/Whonix-CLI-18.2.1.9.Intel_AMD64.ova.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>OpenPGP
+Signature</span></span></a></p>
+</div>
+<hr />
+<p><img src="../../media/Icon-key.png.webp" width="40" alt="Icon-key.png" />
+<a rel="noreferrer" data-no-instant="" href="../../keys/derivative.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix OpenPGP Key</span></span></a></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Signify_Logo.svg" width="25" alt="Signify_Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="signify_CLI_stable">signify CLI stable</h4>
+</div>
+<div class="tcc-content">
+<p><img src="../../media/Icon-sha512.png.webp" width="40" alt="Icon-sha512.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.2.1.9/Whonix-CLI-18.2.1.9.Intel_AMD64.ova.sha512sums" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>SHA-512
+checksum file</span></span></a></p>
+<hr />
+<p><img src="../../media/Icon-sha512signify.png.webp" width="40" alt="Icon-sha512signify.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.2.1.9/Whonix-CLI-18.2.1.9.Intel_AMD64.ova.sha512sums.sig" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>SHA-512
+checksum file signify signature</span></span></a></p>
+<hr />
+<p><img src="../../media/Icon-key.png.webp" width="40" alt="Icon-key.png" />
+<a rel="noreferrer" data-no-instant="" href="../../keys/derivative.pub" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix signify Key</span></span></a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="vspacer-20">
+</div>
+<p><i class="padded-content-icon     fa-solid fa-info cs-yellow"></i>
+Read <a href="../Verify_the_images/">Verify the images</a>
+to learn more about the verification process for the images.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Cornues.png.webp" alt="Cornues.png" /></p>
+</div>
+<div class="tcc-title">
+<h2 id="testers_CLI">testers CLI</h2>
+</div>
+<div class="tcc-content">
+<div class="download-wrapper">
+<p><a rel="noreferrer" data-no-instant="" href="../../download/ova/18.1.4.2/Whonix-CLI-18.1.4.2.Intel_AMD64.ova" class="download-button-v2 dlbtn-modal"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+Whonix CLI (VirtualBox) (testers)
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-virtualbox.png.webp" alt="VIRTUALBOX" title="VIRTUALBOX" class="virtualbox" /></span></a></p>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p><u>Optional:</u> Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><big>Version (<u>testers</u>):
+<span>18.1.4.2</span></big></p>
+<p><u>Only experienced users:</u> This step is only useful and
+recommended for very experienced users. All other users please skip this
+step.</p>
+<ul>
+<li><i class="fa-solid fa-key cs-green"></i><span><b>Digital
+signatures</b> are a tool enhancing download security. They are commonly
+used across the internet and nothing special to worry about.</span></li>
+<li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional,
+not required:</b> Digital signatures are optional and not mandatory for
+using Whonix, but an extra security measure for &lt;a
+href="../Advanced_Users/"&gt;advanced users&lt;/a&gt;. If you've never
+used them before, it might be overwhelming to look into them at this
+stage. Just ignore them for now.</span></li>
+<li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b>
+Curious? If you are interested in becoming more familiar with advanced
+computer security concepts, you can learn more about digital signatures
+here: &lt;a href="../Moved:Verifying_Software_Signatures/"&gt;Verifying
+Software Signatures&lt;/a&gt;</span></li>
+</ul>
+<div class="info-box download-unified-table">
+<div class="margin-bottom-20 margin-top-10">
+<p><span class="manually-placed-anchor " id="signature"></span>
+<strong>Choose your verification method below</strong>. This step
+requires that you have already downloaded
+[Broken-ExtLink--no-url-was-provided].</p>
+</div>
+<div class="info-box cs-gray-light">
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+<p><img src="../../media/GnuPG-Logo.svg" width="25" alt="GnuPG-Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="OpenPGP_CLI_testers">OpenPGP CLI testers</h4>
+</div>
+<div class="tcc-content">
+<div class="margin-top-20">
+<p><img src="../../media/Icon-openpgp.png.webp" width="40" alt="Icon-openpgp.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.1.4.2/Whonix-CLI-18.1.4.2.Intel_AMD64.ova.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>OpenPGP
+Signature</span></span></a></p>
+</div>
+<hr />
+<p><img src="../../media/Icon-key.png.webp" width="40" alt="Icon-key.png" />
+<a rel="noreferrer" data-no-instant="" href="../../keys/derivative.asc" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix OpenPGP Key</span></span></a></p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Signify_Logo.svg" width="25" alt="Signify_Logo.svg" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="signify_CLI_testers">signify CLI testers</h4>
+</div>
+<div class="tcc-content">
+<p><img src="../../media/Icon-sha512.png.webp" width="40" alt="Icon-sha512.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.1.4.2/Whonix-CLI-18.1.4.2.Intel_AMD64.ova.sha512sums" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>SHA-512
+checksum file</span></span></a></p>
+<hr />
+<p><img src="../../media/Icon-sha512signify.png.webp" width="40" alt="Icon-sha512signify.png" />
+<a rel="noreferrer" data-no-instant="" href="../../download/ova/18.1.4.2/Whonix-CLI-18.1.4.2.Intel_AMD64.ova.sha512sums.sig" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-feather" title="Signature icon"></i><span>SHA-512
+checksum file signify signature</span></span></a></p>
+<hr />
+<p><img src="../../media/Icon-key.png.webp" width="40" alt="Icon-key.png" />
+<a rel="noreferrer" data-no-instant="" href="../../keys/derivative.pub" class="download-button-v2"><span class="dbutton"><i class="fa-solid fa-pen-nib" title="Signify icon"></i><span>Download
+Whonix signify Key</span></span></a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="vspacer-20">
+</div>
+<p><i class="padded-content-icon     fa-solid fa-info cs-yellow"></i>
+Read <a href="../Verify_the_images/">Verify the images</a>
+to learn more about the verification process for the images.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="info-box ">
+<h2 id="2_Install_VirtualBox_2"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Install VirtualBox</h2>
+<p>Download and install VirtualBox for your operating system.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-windows-500x500.png.webp" width="50" alt="Logo Windows" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Windows_2">Windows</h3>
+</div>
+<div class="tcc-content">
+<p><a rel="noreferrer" data-no-instant="" href="https://download.virtualbox.org/virtualbox/7.2.18/VirtualBox-7.2.18-175117-Win.exe" class="download-button-v2 ibl-fs-18"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+VirtualBox for Windows
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-windows.png.webp" alt="WINDOWS" title="WINDOWS" class="windows" /></span></a></p>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>Microsoft Visual C++ 2019 Redistributable Package</p>
+<div class="mw-collapsible-content">
+<p>If you see the following error message:</p>
+<p><strong>Figure:</strong> <em>Microsoft Visual C++ 2019
+Redistributable Package Error</em></p>
+<p><img src="../../media/VirtualBox_Microsoft_Visual_C_2019_Redistributable_Package.png.webp" alt="Microsoft Visual C++ 2019 Redistributable Package Error" /></p>
+<p><blockquote><p>Oracle VM VirtualBox needs Microsoft Visual C++ 2019 Redistributable
+package installed first. Please install and restart the installation of
+Oracle VM VirtualBox.</p></blockquote></p>
+<p>Microsoft Visual C++ 2019 Redistributable Package must be installed.
+<sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+<p><a rel="noreferrer" data-no-instant="" href="https://aka.ms/vs/17/release/vc_redist.x64.exe" class="download-button-v2 ibl-fs-18"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Microsoft
+Visual C++ 2019 Redistributable Package
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-windows.png.webp" alt="WINDOWS" title="WINDOWS" class="windows" /></span></a></p>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>Optional: Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><strong>VirtualBox for Windows is not signed with OpenPGP / gpg. It
+is signed with authenticode.</strong></p>
+<p>After downloading the VirtualBox installer exe and starting it, the
+user should verify that <code>Verified publisher:</code> is
+<code>Oracle Corporation</code>.</p>
+<p><strong>Figure:</strong> <em>Windows signature signature verification
+window for VirtualBox</em></p>
+<p><img src="../../media/Virtualbox_windows_digital_software_verification.png.webp" width="400" alt="Virtualbox_windows_digital_software_verification.png" /></p>
+<p>Advanced users might wish to learn more about
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] to perform a deeper
+verification.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-apple-500x500.png.webp" width="50" alt="Logo Apple" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="macOS_2">macOS</h3>
+</div>
+<div class="tcc-content">
+<p>Select your hardware platform.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h1 id="Intel-based_MacBook_2">Intel-based MacBook</h1>
+</div>
+<div class="tcc-content">
+<p><a rel="noreferrer" data-no-instant="" href="https://download.virtualbox.org/virtualbox/7.2.18/VirtualBox-7.2.18-175117-OSX.dmg" class="download-button-v2 ibl-fs-18"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+VirtualBox for macOS (Intel)
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-osx.png.webp" alt="OSX" title="OSX" class="osx" /></span></a></p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h1 id="Apple_Silicon_2">Apple Silicon</h1>
+</div>
+<div class="tcc-content">
+<p><a rel="noreferrer" data-no-instant="" href="https://download.virtualbox.org/virtualbox/7.2.18/VirtualBox-7.2.18-175117-macOSArm64.dmg" class="download-button-v2 ibl-fs-18"><span class="dbutton"><i class="fa fa-download" title="Download icon"></i><span>Download
+VirtualBox for macOS (Apple Silicon, M1, M2, ...)
+(FREE!)</span></span><span class="op-sys"><img src="../../media/Logo-osx.png.webp" alt="OSX" title="OSX" class="osx" /></span></a></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span></p>
+<ul>
+<li><strong>Developers only:</strong> At time of writing, running Whonix
+on Apple Silicon is still for developers only!</li>
+<li><strong>No downloadable Whonix image available yet:</strong> Whonix
+for VirtualBox OVA is not yet available for Apple Silicon-based
+systems.</li>
+<li><strong>Download link above not functional:</strong> The download
+link above will not be functional. It is for Intel/AMD64-based computers
+only.</li>
+<li><strong>See also:</strong> <a href="../MacOS/">macOS</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>Optional: Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><strong>VirtualBox for macOS is not signed with OpenPGP / gpg. It is
+notarized for macOS's gatekeeper.</strong></p>
+<p>See also Apple's official documentation <a href="https://support.apple.com/en-us/HT202491">Safely open apps on your
+Mac</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-ubuntusvg.png.webp" width="50" alt="Logo Ubuntu" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Ubuntu_2">Ubuntu</h3>
+</div>
+<div class="tcc-content">
+<p><strong>For Ubuntu host operating systems</strong></p>
+<p>Choose an option from the following table. Choose either
+<strong>Option (A)</strong> OR <strong>Option (B)</strong>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">A</i>
+<strong>Automated VirtualBox Installation</strong> : Ubuntu users could
+alternatively use the <a href="../Linux/">Whonix Linux
+Installer for VirtualBox</a>. In this case, this wiki page can be
+completely ignored. No other steps from this wiki page need to be
+applied because the automated installer will handle everything.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">B</i>
+<strong>Manual VirtualBox Installation</strong> : Follow the
+instructions below.</p>
+<div class="info-box cs-gray-light">
+<p><em>Tested on October 2022 using Ubuntu version <code>22.04</code>.
+Older versions are not recommended.</em></p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section active ">
+<div class="tcc-image">
+<p><img src="../../media/Utilities-terminal.png.webp" width="50" alt="command line" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Command_Line_(All_Users)_2">Command Line (All Users)</h4>
+</div>
+<div class="tcc-content">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+<strong>On the host : Open a terminal.</strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<strong>Update the package lists.</strong></p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+<strong>Install VirtualBox and Linux kernel headers.</strong></p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+virtualbox-qt linux-headers-generic</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+<strong>Add your current user to group <code>vboxusers</code>.
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></strong></p>
+<p><span class="code-select">sudo adduser $(whoami) vboxusers</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+<strong>Prevent KVM from conflicting with VirtualBox.</strong></p>
+<p>This is necessary if your system uses Linux 6.12 or higher.</p>
+<p><span class="code-select">echo 'options kvm enable_virt_at_load=0' |
+sudo tee /etc/modprobe.d/disable-kvm-virt-at-load.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">6</i>
+<strong>Reboot.</strong></p>
+<p>To ensure KVM configuration takes effect.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">7</i>
+<strong>Done.</strong></p>
+<p>The procedure of installing the VirtualBox host software is
+complete.</p>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Ubuntu_software_icon.png.webp" width="50" alt="Logo Ubuntu Software Center" /></p>
+</div>
+<div class="tcc-title">
+<h4 id="Software_Center_(only_if_not_using_SecureBoot)_2">Software Center
+(only if not using SecureBoot)</h4>
+</div>
+<div class="tcc-content">
+<p>Ubuntu Software Center can be used to install VirtualBox. The process
+is similar to installation of most other applications.</p>
+<p>This only works for users with computers that do not have
+"<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]" enabled. If the user's computer
+is using "SecureBoot" the user need to either disable "SecureBoot" in
+the BIOS or use the command line based instructions.
+<sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+<strong>Open the start menu.</strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<strong>Click on the Ubuntu Software Center icon.</strong></p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center icon</em></p>
+<p><img src="../../media/Ubuntu_software_icon.png.webp" alt="Ubuntu Software icon" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+<strong>Click on the magnifying glass to search. &#8594; Type
+<code>virtualbox</code>. &#8594; Press enter. &#8594; In the search results, click
+on VirtualBox.</strong></p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center - Search For
+VirtualBox</em></p>
+<p><img src="../../media/Search_for_Virtualbox.png.webp" alt="search for virtualbox" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+<strong>Click on Install and wait.</strong></p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center Search
+Result</em></p>
+<p><img src="../../media/Install_Virtualbox.png.webp" alt="Install Virtualbox" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+<strong>Installation of VirtualBox has been completed.</strong></p>
+<p>When the installation has completed, the install icon changes to the
+uninstall icon. Do <u>not</u> click the uninstall button.</p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center - VirtualBox has
+been installed</em></p>
+<p><img src="../../media/Uninstall_Virtualbox.png.webp" alt="Uninstall Virtualbox" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">6</i>
+<strong>Click on Show Applications. &#8594; Click on Virtual Box to start the
+VirtualBox <u>g</u>raphical <u>u</u>ser <u>i</u>nterface
+(GUI).</strong></p>
+<p><strong>Figure:</strong> <em>Ubuntu Software Center #4</em></p>
+<p><img src="../../media/Show_Applications.png.webp" alt="Show Applications" /></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">7</i>
+<strong>Prevent KVM from conflicting with VirtualBox.</strong></p>
+<p>This is necessary if your system uses Linux 6.12 or higher.</p>
+<p><span class="code-select">echo 'options kvm enable_virt_at_load=0' |
+sudo tee /etc/modprobe.d/disable-kvm-virt-at-load.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">8</i>
+<strong>Reboot.</strong></p>
+<p>To ensure KVM configuration takes effect.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">9</i>
+<strong>Done.</strong></p>
+<p>The procedure of installing and starting VirtualBox is complete.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-debian-500x500.png.webp" width="50" alt="Logo Debian" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Debian_2">Debian</h3>
+</div>
+<div class="tcc-content">
+<p><strong>For Debian host operating systems</strong> Choose an option
+from the following table. Choose either <strong>Option (A)</strong> OR
+<strong>Option (B)</strong>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">A</i>
+<strong>Automated VirtualBox Installation</strong> : Debian users could
+alternatively use the <a href="../Linux/">Whonix Linux
+Installer for VirtualBox</a>. In this case, this wiki page can be
+completely ignored. No other steps from this wiki page need to be
+applied because the automated installer will handle everything.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">B</i>
+<strong>Manual VirtualBox Installation</strong> : Follow the
+instructions below.</p>
+<div class="info-box cs-gray-light">
+<p><strong>Select your Debian release below</strong> to get the matching
+instructions.</p>
+<div class="tab-content-controller ">
+<div class="mininav ">
+</div>
+<div class="tcc-content">
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="Debian_Bookworm_(oldstable)_or_Bullseye_(oldoldstable)_2">Debian
+Bookworm (oldstable) or Bullseye (oldoldstable)</h4>
+</div>
+<div class="tcc-content">
+<p>To acquire the <a href="Recommended_Version/">Recommended VirtualBox version</a> tested with Whonix,
+package <code>virtualbox-qt</code> should be installed from Debian <a href="https://fasttrack.debian.net/"><code>fasttrack</code>
+repository</a> according to the following instructions.
+<sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+<strong>On the host : Open a terminal.</strong></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<strong>Update the package lists.</strong></p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+<strong>Install the Debian <code>fasttrack</code> signing
+key.</strong></p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+fasttrack-archive-keyring</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+<strong>Add the Debian <code>fasttrack</code> repository.</strong></p>
+<p><span class="code-select">echo 'Types: deb URIs: <a href="https://fasttrack.debian.net/debian/">https://fasttrack.debian.net/debian/</a>
+Suites: trixie-fasttrack Components: main contrib non-free Enabled: yes
+Signed-By: /usr/share/keyrings/fasttrack-archive-keyring.gpg' | sudo tee
+/etc/apt/sources.list.d/fasttrack.sources</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+<strong>Add the Debian <code>backports</code> repository.</strong>
+<sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+<p><span class="code-select">echo 'Types: deb URIs: <a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a>
+Suites: trixie-backports Components: main contrib non-free Enabled: yes
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg' | sudo tee
+/etc/apt/sources.list.d/backports.sources</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">6</i>
+<strong>Update the package lists again.</strong> <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">7</i>
+<strong>Install VirtualBox and Linux kernel headers.</strong></p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+virtualbox-qt linux-headers-$(dpkg --print-architecture)</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">8</i>
+<strong>Add your current user to group <code>vboxusers</code>.</strong>
+<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p><span class="code-select">sudo adduser $(whoami) vboxusers</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">9</i>
+<strong>Done.</strong></p>
+<p>The procedure of installing the VirtualBox host software is
+complete.</p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="Debian_trixie_(stable)_or_Testing_2">Debian trixie (stable) or
+Testing</h4>
+</div>
+<div class="tcc-content">
+<p>See <a href="../Moved:VirtualBox/Other_Versions/#Install_from_VirtualBox.org_Repository">Install from <code>VirtualBox.org</code>
+Repository</a>.</p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="Debian_Unstable_2">Debian Unstable</h4>
+</div>
+<div class="tcc-content">
+<p>VirtualBox can be installed by adding the Debian unstable
+(<code>sid</code>) repository.</p>
+<p><strong>1.</strong> Update your package lists.</p>
+<p><span class="code-select">sudo apt update</span></p>
+<p><strong>2.</strong> Install VirtualBox and Linux headers, which are a
+dependency.</p>
+<p><span class="code-select">sudo apt install --no-install-recommends
+virtualbox-qt linux-headers-$(dpkg --print-architecture)</span></p>
+<p><strong>3.</strong> Add your Linux user account to Linux user group
+<code>vboxusers</code>.</p>
+<p><span class="code-select">sudo adduser $(whoami) vboxusers</span></p>
+<p>The details of this are <a href="../Unspecific/">unspecific to Whonix</a> and <a href="../Unsupported/">undocumented</a>.</p>
+</div>
+</div>
+<div class="tcc-section  info-box">
+<div class="tcc-image">
+</div>
+<div class="tcc-title">
+<h4 id="Other_Debian_Releases_2">Other Debian Releases</h4>
+</div>
+<div class="tcc-content">
+<p>Other Debian releases might work, but this is <a href="../Unsupported/">untested</a>. In case of other Debian release:</p>
+<div class="show-for-nojs-only">
+<p>See also "Linux host operating systems" below.</p>
+</div>
+<div class="show-for-js-only">
+<p>See also "Linux" on the right.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Kicksecure-logo-rectangle.svg" width="50" alt="Kicksecure-logo-rectangle.svg" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Kicksecure_2">Kicksecure</h3>
+</div>
+<div class="tcc-content">
+<div class="info-box ">
+<p><strong>Kicksecure<sup>&#8482;</sup> host operating systems</strong></p>
+<p>Choose an option from the following table. Choose either
+<strong>Option (A)</strong> OR <strong>Option (B)</strong>.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">A</i>
+<strong>Automated VirtualBox Installation</strong> :
+Kicksecure<sup>&#8482;</sup> users could alternatively use the <a href="../Linux/">Whonix Linux Installer for VirtualBox</a>. In this
+case, this wiki page can be completely ignored. No other steps from this
+wiki page need to be applied because the automated installer will handle
+everything.</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">B</i>
+<strong>Manual VirtualBox Installation</strong> : Follow the
+instructions below.</p>
+<div class="info-box cs-gray-light">
+<p>See <a href="../Moved:VirtualBox/Other_Versions/#Install_from_VirtualBox.org_Repository">Install from <code>VirtualBox.org</code>
+Repository</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="tcc-section  ">
+<div class="tcc-image">
+<p><img src="../../media/Logo-linux-500x500.png.webp" width="50" alt="Logo Linux" /></p>
+</div>
+<div class="tcc-title">
+<h3 id="Linux_2">Linux</h3>
+</div>
+<div class="tcc-content">
+<div class="info-box ">
+<p><strong>Hosts using a non-Debian operating system:</strong></p>
+<ul>
+<li><strong>Install VirtualBox as per the normal mechanism for your
+Linux distribution</strong>. No special instructions for Whonix are
+required. The installation of a recent VirtualBox host software is <a href="../Unspecific/">unspecific to Whonix</a>. Consult the
+documentation of your Linux distribution.</li>
+<li><strong>You may need to disable KVM's "enable virt at load" feature
+if your system uses kernel 6.12 or later.</strong> This will prevent KVM
+from taking over virtualization-related features on the system
+automatically. This will not prevent KVM virtual machines from being
+used. Add <code>kvm.enable_virt_on_load=0</code> to your system's kernel
+command line, or add <code>options kvm enable_virt_at_load=0</code> to
+your system's modprobe configuration, using the appropriate mechanism
+for your distribution.</li>
+<li>Whonix has been tested with, expects VirtualBox version <a href="Recommended_Version/#Latest_VirtualBox_Version"><code>latest</code></a>.</li>
+<li>For example the outdated VirtualBox version <code>5.2.18</code> is
+incompatible.</li>
+</ul>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="25" alt="info" /></span>
+<strong>General recommendations for users using Linux as a host
+operating system:</strong></p>
+<p><strong>Linux kernel version:</strong></p>
+<ul>
+<li>The recommended <u>host</u> Linux kernel version is the same version
+that Debian <code>trixie</code> is using, see <a href="https://packages.debian.org/trixie/linux-image-amd64"><code>linux-image-amd64</code></a>.</li>
+<li>Newer <u>host</u> Linux kernel versions are likely to break
+VirtualBox VMs <a href="../Moved:Kernel/#Kernel_Issues">in many
+ways</a> since these are unsupported by VirtualBox.
+<sup class="reference"><a href="#cite_note-13">[13]</a></sup></li>
+</ul>
+<p><strong>Host operating system.</strong> The recommended <u>host</u>
+Linux distributions are:</p>
+<ul>
+<li>preferably the stable version of Kicksecure<sup>&#8482;</sup>
+<code>18</code>, or</li>
+<li><a href="https://www.debian.org/">Debian Linux</a> version
+<code>trixie</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="info-box ">
+<h2 id="3_Import_Whonix_into_VirtualBox_2"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Import Whonix into VirtualBox</h2>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>For Whonix VirtualBox import instructions, please press the learn
+more button on the right.</p>
+<div class="mw-collapsible-content">
+<p><strong>Follow these steps to import Whonix into VirtualBox. Click
+images to enlarge</strong></p>
+<div class="gallery">
+<p><span class="gallery-item"><img src="../../media/OpenVirtualbox1.png.webp" alt="1 &#x27;&#x27;&#x27;Start VirtualBox&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">1
+'''Start
+VirtualBox'''</span></span><span class="gallery-item"><img src="../../media/Select_Import2.png.webp" alt="2 &#x27;&#x27;&#x27;Click on File then choose Import Appliance...&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">2
+'''Click on File then choose Import
+Appliance...'''</span></span><span class="gallery-item"><img src="../../media/Select_whonix_ova_image3.png.webp" alt="3 &#x27;&#x27;&#x27;Navigate and select Whonix image and press next&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">3
+'''Navigate and select Whonix image and press
+next'''</span></span><span class="gallery-item"><img src="../../media/Click_import4.png.webp" alt="4 &#x27;&#x27;&#x27;Do NOT change anything! Just click on Import&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">4
+'''Do NOT change anything! Just click on
+Import'''</span></span><span class="gallery-item"><img src="../../media/Agree5.png.webp" alt="5 &#x27;&#x27;&#x27;Then press Agree&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">5
+'''Then press
+Agree'''</span></span><span class="gallery-item"><img src="../../media/Wait6.png.webp" alt="6 &#x27;&#x27;&#x27;Wait until Whonix .ova has been imported&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">6
+'''Wait until Whonix .ova has been
+imported'''</span></span><span class="gallery-item"><img src="../../media/Start_both_of_them7.png.webp" alt="7 &#x27;&#x27;&#x27;Now start Whonix-Gateway and Whonix-Workstation&#x27;&#x27;&#x27;" loading="lazy" /><span class="gallery-caption">7
+'''Now start Whonix-Gateway and Whonix-Workstation'''</span></span></p>
+</div>
+</div>
+<p><strong>Miscellaneous</strong></p>
+<p>There are also <a href="../Videos/">Video
+Tutorials</a>.</p>
+<p>If you still need help, please check the <a href="../Support/">Support</a> page.</p>
+<p>For optional, alternative command line import instructions, see <a href="Manual_VM_Import/">VirtualBox, manual
+VM import</a>.</p>
+</div>
+</div>
+<div class="info-box ">
+<p><span class="manually-placed-anchor " id="starting"></span></p>
+<h2 id="4_Start_Whonix_2"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Start Whonix</h2>
+<p>Starting Whonix is simple:</p>
+<ol>
+<li>Start VirtualBox.</li>
+<li>Double-click the <a href="../Whonix-Gateway/">Whonix-Gateway<sup>&#8482;</sup></a> and <a href="../Whonix-Workstation/">Whonix-Workstation<sup>&#8482;</sup></a>.</li>
+</ol>
+</div>
+<div class="info-box ">
+<h2 id="5_Support_the_Future_of_Whonix_2"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Support the Future of Whonix</h2>
+<p>Whonix is made possible thanks to the donation of people like you.
+<i class="padded-content-icon     fa-solid fa-heart cs-red-font"></i></p>
+<p><strong>Please support the Whonix development with a
+donation.</strong></p>
+<p><a href="../Donate/"><span class="mw-ui-button mw-ui-progressive" role="button" aria-disabled="false">Donate
+to Whonix</span></a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mw-collapsible mw-collapsed toccolours" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>First Time User / Questions and Answers</p>
+<div class="mw-collapsible-content">
+<div class="info-box width-100 margin-top-20">
+<h1 id="First_Time_User_/_Questions_and_Answers">First Time User /
+Questions and Answers</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Whonix default admin password is: No password required. (Passwordless login.)" /></span></p>
+<ul>
+<li><strong>Default username:</strong>
+<span class="code-select">user</span></li>
+<li><strong>Default password:</strong> No password required.
+(Passwordless login.) <sup class="reference"><a href="#cite_note-14">[14]</a></sup></li>
+</ul>
+</div>
+<ul>
+<li>Can I combine Whonix-Gateway<sup>&#8482;</sup> CLI with
+Whonix-Workstation<sup>&#8482;</sup> LXQt? <a href="https://forums.whonix.org/t/can-i-combine-whonix-gateway-cli-with-whonix-workstation-lxqt-yes/6308">Yes,
+you can! Learn more.</a></li>
+<li><a href="../Dev/VirtualBox/#Why_use_VirtualBox_over_KVM?">Why use VirtualBox over KVM?</a></li>
+<li><a href="../Dev/VirtualBox/#Why_use_VirtualBox_over_Qubes?">Why use VirtualBox over Qubes?</a></li>
+<li><a href="../FAQ/">FAQ</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="mw-collapsible mw-collapsed toccolours" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>See Also</p>
+<div class="mw-collapsible-content">
+<div class="info-box width-100 margin-top-20">
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="../Documentation/">Documentation</a></li>
+<li><a href="../Stay_Tuned/">Follow Whonix
+Developments</a></li>
+<li>In case of issues, see <a href="../Moved:VirtualBox/Troubleshooting/">VirtualBox Troubleshooting</a>.</li>
+</ul>
+<p>For additional VirtualBox guides and information, please press on
+expand on the right.</p>
+<ul>
+<li><a href="../Known_Issues/">Known Issues</a></li>
+<li><a href="../Moved:VirtualBox/Troubleshooting/">VirtualBox
+Troubleshooting</a></li>
+<li><a href="../Moved:VirtualBox/Guest_Additions/">VirtualBox
+Guest Additions</a></li>
+<li><a href="../Moved:VirtualBox/Guest_Additions/#Clipboard_Sharing">VirtualBox Clipboard Sharing</a></li>
+<li><a href="../Moved:VirtualBox/Guest_Additions/#Shared_Folder">VirtualBox Shared Folder</a></li>
+<li><a href="../Moved:Virtualization_Platform_Security/#VirtualBox_Hardening">VirtualBox Hardening</a></li>
+<li><a href="../Moved:VirtualBox/Other_Versions/">Installing
+Newer Versions of VirtualBox</a></li>
+</ul>
+<p><strong>Help Wanted</strong></p>
+<ul>
+<li>Work on the <a href="https://phabricator.whonix.org/tag/virtualbox/">VirtualBox
+development task list</a>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="mw-collapsible mw-collapsed toccolours" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>Footnotes</p>
+<div class="mw-collapsible-content">
+<div class="info-box width-100 margin-top-20">
+<p><span class="manually-placed-anchor " id="spectre"></span>
+<span class="manually-placed-anchor " id="meltdown"></span>
+<span class="manually-placed-anchor " id="spectre-meltdown"></span></p>
+<h1 id="Footnotes">Footnotes</h1>
+<div class="references">
+<ol>
+<li id="cite_note-1">This link has been found on the <code>microsoft.com</code> website:
+<a href="https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170">Microsoft
+Visual C++ Redistributable latest supported downloads</a></li>
+<li id="cite_note-2">Optional: See: <a href="https://www.virtualbox.org/manual/ch02.html#install-linux-vboxusers">https://www.virtualbox.org/manual/ch02.html#install-linux-vboxusers</a>
+Also spams <code>~/.config/VirtualBox/VBoxSVC.log</code> log if not
+done.</li>
+<li id="cite_note-3"><a href="../Unspecific/">This is unspecific to
+Whonix.</a> This is because during package installation of a package
+that requires kernel modules when "SecureBoot" is enabled, Ubuntu's
+<code>dkms</code> is prompting the user for a password to encrypt the
+key which will be used to enroll the kernel module signing key. This is
+Ubuntu usability issue. It is unknown if any bug report / feature
+request for this exists. Please contribute, research, report this issue
+on Ubuntu's issue tracker.</li>
+<li id="cite_note-4">This is
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] but required since VirtualBox in
+unavailable in official Debian <code>trixie</code> repository and
+difficult to install due to <a href="../Dev/VirtualBox/#VirtualBox_Installation_Challenges">VirtualBox Installation Challenges</a>. Alternatively
+you could install VirtualBox from the <a href="../Moved:VirtualBox/Other_Versions/#Install_from_Oracle_Repository">Oracle (virtualbox.org) Repository</a>, but this comes
+with different <a href="../Install_Software/#Foreign_Sources">risks</a>. VirtualBox might be updated by VirtualBox
+developers before being tested with Whonix which could then lead to
+issues. (Described in footnote <a href="Recommended_Version/">Recommended Version</a>.)</li>
+<li id="cite_note-5">This is required because the Debian <code>fasttrack</code>
+repository depends on the Debian <code>backports</code> repository.</li>
+<li id="cite_note-6">This is to acquire the Debian <code>fasttrack</code> repository
+package sources.</li>
+<li id="cite_note-7"><a href="https://www.virtualbox.org/ticket/17055#comment:3">https://www.virtualbox.org/ticket/17055#comment:3</a></li>
+<li id="cite_note-8">This link has been found on the <code>microsoft.com</code> website:
+<a href="https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170">Microsoft
+Visual C++ Redistributable latest supported downloads</a></li>
+<li id="cite_note-9"><a href="../Unspecific/">This is unspecific to
+Whonix.</a> This is because during package installation of a package
+that requires kernel modules when "SecureBoot" is enabled, Ubuntu's
+<code>dkms</code> is prompting the user for a password to encrypt the
+key which will be used to enroll the kernel module signing key. This is
+Ubuntu usability issue. It is unknown if any bug report / feature
+request for this exists. Please contribute, research, report this issue
+on Ubuntu's issue tracker.</li>
+<li id="cite_note-10">This is
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided] but required since VirtualBox in
+unavailable in official Debian <code>trixie</code> repository and
+difficult to install due to <a href="../Dev/VirtualBox/#VirtualBox_Installation_Challenges">VirtualBox Installation Challenges</a>. Alternatively
+you could install VirtualBox from the <a href="../Moved:VirtualBox/Other_Versions/#Install_from_Oracle_Repository">Oracle (virtualbox.org) Repository</a>, but this comes
+with different <a href="../Install_Software/#Foreign_Sources">risks</a>. VirtualBox might be updated by VirtualBox
+developers before being tested with Whonix which could then lead to
+issues. (Described in footnote <a href="Recommended_Version/">Recommended Version</a>.)</li>
+<li id="cite_note-11">This is required because the Debian <code>fasttrack</code>
+repository depends on the Debian <code>backports</code> repository.</li>
+<li id="cite_note-12">This is to acquire the Debian <code>fasttrack</code> repository
+package sources.</li>
+<li id="cite_note-13"><a href="https://www.virtualbox.org/ticket/17055#comment:3">https://www.virtualbox.org/ticket/17055#comment:3</a></li>
+<li id="cite_note-14"><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+[Broken-ExtLink--no-url-was-provided]</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Qubes/" title="Qubes"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes</span></a><a class="index internal" href="../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Project-APT-Repository/" title="Project-APT-Repository"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Project-APT-Repository</span></a><span class="info"><span class="prev">Previous
+page: Qubes</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Project-APT-Repository</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:MultiWiki/">MultiWiki</a> <a href="../Category:Documentation/">Documentation</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>PPTP</title>
+<meta name="description" content="PPTP (Point-to-Point Tunneling Protocol) and Whonix">
+<meta property="og:description" content="PPTP (Point-to-Point Tunneling Protocol) and Whonix">
+<link rel="canonical" href="https://www.whonix.org/wiki/PPTP/">
+<meta property="og:url" content="https://www.whonix.org/wiki/PPTP/">
+<meta property="og:title" content="PPTP (Point-to-Point Tunneling Protocol) and Whonix">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Bridge-19513640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Torify_Host_Operating_System/" title="Torify Host Operating System"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Torify
+Host Operating
+System</span></a><a class="index internal" href="../Advanced_Documentation/" title="Advanced Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Advanced
+Documentation</span></a><a class="next internal" href="../Vanguards/" title="Vanguards"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Vanguards</span></a><span class="info"><span class="prev">Previous
+page: Torify Host Operating System</span><span class="index">Index page:
+Advanced Documentation</span><span class="next">Next page:
+Vanguards</span></span></span>PPTP (Point-to-Point Tunneling Protocol)
+and Whonix</p>
+</div>
+<p><img src="../../media/Bridge-19513640.jpg.webp" alt="Bridge-19513640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>PPTP (Point-to-Point Tunneling Protocol) and Whonix</p>
+<div class="post-intro-p">
+</div>
+<h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Question mark" /></span>
+Warning: PPTP is fatally flawed and is actively exploited by NSA.
+<sup class="reference"><a href="#cite_note-1">[1]</a></sup> If the user cannot find a better option, rely on it
+for <a href="../Tunnel_UDP_over_Tor/">tunneling UDP over
+Tor</a> but not security. For security use OpenVPN only. See also <a href="../Tunnels/Introduction/">Combining Tunnels with
+Tor</a>.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Question mark" /></span>
+Warning: This article has not been checked since the latest Whonix
+release; it may require an update.</p>
+</div>
+<p>In this chapter, PPTP is utilized because it is useful, very easy to
+configure and well supported by all kind of devices. Compared to a
+proper set up with a hardware gateway between the internet and the
+devices you want to torrify it is less secure but doesn't require any
+kind of hardware or network layout changes.</p>
+<h2 id="Virtual_Private_Networks_(VPNs)">Virtual Private Networks
+(VPNs)</h2>
+<p>A VPN (<a href="https://en.wikipedia.org/wiki/Virtual_private_network">Virtual
+private network</a>) is a method for users to connect to another network
+and access resources that can be seen from that network.</p>
+<p>In this case, VPN is used to allow other users on your local LAN to
+connect and use your Whonix to connect to Tor with minimal
+configuration. Unlike Tor-VM where all network connections are forced
+through Tor or rejected, workstations connected over PPTP are NOT
+automatically protected against network level leaks and application
+level exploits.</p>
+<p>We use <a href="https://en.wikipedia.org/wiki/Point-to-Point_Tunneling_Protocol">PPTP</a>
+here due to its wide install base (every installation of Windows since
+Windows 95 includes a client) and ease of installation. Be aware of the
+<a href="https://en.wikipedia.org/wiki/Point-to-Point_Tunneling_Protocol#Security">enormous
+security issues with PPTP</a>.</p>
+<p><strong>Warning</strong>, PPTP should <strong>NOT</strong> be used
+with Whonix over the Internet, only for local trusted sources. See below
+for an OpenVPN implementation that allows use of Tor with minimal client
+configuration and should be secure enough to allow Internet connections
+(coming soon).</p>
+<h2 id="VPN:_Bypassing_Censorship_and_Enabling_Free_Speech">VPN:
+Bypassing Censorship and Enabling Free Speech</h2>
+<p>Ref: (<a href="https://web.archive.org/web/20160229235727/http://en.flossmanuals.net/bypassing-censorship/ch025_what-is-vpn/">How
+to Bypass Internet Censorship @ Flossmanuals.net</a>)</p>
+<p>Because VPN services <a href="https://en.wikipedia.org/wiki/IP_tunnel">tunnel</a> all Internet
+traffic, they can be used for e-mail, instant messaging, Voice over IP
+(VoIP) and any other Internet service in addition to Web browsing,
+making everything that travels through the tunnel unreadable to anyone
+along the way.</p>
+<p>If the tunnel ends outside the area where the Internet is being
+restricted, this can be an effective method of circumvention, since the
+filtering entity/server sees only encrypted data, and has no way of
+knowing what data is passing through the tunnel. It has the additional
+effect of making all your different kinds of traffic look similar to an
+eavesdropper.</p>
+<p>We use VPN here for its "tunnel" capabilities, so that others that
+you allow access, can take advantage of Tor via Whonix with a single
+connection.</p>
+<h1 id="Install_PPTPd">Install PPTPd</h1>
+<p>(Whonix-Gateway<sup>&#8482;</sup>)</p>
+<p>From your Whonix-Gateway:</p>
+<p><span class="code-select">apt install pptpd</span></p>
+<p>This will install and start the <code>pptpd</code> daemon on your
+Whonix-Gateway. Verify its running:</p>
+<p><span class="code-select">ps aux</span></p>
+<p>Should show something similar to:</p>
+<pre><code>root      8357  0.0  0.5  10512   696 ?        Ss   17:26   0:00 /usr/sbin/pptpd</code></pre>
+<p>Stop it for the time being, while we configure it.</p>
+<pre><code>/etc/init.d/pptpd stop</code></pre>
+<h1 id="Configure_PPTP">Configure PPTP</h1>
+<p>(Whonix-Gateway)</p>
+<p>Configure PPTP settings:</p>
+<p><span class="code-select">nano /etc/pptpd.conf</span></p>
+<p>Setup your <code>localip</code> and <code>remoteip</code>
+settings:</p>
+<pre><code>localip 192.168.0.1 #your eth1 address
+remoteip 192.168.0.200-250 #a range of unassigned IP&#39;s</code></pre>
+<p>See the <a href="https://poptop.sourceforge.net/dox/pptpd.conf.txt">official
+documentation here</a>.</p>
+<p><strong>Discussion:</strong></p>
+<p>This can be potentially confusing, as the documentation in the
+configuration files are not the best. When you setup a PPTP connection,
+your Whonix-Gateway will setup a virtual adapter (e.g. ppp0) which will
+output traffic sent from your client computer (those that connect to
+your server from your local LAN) to the Whonix-Gateway and allow it to
+be routed through Tor. So if we want to use this virtual adapter just
+like a real adapter (e.g. eth0), we need to give it an IP address.
+That's what the <code>localip</code> option is.</p>
+<p><code>remoteip</code> is a bit simpler. It is the IP address (or
+addresses) that are assigned to the client's computer when they connect.
+They get their own virtual adapter, which needs its own IP address.</p>
+<p>See the <a href="https://poptop.sourceforge.net/dox/qna.html#19">FAQ
+here for information</a>. For a simple overview of the VPN process see
+[<a href="https://help.ubuntu.com/community/VPNClient#Extra_credit:_how_VPN_works">https://help.ubuntu.com/community/VPNClient#Extra_credit:_how_VPN_works</a><em>how</em>VPN_works
+VPNClient @ Ubuntu Community Documentation].</p>
+<p><strong>localip</strong>, for simplicity should be the IP of your
+eth1, as Tor is already configured to listen here and we don't actually
+do any routing creating an IP address conflict.
+<strong>remoteip</strong>, should be several IP's on your internal
+network (you should have as many IP's as potential clients, for example
+the "192.168.0.200-250" range above defines IP's for 50 clients)</p>
+<p>(Advanced: <code>localip</code> and <code>remoteip</code> can be set
+to other networks, other subnets, etc. With our approach it doesn't
+matter what their IP's are, simply that they exist. It is in fact
+encouraged that such clients be assigned to a "quarantine" network.
+Since we don't have routing enabled, other subnets would prevent your
+client's from seeing each other and your already established "safe" LAN;
+where your Whonix-Workstation<sup>&#8482;</sup> lives. But! The
+<code>torrc</code> would need to be updated to listen on said addresses
+as well. Subneting in this fashion is beyond the scope of this
+document.)</p>
+<h1 id="Configure_PPTP_Options">Configure PPTP Options</h1>
+<p>(Whonix-Gateway)</p>
+<p><span class="code-select">nano /etc/ppp/pptpd-options</span></p>
+<p>Verify the following settings are configured as shown:</p>
+<pre><code>refuse-pap
+refuse-chap
+refuse-mschap
+require-mschap-v2
+require-mppe-128
+ms-dns &lt;eth1 address&gt;</code></pre>
+<p><strong>Discussion:</strong> <a href="https://poptop.sourceforge.net/dox/options.pptpd.txt">See official
+documentation here</a>.</p>
+<p><strong>refuse-pap</strong>: <a href="https://en.wikipedia.org/wiki/Password_Authentication_Protocol">PAP
+style authentication</a>, insecure, so we don't want to use it if we can
+help it. <strong>refuse-chap</strong>: <a href="https://en.wikipedia.org/wiki/Challenge-Handshake_Authentication_Protocol">CHAP
+authentication</a>, insecure. <strong>refuse-mschap</strong>: <a href="https://en.wikipedia.org/wiki/MS-CHAP">MS-CHAP</a>, insecure
+<strong>require-mschap-v2</strong>: <a href="https://en.wikipedia.org/wiki/MS-CHAP">MS-CHAPv2</a>, make sure
+that any connecting client must use this. It is as secure a we can get
+for a supported authentication method for PPTP.
+<strong>require-mppe-128</strong>: <a href="https://en.wikipedia.org/wiki/Microsoft_Point-to-Point_Encryption">Microsoft
+Point-to-Point Encryption</a>, as secure encryption as we can get over
+PPTP, 128 bit is the maximum supported. <strong>ms-dns</strong>: Use
+this address as the DNS server for connecting (Windows) clients.</p>
+<h1 id="Configure_IPtables_rules_for_client_connect_and_disconnect">Configure
+IPtables rules for client connect and disconnect</h1>
+<p>(Whonix-Gateway)</p>
+<p>The <code>ip-up</code> script is called on each connection by a PPTP
+client, so we can put special firewall rules here to help with Torifying
+the traffic through this interface.</p>
+<p><span class="code-select">nano /etc/ppp/ip-up</span></p>
+<p>Add to the end:</p>
+<pre><code>#Firewall rules to add to route PPTP through TOR
+#Tor&#39;s TransPort
+TRANS_PORT#&quot;9040&quot;
+
+iptables -t nat -A PREROUTING -i $PPP_IFACE -p udp --dport 53 -j REDIRECT --to-ports 53
+iptables -t nat -A PREROUTING -i $PPP_IFACE -p tcp --syn -j REDIRECT --to-ports $TRANS_PORT</code></pre>
+<p>The variable "$PPP_IFACE" is defined in the script (see the
+documentation at the beginning of the ip-up script) and resolves to the
+name of the interface established after a PPTP connection (e.g.
+ppp0).</p>
+<p>Similarly the <code>ip-down</code> script is called when tearing down
+the connection. To prevent your iptables from getting polluted with
+redundant rules, we remove the previously configured rules here:</p>
+<p><span class="code-select">nano /etc/ppp/ip-down</span></p>
+<p>Add to the end:</p>
+<pre><code>#Firewall rules to add to route PPTP through TOR
+#Tor&#39;s TransPort
+TRANS_PORT#&quot;9040&quot;
+
+iptables -t nat -D PREROUTING -i $PPP_IFACE -p udp --dport 53 -j REDIRECT --to-ports 53
+iptables -t nat -D PREROUTING -i $PPP_IFACE -p tcp --syn -j REDIRECT --to-ports $TRANS_PORT</code></pre>
+<p>Notice the addition of the <strong>-D</strong> instead of
+<strong>-A</strong> to the rule definitions. This tells
+<code>iptables</code> to Delete a rule with those parameters rather than
+Add one.</p>
+<p>(<a href="https://manpages.ubuntu.com/manpages/kinetic/en/man8/iptables.8.html">See
+IPTables documentation</a>)</p>
+<h1 id="Testing">Testing</h1>
+<p>(Whonix-Gateway)</p>
+<p>Start up your PPTP server:</p>
+<p><span class="code-select">/etc/init.d/pptpd start</span></p>
+<p>(Client)</p>
+<p>From a client on your network (preferably one outside of your Tor
+network, e.g. not your Whonix-Workstation) connect to your VPN
+server.</p>
+<p>Instructions for a variety of clients:</p>
+<p><a href="https://pptpclient.sourceforge.net/documentation.phtml">Linux
+(many flavors, direct from the pptp-client site)</a> <a href="https://web.archive.org/web/20120207123212/http://support.microsoft.com/kb/314076">How
+to configure a connection to a virtual private network (VPN) in Windows
+XP</a> <a href="https://help.ubuntu.com/community/VPNClient">VPNClient @
+Ubuntu Community Documentation</a> <a href="https://web.archive.org/web/20120825041858/http://www.pcworld.com/article/210562/how_to_set_up_vpn_in_windows_7.html">Windows
+7 VPN step by step guide</a></p>
+<p>Now verify the connection on the gateway, after successfully
+connecting: (Whonix-Gateway)</p>
+<p><span class="code-select">ifconfig</span></p>
+<p>Should show something like:</p>
+<pre><code>ppp0      Link encap:Point-to-Point Protocol
+    inet addr:192.168.0.1  P-t-P:192.168.0.200  Mask:255.255.255.255
+    UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1496  Metric:1
+    RX packets:91 errors:0 dropped:0 overruns:0 frame:0
+    TX packets:71 errors:0 dropped:0 overruns:0 carrier:0
+    collisions:0 txqueuelen:3
+    RX bytes:10080 (10.0 KB)  TX bytes:3622 (3.6 KB)</code></pre>
+<p>.</p>
+<p><span class="code-select">iptables -vnL -t nat</span></p>
+<p>Should show:</p>
+<pre><code>Chain PREROUTING (policy ACCEPT 103 packets, 14589 bytes)
+pkts bytes target     prot opt in     out     source                   destination
+    0     0 REDIRECT   udp  --  ppp0  *       0.0.0.0/0            0.0.0.0/0 udp dpt:53     redir ports 53
+   22  1320 REDIRECT   tcp  --  ppp0  *       0.0.0.0/0            0.0.0.0/0 tcp     flags:0x17/0x02 redir ports 9040</code></pre>
+<p>(You may have more information displayed here depending on
+configuration, but the lines above should at least appear in your
+PREROUTING chain)</p>
+<p>(Client)</p>
+<p>On the client you should then be able to connect via Tor.</p>
+<ul>
+<li>Browse to <code>check.torproject.org</code> and verify the
+"congratulations" message</li>
+</ul>
+<p>Next disconnect from the VPN. On the server you should see several
+changes: (Whonix-Gateway)</p>
+<ul>
+<li><span class="code-select">ifconfig</span></li>
+</ul>
+<p>should no longer show any ppp interfaces</p>
+<ul>
+<li><span class="code-select">iptables -vnL -t nat</span></li>
+</ul>
+<p>should show no rules that involve any ppp interfaces</p>
+<p>You can in fact test several client connections in this way. Each
+should get a new IP address (192.168.0.201, 192.168.0.202, etc), create
+a new virtual adapter (ppp1, ppp2, etc) and route through Tor via the
+Iptables commands (as above).</p>
+<p>You can also attempt [LeakTests Leak Testing] to verify that no
+packets are leaking through your VPN connection.</p>
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Torify_Host_Operating_System/" title="Torify Host Operating System"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Torify
+Host Operating
+System</span></a><a class="index internal" href="../Advanced_Documentation/" title="Advanced Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Advanced
+Documentation</span></a><a class="next internal" href="../Vanguards/" title="Vanguards"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Vanguards</span></a><span class="info"><span class="prev">Previous
+page: Torify Host Operating System</span><span class="index">Index page:
+Advanced Documentation</span><span class="next">Next page:
+Vanguards</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+<div class="references">
+<ol>
+<li id="cite_note-1"><a href="https://web.archive.org/web/20210207073115/https://search.edwardsnowden.com/docs/IntrototheVPNExploitationProcess2014-12-28_nsadocs_snowden_doc">https://web.archive.org/web/20210207073115/https://search.edwardsnowden.com/docs/IntrototheVPNExploitationProcess2014-12-28_nsadocs_snowden_doc</a></li>
+</ol>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a> <a href="../Category:Deprecated/">Deprecated</a></div></main>
+<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><span class="consent-storage"><a href="../Special:BrowserStorage/">Browser Storage</a> -- view or clear the data this site keeps in your browser. (Informational only; not part of this agreement.)</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>
