@@ -81,7 +81,9 @@
     }
   }
 
-  // Collapsibles: a header toggles the collapsed state (rendered expanded no-JS).
+  // Collapsibles: a top-right toggle collapses/expands the box (rendered expanded
+  // no-JS). Matches production: the label reflects state (Collapse/Expand) and a CSS
+  // triangle (::before) points up when expanded, down when collapsed.
   function initCollapsibles() {
     var items = document.querySelectorAll(".mw-collapsible");
     for (var i = 0; i < items.length; i++) {
@@ -89,9 +91,13 @@
         var toggle = document.createElement("button");
         toggle.type = "button";
         toggle.className = "collapsible-toggle";
-        toggle.textContent = "Toggle";
+        function label() {
+          toggle.textContent = item.classList.contains("mw-collapsed") ? "Expand" : "Collapse";
+        }
+        label();
         toggle.addEventListener("click", function () {
           item.classList.toggle("mw-collapsed");
+          label();
         });
         item.insertBefore(toggle, item.firstChild);
       })(items[i]);
@@ -158,17 +164,53 @@
     }
   }
 
-  // Back-to-top button (created dynamically; hidden until scrolled).
+  // Mobile nav menu is a pure-CSS checkbox toggle (#nav-toggle). With JS on, also
+  // close it when the visitor taps free space outside the header or presses Escape
+  // (a CSS-only toggle otherwise stays open until the label is tapped again -- the
+  // reported mobile annoyance). Tapping a nav link closes it too (it navigates
+  // anyway). TT-safe: only flips checkbox.checked, no DOM/HTML sinks.
+  function initNavToggle() {
+    var toggle = document.getElementById("nav-toggle");
+    if (!toggle) return;
+    var header = document.querySelector(".site-header");
+    document.addEventListener("click", function (e) {
+      if (!toggle.checked) return;
+      var t = e.target;
+      if (header && header.contains(t)) {
+        // stay open for header interactions, but close when a nav link is chosen
+        if (t.closest && t.closest(".site-nav a")) toggle.checked = false;
+        return;
+      }
+      toggle.checked = false;
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && toggle.checked) toggle.checked = false;
+    });
+  }
+
+  // Back-to-top button (created dynamically). Matches production: a chevron glyph
+  // that appears while scrolling past a threshold and auto-hides ~2s after scrolling
+  // stops; click scrolls smoothly to the top. TT-safe (createElement/classList only).
   function initBackToTop() {
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "back-to-top";
-    btn.textContent = "Top";
+    btn.setAttribute("aria-label", "Back to top of the page");
+    var icon = document.createElement("i");
+    icon.className = "fa-solid fa-chevron-up";
+    icon.setAttribute("aria-hidden", "true");
+    btn.appendChild(icon);
     btn.hidden = true;
-    btn.addEventListener("click", function () { window.scrollTo(0, 0); });
+    btn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
     document.body.appendChild(btn);
+    var idle = null;
     window.addEventListener("scroll", function () {
-      btn.hidden = window.scrollY < 400;
+      if (window.scrollY < 400) { btn.hidden = true; return; }
+      btn.hidden = false;
+      clearTimeout(idle);
+      idle = setTimeout(function () { btn.hidden = true; }, 2000);
     });
   }
 
@@ -611,6 +653,7 @@
     initCollapsibles();
     initExpandCollapseAll();
     initTabs();
+    initNavToggle();
     initBackToTop();
     initSearch();
     initConsentBanner();

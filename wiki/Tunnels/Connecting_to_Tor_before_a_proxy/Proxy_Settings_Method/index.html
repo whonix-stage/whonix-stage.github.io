@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
-<title>Tunnels/Connecting to Tor before a proxy/Proxy Settings Method</title>
+<title>Connecting to Tor before a Proxy using Proxy Settings Method</title>
 <meta name="description" content="Instructions on how to connect to Tor before a proxy (User &amp;rarr; Tor &amp;rarr; Proxy &amp;rarr; Internet) using Proxy Settings Method">
 <meta property="og:description" content="Instructions on how to connect to Tor before a proxy (User &amp;rarr; Tor &amp;rarr; Proxy &amp;rarr; Internet) using Proxy Settings Method">
 <link rel="canonical" href="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/">
@@ -17,12 +17,12 @@
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
-<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../../Download/">Download</a></li><li><a href="../../../Documentation/">Docs</a></li><li><a href="../../../FAQ/">FAQ</a></li><li><a href="../../../Support/">Help</a></li><li><a href="../../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../../Special:AllPages/">Browse</a></div></header>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../../../Trademark_Policy/" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../../../Download/">Download</a><ul class="nav-submenu"><li><a href="../../../VirtualBox/">Windows</a></li><li><a href="../../../Linux/">Linux</a></li><li><a href="../../../MacOS/">Mac</a></li><li><a href="../../../VirtualBox/">VirtualBox</a></li><li><a href="../../../KVM/">KVM</a></li><li><a href="../../../Qubes/">Qubes</a></li><li><a href="../../../Intel_AMD64/">Intel / AMD64</a></li><li><a href="../../../ARM64/">ARM64</a></li><li><a href="../../../USB_Installation/">USB</a></li><li><a href="../../../Whonix-Host/">ISO</a></li><li><a href="../../../Download/">More options</a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer">Source Code</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../../About/">About</a><ul class="nav-submenu"><li><a href="../../../About/">Overview</a></li><li><a href="../../../Features/">Features</a></li><li><a href="../../../Whonix_versus_VPNs/">Whonix vs VPNs</a></li><li><a href="../../../Reasons_for_Freedom_Software/">Why Open Source?</a></li><li><a href="../../../What_we_do/">Project Activities</a></li><li><a href="../../../Contributors/">Contributors</a></li><li><a href="../../../Anonymity/">Mission &amp; Vision</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../../Documentation/">Docs</a><ul class="nav-submenu"><li><a href="../../../Documentation/">Documentation</a></li><li><a href="../../../FAQ/">FAQ</a></li><li><a href="../../../Troubleshooting/">Troubleshooting</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../../Contribute/">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer">Forums</a></li><li><a href="../../../Moved:Forum_Best_Practices/">Forum Best Practices</a></li><li><a href="../../../Contribute/">Contribute</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../../Support/">Support</a><ul class="nav-submenu"><li><a href="../../../Self_Support_First_Policy/">Self Support First Policy</a></li><li><a href="../../../Support/">Support (Limited)</a></li><li><a href="../../../Plus_Support/">Plus</a></li><li><a href="../../../Premium_Support/">Premium</a></li><li><a href="../../../Reporting_Bugs/">Reporting Bugs</a></li><li><a href="../../../Contact/">Contact (Restricted)</a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Tunnels</span> / <span>Connecting to Tor before a proxy</span> / <span>Proxy Settings Method</span></nav><div class="mininav">
 <ul>
-<li><a href="./">Proxy Settings Method</a></li>
+<li><a class="mw-selflink selflink" aria-current="page">Proxy Settings Method</a></li>
 <li><a href="../Proxyfier_Method/">Proxyfier Method</a></li>
 <li><a href="../Transparent_Proxying_Method/">Transparent Proxying Method</a></li>
 </ul>
@@ -55,7 +55,9 @@ See also <a href="../#Proxy_Warning">proxy warning</a>!</p>
 <p><strong><code>User</code> &#8594; <code>Tor</code> &#8594; <code>Proxy</code> &#8594;
 <code>Internet</code></strong></p>
 <h2 id="Configure_Applications_to_use_Proxy_Settings_Method">Configure
-Applications to use Proxy Settings Method</h2><span class="share-tooltip" data-anchor="Configure_Applications_to_use_Proxy_Settings_Method"><a class="headline-anchor" href="#Configure_Applications_to_use_Proxy_Settings_Method" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Configure_Applications_to_use_Proxy_Settings_Method">https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Configure_Applications_to_use_Proxy_Settings_Method</span></span></span></span>
+Applications to use Proxy Settings Method</h2><span class="share-tooltip" data-anchor="Configure_Applications_to_use_Proxy_Settings_Method"><a class="headline-anchor" href="#Configure_Applications_to_use_Proxy_Settings_Method" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Configure_Applications_to_use_Proxy_Settings_Method">https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Configure_Applications_to_use_Proxy_Settings_Method</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Configure_Applications_to_use_Proxy_Settings_Method&amp;text=Configure%0AApplications%20to%20use%20Proxy%20Settings%20Method" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Configure_Applications_to_use_Proxy_Settings_Method&amp;text=Configure%0AApplications%20to%20use%20Proxy%20Settings%20Method" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Configure_Applications_to_use_Proxy_Settings_Method&amp;title=Configure%0AApplications%20to%20use%20Proxy%20Settings%20Method" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Configure%0AApplications%20to%20use%20Proxy%20Settings%20Method&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Configure_Applications_to_use_Proxy_Settings_Method" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Configure_Applications_to_use_Proxy_Settings_Method]Configure
+Applications to use Proxy Settings Method[/url]">[url=https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Configure_Applications_to_use_Proxy_Settings_Method]Configure
+Applications to use Proxy Settings Method[/url]</span></span></span></span>
 <p><strong>General information (<a href="../../../Unspecific/">unspecific to Whonix</a>):</strong></p>
 <ul>
 <li><u>Essentials:</u> See the notices on top of this wiki chapter.
@@ -121,7 +123,7 @@ bug: traffic goes <strong><code>User</code> &#8594; <code>Tor</code> &#8594;
 <p><span class="manually-placed-anchor " id="Tor_Browser_Proxy_Configuration"></span></p>
 <h1 id="Important_Application_Specific_Notes">Important Application
 Specific Notes</h1>
-<h2 id="Tor_Browser_Notes">Tor Browser Notes</h2><span class="share-tooltip" data-anchor="Tor_Browser_Notes"><a class="headline-anchor" href="#Tor_Browser_Notes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Tor_Browser_Notes">https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Tor_Browser_Notes</span></span></span></span>
+<h2 id="Tor_Browser_Notes">Tor Browser Notes</h2><span class="share-tooltip" data-anchor="Tor_Browser_Notes"><a class="headline-anchor" href="#Tor_Browser_Notes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Tor_Browser_Notes">https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Tor_Browser_Notes</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Tor_Browser_Notes&amp;text=Tor%20Browser%20Notes" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Tor_Browser_Notes&amp;text=Tor%20Browser%20Notes" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Tor_Browser_Notes&amp;title=Tor%20Browser%20Notes" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Tor%20Browser%20Notes&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Tor_Browser_Notes" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Tor_Browser_Notes]Tor Browser Notes[/url]">[url=https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Tor_Browser_Notes]Tor Browser Notes[/url]</span></span></span></span>
 <p><strong>1.</strong> Check applicability of these instructions.</p>
 <p>Does the user need to follow these instructions? Only if the user
 intents to use Tor Browser with an extra tunnel-link. For example, if
@@ -254,7 +256,7 @@ server.</li>
 <p><strong>3.</strong> Done.</p>
 <p>The process of configuring an extra tunnel-link for Tor Browser has
 been completed.</p>
-<h2 id="Misc_Application_Notes">Misc Application Notes</h2><span class="share-tooltip" data-anchor="Misc_Application_Notes"><a class="headline-anchor" href="#Misc_Application_Notes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Misc_Application_Notes">https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Misc_Application_Notes</span></span></span></span>
+<h2 id="Misc_Application_Notes">Misc Application Notes</h2><span class="share-tooltip" data-anchor="Misc_Application_Notes"><a class="headline-anchor" href="#Misc_Application_Notes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Misc_Application_Notes">https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Misc_Application_Notes</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Misc_Application_Notes&amp;text=Misc%20Application%20Notes" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Misc_Application_Notes&amp;text=Misc%20Application%20Notes" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Misc_Application_Notes&amp;title=Misc%20Application%20Notes" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Misc%20Application%20Notes&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23Misc_Application_Notes" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Misc_Application_Notes]Misc Application Notes[/url]">[url=https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#Misc_Application_Notes]Misc Application Notes[/url]</span></span></span></span>
 <p><strong>1.</strong> Check applicability of these instructions.</p>
 <p>Do the user need to follow these instructions? Only if the user
 intents to use any of the applications which are on the <a href="../../../Stream_Isolation/#By_Settings">list of stream
@@ -301,19 +303,7 @@ editor with administrative ("<a href="../../../Moved:Root/"><code>root</code></a
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -326,18 +316,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit /etc/apt/sources.list
-/etc/apt/sources.list.d/*</span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+/etc/apt/sources.list.d/*</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -366,18 +346,8 @@ Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../../../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
-</ul>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Example only:</u> This is just an example. Other tools could
@@ -389,11 +359,7 @@ with Root Rights</a>.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit /etc/apt/sources.list
-/etc/apt/sources.list.d/*</span></p>
-</div>
-</div>
-</div>
-</div>
+/etc/apt/sources.list.d/*</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>5.</strong> Remove any mention of <code>tor+</code>.</p>
 <p><strong>6.</strong> Done.</p>
@@ -417,19 +383,7 @@ rights.</p>
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">Non-Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -442,18 +396,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit
-/etc/torbrowser.d/50_user.conf</span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+/etc/torbrowser.d/50_user.conf</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -482,18 +426,8 @@ Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../../../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
-</ul>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">Others and Alternatives</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Example only:</u> This is just an example. Other tools could
@@ -505,11 +439,7 @@ with Root Rights</a>.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit
-/etc/torbrowser.d/50_user.conf</span></p>
-</div>
-</div>
-</div>
-</div>
+/etc/torbrowser.d/50_user.conf</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>3.</strong> Paste. <sup class="reference"><a href="#cite_note-2">[2]</a></sup> <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
 <p><span class="code-select">TB_NO_TOR_CON_CHECK=1
@@ -538,7 +468,9 @@ Whonix</a> and <a href="../../../Unsupported/">undocumented</a>.</p>
 <p>The process of configuring an extra tunnel-link for a miscellaneous
 application has been completed.</p>
 <h2 id="uwt_wrapped_application_notes">uwt wrapped application
-notes</h2><span class="share-tooltip" data-anchor="uwt_wrapped_application_notes"><a class="headline-anchor" href="#uwt_wrapped_application_notes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#uwt_wrapped_application_notes">https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#uwt_wrapped_application_notes</span></span></span></span>
+notes</h2><span class="share-tooltip" data-anchor="uwt_wrapped_application_notes"><a class="headline-anchor" href="#uwt_wrapped_application_notes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#uwt_wrapped_application_notes">https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#uwt_wrapped_application_notes</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23uwt_wrapped_application_notes&amp;text=uwt%20wrapped%20application%0Anotes" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23uwt_wrapped_application_notes&amp;text=uwt%20wrapped%20application%0Anotes" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23uwt_wrapped_application_notes&amp;title=uwt%20wrapped%20application%0Anotes" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=uwt%20wrapped%20application%0Anotes&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FConnecting_to_Tor_before_a_proxy%2FProxy_Settings_Method%2F%23uwt_wrapped_application_notes" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#uwt_wrapped_application_notes]uwt wrapped application
+notes[/url]">[url=https://www.whonix.org/wiki/Tunnels/Connecting_to_Tor_before_a_proxy/Proxy_Settings_Method/#uwt_wrapped_application_notes]uwt wrapped application
+notes[/url]</span></span></span></span>
 <p><strong>1.</strong> Check applicability of these instructions.</p>
 <p>Do the user need to follow these instructions? Only if the user
 intents to use any application in the <a href="../../../Stream_Isolation/#By_uwt_wrapper">list of uwt
@@ -580,19 +512,7 @@ an editor with administrative ("<a href="../../../Moved:Root/"><code>root</code>
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">Non-Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -604,18 +524,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_3">Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_3">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -643,18 +553,8 @@ Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../../../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
-</ul>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">Others and Alternatives</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Example only:</u> This is just an example. Other tools could
@@ -665,11 +565,7 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p>
-</div>
-</div>
-</div>
-</div>
+<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>3.</strong> Add.</p>
 <p><span class="code-select">uwtwrapper_global="0"</span></p>
@@ -709,20 +605,7 @@ administrative ("<a href="../../../Moved:Root/"><code>root</code></a>")
 rights.</p>
 <div class="info-box ">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">1</i>
-Select your platform.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">Non-Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
+Select your platform. <div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section info-box"><div class="tcc-image"><img src="../../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes. * <u>Sudoedit guidance:</u> See
 <img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 Open File with Root Rights for details on why using
@@ -731,18 +614,7 @@ requirement:</u> Close Featherpad (or the chosen text editor) before
 running the <code>sudoedit</code> command.
 <i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights. <span class="code-select">sudoedit
-/usr/local/etc/torbrowser.d/50_user.conf</span></p>
-</div>
-</div>
-<div class="tcc-section info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_4">Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
+/usr/local/etc/torbrowser.d/50_user.conf</span></div></div> <div class="tcc-section info-box"><div class="tcc-image"><img src="../../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_4">Qubes-Whonix</h5></div></div><div class="tcc-content"><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes. * <u>Sudoedit guidance:</u> See
 <img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 Open File with Root Rights for details on why using
@@ -761,29 +633,14 @@ the Template need to be restarted if they were already running. *
 <u>Qubes persistence:</u> See also
 <img src="../../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 Qubes Persistence * <u>General procedure:</u> This is a general
-procedure required for Qubes and is <a href="../../../Unspecific/">unspecific to Qubes-Whonix</a>.</p>
-</div>
-</div>
-<div class="tcc-section info-box">
-<div class="tcc-image">
-<p><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">Others and Alternatives</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
+procedure required for Qubes and is <a href="../../../Unspecific/">unspecific to Qubes-Whonix</a>.</div></div> <div class="tcc-section info-box"><div class="tcc-image"><img src="../../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">Others and Alternatives</h5></div></div><div class="tcc-content"><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes. * <u>Example only:</u> This is just an example. Other tools could
 achieve the same goal. * <u>Troubleshooting and alternatives:</u> If
 this example does not work for you, or if you are not using Whonix,
 please refer to <a href="../../../Moved:Software/#Open_File_with_Root_Rights">Open File with Root Rights</a>.
 <i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights. <span class="code-select">sudoedit
-/usr/local/etc/torbrowser.d/50_user.conf</span></p>
-</div>
-</div>
-</div>
-</div>
+/usr/local/etc/torbrowser.d/50_user.conf</span></div></div></div></div></p>
 </div>
 <p>And/or: <span class="code-select">sudoedit
 /usr/local/etc/mullvadbrowser.d/50_user.conf</span></p>
@@ -815,9 +672,9 @@ downloading via the system's default networking.</li>
 </div>
 
 <div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../../Category:Documentation/">Documentation</a></div></main>
-<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../../Trademark_Policy/">Trademark Policy</a></li><li><a href="../../../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
-<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../../Privacy_Policy/">Privacy Policy</a>, <a href="../../../Cookie_Policy/">Cookie Policy</a>, <a href="../../../Terms_of_Service/">Terms of Service</a>, and <a href="../../../E-Sign_Consent/">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
-<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="../../../Trademark_Policy/" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><p class="footer-subhead">Open Source</p><nav class="footer-freedom"><ul><li><a href="../../../Reasons_for_Freedom_Software/">Freedom Software</a></li><li><a href="../../../Policy_On_Nonfreedom_Software/">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="../../../Terms_of_Service/">Terms of Service</a></li><li><a href="../../../Privacy_Policy/">Privacy Policy</a></li><li><a href="../../../Cookie_Policy/">Cookie Policy</a></li><li><a href="../../../E-Sign_Consent/">E-Sign Consent</a></li><li><a href="../../../Terms_of_Service/#DMCA_Policy">DMCA</a></li><li><a href="../../../Imprint/">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../../Privacy_Policy/">Privacy Policy</a>, <a href="../../../Cookie_Policy/">Cookie Policy</a>, <a href="../../../Terms_of_Service/">Terms of Service</a>, and <a href="../../../E-Sign_Consent/">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../../Donate/">14 year success story and maybe DONATE!</a></p></div></div></div>
 <script src="../../../../search-index.js" defer></script>
 <script src="../../../../page-previews.js" defer></script>
 <script src="../../../../app.js" defer></script>

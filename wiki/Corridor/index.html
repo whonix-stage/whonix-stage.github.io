@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
-<title>Corridor</title>
+<title>corridor - Tor traffic whitelisting gateway</title>
 <meta name="description" content="Using corridor, a Tor traffic whitelisting gateway with Whonix">
 <meta property="og:description" content="Using corridor, a Tor traffic whitelisting gateway with Whonix">
 <link rel="canonical" href="https://www.whonix.org/wiki/Corridor/">
@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
-<header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
+<header class="site-header"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../Trademark_Policy/" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../Download/">Download</a><ul class="nav-submenu"><li><a href="../VirtualBox/">Windows</a></li><li><a href="../Linux/">Linux</a></li><li><a href="../MacOS/">Mac</a></li><li><a href="../VirtualBox/">VirtualBox</a></li><li><a href="../KVM/">KVM</a></li><li><a href="../Qubes/">Qubes</a></li><li><a href="../Intel_AMD64/">Intel / AMD64</a></li><li><a href="../ARM64/">ARM64</a></li><li><a href="../USB_Installation/">USB</a></li><li><a href="../Whonix-Host/">ISO</a></li><li><a href="../Download/">More options</a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer">Source Code</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../About/">About</a><ul class="nav-submenu"><li><a href="../About/">Overview</a></li><li><a href="../Features/">Features</a></li><li><a href="../Whonix_versus_VPNs/">Whonix vs VPNs</a></li><li><a href="../Reasons_for_Freedom_Software/">Why Open Source?</a></li><li><a href="../What_we_do/">Project Activities</a></li><li><a href="../Contributors/">Contributors</a></li><li><a href="../Anonymity/">Mission &amp; Vision</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Documentation/">Docs</a><ul class="nav-submenu"><li><a href="../Documentation/">Documentation</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Troubleshooting/">Troubleshooting</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Contribute/">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer">Forums</a></li><li><a href="../Moved:Forum_Best_Practices/">Forum Best Practices</a></li><li><a href="../Contribute/">Contribute</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Support/">Support</a><ul class="nav-submenu"><li><a href="../Self_Support_First_Policy/">Self Support First Policy</a></li><li><a href="../Support/">Support (Limited)</a></li><li><a href="../Plus_Support/">Plus</a></li><li><a href="../Premium_Support/">Premium</a></li><li><a href="../Reporting_Bugs/">Reporting Bugs</a></li><li><a href="../Contact/">Contact (Restricted)</a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
 <div class="first-heading">
@@ -48,7 +48,7 @@ traffic whitelisting gateway. It is a filtering gateway, not a proxying
 gateway and can also be configured as a <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/BridgeFirewall">BridgeFirewall</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/BridgeFirewall" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <h1 id="Connecting_to_corridor_before_Tor">Connecting to corridor before
 Tor</h1>
-<h2 id="Introduction_2">Introduction</h2><span class="share-tooltip" data-anchor="Introduction_2"><a class="headline-anchor" href="#Introduction_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Introduction_2">https://www.whonix.org/wiki/Corridor/#Introduction_2</span></span></span></span>
+<h2 id="Introduction_2">Introduction</h2><span class="share-tooltip" data-anchor="Introduction_2"><a class="headline-anchor" href="#Introduction_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Introduction_2">https://www.whonix.org/wiki/Corridor/#Introduction_2</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Introduction_2&amp;text=Introduction" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Introduction_2&amp;text=Introduction" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Introduction_2&amp;title=Introduction" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Introduction&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Introduction_2" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Introduction_2]Introduction[/url]">[url=https://www.whonix.org/wiki/Corridor/#Introduction_2]Introduction[/url]</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
 corridor configurations are only possible in <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>. <a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a> is <a href="../Unsupported/">unsupported</a> at present.
@@ -74,7 +74,7 @@ vector.</p>
 <p>corridor does not increase the tunnel length, meaning no more relays
 are added between a user and the destination. Users interested in this
 configuration should read <a href="../Tunnels/Introduction/">Tunnels/Introduction</a>.</p>
-<h2 id="Warning">Warning</h2><span class="share-tooltip" data-anchor="Warning"><a class="headline-anchor" href="#Warning" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Warning">https://www.whonix.org/wiki/Corridor/#Warning</span></span></span></span>
+<h2 id="Warning">Warning</h2><span class="share-tooltip" data-anchor="Warning"><a class="headline-anchor" href="#Warning" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Warning">https://www.whonix.org/wiki/Corridor/#Warning</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Warning&amp;text=Warning" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Warning&amp;text=Warning" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Warning&amp;title=Warning" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Warning&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Warning" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Warning]Warning[/url]">[url=https://www.whonix.org/wiki/Corridor/#Warning]Warning[/url]</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
 By default, the following instructions will result in:</p>
@@ -93,7 +93,7 @@ is independent of the one running inside Whonix-Gateway
 have a different network <a href="../Fingerprint/">Fingerprint</a>. The anonymity impact should be no
 worse than running Tor Browser, or system-tor and Whonix at the same
 time.</p>
-<h2 id="dom0_Setup">dom0 Setup</h2><span class="share-tooltip" data-anchor="dom0_Setup"><a class="headline-anchor" href="#dom0_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#dom0_Setup">https://www.whonix.org/wiki/Corridor/#dom0_Setup</span></span></span></span>
+<h2 id="dom0_Setup">dom0 Setup</h2><span class="share-tooltip" data-anchor="dom0_Setup"><a class="headline-anchor" href="#dom0_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#dom0_Setup">https://www.whonix.org/wiki/Corridor/#dom0_Setup</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23dom0_Setup&amp;text=dom0%20Setup" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23dom0_Setup&amp;text=dom0%20Setup" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23dom0_Setup&amp;title=dom0%20Setup" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=dom0%20Setup&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23dom0_Setup" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#dom0_Setup]dom0 Setup[/url]">[url=https://www.whonix.org/wiki/Corridor/#dom0_Setup]dom0 Setup[/url]</span></span></span></span>
 <p>Create a new standalone ProxyVM called
 <em><span>sys-corridor</span></em>
 based on the Debian <code>trixie</code> template:</p>
@@ -112,27 +112,15 @@ service:</p>
 &#8594;
 <code>press </code><em><span><code>+</code></span></em>
 &#8594; <code>press OK</code></p>
-<h2 id="sys-corridor_Setup">sys-corridor Setup</h2><span class="share-tooltip" data-anchor="sys-corridor_Setup"><a class="headline-anchor" href="#sys-corridor_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#sys-corridor_Setup">https://www.whonix.org/wiki/Corridor/#sys-corridor_Setup</span></span></span></span>
+<h2 id="sys-corridor_Setup">sys-corridor Setup</h2><span class="share-tooltip" data-anchor="sys-corridor_Setup"><a class="headline-anchor" href="#sys-corridor_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#sys-corridor_Setup">https://www.whonix.org/wiki/Corridor/#sys-corridor_Setup</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23sys-corridor_Setup&amp;text=sys-corridor%20Setup" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23sys-corridor_Setup&amp;text=sys-corridor%20Setup" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23sys-corridor_Setup&amp;title=sys-corridor%20Setup" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=sys-corridor%20Setup&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23sys-corridor_Setup" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#sys-corridor_Setup]sys-corridor Setup[/url]">[url=https://www.whonix.org/wiki/Corridor/#sys-corridor_Setup]sys-corridor Setup[/url]</span></span></span></span>
 <p>If a BridgeFirewall is required, <a href="#Optional:_BridgeFirewall_corridor_Configuration">first configure Tor to use bridges</a> before
 installing corridor. All the following steps should be applied in <a href="https://www.qubes-os.org">Qubes'</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <a href="https://www.qubes-os.org/doc/templates/debian/">Debian
 template</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/templates/debian/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
-<h3 id="Install_corridor">Install corridor</h3><span class="share-tooltip" data-anchor="Install_corridor"><a class="headline-anchor" href="#Install_corridor" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Install_corridor">https://www.whonix.org/wiki/Corridor/#Install_corridor</span></span></span></span>
+<h3 id="Install_corridor">Install corridor</h3><span class="share-tooltip" data-anchor="Install_corridor"><a class="headline-anchor" href="#Install_corridor" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Install_corridor">https://www.whonix.org/wiki/Corridor/#Install_corridor</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Install_corridor&amp;text=Install%20corridor" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Install_corridor&amp;text=Install%20corridor" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Install_corridor&amp;title=Install%20corridor" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Install%20corridor&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Install_corridor" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Install_corridor]Install corridor[/url]">[url=https://www.whonix.org/wiki/Corridor/#Install_corridor]Install corridor[/url]</span></span></span></span>
 <p>Start <code>sys-corridor</code> and open a terminal using Qubes start
 menu.</p>
 <p>There are two different options to enable the Whonix APT repository.
-Choose one. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading4 widget-headline "><h4 role="heading" aria-level="4" id="Using_extrepo">Using extrepo</h4></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Choose one. <sup class="reference"><a href="#cite_note-3">[3]</a></sup> <div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section  info-box"><div class="tcc-image"></div><div class="tcc-title"><div class="mw-heading mw-heading4 widget-headline "><h4 role="heading" aria-level="4" id="Using_extrepo">Using extrepo</h4></div></div><div class="tcc-content"><p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
 <code>extrepo</code> setup.</p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Install package <code>extrepo</code>.</p>
@@ -144,19 +132,7 @@ rights.</p>
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -169,18 +145,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit
-/etc/extrepo/config.yaml</span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+/etc/extrepo/config.yaml</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -209,18 +175,8 @@ Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
-</ul>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Example only:</u> This is just an example. Other tools could
@@ -232,11 +188,7 @@ with Root Rights</a>.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit
-/etc/extrepo/config.yaml</span></p>
-</div>
-</div>
-</div>
-</div>
+/etc/extrepo/config.yaml</span></p></div></div></p></div></div></p>
 </div>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
 Paste at the end.</p>
@@ -244,42 +196,14 @@ Paste at the end.</p>
 <p><sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 Enable the stable <code>whonix</code> APT repository. (See footnote for
-other options.) <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section active ">
-<div class="tcc-image">
-<p><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading3 widget-headline "><h3 role="heading" aria-level="3" id="A_:_Non-Qubes-Whonix&#8482;">A : Non-Qubes-Whonix<sup>&#8482;</sup></h3><span class="share-tooltip" data-anchor="A_:_Non-Qubes-Whonix&#8482;"><a class="headline-anchor" href="#A_:_Non-Qubes-Whonix&#8482;" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#A_:_Non-Qubes-Whonix&#8482;">https://www.whonix.org/wiki/Corridor/#A_:_Non-Qubes-Whonix&#8482;</span></span></span></span></div></p>
-</div>
-<div class="tcc-content">
-<div>
+other options.) <sup class="reference"><a href="#cite_note-5">[5]</a></sup> <div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active "><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading3 widget-headline "><h3 role="heading" aria-level="3" id="A_:_Non-Qubes-Whonix&#8482;">A : Non-Qubes-Whonix<sup>&#8482;</sup></h3><span class="share-tooltip" data-anchor="A_:_Non-Qubes-Whonix&#8482;"><a class="headline-anchor" href="#A_:_Non-Qubes-Whonix&#8482;" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#A_:_Non-Qubes-Whonix&#8482;">https://www.whonix.org/wiki/Corridor/#A_:_Non-Qubes-Whonix&#8482;</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23A_%3A_Non-Qubes-Whonix%E2%84%A2&amp;text=A%20%3A%20Non-Qubes-Whonix%E2%84%A2" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23A_%3A_Non-Qubes-Whonix%E2%84%A2&amp;text=A%20%3A%20Non-Qubes-Whonix%E2%84%A2" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23A_%3A_Non-Qubes-Whonix%E2%84%A2&amp;title=A%20%3A%20Non-Qubes-Whonix%E2%84%A2" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=A%20%3A%20Non-Qubes-Whonix%E2%84%A2&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23A_%3A_Non-Qubes-Whonix%E2%84%A2" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#A_:_Non-Qubes-Whonix&#8482;]A : Non-Qubes-Whonix&#8482;[/url]">[url=https://www.whonix.org/wiki/Corridor/#A_:_Non-Qubes-Whonix&#8482;]A : Non-Qubes-Whonix&#8482;[/url]</span></span></span></span></div></div><div class="tcc-content"><div>
 <p><code>Whonix</code></p>
 </div>
-<p><span class="code-select">sudo extrepo enable whonix</span></p>
-</div>
-</div>
-<div class="tcc-section  ">
-<div class="tcc-image">
-<p><img src="../../media/Qubes-logo-blue.png.webp" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading3 widget-headline "><h3 role="heading" aria-level="3" id="B_:_Qubes-Whonix&#8482;_Template">B : Qubes-Whonix<sup>&#8482;</sup> Template</h3><span class="share-tooltip" data-anchor="B_:_Qubes-Whonix&#8482;_Template"><a class="headline-anchor" href="#B_:_Qubes-Whonix&#8482;_Template" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#B_:_Qubes-Whonix&#8482;_Template">https://www.whonix.org/wiki/Corridor/#B_:_Qubes-Whonix&#8482;_Template</span></span></span></span></div></p>
-</div>
-<div class="tcc-content">
-<div>
+<p><span class="code-select">sudo extrepo enable whonix</span></p></div></div> <div class="tcc-section  "><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading3 widget-headline "><h3 role="heading" aria-level="3" id="B_:_Qubes-Whonix&#8482;_Template">B : Qubes-Whonix<sup>&#8482;</sup> Template</h3><span class="share-tooltip" data-anchor="B_:_Qubes-Whonix&#8482;_Template"><a class="headline-anchor" href="#B_:_Qubes-Whonix&#8482;_Template" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#B_:_Qubes-Whonix&#8482;_Template">https://www.whonix.org/wiki/Corridor/#B_:_Qubes-Whonix&#8482;_Template</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23B_%3A_Qubes-Whonix%E2%84%A2_Template&amp;text=B%20%3A%20Qubes-Whonix%E2%84%A2%20Template" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23B_%3A_Qubes-Whonix%E2%84%A2_Template&amp;text=B%20%3A%20Qubes-Whonix%E2%84%A2%20Template" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23B_%3A_Qubes-Whonix%E2%84%A2_Template&amp;title=B%20%3A%20Qubes-Whonix%E2%84%A2%20Template" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=B%20%3A%20Qubes-Whonix%E2%84%A2%20Template&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23B_%3A_Qubes-Whonix%E2%84%A2_Template" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#B_:_Qubes-Whonix&#8482;_Template]B : Qubes-Whonix&#8482; Template[/url]">[url=https://www.whonix.org/wiki/Corridor/#B_:_Qubes-Whonix&#8482;_Template]B : Qubes-Whonix&#8482; Template[/url]</span></span></span></span></div></div><div class="tcc-content"><div>
 <p>Qubes-Whonix Template (<code>whonix-workstation-18</code>)</p>
 </div>
 <p><span class="code-select">sudo http_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> https_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> extrepo enable
-whonix</span></p>
-</div>
-</div>
-</div>
-</div>
+whonix</span></p></div></div></div></div></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Advanced options.</p>
 <div class="toccolours mw-collapsible mw-collapsed">
@@ -288,9 +212,9 @@ Advanced options.</p>
 <p>Please press expand on the right side.</p>
 <div class="mw-collapsible-content">
 <p>Optional.</p>
-<p>Install <code>apt-transport-tor</code>.</p>
+<p>Install <code>apt-transport-tor</code> and <code>tor</code>.</p>
 <div class="info-box ">
-<p>Install package(s) <code>apt-transport-tor</code> following these
+<p>Install package(s) <code>apt-transport-tor tor</code> following these
 instructions:</p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
 Platform specific notice.</p>
@@ -306,13 +230,13 @@ Update the package lists and upgrade the system.</p>
 <p><span class="code-select">sudo apt update &amp;&amp; sudo apt
 full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
-Install the <code>apt-transport-tor</code> package(s).</p>
+Install the <code>apt-transport-tor tor</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 &lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
 optional.</p>
 <p><span class="code-select">sudo apt install --no-install-recommends
-apt-transport-tor</span></p>
+apt-transport-tor tor</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Platform specific notice.</p>
 <ul>
@@ -324,8 +248,8 @@ Qubes Template Modification.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done.</p>
-<p>The procedure of installing package(s) <code>apt-transport-tor</code>
-is complete.</p>
+<p>The procedure of installing package(s)
+<code>apt-transport-tor tor</code> is complete.</p>
 </div>
 <p>Find out the filename.</p>
 <p><span class="code-select">ls -la
@@ -338,19 +262,7 @@ editor with administrative ("<a href="../Moved:Root/"><code>root</code></a>") ri
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">Non-Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -363,18 +275,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit
-/etc/apt/sources.list.d/extrepo_kicksecure.sources</span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+/etc/apt/sources.list.d/extrepo_kicksecure.sources</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -403,18 +305,8 @@ Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
-</ul>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">Others and Alternatives</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Example only:</u> This is just an example. Other tools could
@@ -426,11 +318,7 @@ with Root Rights</a>.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit
-/etc/apt/sources.list.d/extrepo_kicksecure.sources</span></p>
-</div>
-</div>
-</div>
-</div>
+/etc/apt/sources.list.d/extrepo_kicksecure.sources</span></p></div></div></p></div></div></p>
 </div>
 <p>Choose either option <strong>A)</strong> <u>or</u>
 <strong>B)</strong>.</p>
@@ -451,17 +339,7 @@ tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion</s
 </div>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
 Done.</p>
-<p>The Whonix APT repository has been enabled.<sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading4 widget-headline "><h4 role="heading" aria-level="4" id="Manually">Manually</h4></div></p>
-</div>
-<div class="tcc-content">
-<p><u><strong>Add Signing Key</strong></u></p>
+<p>The Whonix APT repository has been enabled.<sup class="reference"><a href="#cite_note-7">[7]</a></sup></p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"></div><div class="tcc-title"><div class="mw-heading mw-heading4 widget-headline "><h4 role="heading" aria-level="4" id="Manually">Manually</h4></div></div><div class="tcc-content"><p><u><strong>Add Signing Key</strong></u></p>
 <p>Complete the following steps to add the <a href="../Signing_Key/">Whonix Signing Key</a> to the system's APT keyring.</p>
 <p>Open a terminal.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
@@ -508,150 +386,30 @@ complete.</p>
 Download <a href="../Signing_Key/">Whonix Signing Key</a>.
 <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
 <p>Choose your operating system.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Debian.png.webp" width="30" alt="Debian.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading6 widget-headline "><h6 role="heading" aria-level="6" id="A_:_Debian">A : Debian</h6></div></p>
-</div>
-<div class="tcc-content">
-<p><u><strong>If</strong> you are using <strong>Debian</strong></u>,
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Debian.png.webp" width="30" alt="Debian.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading6 widget-headline "><h6 role="heading" aria-level="6" id="A_:_Debian">A : Debian</h6></div></div><div class="tcc-content"><p><u><strong>If</strong> you are using <strong>Debian</strong></u>,
 run.</p>
-<p>Choose TLS or onion.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section active info-box">
-<div class="tcc-image">
-<p><img src="../../media/Icon-lock.png.webp" width="50" alt="Icon-lock.png" /></p>
-</div>
-<div class="tcc-title">
-<h6 id="TLS_(Debian)">TLS (Debian)</h6>
-</div>
-<div class="tcc-content">
-<p>TLS.</p>
+<p>Choose TLS or onion.<div class="tab-content-controller " data-tcc-linkid="Debian"><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active info-box"><div class="tcc-image"><img src="../../media/Icon-lock.png.webp" width="50" alt="Icon-lock.png" /></div><div class="tcc-title"><h6 id="TLS_(Debian)">TLS (Debian)</h6></div><div class="tcc-content"><p>TLS.</p>
 <p><span class="code-select">sudo curl --tlsv1.3 --output
-/usr/share/keyrings/derivative.asc --url <a href="https://www.whonix.org/keys/derivative.asc">https://www.whonix.org/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Iconfinder_tor_386502.png.webp" width="50" alt="Iconfinder_tor_386502.png" /></p>
-</div>
-<div class="tcc-title">
-<h6 id="onion_(Debian)">onion (Debian)</h6>
-</div>
-<div class="tcc-content">
-<p><u>Note:</u> Downloading over onion requires an already functional
+/usr/share/keyrings/derivative.asc --url <a href="https://www.whonix.org/keys/derivative.asc">https://www.whonix.org/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Iconfinder_tor_386502.png.webp" width="50" alt="Iconfinder_tor_386502.png" /></div><div class="tcc-title"><h6 id="onion_(Debian)">onion (Debian)</h6></div><div class="tcc-content"><p><u>Note:</u> Downloading over onion requires an already functional
 system Tor.</p>
 <p><span class="code-select">sudo curl --proxy socks5h://127.0.0.1:9050
---output /usr/share/keyrings/derivative.asc --url <a href="http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc">http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Qubes-logo-blue.png.webp" width="30" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading6 widget-headline "><h6 role="heading" aria-level="6" id="B_:_Qubes_App_Qube">B : Qubes App Qube</h6></div></p>
-</div>
-<div class="tcc-content">
-<p><u><strong>If</strong> you are using a <em>Qubes</em>
+--output /usr/share/keyrings/derivative.asc --url <a href="http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc">http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p></div></div></div></div></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="30" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading6 widget-headline "><h6 role="heading" aria-level="6" id="B_:_Qubes_App_Qube">B : Qubes App Qube</h6></div></div><div class="tcc-content"><p><u><strong>If</strong> you are using a <em>Qubes</em>
 <strong>Debian</strong> App Qube</u>, run.</p>
-<p>Choose TLS or onion.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section active info-box">
-<div class="tcc-image">
-<p><img src="../../media/Icon-lock.png.webp" width="50" alt="Icon-lock.png" /></p>
-</div>
-<div class="tcc-title">
-<h6 id="TLS_(Qubes-App-Qube)">TLS (Qubes-App-Qube)</h6>
-</div>
-<div class="tcc-content">
-<p>TLS.</p>
+<p>Choose TLS or onion.<div class="tab-content-controller " data-tcc-linkid="Qubes-App-Qube"><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active info-box"><div class="tcc-image"><img src="../../media/Icon-lock.png.webp" width="50" alt="Icon-lock.png" /></div><div class="tcc-title"><h6 id="TLS_(Qubes-App-Qube)">TLS (Qubes-App-Qube)</h6></div><div class="tcc-content"><p>TLS.</p>
 <p><span class="code-select">sudo curl --tlsv1.3 --output
-/usr/share/keyrings/derivative.asc --url <a href="https://www.whonix.org/keys/derivative.asc">https://www.whonix.org/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Iconfinder_tor_386502.png.webp" width="50" alt="Iconfinder_tor_386502.png" /></p>
-</div>
-<div class="tcc-title">
-<h6 id="onion_(Qubes-App-Qube)">onion (Qubes-App-Qube)</h6>
-</div>
-<div class="tcc-content">
-<p><u>Note:</u> Downloading over onion requires an already functional
+/usr/share/keyrings/derivative.asc --url <a href="https://www.whonix.org/keys/derivative.asc">https://www.whonix.org/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Iconfinder_tor_386502.png.webp" width="50" alt="Iconfinder_tor_386502.png" /></div><div class="tcc-title"><h6 id="onion_(Qubes-App-Qube)">onion (Qubes-App-Qube)</h6></div><div class="tcc-content"><p><u>Note:</u> Downloading over onion requires an already functional
 system Tor.</p>
 <p><span class="code-select">sudo curl --proxy socks5h://127.0.0.1:9050
---output /usr/share/keyrings/derivative.asc --url <a href="http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc">http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Qubes-logo-blue.png.webp" width="30" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading6 widget-headline "><h6 role="heading" aria-level="6" id="B_:_Qubes_Template">B : Qubes Template</h6></div></p>
-</div>
-<div class="tcc-content">
-<p><u><strong>If</strong> you are using a <em>Qubes</em>
+--output /usr/share/keyrings/derivative.asc --url <a href="http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc">http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p></div></div></div></div></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="30" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading6 widget-headline "><h6 role="heading" aria-level="6" id="B_:_Qubes_Template">B : Qubes Template</h6></div></div><div class="tcc-content"><p><u><strong>If</strong> you are using a <em>Qubes</em>
 <strong>Debian</strong> Template</u>, run.</p>
-<p>Choose TLS or onion.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section active info-box">
-<div class="tcc-image">
-<p><img src="../../media/Icon-lock.png.webp" width="50" alt="Icon-lock.png" /></p>
-</div>
-<div class="tcc-title">
-<h6 id="TLS_(Qubes-Template)">TLS (Qubes-Template)</h6>
-</div>
-<div class="tcc-content">
-<p>TLS.</p>
+<p>Choose TLS or onion.<div class="tab-content-controller " data-tcc-linkid="Qubes-Template"><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active info-box"><div class="tcc-image"><img src="../../media/Icon-lock.png.webp" width="50" alt="Icon-lock.png" /></div><div class="tcc-title"><h6 id="TLS_(Qubes-Template)">TLS (Qubes-Template)</h6></div><div class="tcc-content"><p>TLS.</p>
 <p><span class="code-select">sudo http_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> https_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> curl --tlsv1.3
---output /usr/share/keyrings/derivative.asc --url <a href="https://www.whonix.org/keys/derivative.asc">https://www.whonix.org/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Iconfinder_tor_386502.png.webp" width="50" alt="Iconfinder_tor_386502.png" /></p>
-</div>
-<div class="tcc-title">
-<h6 id="onion_(Qubes-Template)">onion (Qubes-Template)</h6>
-</div>
-<div class="tcc-content">
-<p><u>Note:</u> Downloading over onion requires an already functional
+--output /usr/share/keyrings/derivative.asc --url <a href="https://www.whonix.org/keys/derivative.asc">https://www.whonix.org/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Iconfinder_tor_386502.png.webp" width="50" alt="Iconfinder_tor_386502.png" /></div><div class="tcc-title"><h6 id="onion_(Qubes-Template)">onion (Qubes-Template)</h6></div><div class="tcc-content"><p><u>Note:</u> Downloading over onion requires an already functional
 system Tor.</p>
 <p><span class="code-select">sudo http_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> https_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> curl --output
-/usr/share/keyrings/derivative.asc --url <a href="http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc">http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+/usr/share/keyrings/derivative.asc --url <a href="http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc">http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/keys/derivative.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p></div></div></div></div></p></div></div></p></div></div></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Signing key verification.</p>
 <p><u>Optional.</u> Recommended for <a href="../Advanced_Users/">Advanced Users</a> only. If you have a good
@@ -666,20 +424,7 @@ Done.</p>
 <div class="info-box ">
 <p>Add the Whonix APT Repository.</p>
 <p>Choose exactly one option: Option <u>A</u>, Option <u>B</u>
-<u><strong>OR</strong></u> Option <u>C</u>.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section active info-box">
-<div class="tcc-image">
-<p><img src="../../media/Iconfinder_tor_386502.png.webp" width="50" alt="Iconfinder_tor_386502.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="A_:_Onion_Rep.">A : Onion Rep.</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><strong>Option <u>A</u></strong>: Add the Whonix Onion
+<u><strong>OR</strong></u> Option <u>C</u>. <div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active info-box"><div class="tcc-image"><img src="../../media/Iconfinder_tor_386502.png.webp" width="50" alt="Iconfinder_tor_386502.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="A_:_Onion_Rep.">A : Onion Rep.</h5></div></div><div class="tcc-content"><p><strong>Option <u>A</u></strong>: Add the Whonix Onion
 repository.</p>
 <p>This option configures APT to access the Whonix repository via an
 onion service for maximum network anonymity.</p>
@@ -696,18 +441,7 @@ time of writing, this was <code>trixie</code>.</p>
 tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion
 Suites: trixie Components: main contrib non-free Enabled: yes Signed-By:
 /usr/share/keyrings/derivative.asc" | sudo tee
-/etc/apt/sources.list.d/derivative.sources</span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Deep-web-1106648640.jpg.webp" width="50" alt="Deep-web-1106648640.jpg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="B_:_Clearnet_Rep._via_Tor">B : Clearnet Rep. via Tor</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><strong>Option <u>B</u></strong>: Add the Whonix clearnet repository
+/etc/apt/sources.list.d/derivative.sources</span></p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Deep-web-1106648640.jpg.webp" width="50" alt="Deep-web-1106648640.jpg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="B_:_Clearnet_Rep._via_Tor">B : Clearnet Rep. via Tor</h5></div></div><div class="tcc-content"><p><strong>Option <u>B</u></strong>: Add the Whonix clearnet repository
 via Tor.</p>
 <p>This option accesses the clearnet repository but routes all traffic
 through Tor.</p>
@@ -720,18 +454,7 @@ Debian stable. At the time of writing, this was <code>trixie</code>.</p>
 <p><span class="code-select" data-language="bash">echo "Types: deb URIs:
 tor+https://deb.whonix.org Suites: trixie Components: main contrib
 non-free Enabled: yes Signed-By: /usr/share/keyrings/derivative.asc" |
-sudo tee /etc/apt/sources.list.d/derivative.sources</span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Icon-lock.png.webp" width="50" alt="Icon-lock.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="C_:_Clearnet_Rep.">C : Clearnet Rep.</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><strong>Option <u>C</u></strong>: Add the Whonix clearnet repository
+sudo tee /etc/apt/sources.list.d/derivative.sources</span></p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Icon-lock.png.webp" width="50" alt="Icon-lock.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="C_:_Clearnet_Rep.">C : Clearnet Rep.</h5></div></div><div class="tcc-content"><p><strong>Option <u>C</u></strong>: Add the Whonix clearnet repository
 over clearnet.</p>
 <p>This option uses a direct clearnet connection without Tor.</p>
 <p><u>Note:</u> When later using the <a href="../Project-APT-Repository/">Whonix repository tool</a>, this configuration will be
@@ -744,18 +467,9 @@ of writing, this was <code>trixie</code>.</p>
 <a href="https://deb.whonix.org">https://deb.whonix.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://deb.whonix.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> Suites:
 trixie Components: main contrib non-free Enabled: yes Signed-By:
 /usr/share/keyrings/derivative.asc" | sudo tee
-/etc/apt/sources.list.d/derivative.sources</span></p>
-</div>
-</div>
-<p>The procedure for adding the Whonix APT repository is now
-complete.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+/etc/apt/sources.list.d/derivative.sources</span></p></div></div> The
+procedure for adding the Whonix APT repository is now complete.</div></div></p>
+</div></div></div></div></div></p>
 <div class="info-box ">
 <p>Install <code>corridor</code>.</p>
 <div class="info-box ">
@@ -797,9 +511,11 @@ Done.</p>
 complete.</p>
 </div>
 </div>
-<h3 id="Configuration">Configuration</h3><span class="share-tooltip" data-anchor="Configuration"><a class="headline-anchor" href="#Configuration" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Configuration">https://www.whonix.org/wiki/Corridor/#Configuration</span></span></span></span>
+<h3 id="Configuration">Configuration</h3><span class="share-tooltip" data-anchor="Configuration"><a class="headline-anchor" href="#Configuration" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Configuration">https://www.whonix.org/wiki/Corridor/#Configuration</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Configuration&amp;text=Configuration" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Configuration&amp;text=Configuration" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Configuration&amp;title=Configuration" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Configuration&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Configuration" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Configuration]Configuration[/url]">[url=https://www.whonix.org/wiki/Corridor/#Configuration]Configuration[/url]</span></span></span></span>
 <h3 id="Optional:_BridgeFirewall_corridor_Configuration">Optional:
-BridgeFirewall corridor Configuration</h3><span class="share-tooltip" data-anchor="Optional:_BridgeFirewall_corridor_Configuration"><a class="headline-anchor" href="#Optional:_BridgeFirewall_corridor_Configuration" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Optional:_BridgeFirewall_corridor_Configuration">https://www.whonix.org/wiki/Corridor/#Optional:_BridgeFirewall_corridor_Configuration</span></span></span></span>
+BridgeFirewall corridor Configuration</h3><span class="share-tooltip" data-anchor="Optional:_BridgeFirewall_corridor_Configuration"><a class="headline-anchor" href="#Optional:_BridgeFirewall_corridor_Configuration" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Optional:_BridgeFirewall_corridor_Configuration">https://www.whonix.org/wiki/Corridor/#Optional:_BridgeFirewall_corridor_Configuration</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Optional%3A_BridgeFirewall_corridor_Configuration&amp;text=Optional%3A%0ABridgeFirewall%20corridor%20Configuration" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Optional%3A_BridgeFirewall_corridor_Configuration&amp;text=Optional%3A%0ABridgeFirewall%20corridor%20Configuration" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Optional%3A_BridgeFirewall_corridor_Configuration&amp;title=Optional%3A%0ABridgeFirewall%20corridor%20Configuration" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Optional%3A%0ABridgeFirewall%20corridor%20Configuration&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Optional%3A_BridgeFirewall_corridor_Configuration" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Optional:_BridgeFirewall_corridor_Configuration]Optional:
+BridgeFirewall corridor Configuration[/url]">[url=https://www.whonix.org/wiki/Corridor/#Optional:_BridgeFirewall_corridor_Configuration]Optional:
+BridgeFirewall corridor Configuration[/url]</span></span></span></span>
 <p>TODO: BridgeFirewall corridor configuration is currently <a href="../Unsupported/">untested</a>.</p>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
@@ -825,19 +541,7 @@ rights.</p>
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">Non-Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -850,18 +554,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit
-/etc/corridor.d/21-bridges-user.conf</span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_3">Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+/etc/corridor.d/21-bridges-user.conf</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_3">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -890,18 +584,8 @@ Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
-</ul>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">Others and Alternatives</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Example only:</u> This is just an example. Other tools could
@@ -913,11 +597,7 @@ with Root Rights</a>.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
 <p><span class="code-select">sudoedit
-/etc/corridor.d/21-bridges-user.conf</span></p>
-</div>
-</div>
-</div>
-</div>
+/etc/corridor.d/21-bridges-user.conf</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>4.</strong> Review Whonix-Gateway (<code>sys-whonix</code>)
 <a href="../Bridges/">Tor bridge</a> settings.</p>
@@ -943,7 +623,7 @@ use. All Tor bridges from Tor configuration on Whonix-Gateway
 <p><strong>6.</strong> Done.</p>
 <p>BridgeFirewall corridor configuration is complete.</p>
 </div>
-<h2 id="Daemon_Status_Test">Daemon Status Test</h2><span class="share-tooltip" data-anchor="Daemon_Status_Test"><a class="headline-anchor" href="#Daemon_Status_Test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Daemon_Status_Test">https://www.whonix.org/wiki/Corridor/#Daemon_Status_Test</span></span></span></span>
+<h2 id="Daemon_Status_Test">Daemon Status Test</h2><span class="share-tooltip" data-anchor="Daemon_Status_Test"><a class="headline-anchor" href="#Daemon_Status_Test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Daemon_Status_Test">https://www.whonix.org/wiki/Corridor/#Daemon_Status_Test</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Daemon_Status_Test&amp;text=Daemon%20Status%20Test" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Daemon_Status_Test&amp;text=Daemon%20Status%20Test" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Daemon_Status_Test&amp;title=Daemon%20Status%20Test" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Daemon%20Status%20Test&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Daemon_Status_Test" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Daemon_Status_Test]Daemon Status Test[/url]">[url=https://www.whonix.org/wiki/Corridor/#Daemon_Status_Test]Daemon Status Test[/url]</span></span></span></span>
 <p>While these instructions remain experimental, it is advised to run
 the following systemctl commands to check everything is functioning
 correctly.</p>
@@ -952,13 +632,13 @@ corridor-data sudo systemctl --no-pager --full status
 corridor-init-forwarding sudo systemctl --no-pager --full status
 corridor-init-logged sudo systemctl --no-pager --full status
 corridor-init-snat</span></p>
-<h2 id="Restart_corridor">Restart corridor</h2><span class="share-tooltip" data-anchor="Restart_corridor"><a class="headline-anchor" href="#Restart_corridor" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Restart_corridor">https://www.whonix.org/wiki/Corridor/#Restart_corridor</span></span></span></span>
+<h2 id="Restart_corridor">Restart corridor</h2><span class="share-tooltip" data-anchor="Restart_corridor"><a class="headline-anchor" href="#Restart_corridor" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Restart_corridor">https://www.whonix.org/wiki/Corridor/#Restart_corridor</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Restart_corridor&amp;text=Restart%20corridor" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Restart_corridor&amp;text=Restart%20corridor" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Restart_corridor&amp;title=Restart%20corridor" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Restart%20corridor&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Restart_corridor" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Restart_corridor]Restart corridor[/url]">[url=https://www.whonix.org/wiki/Corridor/#Restart_corridor]Restart corridor[/url]</span></span></span></span>
 <p>Reboot
 <em><span>sys-corridor</span></em>.</p>
 <p>Do another <a href="#Daemon_Status_Test">Daemon
 Status Test</a>.</p>
-<h2 id="Test_corridor">Test corridor</h2><span class="share-tooltip" data-anchor="Test_corridor"><a class="headline-anchor" href="#Test_corridor" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Test_corridor">https://www.whonix.org/wiki/Corridor/#Test_corridor</span></span></span></span>
-<h3 id="Test_Preparation">Test Preparation</h3><span class="share-tooltip" data-anchor="Test_Preparation"><a class="headline-anchor" href="#Test_Preparation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Test_Preparation">https://www.whonix.org/wiki/Corridor/#Test_Preparation</span></span></span></span>
+<h2 id="Test_corridor">Test corridor</h2><span class="share-tooltip" data-anchor="Test_corridor"><a class="headline-anchor" href="#Test_corridor" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Test_corridor">https://www.whonix.org/wiki/Corridor/#Test_corridor</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_corridor&amp;text=Test%20corridor" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_corridor&amp;text=Test%20corridor" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_corridor&amp;title=Test%20corridor" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Test%20corridor&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_corridor" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Test_corridor]Test corridor[/url]">[url=https://www.whonix.org/wiki/Corridor/#Test_corridor]Test corridor[/url]</span></span></span></span>
+<h3 id="Test_Preparation">Test Preparation</h3><span class="share-tooltip" data-anchor="Test_Preparation"><a class="headline-anchor" href="#Test_Preparation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Test_Preparation">https://www.whonix.org/wiki/Corridor/#Test_Preparation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_Preparation&amp;text=Test%20Preparation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_Preparation&amp;text=Test%20Preparation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_Preparation&amp;title=Test%20Preparation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Test%20Preparation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_Preparation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Test_Preparation]Test Preparation[/url]">[url=https://www.whonix.org/wiki/Corridor/#Test_Preparation]Test Preparation[/url]</span></span></span></span>
 <ol>
 <li>Run the <a href="#Install_corridor">above systemctl
 commands</a> again.<br />
@@ -972,7 +652,7 @@ sources) or Tor Browser.<br />
 <li>Set <code>Networking</code> of <code>corridor-client</code> to
 <code>sys-corridor</code>. Tor should be still able to connect.</li>
 </ol>
-<h3 id="Testing_Steps">Testing Steps</h3><span class="share-tooltip" data-anchor="Testing_Steps"><a class="headline-anchor" href="#Testing_Steps" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Testing_Steps">https://www.whonix.org/wiki/Corridor/#Testing_Steps</span></span></span></span>
+<h3 id="Testing_Steps">Testing Steps</h3><span class="share-tooltip" data-anchor="Testing_Steps"><a class="headline-anchor" href="#Testing_Steps" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Testing_Steps">https://www.whonix.org/wiki/Corridor/#Testing_Steps</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Testing_Steps&amp;text=Testing%20Steps" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Testing_Steps&amp;text=Testing%20Steps" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Testing_Steps&amp;title=Testing%20Steps" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Testing%20Steps&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Testing_Steps" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Testing_Steps]Testing Steps[/url]">[url=https://www.whonix.org/wiki/Corridor/#Testing_Steps]Testing Steps[/url]</span></span></span></span>
 <p>Run a <a href="../Tor/#Log_Analysis">Tor log
 analysis</a>.</p>
 <p>Then restart Tor.</p>
@@ -990,7 +670,7 @@ sign.</li>
 like Chromium or Firefox browser. Untorified applications should fail to
 connect to the Internet.</li>
 </ol>
-<h2 id="Test_Logging">Test Logging</h2><span class="share-tooltip" data-anchor="Test_Logging"><a class="headline-anchor" href="#Test_Logging" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Test_Logging">https://www.whonix.org/wiki/Corridor/#Test_Logging</span></span></span></span>
+<h2 id="Test_Logging">Test Logging</h2><span class="share-tooltip" data-anchor="Test_Logging"><a class="headline-anchor" href="#Test_Logging" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Test_Logging">https://www.whonix.org/wiki/Corridor/#Test_Logging</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_Logging&amp;text=Test%20Logging" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_Logging&amp;text=Test%20Logging" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_Logging&amp;title=Test%20Logging" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Test%20Logging&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Test_Logging" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Test_Logging]Test Logging[/url]">[url=https://www.whonix.org/wiki/Corridor/#Test_Logging]Test Logging[/url]</span></span></span></span>
 <p>Whenever corridor blocks attempted actions (like the <a href="#Test_corridor">tests above</a>), a message will
 appear in syslog. To inspect
 <em><span>/var/log/syslog</span></em></p>
@@ -1000,19 +680,7 @@ rights.</p>
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform.</p>
-<div class="tab-content-controller ">
-<div class="mininav ">
-</div>
-<div class="tcc-content">
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">Non-Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -1024,18 +692,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /var/log/syslog</span></p>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_4">Qubes-Whonix</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<p><span class="code-select">sudoedit /var/log/syslog</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_4">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
@@ -1063,18 +721,8 @@ Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
-</ul>
-</div>
-</div>
-<div class="tcc-section  info-box">
-<div class="tcc-image">
-<p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
-</div>
-<div class="tcc-title">
-<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">Others and Alternatives</h5></div></p>
-</div>
-<div class="tcc-content">
-<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
 <li><u>Example only:</u> This is just an example. Other tools could
@@ -1085,25 +733,21 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /var/log/syslog</span></p>
-</div>
-</div>
-</div>
-</div>
+<p><span class="code-select">sudoedit /var/log/syslog</span></p></div></div></p></div></div></p>
 </div>
 <p>To check for blocks inside <code>sys-corridor</code>, run.</p>
 <p><span class="code-select">sudo tail -f /var/log/syslog</span></p>
 <p>If corridor blocks anything, the output will be similar to this.</p>
 <p><span class="code-select">Jul 19 00:58:27 localhost kernel: [
 954.706833] corridor:</span></p>
-<h2 id="Interpreting_the_Results">Interpreting the Results</h2><span class="share-tooltip" data-anchor="Interpreting_the_Results"><a class="headline-anchor" href="#Interpreting_the_Results" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Interpreting_the_Results">https://www.whonix.org/wiki/Corridor/#Interpreting_the_Results</span></span></span></span>
+<h2 id="Interpreting_the_Results">Interpreting the Results</h2><span class="share-tooltip" data-anchor="Interpreting_the_Results"><a class="headline-anchor" href="#Interpreting_the_Results" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Interpreting_the_Results">https://www.whonix.org/wiki/Corridor/#Interpreting_the_Results</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Interpreting_the_Results&amp;text=Interpreting%20the%20Results" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Interpreting_the_Results&amp;text=Interpreting%20the%20Results" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Interpreting_the_Results&amp;title=Interpreting%20the%20Results" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Interpreting%20the%20Results&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Interpreting_the_Results" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Interpreting_the_Results]Interpreting the Results[/url]">[url=https://www.whonix.org/wiki/Corridor/#Interpreting_the_Results]Interpreting the Results[/url]</span></span></span></span>
 <p>The safest configuration is only setting <code>sys-whonix</code> to
 use <code>sys-corridor</code> for <code>Networking</code>. The reason is
 the <a href="https://github.com/marmarek/qubes-core-agent-linux/blob/master/vm-systemd/qubes-update-check.service">qubes-update-check.service</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/marmarek/qubes-core-agent-linux/blob/master/vm-systemd/qubes-update-check.service" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 will try to use the Internet without Tor, and <a href="https://github.com/QubesOS/qubes-issues/issues/1814">other
 programs</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1814" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> may also try to use clearnet. Therefore, always shut down
 <code>corridor-client</code>.</p>
-<h2 id="Configure_sys-whonix">Configure sys-whonix</h2><span class="share-tooltip" data-anchor="Configure_sys-whonix"><a class="headline-anchor" href="#Configure_sys-whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Configure_sys-whonix">https://www.whonix.org/wiki/Corridor/#Configure_sys-whonix</span></span></span></span>
+<h2 id="Configure_sys-whonix">Configure sys-whonix</h2><span class="share-tooltip" data-anchor="Configure_sys-whonix"><a class="headline-anchor" href="#Configure_sys-whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Corridor/#Configure_sys-whonix">https://www.whonix.org/wiki/Corridor/#Configure_sys-whonix</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Configure_sys-whonix&amp;text=Configure%20sys-whonix" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Configure_sys-whonix&amp;text=Configure%20sys-whonix" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Configure_sys-whonix&amp;title=Configure%20sys-whonix" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Configure%20sys-whonix&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FCorridor%2F%23Configure_sys-whonix" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Corridor/#Configure_sys-whonix]Configure sys-whonix[/url]">[url=https://www.whonix.org/wiki/Corridor/#Configure_sys-whonix]Configure sys-whonix[/url]</span></span></span></span>
 <p>To set <code>Networking</code> of <code>sys-whonix</code> to
 <code>sys-corridor</code>:</p>
 <p><code>Qube Manager</code> &#8594; <code>left-click sys-whonix</code> &#8594;
@@ -1238,9 +882,9 @@ Hidden Services</span></span></span></p>
 </div>
 
 <div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation/">Documentation</a></div></main>
-<footer class="site-footer"><p class="tagline">Anonymous Operating System</p><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../Trademark_Policy/">Trademark Policy</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><a class="darkmode-toggle" href="#" data-darkmode>Toggle dark mode</a><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></footer>
-<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>Got it</button></div>
-<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">11 year success story and maybe DONATE!</a></p></div></div></div>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="../Trademark_Policy/" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><p class="footer-subhead">Open Source</p><nav class="footer-freedom"><ul><li><a href="../Reasons_for_Freedom_Software/">Freedom Software</a></li><li><a href="../Policy_On_Nonfreedom_Software/">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="../Terms_of_Service/">Terms of Service</a></li><li><a href="../Privacy_Policy/">Privacy Policy</a></li><li><a href="../Cookie_Policy/">Cookie Policy</a></li><li><a href="../E-Sign_Consent/">E-Sign Consent</a></li><li><a href="../Terms_of_Service/#DMCA_Policy">DMCA</a></li><li><a href="../Imprint/">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy/">Privacy Policy</a>, <a href="../Cookie_Policy/">Cookie Policy</a>, <a href="../Terms_of_Service/">Terms of Service</a>, and <a href="../E-Sign_Consent/">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate/">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate/">14 year success story and maybe DONATE!</a></p></div></div></div>
 <script src="../../search-index.js" defer></script>
 <script src="../../page-previews.js" defer></script>
 <script src="../../app.js" defer></script>

@@ -152,8 +152,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .search-browse,
 .darkmode-toggle,
 .collapsible-toggle,
-.copy-button,
-.back-to-top {
+.copy-button {
   display: inline-block;
   padding: 0.4rem 0.85rem;
   border: 1px solid var(--border);
@@ -174,8 +173,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .search-browse:hover,
 .darkmode-toggle:hover,
 .collapsible-toggle:hover,
-.copy-button:hover,
-.back-to-top:hover {
+.copy-button:hover {
   background: var(--surface-2);
   border-color: var(--accent);
   color: var(--fg);
@@ -234,6 +232,43 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   color: var(--fg);
   text-decoration: none;
 }
+.site-tm {
+  color: var(--muted);
+  font-size: 0.7rem;
+  vertical-align: super;
+  margin-left: -0.35rem;
+}
+.site-tm:hover { color: var(--fg); text-decoration: none; }
+/* grouped nav dropdowns (production mega-menu): pure-CSS reveal on hover/focus */
+.nav-group { position: relative; }
+.nav-submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  min-width: 13rem;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+}
+.nav-group:hover > .nav-submenu,
+.nav-group:focus-within > .nav-submenu { display: block; }
+.nav-submenu li { margin: 0; }
+.nav-submenu a {
+  display: block;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  color: var(--fg-soft);
+  font-weight: 500;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.nav-submenu a:hover { background: var(--surface-2); color: var(--fg); text-decoration: none; }
 .nav-toggle-label {
   display: none;
   cursor: pointer;
@@ -295,6 +330,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   .site-nav { flex-basis: 100%; order: 3; }
   .site-nav ul { flex-direction: column; gap: 0.1rem; }
   .site-nav a { padding: 0.55rem 0.65rem; }
+  /* submenus render inline + expanded in the mobile drawer (no hover on touch) */
+  .nav-submenu {
+    display: block; position: static; min-width: 0;
+    margin: 0 0 0.25rem 0.9rem; padding: 0;
+    background: transparent; border: none; box-shadow: none;
+  }
+  .nav-submenu a { padding: 0.4rem 0.65rem; font-size: 0.88rem; color: var(--muted); }
   .nav-toggle:not(:checked) ~ .site-nav { display: none; }
   .site-search { order: 4; flex-basis: 100%; margin-left: 0; }
   .site-search input { min-width: 0; flex: 1 1 auto; }
@@ -333,7 +375,23 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 /* heading wrapper carries no box, so the inner hN margins govern rhythm */
 .widget-headline { margin: 0; }
-.first-heading, .wiki-content > .widget-headline:first-child h1 { margin-top: 0.25rem; }
+.wiki-content > .widget-headline:first-child h1 { margin-top: 0.25rem; }
+/* Page title box ({{Title}} -> .first-heading): a padded light panel with a larger
+   title, matching production's styled .first-heading (was near-unstyled small text). */
+.first-heading {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 0.65rem 1.05rem 0.75rem;
+  margin: 1.5rem 0;
+}
+.first-heading > h1, .first-heading .widget-headline h1 {
+  margin: 0;
+  border-bottom: 0;
+  padding-bottom: 0;
+  font-size: 1.7rem;
+}
 
 .wiki-content p { margin: 0 0 1rem; }
 .wiki-content ul, .wiki-content ol { margin: 0 0 1rem; padding-left: 1.6rem; }
@@ -414,6 +472,28 @@ code {
   background: color-mix(in srgb, var(--surface) 55%, var(--bg));
 }
 .table-wrap { overflow-x: auto; }
+/* status/comparison cells: prod colors {{Yes}}/{{No}} (and ad-hoc {{Green}}/{{Red}}/
+   {{Yellow}}/{{Blue}}/{{Gray}} cells) via an inline background-color, which our strict
+   style-src blocks. The sanitizer maps that palette to these classes; tint via the
+   callout tokens so the color is theme-aware and legible in both modes. !important
+   beats the decorative zebra striping. */
+.cell-green  { --callout: var(--c-green); }
+.cell-red    { --callout: var(--c-red); }
+.cell-yellow { --callout: var(--c-yellow); }
+.cell-blue   { --callout: var(--c-blue); }
+.cell-gray   { --callout: var(--c-gray); }
+.wiki-content table:not(.toc):not(.storage-table) td.cell-green,
+.wiki-content table:not(.toc):not(.storage-table) th.cell-green,
+.wiki-content table:not(.toc):not(.storage-table) td.cell-red,
+.wiki-content table:not(.toc):not(.storage-table) th.cell-red,
+.wiki-content table:not(.toc):not(.storage-table) td.cell-yellow,
+.wiki-content table:not(.toc):not(.storage-table) th.cell-yellow,
+.wiki-content table:not(.toc):not(.storage-table) td.cell-blue,
+.wiki-content table:not(.toc):not(.storage-table) th.cell-blue,
+.wiki-content table:not(.toc):not(.storage-table) td.cell-gray,
+.wiki-content table:not(.toc):not(.storage-table) th.cell-gray {
+  background: color-mix(in srgb, var(--callout) 32%, var(--surface)) !important;
+}
 
 /* ---- callouts / notice boxes ---- */
 .mbox, .info-box, .community-support-info {
@@ -518,7 +598,18 @@ code {
   padding: 0.6rem 0.9rem;
   background: var(--surface);
 }
-.collapsible-toggle { margin-bottom: 0.5rem; }
+/* collapse/expand toggle: top-right blue pill with a direction triangle, matching
+   production's .mw-collapsible-toggle (was a plain gray "Toggle" at the top-left). */
+.collapsible-toggle {
+  float: right; margin: 0 0 0.5rem 0.5rem;
+  background: var(--accent); border-color: var(--accent); color: var(--accent-fg); font-weight: 700;
+}
+.collapsible-toggle:hover {
+  background: color-mix(in srgb, var(--accent) 85%, #000);
+  border-color: var(--accent); color: var(--accent-fg);
+}
+.collapsible-toggle::before { content: "\25B2"; margin-right: 0.4rem; font-size: 0.8em; }
+.mw-collapsed > .collapsible-toggle::before { content: "\25BC"; }
 /* only collapse when the JS toggle exists (no-JS stays open) */
 .mw-collapsible:has(> .collapsible-toggle).mw-collapsed .mw-collapsible-content {
   display: none;
@@ -528,43 +619,78 @@ code {
 .widget-headline { padding: 0; }
 
 /* ---- back-to-top floating button ---- */
+/* Round translucent overlay with a chevron glyph, matching production's
+   #back-to-top-button (app.js shows it while scrolling, auto-hides when idle). */
 .back-to-top {
   position: fixed;
-  right: 1.25rem;
-  bottom: 1.25rem;
+  right: 20px;
+  bottom: 20px;
   z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
   box-shadow: var(--shadow-md);
+  transition: background 0.12s ease, opacity 0.2s ease;
 }
+.back-to-top:hover { background: rgba(0, 0, 0, 0.55); color: #fff; }
 
-/* ---- footer ---- */
+/* ---- footer (three columns, production #custom-footer) ---- */
 .site-footer {
   border-top: 1px solid var(--border);
   background: var(--surface);
-  padding: 1.75rem 1.25rem 2rem;
+  padding: 2rem 1.25rem;
   margin-top: 3rem;
   color: var(--muted);
   font-size: 0.9rem;
 }
-.site-footer .tagline {
-  margin: 0 0 0.75rem;
-  color: var(--fg-soft);
-  font-weight: 500;
-}
-.footer-links ul {
+.footer-cols {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.4rem;
-  list-style: none;
-  padding: 0;
-  margin: 0.4rem 0;
+  gap: 1.5rem 2.5rem;
+  max-width: var(--maxw);
+  margin: 0 auto;
 }
-.footer-links a { color: var(--muted); }
-.footer-links a:hover { color: var(--link); }
-.darkmode-toggle { margin: 0.9rem 0 0.6rem; }
+.footer-col { flex: 1 1 15rem; min-width: 0; }
+.footer-headline { margin: 0 0 0.5rem; font-weight: 700; font-size: 1.15rem; color: var(--fg-soft); }
+.footer-tm { color: var(--muted); font-size: 0.75em; vertical-align: super; }
+.footer-claim { margin: 0 0 0.9rem; color: var(--muted); }
+.footer-subhead { margin: 0 0 0.5rem; font-weight: 600; color: var(--fg-soft); }
+.footer-social-icons {
+  display: flex; flex-wrap: wrap; gap: 0.85rem;
+  margin: 0 0 0.75rem; font-size: 1.35rem;
+}
+.footer-social-icons .icon-link { color: var(--muted); line-height: 1; }
+.footer-social-icons .icon-link:hover { color: var(--link); text-decoration: none; }
+.footer-sponsor { margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--muted); }
+.footer-freedom ul, .footer-links ul {
+  display: flex; flex-direction: column; gap: 0.3rem;
+  list-style: none; padding: 0; margin: 0 0 0.9rem;
+}
+.footer-freedom a, .footer-links a { color: var(--muted); }
+.footer-freedom a:hover, .footer-links a:hover { color: var(--link); }
+.darkmode-toggle { display: inline-block; margin: 0.9rem 0 0; }
 .copyright { margin: 0.6rem 0 0; }
 
 /* ---- misc content hooks ---- */
-.tagline, .post-intro-p, .pre-intro-p, .intro-like { color: var(--fg-soft); }
+.tagline, .post-intro-p, .pre-intro-p { color: var(--fg-soft); }
+/* IntroLike: a page lead paragraph -- readable normal-color text, slightly larger,
+   not the muted gray it used to share with the intro pre/post markers. */
+.intro-like {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--fg);
+  margin: 0 0 1.25rem;
+}
+.intro-like > :last-child { margin-bottom: 0; }
 .references, .footnotes { font-size: 0.9rem; color: var(--fg-soft); }
 .reference { font-size: 0.85em; vertical-align: super; line-height: 0; }
 /* Jump-to-footnote target: box + tint the referenced note so a clicked [N] citation
@@ -591,6 +717,12 @@ code {
   background: var(--surface); color: var(--fg); border: 1px solid var(--border);
   border-radius: var(--radius-md, 6px); box-shadow: var(--shadow-md); }
 .share-tooltip .menu-headline { display: block; margin-bottom: 0.4rem; font-weight: 600; }
+.share-tooltip .share-social { display: flex; gap: 0.6rem; margin: 0.55rem 0 0.2rem; }
+.share-tooltip .share-icon { color: var(--muted); font-size: 1.2rem; }
+.share-tooltip .share-icon:hover { color: var(--link); text-decoration: none; }
+.share-tooltip .menu-subhead {
+  display: block; margin: 0.55rem 0 0.25rem; font-weight: 600; font-size: 0.8rem; color: var(--muted);
+}
 .image-right { float: right; margin: 0 0 1rem 1.25rem; max-width: 45%; }
 [hidden] { display: none !important; }
 
@@ -696,6 +828,13 @@ code {
   display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem;
 }
 .mininav > ul > li { margin: 0; }
+/* current page selflink: MediaWiki renders a link to the current page href-less with
+   .mw-selflink -- bold everywhere, and highlighted inside the book mininav. */
+.mw-selflink, a.selflink { font-weight: 700; color: var(--fg); cursor: default; }
+.mininav > ul > li > a.selflink,
+.mininav > ul > li > a[aria-current="page"] {
+  color: var(--accent); font-weight: 700; text-decoration: none;
+}
 
 /* Anti-spam e-mail: the "please do not e-mail for..." reasons are revealed on
    hover/focus (restores the MediaWiki hover feature) and hidden otherwise, so the
@@ -714,17 +853,22 @@ code {
 .antispam-email-tooltip .tooltip .icon-bullet-list { margin-top: 0.4rem; }
 
 /* --- consent / privacy banner (no-JS shows it; JS dismiss -> localStorage) --- */
+/* Fixed translucent overlay pinned to the viewport bottom that follows on scroll,
+   matching production's CookieWarning (position:fixed; rgba dark bg; white text). */
 .consent-banner {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem;
-  padding: 0.55rem 1rem; font-size: 0.88rem;
-  background: var(--surface-2, var(--surface)); border-top: 1px solid var(--border);
+  position: fixed; left: 0; bottom: 0; width: 100%; z-index: 450; box-sizing: border-box;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 0.9rem;
+  padding: 0.5rem 1rem; font-size: 0.88rem;
+  background: rgba(60, 60, 60, 0.9); color: #fff; box-shadow: 0 -2px 8px rgb(0 0 0 / 25%);
 }
-.consent-text { flex: 1 1 18rem; color: var(--fg-soft, var(--fg)); }
+.consent-text { color: #fff; font-weight: 600; }
+.consent-text a { color: #cfe6ff; text-decoration: underline; }
+.consent-text a:hover { color: #fff; }
 .consent-dismiss {
-  border: 1px solid var(--border); background: var(--bg); color: var(--fg);
-  padding: 0.3rem 0.9rem; border-radius: var(--radius-sm, 4px); cursor: pointer; font: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.6); background: rgba(255, 255, 255, 0.12); color: #fff;
+  padding: 0.3rem 1rem; border-radius: var(--radius-sm, 4px); cursor: pointer; font: inherit; font-weight: 600;
 }
-.consent-dismiss:hover { background: var(--surface); }
+.consent-dismiss:hover { background: rgba(255, 255, 255, 0.25); }
 
 /* Staging notice -- STAGE builds only; loud + non-dismissible so stage is never
    mistaken for production. */
