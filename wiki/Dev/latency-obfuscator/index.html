@@ -33,9 +33,9 @@ explanation.</strong></p>
 This page is archived.</p>
 </div>
 <h1 id="Latency-Obfuscator">Latency-Obfuscator</h1>
-<h2 id="Summary">Summary</h2>
-<p>This package is supposed to implement the mitigation discussed in <a href="https://phabricator.whonix.org/T530">https://phabricator.whonix.org/T530</a>
-using tc netem. Package WIP at <a href="https://github.com/HulaHoop0/latency-obfuscator">https://github.com/HulaHoop0/latency-obfuscator</a></p>
+<h2 id="Summary">Summary</h2><span class="share-tooltip" data-anchor="Summary"><a class="headline-anchor" href="#Summary" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/latency-obfuscator/#Summary">https://www.whonix.org/wiki/Dev/latency-obfuscator/#Summary</span></span></span></span>
+<p>This package is supposed to implement the mitigation discussed in <a href="https://phabricator.whonix.org/T530">https://phabricator.whonix.org/T530</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T530" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+using tc netem. Package WIP at <a href="https://github.com/HulaHoop0/latency-obfuscator">https://github.com/HulaHoop0/latency-obfuscator</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/HulaHoop0/latency-obfuscator" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Packet latency (as observed by an adversary outside Tor) drops
 significantly when the CPU is stressed as can be observed in ICMP and
 TCP traffic. This is caused by c-state transitions. Non-solutions:
@@ -44,10 +44,10 @@ because both solutions would heavily impact battery life and CPU
 temperature.</p>
 <p>The chosen solution is to add a random delay per packet to mask the
 this effect for best results.</p>
-<h2 id="Implementation_Details">Implementation Details</h2>
+<h2 id="Implementation_Details">Implementation Details</h2><span class="share-tooltip" data-anchor="Implementation_Details"><a class="headline-anchor" href="#Implementation_Details" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/latency-obfuscator/#Implementation_Details">https://www.whonix.org/wiki/Dev/latency-obfuscator/#Implementation_Details</span></span></span></span>
 <ul>
 <li>Use of /etc/NetworkManager/dispatcher.d hooks to run the tc command
-whenever any NIC goes up: <a href="https://askubuntu.com/questions/1111652/network-manager-script-when-interface-up">https://askubuntu.com/questions/1111652/network-manager-script-when-interface-up</a></li>
+whenever any NIC goes up: <a href="https://askubuntu.com/questions/1111652/network-manager-script-when-interface-up">https://askubuntu.com/questions/1111652/network-manager-script-when-interface-up</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://askubuntu.com/questions/1111652/network-manager-script-when-interface-up" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <ul>
 <li>Interface names must be filtered to exclude <code>lo</code>
@@ -61,7 +61,7 @@ Exclusivity flag on, cannot modify." in that situation when the command
 is re-run again.</li>
 </ul>
 <ul>
-<li>The limit parameter must be <a href="https://stackoverflow.com/questions/18792347/what-does-option-limit-in-tc-netem-mean-and-do">raised</a>
+<li>The limit parameter must be <a href="https://stackoverflow.com/questions/18792347/what-does-option-limit-in-tc-netem-mean-and-do">raised</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://stackoverflow.com/questions/18792347/what-does-option-limit-in-tc-netem-mean-and-do" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 from the default of 1000 or else packets get dropped as traffic demand
 increases. 12500 covers connection speeds of up to 1Gbps.</li>
 </ul>
@@ -70,10 +70,10 @@ increases. 12500 covers connection speeds of up to 1Gbps.</li>
 for interfaces on Linux</li>
 </ul>
 <ul>
-<li>Info on various qdisc filter properties: <a href="https://wiki.archlinux.org/title/advanced_traffic_control">https://wiki.archlinux.org/title/advanced_traffic_control</a></li>
+<li>Info on various qdisc filter properties: <a href="https://wiki.archlinux.org/title/advanced_traffic_control">https://wiki.archlinux.org/title/advanced_traffic_control</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://wiki.archlinux.org/title/advanced_traffic_control" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h2 id="Relevant_Commands_and_Testing">Relevant Commands and
-Testing</h2>
+Testing</h2><span class="share-tooltip" data-anchor="Relevant_Commands_and_Testing"><a class="headline-anchor" href="#Relevant_Commands_and_Testing" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/latency-obfuscator/#Relevant_Commands_and_Testing">https://www.whonix.org/wiki/Dev/latency-obfuscator/#Relevant_Commands_and_Testing</span></span></span></span>
 <ul>
 <li>Setup a VPN connection in Whonix WS then run ping .com</li>
 </ul>
@@ -90,13 +90,13 @@ induced by the <code>stress</code> command:</li>
 12500 slot 75ms 200ms packets 1</span></p>
 <ul>
 <li>To test with <a href="https://serverfault.com/questions/14376/ping-alternative-for-tcp">TCP
-ping</a>:</li>
+ping</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://serverfault.com/questions/14376/ping-alternative-for-tcp" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</li>
 </ul>
 <p><span class="code-select">sudo apt install hping3 sudo hping3 -S -p
 80 www.sunet.se</span></p>
 <ul>
-<li>For <a href="https://serverfault.com/questions/794948/how-to-check-all-active-netem-rules">checking</a>
-queue properties / <a href="https://tldp.org/en/Traffic-Control-HOWTO/ar01s06.html">details</a>:</li>
+<li>For <a href="https://serverfault.com/questions/794948/how-to-check-all-active-netem-rules">checking</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://serverfault.com/questions/794948/how-to-check-all-active-netem-rules" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+queue properties / <a href="https://tldp.org/en/Traffic-Control-HOWTO/ar01s06.html">details</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tldp.org/en/Traffic-Control-HOWTO/ar01s06.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</li>
 </ul>
 <p><span class="code-select">sudo tc qdisc</span>
 <span class="code-select">sudo tc -s qdisc ls dev eth0</span></p>

@@ -20,7 +20,17 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l2"><a href="#Advantages">Advantages</a></li><li class="toc-l2"><a href="#Disadvantages">Disadvantages</a></li><li class="toc-l2"><a href="#Web_Server_Software_Recommendations">Web Server Software
+<div class="mininav">
+<ul>
+<li><a href="./">Onion Services</a></li>
+<li><a href="../Hosting_Location_Hidden_Services/">Hosting
+Location Hidden Services</a></li>
+</ul>
+</div><div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+text editor of your choice with administrative rights.</p>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l2"><a href="#Advantages">Advantages</a></li><li class="toc-l2"><a href="#Disadvantages">Disadvantages</a></li><li class="toc-l2"><a href="#Web_Server_Software_Recommendations">Web Server Software
 Recommendations</a></li><li class="toc-l2"><a href="#Security_Recommendations">Security Recommendations</a></li><li class="toc-l2"><a href="#Setup_Overview">Setup Overview</a></li><li class="toc-l2"><a href="#Hidden_Webserver">Hidden Webserver</a></li><li class="toc-l3"><a href="#Whonix-Gateway">Whonix-Gateway</a></li><li class="toc-l3"><a href="#Whonix-Workstation">Whonix-Workstation</a></li><li class="toc-l3"><a href="#Debugging">Debugging</a></li><li class="toc-l2"><a href="#Setup_Tips_for_any_Onion_Service">Setup Tips for any Onion
 Service</a></li><li class="toc-l2"><a href="#Hidden_VoIP_Server">Hidden VoIP Server</a></li><li class="toc-l2"><a href="#Onion_Services_Reliability_Issues">Onion Services Reliability
 Issues</a></li><li class="toc-l2"><a href="#Watch_Logs">Watch Logs</a></li><li class="toc-l2"><a href="#Bug">Bug</a></li><li class="toc-l2"><a href="#OnionBalance">OnionBalance</a></li><li class="toc-l3"><a href="#OnionBalance_Introduction">OnionBalance Introduction</a></li><li class="toc-l3"><a href="#OnionBalance_Frontend_Setup_Part_One">OnionBalance Frontend
@@ -34,13 +44,7 @@ End-to-end Security of Onion Services</a></li><li class="toc-l2"><a href="#High_
 Onion Service Scalability Performance</a></li><li class="toc-l2"><a href="#Performance">Performance</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
 <p><img src="../../media/Fly-agaric808110640.jpg.webp" alt="Fly-agaric808110640.jpg" /></p>
-<div class="mininav">
-<ul>
-<li><a href="./">Onion Services</a></li>
-<li><a href="../Hosting_Location_Hidden_Services/">Hosting
-Location Hidden Services</a></li>
-</ul>
-</div>
+
 <div class="pre-intro-p ">
 </div>
 <div class="hidden-thumbnail">
@@ -54,7 +58,7 @@ other's network identity. <sup class="reference"><a href="#cite_note-1">[1]</a><
 </div>
 <h1 id="Why_use_Whonix_for_Hosting_Onion_Services">Why use Whonix for
 Hosting Onion Services</h1>
-<p>From <a href="https://www.whonix.org/#security">https://www.whonix.org/#security</a>
+<p>From <a href="https://www.whonix.org/#security">https://www.whonix.org/#security</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/#security" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 [click expand] the most relevant features are:</p>
 <ul>
 <li>Impossible to leak IP address</li>
@@ -85,22 +89,23 @@ this page, this exception does not apply.</li>
 </ul>
 <h1 id="Tor_Onion_Services:_Configuration">Tor Onion Services:
 Configuration</h1>
-<h2 id="Introduction">Introduction</h2>
+<h2 id="Introduction">Introduction</h2><span class="share-tooltip" data-anchor="Introduction"><a class="headline-anchor" href="#Introduction" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Introduction">https://www.whonix.org/wiki/Onion_Services/#Introduction</span></span></span></span>
 <p>Newcomers to this topic are recommended to first read the following
 Tor Project and Riseup documentation entries to better understand how
 onion services work, how they are safely configured outside of Whonix,
 and suggested best practices:</p>
 <ul>
-<li>[Broken-ExtLink--no-url-was-provided];</li>
-<li>[Broken-ExtLink--no-url-was-provided]; and</li>
-<li>[Broken-ExtLink--no-url-was-provided]</li>
+<li>general information;</li>
+<li>Configuring Onion Services for Tor (standard setup, no isolated
+proxy); and</li>
+<li>installation, configuration and protecting services</li>
 </ul>
 <p>Note that onion services are only reachable using Tor or tunnel
-services, such as <a href="https://www.tor2web.org/">tor2web</a>; <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/tor2web">caution
-is warranted</a> when using a tunnel service.</p>
+services, such as <a href="https://www.tor2web.org/">tor2web</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.tor2web.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>; <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/tor2web">caution
+is warranted</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/tor2web" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> when using a tunnel service.</p>
 <p>For possible alternatives to onion services, see: <a href="../Hosting_Location_Hidden_Services/">Hosting
 Location Hidden Services</a>.</p>
-<h2 id="Advantages">Advantages</h2>
+<h2 id="Advantages">Advantages</h2><span class="share-tooltip" data-anchor="Advantages"><a class="headline-anchor" href="#Advantages" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Advantages">https://www.whonix.org/wiki/Onion_Services/#Advantages</span></span></span></span>
 <p>Onion addresses do not require Secure Sockets Layer (SSL) or
 Transport Layer Security (TLS) <sup class="reference"><a href="#cite_note-4">[4]</a></sup>, because connections
 to Tor onion services are end-to-end encrypted by default.
@@ -113,7 +118,7 @@ solution. <sup class="reference"><a href="#cite_note-7">[7]</a></sup> This raise
 that the entire Tor network can tolerate; the same applies to <a href="../I2P/">I2P Eepsites</a>. Tor can also be considered
 a very simple to configure, encrypted transport alternative to IPSec.
 <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
-<h2 id="Disadvantages">Disadvantages</h2>
+<h2 id="Disadvantages">Disadvantages</h2><span class="share-tooltip" data-anchor="Disadvantages"><a class="headline-anchor" href="#Disadvantages" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Disadvantages">https://www.whonix.org/wiki/Onion_Services/#Disadvantages</span></span></span></span>
 <p>The following Tor onion services disadvantages are general onion
 services issues, <a href="../Unspecific/">unspecific to
 Whonix</a>.</p>
@@ -122,16 +127,16 @@ Whonix</a>.</p>
 the onion service (and presumably Tor) is up and running or not.</li>
 <li><u>No revocation</u>: <a href="https://gitlab.torproject.org/tpo/core/torspec/-/issues/87">Revocation
 (similar to the GnuPG's revocation certificate feature) for onion
-services does not exist yet.</a></li>
+services does not exist yet.</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/core/torspec/-/issues/87" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><u>No seed phrase backup</u>: Creating backups of onion service
 private keys is more difficult than backing up most cryptocurrency
 wallets. A <a href="https://en.bitcoin.it/wiki/Seed_phrase">seed
-phrase</a> based backup for onion service does not exist. To backup the
+phrase</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.bitcoin.it/wiki/Seed_phrase" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> based backup for onion service does not exist. To backup the
 private key for an onion service, the onion service private key file
 needs to be backed up. This is documented below.</li>
 </ul>
 <h2 id="Web_Server_Software_Recommendations">Web Server Software
-Recommendations</h2>
+Recommendations</h2><span class="share-tooltip" data-anchor="Web_Server_Software_Recommendations"><a class="headline-anchor" href="#Web_Server_Software_Recommendations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Web_Server_Software_Recommendations">https://www.whonix.org/wiki/Onion_Services/#Web_Server_Software_Recommendations</span></span></span></span>
 <p>If your needs are limited to hosting static pages, then look no
 further than <code>micro-httpd</code> which is available from Debian
 repositories. It is a bare-bones daemon made up of 150 lines of code.
@@ -144,13 +149,13 @@ regardless, refer to the following footnotes. <sup class="reference"><a href="#c
 <p>The <code>Nginx</code> web server is a recommended alternative to
 <code>Apache</code>. If the <code>Nginx</code> web server will be used
 regardless, refer to the following footnotes. <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
-<h2 id="Security_Recommendations">Security Recommendations</h2>
+<h2 id="Security_Recommendations">Security Recommendations</h2><span class="share-tooltip" data-anchor="Security_Recommendations"><a class="headline-anchor" href="#Security_Recommendations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Security_Recommendations">https://www.whonix.org/wiki/Onion_Services/#Security_Recommendations</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
 <strong>Credits</strong>: Some of these instructions are paraphrased
 from Sarah Jamie Lewis' write-up after running OnionScan
 <sup class="reference"><a href="#cite_note-13">[13]</a></sup> on the Onion web -- all credit goes to her.
-<sup class="reference"><a href="#cite_note-14">[14]</a></sup> <a href="https://github.com/s-rah/onionscan">OnionScan</a> is an open
+<sup class="reference"><a href="#cite_note-14">[14]</a></sup> <a href="https://github.com/s-rah/onionscan">OnionScan</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/s-rah/onionscan" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is an open
 source pen-testing suite that exposes misconfiguration errors that can
 reveal Hidden Servers. <u>Do</u> run it <u>before</u> your service goes
 live. <sup class="reference"><a href="#cite_note-15">[15]</a></sup></p>
@@ -180,7 +185,7 @@ Protection</a> for a definition.</p></td>
 <tr class="odd">
 <td><p>Captcha</p></td>
 <td><p><a href="https://forums.whonix.org/t/mcaptcha-org-floss-captcha/16769">mCaptcha.org
-- FLOSS Captcha</a></p></td>
+- FLOSS Captcha</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/mcaptcha-org-floss-captcha/16769" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p></td>
 </tr>
 <tr class="even">
 <td><p>Dedicated Onion Service Address</p></td>
@@ -203,7 +208,7 @@ also recommendations for <a href="../Remote_Administration/">Remote Administrati
 <td><p>Denial of Service (DoS) Attack Defense</p></td>
 <td><p><a href="https://hackerfactor.com/blog/index.php?/archives/897-Tor-0day-Crashing-the-Tor-Network.html">A
 researcher has posted his experience keeping their onion up during a
-massive DDoS</a>. <sup class="reference"><a href="#cite_note-19">[19]</a></sup></p></td>
+massive DDoS</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://hackerfactor.com/blog/index.php?/archives/897-Tor-0day-Crashing-the-Tor-Network.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. <sup class="reference"><a href="#cite_note-19">[19]</a></sup></p></td>
 </tr>
 <tr class="odd">
 <td><p>Disable Banners</p></td>
@@ -237,24 +242,24 @@ service behind a Whonix-Gateway. <sup class="reference"><a href="#cite_note-20">
 <td><p>It is good practice to setup access to your site through reverse
 proxies to mitigate <a href="https://web.archive.org/web/20200314071622/http://ddosattackprotection.org/blog/layer-7-ddos-attack/">layer
 7 DoS attacks</a>. See for example <a href="https://www.nginx.com/blog/mitigating-ddos-attacks-with-nginx-and-nginx-plus/">Mitigating
-DDoS Attacks with NGINX and NGINX Plus</a>. That way it may also be
+DDoS Attacks with NGINX and NGINX Plus</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.nginx.com/blog/mitigating-ddos-attacks-with-nginx-and-nginx-plus/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. That way it may also be
 possible to block information leaks about your setup.</p></td>
 </tr>
 <tr class="odd">
 <td><p>OnionBalance</p></td>
-<td><p><a href="https://onionbalance.readthedocs.io/en/latest/">OnionBalance</a>
+<td><p><a href="https://onionbalance.readthedocs.io/en/latest/">OnionBalance</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://onionbalance.readthedocs.io/en/latest/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 can help to prevent de-anonymization of an onion service by protecting
 it from becoming unavailable through denial of service attacks (DDoS).
 OnionBalance is mentioned in the <a href="https://github.com/mikeperry-tor/vanguards/blob/master/README_SECURITY.md">security
-readme</a> by vanguards author and Tor developer Mike Perry where he
-discusses attacks against onion services and defenses. <a href="https://onionbalance.readthedocs.io/en/latest/v3/tutorial-v3.html">OnionBalance</a>
+readme</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/mikeperry-tor/vanguards/blob/master/README_SECURITY.md" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> by vanguards author and Tor developer Mike Perry where he
+discusses attacks against onion services and defenses. <a href="https://onionbalance.readthedocs.io/en/latest/v3/tutorial-v3.html">OnionBalance</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://onionbalance.readthedocs.io/en/latest/v3/tutorial-v3.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 is now available for onion v3 services <sup class="reference"><a href="#cite_note-21">[21]</a></sup>, see: <a href="https://blog.torproject.org/cooking-onions-reclaiming-onionbalance">Cooking
-with Onions: Reclaiming the Onionbalance</a>. See also <a href="#OnionBalance">Whonix OnionBalance
+with Onions: Reclaiming the Onionbalance</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/cooking-onions-reclaiming-onionbalance" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. See also <a href="#OnionBalance">Whonix OnionBalance
 documentation</a>.</p></td>
 </tr>
 <tr class="even">
 <td><p>Onion v3</p></td>
-<td><p>No longer use onion v2; see <a href="https://lists.torproject.org/pipermail/tor-dev/2020-May/014322.html">here</a>.</p></td>
+<td><p>No longer use onion v2; see <a href="https://lists.torproject.org/pipermail/tor-dev/2020-May/014322.html">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-dev/2020-May/014322.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p></td>
 </tr>
 <tr class="odd">
 <td><p>Server Software Hardening</p></td>
@@ -289,9 +294,9 @@ upstream documentation until this is documented. Help welcome.
 </table>
 <p>The following resources are also recommended reading:</p>
 <ul>
-<li>[Broken-ExtLink--no-url-was-provided]</li>
+<li>The Tor Project: Onion service DoS guidelines</li>
 </ul>
-<h2 id="Setup_Overview">Setup Overview</h2>
+<h2 id="Setup_Overview">Setup Overview</h2><span class="share-tooltip" data-anchor="Setup_Overview"><a class="headline-anchor" href="#Setup_Overview" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Setup_Overview">https://www.whonix.org/wiki/Onion_Services/#Setup_Overview</span></span></span></span>
 <p><strong>Optional.</strong></p>
 <p>In Whonix, server applications typically run in a Whonix-Workstation,
 while Tor networking is handled by the Whonix-Gateway. This separation
@@ -326,20 +331,15 @@ listening port on that <code>VIRTPORT</code>.</p>
 <p><strong>7.</strong> Retrieve the <code>.onion</code> address.</p>
 <p><strong>8.</strong> Test.</p>
 <p><strong>9.</strong> Done.</p>
-<h2 id="Hidden_Webserver">Hidden Webserver</h2>
-<h3 id="Whonix-Gateway">Whonix-Gateway</h3>
+<h2 id="Hidden_Webserver">Hidden Webserver</h2><span class="share-tooltip" data-anchor="Hidden_Webserver"><a class="headline-anchor" href="#Hidden_Webserver" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Hidden_Webserver">https://www.whonix.org/wiki/Onion_Services/#Hidden_Webserver</span></span></span></span>
+<h3 id="Whonix-Gateway">Whonix-Gateway</h3><span class="share-tooltip" data-anchor="Whonix-Gateway"><a class="headline-anchor" href="#Whonix-Gateway" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Whonix-Gateway">https://www.whonix.org/wiki/Onion_Services/#Whonix-Gateway</span></span></span></span>
 <p>Perform all the following steps on the Whonix-Gateway.</p>
 <h4 id="Step_1:_Open_Tor_Configuration">Step 1: Open Tor
 Configuration</h4>
 <p>On the Whonix-Gateway.</p>
 <p>Tor configuration file.</p>
 <div class="info-box ">
-<div class="intro-like">
-<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
-<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] of your choice with administrative
-rights.</p>
-</div>
+
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Sysmaint notice.</p>
 <p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
@@ -360,7 +360,7 @@ Platform specific. Select your platform.</p>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -406,7 +406,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="tcc-content">
 <p><u>If you are using a graphical Whonix-Gateway</u> and enabled
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+unrestricted admin mode, take the following step.</p>
 <p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
 <code>Tor User Config</code></p>
 </div>
@@ -440,7 +440,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -619,9 +619,9 @@ Service Mitigation Options</h4>
 <p>Documentation for Denial of Service Mitigation Options is incomplete.
 Contributions are happily considered!</p>
 <p>This step requires Tor 0.4.2.5 and above, see: <a href="https://forums.whonix.org/t/tor-0-4-25-release-how-can-we-upgrade/8614">Tor
-0.4.25 release how can we upgrade</a>.</p>
+0.4.25 release how can we upgrade</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-0-4-25-release-how-can-we-upgrade/8614" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>Also refer to the <a href="https://2019.www.torproject.org/docs/tor-manual.html.en">Tor
-manual</a> and search for
+manual</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://2019.www.torproject.org/docs/tor-manual.html.en" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and search for
 <code>DENIAL OF SERVICE MITIGATION OPTIONS</code>.</p>
 <p>Nothing Whonix specific regarding installation from source. As
 per:</p>
@@ -631,7 +631,7 @@ Policy</a></li>
 <li><a href="../Based_on_Debian/">Based on Debian</a></li>
 </ul>
 <p>See also: <a href="https://forums.whonix.org/t/onion-services-ddos-defense-tor-0-4-2-5/8644">Onion
-Services DDOS Defense Tor 0.4.2.5</a></p>
+Services DDOS Defense Tor 0.4.2.5</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/onion-services-ddos-defense-tor-0-4-2-5/8644" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h4 id="Step_5:_Make_Tor_Configuration_Changes_Take_Effect">Step 5: Make
 Tor Configuration Changes Take Effect</h4>
 <p>On the Whonix-Gateway.</p>
@@ -703,7 +703,7 @@ access it.</p>
 from the
 <em><span>sys-whonix</span></em> VM to
 the <em><span>vault</span></em> VM
-(which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a>.
+(which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/how-to-copy-and-move-files/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 A dialog will appear asking for the destination VM.</p>
 <p><span class="code-select">sudo qvm-copy
 /var/lib/tor/hidden_service/hs_ed25519_secret_key</span></p>
@@ -726,7 +726,7 @@ steps to accomplish that.</p>
 <ul>
 <li>file manager
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Thunar with Administrator Rights</li>
 <li><a href="../File_Transfer/">File Transfer</a></li>
 </ul>
 <div class="info-box ib-for-thumb has-icon">
@@ -736,7 +736,7 @@ considered! See <a href="../Unsupported/">this</a> for
 potential alternatives.</p>
 </div>
 </div>
-<h3 id="Whonix-Workstation">Whonix-Workstation</h3>
+<h3 id="Whonix-Workstation">Whonix-Workstation</h3><span class="share-tooltip" data-anchor="Whonix-Workstation"><a class="headline-anchor" href="#Whonix-Workstation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Whonix-Workstation">https://www.whonix.org/wiki/Onion_Services/#Whonix-Workstation</span></span></span></span>
 <p>Perform all the following steps on the Whonix-Workstation.</p>
 <h4 id="Step_1:_Install_Server_Software">Step 1: Install Server
 Software</h4>
@@ -758,14 +758,15 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Update the package lists and upgrade the system.</p>
 <p><span class="code-select">sudo apt update &amp;&amp; sudo apt
 full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>micro-httpd</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
 <p><span class="code-select">sudo apt install --no-install-recommends
 micro-httpd</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
@@ -775,7 +776,7 @@ Platform specific notice.</p>
 <li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
 as per
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</li>
+Qubes Template Modification.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done.</p>
@@ -797,14 +798,15 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Update the package lists and upgrade the system.</p>
 <p><span class="code-select">sudo apt update &amp;&amp; sudo apt
 full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>nginx</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
 <p><span class="code-select">sudo apt install --no-install-recommends
 nginx</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
@@ -814,7 +816,7 @@ Platform specific notice.</p>
 <li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
 as per
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</li>
+Qubes Template Modification.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done.</p>
@@ -1005,10 +1007,10 @@ run <code>sudo whonix_firewall</code></p>
 <p>Please note that it may take up to 30 minutes (or thereabouts) until
 a fresh .onion address is reachable. Further, accessing
 <code>127.0.0.1</code> Local connections are no longer possible due to a
-<a href="https://gitlab.torproject.org/legacy/trac/-/issues/10419">change</a>
+<a href="https://gitlab.torproject.org/legacy/trac/-/issues/10419">change</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/10419" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 in Tor Browser by The Tor Project. Check <a href="../Tor_Browser/#Local_Connections">Tor Browser, Local
 Connections</a> for more information and a workaround.</p>
-<h3 id="Debugging">Debugging</h3>
+<h3 id="Debugging">Debugging</h3><span class="share-tooltip" data-anchor="Debugging"><a class="headline-anchor" href="#Debugging" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Debugging">https://www.whonix.org/wiki/Onion_Services/#Debugging</span></span></span></span>
 <h4 id="Whonix-Gateway_2">Whonix-Gateway</h4>
 <p>Check permissions.</p>
 <p><span class="code-select">sudo ls -la
@@ -1036,24 +1038,24 @@ isolation wrapper. UWT_DEV_PASSTHROUGH=1 curl
 <p>Note: Tor Browser will allow connections to <code>127.0.0.1:80</code>
 but <u>not</u> to <code>10.152.152.11:80</code>.</p>
 <h2 id="Setup_Tips_for_any_Onion_Service">Setup Tips for any Onion
-Service</h2>
+Service</h2><span class="share-tooltip" data-anchor="Setup_Tips_for_any_Onion_Service"><a class="headline-anchor" href="#Setup_Tips_for_any_Onion_Service" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Setup_Tips_for_any_Onion_Service">https://www.whonix.org/wiki/Onion_Services/#Setup_Tips_for_any_Onion_Service</span></span></span></span>
 <p>Please test the example Hidden Webserver above first; this helps in
 understanding the process in general and will ease debugging. The
 following material is quoted directly from the <a href="https://2019.www.torproject.org/docs/tor-manual.html.en">Tor
-manual</a>:</p>
+manual</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://2019.www.torproject.org/docs/tor-manual.html.en" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</p>
 <pre><code>HiddenServiceDir DIRECTORY
 
 Store data files for a hidden service in DIRECTORY. Every hidden service must have a separate directory. You may use this option multiple times to specify multiple services. If DIRECTORY does not exist, Tor will create it. Please note that you cannot add new Onion Service to already running Tor instance if Sandbox is enabled.</code></pre>
 <pre><code>HiddenServicePort VIRTPORT [TARGET]
 
 Configure a virtual port VIRTPORT for a hidden service. You may use this option multiple times; each time applies to the service using the most recent HiddenServiceDir. By default, this option maps the virtual port to the same port on 127.0.0.1 over TCP. You may override the target port, address, or both by specifying a target of addr, port, addr:port, or unix:path. (You can specify an IPv6 target as [addr]:port. Unix paths may be quoted, and may use standard C escapes.) You may also have multiple lines with the same VIRTPORT: when a user connects to that VIRTPORT, one of the TARGETs from those lines will be chosen at random. Note that address-port pairs have to be comma-separated.</code></pre>
-<h2 id="Hidden_VoIP_Server">Hidden VoIP Server</h2>
+<h2 id="Hidden_VoIP_Server">Hidden VoIP Server</h2><span class="share-tooltip" data-anchor="Hidden_VoIP_Server"><a class="headline-anchor" href="#Hidden_VoIP_Server" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Hidden_VoIP_Server">https://www.whonix.org/wiki/Onion_Services/#Hidden_VoIP_Server</span></span></span></span>
 <p>On the <a href="../VoIP/">VoIP</a> page is an example
 for a <a href="../VoIP/#Mumble_Server_Instructions">Hidden
 VoIP Mumble Server</a>.</p>
 <h1 id="Troubleshooting">Troubleshooting</h1>
 <h2 id="Onion_Services_Reliability_Issues">Onion Services Reliability
-Issues</h2>
+Issues</h2><span class="share-tooltip" data-anchor="Onion_Services_Reliability_Issues"><a class="headline-anchor" href="#Onion_Services_Reliability_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Onion_Services_Reliability_Issues">https://www.whonix.org/wiki/Onion_Services/#Onion_Services_Reliability_Issues</span></span></span></span>
 <p>Experience report by a Whonix developer.</p>
 <p><blockquote><p>I am monitoring Whonix onion and an unpublished onion. There are
 reliability issues. 2-3 times per day, the onion is inaccessible. Isn't
@@ -1063,19 +1065,19 @@ one. Therefore I didn't look into bug reporting yet.</p></blockquote></p>
 <p>Potential occasional issues:</p>
 <ul>
 <li><a href="https://forums.whonix.org/t/most-onions-down-due-to-a-denial-of-service-attack-on-the-tor-network/10979">Most
-Onions Down due to a Denial of Service Attack on the Tor Network</a>
+Onions Down due to a Denial of Service Attack on the Tor Network</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/most-onions-down-due-to-a-denial-of-service-attack-on-the-tor-network/10979" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <ul>
 <li><a href="https://blog.torproject.org/tor-network-ddos-attack/">And
-whole Tor network is challenged with long-term attack too</a></li>
+whole Tor network is challenged with long-term attack too</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/tor-network-ddos-attack/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 </ul>
-<h2 id="Watch_Logs">Watch Logs</h2>
+<h2 id="Watch_Logs">Watch Logs</h2><span class="share-tooltip" data-anchor="Watch_Logs"><a class="headline-anchor" href="#Watch_Logs" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Watch_Logs">https://www.whonix.org/wiki/Onion_Services/#Watch_Logs</span></span></span></span>
 <p>On Whonix-Gateway. Run the following command to watch both, vanguards
 and Tor's log output.</p>
 <p><span class="code-select">sudo journalctl -u vanguards -u tor@default
 -f</span></p>
-<h2 id="Bug">Bug</h2>
-<p><span class="code-select">torsocks curl <a href="http://onionv3redacted.onion">http://onionv3redacted.onion</a></span></p>
+<h2 id="Bug">Bug</h2><span class="share-tooltip" data-anchor="Bug"><a class="headline-anchor" href="#Bug" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Bug">https://www.whonix.org/wiki/Onion_Services/#Bug</span></span></span></span>
+<p><span class="code-select">torsocks curl <a href="http://onionv3redacted.onion">http://onionv3redacted.onion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://onionv3redacted.onion" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>curl output might include:</p>
 <pre><code>1593531192 ERROR torsocks[2452]: Host unreachable (in socks5_recv_connect_reply() at socks5.c:539)
 curl: (7) Couldn&#39;t connect to server</code></pre>
@@ -1084,23 +1086,23 @@ curl: (7) Couldn&#39;t connect to server</code></pre>
 We force-closed circuit 281935
 Tor bug #29699: Got 1 dropped cell on circ 281934 (in state HS_SERVICE_INTRO HSSI_ESTABLISHED; old state HS_SERVICE_INTRO HSSI_CONNECTING).
 We force-closed circuit 281934</code></pre>
-<p><a href="https://gitlab.torproject.org/legacy/trac/-/issues/29699">https://gitlab.torproject.org/legacy/trac/-/issues/29699</a>
--&gt; <a href="https://gitlab.torproject.org/legacy/trac/-/issues/26806">https://gitlab.torproject.org/legacy/trac/-/issues/26806</a>
+<p><a href="https://gitlab.torproject.org/legacy/trac/-/issues/29699">https://gitlab.torproject.org/legacy/trac/-/issues/29699</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/29699" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+-&gt; <a href="https://gitlab.torproject.org/legacy/trac/-/issues/26806">https://gitlab.torproject.org/legacy/trac/-/issues/26806</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/26806" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 -&gt;</p>
 <ul>
-<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/29699">https://gitlab.torproject.org/legacy/trac/-/issues/29699</a>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/29699">https://gitlab.torproject.org/legacy/trac/-/issues/29699</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/29699" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 ( Tor: 0.4.3.x-final )</li>
-<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/15618">https://gitlab.torproject.org/legacy/trac/-/issues/15618</a></li>
-<li><a href="https://github.com/mikeperry-tor/vanguards/blob/a214408c09ad092d415ff1a0e7fec135c30e609e/src/vanguards/bandguards.py">https://github.com/mikeperry-tor/vanguards/blob/a214408c09ad092d415ff1a0e7fec135c30e609e/src/vanguards/bandguards.py</a></li>
-<li><a href="https://github.com/mikeperry-tor/vanguards/issues/37">https://github.com/mikeperry-tor/vanguards/issues/37</a></li>
-<li><a href="https://github.com/mikeperry-tor/vanguards/issues/37#issuecomment-472963014">https://github.com/mikeperry-tor/vanguards/issues/37#issuecomment-472963014</a></li>
-<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/29700">https://gitlab.torproject.org/legacy/trac/-/issues/29700</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/15618">https://gitlab.torproject.org/legacy/trac/-/issues/15618</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/15618" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/mikeperry-tor/vanguards/blob/a214408c09ad092d415ff1a0e7fec135c30e609e/src/vanguards/bandguards.py">https://github.com/mikeperry-tor/vanguards/blob/a214408c09ad092d415ff1a0e7fec135c30e609e/src/vanguards/bandguards.py</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/mikeperry-tor/vanguards/blob/a214408c09ad092d415ff1a0e7fec135c30e609e/src/vanguards/bandguards.py" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/mikeperry-tor/vanguards/issues/37">https://github.com/mikeperry-tor/vanguards/issues/37</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/mikeperry-tor/vanguards/issues/37" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/mikeperry-tor/vanguards/issues/37#issuecomment-472963014">https://github.com/mikeperry-tor/vanguards/issues/37#issuecomment-472963014</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/mikeperry-tor/vanguards/issues/37#issuecomment-472963014" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/29700">https://gitlab.torproject.org/legacy/trac/-/issues/29700</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/29700" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Tor_Onion_Services:_Advanced_Topics">Tor Onion Services: Advanced
 Topics</h1>
-<h2 id="OnionBalance">OnionBalance</h2>
-<h3 id="OnionBalance_Introduction">OnionBalance Introduction</h3>
-<p><a href="https://onionbalance.readthedocs.io/en/latest/">OnionBalance</a>
+<h2 id="OnionBalance">OnionBalance</h2><span class="share-tooltip" data-anchor="OnionBalance"><a class="headline-anchor" href="#OnionBalance" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#OnionBalance">https://www.whonix.org/wiki/Onion_Services/#OnionBalance</span></span></span></span>
+<h3 id="OnionBalance_Introduction">OnionBalance Introduction</h3><span class="share-tooltip" data-anchor="OnionBalance_Introduction"><a class="headline-anchor" href="#OnionBalance_Introduction" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Introduction">https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Introduction</span></span></span></span>
+<p><a href="https://onionbalance.readthedocs.io/en/latest/">OnionBalance</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://onionbalance.readthedocs.io/en/latest/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 can help to prevent de-anonymization of an onion service by protecting
 it from becoming unavailable through denial of service attacks
 (DDoS).</p>
@@ -1108,7 +1110,7 @@ it from becoming unavailable through denial of service attacks
 <p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
 Warning: This is for <u><strong>testers-only</strong></u>!</p>
 </div>
-<p>This chapter OnionBalance is <a href="../Unsupported/">Unsupported</a>! Forum discussion: <a href="https://forums.whonix.org/t/onionbalance-help/9965/10">https://forums.whonix.org/t/onionbalance-help/9965/10</a></p>
+<p>This chapter OnionBalance is <a href="../Unsupported/">Unsupported</a>! Forum discussion: <a href="https://forums.whonix.org/t/onionbalance-help/9965/10">https://forums.whonix.org/t/onionbalance-help/9965/10</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/onionbalance-help/9965/10" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Prerequisite knowledge:</p>
 <ul>
 <li>How to setup a "normal" Onion Service without OnionBalance with
@@ -1226,7 +1228,7 @@ such a busy server stand out from other Tor users.</p>
 </div>
 <div class="info-box ">
 <p>Comments on <a href="https://onionbalance-v3.readthedocs.io/en/latest/v3/tutorial-v3.html">upstream
-original OnionBalance documentation</a>:</p>
+original OnionBalance documentation</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://onionbalance-v3.readthedocs.io/en/latest/v3/tutorial-v3.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</p>
 <p>These comments are only important when wondering why this
 documentation is different from upstream documentation. Most users can
 skip reading these comments.</p>
@@ -1277,7 +1279,7 @@ which is of course more authoritative than the third party documentation
 written here.</p>
 </div>
 <h3 id="OnionBalance_Frontend_Setup_Part_One">OnionBalance Frontend
-Setup Part One</h3>
+Setup Part One</h3><span class="share-tooltip" data-anchor="OnionBalance_Frontend_Setup_Part_One"><a class="headline-anchor" href="#OnionBalance_Frontend_Setup_Part_One" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Frontend_Setup_Part_One">https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Frontend_Setup_Part_One</span></span></span></span>
 <p>On the Whonix-Gateway OnionBalance frontend server.</p>
 <p><strong>1.</strong> OnionBalance Package Installation</p>
 <ul>
@@ -1297,14 +1299,15 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Update the package lists and upgrade the system.</p>
 <p><span class="code-select">sudo apt update &amp;&amp; sudo apt
 full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>onionbalance</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
 <p><span class="code-select">sudo apt install --no-install-recommends
 onionbalance</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
@@ -1314,7 +1317,7 @@ Platform specific notice.</p>
 <li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
 as per
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</li>
+Qubes Template Modification.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done.</p>
@@ -1351,11 +1354,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1363,7 +1362,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1379,11 +1378,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_2">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1391,7 +1386,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1411,7 +1406,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -1423,11 +1418,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1500,7 +1491,7 @@ is an example, will be different.</li>
 <pre><code>dpkhemrbs3oiv2fww5sxs6r2uybczwijzfn2ezy2osaj7iox7kl7nhad.onion</code></pre>
 <p>A note (such as in a text file) with the frontend's onion address
 should be created for later reference by the user.</p>
-<h3 id="OnionBalance_Backend_Setup">OnionBalance Backend Setup</h3>
+<h3 id="OnionBalance_Backend_Setup">OnionBalance Backend Setup</h3><span class="share-tooltip" data-anchor="OnionBalance_Backend_Setup"><a class="headline-anchor" href="#OnionBalance_Backend_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Backend_Setup">https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Backend_Setup</span></span></span></span>
 <p>On the Whonix-Gateway (<code>sys-whonix</code>) OnionBalance backend
 servers.</p>
 <p><strong>1.</strong> Setup an Onion Service "normally" without
@@ -1518,8 +1509,7 @@ OnionBalance will be unable to magically fix this issue.</p>
 <div class="intro-like">
 <p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] of your choice with administrative
-rights.</p>
+text editor of your choice with administrative rights.</p>
 </div>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Sysmaint notice.</p>
@@ -1541,7 +1531,7 @@ Platform specific. Select your platform.</p>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -1587,7 +1577,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="tcc-content">
 <p><u>If you are using a graphical Whonix-Gateway</u> and enabled
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+unrestricted admin mode, take the following step.</p>
 <p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
 <code>Tor User Config</code></p>
 </div>
@@ -1621,7 +1611,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -1695,11 +1685,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1707,7 +1693,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1723,11 +1709,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_4">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_4">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1735,7 +1717,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1755,7 +1737,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -1767,11 +1749,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1855,7 +1833,7 @@ backend instances.</p>
 <p><strong>11.</strong> Done.</p>
 <p>The OnionBalance backend instances setup has been completed.</p>
 <h3 id="OnionBalance_Frontend_Setup_Part_Two">OnionBalance Frontend
-Setup Part Two</h3>
+Setup Part Two</h3><span class="share-tooltip" data-anchor="OnionBalance_Frontend_Setup_Part_Two"><a class="headline-anchor" href="#OnionBalance_Frontend_Setup_Part_Two" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Frontend_Setup_Part_Two">https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Frontend_Setup_Part_Two</span></span></span></span>
 <p>On the Whonix-Gateway OnionBalance frontend server.</p>
 <p><strong>1.</strong> OnionBalance Frontend Config File Setup</p>
 <p>Open file <code>/etc/onionbalance/config.yaml</code> in an editor
@@ -1872,11 +1850,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_5">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_5">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1884,7 +1858,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1900,11 +1874,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_5">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_5">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1912,7 +1882,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1932,7 +1902,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -1944,11 +1914,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2058,14 +2024,14 @@ make a backup of the whole VM.</p>
 <p><strong>8.</strong> Done.</p>
 <p>The OnionBalance Frontend Setup has been completed.</p>
 <h3 id="OnionBalance_Advanced_Security">OnionBalance Advanced
-Security</h3>
+Security</h3><span class="share-tooltip" data-anchor="OnionBalance_Advanced_Security"><a class="headline-anchor" href="#OnionBalance_Advanced_Security" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Advanced_Security">https://www.whonix.org/wiki/Onion_Services/#OnionBalance_Advanced_Security</span></span></span></span>
 <p>OnionBalance is mentioned in the <a href="../Vanguards/">vanguards</a> <a href="https://github.com/mikeperry-tor/vanguards/blob/master/README_SECURITY.md">security
-readme</a> by vanguards author and Tor developer Mike Perry where he
+readme</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/mikeperry-tor/vanguards/blob/master/README_SECURITY.md" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> by vanguards author and Tor developer Mike Perry where he
 discusses attacks against onion services and defenses. Additional
 OnionBalance and/or vanguards settings might improve the security of the
 onion service, which is <a href="../Unsupported/">undocumented</a> in Whonix wiki.</p>
 <h2 id="Onion_Services_Security_Enhancements">Onion Services Security
-Enhancements</h2>
+Enhancements</h2><span class="share-tooltip" data-anchor="Onion_Services_Security_Enhancements"><a class="headline-anchor" href="#Onion_Services_Security_Enhancements" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Onion_Services_Security_Enhancements">https://www.whonix.org/wiki/Onion_Services/#Onion_Services_Security_Enhancements</span></span></span></span>
 <p>Over time, The Tor Project is steadily releasing additional features
 which enhance onion services security. Recent efforts to protect against
 guard enumeration attacks include the vanguards add-on and additional
@@ -2074,16 +2040,16 @@ to a list of nodes. To learn more about these enhancements and their
 optional configuration, see:</p>
 <ul>
 <li><a href="https://blog.torproject.org/announcing-vanguards-add-onion-services">Announcing
-the Vanguards Add-On for Onion Services</a></li>
+the Vanguards Add-On for Onion Services</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/announcing-vanguards-add-onion-services" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/mikeperry-tor/vanguards">Vanguards
-GitHub resource</a></li>
+GitHub resource</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/mikeperry-tor/vanguards" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://forums.whonix.org/t/vanguards-additional-protections-for-tor-onion-services/8064">vanguards
-- Additional protections for Tor Onion Services</a></li>
+- Additional protections for Tor Onion Services</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/vanguards-additional-protections-for-tor-onion-services/8064" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://forums.whonix.org/t/onion-service-guard-protection-hslayer2nodes-hslayer3nodes/4855">Onion
-Service Guard Protection - HSLayer2Nodes / HSLayer3Nodes</a></li>
+Service Guard Protection - HSLayer2Nodes / HSLayer3Nodes</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/onion-service-guard-protection-hslayer2nodes-hslayer3nodes/4855" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h2 id="How_Onion_Services_Connections_Work">How Onion Services
-Connections Work</h2>
+Connections Work</h2><span class="share-tooltip" data-anchor="How_Onion_Services_Connections_Work"><a class="headline-anchor" href="#How_Onion_Services_Connections_Work" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#How_Onion_Services_Connections_Work">https://www.whonix.org/wiki/Onion_Services/#How_Onion_Services_Connections_Work</span></span></span></span>
 <p>To understand how onion services work, a simple overview of the
 process is outlined below. <sup class="reference"><a href="#cite_note-27">[27]</a></sup></p>
 <p><strong>Step 1.</strong> Onion services advertise their existence in
@@ -2131,7 +2097,7 @@ user and an onion service is represented in the picture below.</p>
 <p><strong>Figure:</strong> <em>Alice (User) and Bob (Onion Service)
 Successful Connection</em> <sup class="reference"><a href="#cite_note-29">[29]</a></sup></p>
 <p><img src="../../media/Tor_Onion_Service_Connection_Success.png.webp" width="600" alt="Tor_Onion_Service_Connection_Success.png" /></p>
-<h2 id="Onion_Services_Security">Onion Services Security</h2>
+<h2 id="Onion_Services_Security">Onion Services Security</h2><span class="share-tooltip" data-anchor="Onion_Services_Security"><a class="headline-anchor" href="#Onion_Services_Security" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Onion_Services_Security">https://www.whonix.org/wiki/Onion_Services/#Onion_Services_Security</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
 This is not a Whonix-specific issue. This section considers Tor and
@@ -2143,7 +2109,7 @@ quotes and links to provide an estimation; feel free to add further
 germane material.</p>
 <p>Roger Dingledine, an original developer of Tor, addressed this issue
 in a 2013 tor-talk mailing list <a href="https://lists.torproject.org/pipermail/tor-talk/2013-March/027539.html">How
-easy are Tor hidden services to locate?</a>:</p>
+easy are Tor hidden services to locate?</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2013-March/027539.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</p>
 <p><blockquote><p>Hidden services are definitely weaker than regular Tor circuits, a)
 because the adversary can induce them to speak, and b) because they stay
 at the same place over time. Mostly 'a'.</p>
@@ -2151,7 +2117,7 @@ at the same place over time. Mostly 'a'.</p>
 stories of people breaking their anonymity by breaking Tor. So they're
 not foolproof for sure, but they're also not trivial to deanonymize.</p>
 <p>I'll turn it around, and ask "easy compared to what?"</p></blockquote></p>
-<p>Roger also <a href="https://lists.torproject.org/pipermail/tor-talk/2013-March/027544.html">added</a>:</p>
+<p>Roger also <a href="https://lists.torproject.org/pipermail/tor-talk/2013-March/027544.html">added</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2013-March/027544.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</p>
 <p><blockquote><p>When you're a Tor client, you only use the Tor network when you
 choose to access it (e.g. by trying to fetch a web page). So if the
 attacker has some attack that works only a very small percentage of
@@ -2159,10 +2125,10 @@ time, they have to wait for you to initiate connections.</p>
 <p>But for a hidden service, they can cause you to initiate a connection
 just by visiting the hidden service. And they can do it as often as they
 want.</p>
-<p>See <a href="https://www.freehaven.net/anonbib/#hs-attack06">https://www.freehaven.net/anonbib/#hs-attack06</a>
+<p>See <a href="https://www.freehaven.net/anonbib/#hs-attack06">https://www.freehaven.net/anonbib/#hs-attack06</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.freehaven.net/anonbib/#hs-attack06" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 for the original paper about this topic (and the reason we implemented
 entry guards).</p>
-<p>And then see <a href="https://www.freehaven.net/anonbib/#wpes12-cogs">https://www.freehaven.net/anonbib/#wpes12-cogs</a>
+<p>And then see <a href="https://www.freehaven.net/anonbib/#wpes12-cogs">https://www.freehaven.net/anonbib/#wpes12-cogs</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.freehaven.net/anonbib/#wpes12-cogs" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 for a more recent example. The goal of that paper is to understand how
 long it takes in normal operation (with entry guards going offline and
 being replaced) before a typical user touches an adversary-controlled
@@ -2183,10 +2149,10 @@ degraded under specific conditions.</p>
 been mitigated since The Tor Project announced the release of v3
 (<code>HiddenServiceVersion 3</code>) onions in 2017, succeeding the
 original v2 onion service design, see: <a href="https://blog.torproject.org/tors-fall-harvest-next-generation-onion-services">Tor's
-Fall Harvest: The Next Generation of Onion Services</a>.</p>
+Fall Harvest: The Next Generation of Onion Services</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/tors-fall-harvest-next-generation-onion-services" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p><span class="manually-placed-anchor " id="Hidden_Service_Authentication"></span></p>
 <h2 id="Onion_Service_Authentication_Client_Setup">Onion Service
-Authentication Client Setup</h2>
+Authentication Client Setup</h2><span class="share-tooltip" data-anchor="Onion_Service_Authentication_Client_Setup"><a class="headline-anchor" href="#Onion_Service_Authentication_Client_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Onion_Service_Authentication_Client_Setup">https://www.whonix.org/wiki/Onion_Services/#Onion_Service_Authentication_Client_Setup</span></span></span></span>
 <p>There are two options to set up Onion Service Client Authentication.
 Choose <u>either</u> option <strong>A)</strong> <u>or</u>
 <strong>B)</strong>.</p>
@@ -2219,7 +2185,7 @@ INFO: Success.</code></pre>
 been completed.</p>
 </div>
 <h2 id="Notes_about_End-to-end_Security_of_Onion_Services">Notes about
-End-to-end Security of Onion Services</h2>
+End-to-end Security of Onion Services</h2><span class="share-tooltip" data-anchor="Notes_about_End-to-end_Security_of_Onion_Services"><a class="headline-anchor" href="#Notes_about_End-to-end_Security_of_Onion_Services" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Notes_about_End-to-end_Security_of_Onion_Services">https://www.whonix.org/wiki/Onion_Services/#Notes_about_End-to-end_Security_of_Onion_Services</span></span></span></span>
 <p>Hidden services are not really encrypted "end-to-end", they are only
 encrypted "Tor-to-end" (or "Tor-to-Tor"). The communication between the
 browser or server and Tor is sent in clear text. This does not really
@@ -2238,8 +2204,8 @@ adversary would have to compromise Whonix-Gateway as well.</p>
 <p>Although it is possible to use onion services and TLS in combination
 -- that is, <code>https://****************.onion</code> -- there are
 very few onion services reachable over TLS. For example, DuckDuckGo
-search engine <a href="https://duckduckgo.com/">https://duckduckgo.com/</a> can be
-reached over <a href="https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/">https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/</a>.
+search engine <a href="https://duckduckgo.com/">https://duckduckgo.com/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://duckduckgo.com/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> can be
+reached over <a href="https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/">https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 But since this only offers benefits to users of Whonix (and other Tor
 gateway implementations), there is little demand. However, it does
 provide some nice defense in depth because it eliminates a single point
@@ -2251,7 +2217,7 @@ secure channel, for example a meeting.</p>
 <p>In regards to public onion services, certificate authorities
 previously refused to give out certificates for .onion sites, for
 example Startssl.com declined because .onion is no .gTLD, see: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/6116">Bug
-#6116: apply for .onion gTLD at IANA</a>. However, in DuckDuckGo's case,
+#6116: apply for .onion gTLD at IANA</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/6116" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. However, in DuckDuckGo's case,
 a certificate has been issued by DigiCert which confirms TLS
 certificates can be issued for people who can reasonably prove they own
 a .onion domain. Presumably evidence of domain control may include
@@ -2264,30 +2230,30 @@ design).</p>
 <p>Further reading:</p>
 <ul>
 <li><a href="https://web.archive.org/web/20220609222239/https://matt.traudt.xyz/posts/2017-12-02-dont-https-your-onions/">Don't
-HTTPS Your Onions</a> <a href="http://tv54samlti22655ohq3oaswm64cwf7ulp6wzkjcvdla2hagqcu7uokid.onion/posts/dont-https-your-o44SnkW2/">(.onion)</a></li>
+HTTPS Your Onions</a> <a href="http://tv54samlti22655ohq3oaswm64cwf7ulp6wzkjcvdla2hagqcu7uokid.onion/posts/dont-https-your-o44SnkW2/">(.onion)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://tv54samlti22655ohq3oaswm64cwf7ulp6wzkjcvdla2hagqcu7uokid.onion/posts/dont-https-your-o44SnkW2/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://blog.torproject.org/tls-certificate-for-onion-site">Get a
-TLS certificate for your onion site</a></li>
+TLS certificate for your onion site</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/tls-certificate-for-onion-site" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://community.torproject.org/onion-services/advanced/https/">HTTPS
-for your onion service</a> <a href="http://xmrhfasfg5suueegrnc4gsgyi2tyclcy5oz7f5drnrodmdtob6t2ioyd.onion/onion-services/advanced/https/index.html">(.onion)</a></li>
+for your onion service</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://community.torproject.org/onion-services/advanced/https/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <a href="http://xmrhfasfg5suueegrnc4gsgyi2tyclcy5oz7f5drnrodmdtob6t2ioyd.onion/onion-services/advanced/https/index.html">(.onion)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://xmrhfasfg5suueegrnc4gsgyi2tyclcy5oz7f5drnrodmdtob6t2ioyd.onion/onion-services/advanced/https/index.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="../Moved:Privacy_Policy_Technical_Details/#onion-tls">(No) Onion TLS on the Whonix Website</a>.</li>
 </ul>
-<p><a href="https://www.namecoin.org/docs/faq/#do-i-need-to-use-tls-with-a-bit-domain-that-points-to-a-tor-onion-service-or-i2p-eepsite">https://www.namecoin.org/docs/faq/#do-i-need-to-use-tls-with-a-bit-domain-that-points-to-a-tor-onion-service-or-i2p-eepsite</a></p>
+<p><a href="https://www.namecoin.org/docs/faq/#do-i-need-to-use-tls-with-a-bit-domain-that-points-to-a-tor-onion-service-or-i2p-eepsite">https://www.namecoin.org/docs/faq/#do-i-need-to-use-tls-with-a-bit-domain-that-points-to-a-tor-onion-service-or-i2p-eepsite</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.namecoin.org/docs/faq/#do-i-need-to-use-tls-with-a-bit-domain-that-points-to-a-tor-onion-service-or-i2p-eepsite" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h2 id="High_Traffic_Onion_Service_Scalability_Performance">High Traffic
-Onion Service Scalability Performance</h2>
+Onion Service Scalability Performance</h2><span class="share-tooltip" data-anchor="High_Traffic_Onion_Service_Scalability_Performance"><a class="headline-anchor" href="#High_Traffic_Onion_Service_Scalability_Performance" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#High_Traffic_Onion_Service_Scalability_Performance">https://www.whonix.org/wiki/Onion_Services/#High_Traffic_Onion_Service_Scalability_Performance</span></span></span></span>
 <p>Although mostly focused on non-anonymous onion services, the tor-dev
 mailing list discussion <a href="https://lists.torproject.org/pipermail/tor-dev/2020-June/014347.html">onionbalance
-useful on same server / for high-spec non-location hidden servers?</a>
+useful on same server / for high-spec non-location hidden servers?</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-dev/2020-June/014347.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 contains interesting information on scalability and performance of high
 traffic onion services. The <a href="https://lists.torproject.org/pipermail/tor-dev/">tor-dev mailing
-list</a> (<a href="https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev">sign-up</a>)
+list</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-dev/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (<a href="https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev">sign-up</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
 is considered a useful resource for technical information since they are
 receptive to genuine inquiries.</p>
-<h2 id="Performance">Performance</h2>
+<h2 id="Performance">Performance</h2><span class="share-tooltip" data-anchor="Performance"><a class="headline-anchor" href="#Performance" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onion_Services/#Performance">https://www.whonix.org/wiki/Onion_Services/#Performance</span></span></span></span>
 <ul>
 <li><a href="https://metrics.torproject.org/onionperf-throughput.html">Tor
-Metrics: Throughput</a> <a href="http://hctxrvjzfpvmzh2jllqhgvvkoepxb4kfzdjm6h7egcwlumggtktiftid.onion/onionperf-throughput.html">(.onion)</a></li>
+Metrics: Throughput</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://metrics.torproject.org/onionperf-throughput.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <a href="http://hctxrvjzfpvmzh2jllqhgvvkoepxb4kfzdjm6h7egcwlumggtktiftid.onion/onionperf-throughput.html">(.onion)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://hctxrvjzfpvmzh2jllqhgvvkoepxb4kfzdjm6h7egcwlumggtktiftid.onion/onionperf-throughput.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://metrics.torproject.org/onionperf-latencies.html">Tor
-Metrics: Circuit round-trip latencies</a> <a href="http://hctxrvjzfpvmzh2jllqhgvvkoepxb4kfzdjm6h7egcwlumggtktiftid.onion/onionperf-latencies.html">(.onion)</a></li>
+Metrics: Circuit round-trip latencies</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://metrics.torproject.org/onionperf-latencies.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <a href="http://hctxrvjzfpvmzh2jllqhgvvkoepxb4kfzdjm6h7egcwlumggtktiftid.onion/onionperf-latencies.html">(.onion)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://hctxrvjzfpvmzh2jllqhgvvkoepxb4kfzdjm6h7egcwlumggtktiftid.onion/onionperf-latencies.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="See_Also">See Also</h1>
 <ul>
@@ -2301,25 +2267,25 @@ Administration</a> including SSH / VNC (x2go) into Whonix</li>
 <h1 id="References">References</h1>
 <div class="references">
 <ol>
-<li id="cite_note-1"><a href="https://2019.www.torproject.org/docs/onion-services.html.en">https://2019.www.torproject.org/docs/onion-services.html.en</a></li>
-<li id="cite_note-2">* <a href="https://blog.0day.rocks/securing-a-web-hidden-service-89d935ba1c1d">https://blog.0day.rocks/securing-a-web-hidden-service-89d935ba1c1d</a>
-* <a href="https://null-byte.wonderhowto.com/how-to/detect-misconfigurations-anonymous-dark-web-sites-with-onionscan-0181366/">https://null-byte.wonderhowto.com/how-to/detect-misconfigurations-anonymous-dark-web-sites-with-onionscan-0181366/</a>
-* <a href="https://www.secjuice.com/finding-real-ips-of-origin-servers-behind-cloudflare-or-tor/">https://www.secjuice.com/finding-real-ips-of-origin-servers-behind-cloudflare-or-tor/</a>
+<li id="cite_note-1"><a href="https://2019.www.torproject.org/docs/onion-services.html.en">https://2019.www.torproject.org/docs/onion-services.html.en</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://2019.www.torproject.org/docs/onion-services.html.en" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-2">* <a href="https://blog.0day.rocks/securing-a-web-hidden-service-89d935ba1c1d">https://blog.0day.rocks/securing-a-web-hidden-service-89d935ba1c1d</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.0day.rocks/securing-a-web-hidden-service-89d935ba1c1d" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://null-byte.wonderhowto.com/how-to/detect-misconfigurations-anonymous-dark-web-sites-with-onionscan-0181366/">https://null-byte.wonderhowto.com/how-to/detect-misconfigurations-anonymous-dark-web-sites-with-onionscan-0181366/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://null-byte.wonderhowto.com/how-to/detect-misconfigurations-anonymous-dark-web-sites-with-onionscan-0181366/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://www.secjuice.com/finding-real-ips-of-origin-servers-behind-cloudflare-or-tor/">https://www.secjuice.com/finding-real-ips-of-origin-servers-behind-cloudflare-or-tor/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.secjuice.com/finding-real-ips-of-origin-servers-behind-cloudflare-or-tor/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 * <a href="https://infosecwriteups.com/finding-the-origin-ip-behind-cdns-37cd18d5275">Also
 useful to learn about related topic to find out how the origin IP of a
-server behind a CDN can be found out.</a> * See also <a href="https://onionscan.org/">onionscan</a>.</li>
+server behind a CDN can be found out.</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://infosecwriteups.com/finding-the-origin-ip-behind-cdns-37cd18d5275" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> * See also <a href="https://onionscan.org/">onionscan</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://onionscan.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li id="cite_note-3">These applications talk to the Tor control port directly (filtered)
 through <a href="../Onion-grater/">onion-grater</a>, and
 create onion services through the Tor control protocol command
 <code>ADD_ONION</code>.</li>
-<li id="cite_note-4"><a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">https://en.wikipedia.org/wiki/Transport_Layer_Security</a></li>
+<li id="cite_note-4"><a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">https://en.wikipedia.org/wiki/Transport_Layer_Security</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Transport_Layer_Security" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-5">To be exact, only tor-to-tor, see <a href="./#Notes_about_End-to-end_Security_of_Onion_Services">Notes about End-to-end Security of Onion
 Services</a>.</li>
-<li id="cite_note-6"><a href="https://archive.ph/qCRb5">https://archive.ph/qCRb5</a></li>
-<li id="cite_note-7"><a href="https://archive.ph/Aaqsz">https://archive.ph/Aaqsz</a></li>
-<li id="cite_note-8"><a href="https://lists.torproject.org/pipermail/tor-talk/2016-October/042360.html">https://lists.torproject.org/pipermail/tor-talk/2016-October/042360.html</a></li>
-<li id="cite_note-9"><a href="https://wiki.debian.org/WebServers">https://wiki.debian.org/WebServers</a></li>
-<li id="cite_note-10">It is advised to install <a href="https://packages.debian.org/trixie/libapache2-mod-removeip">libapache2-mod-removeip</a>.
+<li id="cite_note-6"><a href="https://archive.ph/qCRb5">https://archive.ph/qCRb5</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://archive.ph/qCRb5" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-7"><a href="https://archive.ph/Aaqsz">https://archive.ph/Aaqsz</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://archive.ph/Aaqsz" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-8"><a href="https://lists.torproject.org/pipermail/tor-talk/2016-October/042360.html">https://lists.torproject.org/pipermail/tor-talk/2016-October/042360.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2016-October/042360.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-9"><a href="https://wiki.debian.org/WebServers">https://wiki.debian.org/WebServers</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://wiki.debian.org/WebServers" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-10">It is advised to install <a href="https://packages.debian.org/trixie/libapache2-mod-removeip">libapache2-mod-removeip</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.debian.org/trixie/libapache2-mod-removeip" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 <div class="info-box ">
 <p>Install package(s) <code>libapache2-mod-removeip</code> following
 these instructions:
@@ -2327,21 +2293,22 @@ these instructions:
 Platform specific notice. * <a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: No special notice. * <a href="../Qubes/">Qubes-Whonix</a>: In Template.
 <i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]. <span class="code-select">sudo
-apt update &amp;&amp; sudo apt full-upgrade</span>
+Update the package lists and upgrade the system.
+<span class="code-select">sudo apt update &amp;&amp; sudo apt
+full-upgrade</span>
 <i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>libapache2-mod-removeip</code> package(s). Using
 <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] is in most cases optional.
-<span class="code-select">sudo apt install --no-install-recommends
-libapache2-mod-removeip</span>
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional. <span class="code-select">sudo apt install
+--no-install-recommends libapache2-mod-removeip</span>
 <i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">4</i>
 Platform specific notice. * Non-Qubes-Whonix: No special notice. *
 Qubes-Whonix: Shut down Template and restart App Qubes based on it as
 per
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].
+Qubes Template Modification.
 <i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done. The procedure of installing package(s)
 <code>libapache2-mod-removeip</code> is complete.</p>
@@ -2365,27 +2332,27 @@ it is necessary to redirect
 achieved with a firewall rule or netcat: <span class="code-select">sudo
 ncat -l 10.152.152.10 80 -c 'ncat 127.0.0.1 80'</span></p>
 </div></li>
-<li id="cite_note-12">* <a href="https://tor.stackexchange.com/questions/17366/nginx-leaks-my-hidden-service-port-number">https://tor.stackexchange.com/questions/17366/nginx-leaks-my-hidden-service-port-number</a>
-* <a href="https://tor.stackexchange.com/questions/15099/nginx-directory-disclosures">https://tor.stackexchange.com/questions/15099/nginx-directory-disclosures</a>
-* <a href="https://scotthelme.co.uk/hardening-your-http-response-headers/">https://scotthelme.co.uk/hardening-your-http-response-headers/</a>
-* <a href="https://trac.nginx.org/nginx/ticket/523">https://trac.nginx.org/nginx/ticket/523</a></li>
-<li id="cite_note-13"><a href="https://mascherari.press/why-onionscan-should-worry-you/">https://mascherari.press/why-onionscan-should-worry-you/</a></li>
-<li id="cite_note-14"><a href="https://mascherari.press/thwarting-identity-correlation-attacks/">https://mascherari.press/thwarting-identity-correlation-attacks/</a></li>
+<li id="cite_note-12">* <a href="https://tor.stackexchange.com/questions/17366/nginx-leaks-my-hidden-service-port-number">https://tor.stackexchange.com/questions/17366/nginx-leaks-my-hidden-service-port-number</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tor.stackexchange.com/questions/17366/nginx-leaks-my-hidden-service-port-number" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://tor.stackexchange.com/questions/15099/nginx-directory-disclosures">https://tor.stackexchange.com/questions/15099/nginx-directory-disclosures</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tor.stackexchange.com/questions/15099/nginx-directory-disclosures" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://scotthelme.co.uk/hardening-your-http-response-headers/">https://scotthelme.co.uk/hardening-your-http-response-headers/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://scotthelme.co.uk/hardening-your-http-response-headers/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://trac.nginx.org/nginx/ticket/523">https://trac.nginx.org/nginx/ticket/523</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://trac.nginx.org/nginx/ticket/523" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-13"><a href="https://mascherari.press/why-onionscan-should-worry-you/">https://mascherari.press/why-onionscan-should-worry-you/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://mascherari.press/why-onionscan-should-worry-you/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-14"><a href="https://mascherari.press/thwarting-identity-correlation-attacks/">https://mascherari.press/thwarting-identity-correlation-attacks/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://mascherari.press/thwarting-identity-correlation-attacks/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-15">At the time of writing, OnionScan has not had any commits since
 early 2017.</li>
-<li id="cite_note-16"><a href="https://github.com/camelids/">https://github.com/camelids/</a></li>
+<li id="cite_note-16"><a href="https://github.com/camelids/">https://github.com/camelids/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/camelids/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-17"><a href="https://petsymposium.org/2017/papers/issue2/paper54-2017-2-source.pdf">Website
-Fingerprinting Defenses at the Application Layer</a></li>
+Fingerprinting Defenses at the Application Layer</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://petsymposium.org/2017/papers/issue2/paper54-2017-2-source.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-18"><a href="https://web.archive.org/web/20170421225506/https://www.esat.kuleuven.be/cosic/?p=6743">https://web.archive.org/web/20170421225506/https://www.esat.kuleuven.be/cosic/?p=6743</a></li>
-<li id="cite_note-19"><a href="https://forums.whonix.org/t/ship-or-document-ddos-resistant-torrc-settings/10417">https://forums.whonix.org/t/ship-or-document-ddos-resistant-torrc-settings/10417</a></li>
+<li id="cite_note-19"><a href="https://forums.whonix.org/t/ship-or-document-ddos-resistant-torrc-settings/10417">https://forums.whonix.org/t/ship-or-document-ddos-resistant-torrc-settings/10417</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/ship-or-document-ddos-resistant-torrc-settings/10417" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-20">Since it is easy to confirm that the internal LAN IP
 <code>10.152.152.10</code> is normally used by Whonix-Gateway.</li>
-<li id="cite_note-21">* <a href="https://github.com/DonnchaC/onionbalance/issues/69#issuecomment-58108608">https://github.com/DonnchaC/onionbalance/issues/69#issuecomment-58108608</a>
+<li id="cite_note-21">* <a href="https://github.com/DonnchaC/onionbalance/issues/69#issuecomment-58108608">https://github.com/DonnchaC/onionbalance/issues/69#issuecomment-58108608</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/DonnchaC/onionbalance/issues/69#issuecomment-58108608" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 * <a href="https://lists.torproject.org/pipermail/tor-dev/2020-January/014142.html">Tor
 development mailing list - Request for onionbalance v3 pre-alpha
-testing</a></li>
-<li id="cite_note-22">* <a href="https://forum.torproject.net/t/alpha-release-0-4-8-1-alpha/7816">https://forum.torproject.net/t/alpha-release-0-4-8-1-alpha/7816</a>
-* <a href="https://forums.whonix.org/t/tor-0-4-8-interesting-features/16768">https://forums.whonix.org/t/tor-0-4-8-interesting-features/16768</a></li>
+testing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-dev/2020-January/014142.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-22">* <a href="https://forum.torproject.net/t/alpha-release-0-4-8-1-alpha/7816">https://forum.torproject.net/t/alpha-release-0-4-8-1-alpha/7816</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forum.torproject.net/t/alpha-release-0-4-8-1-alpha/7816" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://forums.whonix.org/t/tor-0-4-8-interesting-features/16768">https://forums.whonix.org/t/tor-0-4-8-interesting-features/16768</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-0-4-8-interesting-features/16768" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-23">Listening on <code>0.0.0.0</code> means the application will accept
 connections on any IP address irrespective of the Whonix-Workstation's
 actual internal network interface <code>eth0</code> assigned IP address.
@@ -2407,30 +2374,30 @@ localhost <code>127.0.0.1</code> and then use something such as Qubes
 qrexec to connect Tor's <code>VIRTPORT</code> to the application's
 listening port.</li>
 <li id="cite_note-24">The purpose of Onion Services Authentication has been <a href="https://lists.torproject.org/pipermail/tor-dev/2019-December/014105.html">asked
-about on the Tor Talk Mailing List</a>. Answers: * <a href="https://lists.torproject.org/pipermail/tor-dev/2019-December/014106.html">https://lists.torproject.org/pipermail/tor-dev/2019-December/014106.html</a>
-* <a href="https://lists.torproject.org/pipermail/tor-dev/2019-December/014107.html">https://lists.torproject.org/pipermail/tor-dev/2019-December/014107.html</a>
-* <a href="https://forums.whonix.org/t/onion-services-authentication/975/14">https://forums.whonix.org/t/onion-services-authentication/975/14</a></li>
+about on the Tor Talk Mailing List</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-dev/2019-December/014105.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Answers: * <a href="https://lists.torproject.org/pipermail/tor-dev/2019-December/014106.html">https://lists.torproject.org/pipermail/tor-dev/2019-December/014106.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-dev/2019-December/014106.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://lists.torproject.org/pipermail/tor-dev/2019-December/014107.html">https://lists.torproject.org/pipermail/tor-dev/2019-December/014107.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-dev/2019-December/014107.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://forums.whonix.org/t/onion-services-authentication/975/14">https://forums.whonix.org/t/onion-services-authentication/975/14</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/onion-services-authentication/975/14" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-25">To use yourself locally for testing on the same Whonix-Gateway. On
 the Whonix-Gateway. Run as user. Do not run as root.
 <span class="code-select">cp
 /var/lib/tor_autogen/hidden_service/1.auth_private ~/</span></li>
-<li id="cite_note-26">Quote <a href="https://onionbalance-v3.readthedocs.io/en/latest/v3/tutorial-v3.html">https://onionbalance-v3.readthedocs.io/en/latest/v3/tutorial-v3.html</a>
+<li id="cite_note-26">Quote <a href="https://onionbalance-v3.readthedocs.io/en/latest/v3/tutorial-v3.html">https://onionbalance-v3.readthedocs.io/en/latest/v3/tutorial-v3.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://onionbalance-v3.readthedocs.io/en/latest/v3/tutorial-v3.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <blockquote><p>Note that if you do not have an existing v3 onion service and you are
 trying to create one from scratch, you must first start Tor once without
 this torrc line, otherwise it will fail to start.</p></blockquote></li>
-<li id="cite_note-27"><a href="https://support.torproject.org/onionservices/">https://support.torproject.org/onionservices/</a></li>
+<li id="cite_note-27"><a href="https://support.torproject.org/onionservices/">https://support.torproject.org/onionservices/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://support.torproject.org/onionservices/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-28">This is currently a 16 character name, but will be increased to 54
 characters in the near-medium term to upgrade the cryptographic strength
-of <i>.onion</i> services. See: <a href="https://blog.torproject.org/cooking-onions-names-your-onions">https://blog.torproject.org/cooking-onions-names-your-onions</a></li>
-<li id="cite_note-29"><a href="https://2019.www.torproject.org/images/tor-onion-services-6.png">https://2019.www.torproject.org/images/tor-onion-services-6.png</a></li>
+of <i>.onion</i> services. See: <a href="https://blog.torproject.org/cooking-onions-names-your-onions">https://blog.torproject.org/cooking-onions-names-your-onions</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/cooking-onions-names-your-onions" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-29"><a href="https://2019.www.torproject.org/images/tor-onion-services-6.png">https://2019.www.torproject.org/images/tor-onion-services-6.png</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://2019.www.torproject.org/images/tor-onion-services-6.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-30">Concerns with v2 onion services included: * 80 bit name hash and
 RSA-1024 sized keys * Quote Mike Perry
-(<span>Tor core people</span> <a href="https://www.torproject.org/about/people/">https://www.torproject.org/about/people/</a>):
-<a href="https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05418.html">https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05418.html</a>
-* Quote Mike Perry: <a href="https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05462.html">https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05462.html</a>
+(<span>Tor core people</span> <a href="https://www.torproject.org/about/people/">https://www.torproject.org/about/people/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.torproject.org/about/people/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>):
+<a href="https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05418.html">https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05418.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05418.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* Quote Mike Perry: <a href="https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05462.html">https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05462.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.mail-archive.com/liberationtech@lists.stanford.edu/msg05462.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 * Also see: <a href="https://blog.torproject.org/hidden-services-need-some-love">The
-Tor Project Blog: Onion Services need some love</a>. * <a href="https://conference.hitb.org/hitbsecconf2015ams/sessions/non-hidden-hidden-services-considered-harmful-attacks-and-detection/">Non-Hidden
-Onion Services Considered Harmful: Attacks and Detection</a> * <a href="https://forums.whonix.org/t/cryptolog-for-whonix-website/3369/12">https://forums.whonix.org/t/cryptolog-for-whonix-website/3369/12</a></li>
+Tor Project Blog: Onion Services need some love</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/hidden-services-need-some-love" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. * <a href="https://conference.hitb.org/hitbsecconf2015ams/sessions/non-hidden-hidden-services-considered-harmful-attacks-and-detection/">Non-Hidden
+Onion Services Considered Harmful: Attacks and Detection</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://conference.hitb.org/hitbsecconf2015ams/sessions/non-hidden-hidden-services-considered-harmful-attacks-and-detection/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> * <a href="https://forums.whonix.org/t/cryptolog-for-whonix-website/3369/12">https://forums.whonix.org/t/cryptolog-for-whonix-website/3369/12</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/cryptolog-for-whonix-website/3369/12" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ol>
 </div>
 <div class="robots-nocontent" data-nosnippet="">

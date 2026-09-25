@@ -20,22 +20,11 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Fingerprinting_Method">Fingerprinting Method</a></li><li class="toc-l2"><a href="#Anonymity_and_Performance-related_Issues">Anonymity and
-Performance-related Issues</a></li><li class="toc-l2"><a href="#Manual_Guard_Rotation_Threats">Manual Guard Rotation
-Threats</a></li><li class="toc-l2"><a href="#Recommendations">Recommendations</a></li><li class="toc-l2"><a href="#Clone_Whonix-Gateway_(sys-whonix)_with_New_Entry_Guards">Clone
-Whonix-Gateway (sys-whonix) with New Entry Guards</a></li><li class="toc-l2"><a href="#Regenerate_the_Tor_State_After_Saving_the_Tor_State_Folder">Regenerate
-the Tor State After Saving the Tor State Folder</a></li><li class="toc-l2"><a href="#Alternating_Bridges">Alternating Bridges</a></li><li class="toc-l2"><a href="#Copy_Tor_Configuration_files_and_Settings_to_Another_sys-whonix_Instance">Copy
-Tor Configuration files and Settings to Another sys-whonix Instance</a></li><li class="toc-l3"><a href="#Copy_Tor_State_Files_to_Another_sys-whonix_Instance">Copy Tor
-State Files to Another sys-whonix Instance</a></li><li class="toc-l3"><a href="#Copy_Tor_Configuration_Options_(torrc)_to_Another_sys-whonix">Copy
-Tor Configuration Options (torrc) to Another sys-whonix</a></li><li class="toc-l2"><a href="#Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File">Fresh
-Tor Entry Guards by Regenerating the Tor State File</a></li><li class="toc-l2"><a href="#Configure_Non-Persistent_Entry_Guards">Configure Non-Persistent
-Entry Guards</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
 <div class="mininav">
 <ul>
 <li><a href="../Tor/">Tor</a></li>
 <li><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Tor Versioning</li>
 <li><a href="../Anon_Connection_Wizard/">Anon Connection
 Wizard</a></li>
 <li><a href="../Tor-control-panel/">tor-control-panel</a></li>
@@ -53,7 +42,22 @@ and Misconceptions</a></li>
 (Developer)</a></li>
 <li><a href="../Dev/anon-ws-disable-stacked-tor/">anon-ws-disable-stacked-tor (Developer)</a></li>
 </ul>
+</div><div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+text editor of your choice with administrative rights.</p>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Fingerprinting_Method">Fingerprinting Method</a></li><li class="toc-l2"><a href="#Anonymity_and_Performance-related_Issues">Anonymity and
+Performance-related Issues</a></li><li class="toc-l2"><a href="#Manual_Guard_Rotation_Threats">Manual Guard Rotation
+Threats</a></li><li class="toc-l2"><a href="#Recommendations">Recommendations</a></li><li class="toc-l2"><a href="#Clone_Whonix-Gateway_(sys-whonix)_with_New_Entry_Guards">Clone
+Whonix-Gateway (sys-whonix) with New Entry Guards</a></li><li class="toc-l2"><a href="#Regenerate_the_Tor_State_After_Saving_the_Tor_State_Folder">Regenerate
+the Tor State After Saving the Tor State Folder</a></li><li class="toc-l2"><a href="#Alternating_Bridges">Alternating Bridges</a></li><li class="toc-l2"><a href="#Copy_Tor_Configuration_files_and_Settings_to_Another_sys-whonix_Instance">Copy
+Tor Configuration files and Settings to Another sys-whonix Instance</a></li><li class="toc-l3"><a href="#Copy_Tor_State_Files_to_Another_sys-whonix_Instance">Copy Tor
+State Files to Another sys-whonix Instance</a></li><li class="toc-l3"><a href="#Copy_Tor_Configuration_Options_(torrc)_to_Another_sys-whonix">Copy
+Tor Configuration Options (torrc) to Another sys-whonix</a></li><li class="toc-l2"><a href="#Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File">Fresh
+Tor Entry Guards by Regenerating the Tor State File</a></li><li class="toc-l2"><a href="#Configure_Non-Persistent_Entry_Guards">Configure Non-Persistent
+Entry Guards</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
 <p><img src="../../media/Entry_guard111.jpg.webp" width="250" alt="Entry_guard111.jpg" /></p>
 <div class="pre-intro-p ">
 </div>
@@ -94,9 +98,9 @@ attacker, then they see a larger <i>fraction</i> of the user's traffic
 guards increase the user's chance of avoiding profiling (on the order of
 <i>(n-c)/n</i>), compared to the former case.</p>
 <p>You can read more at <a href="https://www.freehaven.net/anonbib/#wright02">An Analysis of the
-Degradation of Anonymous Protocols</a>, <a href="https://www.freehaven.net/anonbib/#wright03">Defending Anonymous
-Communication Against Passive Logging Attacks</a>, and especially <a href="https://www.freehaven.net/anonbib/#hs-attack06">Locating Hidden
-Servers</a>.</p>
+Degradation of Anonymous Protocols</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.freehaven.net/anonbib/#wright02" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="https://www.freehaven.net/anonbib/#wright03">Defending Anonymous
+Communication Against Passive Logging Attacks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.freehaven.net/anonbib/#wright03" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, and especially <a href="https://www.freehaven.net/anonbib/#hs-attack06">Locating Hidden
+Servers</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.freehaven.net/anonbib/#hs-attack06" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>Restricting entry nodes may also help to defend against attackers who
 want to run a few Tor nodes and easily enumerate all of the Tor user IP
 addresses. <sup class="reference"><a href="#cite_note-1">[1]</a></sup> However, this feature won't become really
@@ -116,7 +120,7 @@ the natural rotation of entry guards every few months. At the time of
 writing, the Tor client selects one guard node, but previously used a
 three-guard design. Guards have a primary lifetime of 120 days.
 <sup class="reference"><a href="#cite_note-4">[4]</a></sup> <sup class="reference"><a href="#cite_note-5">[5]</a></sup> <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
-<h2 id="Fingerprinting_Method">Fingerprinting Method</h2>
+<h2 id="Fingerprinting_Method">Fingerprinting Method</h2><span class="share-tooltip" data-anchor="Fingerprinting_Method"><a class="headline-anchor" href="#Fingerprinting_Method" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Fingerprinting_Method">https://www.whonix.org/wiki/Tor_Entry_Guards/#Fingerprinting_Method</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
 <strong>Note:</strong> Guard fingerprinting techniques are similar to
@@ -183,12 +187,12 @@ Tor State</a>.</li>
 <p>If moving to a new location permanently, create <a href="./#Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File">Fresh Tor Entry Guards by Regenerating the Tor State
 File</a>.</p>
 <p>Forum discussion:<br />
-<a href="https://forums.whonix.org/t/persistent-tor-entry-guard-relays-can-make-you-trackable-across-different-physical-locations/2090">https://forums.whonix.org/t/persistent-tor-entry-guard-relays-can-make-you-trackable-across-different-physical-locations/2090</a></p>
+<a href="https://forums.whonix.org/t/persistent-tor-entry-guard-relays-can-make-you-trackable-across-different-physical-locations/2090">https://forums.whonix.org/t/persistent-tor-entry-guard-relays-can-make-you-trackable-across-different-physical-locations/2090</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/persistent-tor-entry-guard-relays-can-make-you-trackable-across-different-physical-locations/2090" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="Manual_Rotation_of_Tor_Guards">Manual Rotation of Tor
 Guards</h1>
 <p>Creating a new Whonix-Gateway (<code>sys-whonix</code>) will
 <em>likely</em> lead to a new set of Tor entry guards, which is <a href="https://blog.torproject.org/improving-tors-anonymity-changing-guard-parameters">proven
-to degrade anonymity</a>.</p>
+to degrade anonymity</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/improving-tors-anonymity-changing-guard-parameters" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
 <strong>Warning:</strong> Users considering using disposable
@@ -197,7 +201,7 @@ technique severely degrades anonymity; <u>new Tor guards are created
 during each distinct Whonix session.</u></p>
 </div>
 <h2 id="Anonymity_and_Performance-related_Issues">Anonymity and
-Performance-related Issues</h2>
+Performance-related Issues</h2><span class="share-tooltip" data-anchor="Anonymity_and_Performance-related_Issues"><a class="headline-anchor" href="#Anonymity_and_Performance-related_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Anonymity_and_Performance-related_Issues">https://www.whonix.org/wiki/Tor_Entry_Guards/#Anonymity_and_Performance-related_Issues</span></span></span></span>
 <p>Users may be tempted to create a new Whonix-Gateway
 (<code>sys-whonix</code>) in the following circumstances:</p>
 <ul>
@@ -213,19 +217,19 @@ revealed if Whonix-Gateway is infected, particularly after a long period
 of use.</li>
 </ul>
 <h2 id="Manual_Guard_Rotation_Threats">Manual Guard Rotation
-Threats</h2>
+Threats</h2><span class="share-tooltip" data-anchor="Manual_Guard_Rotation_Threats"><a class="headline-anchor" href="#Manual_Guard_Rotation_Threats" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Manual_Guard_Rotation_Threats">https://www.whonix.org/wiki/Tor_Entry_Guards/#Manual_Guard_Rotation_Threats</span></span></span></span>
 <p>Forcing the rotation of guards more often than Tor's default is
 dangerous for several reasons:</p>
 <ul>
 <li>It increases the likelihood of a compromised or malicious Tor guard
 being selected. This raises the chance of a successful <a href="https://securityaffairs.co/wordpress/17489/intelligence/traf%EF%AC%81c-correlation-vs-anonymity-on-tor.html">correlation
-attack</a> if the adversary runs Tor exit relays in the network.</li>
-<li>The user is more likely to traverse a <a href="https://www.freehaven.net/anonbib/#feamster:wpes2004">given</a> <a href="https://www.freehaven.net/anonbib/#DBLP:conf:ccs:EdmanS09">set</a>
+attack</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://securityaffairs.co/wordpress/17489/intelligence/traf%EF%AC%81c-correlation-vs-anonymity-on-tor.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> if the adversary runs Tor exit relays in the network.</li>
+<li>The user is more likely to traverse a <a href="https://www.freehaven.net/anonbib/#feamster:wpes2004">given</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.freehaven.net/anonbib/#feamster:wpes2004" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <a href="https://www.freehaven.net/anonbib/#DBLP:conf:ccs:EdmanS09">set</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.freehaven.net/anonbib/#DBLP:conf:ccs:EdmanS09" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 of <a href="https://www.freehaven.net/anonbib/#ndss13-relay-selection">Internet
-infrastructure links</a> that are under the adversary's control, such as
+infrastructure links</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.freehaven.net/anonbib/#ndss13-relay-selection" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> that are under the adversary's control, such as
 <a href="https://web.mit.edu/6.033/www/papers/InterdomainRouting.pdf">Autonomous
-Systems (ASes)</a> or <a href="https://www.itu.int/en/wtpf-13/Documents/backgrounder-wtpf-13-ixps-en.pdf">Internet
-Exchange Points (IXPs)</a>.</li>
+Systems (ASes)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://web.mit.edu/6.033/www/papers/InterdomainRouting.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> or <a href="https://www.itu.int/en/wtpf-13/Documents/backgrounder-wtpf-13-ixps-en.pdf">Internet
+Exchange Points (IXPs)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.itu.int/en/wtpf-13/Documents/backgrounder-wtpf-13-ixps-en.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>Every Tor guard change acts like a fingerprinting mechanism, since
 other users are less likely to pick the same set. If the adversary is
 able to enumerate a user's Tor guards and later observes someone with
@@ -244,7 +248,7 @@ enumeration attacks discussed above.</p></blockquote></p>
 <p>In one sense, slow Tor entry guards should be welcomed -- "honeypot"
 operators on the Tor network are unlikely to have constrained bandwidth
 which might chase away intended targets.</p>
-<h2 id="Recommendations">Recommendations</h2>
+<h2 id="Recommendations">Recommendations</h2><span class="share-tooltip" data-anchor="Recommendations"><a class="headline-anchor" href="#Recommendations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Recommendations">https://www.whonix.org/wiki/Tor_Entry_Guards/#Recommendations</span></span></span></span>
 <p>If users feel compelled in their circumstances to proceed despite the
 anonymity risks, then it may be safer to first try:</p>
 <ul>
@@ -265,7 +269,7 @@ concern, there are several ways to mitigate the threat. Viable options
 include: bridges, temporarily rotating guards or cloning Whonix-Gateway
 (<code>sys-whonix</code>) with new guards.</p>
 <h2 id="Clone_Whonix-Gateway_(sys-whonix)_with_New_Entry_Guards">Clone
-Whonix-Gateway (sys-whonix) with New Entry Guards</h2>
+Whonix-Gateway (sys-whonix) with New Entry Guards</h2><span class="share-tooltip" data-anchor="Clone_Whonix-Gateway_(sys-whonix)_with_New_Entry_Guards"><a class="headline-anchor" href="#Clone_Whonix-Gateway_(sys-whonix)_with_New_Entry_Guards" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Clone_Whonix-Gateway_(sys-whonix)_with_New_Entry_Guards">https://www.whonix.org/wiki/Tor_Entry_Guards/#Clone_Whonix-Gateway_(sys-whonix)_with_New_Entry_Guards</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
 <strong>Warning:</strong> Do not clone the Whonix-Gateway
@@ -282,13 +286,13 @@ in the original Whonix-Gateway until returning home.</p>
 Whonix-Gateway-temp (<code>sys-whonix-temp</code>):</p>
 <ol>
 <li><u>VirtualBox:</u> follow <a href="https://dirkstrauss.com/clone-virtualbox-vm/">these
-instructions</a> to create a VM snapshot.<br />
+instructions</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://dirkstrauss.com/clone-virtualbox-vm/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> to create a VM snapshot.<br />
 <u>Qubes-Whonix<sup>&#8482;</sup>:</u> In Qube Manager,
 <code>Right-click on sys-whonix</code> &#8594; <code>Clone qube</code></li>
 <li><a href="#Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File">Regenerate the Tor State File</a>.</li>
 </ol>
 <h2 id="Regenerate_the_Tor_State_After_Saving_the_Tor_State_Folder">Regenerate
-the Tor State After Saving the Tor State Folder</h2>
+the Tor State After Saving the Tor State Folder</h2><span class="share-tooltip" data-anchor="Regenerate_the_Tor_State_After_Saving_the_Tor_State_Folder"><a class="headline-anchor" href="#Regenerate_the_Tor_State_After_Saving_the_Tor_State_Folder" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Regenerate_the_Tor_State_After_Saving_the_Tor_State_Folder">https://www.whonix.org/wiki/Tor_Entry_Guards/#Regenerate_the_Tor_State_After_Saving_the_Tor_State_Folder</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
 <a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>
@@ -321,7 +325,7 @@ original settings.</p>
 <p><span class="code-select">sudo systemctl restart
 tor@default</span></p>
 </div>
-<h2 id="Alternating_Bridges">Alternating Bridges</h2>
+<h2 id="Alternating_Bridges">Alternating Bridges</h2><span class="share-tooltip" data-anchor="Alternating_Bridges"><a class="headline-anchor" href="#Alternating_Bridges" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Alternating_Bridges">https://www.whonix.org/wiki/Tor_Entry_Guards/#Alternating_Bridges</span></span></span></span>
 <p>If <a href="../Bridges/">Bridges</a> are already
 configured, alternate bridges are recommended for different locations.
 If bridges are not being used, consider using entry guards in your
@@ -383,7 +387,7 @@ before enabling the network or rollback to a VM snapshot created at
 home.</p>
 </div>
 <h2 id="Copy_Tor_Configuration_files_and_Settings_to_Another_sys-whonix_Instance">Copy
-Tor Configuration files and Settings to Another sys-whonix Instance</h2>
+Tor Configuration files and Settings to Another sys-whonix Instance</h2><span class="share-tooltip" data-anchor="Copy_Tor_Configuration_files_and_Settings_to_Another_sys-whonix_Instance"><a class="headline-anchor" href="#Copy_Tor_Configuration_files_and_Settings_to_Another_sys-whonix_Instance" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Copy_Tor_Configuration_files_and_Settings_to_Another_sys-whonix_Instance">https://www.whonix.org/wiki/Tor_Entry_Guards/#Copy_Tor_Configuration_files_and_Settings_to_Another_sys-whonix_Instance</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
 <a href="../Qubes/">Qubes-Whonix</a> only.</p>
@@ -402,7 +406,7 @@ without aiding deanonymization attempts by advanced adversaries
 share any other persistent data, except for Tor state and custom torrc
 options.</p>
 <h3 id="Copy_Tor_State_Files_to_Another_sys-whonix_Instance">Copy Tor
-State Files to Another sys-whonix Instance</h3>
+State Files to Another sys-whonix Instance</h3><span class="share-tooltip" data-anchor="Copy_Tor_State_Files_to_Another_sys-whonix_Instance"><a class="headline-anchor" href="#Copy_Tor_State_Files_to_Another_sys-whonix_Instance" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Copy_Tor_State_Files_to_Another_sys-whonix_Instance">https://www.whonix.org/wiki/Tor_Entry_Guards/#Copy_Tor_State_Files_to_Another_sys-whonix_Instance</span></span></span></span>
 <p>The following instructions copy the Tor state from
 <code>sys-whonix-old</code> to <code>sys-whonix-new</code>.</p>
 <div class="info-box ">
@@ -447,12 +451,12 @@ of all files in the Tor state folder to <code>debian-tor</code></p>
 /var/lib/tor</span></p>
 <p><strong>8.</strong> In <code>sys-whonix-new</code>, start Tor.</p>
 <p><span class="code-select">sudo systemctl start tor@default</span></p>
-<p><strong>9.</strong> In <code>sys-whonix-new</code>, run <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a> to
+<p><strong>9.</strong> In <code>sys-whonix-new</code>, run <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> to
 verify Tor is functioning properly. <sup class="reference"><a href="#cite_note-14">[14]</a></sup></p>
 <p><span class="code-select">whonixcheck</span></p>
 </div>
 <h3 id="Copy_Tor_Configuration_Options_(torrc)_to_Another_sys-whonix">Copy
-Tor Configuration Options (torrc) to Another sys-whonix</h3>
+Tor Configuration Options (torrc) to Another sys-whonix</h3><span class="share-tooltip" data-anchor="Copy_Tor_Configuration_Options_(torrc)_to_Another_sys-whonix"><a class="headline-anchor" href="#Copy_Tor_Configuration_Options_(torrc)_to_Another_sys-whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Copy_Tor_Configuration_Options_(torrc)_to_Another_sys-whonix">https://www.whonix.org/wiki/Tor_Entry_Guards/#Copy_Tor_Configuration_Options_(torrc)_to_Another_sys-whonix</span></span></span></span>
 <p>These instructions copy custom Tor configuration options (torrc) from
 <code>sys-whonix-old</code> to <code>sys-whonix-new</code>.</p>
 <div class="info-box ">
@@ -482,14 +486,14 @@ of the Tor configuration file.</p>
 the newly copied Tor config options take effect.</p>
 <p><span class="code-select">sudo systemctl restart
 tor@default</span></p>
-<p><strong>6.</strong> In <code>sys-whonix-new</code>, run <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a> to
+<p><strong>6.</strong> In <code>sys-whonix-new</code>, run <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> to
 verify Tor is functioning properly. <sup class="reference"><a href="#cite_note-16">[16]</a></sup></p>
 <p><span class="code-select">systemcheck</span></p>
 </div>
 <h1 id="Unsafe_Guard_Rotation_Methods">Unsafe Guard Rotation
 Methods</h1>
 <h2 id="Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File">Fresh
-Tor Entry Guards by Regenerating the Tor State File</h2>
+Tor Entry Guards by Regenerating the Tor State File</h2><span class="share-tooltip" data-anchor="Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File"><a class="headline-anchor" href="#Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File">https://www.whonix.org/wiki/Tor_Entry_Guards/#Fresh_Tor_Entry_Guards_by_Regenerating_the_Tor_State_File</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
 This action is inadvisable unless the user is aware of the consequences;
@@ -547,7 +551,7 @@ footnote. <sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
 Tor</span></em> option. Press next.</p>
 </div>
 <h2 id="Configure_Non-Persistent_Entry_Guards">Configure Non-Persistent
-Entry Guards</h2>
+Entry Guards</h2><span class="share-tooltip" data-anchor="Configure_Non-Persistent_Entry_Guards"><a class="headline-anchor" href="#Configure_Non-Persistent_Entry_Guards" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Entry_Guards/#Configure_Non-Persistent_Entry_Guards">https://www.whonix.org/wiki/Tor_Entry_Guards/#Configure_Non-Persistent_Entry_Guards</span></span></span></span>
 <p>Some users might consider configuring non-persistent entry guards so
 they constantly change. In almost all cases this is inadvisable, because
 persistent entry guards are a <a href="#Introduction">critical anonymity feature</a>. A far more secure
@@ -582,12 +586,7 @@ Tor</span></em> option. Press next.</p>
 <p><strong>2.</strong> Modify Tor settings.</p>
 <p>Tor configuration file.</p>
 <div class="info-box ">
-<div class="intro-like">
-<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
-<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] of your choice with administrative
-rights.</p>
-</div>
+
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Sysmaint notice.</p>
 <p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
@@ -608,7 +607,7 @@ Platform specific. Select your platform.</p>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -654,7 +653,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="tcc-content">
 <p><u>If you are using a graphical Whonix-Gateway</u> and enabled
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+unrestricted admin mode, take the following step.</p>
 <p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
 <code>Tor User Config</code></p>
 </div>
@@ -688,7 +687,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -778,7 +777,7 @@ characteristics that cannot be differentiated from the point of view of
 a connecting device, resulting in the same guards being used on
 different networks.</p>
 <p>Developers/Auditors-only: The development discussion related to this
-documentation chapter can be found <a href="https://phabricator.whonix.org/T94">here</a>.</p>
+documentation chapter can be found <a href="https://phabricator.whonix.org/T94">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T94" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
 <ol>
@@ -786,11 +785,11 @@ documentation chapter can be found <a href="https://phabricator.whonix.org/T94">
 the network, they still might target a list of known Tor users.</li>
 <li id="cite_note-2">Source:<br />
 <a href="https://support.torproject.org/#about_entry-guards">torproject.org
-What are Entry Guards?</a><br />
-<a href="https://www.torproject.org/about/trademark/">license</a>:<br />
+What are Entry Guards?</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://support.torproject.org/#about_entry-guards" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup><br />
+<a href="https://www.torproject.org/about/trademark/">license</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.torproject.org/about/trademark/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:<br />
 Content on this site is Copyright The Tor Project, Inc.. Reproduction of
 content is permitted under a <a href="https://creativecommons.org/licenses/by/3.0/us/">Creative Commons
-Attribution 3.0 United States License</a>. All use under such license
+Attribution 3.0 United States License</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://creativecommons.org/licenses/by/3.0/us/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. All use under such license
 must be accompanied by a clear and prominent attribution that identifies
 The Tor Project, Inc. as the owner and originator of such content. The
 Tor Project Inc. reserves the right to change licenses and permissions
@@ -802,15 +801,15 @@ de-anonymization risk.</li>
 <li id="cite_note-5">The Tor Project is currently considering shifting to two guards per
 client for better anonymity, instead of having one primary guard in
 use.</li>
-<li id="cite_note-6"><a href="https://github.com/torproject/torspec/blob/master/proposals/291-two-guard-nodes.txt">https://github.com/torproject/torspec/blob/master/proposals/291-two-guard-nodes.txt</a></li>
+<li id="cite_note-6"><a href="https://github.com/torproject/torspec/blob/master/proposals/291-two-guard-nodes.txt">https://github.com/torproject/torspec/blob/master/proposals/291-two-guard-nodes.txt</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/torproject/torspec/blob/master/proposals/291-two-guard-nodes.txt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-7">The <a href="https://gitlab.torproject.org/legacy/trac/-/issues/9273#comment:3">entropy
-associated with one, two or three guards</a> is 9, 17 and 25 bits,
+associated with one, two or three guards</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/9273#comment:3" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is 9, 17 and 25 bits,
 respectively.</li>
-<li id="cite_note-8"><a href="https://metrics.torproject.org/relayflags.html">https://metrics.torproject.org/relayflags.html</a></li>
+<li id="cite_note-8"><a href="https://metrics.torproject.org/relayflags.html">https://metrics.torproject.org/relayflags.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://metrics.torproject.org/relayflags.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-9">As concluded in ticket <a href="https://forums.whonix.org/t/research-non-persistent-entry-guards/19303">research
-non-persistent Tor directory guards</a>, these are covered by the
+non-persistent Tor directory guards</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/research-non-persistent-entry-guards/19303" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, these are covered by the
 following instructions.</li>
-<li id="cite_note-10"><a href="https://blog.torproject.org/improving-tors-anonymity-changing-guard-parameters">https://blog.torproject.org/improving-tors-anonymity-changing-guard-parameters</a></li>
+<li id="cite_note-10"><a href="https://blog.torproject.org/improving-tors-anonymity-changing-guard-parameters">https://blog.torproject.org/improving-tors-anonymity-changing-guard-parameters</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/improving-tors-anonymity-changing-guard-parameters" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-11">Stop: <span class="code-select">sudo systemctl stop
 tor@default</span> <span class="code-select">sudo systemctl disable
 tor@default</span> Start: <span class="code-select">sudo systemctl
@@ -837,8 +836,8 @@ newly migrated torrc options are valid with the following command:
 <pre><code> /===================================================================\ | Report Summary | \===================================================================/ No error detected in your Tor configuration. </code></pre></li>
 <li id="cite_note-17">Potential <a href="../Unsupported/">Unsupported</a>
 alternative. <span class="code-select">tor-ctrl DROPGUARDS</span></li>
-<li id="cite_note-18"><a href="https://gitlab.tails.boum.org/tails/blueprints/-/wikis/persistent_Tor_state/">https://gitlab.tails.boum.org/tails/blueprints/-/wikis/persistent_Tor_state/</a></li>
-<li id="cite_note-19"><a href="https://blog.torproject.org/tor-weekly-news-june-17th-2015/#A_persistent_Tor_state_for_Tails">https://blog.torproject.org/tor-weekly-news-june-17th-2015/#A_persistent_Tor_state_for_Tails</a></li>
+<li id="cite_note-18"><a href="https://gitlab.tails.boum.org/tails/blueprints/-/wikis/persistent_Tor_state/">https://gitlab.tails.boum.org/tails/blueprints/-/wikis/persistent_Tor_state/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/blueprints/-/wikis/persistent_Tor_state/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-19"><a href="https://blog.torproject.org/tor-weekly-news-june-17th-2015/#A_persistent_Tor_state_for_Tails">https://blog.torproject.org/tor-weekly-news-june-17th-2015/#A_persistent_Tor_state_for_Tails</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/tor-weekly-news-june-17th-2015/#A_persistent_Tor_state_for_Tails" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ol>
 </div>
 <h1 id="License">License</h1>
@@ -850,27 +849,13 @@ SUPPORT LLC
 (Replace <code>(at)</code> with
 <code>@</code>.)<span class="tooltip"><span>Please <strong>DO
 NOT</strong> use e-mail for one of the following
-reasons:</span><span class="icon-bullet-list"><span><i class="fa-solid fa-lock cs-yellow"></i><span><u>Private
-Contact:</u> Please avoid e-mail whenever possible. (&lt;a
-href="../Contact/#Private_Communications_Policy"&gt;Private
-Communications
-Policy&lt;/a&gt;)</span></span><span><i class="fas fa-headset cs-red"></i><span><u>User
-Support Questions:</u> No. (See &lt;a
-href="../Support/"&gt;Support&lt;/a&gt;.)</span></span><span><i class="fa-solid fa-droplet cs-red"></i><span><u>Leaks
-Submissions:</u> No. (&lt;a href="../Contact/#No_Leaks_Policy"&gt;No
-Leaks
-Policy&lt;/a&gt;)</span></span><span><i class="fa-solid fa-ban cs-red"></i><span><u>Sponsored
-posts:</u>
-No.</span></span><span><i class="fa-solid fa-link cs-red"></i><span><u>Paid
-links:</u>
-No.</span></span><span><i class="fa-solid fa-chart-line cs-red"></i><span><u>SEO
-reviews:</u>
-No.</span></span><span><i class="fa-solid fa-bullhorn cs-red"></i><span><u>Advertisement
-deals:</u>
-No.</span></span><span><i class="fa-solid fa-box-open cs-red"></i><span><u>Default
-application installation:</u> No. (&lt;a
-href="../Contact/#Default_Application_Policy"&gt;Default Application
-Policy&lt;/a&gt;)</span></span></span></span></span>&gt;</p>
+reasons:</span><span class="icon-bullet-list"><span><i class="fa-solid fa-lock cs-yellow"></i><span><u>Private Contact:</u> Please avoid e-mail whenever possible.
+(<a href="../Contact/#Private_Communications_Policy">Private
+Communications Policy</a>)</span></span><span><i class="fas fa-headset cs-red"></i><span><u>User Support Questions:</u> No. (See
+<a href="../Support/">Support</a>.)</span></span><span><i class="fa-solid fa-droplet cs-red"></i><span><u>Leaks Submissions:</u> No.
+(<a href="../Contact/#No_Leaks_Policy">No Leaks Policy</a>)</span></span><span><i class="fa-solid fa-ban cs-red"></i><span><u>Sponsored posts:</u> No.</span></span><span><i class="fa-solid fa-link cs-red"></i><span><u>Paid links:</u> No.</span></span><span><i class="fa-solid fa-chart-line cs-red"></i><span><u>SEO reviews:</u> No.</span></span><span><i class="fa-solid fa-bullhorn cs-red"></i><span><u>Advertisement deals:</u> No.</span></span><span><i class="fa-solid fa-box-open cs-red"></i><span><u>Default application installation:</u> No.
+(<a href="../Contact/#Default_Application_Policy">Default Application
+Policy</a>)</span></span></span></span></span>&gt;</p>
 <p>This program comes with ABSOLUTELY NO WARRANTY; for details see the
 wiki source code.<br />
 This is free software, and you are welcome to redistribute it under

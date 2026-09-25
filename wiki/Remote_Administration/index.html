@@ -21,7 +21,11 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Warning">Warning</a></li><li class="toc-l2"><a href="#UDP">UDP</a></li><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#SSH_into_Whonix-Gateway">SSH into Whonix-Gateway</a></li><li class="toc-l2"><a href="#SSH_into_Whonix-Workstation">SSH into Whonix-Workstation</a></li><li class="toc-l2"><a href="#Graphical">Graphical</a></li><li class="toc-l3"><a href="#Introduction_3">Introduction</a></li><li class="toc-l2"><a href="#Introduction_4">Introduction</a></li><li class="toc-l2"><a href="#qubes-remote-support-receiver">qubes-remote-support-receiver</a></li><li class="toc-l2"><a href="#qubes-remote-support-provider">qubes-remote-support-provider</a></li><li class="toc-l3"><a href="#x2goclient">x2goclient</a></li><li class="toc-l2"><a href="#printout">printout</a></li><li class="toc-l3"><a href="#Qubes_Remote_Support_Receiver">Qubes Remote Support
+<div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+text editor of your choice with administrative rights.</p>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Warning">Warning</a></li><li class="toc-l2"><a href="#UDP">UDP</a></li><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#SSH_into_Whonix-Gateway">SSH into Whonix-Gateway</a></li><li class="toc-l2"><a href="#SSH_into_Whonix-Workstation">SSH into Whonix-Workstation</a></li><li class="toc-l2"><a href="#Graphical">Graphical</a></li><li class="toc-l3"><a href="#Introduction_3">Introduction</a></li><li class="toc-l2"><a href="#Introduction_4">Introduction</a></li><li class="toc-l2"><a href="#qubes-remote-support-receiver">qubes-remote-support-receiver</a></li><li class="toc-l2"><a href="#qubes-remote-support-provider">qubes-remote-support-provider</a></li><li class="toc-l3"><a href="#x2goclient">x2goclient</a></li><li class="toc-l2"><a href="#printout">printout</a></li><li class="toc-l3"><a href="#Qubes_Remote_Support_Receiver">Qubes Remote Support
 Receiver</a></li><li class="toc-l3"><a href="#Qubes_Remote_Support_Provider">Qubes Remote Support
 Provider</a></li><li class="toc-l2"><a href="#Test_Results">Test Results</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
@@ -34,7 +38,7 @@ Provider</a></li><li class="toc-l2"><a href="#Test_Results">Test Results</a></li
 <div class="post-intro-p">
 </div>
 <h1 id="Introduction">Introduction</h1>
-<h2 id="Warning">Warning</h2>
+<h2 id="Warning">Warning</h2><span class="share-tooltip" data-anchor="Warning"><a class="headline-anchor" href="#Warning" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#Warning">https://www.whonix.org/wiki/Remote_Administration/#Warning</span></span></span></span>
 <p>Remote administration of any system should be considered a potential
 anonymity hazard, since it is not under the user's physical protection
 and could be compromised. All activities, all programs, everything
@@ -49,7 +53,7 @@ recommendations in the <a href="../Surfing_Posting_Blogging/">Surfing Posting Bl
 </ul>
 <p>At a minimum, check the connection is encrypted / authenticated,
 because <a href="https://en.wikipedia.org/wiki/Virtual_Network_Computing">Virtual
-Network Computing (VNC)</a> by default is unencrypted / unauthenticated.
+Network Computing (VNC)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Virtual_Network_Computing" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> by default is unencrypted / unauthenticated.
 Possible methods:</p>
 <ul>
 <li>Perhaps by tunneling VNC through <a href="../SSH/">SSH</a>;</li>
@@ -64,14 +68,14 @@ authentication; or</li>
 <p>SSH has a lower attack surface than VNC (for example Mouse
 Fingerprinting is not possible against simple SSH (terminal only, no X11
 forwarding).</p>
-<h2 id="UDP">UDP</h2>
+<h2 id="UDP">UDP</h2><span class="share-tooltip" data-anchor="UDP"><a class="headline-anchor" href="#UDP" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#UDP">https://www.whonix.org/wiki/Remote_Administration/#UDP</span></span></span></span>
 <p>It is suggested to utilize software that does not require the User
 Datagram Protocol (UDP), for the following reason.</p>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Ambox_notice.png" /></span>
 The Tor software does not support UDP. The feature request <a href="https://gitlab.torproject.org/tpo/core/tor/-/issues/7830">UDP over
-Tor</a> was created in 2013 and <a href="https://gitlab.torproject.org/tpo/core/tor/-/issues/7830#note_2402996">closed
-as won't fix</a> by upstream, The Tor Project in 2018. It is therefore
+Tor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/core/tor/-/issues/7830" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> was created in 2013 and <a href="https://gitlab.torproject.org/tpo/core/tor/-/issues/7830#note_2402996">closed
+as won't fix</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/core/tor/-/issues/7830#note_2402996" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> by upstream, The Tor Project in 2018. It is therefore
 highly unlikely that the UDP over Tor feature will ever be implemented.
 This is <a href="../Unspecific/">unspecific to
 Whonix</a>.</p>
@@ -82,9 +86,9 @@ provided. For the most secure method, see <a href="../Tunnel_UDP_over_Tor/">Tunn
 <h1 id="Remmina">Remmina</h1>
 <p><img src="../../media/Remminalogo.png.webp" alt="Remmina Logo" /> It is
 possible to remotely administer any operating system with GNU/Linux by
-using the <a href="https://remmina.org/">Remmina</a> desktop client.
+using the <a href="https://remmina.org/">Remmina</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://remmina.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> desktop client.
 Remmina supports multiple network protocols, including RDP, VNC, SPICE,
-NX, XDMCP, SSH and EXEC. For an overview of Remmina features, see <a href="https://remmina.org/remmina-features/">here</a>.</p>
+NX, XDMCP, SSH and EXEC. For an overview of Remmina features, see <a href="https://remmina.org/remmina-features/">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://remmina.org/remmina-features/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>Note there are two separate Debian packages:</p>
 <ul>
 <li><code>remmina</code>: the main GTK+ application.</li>
@@ -104,14 +108,15 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Update the package lists and upgrade the system.</p>
 <p><span class="code-select">sudo apt update &amp;&amp; sudo apt
 full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>remmina</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
 <p><span class="code-select">sudo apt install --no-install-recommends
 remmina</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
@@ -121,7 +126,7 @@ Platform specific notice.</p>
 <li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
 as per
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</li>
+Qubes Template Modification.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done.</p>
@@ -129,14 +134,14 @@ Done.</p>
 complete.</p>
 </div>
 <p>If you are interested in using Remmina, please first search the
-forums for this topic: <a href="https://forums.whonix.org/search?q=remmina">https://forums.whonix.org/search?q=remmina</a></p>
+forums for this topic: <a href="https://forums.whonix.org/search?q=remmina">https://forums.whonix.org/search?q=remmina</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/search?q=remmina" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="SSH_into_Whonix">SSH into Whonix</h1>
-<h2 id="Introduction_2">Introduction</h2>
+<h2 id="Introduction_2">Introduction</h2><span class="share-tooltip" data-anchor="Introduction_2"><a class="headline-anchor" href="#Introduction_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#Introduction_2">https://www.whonix.org/wiki/Remote_Administration/#Introduction_2</span></span></span></span>
 <p>It is possible to install an SSH server on either Whonix-Gateway
 and/or Whonix-Workstation<sup>&#8482;</sup> and make it accessible through an
 anonymous <a href="../Onion_Services/">onion
 service</a>.</p>
-<h2 id="SSH_into_Whonix-Gateway">SSH into Whonix-Gateway</h2>
+<h2 id="SSH_into_Whonix-Gateway">SSH into Whonix-Gateway</h2><span class="share-tooltip" data-anchor="SSH_into_Whonix-Gateway"><a class="headline-anchor" href="#SSH_into_Whonix-Gateway" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#SSH_into_Whonix-Gateway">https://www.whonix.org/wiki/Remote_Administration/#SSH_into_Whonix-Gateway</span></span></span></span>
 <div class="info-box ">
 <p><strong>1.</strong> Update the package lists and install necessary
 software.</p>
@@ -152,12 +157,7 @@ SSH</a>.</p>
 adjustments.</p>
 <p>Tor configuration file.</p>
 <div class="info-box ">
-<div class="intro-like">
-<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
-<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] of your choice with administrative
-rights.</p>
-</div>
+
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Sysmaint notice.</p>
 <p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
@@ -178,7 +178,7 @@ Platform specific. Select your platform.</p>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -224,7 +224,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="tcc-content">
 <p><u>If you are using a graphical Whonix-Gateway</u> and enabled
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+unrestricted admin mode, take the following step.</p>
 <p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
 <code>Tor User Config</code></p>
 </div>
@@ -258,7 +258,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -363,7 +363,7 @@ access it.</p>
 from the
 <em><span>sys-whonix</span></em> VM to
 the <em><span>vault</span></em> VM
-(which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a>.
+(which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/how-to-copy-and-move-files/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 A dialog will appear asking for the destination VM.</p>
 <p><span class="code-select">sudo qvm-copy
 /var/lib/tor/workstation_ssh_service/hs_ed25519_secret_key</span></p>
@@ -386,7 +386,7 @@ steps to accomplish that.</p>
 <ul>
 <li>file manager
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Thunar with Administrator Rights</li>
 <li><a href="../File_Transfer/">File Transfer</a></li>
 </ul>
 <div class="info-box ib-for-thumb has-icon">
@@ -397,7 +397,7 @@ potential alternatives.</p>
 </div>
 </div>
 </div>
-<h2 id="SSH_into_Whonix-Workstation">SSH into Whonix-Workstation</h2>
+<h2 id="SSH_into_Whonix-Workstation">SSH into Whonix-Workstation</h2><span class="share-tooltip" data-anchor="SSH_into_Whonix-Workstation"><a class="headline-anchor" href="#SSH_into_Whonix-Workstation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#SSH_into_Whonix-Workstation">https://www.whonix.org/wiki/Remote_Administration/#SSH_into_Whonix-Workstation</span></span></span></span>
 <div class="info-box ">
 <p><strong>1.</strong> Update the package lists and install necessary
 software.</p>
@@ -415,8 +415,7 @@ SSH</a>.</p>
 <div class="intro-like">
 <p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] of your choice with administrative
-rights.</p>
+text editor of your choice with administrative rights.</p>
 </div>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Sysmaint notice.</p>
@@ -438,7 +437,7 @@ Platform specific. Select your platform.</p>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -484,7 +483,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="tcc-content">
 <p><u>If you are using a graphical Whonix-Gateway</u> and enabled
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+unrestricted admin mode, take the following step.</p>
 <p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
 <code>Tor User Config</code></p>
 </div>
@@ -518,7 +517,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -627,7 +626,7 @@ access it.</p>
 from the
 <em><span>sys-whonix</span></em> VM to
 the <em><span>vault</span></em> VM
-(which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a>.
+(which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/how-to-copy-and-move-files/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 A dialog will appear asking for the destination VM.</p>
 <p><span class="code-select">sudo qvm-copy
 /var/lib/tor/workstation_ssh_service/hs_ed25519_secret_key</span></p>
@@ -650,7 +649,7 @@ steps to accomplish that.</p>
 <ul>
 <li>file manager
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Thunar with Administrator Rights</li>
 <li><a href="../File_Transfer/">File Transfer</a></li>
 </ul>
 <div class="info-box ib-for-thumb has-icon">
@@ -837,14 +836,14 @@ run <code>sudo whonix_firewall</code></p>
 </div>
 </div>
 </div>
-<h2 id="Graphical">Graphical</h2>
-<h3 id="Introduction_3">Introduction</h3>
+<h2 id="Graphical">Graphical</h2><span class="share-tooltip" data-anchor="Graphical"><a class="headline-anchor" href="#Graphical" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#Graphical">https://www.whonix.org/wiki/Remote_Administration/#Graphical</span></span></span></span>
+<h3 id="Introduction_3">Introduction</h3><span class="share-tooltip" data-anchor="Introduction_3"><a class="headline-anchor" href="#Introduction_3" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#Introduction_3">https://www.whonix.org/wiki/Remote_Administration/#Introduction_3</span></span></span></span>
 <p>It is possible to install a VNC server on either Whonix-Gateway
 and/or Whonix-Workstation and make it accessible through an anonymous <a href="../Onion_Services/">onion service</a>.</p>
 <p>TODO: <a href="../Unsupported/">Undocumented</a>.</p>
 <h1 id="Qubes_-_SSH_or_VNC_into_Qubes_dom0">Qubes - SSH or VNC into
 Qubes dom0</h1>
-<h2 id="Introduction_4">Introduction</h2>
+<h2 id="Introduction_4">Introduction</h2><span class="share-tooltip" data-anchor="Introduction_4"><a class="headline-anchor" href="#Introduction_4" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#Introduction_4">https://www.whonix.org/wiki/Remote_Administration/#Introduction_4</span></span></span></span>
 <p>Encrypted, authenticated SSH or VNC into Qubes dom0 over an
 authenticated Tor onion v3 service.</p>
 <p>Design <sup class="reference"><a href="#cite_note-1">[1]</a></sup>:</p>
@@ -876,7 +875,7 @@ support.</li>
 to be applied by the person who intents to <u>provide</u> remote
 support.</li>
 </ul>
-<h2 id="qubes-remote-support-receiver">qubes-remote-support-receiver</h2>
+<h2 id="qubes-remote-support-receiver">qubes-remote-support-receiver</h2><span class="share-tooltip" data-anchor="qubes-remote-support-receiver"><a class="headline-anchor" href="#qubes-remote-support-receiver" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#qubes-remote-support-receiver">https://www.whonix.org/wiki/Remote_Administration/#qubes-remote-support-receiver</span></span></span></span>
 <p>Security advice: Giving a third party remote support access is a very
 delicate permission. As with any remote support permission, the
 <code>qubes-remote-support-</code><u><code>provider</code></u> could
@@ -904,7 +903,7 @@ terminal / graphical user interface.</p>
 <p><span class="code-select">qubes-remote-support-receiver-status</span></p>
 <p><strong>5)</strong> To terminate remote support.</p>
 <p><span class="code-select">qubes-remote-support-receiver-stop</span></p>
-<h2 id="qubes-remote-support-provider">qubes-remote-support-provider</h2>
+<h2 id="qubes-remote-support-provider">qubes-remote-support-provider</h2><span class="share-tooltip" data-anchor="qubes-remote-support-provider"><a class="headline-anchor" href="#qubes-remote-support-provider" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#qubes-remote-support-provider">https://www.whonix.org/wiki/Remote_Administration/#qubes-remote-support-provider</span></span></span></span>
 <p><strong>1)</strong> Dependency installation.</p>
 <p>Start <code>whonix-workstation-18</code> Template.</p>
 <p>(The latter package <code>x2goclient</code> can be omitted from
@@ -924,14 +923,15 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Update the package lists and upgrade the system.</p>
 <p><span class="code-select">sudo apt update &amp;&amp; sudo apt
 full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>openssh-client x2goclient</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
 <p><span class="code-select">sudo apt install --no-install-recommends
 openssh-client x2goclient</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
@@ -941,7 +941,7 @@ Platform specific notice.</p>
 <li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
 as per
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</li>
+Qubes Template Modification.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done.</p>
@@ -975,9 +975,9 @@ enter to continue in
 <p><strong>6)</strong> Optional: Connect by graphical remote support
 (x2go).</p>
 <p>As per instructions below.</p>
-<h3 id="x2goclient">x2goclient</h3>
+<h3 id="x2goclient">x2goclient</h3><span class="share-tooltip" data-anchor="x2goclient"><a class="headline-anchor" href="#x2goclient" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#x2goclient">https://www.whonix.org/wiki/Remote_Administration/#x2goclient</span></span></span></span>
 <p>Broken until upstream fix for issue <a href="https://github.com/QubesOS/updates-status/issues/2353">x2goagent
-3.5.99.26 crashes on connect</a> flows to Qubes dom0. TODO: Was
+3.5.99.26 crashes on connect</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/updates-status/issues/2353" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> flows to Qubes dom0. TODO: Was
 fixed?</p>
 <p>In a Whonix-Workstation
 (<code>remote-support-</code><u><code>provider</code></u> VM).</p>
@@ -1023,9 +1023,9 @@ password.</p>
 <li><code>login</code>: not required</li>
 <li><code>password</code>: not required</li>
 </ul>
-<h2 id="printout">printout</h2>
+<h2 id="printout">printout</h2><span class="share-tooltip" data-anchor="printout"><a class="headline-anchor" href="#printout" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#printout">https://www.whonix.org/wiki/Remote_Administration/#printout</span></span></span></span>
 <h3 id="Qubes_Remote_Support_Receiver">Qubes Remote Support
-Receiver</h3>
+Receiver</h3><span class="share-tooltip" data-anchor="Qubes_Remote_Support_Receiver"><a class="headline-anchor" href="#Qubes_Remote_Support_Receiver" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#Qubes_Remote_Support_Receiver">https://www.whonix.org/wiki/Remote_Administration/#Qubes_Remote_Support_Receiver</span></span></span></span>
 <pre><code>qubes-remote-support-receiver-start</code></pre>
 <pre><code>INFO: Starting Qubes Remote Support Receiver.
 INFO: This tool is supposed to be run by those who wish to receive remote support.
@@ -1069,7 +1069,7 @@ INFO: Success.</code></pre>
 INFO: VM &#39;{{project_name_gateway_vm}}&#39; already running, ok.
 INFO: Success, remote support received has been turned off.</code></pre>
 <h3 id="Qubes_Remote_Support_Provider">Qubes Remote Support
-Provider</h3>
+Provider</h3><span class="share-tooltip" data-anchor="Qubes_Remote_Support_Provider"><a class="headline-anchor" href="#Qubes_Remote_Support_Provider" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#Qubes_Remote_Support_Provider">https://www.whonix.org/wiki/Remote_Administration/#Qubes_Remote_Support_Provider</span></span></span></span>
 <pre><code>qubes-remote-support-provider</code></pre>
 <pre><code>INFO: Starting Qubes Remote Support Provider.
 INFO: This tool is supposed to be run by those who wish to provide remote support.
@@ -1117,7 +1117,7 @@ ssh &#39;xxx.onion&#39;
 INFO: This can take up to 10 minutes.
 Last login: Tue Mar  9 08:49:28 2021 from xx.xx.xx.x
 [user@dom0 ~]$</code></pre>
-<h2 id="Test_Results">Test Results</h2>
+<h2 id="Test_Results">Test Results</h2><span class="share-tooltip" data-anchor="Test_Results"><a class="headline-anchor" href="#Test_Results" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Remote_Administration/#Test_Results">https://www.whonix.org/wiki/Remote_Administration/#Test_Results</span></span></span></span>
 <ul>
 <li>Running a simple command such as <code>ls -la</code> takes 1 second
 until results are drawn.</li>
@@ -1141,29 +1141,29 @@ Whonix! See:</p>
 <ul>
 <li><a href="https://forums.whonix.org/t/add-user-documentation-for-remote-administration-keystroke-fingerprinting-stylometry/18858">add
 user documentation for Remote Administration, Keystroke Fingerprinting,
-Stylometry</a></li>
+Stylometry</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/add-user-documentation-for-remote-administration-keystroke-fingerprinting-stylometry/18858" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://forums.whonix.org/t/easy-remote-support-vnc-alternative-nx-spice-x2go-remmina/18491">easy
-remote support VNC alternative, NX, SPICE, X2Go, Remmina</a></li>
+remote support VNC alternative, NX, SPICE, X2Go, Remmina</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/easy-remote-support-vnc-alternative-nx-spice-x2go-remmina/18491" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Future_Research">Future Research</h1>
 <p><blockquote><p>[1] comparing vnc, nx(x2go) and spice. VNC sends the least amount of
 data. nx has a stable perf irrelevant of bandwidth conditions however
 one disadvantage I came across was it is heavily tied to X11 and
-therefore not future proof. <a href="https://bbs.archlinux.org/viewtopic.php?id=225765">https://bbs.archlinux.org/viewtopic.php?id=225765</a></p>
-<p>[1] <a href="https://www.diva-portal.org/smash/get/diva2:530960/FULLTEXT01.pdf">https://www.diva-portal.org/smash/get/diva2:530960/FULLTEXT01.pdf</a></p>
+therefore not future proof. <a href="https://bbs.archlinux.org/viewtopic.php?id=225765">https://bbs.archlinux.org/viewtopic.php?id=225765</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bbs.archlinux.org/viewtopic.php?id=225765" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p>[1] <a href="https://www.diva-portal.org/smash/get/diva2:530960/FULLTEXT01.pdf">https://www.diva-portal.org/smash/get/diva2:530960/FULLTEXT01.pdf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.diva-portal.org/smash/get/diva2:530960/FULLTEXT01.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>VNC perf depends heavily on implementation details. TigerVNC is
 better than realvnc, but Remmina is commented to be better than tiger.
-"A 2010 reviewer found the TigerVNC product "much faster than Vinagre <a href="https://en.wikipedia.org/wiki/Vinagre">https://en.wikipedia.org/wiki/Vinagre</a>
-but not quite as responsive as Remmina <a href="https://en.wikipedia.org/wiki/Remmina">https://en.wikipedia.org/wiki/Remmina</a>
-<a href="https://en.wikipedia.org/wiki/TigerVNC">https://en.wikipedia.org/wiki/TigerVNC</a>
+"A 2010 reviewer found the TigerVNC product "much faster than Vinagre <a href="https://en.wikipedia.org/wiki/Vinagre">https://en.wikipedia.org/wiki/Vinagre</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Vinagre" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+but not quite as responsive as Remmina <a href="https://en.wikipedia.org/wiki/Remmina">https://en.wikipedia.org/wiki/Remmina</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Remmina" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<a href="https://en.wikipedia.org/wiki/TigerVNC">https://en.wikipedia.org/wiki/TigerVNC</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/TigerVNC" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 "</p>
 <p>Tiger can be further optimized for constrained environments by
 ratcheting up the compression and lowering the jpeg quality. NB turbo
-isn't in Debian and it seems geared towards 3D usage. <a href="https://turbovnc.org/About/TigerVNC">https://turbovnc.org/About/TigerVNC</a></p></blockquote></p>
+isn't in Debian and it seems geared towards 3D usage. <a href="https://turbovnc.org/About/TigerVNC">https://turbovnc.org/About/TigerVNC</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://turbovnc.org/About/TigerVNC" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p></blockquote></p>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
 <ol>
-<li id="cite_note-1">* <a href="https://github.com/QubesOS/qubes-issues/issues/6364#issuecomment-767166712">https://github.com/QubesOS/qubes-issues/issues/6364#issuecomment-767166712</a>
+<li id="cite_note-1">* <a href="https://github.com/QubesOS/qubes-issues/issues/6364#issuecomment-767166712">https://github.com/QubesOS/qubes-issues/issues/6364#issuecomment-767166712</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6364#issuecomment-767166712" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 * <a href="../Dev/Qubes_Remote_Support/">Dev/Qubes Remote
 Support</a></li>
 <li id="cite_note-2">Thanks to encryption provided by Tor onion v3 and SSH.</li>
@@ -1181,9 +1181,9 @@ SSH keys are transferred from
 <code>qubes-remote-support-</code><u><code>receiver</code></u> to
 <code>qubes-remote-support-</code><u><code>provider</code></u> using <a href="../File_Sharing/#Magic-Wormhole">magic-wormhole</a>
 tool over Tor.</li>
-<li id="cite_note-5"><a href="https://github.com/QubesOS/qubes-remote-support">https://github.com/QubesOS/qubes-remote-support</a></li>
-<li id="cite_note-6">* <a href="https://github.com/QubesOS/qubes-issues/issues/6364">https://github.com/QubesOS/qubes-issues/issues/6364</a>
-* <a href="https://github.com/QubesOS/updates-status/issues/2353">https://github.com/QubesOS/updates-status/issues/2353</a></li>
+<li id="cite_note-5"><a href="https://github.com/QubesOS/qubes-remote-support">https://github.com/QubesOS/qubes-remote-support</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-remote-support" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-6">* <a href="https://github.com/QubesOS/qubes-issues/issues/6364">https://github.com/QubesOS/qubes-issues/issues/6364</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6364" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://github.com/QubesOS/updates-status/issues/2353">https://github.com/QubesOS/updates-status/issues/2353</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/updates-status/issues/2353" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ol>
 </div>
 <div class="robots-nocontent" data-nosnippet="">

@@ -20,7 +20,12 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Qubes</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Important_Issues">Important Issues</a></li><li class="toc-l3"><a href="#Important_Networking_Issues">Important Networking Issues</a></li><li class="toc-l3"><a href="#Important_Security_Disadvantages">Important Security
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Qubes</span></nav><div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../KVM/" title="Dev/KVM"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/KVM</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../UTM/" title="Dev/UTM"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/UTM</span></a><span class="info"><span class="prev">Previous
+page: Dev/KVM</span><span class="index">Index page:
+Design</span><span class="next">Next page:
+Dev/UTM</span></span></span>Dev/Qubes</p>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Important_Issues">Important Issues</a></li><li class="toc-l3"><a href="#Important_Networking_Issues">Important Networking Issues</a></li><li class="toc-l3"><a href="#Important_Security_Disadvantages">Important Security
 Disadvantages</a></li><li class="toc-l3"><a href="#Important_General_Issues">Important General Issues</a></li><li class="toc-l2"><a href="#Usability_Issues">Usability Issues</a></li><li class="toc-l2"><a href="#Performance_and_Stability_Issues">Performance and Stability
 Issues</a></li><li class="toc-l2"><a href="#Practicality_Issues">Practicality Issues</a></li><li class="toc-l2"><a href="#More_Issues">More Issues</a></li><li class="toc-l2"><a href="#More_Reported_Issues">More Reported Issues</a></li><li class="toc-l2"><a href="#Backup_Issues">Backup Issues</a></li><li class="toc-l3"><a href="#Info">Info</a></li><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l2"><a href="#Instructions">Instructions</a></li><li class="toc-l2"><a href="#grep_-r_10.152.152.10_*">grep -r 10.152.152.10 *</a></li><li class="toc-l2"><a href="#grep_-r_10.152.152.11_*">grep -r 10.152.152.11 *</a></li><li class="toc-l2"><a href="#prerequisite_knowledge">prerequisite knowledge</a></li><li class="toc-l2"><a href="#Implementation_as_of_Qubes-Whonix_11">Implementation as of
 Qubes-Whonix 11</a></li><li class="toc-l2"><a href="#Brainstorming">Brainstorming</a></li><li class="toc-l3"><a href="#Headless_TBB_Internal_Updater_Updates_in_AppVMs">Headless TBB
@@ -29,12 +34,7 @@ to date versions of Tor Browsers in newly created AppVMs inherited from
 updated Templates</a></li><li class="toc-l3"><a href="#keep_as_is">keep as is</a></li><li class="toc-l2"><a href="#Forum_Discussion">Forum Discussion</a></li><li class="toc-l2"><a href="#Build_Single_Qubes_Package">Build Single Qubes Package</a></li><li class="toc-l3"><a href="#Debian_dev">Debian dev</a></li><li class="toc-l3"><a href="#Fedora_rpm">Fedora rpm</a></li><li class="toc-l2"><a href="#Build_Qubes-Whonix_Templates">Build Qubes-Whonix Templates</a></li><li class="toc-l2"><a href="#Official_Builds">Official Builds</a></li><li class="toc-l2"><a href="#Connection_through_Qubes_UpdatesProxy">Connection through Qubes
 UpdatesProxy</a></li><li class="toc-l2"><a href="#sys-whonix">sys-whonix</a></li><li class="toc-l2"><a href="#Whonix_Templates">Whonix Templates</a></li><li class="toc-l2"><a href="#Related">Related</a></li><li class="toc-l2"><a href="#Connectivity_Issues">Connectivity Issues</a></li><li class="toc-l3"><a href="#Version_Number">Version Number</a></li><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#anon-vm_tag">anon-vm tag</a></li><li class="toc-l2"><a href="#anon-gateway_tag">anon-gateway tag</a></li><li class="toc-l2"><a href="#whonix-updatevm_tag">whonix-updatevm tag</a></li><li class="toc-l2"><a href="#view_tags">view tags</a></li><li class="toc-l2"><a href="#tags_inheritance">tags inheritance</a></li><li class="toc-l2"><a href="#qvm_tags_issues">qvm tags issues</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
-<div class="first-heading">
-<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../KVM/" title="Dev/KVM"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/KVM</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../UTM/" title="Dev/UTM"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/UTM</span></a><span class="info"><span class="prev">Previous
-page: Dev/KVM</span><span class="index">Index page:
-Design</span><span class="next">Next page:
-Dev/UTM</span></span></span>Dev/Qubes</p>
-</div>
+
 <div class="pre-intro-p ">
 </div>
 <div class="hidden-thumbnail">
@@ -43,134 +43,134 @@ Dev/UTM</span></span></span>Dev/Qubes</p>
 <div class="post-intro-p">
 </div>
 <h1 id="Issues">Issues</h1>
-<h2 id="Important_Issues">Important Issues</h2>
-<h3 id="Important_Networking_Issues">Important Networking Issues</h3>
+<h2 id="Important_Issues">Important Issues</h2><span class="share-tooltip" data-anchor="Important_Issues"><a class="headline-anchor" href="#Important_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Important_Issues">https://www.whonix.org/wiki/Dev/Qubes/#Important_Issues</span></span></span></span>
+<h3 id="Important_Networking_Issues">Important Networking Issues</h3><span class="share-tooltip" data-anchor="Important_Networking_Issues"><a class="headline-anchor" href="#Important_Networking_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Important_Networking_Issues">https://www.whonix.org/wiki/Dev/Qubes/#Important_Networking_Issues</span></span></span></span>
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/3994">change
 Qubes network policy, UpdatesProxy to network disabled by default for
-better leak-proofness #3994</a></li>
+better leak-proofness #3994</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/3994" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/7614">disallow
-setting netvm of whonix-ws to a non whonix-gw</a></li>
+setting netvm of whonix-ws to a non whonix-gw</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7614" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/6948">self-contained
 Qubes templates including meta scripts (salt) / improve Qubes-Whonix
-installation usability</a></li>
+installation usability</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6948" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>Absence of <a href="https://github.com/QubesOS/qubes-issues/issues/3412">add UpdateVM
-setting to qubes-vm-settings</a> feature leads to user confusion about
+setting to qubes-vm-settings</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/3412" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> feature leads to user confusion about
 which VM will be used as the UpdateVM.</li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/3118">UpdateVM for
-templates always defaults to sys-net #3118</a> - UpdateVM setting is
+templates always defaults to sys-net #3118</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/3118" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> - UpdateVM setting is
 confused by users as UpdatesProxy, thereby leading to template upgrades
 not occurring over Tor.</li>
 <li><a href="https://forums.whonix.org/t/qubes-whonix-security-disadvantages-help-wanted/8581">Qubes-Whonix
-Security Disadvantages</a></li>
+Security Disadvantages</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/qubes-whonix-security-disadvantages-help-wanted/8581" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/1814">sys-net
-phones home to fedoraproject.org for captive portal detection #1814</a>
+phones home to fedoraproject.org for captive portal detection #1814</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1814" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 - Qubes openQA test is missing</li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/7586">document how
 to route all traffic over Tor / how to disable Qubes default clearnet
-traffic #7586</a></li>
+traffic #7586</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7586" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/7801">Qubes
 should keep IP forwarding in VMs with the provides network (Net Qube)
-disabled by default #7801</a></li>
+disabled by default #7801</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7801" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/9294">Create
 sys-ops-whonix VM for Enhanced Security and Isolation in Qubes-Whonix
-#9294</a></li>
+#9294</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/9294" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h3 id="Important_Security_Disadvantages">Important Security
-Disadvantages</h3>
+Disadvantages</h3><span class="share-tooltip" data-anchor="Important_Security_Disadvantages"><a class="headline-anchor" href="#Important_Security_Disadvantages" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Important_Security_Disadvantages">https://www.whonix.org/wiki/Dev/Qubes/#Important_Security_Disadvantages</span></span></span></span>
 <ul>
 <li><a href="https://forums.whonix.org/t/qubes-whonix-security-disadvantages-help-wanted/8581">Qubes-Whonix
-Security Disadvantages - Help Wanted!</a></li>
+Security Disadvantages - Help Wanted!</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/qubes-whonix-security-disadvantages-help-wanted/8581" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h3 id="Important_General_Issues">Important General Issues</h3>
+<h3 id="Important_General_Issues">Important General Issues</h3><span class="share-tooltip" data-anchor="Important_General_Issues"><a class="headline-anchor" href="#Important_General_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Important_General_Issues">https://www.whonix.org/wiki/Dev/Qubes/#Important_General_Issues</span></span></span></span>
 <ul>
 <li><a href="../../Moved:Update/#Warnings">Qubes Updater
 Issues</a>, <a href="https://github.com/QubesOS/qubes-issues/labels/C:%20updates">Qubes
-Updater Issues</a>, most notably such as:
+Updater Issues</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/labels/C:%20updates" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, most notably such as:
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/7254">qubes-dom0-update
 shows <code>No updates available</code> in case the network is down /
 <code>qubes-dom0-update</code> fails to notice if repositories are
-unreachable / network is down</a>,</li>
+unreachable / network is down</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7254" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,</li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/6585">Updating via
-Salt falsely claims to succeed when it actually fails</a> and</li>
+Salt falsely claims to succeed when it actually fails</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6585" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and</li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/6635">Replace
 built-in Qube Manager update functionality with the Qubes Update
-tool</a></li>
+tool</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6635" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/4792">qubes-dom0-update
-- dom0 package updates are downloaded but not installed</a></li>
+- dom0 package updates are downloaded but not installed</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/4792" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/1856">Tor
 Browser default screen resolution different between Qubes Debian &amp;
-Whonix templates versus plain Debian</a></li>
+Whonix templates versus plain Debian</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1856" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/2209">Ensure
-Qubes firewall loads at the right time during VM boot</a></li>
+Qubes firewall loads at the right time during VM boot</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/2209" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/1762">RELATED,ESTABLISHED
--&gt; ESTABLISHED linux kernel hardening</a></li>
+-&gt; ESTABLISHED linux kernel hardening</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1762" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/6941">unprivilege
 the CPU's random number generator (RDRAND) / set kernel parameter
-"random.trust_cpu=off"</a> (closed by stalebot without resolution)</li>
+"random.trust_cpu=off"</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6941" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (closed by stalebot without resolution)</li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/8381">Stop
-leaking dom0 timezone to Qubes-Whonix</a></li>
+leaking dom0 timezone to Qubes-Whonix</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/8381" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Usability_Issues">Usability Issues</h2>
+<h2 id="Usability_Issues">Usability Issues</h2><span class="share-tooltip" data-anchor="Usability_Issues"><a class="headline-anchor" href="#Usability_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Usability_Issues">https://www.whonix.org/wiki/Dev/Qubes/#Usability_Issues</span></span></span></span>
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/7276">Switching
 qube to Whonix template fails to add anon-vm qvm-tag, resulting in
-sys-whonix: denied: denied by policy</a></li>
+sys-whonix: denied: denied by policy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7276" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/7447">Kicksecure
-inside Debian Template sdwdate qrexec Denied message</a></li>
+inside Debian Template sdwdate qrexec Denied message</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7447" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h2 id="Performance_and_Stability_Issues">Performance and Stability
-Issues</h2>
+Issues</h2><span class="share-tooltip" data-anchor="Performance_and_Stability_Issues"><a class="headline-anchor" href="#Performance_and_Stability_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Performance_and_Stability_Issues">https://www.whonix.org/wiki/Dev/Qubes/#Performance_and_Stability_Issues</span></span></span></span>
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/10420">Integration
 tests sometimes show VMs randomly experiencing severe delays,
-contributing to Whonix test timeouts</a></li>
+contributing to Whonix test timeouts</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/10420" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Practicality_Issues">Practicality Issues</h2>
+<h2 id="Practicality_Issues">Practicality Issues</h2><span class="share-tooltip" data-anchor="Practicality_Issues"><a class="headline-anchor" href="#Practicality_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Practicality_Issues">https://www.whonix.org/wiki/Dev/Qubes/#Practicality_Issues</span></span></span></span>
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/2835">Installer
 parses and modifies pre-existing partitions even if given disk is not
-selected for installation #2835</a></li>
+selected for installation #2835</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/2835" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/7244">Qubes
-Initial Setup impossible to debug</a></li>
+Initial Setup impossible to debug</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7244" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/4794">qvm-backup-restore
-fails with scrypt: Input is not valid scrypt-encrypted block</a></li>
+fails with scrypt: Input is not valid scrypt-encrypted block</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/4794" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/4479">Qubes
 R4 after upgrades boot process stuck at "Reached Target Basic
-System"</a></li>
+System"</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/4479" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="More_Issues">More Issues</h2>
+<h2 id="More_Issues">More Issues</h2><span class="share-tooltip" data-anchor="More_Issues"><a class="headline-anchor" href="#More_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#More_Issues">https://www.whonix.org/wiki/Dev/Qubes/#More_Issues</span></span></span></span>
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/6566">avoid
 installation of unnecessary packages / clean up packages in Debian based
-templates</a></li>
+templates</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6566" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/6500">fix
 Qubes source code copyright / licensing declaration, machine readable
-copyright, use SPDX License Identifier</a></li>
+copyright, use SPDX License Identifier</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6500" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/5253">qrexec
 feature request: send this over qrexec to the NetVM I am connected to /
-sys-whonix hardcoded / sys-whonix unexpected autostart</a></li>
+sys-whonix hardcoded / sys-whonix unexpected autostart</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/5253" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="More_Reported_Issues">More Reported Issues</h2>
+<h2 id="More_Reported_Issues">More Reported Issues</h2><span class="share-tooltip" data-anchor="More_Reported_Issues"><a class="headline-anchor" href="#More_Reported_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#More_Reported_Issues">https://www.whonix.org/wiki/Dev/Qubes/#More_Reported_Issues</span></span></span></span>
 <ul>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/created_by/adrelanos?page=2&amp;q=is%3Aopen+is%3Aissue+author%3Aadrelanos">https://github.com/QubesOS/qubes-issues/issues/created_by/adrelanos?page=2&amp;q=is%3Aopen+is%3Aissue+author%3Aadrelanos</a></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/created_by/adrelanos?page=2&amp;q=is%3Aopen+is%3Aissue+author%3Aadrelanos">https://github.com/QubesOS/qubes-issues/issues/created_by/adrelanos?page=2&amp;q=is%3Aopen+is%3Aissue+author%3Aadrelanos</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/created_by/adrelanos?page=2&amp;q=is%3Aopen+is%3Aissue+author%3Aadrelanos" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Backup_Issues">Backup Issues</h2>
+<h2 id="Backup_Issues">Backup Issues</h2><span class="share-tooltip" data-anchor="Backup_Issues"><a class="headline-anchor" href="#Backup_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Backup_Issues">https://www.whonix.org/wiki/Dev/Qubes/#Backup_Issues</span></span></span></span>
 <ul>
-<li>backup horror story: <a href="https://github.com/QubesOS/qubes-issues/issues/7567#issuecomment-1257732586">https://github.com/QubesOS/qubes-issues/issues/7567#issuecomment-1257732586</a></li>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/7809">https://github.com/QubesOS/qubes-issues/issues/7809</a></li>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/3498">https://github.com/QubesOS/qubes-issues/issues/3498</a></li>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/6386">https://github.com/QubesOS/qubes-issues/issues/6386</a></li>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/7797">https://github.com/QubesOS/qubes-issues/issues/7797</a></li>
+<li>backup horror story: <a href="https://github.com/QubesOS/qubes-issues/issues/7567#issuecomment-1257732586">https://github.com/QubesOS/qubes-issues/issues/7567#issuecomment-1257732586</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7567#issuecomment-1257732586" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/7809">https://github.com/QubesOS/qubes-issues/issues/7809</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7809" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/3498">https://github.com/QubesOS/qubes-issues/issues/3498</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/3498" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/6386">https://github.com/QubesOS/qubes-issues/issues/6386</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6386" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/7797">https://github.com/QubesOS/qubes-issues/issues/7797</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7797" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p>issue reports:</p>
 <ul>
-<li><a href="https://forum.qubes-os.org/t/backup-qubes-failing-write-error-read-only-file-system/2926">https://forum.qubes-os.org/t/backup-qubes-failing-write-error-read-only-file-system/2926</a></li>
+<li><a href="https://forum.qubes-os.org/t/backup-qubes-failing-write-error-read-only-file-system/2926">https://forum.qubes-os.org/t/backup-qubes-failing-write-error-read-only-file-system/2926</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forum.qubes-os.org/t/backup-qubes-failing-write-error-read-only-file-system/2926" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h3 id="Info">Info</h3>
-<p><a href="https://github.com/QubesOS/qubes-issues/issues/4794#issuecomment-466721775">https://github.com/QubesOS/qubes-issues/issues/4794#issuecomment-466721775</a></p>
+<h3 id="Info">Info</h3><span class="share-tooltip" data-anchor="Info"><a class="headline-anchor" href="#Info" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Info">https://www.whonix.org/wiki/Dev/Qubes/#Info</span></span></span></span>
+<p><a href="https://github.com/QubesOS/qubes-issues/issues/4794#issuecomment-466721775">https://github.com/QubesOS/qubes-issues/issues/4794#issuecomment-466721775</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/4794#issuecomment-466721775" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Can somehow the number of the VM vm80 be used to deduce the VM name
 so I can check/try again?</p>
 <p>It is QID, try <code>qvm-ls -O name,qid</code></p>
@@ -186,11 +186,11 @@ Installer Image to USB</h1>
 Debugging</h1>
 <p>What is the Qubes Initial Setup? See this:</p>
 <ul>
-<li><a href="https://www.qubes-os.org/attachment/doc/initial-setup-menu.png">https://www.qubes-os.org/attachment/doc/initial-setup-menu.png</a></li>
-<li><a href="https://www.qubes-os.org/attachment/doc/initial-setup-menu-configuration.png">https://www.qubes-os.org/attachment/doc/initial-setup-menu-configuration.png</a></li>
+<li><a href="https://www.qubes-os.org/attachment/doc/initial-setup-menu.png">https://www.qubes-os.org/attachment/doc/initial-setup-menu.png</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/attachment/doc/initial-setup-menu.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://www.qubes-os.org/attachment/doc/initial-setup-menu-configuration.png">https://www.qubes-os.org/attachment/doc/initial-setup-menu-configuration.png</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/attachment/doc/initial-setup-menu-configuration.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p><span class="code-select">/usr/libexec/initial-setup/initial-setup-graphical</span></p>
-<p>source: <a href="https://github.com/QubesOS/qubes-issues/issues/7244#issuecomment-1035516089">https://github.com/QubesOS/qubes-issues/issues/7244#issuecomment-1035516089</a></p>
+<p>source: <a href="https://github.com/QubesOS/qubes-issues/issues/7244#issuecomment-1035516089">https://github.com/QubesOS/qubes-issues/issues/7244#issuecomment-1035516089</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7244#issuecomment-1035516089" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="Qubes_Persistence">Qubes Persistence</h1>
 <table>
 <caption><em>Qubes R4 Inheritance and Persistence</em></caption>
@@ -203,32 +203,32 @@ Debugging</h1>
 </thead>
 <tbody>
 <tr class="odd">
-<td><p><a href="https://www.qubes-os.org/doc/glossary/#template">Template</a>
+<td><p><a href="https://www.qubes-os.org/doc/glossary/#template">Template</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/glossary/#template" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <sup class="reference"><a href="#cite_note-3">[3]</a></sup> <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p></td>
 <td><p>n/a</p></td>
 <td><p>Everything</p></td>
 </tr>
 <tr class="even">
 <td><p><a href="https://www.qubes-os.org/doc/glossary/#app-qube">App
-Qubes</a> <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p></td>
+Qubes</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/glossary/#app-qube" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p></td>
 <td><p><em><code>/etc/skel/</code></em> to
 <em><code>/home/</code></em></p></td>
 <td><p><em><code>/rw/</code></em> (includes <em><code>/home/</code></em>
-and <a href="https://www.qubes-os.org/doc/bind-dirs/"><code>bind-dirs</code></a>)</p></td>
+and <a href="https://www.qubes-os.org/doc/bind-dirs/"><code>bind-dirs</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/bind-dirs/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</p></td>
 </tr>
 <tr class="odd">
 <td scope="row"><p><a href="https://www.qubes-os.org/doc/glossary/#disposable-template">Disposable
-Template</a> <sup class="reference"><a href="#cite_note-6">[6]</a></sup> <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p></td>
+Template</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/glossary/#disposable-template" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <sup class="reference"><a href="#cite_note-6">[6]</a></sup> <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p></td>
 <td><p><em><code>/etc/skel/</code></em> to
 <em><code>/home/</code></em></p></td>
 <td><p><em><code>/rw/</code></em> (includes
-<em><code>/home/</code></em>, <em><code>/usr/local</code></em> and <a href="https://www.qubes-os.org/doc/bind-dirs/"><code>bind-dirs</code></a>)</p></td>
+<em><code>/home/</code></em>, <em><code>/usr/local</code></em> and <a href="https://www.qubes-os.org/doc/bind-dirs/"><code>bind-dirs</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/bind-dirs/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</p></td>
 </tr>
 <tr class="even">
-<td scope="row"><p><a href="https://www.qubes-os.org/doc/how-to-use-disposables/">Disposable</a>
+<td scope="row"><p><a href="https://www.qubes-os.org/doc/how-to-use-disposables/">Disposable</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/how-to-use-disposables/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <sup class="reference"><a href="#cite_note-8">[8]</a></sup> <sup class="reference"><a href="#cite_note-9">[9]</a></sup></p></td>
 <td><p><em><code>/rw/</code></em> (includes
-<em><code>/home/</code></em>, <em><code>/usr/local</code></em> and <a href="https://www.qubes-os.org/doc/bind-dirs/"><code>bind-dirs</code></a>)</p></td>
+<em><code>/home/</code></em>, <em><code>/usr/local</code></em> and <a href="https://www.qubes-os.org/doc/bind-dirs/"><code>bind-dirs</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/bind-dirs/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</p></td>
 <td><p>Nothing</p></td>
 </tr>
 <tr class="odd">
@@ -239,7 +239,7 @@ Template</a> <sup class="reference"><a href="#cite_note-6">[6]</a></sup> <sup cl
 </tbody>
 </table>
 <h1 id="Debian_Template">Debian Template</h1>
-<p><a href="https://groups.google.com/g/qubes-devel/c/EBxvtMlwp5k">https://groups.google.com/g/qubes-devel/c/EBxvtMlwp5k</a></p>
+<p><a href="https://groups.google.com/g/qubes-devel/c/EBxvtMlwp5k">https://groups.google.com/g/qubes-devel/c/EBxvtMlwp5k</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-devel/c/EBxvtMlwp5k" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="bind-dirs_vs_Tor">bind-dirs vs Tor</h1>
 <p>Will bind-dirs be run before
 /lib/systemd/system/tor@default.service?</p>
@@ -248,7 +248,7 @@ Template</a> <sup class="reference"><a href="#cite_note-6">[6]</a></sup> <sup cl
 before sysinit.target. After=sysinit.target in turn is included by
 default (unless DefaultDependencies=no).</p>
 <h1 id="Config_Files_Changes">Config Files Changes</h1>
-<p><a href="https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/RQlLPOn5yRsJ">source</a></p>
+<p><a href="https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/RQlLPOn5yRsJ">source</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/RQlLPOn5yRsJ" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>I do not know how rpm packaging works. However, the TorVM rpm
 packaging seems simpler to me and introduces less overhead than Debian
 packaging at first glance. Is there something like config-package-dev
@@ -268,7 +268,7 @@ ownership of files from other packages, but to work around this (rather
 sensible) limitation you can modify the config in triggers (so the file
 will be modified after each original package update).</p>
 <h1 id="IPs">IPs</h1>
-<p><a href="https://groups.google.com/d/msg/qubes-devel/jxr89--oGs0/IcA4pia70-0J">source</a></p>
+<p><a href="https://groups.google.com/d/msg/qubes-devel/jxr89--oGs0/IcA4pia70-0J">source</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/d/msg/qubes-devel/jxr89--oGs0/IcA4pia70-0J" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Qubes uses non-fixed LAN IPs? How do internal LAN IPs get assigned to
 TorVM / AppVMs?</p>
 <p>Qubes VM IP address is generated based on its netvm ID (subnet
@@ -277,7 +277,7 @@ netvm, the IP is pretty static. We have chosen
 10.137.. which is quite exotic, so conflicts with real
 LAN are very rare (even if rather harmless in isolated network).</p>
 <h1 id="Tor_Browser">Tor Browser</h1>
-<p><a href="https://groups.google.com/g/qubes-devel/c/Dd0MVbIam5I/m/9z6GblxYQHwJ">source</a></p>
+<p><a href="https://groups.google.com/g/qubes-devel/c/Dd0MVbIam5I/m/9z6GblxYQHwJ">source</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-devel/c/Dd0MVbIam5I/m/9z6GblxYQHwJ" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>In your Torless TBB launcher script for use with Qubes' transparent
 Tor proxy, TOR_SOCKS_HOST=10.137.3.1. Is this supposed to be the same
 for all Qubes machines regardless of how many ProxyVMs users have
@@ -288,10 +288,10 @@ redirect traffic to any 10.137.0.0/16 IP + port 9050/9049 to the tor
 running in TorVM. This way AnonVM can use any IP as a sock proxy
 address.</p>
 <h1 id="Time_Sync">Time Sync</h1>
-<h2 id="Introduction">Introduction</h2>
+<h2 id="Introduction">Introduction</h2><span class="share-tooltip" data-anchor="Introduction"><a class="headline-anchor" href="#Introduction" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Introduction">https://www.whonix.org/wiki/Dev/Qubes/#Introduction</span></span></span></span>
 <p>Discussion about insecurity of NTP:<br />
-<a href="https://groups.google.com/g/qubes-devel/c/YHK_rAUm0s0/m/ARrBPHrf0fkJ">https://groups.google.com/g/qubes-devel/c/YHK_rAUm0s0/m/ARrBPHrf0fkJ</a></p>
-<p><a href="https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/Lh8T7ZL6tdIJ">source</a></p>
+<a href="https://groups.google.com/g/qubes-devel/c/YHK_rAUm0s0/m/ARrBPHrf0fkJ">https://groups.google.com/g/qubes-devel/c/YHK_rAUm0s0/m/ARrBPHrf0fkJ</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-devel/c/YHK_rAUm0s0/m/ARrBPHrf0fkJ" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p><a href="https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/Lh8T7ZL6tdIJ">source</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/Lh8T7ZL6tdIJ" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Can Qubes OS leave VM's clocks untouched and keep time sync to the VM
 or is there some forced-VM-timesync-with-dom-0 that can not be turned
 off? In that case, that would be bad.</p>
@@ -303,7 +303,7 @@ qubes-prefs), then passes the result to 'date -s' in each VM.</p>
 (qubes-prefs -s clockvm none).</p>
 <p>(*) Which apparently was broken; a fix will be included in updates
 soon.</p>
-<h2 id="Instructions">Instructions</h2>
+<h2 id="Instructions">Instructions</h2><span class="share-tooltip" data-anchor="Instructions"><a class="headline-anchor" href="#Instructions" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Instructions">https://www.whonix.org/wiki/Dev/Qubes/#Instructions</span></span></span></span>
 <p><strong>UNTESTED!</strong></p>
 <p>Install a comfortable editor (optional!).</p>
 <pre><code>sudo qubes-dom0-update kate</code></pre>
@@ -321,9 +321,9 @@ an editor of your choice.)</p>
   &lt;/clock&gt;</code></pre>
 <h1 id="How_big_is_Qubes_OS's_user_base?">How big is Qubes OS's user
 base?</h1>
-<p><a href="https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/Kib1jFLZanUJ">https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/Kib1jFLZanUJ</a></p>
+<p><a href="https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/Kib1jFLZanUJ">https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/Kib1jFLZanUJ</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/AqZV65yZLuU/m/Kib1jFLZanUJ" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="IP_Spoofing_Protection">IP Spoofing Protection</h1>
-<p><a href="https://groups.google.com/g/qubes-devel/c/le7-Rrq6yxY/m/nhhpXX1QNRsJ">source</a></p>
+<p><a href="https://groups.google.com/g/qubes-devel/c/le7-Rrq6yxY/m/nhhpXX1QNRsJ">source</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-devel/c/le7-Rrq6yxY/m/nhhpXX1QNRsJ" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>AppVMs can't spoof each other in Qubes' network.</p>
 <p>Corollary: stream isolation cannot be circumvented.</p>
 <h1 id="Inter-VM_Networking">Inter-VM Networking</h1>
@@ -352,17 +352,17 @@ internal networking setup to be compatible with such native Qubes
 networking.</s></p>
 <p>Older, perhaps outdated discussions related to this topic:</p>
 <ul>
-<li><a href="https://groups.google.com/g/qubes-users/c/RFXoZ3zt-PE">https://groups.google.com/g/qubes-users/c/RFXoZ3zt-PE</a></li>
-<li><a href="https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/0LU35M6GPecJ">https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/0LU35M6GPecJ</a></li>
-<li><a href="https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/96odaNoBVRwJ">https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/96odaNoBVRwJ</a></li>
+<li><a href="https://groups.google.com/g/qubes-users/c/RFXoZ3zt-PE">https://groups.google.com/g/qubes-users/c/RFXoZ3zt-PE</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/RFXoZ3zt-PE" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/0LU35M6GPecJ">https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/0LU35M6GPecJ</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/0LU35M6GPecJ" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/96odaNoBVRwJ">https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/96odaNoBVRwJ</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/GhgWH5mHf2E/m/96odaNoBVRwJ" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p>Newer discussion:</p>
 <ul>
-<li><a href="https://forums.whonix.org/t/multiple-whonix-workstations-that-can-communicate-with-each-other">https://forums.whonix.org/t/multiple-whonix-workstations-that-can-communicate-with-each-other</a></li>
-<li><a href="https://tor.stackexchange.com/questions/13522/how-to-configure-whonix-gateway-for-communication-between-two-local-workstations/13546#13546">https://tor.stackexchange.com/questions/13522/how-to-configure-whonix-gateway-for-communication-between-two-local-workstations/13546#13546</a></li>
+<li><a href="https://forums.whonix.org/t/multiple-whonix-workstations-that-can-communicate-with-each-other">https://forums.whonix.org/t/multiple-whonix-workstations-that-can-communicate-with-each-other</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/multiple-whonix-workstations-that-can-communicate-with-each-other" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://tor.stackexchange.com/questions/13522/how-to-configure-whonix-gateway-for-communication-between-two-local-workstations/13546#13546">https://tor.stackexchange.com/questions/13522/how-to-configure-whonix-gateway-for-communication-between-two-local-workstations/13546#13546</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tor.stackexchange.com/questions/13522/how-to-configure-whonix-gateway-for-communication-between-two-local-workstations/13546#13546" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="IP">IP</h1>
-<h2 id="grep_-r_10.152.152.10_*">grep -r 10.152.152.10 *</h2>
+<h2 id="grep_-r_10.152.152.10_*">grep -r 10.152.152.10 *</h2><span class="share-tooltip" data-anchor="grep_-r_10.152.152.10_*"><a class="headline-anchor" href="#grep_-r_10.152.152.10_*" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#grep_-r_10.152.152.10_*">https://www.whonix.org/wiki/Dev/Qubes/#grep_-r_10.152.152.10_*</span></span></span></span>
 <pre><code>packages/anon-ws-leaktest/usr/lib/leaktest-workstation/simple_ping.py:target = &quot;10.152.152.10&quot;</code></pre>
 <p>Let's make a patch adding command line support implementing either
 --qubes or --ip?</p>
@@ -380,7 +380,7 @@ the file gets autogenerated.)</p>
 <pre><code>packages/anon-kde-streamiso/usr/share/anon-kde-streamiso/share/config/kioslaverc:socksProxy=http://10.152.152.10 9122</code></pre>
 <p>We could implement a package anon-kde-streamiso-qubes, that overrules
 anon-kde-streamiso and that gets only installed when using --qubes. (<a href="https://marc.info/?l=kde&amp;m=141130406809446&amp;w=2">KDE config
-files are stackable although debugging is a bit cumbersome</a>.) We
+files are stackable although debugging is a bit cumbersome</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://marc.info/?l=kde&amp;m=141130406809446&amp;w=2" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.) We
 would just have to make sure the path to anon-kde-streamiso-qubes comes
 (before or after?) anon-kde-streamiso's path in the KDEDIRS environment
 variable.</p>
@@ -555,7 +555,7 @@ documentation.</p>
 <pre><code>packages/xchat-improved-privacy/usr/share/xchat-improved-privacy/.xchat2/xchat.conf:net_proxy_host = 10.152.152.10</code></pre>
 <p>Just documentation strings. Either nevermind or patch
 documentation.</p>
-<h2 id="grep_-r_10.152.152.11_*">grep -r 10.152.152.11 *</h2>
+<h2 id="grep_-r_10.152.152.11_*">grep -r 10.152.152.11 *</h2><span class="share-tooltip" data-anchor="grep_-r_10.152.152.11_*"><a class="headline-anchor" href="#grep_-r_10.152.152.11_*" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#grep_-r_10.152.152.11_*">https://www.whonix.org/wiki/Dev/Qubes/#grep_-r_10.152.152.11_*</span></span></span></span>
 <pre><code>packages/whonix-ws-firewall/usr/bin/whonix_firewall:##     From 10.152.152.11 icmp_seq=1 Destination Port Unreachable</code></pre>
 <p>These are just comments doing nothing. We can either nevermind or
 rewrite the comments.</p>
@@ -578,17 +578,17 @@ above.</p>
 <h1 id="Time">Time</h1>
 <pre><code>sudo mv /etc/qubes-rpc/qubes.SetDateTime /etc/qubes-rpc/qubes.SetDateTime.disabled</code></pre>
 <h1 id="tb-updater_vs_Template">tb-updater vs Template</h1>
-<h2 id="prerequisite_knowledge">prerequisite knowledge</h2>
+<h2 id="prerequisite_knowledge">prerequisite knowledge</h2><span class="share-tooltip" data-anchor="prerequisite_knowledge"><a class="headline-anchor" href="#prerequisite_knowledge" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#prerequisite_knowledge">https://www.whonix.org/wiki/Dev/Qubes/#prerequisite_knowledge</span></span></span></span>
 <ul>
 <li>TPO stands for The Tor Project</li>
 <li>The /home folder of a Template is copied to a TemplateBasedVM at
 creation time of the TemplateBasedVM. From then, TemplateBasedVM's /home
-folder is left untouched. (Source: <a href="https://groups.google.com/g/qubes-users/c/WwVJhGA-Xnc">https://groups.google.com/g/qubes-users/c/WwVJhGA-Xnc</a>)</li>
+folder is left untouched. (Source: <a href="https://groups.google.com/g/qubes-users/c/WwVJhGA-Xnc">https://groups.google.com/g/qubes-users/c/WwVJhGA-Xnc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/WwVJhGA-Xnc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</li>
 <li>Tor Browser installation path in Whonix 12 will change to ~/.tb.
 (https://phabricator.whonix.org/T338)</li>
 <li>Since Qubes-Whonix 11, Tor Browser gets installed by default for new
 images. (Not for in place upgrades.)</li>
-<li><a href="https://github.com/Kicksecure/tb-updater">https://github.com/Kicksecure/tb-updater</a>
+<li><a href="https://github.com/Kicksecure/tb-updater">https://github.com/Kicksecure/tb-updater</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/tb-updater" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 vs</li>
 <li><a href="../../Tor_Browser/#Tor_Browser_Internal_Updater">Tor Browser Internal Updater</a></li>
 <li>Tor Browser Updater (Whonix) is unable to keep user settings
@@ -634,41 +634,41 @@ their AppVMs, which is counterintuitive.</li>
 </ul></li>
 </ul>
 <h2 id="Implementation_as_of_Qubes-Whonix_11">Implementation as of
-Qubes-Whonix 11</h2>
+Qubes-Whonix 11</h2><span class="share-tooltip" data-anchor="Implementation_as_of_Qubes-Whonix_11"><a class="headline-anchor" href="#Implementation_as_of_Qubes-Whonix_11" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Implementation_as_of_Qubes-Whonix_11">https://www.whonix.org/wiki/Dev/Qubes/#Implementation_as_of_Qubes-Whonix_11</span></span></span></span>
 <ul>
 <li>As of Qubes-Whonix 11 it is confusing. Running tb-updater in the
 Template and restarting AppVM will not result in up to date TBBs. [Since
 if the Template modifies /home, this will not propagate to AppVM's
 /home.]</li>
 </ul>
-<h2 id="Brainstorming">Brainstorming</h2>
+<h2 id="Brainstorming">Brainstorming</h2><span class="share-tooltip" data-anchor="Brainstorming"><a class="headline-anchor" href="#Brainstorming" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Brainstorming">https://www.whonix.org/wiki/Dev/Qubes/#Brainstorming</span></span></span></span>
 <h3 id="Headless_TBB_Internal_Updater_Updates_in_AppVMs">Headless TBB
-Internal Updater Updates in AppVMs</h3>
+Internal Updater Updates in AppVMs</h3><span class="share-tooltip" data-anchor="Headless_TBB_Internal_Updater_Updates_in_AppVMs"><a class="headline-anchor" href="#Headless_TBB_Internal_Updater_Updates_in_AppVMs" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Headless_TBB_Internal_Updater_Updates_in_AppVMs">https://www.whonix.org/wiki/Dev/Qubes/#Headless_TBB_Internal_Updater_Updates_in_AppVMs</span></span></span></span>
 <p>We could call a qrexec service that starts TBB in each individual
 AppVM headlessly (without / with hidden GUI, using Xvfb or similar) so
 it will fetch updates.</p>
 <h3 id="up_to_date_versions_of_Tor_Browsers_in_newly_created_AppVMs_inherited_from_updated_Templates">up
 to date versions of Tor Browsers in newly created AppVMs inherited from
-updated Templates</h3>
+updated Templates</h3><span class="share-tooltip" data-anchor="up_to_date_versions_of_Tor_Browsers_in_newly_created_AppVMs_inherited_from_updated_Templates"><a class="headline-anchor" href="#up_to_date_versions_of_Tor_Browsers_in_newly_created_AppVMs_inherited_from_updated_Templates" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#up_to_date_versions_of_Tor_Browsers_in_newly_created_AppVMs_inherited_from_updated_Templates">https://www.whonix.org/wiki/Dev/Qubes/#up_to_date_versions_of_Tor_Browsers_in_newly_created_AppVMs_inherited_from_updated_Templates</span></span></span></span>
 <p>ship Tor Browser tarballs in Qubes Templates in /var/cache/tb-binary
 and extract in AppVMs at boot time to the user's home folder:<br />
-<a href="https://phabricator.whonix.org/T417">https://phabricator.whonix.org/T417</a></p>
-<h3 id="keep_as_is">keep as is</h3>
+<a href="https://phabricator.whonix.org/T417">https://phabricator.whonix.org/T417</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T417" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<h3 id="keep_as_is">keep as is</h3><span class="share-tooltip" data-anchor="keep_as_is"><a class="headline-anchor" href="#keep_as_is" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#keep_as_is">https://www.whonix.org/wiki/Dev/Qubes/#keep_as_is</span></span></span></span>
 <p>Newly created Qubes-Whonix-Workstation AppVMs inherit the TBB version
 that came pre-installed in the Qubes-Whonix-Workstation Template. From
 there, TBB's internal updater takes care of updating it.</p>
-<h2 id="Forum_Discussion">Forum Discussion</h2>
+<h2 id="Forum_Discussion">Forum Discussion</h2><span class="share-tooltip" data-anchor="Forum_Discussion"><a class="headline-anchor" href="#Forum_Discussion" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Forum_Discussion">https://www.whonix.org/wiki/Dev/Qubes/#Forum_Discussion</span></span></span></span>
 <ul>
-<li><a href="https://forums.whonix.org/t/what-should-tor-browser-updater-whonix-do-in-a-templatevm">https://forums.whonix.org/t/what-should-tor-browser-updater-whonix-do-in-a-templatevm</a></li>
-<li><a href="https://forums.whonix.org/t/idea-for-aqrexec-service-to-install-new-versions-of-tor-browser-to-a-list-of-vms">https://forums.whonix.org/t/idea-for-aqrexec-service-to-install-new-versions-of-tor-browser-to-a-list-of-vms</a></li>
+<li><a href="https://forums.whonix.org/t/what-should-tor-browser-updater-whonix-do-in-a-templatevm">https://forums.whonix.org/t/what-should-tor-browser-updater-whonix-do-in-a-templatevm</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/what-should-tor-browser-updater-whonix-do-in-a-templatevm" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://forums.whonix.org/t/idea-for-aqrexec-service-to-install-new-versions-of-tor-browser-to-a-list-of-vms">https://forums.whonix.org/t/idea-for-aqrexec-service-to-install-new-versions-of-tor-browser-to-a-list-of-vms</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/idea-for-aqrexec-service-to-install-new-versions-of-tor-browser-to-a-list-of-vms" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Build">Build</h1>
-<h2 id="Build_Single_Qubes_Package">Build Single Qubes Package</h2>
-<h3 id="Debian_dev">Debian dev</h3>
-<p>Source: <a href="https://groups.google.com/g/qubes-devel/c/o6pn-kV7cU0">https://groups.google.com/g/qubes-devel/c/o6pn-kV7cU0</a></p>
+<h2 id="Build_Single_Qubes_Package">Build Single Qubes Package</h2><span class="share-tooltip" data-anchor="Build_Single_Qubes_Package"><a class="headline-anchor" href="#Build_Single_Qubes_Package" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Build_Single_Qubes_Package">https://www.whonix.org/wiki/Dev/Qubes/#Build_Single_Qubes_Package</span></span></span></span>
+<h3 id="Debian_dev">Debian dev</h3><span class="share-tooltip" data-anchor="Debian_dev"><a class="headline-anchor" href="#Debian_dev" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Debian_dev">https://www.whonix.org/wiki/Dev/Qubes/#Debian_dev</span></span></span></span>
+<p>Source: <a href="https://groups.google.com/g/qubes-devel/c/o6pn-kV7cU0">https://groups.google.com/g/qubes-devel/c/o6pn-kV7cU0</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-devel/c/o6pn-kV7cU0" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <pre><code>BACKEND_VMM=xen dpkg-buildpackage -b</code></pre>
-<h3 id="Fedora_rpm">Fedora rpm</h3>
-<p>Source: <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/15#issuecomment-408371583">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/15#issuecomment-408371583</a></p>
+<h3 id="Fedora_rpm">Fedora rpm</h3><span class="share-tooltip" data-anchor="Fedora_rpm"><a class="headline-anchor" href="#Fedora_rpm" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Fedora_rpm">https://www.whonix.org/wiki/Dev/Qubes/#Fedora_rpm</span></span></span></span>
+<p>Source: <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/15#issuecomment-408371583">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/15#issuecomment-408371583</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/15#issuecomment-408371583" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p><blockquote><p>the easiest way is to use qubes-builder, you can build a single by
 `make mgmt-salt-dom0-virtual-machines`. Otherwise, you need to
 manually:</p>
@@ -677,7 +677,7 @@ manually:</p>
 <li>fill version in `.spec.in` (writing it into `.spec` file)</li>
 <li>build it with `rpmbuild -bb `</li>
 </ul></blockquote></p>
-<h2 id="Build_Qubes-Whonix_Templates">Build Qubes-Whonix Templates</h2>
+<h2 id="Build_Qubes-Whonix_Templates">Build Qubes-Whonix Templates</h2><span class="share-tooltip" data-anchor="Build_Qubes-Whonix_Templates"><a class="headline-anchor" href="#Build_Qubes-Whonix_Templates" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Build_Qubes-Whonix_Templates">https://www.whonix.org/wiki/Dev/Qubes/#Build_Qubes-Whonix_Templates</span></span></span></span>
 <ul>
 <li>Qubes-Whonix Templates are not built by derivative-maker.</li>
 <li>Qubes-Whonix Templates are not built by Qubes builder.
@@ -687,7 +687,7 @@ manually:</p>
 </ul>
 <pre><code>git clone https://github.com/QubesOS/qubes-builder.git</code></pre>
 <p>(<a href="https://github.com/QubesOS/qubes-issues/issues/3441#issuecomment-359447019">source
-of the following instructions</a>)</p>
+of the following instructions</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/3441#issuecomment-359447019" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</p>
 <pre><code>cd qubes-builder</code></pre>
 <p><code>~/qubes-builder/builder.conf</code></p>
 <pre><code>GIT_BASEURL ?= https://github.com
@@ -723,7 +723,7 @@ import-whonix-keys:
 get-sources: import-whonix-keys</code></pre>
 <pre><code>make get-sources</code></pre>
 <pre><code>make template</code></pre>
-<h2 id="Official_Builds">Official Builds</h2>
+<h2 id="Official_Builds">Official Builds</h2><span class="share-tooltip" data-anchor="Official_Builds"><a class="headline-anchor" href="#Official_Builds" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Official_Builds">https://www.whonix.org/wiki/Dev/Qubes/#Official_Builds</span></span></span></span>
 <p><code>builder.conf</code>:</p>
 <pre><code>SIGN_KEY = 916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA
 GITHUB_BUILD_TARGET = /repos/QubesOS/updates-status/issues/566/comments
@@ -736,25 +736,25 @@ RELEASE = 4.2</code></pre>
 <ul>
 <li><sup class="reference"><a href="#cite_note-12">[12]</a></sup></li>
 <li><a href="https://github.com/qubesos/qubes-builder-github#build-template-command">build
-command format</a></li>
+command format</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/qubesos/qubes-builder-github#build-template-command" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/updates-status/issues/566">Place
-for build template commands</a></li>
-<li><a href="https://github.com/QubesOS/updates-status/issues">https://github.com/QubesOS/updates-status/issues</a></li>
-<li><a href="https://github.com/QubesOS/build-issues/issues">https://github.com/QubesOS/build-issues/issues</a></li>
-<li><a href="https://github.com/QubesOS/qubes-template-configs/blob/master/R4.0/templates-community/whonix-16.conf">https://github.com/QubesOS/qubes-template-configs/blob/master/R4.0/templates-community/whonix-16.conf</a></li>
-<li><a href="https://github.com/QubesOS/qubes-template-configs/blob/master/R4.1/templates-community/whonix-17.conf">https://github.com/QubesOS/qubes-template-configs/blob/master/R4.1/templates-community/whonix-17.conf</a></li>
+for build template commands</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/updates-status/issues/566" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/updates-status/issues">https://github.com/QubesOS/updates-status/issues</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/updates-status/issues" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/build-issues/issues">https://github.com/QubesOS/build-issues/issues</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/build-issues/issues" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-template-configs/blob/master/R4.0/templates-community/whonix-16.conf">https://github.com/QubesOS/qubes-template-configs/blob/master/R4.0/templates-community/whonix-16.conf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-template-configs/blob/master/R4.0/templates-community/whonix-16.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-template-configs/blob/master/R4.1/templates-community/whonix-17.conf">https://github.com/QubesOS/qubes-template-configs/blob/master/R4.1/templates-community/whonix-17.conf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-template-configs/blob/master/R4.1/templates-community/whonix-17.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>Run from <code>qubes-builder</code> source folder:</li>
 </ul>
 <p>Whonix <strong>18</strong>:</p>
 <p><span class="code-select">RELEASE=4.3 REPO_PROXY="" make
 DISTS_VM="whonix-gateway-18 whonix-workstation-18"
 template-github</span></p>
-<p>Helper script: developer-meta-files <a href="https://github.com/Kicksecure/developer-meta-files/blob/master/usr/bin/dm-qubes-templates-official-build-commands"><code>/usr/bin/dm-qubes-templates-official-build-commands</code></a></p>
+<p>Helper script: developer-meta-files <a href="https://github.com/Kicksecure/developer-meta-files/blob/master/usr/bin/dm-qubes-templates-official-build-commands"><code>/usr/bin/dm-qubes-templates-official-build-commands</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/developer-meta-files/blob/master/usr/bin/dm-qubes-templates-official-build-commands" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="Test">Test</h1>
 <ul>
 <li>works as UpdateVM</li>
 <li>can be used as ProxyVM for Fedora and Debian templates</li>
-<li><a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>
+<li><a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 (<code>--verbose</code>) in sys-whonix, whonix, whonix-gateway-18,
 whonix-ws</li>
 <li>Does Qubes Whonix network / firewall service run after
@@ -767,11 +767,11 @@ Firewall Tab Settings</h1>
 <p>Usability:</p>
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/889">Centralized
-Tray Notifications</a></li>
+Tray Notifications</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/889" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="stable_vs_testing">stable vs testing</h1>
 <p>Building R3 vs R3.1. Comments on which branch / config to build.</p>
-<p><a href="https://github.com/QubesOS/qubes-issues/issues/1318#issuecomment-147133115">https://github.com/QubesOS/qubes-issues/issues/1318#issuecomment-147133115</a></p>
+<p><a href="https://github.com/QubesOS/qubes-issues/issues/1318#issuecomment-147133115">https://github.com/QubesOS/qubes-issues/issues/1318#issuecomment-147133115</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1318#issuecomment-147133115" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="Split_GPG">Split GPG</h1>
 <p>See <a href="../../Moved:Split_GPG/">Dev/Split_GPG</a>.</p>
 <h1 id="sys-whonix_as_Qubes_FirewallVM">sys-whonix as Qubes
@@ -790,18 +790,18 @@ refuse to connect and show a warning [done]</li>
 </p>
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/1815">Implement new
-firewall dom0&#8594;VM interface</a></li>
+firewall dom0&#8594;VM interface</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1815" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/1323">mechanism to
-hide Qubes VM Manager 'Firewall rules' tab</a></li>
+hide Qubes VM Manager 'Firewall rules' tab</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1323" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/1637">Template
-policy, services&#8594;features, core plugins</a></li>
+policy, services&#8594;features, core plugins</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1637" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p>Tickets:<br />
 </p>
 <ul>
 <li><a href="https://phabricator.whonix.org/T372">Qubes-Whonix
 Whonix-Workstation Templates block access to (torified) open
-internet</a></li>
+internet</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T372" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Connection_Issues">Connection Issues</h1>
 <ul>
@@ -820,16 +820,16 @@ Qubes R4.0 and above has its Net Qube set to <code>none</code>.</p>
 Templates is possible through <a href="../../Qubes/UpdatesProxy/">Qubes UpdatesProxy</a>.</p>
 <h1 id="Torified_UpdatesProxy">Torified UpdatesProxy</h1>
 <h2 id="Connection_through_Qubes_UpdatesProxy">Connection through Qubes
-UpdatesProxy</h2>
+UpdatesProxy</h2><span class="share-tooltip" data-anchor="Connection_through_Qubes_UpdatesProxy"><a class="headline-anchor" href="#Connection_through_Qubes_UpdatesProxy" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Connection_through_Qubes_UpdatesProxy">https://www.whonix.org/wiki/Dev/Qubes/#Connection_through_Qubes_UpdatesProxy</span></span></span></span>
 <p>The following command allows you to make a torified connection (in
 this example using curl) from inside the Qubes Template to the
 internet.</p>
 <p>In Qubes Template.</p>
-<p><span class="code-select">http_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a> https_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a>
-curl.anondist-orig <a href="https://check.torproject.org">https://check.torproject.org</a></span></p>
+<p><span class="code-select">http_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> https_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+curl.anondist-orig <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>It is torified because Qubes dom0 UpdatesProxy settings configure
 sys-whonix as UpdatesProxy.</p>
-<h2 id="sys-whonix">sys-whonix</h2>
+<h2 id="sys-whonix">sys-whonix</h2><span class="share-tooltip" data-anchor="sys-whonix"><a class="headline-anchor" href="#sys-whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#sys-whonix">https://www.whonix.org/wiki/Dev/Qubes/#sys-whonix</span></span></span></span>
 <p>File
 <span class="code-select inline-style">/usr/share/tinyproxy/default.html</span>
 gets modified.</p>
@@ -844,14 +844,14 @@ gets modified.</p>
 &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
 &lt;meta name=&quot;application-name&quot; content=&quot;tor proxy&quot;/&gt;
 &lt;/head&gt;</code></pre>
-<h2 id="Whonix_Templates">Whonix Templates</h2>
+<h2 id="Whonix_Templates">Whonix Templates</h2><span class="share-tooltip" data-anchor="Whonix_Templates"><a class="headline-anchor" href="#Whonix_Templates" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Whonix_Templates">https://www.whonix.org/wiki/Dev/Qubes/#Whonix_Templates</span></span></span></span>
 <p>Inside Whonix Templates:</p>
 <ul>
-<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/utility_functions.sh">utility_functions.sh</a></li>
-<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/qubes-whonix-sysinit">https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/qubes-whonix-sysinit</a></li>
-<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service">https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service</a></li>
-<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/torified-updates-proxy-check">https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/torified-updates-proxy-check</a></li>
-<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf">https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf</a></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/utility_functions.sh">utility_functions.sh</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/utility_functions.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/qubes-whonix-sysinit">https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/qubes-whonix-sysinit</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/qubes-whonix-sysinit" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service">https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/torified-updates-proxy-check">https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/torified-updates-proxy-check</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/torified-updates-proxy-check" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf">https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <pre><code>UWT_DEV_PASSTHROUGH=&quot;1&quot; curl --silent --connect-timeout 10 &quot;http://127.0.0.1:8082/&quot;</code></pre>
 <p>Should output the following.</p>
@@ -887,27 +887,27 @@ for.</p>
 is activated. In other words, the
 <code>/var/run/qubes-service/whonix-secure-proxy</code> status file is
 being created.</p>
-<h2 id="Related">Related</h2>
+<h2 id="Related">Related</h2><span class="share-tooltip" data-anchor="Related"><a class="headline-anchor" href="#Related" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Related">https://www.whonix.org/wiki/Dev/Qubes/#Related</span></span></span></span>
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/1957">Cache
-updates #1957, qubes-updates-cache, qubes-updates-proxy</a></li>
+updates #1957, qubes-updates-cache, qubes-updates-proxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1957" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>design decision: <a href="https://github.com/QubesOS/qubes-issues/issues/1880">Difficulty to
 upgrade Whonix Templates over clearnet considered a bug or
-feature?</a></li>
+feature?</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1880" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>bug: <a href="https://forums.whonix.org/t/templates-incorrectly-think-theyre-not-connected-to-a-whonix-gateway">Templates
-incorrectly think they're not connected to a Whonix gateway.</a></li>
+incorrectly think they're not connected to a Whonix gateway.</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/templates-incorrectly-think-theyre-not-connected-to-a-whonix-gateway" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/1880">Difficulty to
 upgrade Whonix TemplateVMs over clearnet considered a bug or
-feature?</a> -&gt; Considered a feature.</li>
+feature?</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1880" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> -&gt; Considered a feature.</li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/7737">remove
 tinyproxy from Whonix-Gateway (<code>sys-whonix</code>) and make Whonix
 Templates networked by default with Net qube set to
-<code>sys-whonix</code></a></li>
+<code>sys-whonix</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7737" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Troubleshooting">Troubleshooting</h1>
 <p>See <a href="../../Qubes/Troubleshooting/">Troubleshooting
 Qubes specific</a>.</p>
-<h2 id="Connectivity_Issues">Connectivity Issues</h2>
+<h2 id="Connectivity_Issues">Connectivity Issues</h2><span class="share-tooltip" data-anchor="Connectivity_Issues"><a class="headline-anchor" href="#Connectivity_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Connectivity_Issues">https://www.whonix.org/wiki/Dev/Qubes/#Connectivity_Issues</span></span></span></span>
 <p>See <a href="../../Qubes/Troubleshooting/">Troubleshooting
 Qubes specific</a>.</p>
 <h1 id="bind-dirs_flow_chart">bind-dirs flow chart</h1>
@@ -943,16 +943,16 @@ dom0 R3.2</h1>
 <p>R3.2: *0628 R3.1: *0633</p>
 <h1 id="UEFI">UEFI</h1>
 <ul>
-<li><a href="https://www.qubes-os.org/doc/uefi-troubleshooting/">https://www.qubes-os.org/doc/uefi-troubleshooting/</a></li>
-<li><a href="https://groups.google.com/g/qubes-users/c/Er10fhAR1Ro">https://groups.google.com/g/qubes-users/c/Er10fhAR1Ro</a></li>
+<li><a href="https://www.qubes-os.org/doc/uefi-troubleshooting/">https://www.qubes-os.org/doc/uefi-troubleshooting/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/uefi-troubleshooting/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://groups.google.com/g/qubes-users/c/Er10fhAR1Ro">https://groups.google.com/g/qubes-users/c/Er10fhAR1Ro</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/Er10fhAR1Ro" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Qubes_VM_debug_mode">Qubes VM debug mode</h1>
-<p>Quote Marek <a href="https://forums.whonix.org/t/whonix-live-mode/3894/36">https://forums.whonix.org/t/whonix-live-mode/3894/36</a>
+<p>Quote Marek <a href="https://forums.whonix.org/t/whonix-live-mode/3894/36">https://forums.whonix.org/t/whonix-live-mode/3894/36</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-live-mode/3894/36" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <blockquote><p>Works only with HVM (on PVH or PV you don't have emulated VGA). Also
 it enables more verbose logging - shouldn't affect performance, but
 syslog in the VM may be hard to read in some cases. No other
 disadvantages.</p></blockquote></p>
-<p>See table at the bottom of <a href="https://www.qubes-os.org/news/2018/01/24/qsb-37-update/">https://www.qubes-os.org/news/2018/01/24/qsb-37-update/</a></p>
+<p>See table at the bottom of <a href="https://www.qubes-os.org/news/2018/01/24/qsb-37-update/">https://www.qubes-os.org/news/2018/01/24/qsb-37-update/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/news/2018/01/24/qsb-37-update/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <pre><code>VM type \ Qubes OS version         | 3.2 | 4.0-rc1-3 | 4.0-rc4 |
 ---------------------------------- | --- | --------- | ------- |
 Default VMs without PCI devices    | PV  |   HVM    |  PVH   |</code></pre>
@@ -961,11 +961,11 @@ R4 the default for most VMs (that is VMs without PCI devices) (which
 includes Whonix) is PVH, since these do not have emulated VGA.</p>
 <h1 id="salt">salt</h1>
 <p><a href="https://www.qubes-os.org/doc/salt/">Qubes <code>salt</code>
-management stack <code>qubesctl</code></a></p>
+management stack <code>qubesctl</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/salt/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Qubes R4</p>
 <p>This is what <code>sudo qubesctl state.sls qvm.anon-whonix</code>
-does in effect. <sup class="reference"><a href="#cite_note-13">[13]</a></sup> It does not only do what <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/anon-whonix.sls"><code>qvm.anon-whonix</code></a>
-does, since salt resolves <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/tree/master/qvm">dependencies</a>.
+does in effect. <sup class="reference"><a href="#cite_note-13">[13]</a></sup> It does not only do what <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/anon-whonix.sls"><code>qvm.anon-whonix</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/anon-whonix.sls" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+does, since salt resolves <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/tree/master/qvm">dependencies</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/tree/master/qvm" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 In other words, <code>qvm.anon-whonix</code> starts a chain reaction
 that includes all of the following.</p>
 <ul>
@@ -1018,17 +1018,17 @@ allow,target=sys-whonix $tag:whonix-updatevm $anyvm deny</span></p>
 </ul></li>
 </ul>
 <p><span class="code-select">$tag:anon-vm $anyvm deny</span></p>
-<h3 id="Version_Number">Version Number</h3>
-<p><a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/main/qvm/whonix.jinja">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/main/qvm/whonix.jinja</a></p>
+<h3 id="Version_Number">Version Number</h3><span class="share-tooltip" data-anchor="Version_Number"><a class="headline-anchor" href="#Version_Number" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Version_Number">https://www.whonix.org/wiki/Dev/Qubes/#Version_Number</span></span></span></span>
+<p><a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/main/qvm/whonix.jinja">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/main/qvm/whonix.jinja</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/main/qvm/whonix.jinja" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p><span class="code-select">sudo cat
 /srv/formulas/base/virtual-machines-formula/qvm/whonix.jinja</span></p>
 <p><span class="manually-placed-anchor " id="anon-vm_tag"></span></p>
 <h1 id="qvm-tags">qvm-tags</h1>
-<h2 id="Introduction_2">Introduction</h2>
-<p>Qubes dom0 package <a href="https://github.com/QubesOS/qubes-core-admin-addon-whonix"><code>qubes-core-admin-addon-whonix</code></a>
-(<a href="https://github.com/marmarek/qubes-core-admin-addon-whonix/blob/master/qubeswhonix/__init__.py"><code>__init__.py</code></a>)
+<h2 id="Introduction_2">Introduction</h2><span class="share-tooltip" data-anchor="Introduction_2"><a class="headline-anchor" href="#Introduction_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#Introduction_2">https://www.whonix.org/wiki/Dev/Qubes/#Introduction_2</span></span></span></span>
+<p>Qubes dom0 package <a href="https://github.com/QubesOS/qubes-core-admin-addon-whonix"><code>qubes-core-admin-addon-whonix</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-admin-addon-whonix" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+(<a href="https://github.com/marmarek/qubes-core-admin-addon-whonix/blob/master/qubeswhonix/__init__.py"><code>__init__.py</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/marmarek/qubes-core-admin-addon-whonix/blob/master/qubeswhonix/__init__.py" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
 (<a href="https://forums.whonix.org/t/qubes-core-admin-addon-whonix-for-qubes-r4-testers-wanted">forum
-discussion</a>) is responsible for:</p>
+discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/qubes-core-admin-addon-whonix-for-qubes-r4-testers-wanted" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>) is responsible for:</p>
 <ul>
 <li>set NetVM to <code>sys-whonix</code> [...]</li>
 <li>set default DispVM set to
@@ -1036,55 +1036,55 @@ discussion</a>) is responsible for:</p>
 <li>set tag <code>anon-vm</code></li>
 <li>set tag <code>anon-gateway</code></li>
 </ul>
-<p>Qubes dom0 package <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines"><code>qubes-mgmt-salt-dom0-virtual-machines</code></a>
-<a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/9"><code>Depends:</code></a>
+<p>Qubes dom0 package <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines"><code>qubes-mgmt-salt-dom0-virtual-machines</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/9"><code>Depends:</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/pull/9" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 on <code>qubes-core-admin-addon-whonix</code>, therefore ensuring it
 will be installed. (<a href="https://forums.whonix.org/t/make-sure-qubes-core-admin-addon-whonix-gets-installed/18642">make
-sure qubes-core-admin-addon-whonix gets installed (T792)</a>) (<a href="https://github.com/QubesOS/qubes-issues/issues/3881">qubes-template-whonix-gw
-should depend on qubes-core-admin-addon-whonix #3881</a>)</p>
-<p>The template package <a href="https://github.com/Whonix/qubes-whonix"><code>qubes-whonix</code></a>
-ships script <a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/qubes/post-install.d/30-whonix-ws.sh"><code>/etc/qubes/post-install.d/30-whonix-ws.sh</code></a>,
+sure qubes-core-admin-addon-whonix gets installed (T792)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/make-sure-qubes-core-admin-addon-whonix-gets-installed/18642" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>) (<a href="https://github.com/QubesOS/qubes-issues/issues/3881">qubes-template-whonix-gw
+should depend on qubes-core-admin-addon-whonix #3881</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/3881" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</p>
+<p>The template package <a href="https://github.com/Whonix/qubes-whonix"><code>qubes-whonix</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+ships script <a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/qubes/post-install.d/30-whonix-ws.sh"><code>/etc/qubes/post-install.d/30-whonix-ws.sh</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/etc/qubes/post-install.d/30-whonix-ws.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
 which contains <code>qvm-features-request whonix-ws=1</code>, which is
-parsed by dom0 package <a href="https://github.com/QubesOS/qubes-core-agent-linux"><code>qubes-core-agent-linux</code></a>
+parsed by dom0 package <a href="https://github.com/QubesOS/qubes-core-agent-linux"><code>qubes-core-agent-linux</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-agent-linux" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <a href="https://github.com/QubesOS/qubes-core-agent-linux/blob/master/qubes-rpc/qubes.PostInstall">qubes
-RPC <code>qubes.PostInstall</code></a>.</p>
+RPC <code>qubes.PostInstall</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-agent-linux/blob/master/qubes-rpc/qubes.PostInstall" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>As per Marek, <code>qvm-features-request whonix-ws=1</code> should <a href="https://github.com/QubesOS/qubes-issues/issues/3765#issuecomment-386805491">not
-be set by salt</a>.</p>
+be set by salt</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/3765#issuecomment-386805491" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>Missing Whonix tags anon-vm / anon-gateway <a href="https://github.com/QubesOS/qubes-core-admin-addon-whonix/pull/6">will
-be added</a>.</p>
+be added</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-admin-addon-whonix/pull/6" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>bug: <a href="https://github.com/QubesOS/qubes-issues/issues/4167">qvm-tags not
 included in Qubes backups and not re-applied when restoring
-#4167</a></p>
-<h2 id="anon-vm_tag">anon-vm tag</h2>
-<p><code>anon-vm</code> gets prepended to <a href="https://github.com/QubesOS/qubes-core-admin/blob/master/qubes-rpc-policy/qubes.GetDate.policy"><code>/etc/qubes-rpc/policy/qubes.GetDate</code></a>
+#4167</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/4167" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<h2 id="anon-vm_tag">anon-vm tag</h2><span class="share-tooltip" data-anchor="anon-vm_tag"><a class="headline-anchor" href="#anon-vm_tag" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#anon-vm_tag">https://www.whonix.org/wiki/Dev/Qubes/#anon-vm_tag</span></span></span></span>
+<p><code>anon-vm</code> gets prepended to <a href="https://github.com/QubesOS/qubes-core-admin/blob/master/qubes-rpc-policy/qubes.GetDate.policy"><code>/etc/qubes-rpc/policy/qubes.GetDate</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-admin/blob/master/qubes-rpc-policy/qubes.GetDate.policy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 by <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/template-whonix-workstation.sls">salt
-template-whonix-ws.sls</a>. Or <a href="https://github.com/QubesOS/qubes-core-admin/pull/221">maybe in
-future simpler by just adding it.</a></p>
-<p>Tags are not reliably set yet. TODO: <a href="https://github.com/QubesOS/qubes-issues/issues/4155">https://github.com/QubesOS/qubes-issues/issues/4155</a>
+template-whonix-ws.sls</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/template-whonix-workstation.sls" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Or <a href="https://github.com/QubesOS/qubes-core-admin/pull/221">maybe in
+future simpler by just adding it.</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-admin/pull/221" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p>Tags are not reliably set yet. TODO: <a href="https://github.com/QubesOS/qubes-issues/issues/4155">https://github.com/QubesOS/qubes-issues/issues/4155</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/4155" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 - That is something doable. But it is not a big deal for now since Qubes
 VMs have many ways to ask dom0 for the non-randomized time.</p>
 <ul>
 <li><a href="https://phabricator.whonix.org/T389">make sure Qubes-Whonix
-has no access to clocksource=xen</a> (unlikely to be fixed anytime soon
+has no access to clocksource=xen</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T389" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (unlikely to be fixed anytime soon
 without external help) (It matters in context of <a href="../TimeSync/#Clock_Correlation_Attack">Clock
 Correlation Attack</a>.)</li>
 <li><a href="https://phabricator.whonix.org/T440">set random clock
 offset for Qubes-Whonix VMs using mgmt to prevent clock correlation
-attacks</a></li>
+attacks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T440" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://phabricator.whonix.org/T397">prevent dom0 telling
 Qubes-Whonix VMs the time by using the mgmt stack for that / disable
-Qubes dom0 /etc/qubes-rpc/qubes.SetDateTime</a></li>
+Qubes dom0 /etc/qubes-rpc/qubes.SetDateTime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T397" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p><a href="https://github.com/QubesOS/qubes-core-admin-addon-whonix/tree/master/qubes-rpc-policy">Tags
-will be more important in future</a> for <a href="https://phabricator.whonix.org/T534">sdwdate-gui-qubes</a> but
+will be more important in future</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-admin-addon-whonix/tree/master/qubes-rpc-policy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> for <a href="https://phabricator.whonix.org/T534">sdwdate-gui-qubes</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T534" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> but
 that is more usability, not security.</p>
-<h2 id="anon-gateway_tag">anon-gateway tag</h2>
+<h2 id="anon-gateway_tag">anon-gateway tag</h2><span class="share-tooltip" data-anchor="anon-gateway_tag"><a class="headline-anchor" href="#anon-gateway_tag" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#anon-gateway_tag">https://www.whonix.org/wiki/Dev/Qubes/#anon-gateway_tag</span></span></span></span>
 <p><code>anon-gateway</code> tag will be used in future by
 sdwdate-gui-qubes.</p>
-<h2 id="whonix-updatevm_tag">whonix-updatevm tag</h2>
+<h2 id="whonix-updatevm_tag">whonix-updatevm tag</h2><span class="share-tooltip" data-anchor="whonix-updatevm_tag"><a class="headline-anchor" href="#whonix-updatevm_tag" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#whonix-updatevm_tag">https://www.whonix.org/wiki/Dev/Qubes/#whonix-updatevm_tag</span></span></span></span>
 <p><code>whonix-updatevm</code> tag gets set by <a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/template-whonix-workstation.sls">salt
-template-whonix-ws.sls</a> as well as by <a href="https://github.com/QubesOS/qubes-core-admin-addon-whonix/blob/master/qubeswhonix/__init__.py">qubes-core-admin-addon-whonix
-__init__.py</a>.</p>
+template-whonix-ws.sls</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/template-whonix-workstation.sls" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> as well as by <a href="https://github.com/QubesOS/qubes-core-admin-addon-whonix/blob/master/qubeswhonix/__init__.py">qubes-core-admin-addon-whonix
+__init__.py</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-admin-addon-whonix/blob/master/qubeswhonix/__init__.py" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>By Qubes default, a VM with tag <code>whonix-updatevm</code> may only
 use <code>target=</code> <code>sys-whonix</code> as
 <code>qubes.UpdatesProxy</code>. Related user documentation: <a href="../../Multiple_Qubes-Whonix_Templates/">Multiple
@@ -1110,7 +1110,7 @@ allow,target=sys-whonix</li>
 /etc</span></li>
 </ul></li>
 </ul>
-<h2 id="view_tags">view tags</h2>
+<h2 id="view_tags">view tags</h2><span class="share-tooltip" data-anchor="view_tags"><a class="headline-anchor" href="#view_tags" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#view_tags">https://www.whonix.org/wiki/Dev/Qubes/#view_tags</span></span></span></span>
 <p>To view tags.</p>
 <p><span class="code-select">qvm-tags whonix-gateway-18</span></p>
 <p><span class="code-select">qvm-tags whonix-workstation-18</span></p>
@@ -1120,13 +1120,13 @@ allow,target=sys-whonix</li>
 <ul>
 <li><a href="../../Qubes/Troubleshooting/#qvm-tags_verification"><code>qvm-tags</code> verification</a></li>
 <li>Qubes <a href="https://dev.qubes-os.org/projects/core-admin-client/en/latest/manpages/qvm-tags.html"><code>qvm-tags</code>
-man page</a>.</li>
+man page</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://dev.qubes-os.org/projects/core-admin-client/en/latest/manpages/qvm-tags.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul>
-<h2 id="tags_inheritance">tags inheritance</h2>
+<h2 id="tags_inheritance">tags inheritance</h2><span class="share-tooltip" data-anchor="tags_inheritance"><a class="headline-anchor" href="#tags_inheritance" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#tags_inheritance">https://www.whonix.org/wiki/Dev/Qubes/#tags_inheritance</span></span></span></span>
 <p><blockquote><p>Tags are not inherited. Generally settings are not inherited from
 Template by TemplateBasedVM. Where needed, core-admin-addon can be made
 to copy selected settings from Template to TemplateBasedVM.</p></blockquote> <sup class="reference"><a href="#cite_note-15">[15]</a></sup></p>
-<h2 id="qvm_tags_issues">qvm tags issues</h2>
+<h2 id="qvm_tags_issues">qvm tags issues</h2><span class="share-tooltip" data-anchor="qvm_tags_issues"><a class="headline-anchor" href="#qvm_tags_issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Qubes/#qvm_tags_issues">https://www.whonix.org/wiki/Dev/Qubes/#qvm_tags_issues</span></span></span></span>
 <p>Users are instructed to manually add qvm-tags in user documentation
 on these wiki pages:</p>
 <ul>
@@ -1140,15 +1140,15 @@ perspective.</p>
 <p>Sparing users from needing to change this setting requires upstream
 Qubes feature request <a href="https://github.com/QubesOS/qubes-issues/issues/4117">way to find
 out the name of gateway from inside the VM - qubesdb-read
-/qubes-gateway-name</a> or <a href="https://github.com/QubesOS/qubes-issues/issues/5253">qrexec
+/qubes-gateway-name</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/4117" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> or <a href="https://github.com/QubesOS/qubes-issues/issues/5253">qrexec
 feature request: send this over qrexec to the net qube I am connected to
-/ sys-whonix hardcoded / sys-whonix unexpected autostart</a> to get
+/ sys-whonix hardcoded / sys-whonix unexpected autostart</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/5253" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> to get
 implemented.</p>
 <p>Technical improvement proposals:</p>
 <ul>
-<li><a href="https://phabricator.whonix.org/T930">https://phabricator.whonix.org/T930</a></li>
+<li><a href="https://phabricator.whonix.org/T930">https://phabricator.whonix.org/T930</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T930" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<p><a href="https://forums.whonix.org/t/sys-whonix-starting-spontaneously-after-update/8123">https://forums.whonix.org/t/sys-whonix-starting-spontaneously-after-update/8123</a></p>
+<p><a href="https://forums.whonix.org/t/sys-whonix-starting-spontaneously-after-update/8123">https://forums.whonix.org/t/sys-whonix-starting-spontaneously-after-update/8123</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/sys-whonix-starting-spontaneously-after-update/8123" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="qvm-features">qvm-features</h1>
 <p>After Qubes installs a template it auto starts the template once
 invisible to the user.</p>
@@ -1166,15 +1166,15 @@ whonix-ws</span></p>
 <pre><code>whonix-ws 1</code></pre>
 <h1 id="Testing_Automated">Testing Automated</h1>
 <ul>
-<li><a href="https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonix_firstrun.pm">https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonix_firstrun.pm</a></li>
-<li><a href="https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonixcheck.pm">https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonixcheck.pm</a></li>
+<li><a href="https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonix_firstrun.pm">https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonix_firstrun.pm</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonix_firstrun.pm" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonixcheck.pm">https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonixcheck.pm</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/marmarek/openqa-tests-qubesos/blob/master/tests/whonixcheck.pm" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Major_Version_Bump">Major Version Bump</h1>
 <p>Port Whonix 14 to Whonix 15</p>
 <ul>
-<li><a href="https://github.com/QubesOS/qubes-builder/pull/81">https://github.com/QubesOS/qubes-builder/pull/81</a></li>
-<li><a href="https://github.com/QubesOS/qubes-builder/pull/82">https://github.com/QubesOS/qubes-builder/pull/82</a></li>
-<li><a href="https://github.com/QubesOS/qubes-template-configs/pull/6">https://github.com/QubesOS/qubes-template-configs/pull/6</a></li>
+<li><a href="https://github.com/QubesOS/qubes-builder/pull/81">https://github.com/QubesOS/qubes-builder/pull/81</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-builder/pull/81" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-builder/pull/82">https://github.com/QubesOS/qubes-builder/pull/82</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-builder/pull/82" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-template-configs/pull/6">https://github.com/QubesOS/qubes-template-configs/pull/6</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-template-configs/pull/6" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="DD_Backup_Mount">DD Backup Mount</h1>
 <p><sup class="reference"><a href="#cite_note-16">[16]</a></sup></p>
@@ -1188,7 +1188,7 @@ whonix-ws</span></p>
 <p>all data can be found here:</p>
 <pre><code>ls -la /mnt/disk2/home/user/</code></pre>
 <h1 id="Qubes_VM_Kernel">Qubes VM Kernel</h1>
-<p><a href="https://www.qubes-os.org/doc/managing-vm-kernels/#distribution-kernel">https://www.qubes-os.org/doc/managing-vm-kernels/#distribution-kernel</a></p>
+<p><a href="https://www.qubes-os.org/doc/managing-vm-kernels/#distribution-kernel">https://www.qubes-os.org/doc/managing-vm-kernels/#distribution-kernel</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/managing-vm-kernels/#distribution-kernel" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p><strong>dom0</strong></p>
 <p>1)</p>
 <p><span class="code-select">sudo qubes-dom0-update
@@ -1196,8 +1196,8 @@ grub2-xen-pvh</span></p>
 <p>2) Might need to increase the <code>initial memory</code> in
 QVMM.</p>
 <ul>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/8649">https://github.com/QubesOS/qubes-issues/issues/8649</a></li>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/8505">https://github.com/QubesOS/qubes-issues/issues/8505</a></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/8649">https://github.com/QubesOS/qubes-issues/issues/8649</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/8649" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/8505">https://github.com/QubesOS/qubes-issues/issues/8505</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/8505" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p><strong>Inside the VM</strong></p>
 <p>No longer required?</p>
@@ -1208,15 +1208,15 @@ linux-image-amd64 linux-headers-amd64 grub2-common
 qubes-kernel-vm-support initramfs-tools busybox</span></p>
 <p>Required?</p>
 <ul>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/5212#issuecomment-1777269659">https://github.com/QubesOS/qubes-issues/issues/5212#issuecomment-1777269659</a></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/5212#issuecomment-1777269659">https://github.com/QubesOS/qubes-issues/issues/5212#issuecomment-1777269659</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/5212#issuecomment-1777269659" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p><span class="code-select">sudo grub-install /dev/xvda</span></p>
 <p>No longer required?</p>
 <p><span class="code-select">sudo update-grub</span></p>
 <p><sup class="reference"><a href="#cite_note-18">[18]</a></sup></p>
 <ul>
-<li><code>qubes-kernel-vm-support</code>: <a href="https://github.com/QubesOS/qubes-linux-utils/blob/main/debian/qubes-kernel-vm-support.postinst">https://github.com/QubesOS/qubes-linux-utils/blob/main/debian/qubes-kernel-vm-support.postinst</a></li>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/5212">https://github.com/QubesOS/qubes-issues/issues/5212</a></li>
+<li><code>qubes-kernel-vm-support</code>: <a href="https://github.com/QubesOS/qubes-linux-utils/blob/main/debian/qubes-kernel-vm-support.postinst">https://github.com/QubesOS/qubes-linux-utils/blob/main/debian/qubes-kernel-vm-support.postinst</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-linux-utils/blob/main/debian/qubes-kernel-vm-support.postinst" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/5212">https://github.com/QubesOS/qubes-issues/issues/5212</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/5212" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Debug_Broken_Boot_VMs">Debug Broken Boot VMs</h1>
 <p><span class="code-select">xl dmesg</span></p>
@@ -1227,7 +1227,7 @@ qubes-kernel-vm-support initramfs-tools busybox</span></p>
 qubes-core-agent-networking</span></p>
 <h1 id="Debug_initramfs">Debug initramfs</h1>
 <p><a href="https://github.com/QubesOS/qubes-issues/issues/5490#issuecomment-562263712">Quote
-Marek</a>:</p>
+Marek</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/5490#issuecomment-562263712" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</p>
 <p><blockquote><p>Adding `debug=vc` to the kernel command line should make initramfs
 produce debug messages. Apparently it is also necessary to remove
 `console=tty0`, or at least make `console=hvc0` the last one. Otherwise
@@ -1279,7 +1279,7 @@ of the VM).</p>
 <p><span class="code-select">ls -la /mnt/disk2/home/user/</span></p>
 <h1 id="Revert_Qubes_Template">Revert Qubes Template</h1>
 <p>An ultra fast way to revert Qubes Template to previous revision.</p>
-<p>based on <a href="https://www.qubes-os.org/doc/volume-backup-revert/">https://www.qubes-os.org/doc/volume-backup-revert/</a></p>
+<p>based on <a href="https://www.qubes-os.org/doc/volume-backup-revert/">https://www.qubes-os.org/doc/volume-backup-revert/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/volume-backup-revert/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>In dom0.</p>
 <p>Note: replace <code>vmname</code> with the actual name of the
 Template.</p>
@@ -1299,8 +1299,8 @@ documentation.</p>
 <h1 id="Qubes_EFI_Fallback_Bootloader">Qubes EFI Fallback
 Bootloader</h1>
 <ul>
-<li><a href="https://github.com/QubesOS/qubes-issues/issues/8363">https://github.com/QubesOS/qubes-issues/issues/8363</a></li>
-<li><a href="https://forum.qubes-os.org/t/grubx64-efi-does-not-exist/18144/4">https://forum.qubes-os.org/t/grubx64-efi-does-not-exist/18144/4</a></li>
+<li><a href="https://github.com/QubesOS/qubes-issues/issues/8363">https://github.com/QubesOS/qubes-issues/issues/8363</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/8363" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://forum.qubes-os.org/t/grubx64-efi-does-not-exist/18144/4">https://forum.qubes-os.org/t/grubx64-efi-does-not-exist/18144/4</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forum.qubes-os.org/t/grubx64-efi-does-not-exist/18144/4" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p>Copy files from /boot/efi/EFI/qubes/ to /boot/efi/EFI/BOOT/</p>
 <p><span class="code-select">sudo cp -r /boot/efi/EFI/qubes/*
@@ -1314,9 +1314,9 @@ Bootloader</h1>
 <h1 id="curl_issues_with_onionized_dom0_updates_over_sys-whonix">curl
 issues with onionized dom0 updates over sys-whonix</h1>
 <ul>
-<li><a href="https://github.com/QubesOS/qubes-core-agent-linux/pull/614">https://github.com/QubesOS/qubes-core-agent-linux/pull/614</a></li>
+<li><a href="https://github.com/QubesOS/qubes-core-agent-linux/pull/614">https://github.com/QubesOS/qubes-core-agent-linux/pull/614</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-agent-linux/pull/614" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>curl does not support resolution of onion addresses, even when run
-under torsocks. See <a href="https://github.com/curl/curl/discussions/11125">https://github.com/curl/curl/discussions/11125</a>.</li>
+under torsocks. See <a href="https://github.com/curl/curl/discussions/11125">https://github.com/curl/curl/discussions/11125</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/curl/curl/discussions/11125" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>We ship a curl wrapper that handles adding the proper proxy command
 line arguments to torify curl and allow resolution of onion
 addresses.</li>
@@ -1327,13 +1327,13 @@ what the linked PR fixes.</li>
 </ul>
 <h1 id="Qubes_OpenQA">Qubes OpenQA</h1>
 <ul>
-<li>systemcheck: <a href="https://github.com/QubesOS/openqa-tests-qubesos/blob/main/extra-files/update/systemtests.py">https://github.com/QubesOS/openqa-tests-qubesos/blob/main/extra-files/update/systemtests.py</a></li>
+<li>systemcheck: <a href="https://github.com/QubesOS/openqa-tests-qubesos/blob/main/extra-files/update/systemtests.py">https://github.com/QubesOS/openqa-tests-qubesos/blob/main/extra-files/update/systemtests.py</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/openqa-tests-qubesos/blob/main/extra-files/update/systemtests.py" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Debugging">Debugging</h1>
 <p><blockquote><p>Livehack:
 <code>systemd.journald.forward_to_console=1 systemd.journald.max_level_console=debug</code>
 to <code>kernelopts</code>, then look into
-<code>/var/log/xen/console/guest-*</code><span class="blockquote-context"><a href="https://github.com/QubesOS/qubes-issues/issues/10769#issuecomment-4049800646">https://github.com/QubesOS/qubes-issues/issues/10769#issuecomment-4049800646</a></span></p></blockquote></p>
+<code>/var/log/xen/console/guest-*</code><span class="blockquote-context"><a href="https://github.com/QubesOS/qubes-issues/issues/10769#issuecomment-4049800646">https://github.com/QubesOS/qubes-issues/issues/10769#issuecomment-4049800646</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/10769#issuecomment-4049800646" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p></blockquote></p>
 <h1 id="See_Also">See Also</h1>
 <ul>
 <li><a href="../Test/">Dev/Test - How to "UnWhonix" -
@@ -1342,7 +1342,7 @@ Whonix-Gateway. After applying these instructions, Whonix-Gateway will
 connect to clearnet.</a></li>
 <li><a href="https://forums.whonix.org/t/how-to-add-a-proxyvm-between-anon-whonix-and-sys-whonix-whonix-ws-email-sys-fw-whonix-whonix-gw-sys-firewall-sys-net/2238">How
 to add a ProxyVM between anon-whonix and sys-whonix? (whonix-ws-email &#8594;
-sys-fw-whonix &#8594; whonix-gateway-18 &#8594; sys-firewall &#8594; sys-net)</a></li>
+sys-fw-whonix &#8594; whonix-gateway-18 &#8594; sys-firewall &#8594; sys-net)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/how-to-add-a-proxyvm-between-anon-whonix-and-sys-whonix-whonix-ws-email-sys-fw-whonix-whonix-gw-sys-firewall-sys-net/2238" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="../Qubes_Remote_Support/">Dev/Qubes Remote
 Support</a></li>
 </ul>
@@ -1351,36 +1351,36 @@ Support</a></li>
 <ol>
 <li id="cite_note-1">Upon creation.</li>
 <li id="cite_note-2">Following shutdown.</li>
-<li id="cite_note-3"><a href="https://www.qubes-os.org/doc/templates/">https://www.qubes-os.org/doc/templates/</a></li>
+<li id="cite_note-3"><a href="https://www.qubes-os.org/doc/templates/">https://www.qubes-os.org/doc/templates/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/templates/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-4">The former name was Template.</li>
 <li id="cite_note-5">The former name was AppVM or TemplateBasedVM.</li>
-<li id="cite_note-6"><a href="https://github.com/QubesOS/qubes-issues/issues/4175">https://github.com/QubesOS/qubes-issues/issues/4175</a></li>
+<li id="cite_note-6"><a href="https://github.com/QubesOS/qubes-issues/issues/4175">https://github.com/QubesOS/qubes-issues/issues/4175</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/4175" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-7">Former names included Disposable Template, DVM Template, and
 DVM.</li>
-<li id="cite_note-8"><a href="https://www.qubes-os.org/doc/glossary/#disposable">https://www.qubes-os.org/doc/glossary/#disposable</a></li>
+<li id="cite_note-8"><a href="https://www.qubes-os.org/doc/glossary/#disposable">https://www.qubes-os.org/doc/glossary/#disposable</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/glossary/#disposable" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-9">Former names included Disposable and DispVM.</li>
 <li id="cite_note-10">* <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3994">Get
-TorBrowser in Debian</a> * <a href="https://gitlab.torproject.org/legacy/trac/-/issues/5236">Make a
-deb of the Torbrowser and add to repository</a></li>
-<li id="cite_note-11"><a href="https://blog.torproject.org/tor-browser-50-released">https://blog.torproject.org/tor-browser-50-released</a>
+TorBrowser in Debian</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3994" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> * <a href="https://gitlab.torproject.org/legacy/trac/-/issues/5236">Make a
+deb of the Torbrowser and add to repository</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/5236" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-11"><a href="https://blog.torproject.org/tor-browser-50-released">https://blog.torproject.org/tor-browser-50-released</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/tor-browser-50-released" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <blockquote><p>Starting with this release, Tor Browser will now also download and
 apply upgrades in the background, to ensure that users upgrade quicker
 and with less interaction. This behavior is governed by the <a href="about:config">about:config</a> pref app.update.auto, but we do not
 recommend disabling it unless you really know what you're doing.</p></blockquote></li>
 <li id="cite_note-12">* <a href="https://github.com/QubesOS/qubes-issues/issues/3935">Qubes issue
-ticket: Mechanism for triggering template build</a> * <a href="https://github.com/QubesOS/qubes-issues/issues/6737">qubes-builder
+ticket: Mechanism for triggering template build</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/3935" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> * <a href="https://github.com/QubesOS/qubes-issues/issues/6737">qubes-builder
 make template-github curl broken - wrong environment variable
-handling</a> * <a href="https://github.com/Kicksecure/developer-meta-files/blob/master/usr/bin/dm-qubes-templates-official-build-commands">https://github.com/Kicksecure/developer-meta-files/blob/master/usr/bin/dm-qubes-templates-official-build-commands</a>
-* <a href="https://github.com/QubesOS/qubes-issues/issues/4536">https://github.com/QubesOS/qubes-issues/issues/4536</a>
-* <a href="https://github.com/QubesOS/qubes-issues/issues/6737">https://github.com/QubesOS/qubes-issues/issues/6737</a></li>
-<li id="cite_note-13"><a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/</a></li>
+handling</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6737" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> * <a href="https://github.com/Kicksecure/developer-meta-files/blob/master/usr/bin/dm-qubes-templates-official-build-commands">https://github.com/Kicksecure/developer-meta-files/blob/master/usr/bin/dm-qubes-templates-official-build-commands</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/developer-meta-files/blob/master/usr/bin/dm-qubes-templates-official-build-commands" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://github.com/QubesOS/qubes-issues/issues/4536">https://github.com/QubesOS/qubes-issues/issues/4536</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/4536" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://github.com/QubesOS/qubes-issues/issues/6737">https://github.com/QubesOS/qubes-issues/issues/6737</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/6737" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-13"><a href="https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/">https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-mgmt-salt-dom0-virtual-machines/blob/master/qvm/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-14"><code>template-for-dispvms: true</code></li>
-<li id="cite_note-15"><a href="https://github.com/QubesOS/qubes-core-admin/pull/214#issuecomment-399698122">https://github.com/QubesOS/qubes-core-admin/pull/214#issuecomment-399698122</a></li>
+<li id="cite_note-15"><a href="https://github.com/QubesOS/qubes-core-admin/pull/214#issuecomment-399698122">https://github.com/QubesOS/qubes-core-admin/pull/214#issuecomment-399698122</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-admin/pull/214#issuecomment-399698122" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-16">To avoid this error:
 <pre><code> /usr/sbin/thin_check: execvp failed: No such file or directory </code></pre></li>
-<li id="cite_note-17">* <a href="https://github.com/QubesOS/qubes-issues/issues/5490">https://github.com/QubesOS/qubes-issues/issues/5490</a>
-* <a href="https://github.com/QubesOS/qubes-doc/pull/905">https://github.com/QubesOS/qubes-doc/pull/905</a>
-* <a href="https://github.com/marmarek/qubes-linux-utils/commit/4b55194a1b99618e55b9da48c403973fb1ade90a">https://github.com/marmarek/qubes-linux-utils/commit/4b55194a1b99618e55b9da48c403973fb1ade90a</a></li>
+<li id="cite_note-17">* <a href="https://github.com/QubesOS/qubes-issues/issues/5490">https://github.com/QubesOS/qubes-issues/issues/5490</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/5490" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://github.com/QubesOS/qubes-doc/pull/905">https://github.com/QubesOS/qubes-doc/pull/905</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-doc/pull/905" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://github.com/marmarek/qubes-linux-utils/commit/4b55194a1b99618e55b9da48c403973fb1ade90a">https://github.com/marmarek/qubes-linux-utils/commit/4b55194a1b99618e55b9da48c403973fb1ade90a</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/marmarek/qubes-linux-utils/commit/4b55194a1b99618e55b9da48c403973fb1ade90a" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-18">DKMS and update-initramfs not required. Already happening before.
 Replace this <code>kernel-version</code> with actual kernel version.
 <span class="code-select">sudo dkms autoinstall -k

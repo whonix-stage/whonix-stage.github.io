@@ -20,10 +20,7 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Tor</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Rationale_for_Tor_Drop-In_Configuration_Folder">Rationale for
-Tor Drop-In Configuration Folder</a></li><li class="toc-l2"><a href="#Current_Implementation">Current Implementation</a></li><li class="toc-l2"><a href="#Rejected_Alternatives">Rejected Alternatives</a></li><li class="toc-l3"><a href="#Only_Two_Config_Files">Only Two Config Files</a></li><li class="toc-l3"><a href="#Only_One_Config_File">Only One Config File</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
-<div class="first-heading">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Tor</span></nav><div class="first-heading">
 <p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Default_Application_Policy/" title="Dev/Default Application Policy"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Default
 Application
 Policy</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../setup-dist/" title="Dev/setup-dist"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/setup-dist</span></a><span class="info"><span class="prev">Previous
@@ -31,12 +28,11 @@ page: Dev/Default Application Policy</span><span class="index">Index
 page: Design</span><span class="next">Next page:
 Dev/setup-dist</span></span></span>Tor integration in Whonix Development
 Notes</p>
-</div>
-<div class="mininav">
+</div><div class="mininav">
 <ul>
 <li><a href="../../Tor/">Tor</a></li>
 <li><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Tor Versioning</li>
 <li><a href="../../Anon_Connection_Wizard/">Anon Connection
 Wizard</a></li>
 <li><a href="../../Tor-control-panel/">tor-control-panel</a></li>
@@ -54,7 +50,19 @@ and Misconceptions</a></li>
 (Developer)</a></li>
 <li><a href="../anon-ws-disable-stacked-tor/">anon-ws-disable-stacked-tor (Developer)</a></li>
 </ul>
+</div><div class="intro-like">
+<p>This section documents Tor version selection considerations for
+Whonix. It compares C Tor and Arti, explains why the latest stable Tor
+package from <code>deb.torproject.org</code> might not always match the
+stable Debian release used by Whonix, and summarizes the advantages and
+disadvantages of using Debian packages, the Tor Project repository,
+Debian backports, or versions migrated to
+<code>deb.kicksecure.com</code>.</p>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Rationale_for_Tor_Drop-In_Configuration_Folder">Rationale for
+Tor Drop-In Configuration Folder</a></li><li class="toc-l2"><a href="#Current_Implementation">Current Implementation</a></li><li class="toc-l2"><a href="#Rejected_Alternatives">Rejected Alternatives</a></li><li class="toc-l3"><a href="#Only_Two_Config_Files">Only Two Config Files</a></li><li class="toc-l3"><a href="#Only_One_Config_File">Only One Config File</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
+
 <div class="pre-intro-p ">
 </div>
 <div class="hidden-thumbnail">
@@ -64,15 +72,7 @@ repository), Config Files, Miscellaneous</p>
 <div class="post-intro-p">
 </div>
 <h1 id="Tor_Version">Tor Version</h1>
-<div class="intro-like">
-<p>This section documents Tor version selection considerations for
-Whonix. It compares C Tor and Arti, explains why the latest stable Tor
-package from <code>deb.torproject.org</code> might not always match the
-stable Debian release used by Whonix, and summarizes the advantages and
-disadvantages of using Debian packages, the Tor Project repository,
-Debian backports, or versions migrated to
-<code>deb.kicksecure.com</code>.</p>
-</div>
+
 <p>There are two implementations of Tor.</p>
 <ul>
 <li>C Tor - Originally called "Tor". This is the original implementation
@@ -82,7 +82,7 @@ of Tor written in the C programming language.</li>
 <p>Both are developed by their upstream developer, The Tor Project
 (TPO).</p>
 <p>According to the <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/org/teams/NetworkTeam/CoreTorReleases#list-of-releases">Tor
-release notes</a>, there are usually several major versions of Tor
+release notes</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/org/teams/NetworkTeam/CoreTorReleases#list-of-releases" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, there are usually several major versions of Tor
 supported by The Tor Project. However, because the Tor packager has
 limited time, only a few major versions are packaged and ready for
 use.</p>
@@ -115,7 +115,7 @@ down because its replacement, Arti, is now the development focus of the
 Tor developers. <sup class="reference"><a href="#cite_note-3">[3]</a></sup>
 <ul>
 <li>Related: Whonix forum discussion <a href="https://forums.whonix.org/t/keep-an-eye-on-arti-tor/15815">Keep an
-eye on Arti (Tor)</a></li>
+eye on Arti (Tor)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/keep-an-eye-on-arti-tor/15815" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -137,17 +137,17 @@ start. This can arise due to a configuration incompatibility in a newer
 version of Tor, or for other reasons such as systemd or AppArmor related
 changes.</li>
 <li>In May 2021, a <a href="https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/40436">transient
-repository issue</a> <a href="https://forums.whonix.org/t/whonix-on-mac-m1-arm-user-support-still-unsupported-at-time-of-writing/11310/74">broke</a>
+repository issue</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/40436" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <a href="https://forums.whonix.org/t/whonix-on-mac-m1-arm-user-support-still-unsupported-at-time-of-writing/11310/74">broke</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-on-mac-m1-arm-user-support-still-unsupported-at-time-of-writing/11310/74" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 the Whonix build process.</li>
 <li>In December 2022, it caused the issue <a href="https://forums.whonix.org/t/failed-to-start-anonymizing-overlay-network-for-tcp-tor-fails-to-start-a-few-times-before-succeeding-to-start/16289">FAILED
 to start Anonymizing overlay network for TCP - Tor fails to start a few
-times before succeeding to start</a>.</li>
+times before succeeding to start</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/failed-to-start-anonymizing-overlay-network-for-tcp-tor-fails-to-start-a-few-times-before-succeeding-to-start/16289" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>In February 2023, it might have caused the issue <a href="https://forums.whonix.org/t/fresh-whonix-kvm-install-gateway-error/16350">Fresh
-whonix-kvm install gateway error</a>.</li>
+whonix-kvm install gateway error</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/fresh-whonix-kvm-install-gateway-error/16350" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>In December 2023, <a href="https://gitlab.torproject.org/tpo/core/tor/-/issues/40892">Tor
-0.4.8.9 broke connectivity in combination with vanguards</a> / <a href="https://github.com/mikeperry-tor/vanguards/issues/100">vanguards
-broken with Tor 0.4.8.9</a> / <a href="https://forums.whonix.org/t/connections-drop-on-tor-0-4-8-9/17702">Connections
-drop on Tor 0.4.8.9</a>.</li>
+0.4.8.9 broke connectivity in combination with vanguards</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/core/tor/-/issues/40892" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> / <a href="https://github.com/mikeperry-tor/vanguards/issues/100">vanguards
+broken with Tor 0.4.8.9</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/mikeperry-tor/vanguards/issues/100" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> / <a href="https://forums.whonix.org/t/connections-drop-on-tor-0-4-8-9/17702">Connections
+drop on Tor 0.4.8.9</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/connections-drop-on-tor-0-4-8-9/17702" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>There is no equivalent to <code>snapshot.debian.org</code>. It keeps
 changing as newer versions are added. Therefore, it can introduce build
 issues such as the ones above. It is unsuitable for reproducible builds
@@ -166,7 +166,7 @@ architectures</a> issues.
 <p><strong>3. Versions are downloaded from
 <code>deb.torproject.org</code>, verified to work, and then migrated to
 <code>deb.kicksecure.com</code></strong></p>
-<p>(Why <code>deb.kicksecure.com</code>? Because <a href="https://www.kicksecure.com/">Kicksecure</a> also uses the Tor
+<p>(Why <code>deb.kicksecure.com</code>? Because <a href="https://www.kicksecure.com/">Kicksecure</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> also uses the Tor
 package, and Whonix is <a href="../../Based_on_Kicksecure/">Based on Kicksecure</a>.)</p>
 <ul>
 <li>Advantages: Flexibility in version selection, and a guaranteed way
@@ -212,10 +212,10 @@ are currently unavailable.</p>
 <p><s>Whonix developers have chosen the first method for Whonix 17
 because development of C Tor has slowed down in favor of Arti as
 mentioned above.</s></p>
-<p>Back to the third method: <a href="https://forums.whonix.org/t/tor-integration-in-whonix/10593/45">https://forums.whonix.org/t/tor-integration-in-whonix/10593/45</a></p>
+<p>Back to the third method: <a href="https://forums.whonix.org/t/tor-integration-in-whonix/10593/45">https://forums.whonix.org/t/tor-integration-in-whonix/10593/45</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-integration-in-whonix/10593/45" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="Tor_Config_Files">Tor Config Files</h1>
 <h2 id="Rationale_for_Tor_Drop-In_Configuration_Folder">Rationale for
-Tor Drop-In Configuration Folder</h2>
+Tor Drop-In Configuration Folder</h2><span class="share-tooltip" data-anchor="Rationale_for_Tor_Drop-In_Configuration_Folder"><a class="headline-anchor" href="#Rationale_for_Tor_Drop-In_Configuration_Folder" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Tor/#Rationale_for_Tor_Drop-In_Configuration_Folder">https://www.whonix.org/wiki/Dev/Tor/#Rationale_for_Tor_Drop-In_Configuration_Folder</span></span></span></span>
 <p>Having a Tor <a href="../../Moved:Configuration_Files/#Configuration_Drop-In_Folders">Configuration Drop-In Folder</a> makes implementation
 of additional features that require additional Tor settings much easier.
 For example, it could improve usability to provide a
@@ -227,41 +227,41 @@ configuration snippet gets purged. Adding additions to
 <code>/etc/tor/torrc</code> with a script is problematic, because those
 additions cannot be removed by a script if the user slightly modified
 those lines and because they can cause a <a href="../../Moved:Configuration_Files/#dpkg_interactive_conflict_resolution_dialog"><code>dpkg interactive conflict resolution dialog</code></a>.</p>
-<h2 id="Current_Implementation">Current Implementation</h2>
+<h2 id="Current_Implementation">Current Implementation</h2><span class="share-tooltip" data-anchor="Current_Implementation"><a class="headline-anchor" href="#Current_Implementation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Tor/#Current_Implementation">https://www.whonix.org/wiki/Dev/Tor/#Current_Implementation</span></span></span></span>
 <p>The implementation is as follows.</p>
 <ul>
 <li><code>/etc/tor/torrc</code> holds minimal content, so ideally it
 will need as few updates as possible, or none in the future. The only
 effective command is <code>%include /etc/torrc.d/</code> which results
-in parsing the folder <a href="https://github.com/Whonix/anon-gw-anonymizer-config/tree/master/etc/torrc.d"><code>/etc/torrc.d</code></a>.</li>
-<li>The lexically highest file <a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/torrc.d/95_whonix.conf"><code>/etc/torrc.d/95_whonix.conf</code></a>
+in parsing the folder <a href="https://github.com/Whonix/anon-gw-anonymizer-config/tree/master/etc/torrc.d"><code>/etc/torrc.d</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/tree/master/etc/torrc.d" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
+<li>The lexically highest file <a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/torrc.d/95_whonix.conf"><code>/etc/torrc.d/95_whonix.conf</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/torrc.d/95_whonix.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 instructs Tor to <code>%include /usr/local/etc/torrc.d/</code>.</li>
 <li>Instructions in <code>/etc/tor/torrc</code> and <a href="../../Tor/">documentation</a> tell users not to edit that file and
 to use <code>/usr/local/etc/torrc.d/50_user.conf</code> instead.</li>
 <li><code>/etc/tor/torrc.examples</code> contains configuration
 examples.</li>
-<li>Some Whonix Tor settings unfortunately still go into <a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/share/tor/tor-service-defaults-torrc.anondist"><code>/usr/share/tor/tor-service-defaults-torrc</code></a>
+<li>Some Whonix Tor settings unfortunately still go into <a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/share/tor/tor-service-defaults-torrc.anondist"><code>/usr/share/tor/tor-service-defaults-torrc</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/share/tor/tor-service-defaults-torrc.anondist" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 due to <a href="https://phabricator.whonix.org/T947">Qubes-Whonix eth1
-static networking</a> feature not being implemented yet.</li>
+static networking</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T947" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> feature not being implemented yet.</li>
 <li>Most users probably ignore
 <code>/usr/share/tor/tor-service-defaults-torrc</code>, because this
 file is barely advertised and seldom used.</li>
 <li><code>/usr/share/tor/tor-service-defaults-torrc</code> can be
-modified by Qubes-Whonix <a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/replace-ips"><code>replace-ips</code></a>
+modified by Qubes-Whonix <a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/replace-ips"><code>replace-ips</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/replace-ips" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 without conflicts with user modifications or <a href="../../Moved:Configuration_Files/#dpkg_interactive_conflict_resolution_dialog"><code>dpkg interactive conflict resolution dialog</code></a>.
 <ul>
-<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/lib/systemd/system/anon-gw-anonymizer-config.service">https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/lib/systemd/system/anon-gw-anonymizer-config.service</a></li>
+<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/lib/systemd/system/anon-gw-anonymizer-config.service">https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/lib/systemd/system/anon-gw-anonymizer-config.service</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/lib/systemd/system/anon-gw-anonymizer-config.service" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 <li>Debian feature request: <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=866187">add
-torrc.d configuration directory</a></li>
+torrc.d configuration directory</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=866187" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>Initial Tor feature request: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/1922">torrc.d-style
-configuration directories</a></li>
+configuration directories</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/1922" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>Tor improvement feature request: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/25140">Parse
-only .torrc files in torrc.d directory</a></li>
-<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config">https://github.com/Whonix/anon-gw-anonymizer-config</a></li>
+only .torrc files in torrc.d directory</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/25140" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config">https://github.com/Whonix/anon-gw-anonymizer-config</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Rejected_Alternatives">Rejected Alternatives</h2>
-<h3 id="Only_Two_Config_Files">Only Two Config Files</h3>
+<h2 id="Rejected_Alternatives">Rejected Alternatives</h2><span class="share-tooltip" data-anchor="Rejected_Alternatives"><a class="headline-anchor" href="#Rejected_Alternatives" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Tor/#Rejected_Alternatives">https://www.whonix.org/wiki/Dev/Tor/#Rejected_Alternatives</span></span></span></span>
+<h3 id="Only_Two_Config_Files">Only Two Config Files</h3><span class="share-tooltip" data-anchor="Only_Two_Config_Files"><a class="headline-anchor" href="#Only_Two_Config_Files" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Tor/#Only_Two_Config_Files">https://www.whonix.org/wiki/Dev/Tor/#Only_Two_Config_Files</span></span></span></span>
 <ul>
 <li>Using only
 <em><span>/usr/share/tor/tor-service-defaults-torrc</span></em>
@@ -279,14 +279,14 @@ for configuration examples.</li>
 <li>This is a bad idea, because users are tempted to uncomment things in
 <em><span>/usr/share/tor/tor-service-defaults-torrc</span></em>.</li>
 <li>If they do this, their settings would get lost and overwritten
-without asking next time they update <a href="https://github.com/Whonix/anon-gw-anonymizer-config">anon-gw-anonymizer-config</a>,
+without asking next time they update <a href="https://github.com/Whonix/anon-gw-anonymizer-config">anon-gw-anonymizer-config</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
 because
 <em><span>/usr/share/tor/tor-service-defaults-torrc</span></em>
 is not a configuration file since it is in
 <em><span>/usr</span></em>, not
 <em><span>/etc</span></em>.</li>
 </ul>
-<h3 id="Only_One_Config_File">Only One Config File</h3>
+<h3 id="Only_One_Config_File">Only One Config File</h3><span class="share-tooltip" data-anchor="Only_One_Config_File"><a class="headline-anchor" href="#Only_One_Config_File" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Tor/#Only_One_Config_File">https://www.whonix.org/wiki/Dev/Tor/#Only_One_Config_File</span></span></span></span>
 <ul>
 <li>Using only
 <em><span>/etc/tor/torrc</span></em>,
@@ -326,40 +326,40 @@ Project and Whonix was granted permission to do so.</p>
 following:</p>
 <ul>
 <li>Tor Project thread about this issue; see <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorBOX/Dev/ArchivedDiscussion/DOCUMENTATION#updatesoverTorshouldnotwasteTorbandwidthDOCUMENTATIONSOLVED">updates
-over Tor, should not waste Tor bandwidth</a>.</li>
+over Tor, should not waste Tor bandwidth</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorBOX/Dev/ArchivedDiscussion/DOCUMENTATION#updatesoverTorshouldnotwasteTorbandwidthDOCUMENTATIONSOLVED" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>The Tor Project was asked directly after this issue and possible
 solutions were discussed thoroughly by the Whonix team; see <a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023486.html">tor-talk
 Operating system updates / software installation behind Tor Transparent
-Proxy</a>. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></li>
+Proxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-March/023486.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></li>
 <li>Andrew Lewman, a former Executive Director, Director, and press
 contact for Tor, downloads a lot of updates over the network and <a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023493.html">did
-not complain</a>.</li>
+not complain</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-March/023493.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul>
 <h1 id="Forum_Discussion">Forum Discussion</h1>
 <ul>
-<li><a href="https://forums.whonix.org/t/tor-integration-in-whonix/10593">https://forums.whonix.org/t/tor-integration-in-whonix/10593</a></li>
-<li><a href="https://forums.whonix.org/t/tor-upgrades/10302">https://forums.whonix.org/t/tor-upgrades/10302</a></li>
+<li><a href="https://forums.whonix.org/t/tor-integration-in-whonix/10593">https://forums.whonix.org/t/tor-integration-in-whonix/10593</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-integration-in-whonix/10593" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://forums.whonix.org/t/tor-upgrades/10302">https://forums.whonix.org/t/tor-upgrades/10302</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-upgrades/10302" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
 <ol>
-<li id="cite_note-1">* <a href="https://forums.whonix.org/t/whonix-gateway-tor-0-2-9-9-unrecommended-no-update-unsafe/4240/8">https://forums.whonix.org/t/whonix-gateway-tor-0-2-9-9-unrecommended-no-update-unsafe/4240/8</a></li>
+<li id="cite_note-1">* <a href="https://forums.whonix.org/t/whonix-gateway-tor-0-2-9-9-unrecommended-no-update-unsafe/4240/8">https://forums.whonix.org/t/whonix-gateway-tor-0-2-9-9-unrecommended-no-update-unsafe/4240/8</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-gateway-tor-0-2-9-9-unrecommended-no-update-unsafe/4240/8" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-2">The Debian target is usually the stable package, which is currently:
 trixie for Whonix.</li>
-<li id="cite_note-3">* <a href="https://gitlab.torproject.org/tpo/core/arti/-/blob/main/doc/FAQ.md">https://gitlab.torproject.org/tpo/core/arti/-/blob/main/doc/FAQ.md</a>
-* <a href="https://blog.torproject.org/arti_100_released/">https://blog.torproject.org/arti_100_released/</a>
-* <a href="https://gitlab.torproject.org/tpo/core/tor/-/merge_requests/496">https://gitlab.torproject.org/tpo/core/tor/-/merge_requests/496</a></li>
+<li id="cite_note-3">* <a href="https://gitlab.torproject.org/tpo/core/arti/-/blob/main/doc/FAQ.md">https://gitlab.torproject.org/tpo/core/arti/-/blob/main/doc/FAQ.md</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/core/arti/-/blob/main/doc/FAQ.md" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://blog.torproject.org/arti_100_released/">https://blog.torproject.org/arti_100_released/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/arti_100_released/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://gitlab.torproject.org/tpo/core/tor/-/merge_requests/496">https://gitlab.torproject.org/tpo/core/tor/-/merge_requests/496</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/core/tor/-/merge_requests/496" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-4">Patrick: "Historically when there was a botnet starting to use Tor,
 the LTS version barely connected while the latest stable had the ntor
-handshake which worked." See <a href="https://blog.torproject.org/tor-weekly-news-september-4th-2013">tor-weekly-news-september-4th-2013</a>.</li>
+handshake which worked." See <a href="https://blog.torproject.org/tor-weekly-news-september-4th-2013">tor-weekly-news-september-4th-2013</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/tor-weekly-news-september-4th-2013" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li id="cite_note-5"><code>Package: tor-geoipdb</code>
 <code>Version: 0.4.5.8-1~d10.buster+1</code> is
 <code>Architecture: all</code> and
 <code>Depends: tor (&gt;= 0.4.5.8-1~d10.buster+1)</code>. Thereby for
 example ended up in Whonix repository for architecture
 <code>ppc64el</code>. This has not caused an issue yet.</li>
-<li id="cite_note-6">Related Whonix Forum discussion: <a href="https://forums.whonix.org/t/tor-releases-discussion/4578">https://forums.whonix.org/t/tor-releases-discussion/4578</a></li>
-<li id="cite_note-7">Click <a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/subject.html#23507">here</a>
+<li id="cite_note-6">Related Whonix Forum discussion: <a href="https://forums.whonix.org/t/tor-releases-discussion/4578">https://forums.whonix.org/t/tor-releases-discussion/4578</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-releases-discussion/4578" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-7">Click <a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/subject.html#23507">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-March/subject.html#23507" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 for an overview of all answers.</li>
 </ol>
 </div>

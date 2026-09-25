@@ -21,7 +21,29 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Qubes</span> / <span>UpdatesProxy</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Generally">Generally</a></li><li class="toc-l2"><a href="#Qubes">Qubes</a></li><li class="toc-l2"><a href="#Simulate_torified_UpdatesProxy_check_failed">Simulate torified
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Qubes</span> / <span>UpdatesProxy</span></nav><div class="first-heading">
+<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Tor_Browser/" title="Qubes/Tor Browser"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes/Tor
+Browser</span></a><a class="index internal" href="../../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../../Multiple_Qubes-Whonix_Templates/" title="Multiple Qubes-Whonix Templates"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Multiple
+Qubes-Whonix
+Templates</span></a><span class="info"><span class="prev">Previous page:
+Qubes/Tor Browser</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Multiple Qubes-Whonix
+Templates</span></span></span>Qubes-Whonix<sup>&#8482;</sup> UpdatesProxy
+Settings</p>
+</div><div class="mininav">
+<ul>
+<li><a href="../../Troubleshooting/#Connectivity_Troubleshooting">Connectivity Troubleshooting</a></li>
+<li><a href="../../Troubleshooting/#General_Troubleshooting">General Troubleshooting</a></li>
+<li><a href="../Troubleshooting/">Qubes-Whonix<sup>&#8482;</sup> Tor Connectivity and sdwdate
+Troubleshooting</a></li>
+<li><a href="./">Qubes UpdatesProxy
+Troubleshooting</a></li>
+<li><a href="../../Network_Obstacle/">Network
+Obstacle</a></li>
+<li><a href="../../Tor/">Tor Log Analysis and Connectivity
+Troubleshooting</a></li>
+</ul>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Generally">Generally</a></li><li class="toc-l2"><a href="#Qubes">Qubes</a></li><li class="toc-l2"><a href="#Simulate_torified_UpdatesProxy_check_failed">Simulate torified
 UpdatesProxy check failed</a></li><li class="toc-l2"><a href="#Simulate_Broken_Connectivity">Simulate Broken Connectivity</a></li><li class="toc-l2"><a href="#Invalid_response_from_proxy:_HTTP/1.1_500_Unable_to_connect_Server:_tinyproxy">Invalid
 response from proxy: HTTP/1.1 500 Unable to connect Server:
 tinyproxy</a></li><li class="toc-l3"><a href="#Reproduce_the_Tinyproxy_error_by_stopping_Tor_or_unplugging_the_network_cable">Reproduce
@@ -37,30 +59,8 @@ test</a></li><li class="toc-l2"><a href="#Qubes_UpdatesProxy_reachability_test">
 reachability test</a></li><li class="toc-l2"><a href="#Qubes_UpdatesProxy_Stream_Isolation">Qubes UpdatesProxy Stream
 Isolation</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
-<div class="first-heading">
-<p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Tor_Browser/" title="Qubes/Tor Browser"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes/Tor
-Browser</span></a><a class="index internal" href="../../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../../Multiple_Qubes-Whonix_Templates/" title="Multiple Qubes-Whonix Templates"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Multiple
-Qubes-Whonix
-Templates</span></a><span class="info"><span class="prev">Previous page:
-Qubes/Tor Browser</span><span class="index">Index page:
-Documentation</span><span class="next">Next page: Multiple Qubes-Whonix
-Templates</span></span></span>Qubes-Whonix<sup>&#8482;</sup> UpdatesProxy
-Settings</p>
-</div>
-<div class="mininav">
-<ul>
-<li><a href="../../Troubleshooting/#Connectivity_Troubleshooting">Connectivity Troubleshooting</a></li>
-<li><a href="../../Troubleshooting/#General_Troubleshooting">General Troubleshooting</a></li>
-<li><a href="../Troubleshooting/">Qubes-Whonix<sup>&#8482;</sup> Tor Connectivity and sdwdate
-Troubleshooting</a></li>
-<li><a href="./">Qubes UpdatesProxy
-Troubleshooting</a></li>
-<li><a href="../../Network_Obstacle/">Network
-Obstacle</a></li>
-<li><a href="../../Tor/">Tor Log Analysis and Connectivity
-Troubleshooting</a></li>
-</ul>
-</div>
+
+
 <p><img src="../../../media/Qubesupdateproxy31231235.png.webp" width="180" alt="Qubesupdateproxy31231235.png" /></p>
 <div class="pre-intro-p ">
 </div>
@@ -172,25 +172,25 @@ Qubes-Whonix.</p>
 <ul>
 <li><a href="../Reinstall/">Reinstall Qubes-Whonix
 Templates</a>.</li>
-<li>If re-installation also fails, then ask for support in the <a href="https://forums.whonix.org">Whonix forums</a>.</li>
+<li>If re-installation also fails, then ask for support in the <a href="https://forums.whonix.org">Whonix forums</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul>
 </div>
 <h1 id="Additional_Information_for_Advanced_Users">Additional
 Information for Advanced Users</h1>
-<h2 id="Generally">Generally</h2>
+<h2 id="Generally">Generally</h2><span class="share-tooltip" data-anchor="Generally"><a class="headline-anchor" href="#Generally" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Generally">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Generally</span></span></span></span>
 <p>The following Qubes-Whonix and Whonix GitHub development resources
 are recommended for interested readers:</p>
 <ul>
-<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf"><code>/etc/uwt.d/40_qubes.conf</code></a></li>
-<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service"><code>/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service</code></a></li>
-<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/torified-updates-proxy-check"><code>/usr/lib/qubes-whonix/init/torified-updates-proxy-check</code></a></li>
-<li><a href="https://github.com/Whonix/uwt">uwt</a></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf"><code>/etc/uwt.d/40_qubes.conf</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service"><code>/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/qubes-whonix-torified-updates-proxy-check.service" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/torified-updates-proxy-check"><code>/usr/lib/qubes-whonix/init/torified-updates-proxy-check</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/qubes-whonix/init/torified-updates-proxy-check" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/uwt">uwt</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/uwt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Qubes">Qubes</h2>
+<h2 id="Qubes">Qubes</h2><span class="share-tooltip" data-anchor="Qubes"><a class="headline-anchor" href="#Qubes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes</span></span></span></span>
 <ul>
 <li>Qubes qrexec policy configuration can be found in the folder
 <code>/etc/qubes/policy.d/</code>.</li>
-<li>Qubes defaults are configured in file <a href="https://github.com/QubesOS/qubes-core-admin/blob/main/qubes-rpc-policy/90-default.policy"><code>/etc/qubes/policy.d/90-default.policy</code></a>.
+<li>Qubes defaults are configured in file <a href="https://github.com/QubesOS/qubes-core-admin/blob/main/qubes-rpc-policy/90-default.policy"><code>/etc/qubes/policy.d/90-default.policy</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-admin/blob/main/qubes-rpc-policy/90-default.policy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 <ul>
 <li>Search this file for lines starting with:
 <span class="code-select">qubes.UpdatesProxy</span></li>
@@ -217,7 +217,7 @@ step.</li>
 </ul></li>
 </ul>
 <h2 id="Simulate_torified_UpdatesProxy_check_failed">Simulate torified
-UpdatesProxy check failed</h2>
+UpdatesProxy check failed</h2><span class="share-tooltip" data-anchor="Simulate_torified_UpdatesProxy_check_failed"><a class="headline-anchor" href="#Simulate_torified_UpdatesProxy_check_failed" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Simulate_torified_UpdatesProxy_check_failed">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Simulate_torified_UpdatesProxy_check_failed</span></span></span></span>
 <p>Developers only.</p>
 <p><u>In Template.</u></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
@@ -244,11 +244,11 @@ For more help on this subject see:
 [https://www.whonix.org/wiki/Qubes/UpdatesProxy https://www.whonix.org/wiki/Qubes/UpdatesProxy]
 
 If this warning message is transient, it can be safely ignored.</code></pre>
-<p>Thanks to <a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf"><code>/etc/uwt.d/40_qubes.conf</code></a>
+<p>Thanks to <a href="https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf"><code>/etc/uwt.d/40_qubes.conf</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/etc/uwt.d/40_qubes.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 which checks if <code>/run/updatesproxycheck/whonix-secure-proxy</code>
 exists. It only exists if Qubes UpdatesProxy was reachable and the
 output of the test included <code>tor proxy</code>.</p>
-<h2 id="Simulate_Broken_Connectivity">Simulate Broken Connectivity</h2>
+<h2 id="Simulate_Broken_Connectivity">Simulate Broken Connectivity</h2><span class="share-tooltip" data-anchor="Simulate_Broken_Connectivity"><a class="headline-anchor" href="#Simulate_Broken_Connectivity" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Simulate_Broken_Connectivity">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Simulate_Broken_Connectivity</span></span></span></span>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
 Break networking.</p>
 <p>Unplug the network cable, disable WiFi, or power off the modem or
@@ -263,7 +263,7 @@ Result.</p>
 <pre><code>Sep 05 13:24:22 host tinyproxy[33224]: opensock: Could not retrieve address info for deb.debian.org:443: Temporary failure in name resolution</code></pre>
 <h2 id="Invalid_response_from_proxy:_HTTP/1.1_500_Unable_to_connect_Server:_tinyproxy">Invalid
 response from proxy: HTTP/1.1 500 Unable to connect Server:
-tinyproxy</h2>
+tinyproxy</h2><span class="share-tooltip" data-anchor="Invalid_response_from_proxy:_HTTP/1.1_500_Unable_to_connect_Server:_tinyproxy"><a class="headline-anchor" href="#Invalid_response_from_proxy:_HTTP/1.1_500_Unable_to_connect_Server:_tinyproxy" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Invalid_response_from_proxy:_HTTP/1.1_500_Unable_to_connect_Server:_tinyproxy">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Invalid_response_from_proxy:_HTTP/1.1_500_Unable_to_connect_Server:_tinyproxy</span></span></span></span>
 <p>Understanding Tinyproxy error messages</p>
 <p>The objective of this documentation is to help understand and
 interpret error messages from Tinyproxy seen in APT output.</p>
@@ -272,7 +272,7 @@ interpret error messages from Tinyproxy seen in APT output.</p>
 <p>is not necessarily indicative of a Tor connectivity issue or issue
 caused by Whonix.</p>
 <h3 id="Reproduce_the_Tinyproxy_error_by_stopping_Tor_or_unplugging_the_network_cable">Reproduce
-the Tinyproxy error by stopping Tor or unplugging the network cable</h3>
+the Tinyproxy error by stopping Tor or unplugging the network cable</h3><span class="share-tooltip" data-anchor="Reproduce_the_Tinyproxy_error_by_stopping_Tor_or_unplugging_the_network_cable"><a class="headline-anchor" href="#Reproduce_the_Tinyproxy_error_by_stopping_Tor_or_unplugging_the_network_cable" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Reproduce_the_Tinyproxy_error_by_stopping_Tor_or_unplugging_the_network_cable">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Reproduce_the_Tinyproxy_error_by_stopping_Tor_or_unplugging_the_network_cable</span></span></span></span>
 <p>Developers only. For demonstration purposes.</p>
 <p>Either stop Tor, or unplug the network cable from the router, disable
 WiFi, or similar.</p>
@@ -300,7 +300,7 @@ Restart Tor.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
 Done.</p>
 <h3 id="Reproduce_the_Tinyproxy_error_by_adding_a_blocked_repository">Reproduce
-the Tinyproxy error by adding a blocked repository</h3>
+the Tinyproxy error by adding a blocked repository</h3><span class="share-tooltip" data-anchor="Reproduce_the_Tinyproxy_error_by_adding_a_blocked_repository"><a class="headline-anchor" href="#Reproduce_the_Tinyproxy_error_by_adding_a_blocked_repository" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Reproduce_the_Tinyproxy_error_by_adding_a_blocked_repository">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Reproduce_the_Tinyproxy_error_by_adding_a_blocked_repository</span></span></span></span>
 <p>Developers only. For demonstration purposes.</p>
 <p>This example uses <code>blocked.com</code> and the website seems to
 block Tor traffic, which is useful for testing.</p>
@@ -325,7 +325,7 @@ Invalid response from proxy: HTTP/1.1 500 Unable to connect  Server: tinyproxy/1
 Reading package lists... Done
 E: Failed to fetch tor+https://deb.blocked.com/dists/bookworm/InRelease  Invalid response from proxy: HTTP/1.1 500 Unable to connect  Server: tinyproxy/1.11.1  Content-Type: text/html  Connection: close [IP: 127.0.0.1 8082]</code></pre>
 <h3 id="Tinyproxy_error_interpretation">Tinyproxy error
-interpretation</h3>
+interpretation</h3><span class="share-tooltip" data-anchor="Tinyproxy_error_interpretation"><a class="headline-anchor" href="#Tinyproxy_error_interpretation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Tinyproxy_error_interpretation">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Tinyproxy_error_interpretation</span></span></span></span>
 <p>From the output provided by <code>apt</code> in the Template, based
 on the message from Tinyproxy, it is challenging to differentiate
 between:</p>
@@ -336,9 +336,9 @@ inability to connect to the destination domain name.</li>
 connection being blocked by a remote APT server.</li>
 </ul>
 <p>The symptoms and output from both scenarios are identical.</p>
-<h2 id="Error_Messages">Error Messages</h2>
+<h2 id="Error_Messages">Error Messages</h2><span class="share-tooltip" data-anchor="Error_Messages"><a class="headline-anchor" href="#Error_Messages" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Error_Messages">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Error_Messages</span></span></span></span>
 <h3 id="Proxying_refused_on_filtered_domain_127.0.0.1">Proxying refused
-on filtered domain "127.0.0.1"</h3>
+on filtered domain "127.0.0.1"</h3><span class="share-tooltip" data-anchor="Proxying_refused_on_filtered_domain_127.0.0.1"><a class="headline-anchor" href="#Proxying_refused_on_filtered_domain_127.0.0.1" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Proxying_refused_on_filtered_domain_127.0.0.1">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Proxying_refused_on_filtered_domain_127.0.0.1</span></span></span></span>
 <p>In sys-whonix.</p>
 <pre><code>Oct 15 15:34:29 host tinyproxy[846]: Proxying refused on filtered domain &quot;127.0.0.1&quot;</code></pre>
 <p>This is a non-issue.</p>
@@ -346,13 +346,13 @@ on filtered domain "127.0.0.1"</h3>
 qubes-core-agent-networking) contains:</p>
 <ul>
 <li><a href="https://github.com/QubesOS/qubes-core-agent-linux/blob/main/network/updates-blacklist">updates-blacklist
-in the qubes-core-agent-linux repository</a></li>
+in the qubes-core-agent-linux repository</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-agent-linux/blob/main/network/updates-blacklist" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p><a href="https://github.com/QubesOS/qubes-issues/issues/8606">Qubes
-issue 8606</a></p>
+issue 8606</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/8606" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h2 id="Could_not_connect_to_127.0.0.1:8082_(127.0.0.1)._-_connect_(113:_No_route_to_host)">Could
 not connect to 127.0.0.1:8082 (127.0.0.1). - connect (113: No route to
-host)</h2>
+host)</h2><span class="share-tooltip" data-anchor="Could_not_connect_to_127.0.0.1:8082_(127.0.0.1)._-_connect_(113:_No_route_to_host)"><a class="headline-anchor" href="#Could_not_connect_to_127.0.0.1:8082_(127.0.0.1)._-_connect_(113:_No_route_to_host)" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Could_not_connect_to_127.0.0.1:8082_(127.0.0.1)._-_connect_(113:_No_route_to_host)">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Could_not_connect_to_127.0.0.1:8082_(127.0.0.1)._-_connect_(113:_No_route_to_host)</span></span></span></span>
 <p>This issue applies to at least Debian and Qubes-Whonix Templates. It
 happens if the UpdatesProxy (in case of Qubes-Whonix most likely:
 <code>sys-whonix</code>) used by the Template has not been started
@@ -365,7 +365,7 @@ qubes-updates-proxy-forwarder.socket</span></p>
 <pre><code>Could not connect to 127.0.0.1:8082 (127.0.0.1). - connect (113: No route to host)</code></pre>
 <h2 id="Reading_from_proxy_failed_-_read_(11:_Resource_temporarily_unavailable)_[IP:_127.0.0.1_8082]">Reading
 from proxy failed - read (11: Resource temporarily unavailable) [IP:
-127.0.0.1 8082]</h2>
+127.0.0.1 8082]</h2><span class="share-tooltip" data-anchor="Reading_from_proxy_failed_-_read_(11:_Resource_temporarily_unavailable)_[IP:_127.0.0.1_8082]"><a class="headline-anchor" href="#Reading_from_proxy_failed_-_read_(11:_Resource_temporarily_unavailable)_[IP:_127.0.0.1_8082]" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Reading_from_proxy_failed_-_read_(11:_Resource_temporarily_unavailable)_[IP:_127.0.0.1_8082]">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Reading_from_proxy_failed_-_read_(11:_Resource_temporarily_unavailable)_[IP:_127.0.0.1_8082]</span></span></span></span>
 <p>In <code>sys-whonix</code>:</p>
 <p><span class="code-select">sudo systemctl stop
 qubes-updates-proxy.service</span></p>
@@ -374,11 +374,11 @@ qubes-updates-proxy.service</span></p>
 <p>Expected output:</p>
 <pre><code>Reading from proxy failed - read (11: Resource temporarily unavailable) [IP: 127.0.0.1 8082]</code></pre>
 <h2 id="Qubes_UpdatesProxy_running_test">Qubes UpdatesProxy running
-test</h2>
+test</h2><span class="share-tooltip" data-anchor="Qubes_UpdatesProxy_running_test"><a class="headline-anchor" href="#Qubes_UpdatesProxy_running_test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_running_test">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_running_test</span></span></span></span>
 <p><span class="code-select">sudo systemctl --no-pager --full -l status
 qubes-updates-proxy-forwarder.socket</span></p>
 <h2 id="Qubes_UpdatesProxy_reachability_test">Qubes UpdatesProxy
-reachability test</h2>
+reachability test</h2><span class="share-tooltip" data-anchor="Qubes_UpdatesProxy_reachability_test"><a class="headline-anchor" href="#Qubes_UpdatesProxy_reachability_test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_reachability_test">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_reachability_test</span></span></span></span>
 <p>In Template, use <code>curl</code> to check if Qubes UpdatesProxy is
 running on IP <code>127.0.0.1</code>, port <code>8082</code>.</p>
 <p><span class="code-select">curl 127.0.0.1:8082</span></p>
@@ -412,7 +412,7 @@ This customized file /usr/share/tinyproxy/default.html is stored on on a Tor pro
 
 &lt;/html&gt;</code></pre>
 <h2 id="Qubes_UpdatesProxy_Stream_Isolation">Qubes UpdatesProxy Stream
-Isolation</h2>
+Isolation</h2><span class="share-tooltip" data-anchor="Qubes_UpdatesProxy_Stream_Isolation"><a class="headline-anchor" href="#Qubes_UpdatesProxy_Stream_Isolation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_Stream_Isolation">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_Stream_Isolation</span></span></span></span>
 <p>See <a href="../../Stream_Isolation/#Qubes_UpdatesProxy_Stream_Isolation">Qubes UpdatesProxy Stream Isolation</a>.</p>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">

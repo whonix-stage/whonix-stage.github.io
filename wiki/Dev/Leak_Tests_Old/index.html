@@ -47,7 +47,7 @@ might forward traffic for Whonix-Workstation<sup>&#8482;</sup> which goes not
 trough Tor. The following tests are designed to test for such
 behaviour.</p>
 <h2 id="Step_0:_restrict_Tor_outgoing_ports_while_testing">Step 0:
-restrict Tor outgoing ports while testing</h2>
+restrict Tor outgoing ports while testing</h2><span class="share-tooltip" data-anchor="Step_0:_restrict_Tor_outgoing_ports_while_testing"><a class="headline-anchor" href="#Step_0:_restrict_Tor_outgoing_ports_while_testing" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_0:_restrict_Tor_outgoing_ports_while_testing">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_0:_restrict_Tor_outgoing_ports_while_testing</span></span></span></span>
 <p>Why we do this will be clarified in Step 5.</p>
 <p>Open your
 <em><span>/usr/local/etc/torrc.d/50_user.conf</span></em>.</p>
@@ -63,20 +63,20 @@ FascistFirewall 1</code></pre>
 <p>This has to be undone after you finished testing. You will be
 reminded at the end of this chapter.</p>
 <h2 id="Step_1:_Prepare_the_testing_infrastructure">Step 1: Prepare the
-testing infrastructure</h2>
+testing infrastructure</h2><span class="share-tooltip" data-anchor="Step_1:_Prepare_the_testing_infrastructure"><a class="headline-anchor" href="#Step_1:_Prepare_the_testing_infrastructure" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_1:_Prepare_the_testing_infrastructure">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_1:_Prepare_the_testing_infrastructure</span></span></span></span>
 <p>Three tools are used during testing:</p>
-<p><a href="https://en.wikipedia.org/wiki/Scapy">Scapy</a>: To create
+<p><a href="https://en.wikipedia.org/wiki/Scapy">Scapy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Scapy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>: To create
 network traffic for testing. It is also desirable that the network
 traffic used in testing does not expose you to possible violations of
 security! Thus Scapy offers fine grained control over the creation of
 traffic for use with testing. Functionality defined here can be
 formalized into <a href="https://en.wikipedia.org/wiki/Unit_test">"Unit
-Tests"</a> via <a href="https://web.archive.org/web/20240212064015/https://www.secdev.org/projects/UTscapy/">UTScapy</a>.</p>
-<p><a href="https://en.wikipedia.org/wiki/Wireshark">Wireshark</a>: Used
+Tests"</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Unit_test" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> via <a href="https://web.archive.org/web/20240212064015/https://www.secdev.org/projects/UTscapy/">UTScapy</a>.</p>
+<p><a href="https://en.wikipedia.org/wiki/Wireshark">Wireshark</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Wireshark" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>: Used
 to sniff network traffic. Can be configured with fine grained <a href="https://www.wireshark.org/docs/wsug_html_chunked/ChCapCaptureFilterSection.html">"Capture
-Filters"</a>, which can filter the traffic reported and captured by
+Filters"</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.wireshark.org/docs/wsug_html_chunked/ChCapCaptureFilterSection.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, which can filter the traffic reported and captured by
 wireshark while sniffing traffic.</p>
-<p><a href="https://en.wikipedia.org/wiki/Python_%28programming_language%29">Python</a>:
+<p><a href="https://en.wikipedia.org/wiki/Python_%28programming_language%29">Python</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Python_%28programming_language%29" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:
 Used to support Scapy and can be used to easily script Scapy tests.</p>
 <p>Install <code>wireshark</code> to the Whonix-Gateway:</p>
 <pre><code>apt install tshark</code></pre>
@@ -86,7 +86,7 @@ Used to support Scapy and can be used to easily script Scapy tests.</p>
 <pre><code>apt install python-scapy</code></pre>
 <p>(This automatically installs Python as a dependency of Scapy)</p>
 <h2 id="Step_2:_Verify_Wireshark_is_installed_and_working">Step 2: Verify
-Wireshark is installed and working</h2>
+Wireshark is installed and working</h2><span class="share-tooltip" data-anchor="Step_2:_Verify_Wireshark_is_installed_and_working"><a class="headline-anchor" href="#Step_2:_Verify_Wireshark_is_installed_and_working" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_2:_Verify_Wireshark_is_installed_and_working">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_2:_Verify_Wireshark_is_installed_and_working</span></span></span></span>
 <p>(Whonix-Gateway)</p>
 <p><strong>Warning</strong>: It is unadvisable to run Wireshark as root.
 'su user'</p>
@@ -98,7 +98,7 @@ indicates you are seeing normal network traffic (ARP, DHCP requests, Tor
 traffic, etc). This will give you some idea of what to look for when we
 test for "leaked" traffic below.</p>
 <h2 id="Step_3:_Verify_Scapy_is_installed_and_working">Step 3: Verify
-Scapy is installed and working</h2>
+Scapy is installed and working</h2><span class="share-tooltip" data-anchor="Step_3:_Verify_Scapy_is_installed_and_working"><a class="headline-anchor" href="#Step_3:_Verify_Scapy_is_installed_and_working" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_3:_Verify_Scapy_is_installed_and_working">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_3:_Verify_Scapy_is_installed_and_working</span></span></span></span>
 <p>(Whonix-Workstation)</p>
 <p>Start Scapy with elevated privileges to allow both sending and
 receiving of packets:</p>
@@ -120,7 +120,7 @@ with Scapy:</p>
 <pre><code>&gt;;&gt;;&gt;; exit()</code></pre>
 <p>See more information at the official <a href="https://web.archive.org/web/20160306081454/https://www.secdev.org/projects/scapy/doc/usage.html">Scapy
 documentation</a>.</p>
-<h2 id="Step_4:_Do_a_simple_ping_test">Step 4: Do a simple ping test</h2>
+<h2 id="Step_4:_Do_a_simple_ping_test">Step 4: Do a simple ping test</h2><span class="share-tooltip" data-anchor="Step_4:_Do_a_simple_ping_test"><a class="headline-anchor" href="#Step_4:_Do_a_simple_ping_test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_4:_Do_a_simple_ping_test">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_4:_Do_a_simple_ping_test</span></span></span></span>
 <p>(Whonix-Workstation)</p>
 <p>Since Scapy is scriptable via Python, we'll use Scapy from within a
 Python script for our testing. An example script that creates a simple
@@ -179,7 +179,7 @@ the Whonix-Gateway.</p>
 .*
 Received 7 packets, got 1 answers, remaining 0 packets</code></pre>
 <h2 id="Step_5:_Setting_up_a_non-Tor_traffic_capture_with_Wireshark">Step
-5: Setting up a "non-Tor traffic" capture with Wireshark</h2>
+5: Setting up a "non-Tor traffic" capture with Wireshark</h2><span class="share-tooltip" data-anchor="Step_5:_Setting_up_a_non-Tor_traffic_capture_with_Wireshark"><a class="headline-anchor" href="#Step_5:_Setting_up_a_non-Tor_traffic_capture_with_Wireshark" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_5:_Setting_up_a_non-Tor_traffic_capture_with_Wireshark">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_5:_Setting_up_a_non-Tor_traffic_capture_with_Wireshark</span></span></span></span>
 <p>(Whonix-Gateway)</p>
 <p>The command:</p>
 <pre><code>sudo -u user tshark -i eth0 -S -f &quot;ip and src host 10.0.2.15 and not (port 80 or port 443 or port 9001 or port 9030 or ssh)&quot;</code></pre>
@@ -200,7 +200,7 @@ innocent.</p>
 <p>Leave this capture running for subsequent tests.</p>
 <p><strong>Discussion</strong>:</p>
 <p>(See the <a href="https://www.wireshark.org/docs/man-pages/tshark.html">tshark
-manual page</a> for more information)</p>
+manual page</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.wireshark.org/docs/man-pages/tshark.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> for more information)</p>
 <p><strong>-S</strong>: Decode and display packets even while writing
 raw packet data using the -w option.</p>
 <p><strong>-i</strong>: Set the name of the network interface or pipe to
@@ -209,19 +209,19 @@ use for live packet capture.</p>
 <p>The "capture expression" (the bit in quotes above, after the '-f')
 reads: IP packets and from host 10.0.2.15 (your <strong>eth0 IP</strong>
 address) where the ports are NOT 80, 443, 9901 or 9030 (<a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorFAQ#DoIhavetoopenalltheseoutboundportsonmyfirewall">common
-ports for Tor, see the FAQ</a>). The "ssh" keyword on the end is a
+ports for Tor, see the FAQ</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorFAQ#DoIhavetoopenalltheseoutboundportsonmyfirewall" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>). The "ssh" keyword on the end is a
 predefined primitive in wireshark, used to define SSH traffic only.
 Adding this should not effect your capture if you are not using SSH to
 connect to the gateway, but should save you quite a bit of trouble
 filtering out your SSH traffic if you are.</p>
 <p>See the <a href="https://www.wireshark.org/docs/wsug_html_chunked/ChCapCaptureFilterSection.html">documentation
-for the format of the "capture filter" here</a>, for more
+for the format of the "capture filter" here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.wireshark.org/docs/wsug_html_chunked/ChCapCaptureFilterSection.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, for more
 information.</p>
 <p>(Note: This may not cover all valid TOR traffic emiting from your
 Whonix, some Tor nodes may use non-standard ports and was observed
 during testing. The FAQ above, also covers this.)</p>
 <h2 id="Step_6:_Scapy_traffic_testing:_IP_packets">Step 6: Scapy traffic
-testing: IP packets</h2>
+testing: IP packets</h2><span class="share-tooltip" data-anchor="Step_6:_Scapy_traffic_testing:_IP_packets"><a class="headline-anchor" href="#Step_6:_Scapy_traffic_testing:_IP_packets" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_6:_Scapy_traffic_testing:_IP_packets">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_6:_Scapy_traffic_testing:_IP_packets</span></span></span></span>
 <p>(Whonix-Workstation)</p>
 <p>Other testing is in the same vein as our ping (above).</p>
 <p><strong>First</strong>: We'll test IP datagrams of all types to see
@@ -251,10 +251,10 @@ for ip_type in range(0,255):
 <pre><code>sudo python exhaustive_ip_send.py</code></pre>
 <p>On Whonix-Gateway you should see NO output from Wireshark. Otherwise
 you may have discovered a leak. <a href="https://en.wikipedia.org/wiki/IPv4#Packet_structure">Documentation
-on IP packet structure</a> and <a href="https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers">IP
-Protocol numbers</a>.</p>
+on IP packet structure</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/IPv4#Packet_structure" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and <a href="https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers">IP
+Protocol numbers</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <h2 id="Step_7:_Scapy_traffic_testing:_TCP_packets_and_ports">Step 7:
-Scapy traffic testing: TCP packets and ports</h2>
+Scapy traffic testing: TCP packets and ports</h2><span class="share-tooltip" data-anchor="Step_7:_Scapy_traffic_testing:_TCP_packets_and_ports"><a class="headline-anchor" href="#Step_7:_Scapy_traffic_testing:_TCP_packets_and_ports" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_7:_Scapy_traffic_testing:_TCP_packets_and_ports">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_7:_Scapy_traffic_testing:_TCP_packets_and_ports</span></span></span></span>
 <p>(Whonix-Workstation)</p>
 <p><strong>Second</strong>: We'll test TCP packets across all ports:
 (Note: This may appear as an <strong>ATTACK</strong> from some
@@ -287,9 +287,9 @@ for tcp_port in range(0,65535):
 <pre><code>sudo python tcp_test.py</code></pre>
 <p>Again Whonix-Gateway should report NO activity, otherwise we've found
 a leak <a href="https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers">TCP
-/ UDP port number documentation</a>.</p>
+/ UDP port number documentation</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <h2 id="Step_8:_Scapy_traffic_testing:_UDP_packets_and_ports">Step 8:
-Scapy traffic testing: UDP packets and ports</h2>
+Scapy traffic testing: UDP packets and ports</h2><span class="share-tooltip" data-anchor="Step_8:_Scapy_traffic_testing:_UDP_packets_and_ports"><a class="headline-anchor" href="#Step_8:_Scapy_traffic_testing:_UDP_packets_and_ports" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_8:_Scapy_traffic_testing:_UDP_packets_and_ports">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_8:_Scapy_traffic_testing:_UDP_packets_and_ports</span></span></span></span>
 <p>(Whonix-Workstation)</p>
 <p><strong>Third</strong>: We'll test UDP packets across all ports:</p>
 <p>(Note: This may also be construed as an attack, Google is a good
@@ -319,8 +319,8 @@ for udp_port in range(0,65535):
 <p>Run</p>
 <pre><code>sudo python udp_test.py</code></pre>
 <p>Again, check for leaks. <a href="https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers">TCP
-/ UDP port number documentation</a>.</p>
-<h2 id="Step_9:_undo_Step_0">Step 9: undo Step 0</h2>
+/ UDP port number documentation</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h2 id="Step_9:_undo_Step_0">Step 9: undo Step 0</h2><span class="share-tooltip" data-anchor="Step_9:_undo_Step_0"><a class="headline-anchor" href="#Step_9:_undo_Step_0" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_9:_undo_Step_0">https://www.whonix.org/wiki/Dev/Leak_Tests_Old/#Step_9:_undo_Step_0</span></span></span></span>
 <p>Undo Step 0 now!</p>
 <div class="robots-nocontent" data-nosnippet="">
 <div id="custom-footer">

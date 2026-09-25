@@ -21,12 +21,6 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Preparation">Preparation</a></li><li class="toc-l2"><a href="#Remove_old_versions_of_VPN-Firewall">Remove old versions of
-VPN-Firewall</a></li><li class="toc-l2"><a href="#Qubes_specific">Qubes specific</a></li><li class="toc-l2"><a href="#VPN_Setup">VPN Setup</a></li><li class="toc-l2"><a href="#ip_unpriv_vs_ip-unpriv">ip_unpriv vs ip-unpriv</a></li><li class="toc-l2"><a href="#50_openvpn_unpriv.conf_vs_50_openvpn-unpriv.conf">50_openvpn_unpriv.conf
-vs 50_openvpn-unpriv.conf</a></li><li class="toc-l2"><a href="#Cannot_ioctl_TUNSETIFF">Cannot ioctl TUNSETIFF</a></li><li class="toc-l2"><a href="#Dev_tun_Mismatch">Dev tun Mismatch</a></li><li class="toc-l2"><a href="#/run/openvpn/openvpn.status_Permission_denied">/run/openvpn/openvpn.status
-Permission denied</a></li><li class="toc-l2"><a href="#debug_start">debug start</a></li><li class="toc-l2"><a href="#Linux_ip_link_set_failed">Linux ip link set failed</a></li><li class="toc-l2"><a href="#Connectivity_Test">Connectivity Test</a></li><li class="toc-l2"><a href="#DNS_Configuration_2">DNS Configuration</a></li><li class="toc-l2"><a href="#Terminology_for_Support_Requests">Terminology for Support
-Requests</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
 <div class="first-heading">
 <p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Dev/Leak_Tests/" title="Dev/Leak Tests"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Leak
 Tests</span></a><a class="index internal" href="../Advanced_Documentation/" title="Advanced Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Advanced
@@ -35,7 +29,13 @@ DNS Resolver</span></a><span class="info"><span class="prev">Previous
 page: Dev/Leak Tests</span><span class="index">Index page: Advanced
 Documentation</span><span class="next">Next page: Alternative DNS
 Resolver</span></span></span>VPN-Firewall: Enforce use of a VPN</p>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Preparation">Preparation</a></li><li class="toc-l2"><a href="#Remove_old_versions_of_VPN-Firewall">Remove old versions of
+VPN-Firewall</a></li><li class="toc-l2"><a href="#Qubes_specific">Qubes specific</a></li><li class="toc-l2"><a href="#VPN_Setup">VPN Setup</a></li><li class="toc-l2"><a href="#ip_unpriv_vs_ip-unpriv">ip_unpriv vs ip-unpriv</a></li><li class="toc-l2"><a href="#50_openvpn_unpriv.conf_vs_50_openvpn-unpriv.conf">50_openvpn_unpriv.conf
+vs 50_openvpn-unpriv.conf</a></li><li class="toc-l2"><a href="#Cannot_ioctl_TUNSETIFF">Cannot ioctl TUNSETIFF</a></li><li class="toc-l2"><a href="#Dev_tun_Mismatch">Dev tun Mismatch</a></li><li class="toc-l2"><a href="#/run/openvpn/openvpn.status_Permission_denied">/run/openvpn/openvpn.status
+Permission denied</a></li><li class="toc-l2"><a href="#debug_start">debug start</a></li><li class="toc-l2"><a href="#Linux_ip_link_set_failed">Linux ip link set failed</a></li><li class="toc-l2"><a href="#Connectivity_Test">Connectivity Test</a></li><li class="toc-l2"><a href="#DNS_Configuration_2">DNS Configuration</a></li><li class="toc-l2"><a href="#Terminology_for_Support_Requests">Terminology for Support
+Requests</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
 <p><img src="../../media/Vpnfirewall1234322134.jpg.webp" width="350" alt="Vpnfirewall1234322134.jpg" /></p>
 <div class="pre-intro-p ">
 </div>
@@ -59,7 +59,7 @@ VPN connection isn't restored.</p>
 for some reason.</li>
 <li>Tight firewall rules, using iptables policy drop.</li>
 <li>Defeat <a href="https://github.com/adrelanos/vpn-firewall/issues/12">shared
-VPN/Tor server leak bug</a>.</li>
+VPN/Tor server leak bug</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/adrelanos/vpn-firewall/issues/12" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>Only tested with OpenVPN. Should work with other VPN and tunnel
 clients such as PPTP in theory, you should test if it does what it
 claims anyway.</li>
@@ -76,7 +76,7 @@ session then you will need to analyze the packets leaving your hardware
 NIC.</li>
 <li>Block WebRTC leaks. [1]</li>
 <li>Defend against <a href="https://blog.torproject.org/bittorrent-over-tor-isnt-good-idea">IP
-leaks</a>. If a locally installed application uses trickery to obtain
+leaks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/bittorrent-over-tor-isnt-good-idea" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. If a locally installed application uses trickery to obtain
 the the users real IP and sends it somewhere though the VPN. [1]</li>
 <li>Defend against adversaries, which are in position to run code
 locally, i.e. manipulate the firewall rules.</li>
@@ -106,7 +106,7 @@ Whonix-Workstation<sup>&#8482;</sup>, see <a href="../Tunnels/Introduction/">Tun
 documentation.)</p>
 </div>
 <h1 id="How_to_use_VPN-Firewall">How to use VPN-Firewall</h1>
-<h2 id="Preparation">Preparation</h2>
+<h2 id="Preparation">Preparation</h2><span class="share-tooltip" data-anchor="Preparation"><a class="headline-anchor" href="#Preparation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#Preparation">https://www.whonix.org/wiki/VPN-Firewall/#Preparation</span></span></span></span>
 <p>Since setting up OpenVPN including a secure, leak preventing fail
 closed mechanism is challenging, it is highly recommend to learn how to
 set up OpenVPN on Debian stable (currently: trixie). Get a Debian stable
@@ -121,7 +121,7 @@ also your VPN provider may be of assistance.</p>
 wonder. That variable was abolished for better security.
 <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
 <h2 id="Remove_old_versions_of_VPN-Firewall">Remove old versions of
-VPN-Firewall</h2>
+VPN-Firewall</h2><span class="share-tooltip" data-anchor="Remove_old_versions_of_VPN-Firewall"><a class="headline-anchor" href="#Remove_old_versions_of_VPN-Firewall" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#Remove_old_versions_of_VPN-Firewall">https://www.whonix.org/wiki/VPN-Firewall/#Remove_old_versions_of_VPN-Firewall</span></span></span></span>
 <p>If you had any installed. Otherwise you can skip this.</p>
 <pre><code>sudo update-rc.d vpnfirewall remove
 sudo update-rc.d vpn-firewall remove
@@ -130,14 +130,14 @@ sudo rm /usr/bin/vpnfirewall
 sudo rm /usr/bin/vpn-firewall
 sudo rm /etc/init.d/vpnfirewall
 sudo rm /etc/init.d/vpn-firewall</code></pre>
-<h2 id="Qubes_specific">Qubes specific</h2>
+<h2 id="Qubes_specific">Qubes specific</h2><span class="share-tooltip" data-anchor="Qubes_specific"><a class="headline-anchor" href="#Qubes_specific" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#Qubes_specific">https://www.whonix.org/wiki/VPN-Firewall/#Qubes_specific</span></span></span></span>
 <p>Non-Qubes users can ignore this.</p>
-<p>1) If you are using <a href="https://www.qubes-os.org">Qubes OS</a>
+<p>1) If you are using <a href="https://www.qubes-os.org">Qubes OS</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 as your host operating system, it is recommended to use a StandaloneVM
 for this. For more information, see footnote. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
 <p>2) Enable netfilter-persistent Qubes qvm-service.</p>
 <pre><code>Qubes VM Manager &amp;rarr; right click on VM &amp;rarr; services &amp;rarr; enter (without the single quotes) &#39;netfilter-persistent&#39; &amp;rarr; click on + &amp;rarr; OK</code></pre>
-<h2 id="VPN_Setup">VPN Setup</h2>
+<h2 id="VPN_Setup">VPN Setup</h2><span class="share-tooltip" data-anchor="VPN_Setup"><a class="headline-anchor" href="#VPN_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#VPN_Setup">https://www.whonix.org/wiki/VPN-Firewall/#VPN_Setup</span></span></span></span>
 <h6 id="Introduction">Introduction</h6>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="info" /></span>
@@ -148,14 +148,14 @@ used</u>.</p>
 <h6 id="Get_VPN_Certificate">Get VPN Certificate</h6>
 <ol>
 <li>Inspect the <a href="https://help.riseup.net/en/riseup-ca">Riseup
-Certificate Authority</a> page and download (right-click) the <a href="https://help.riseup.net/en/security/network-security/riseup-ca/RiseupCA.pem">Riseup
-CA certificate</a>. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
+Certificate Authority</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://help.riseup.net/en/riseup-ca" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> page and download (right-click) the <a href="https://help.riseup.net/en/security/network-security/riseup-ca/RiseupCA.pem">Riseup
+CA certificate</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://help.riseup.net/en/security/network-security/riseup-ca/RiseupCA.pem" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
 <li>Advanced users can optionally <a href="https://help.riseup.net/en/security/network-security/riseup-ca#verify-the-riseup-ca-certificate-optional">verify
-the Riseup CA certificate</a> before storing it. <sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
+the Riseup CA certificate</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://help.riseup.net/en/security/network-security/riseup-ca#verify-the-riseup-ca-certificate-optional" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> before storing it. <sup class="reference"><a href="#cite_note-4">[4]</a></sup></li>
 <li>Store the certificate in
 <code>/etc/openvpn/RiseupCA.pem</code>:</li>
 </ol>
-<p><span class="code-select">curl --tlsv1.3 <a href="https://help.riseup.net/security/network-security/riseup-ca/RiseupCA.pem">https://help.riseup.net/security/network-security/riseup-ca/RiseupCA.pem</a>
+<p><span class="code-select">curl --tlsv1.3 <a href="https://help.riseup.net/security/network-security/riseup-ca/RiseupCA.pem">https://help.riseup.net/security/network-security/riseup-ca/RiseupCA.pem</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://help.riseup.net/security/network-security/riseup-ca/RiseupCA.pem" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 | sudo tee /etc/openvpn/RiseupCA.pem</span></p>
 <h6 id="VPN_Credentials">VPN Credentials</h6>
 <p>For this <u>example</u>, for this step, a Riseup account is required.
@@ -165,7 +165,7 @@ Unfortunately, the former free VPN service is no longer available.
 <ul>
 <li>If you <u>have</u> one:
 <ul>
-<li><strong>1.</strong> Navigate to the <a href="https://account.riseup.net/user/new">account creation page</a> in
+<li><strong>1.</strong> Navigate to the <a href="https://account.riseup.net/user/new">account creation page</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://account.riseup.net/user/new" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> in
 Tor Browser.</li>
 <li><strong>2.</strong> Enter the invite code.</li>
 <li><strong>3.</strong> Choose a username unrelated to your real
@@ -194,11 +194,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -206,7 +202,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -221,11 +217,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -233,7 +225,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -252,7 +244,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -264,11 +256,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -291,7 +279,7 @@ Open the file with root rights.</p>
 <p><strong>2.</strong> Add.</p>
 <p>Note: Replace <code>riseupusername</code> with the actual Riseup user
 name and replace <code>vpnsecret</code> with the <i>actual</i> user name
-and password or just go to <a href="https://account.riseup.net/">account.riseup.net</a>, log in and
+and password or just go to <a href="https://account.riseup.net/">account.riseup.net</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://account.riseup.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, log in and
 click on "VPN".</p>
 <pre><code>riseupusername
 vpnsecret</code></pre>
@@ -324,11 +312,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -336,7 +320,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -352,11 +336,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_2">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -364,7 +344,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -384,7 +364,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -396,11 +376,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -482,11 +458,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -494,7 +466,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -510,11 +482,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_3">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_3">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -522,7 +490,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -542,7 +510,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -554,11 +522,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -715,7 +679,7 @@ Firewall</h5>
 <p>The following is great for users for additional protection from
 leaks. This fallback is as safe as previous ways to firewall VPNs. It
 however would not defeat the <a href="https://github.com/adrelanos/vpn-firewall/issues/12">shared
-VPN/Tor server leak bug</a>. (It however is awful for developers since
+VPN/Tor server leak bug</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/adrelanos/vpn-firewall/issues/12" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. (It however is awful for developers since
 this would cloak eventual leaks in VPN-Firewall.)</p>
 <pre><code>Qubes VM Manager &amp;rarr; sys-vpn &amp;rarr; right click &amp;rarr; VM Settings &amp;rarr; Firewall rules &amp;rarr; choose &quot;deny all network access except...&quot; &amp;rarr; add the IP and port of your VPN server &amp;rarr; OK</code></pre>
 <h5 id="Done">Done</h5>
@@ -724,7 +688,7 @@ this would cloak eventual leaks in VPN-Firewall.)</p>
 <h5 id="Troubleshooting">Troubleshooting</h5>
 <p>You can skip this troubleshooting chapter unless any difficulties are
 encountered.</p>
-<h2 id="ip_unpriv_vs_ip-unpriv">ip_unpriv vs ip-unpriv</h2>
+<h2 id="ip_unpriv_vs_ip-unpriv">ip_unpriv vs ip-unpriv</h2><span class="share-tooltip" data-anchor="ip_unpriv_vs_ip-unpriv"><a class="headline-anchor" href="#ip_unpriv_vs_ip-unpriv" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#ip_unpriv_vs_ip-unpriv">https://www.whonix.org/wiki/VPN-Firewall/#ip_unpriv_vs_ip-unpriv</span></span></span></span>
 <p>There are two similar, yet distinct projects: standalone VPN-FIREWALL
 and Whonix TUNNEL_FIREWALL. Although both are alike, there is one
 difference that might be encountered. For instance, in the <a href="#VPN_Configuration_File">VPN Configuration
@@ -740,7 +704,7 @@ File</a> section:</p>
 <p>Be sure to use the right version of ip unpriv depending on whether
 VPN-FIREWALL or Whonix TUNNEL_FIREWALL is in use.</p>
 <h2 id="50_openvpn_unpriv.conf_vs_50_openvpn-unpriv.conf">50_openvpn_unpriv.conf
-vs 50_openvpn-unpriv.conf</h2>
+vs 50_openvpn-unpriv.conf</h2><span class="share-tooltip" data-anchor="50_openvpn_unpriv.conf_vs_50_openvpn-unpriv.conf"><a class="headline-anchor" href="#50_openvpn_unpriv.conf_vs_50_openvpn-unpriv.conf" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#50_openvpn_unpriv.conf_vs_50_openvpn-unpriv.conf">https://www.whonix.org/wiki/VPN-Firewall/#50_openvpn_unpriv.conf_vs_50_openvpn-unpriv.conf</span></span></span></span>
 <p>Like the example above:</p>
 <ul>
 <li>Whonix TUNNEL_FIREWALL uses
@@ -750,19 +714,19 @@ vs 50_openvpn-unpriv.conf</h2>
 <code>/usr/lib/tmpfiles.d/50_openvpn-unpriv.conf </code><em><span><code>ip</code><strong><code>-</code></strong><code>unpriv</code></span></em>
 (hyphen)</li>
 </ul>
-<h2 id="Cannot_ioctl_TUNSETIFF">Cannot ioctl TUNSETIFF</h2>
+<h2 id="Cannot_ioctl_TUNSETIFF">Cannot ioctl TUNSETIFF</h2><span class="share-tooltip" data-anchor="Cannot_ioctl_TUNSETIFF"><a class="headline-anchor" href="#Cannot_ioctl_TUNSETIFF" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#Cannot_ioctl_TUNSETIFF">https://www.whonix.org/wiki/VPN-Firewall/#Cannot_ioctl_TUNSETIFF</span></span></span></span>
 <p><code>&#160;</code><i><code>ERROR:&#160;Cannot&#160;ioctl&#160;TUNSETIFF&#160;tun:&#160;Operation&#160;not&#160;permitted&#160;(errno=1)</code></i></p>
 <p>In <code>openvpn.conf</code> do not use.</p>
 <pre><code>dev tun</code></pre>
 <p>Use.</p>
 <pre><code>dev tun0</code></pre>
-<h2 id="Dev_tun_Mismatch">Dev tun Mismatch</h2>
+<h2 id="Dev_tun_Mismatch">Dev tun Mismatch</h2><span class="share-tooltip" data-anchor="Dev_tun_Mismatch"><a class="headline-anchor" href="#Dev_tun_Mismatch" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#Dev_tun_Mismatch">https://www.whonix.org/wiki/VPN-Firewall/#Dev_tun_Mismatch</span></span></span></span>
 <p>In <code>openvpn.conf</code> do not use.</p>
 <pre><code>dev tun</code></pre>
 <p>Use.</p>
 <pre><code>dev tun0</code></pre>
 <h2 id="/run/openvpn/openvpn.status_Permission_denied">/run/openvpn/openvpn.status
-Permission denied</h2>
+Permission denied</h2><span class="share-tooltip" data-anchor="/run/openvpn/openvpn.status_Permission_denied"><a class="headline-anchor" href="#/run/openvpn/openvpn.status_Permission_denied" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#/run/openvpn/openvpn.status_Permission_denied">https://www.whonix.org/wiki/VPN-Firewall/#/run/openvpn/openvpn.status_Permission_denied</span></span></span></span>
 <p><code>&#160;</code><i><code>Options&#160;error:&#160;--status&#160;fails&#160;with&#160;'/run/openvpn/openvpn.status':&#160;Permission&#160;denied</code></i></p>
 <p>To avoid permission issues, do <u>not</u>:</p>
 <ul>
@@ -771,7 +735,7 @@ Permission denied</h2>
 </ul>
 <p>Files in the <code>/run/openvpn</code> folder are owned by root, so
 they cannot be overwritten by the user <code>tunnel</code>.</p>
-<h2 id="debug_start">debug start</h2>
+<h2 id="debug_start">debug start</h2><span class="share-tooltip" data-anchor="debug_start"><a class="headline-anchor" href="#debug_start" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#debug_start">https://www.whonix.org/wiki/VPN-Firewall/#debug_start</span></span></span></span>
 <p>To start debug, run the following commands successively.</p>
 <p><span class="code-select">sudo /usr/sbin/openvpn --rmtun --dev
 tun0</span> <span class="code-select">sudo /usr/sbin/openvpn --mktun
@@ -779,10 +743,10 @@ tun0</span> <span class="code-select">sudo /usr/sbin/openvpn --mktun
 <span class="code-select">cd /etc/openvpn/</span>
 <span class="code-select">sudo -u tunnel openvpn
 /etc/openvpn/openvpn.conf</span></p>
-<h2 id="Linux_ip_link_set_failed">Linux ip link set failed</h2>
+<h2 id="Linux_ip_link_set_failed">Linux ip link set failed</h2><span class="share-tooltip" data-anchor="Linux_ip_link_set_failed"><a class="headline-anchor" href="#Linux_ip_link_set_failed" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#Linux_ip_link_set_failed">https://www.whonix.org/wiki/VPN-Firewall/#Linux_ip_link_set_failed</span></span></span></span>
 <p><code>&#160;</code><i><code>Linux&#160;ip&#160;link&#160;set&#160;failed:&#160;external&#160;program&#160;exited&#160;with&#160;error&#160;status:&#160;2</code></i></p>
 <p>Use ip_unpriv as documented above.</p>
-<h2 id="Connectivity_Test">Connectivity Test</h2>
+<h2 id="Connectivity_Test">Connectivity Test</h2><span class="share-tooltip" data-anchor="Connectivity_Test"><a class="headline-anchor" href="#Connectivity_Test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#Connectivity_Test">https://www.whonix.org/wiki/VPN-Firewall/#Connectivity_Test</span></span></span></span>
 <p><strong>1.</strong> Check if TCP is functional.</p>
 <ul>
 <li>without DNS:
@@ -790,7 +754,7 @@ tun0</span> <span class="code-select">sudo /usr/sbin/openvpn --mktun
 <li>The following command uses an IP address
 <code>116.202.120.181</code>.</li>
 <li><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
---proto =https -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181/api/ip">https://116.202.120.181/api/ip</a></span></li>
+--proto =https -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181/api/ip">https://116.202.120.181/api/ip</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://116.202.120.181/api/ip" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
 </ul></li>
 </ul>
 <p><strong>2.</strong> Check if DNS + TCP is functional.</p>
@@ -800,10 +764,10 @@ tun0</span> <span class="code-select">sudo /usr/sbin/openvpn --mktun
 <li>The following command uses a hostname
 <code>check.torproject.org</code>.</li>
 <li><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
---proto =https <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></li>
+--proto =https <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org/api/ip" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
 </ul></li>
 </ul>
-<h2 id="DNS_Configuration_2">DNS Configuration</h2>
+<h2 id="DNS_Configuration_2">DNS Configuration</h2><span class="share-tooltip" data-anchor="DNS_Configuration_2"><a class="headline-anchor" href="#DNS_Configuration_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#DNS_Configuration_2">https://www.whonix.org/wiki/VPN-Firewall/#DNS_Configuration_2</span></span></span></span>
 <p>This only applies if <code>resolvconf</code> is in use.</p>
 <p>Permissions on two directories may need to be manually changed if
 they are not automatically applied. Check if changes are necessary with
@@ -824,7 +788,7 @@ not be owned by <code>tunnel</code>, depending on whether the systemd
 service has already started. There is no need to modify permissions on
 this file, as the permissions will change when the service starts.</p>
 <h2 id="Terminology_for_Support_Requests">Terminology for Support
-Requests</h2>
+Requests</h2><span class="share-tooltip" data-anchor="Terminology_for_Support_Requests"><a class="headline-anchor" href="#Terminology_for_Support_Requests" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VPN-Firewall/#Terminology_for_Support_Requests">https://www.whonix.org/wiki/VPN-Firewall/#Terminology_for_Support_Requests</span></span></span></span>
 <p>Phrases such as "over Tor" are ambiguous. Please do not coin
 idiosyncratic words or phrases, otherwise this leads to confusion.
 Please use the same terms that are consistently referenced in
@@ -868,8 +832,8 @@ forwarding, please make them.</p>
 <li>One could play with the linux equivalent of the <a href="https://web.archive.org/web/20130405080545/http://cranthetrader.blogspot.se/2011/10/dont-allow-non-vpn-traffic.html">route</a>
 command.</li>
 <li><a href="https://www.inputoutput.io/hardening-your-vpn-setup-with-iptables/">Hardening
-your VPN Setup with iptables</a></li>
-<li><a href="https://www.guavi.com/vpncheck_free.html">VPNCheck</a> - No
+your VPN Setup with iptables</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.inputoutput.io/hardening-your-vpn-setup-with-iptables/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://www.guavi.com/vpncheck_free.html">VPNCheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.guavi.com/vpncheck_free.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> - No
 source code. Nice looking user interface.</li>
 <li><a href="https://web.archive.org/web/20150429080413/http://vpnetmon.webs.com/">VPNetMon</a>
 - No source code. Windows only. Checks every, let's say 500 ms, if the
@@ -877,25 +841,25 @@ VPN IP is still valid, if not, kill a list of applications. This is not
 very secure, it's a game if that time period is sufficient to stop a
 leak and if killing the applications is fast enough. Nice looking user
 interface.</li>
-<li><a href="https://openvpnchecker.com/">OPENVPN Watchdog</a> - No
+<li><a href="https://openvpnchecker.com/">OPENVPN Watchdog</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://openvpnchecker.com/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> - No
 source code. Windows only. Nice looking user interface.</li>
 <li><a href="https://sourceforge.net/projects/vpnlifeguard/">VPN
-Lifeguard</a></li>
+Lifeguard</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://sourceforge.net/projects/vpnlifeguard/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://web.archive.org/web/20220121204345/https://zorrovpn.com/articles/windows-firewall-vpn-only">Windows
 firewall</a>. Windows only.</li>
 <li><a href="https://superuser.com/questions/268902/how-to-block-all-traffic-but-one-ip-in-windows-firewall">IP
-Security Policies</a>. Windows only.</li>
+Security Policies</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://superuser.com/questions/268902/how-to-block-all-traffic-but-one-ip-in-windows-firewall" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Windows only.</li>
 </ul>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
 <ol>
-<li id="cite_note-1"><a href="https://phabricator.whonix.org/T460">https://phabricator.whonix.org/T460</a></li>
+<li id="cite_note-1"><a href="https://phabricator.whonix.org/T460">https://phabricator.whonix.org/T460</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T460" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-2">This is due to technical limitations. The VPN-Firewall instructions
 assume to modify a files located in the root image, which by default do
 not persist in TemplateBasedVMs. So a convenient one time setup and then
 having it just work including autostart of VPN-Firewall and OpenVPN will
 not work yet. Help welcome! In future, perhaps the following
-instructions could be made to work after some <a href="https://github.com/marmarek/qubes-core-agent-linux/blob/master/vm-systemd/bind-dirs.sh">bind-dirs.sh</a>
+instructions could be made to work after some <a href="https://github.com/marmarek/qubes-core-agent-linux/blob/master/vm-systemd/bind-dirs.sh">bind-dirs.sh</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/marmarek/qubes-core-agent-linux/blob/master/vm-systemd/bind-dirs.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 enhancements. When using a TemplateBasedVM, to persist these changes use
 the Qubes bind dirs mechanism.
 <pre><code> sudo mkdir /rw/config/qubes-bind-dirs.d </code></pre>
@@ -913,17 +877,13 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes. * <u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it. * <u>Editor
 requirement:</u> Close Featherpad (or the chosen text editor) before
 running the <code>sudoedit</code> command.
@@ -937,17 +897,13 @@ Open the file with root rights. <span class="code-select">sudoedit
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_4">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_4">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes. * <u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it. * <u>Editor
 requirement:</u> Close Featherpad (or the chosen text editor) before
 running the <code>sudoedit</code> command. * <u>Template
@@ -962,8 +918,8 @@ down the Template. * <u>Restart App Qubes:</u> All App Qubes based on
 the Template need to be restarted if they were already running. *
 <u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] * <u>General procedure:</u> This
-is a general procedure required for Qubes and is <a href="../Unspecific/">unspecific to Qubes-Whonix</a>.</p>
+Qubes Persistence * <u>General procedure:</u> This is a general
+procedure required for Qubes and is <a href="../Unspecific/">unspecific to Qubes-Whonix</a>.</p>
 </div>
 </div>
 <div class="tcc-section info-box">
@@ -971,11 +927,7 @@ is a general procedure required for Qubes and is <a href="../Unspecific/">unspec
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1033,17 +985,13 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_5">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_5">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes. * <u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it. * <u>Editor
 requirement:</u> Close Featherpad (or the chosen text editor) before
 running the <code>sudoedit</code> command.
@@ -1057,17 +1005,13 @@ Open the file with root rights. <span class="code-select">sudoedit
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_5">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_5">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes. * <u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it. * <u>Editor
 requirement:</u> Close Featherpad (or the chosen text editor) before
 running the <code>sudoedit</code> command. * <u>Template
@@ -1082,8 +1026,8 @@ down the Template. * <u>Restart App Qubes:</u> All App Qubes based on
 the Template need to be restarted if they were already running. *
 <u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] * <u>General procedure:</u> This
-is a general procedure required for Qubes and is <a href="../Unspecific/">unspecific to Qubes-Whonix</a>.</p>
+Qubes Persistence * <u>General procedure:</u> This is a general
+procedure required for Qubes and is <a href="../Unspecific/">unspecific to Qubes-Whonix</a>.</p>
 </div>
 </div>
 <div class="tcc-section info-box">
@@ -1091,11 +1035,7 @@ is a general procedure required for Qubes and is <a href="../Unspecific/">unspec
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_5">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_5">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1129,7 +1069,7 @@ Run.</p>
 <code>/etc/resolv.conf</code> instructions below.</p>
 </div></li>
 <li id="cite_note-9">This is done to prevent the old DNS server being used. For further
-discussion of this issue, see: <a href="https://github.com/adrelanos/vpn-firewall/issues/16">https://github.com/adrelanos/vpn-firewall/issues/16</a></li>
+discussion of this issue, see: <a href="https://github.com/adrelanos/vpn-firewall/issues/16">https://github.com/adrelanos/vpn-firewall/issues/16</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/adrelanos/vpn-firewall/issues/16" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-10">This ensures changes in
 <code>/etc/resolvconf/run/interface/original.resolvconf</code> from the
 <a href="#DNS_Configuration">DNS Configuration</a>
@@ -1137,7 +1077,7 @@ section take effect.</li>
 <li id="cite_note-11">This has the same effect as the <i>scurl</i> command above.</li>
 <li id="cite_note-12">Debian feature request: <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=824290">add dpkg
 trigger for /usr/share/netfilter-persistent/plugins.d folder to have
-newly installed plugins take effect</a></li>
+newly installed plugins take effect</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=824290" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ol>
 </div>
 <p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Dev/Leak_Tests/" title="Dev/Leak Tests"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Leak

@@ -20,7 +20,13 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#Essential_Connectivity_Troubleshooting_Steps">Essential
+<div class="mininav">
+<ul>
+<li><a href="./#Connectivity_Troubleshooting">Connectivity Troubleshooting</a></li>
+<li><a href="./#General_Troubleshooting">General Troubleshooting</a></li>
+<li><a href="../Download_Issues/">Download Issues</a></li>
+</ul>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction_2">Introduction</a></li><li class="toc-l2"><a href="#Essential_Connectivity_Troubleshooting_Steps">Essential
 Connectivity Troubleshooting Steps</a></li><li class="toc-l2"><a href="#RELATED_state_fix">RELATED state fix</a></li><li class="toc-l2"><a href="#ICMP_Fix">ICMP Fix</a></li><li class="toc-l2"><a href="#ARP_Fix">ARP Fix</a></li><li class="toc-l2"><a href="#Advanced_Connectivity_Troubleshooting_Steps">Advanced
 Connectivity Troubleshooting Steps</a></li><li class="toc-l2"><a href="#Clock_Fix">Clock Fix</a></li><li class="toc-l2"><a href="#Command_Line_Connectivity_Test">Command Line Connectivity
 Test</a></li><li class="toc-l2"><a href="#Clearnet_Connectivity_Test">Clearnet Connectivity Test</a></li><li class="toc-l2"><a href="#General_Virtualizer_Connectivity_Test">General Virtualizer
@@ -35,13 +41,7 @@ Journal Log of Previous Boot</a></li><li class="toc-l2"><a href="#View_List_of_S
 Logs</a></li><li class="toc-l2"><a href="#Daemon_Log_View">Daemon Log View</a></li><li class="toc-l2"><a href="#Daemon_Log_Follow">Daemon Log Follow</a></li><li class="toc-l2"><a href="#Daemon_Status">Daemon Status</a></li><li class="toc-l2"><a href="#Check_Systemd_Journal_Log_of_Failed_Boot">Check Systemd Journal
 Log of Failed Boot</a></li><li class="toc-l2"><a href="#General_Recommendations">General Recommendations</a></li><li class="toc-l2"><a href="#memtest86+">memtest86+</a></li><li class="toc-l2"><a href="#gsmartcontrol">gsmartcontrol</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
-<div class="mininav">
-<ul>
-<li><a href="./#Connectivity_Troubleshooting">Connectivity Troubleshooting</a></li>
-<li><a href="./#General_Troubleshooting">General Troubleshooting</a></li>
-<li><a href="../Download_Issues/">Download Issues</a></li>
-</ul>
-</div>
+
 <p><img src="../../media/Troubleshooting-thumbnail.jpg.webp" width="300" alt="Troubleshooting-thumbnail.jpg" /></p>
 <div class="pre-intro-p ">
 </div>
@@ -51,57 +51,40 @@ Log of Failed Boot</a></li><li class="toc-l2"><a href="#General_Recommendations"
 <div class="post-intro-p">
 </div>
 <h1 id="Introduction">Introduction</h1>
-<ul>
-<li><i class="fa-solid fa-1 cs-green"></i><span>On this page you will
-find help for <b>various troubleshooting topics</b>, including general
-troubleshooting, connectivity troubleshooting</span></li>
-<li><i class="fa-solid fa-2 cs-green"></i><span>You will also learn
-about <b>virtual machine bug analysis, system logs</b> and other related
-topics</span></li>
-<li><i class="fa-solid fa-3 cs-green"></i><span>Please be aware that
-some very specific, individual problems <b>can take a long time</b> to
-research and solve. Don't expect a "magic solution" for most of these
-issues</span></li>
-<li><i class="fa-solid fa-4 cs-green"></i><span>We will help you with a
-lot of common problems here, but also be sure to <b>check out &lt;a
-href="../Documentation/"&gt;our Documentation&lt;/a&gt;</b> and
-related pages.</span></li>
-</ul>
+<p><ul class="icon-bullet-list ibl-fs-18"><li><i class="fa-solid fa-1 cs-green"></i><span>On this page you will find help for <b>various troubleshooting
+topics</b>, including general troubleshooting, connectivity
+troubleshooting</span></li><li><i class="fa-solid fa-2 cs-green"></i><span>You will also learn about <b>virtual machine bug analysis, system
+logs</b> and other related topics</span></li><li><i class="fa-solid fa-3 cs-green"></i><span>Please be aware that some very specific, individual problems <b>can
+take a long time</b> to research and solve. Don't expect a "magic
+solution" for most of these issues</span></li><li><i class="fa-solid fa-4 cs-green"></i><span>We will help you with a lot of common problems here, but also be sure
+to <b>check out <a href="../Documentation/">our Documentation</a></b>
+and related pages.</span></li></ul></p>
 <h1 id="Connectivity_Troubleshooting">Connectivity Troubleshooting</h1>
 <p>This chapter covers connectivity issues that you may encounter.</p>
-<h2 id="Introduction_2">Introduction</h2>
-<ul>
-<li><i class="fa-solid fa-network-wired cs-green"></i><span><b>There is
-no general network problem analysis tool.</b> While there are many tools
-and commands available for specific aspects of network diagnostics,
-there isn't a single built-in command for any operating system that
-performs a fully comprehensive, automated network analysis with one
-execution.</span></li>
-<li><i class="fa-solid fa-ban cs-orange"></i><span><b>Shortcut? There is
-no shortcut:</b> Network diagnostics require a systematic approach,
-where each potential issue must be carefully examined and ruled out one
-by one. Unlike other processes that may offer quick fixes or automated
-solutions, network troubleshooting involves methodically testing
-different aspects of the network to identify the root cause of a
-problem. This process is inherently time-consuming. Attempting to rush
-through diagnostics or skipping steps can lead to incomplete or
-inaccurate conclusions, making the resolution process even longer.
-Therefore, persistence and attention to detail are essential when
-working through network issues, as there is no single tool or command
-that can automatically solve all potential problems.</span></li>
-<li><i class="fa-solid fa-lightbulb cs-yellow"></i><span><b>Is there
-really no shortcut? There is not.</b> While a theoretical "shortcut"
-might exist, it would be economically infeasible. [1]</span></li>
-<li><i class="fa-solid fa-check-square cs-green"></i><span><b>How to
-proceed:</b> Please run the following checklist in the next chapter.
-Please ensure that you have completed all steps in this checklist. The
-results of each step should be included in your support request.
-Omitting these steps, failing to provide this information result will
-most likely result in unresolved connectivity issues.</span></li>
-</ul>
+<h2 id="Introduction_2">Introduction</h2><span class="share-tooltip" data-anchor="Introduction_2"><a class="headline-anchor" href="#Introduction_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Introduction_2">https://www.whonix.org/wiki/Troubleshooting/#Introduction_2</span></span></span></span>
+<p><ul class="icon-bullet-list ibl-fs-18"><li><i class="fa-solid fa-network-wired cs-green"></i><span><b>There is no general network problem analysis tool.</b> While there
+are many tools and commands available for specific aspects of network
+diagnostics, there isn't a single built-in command for any operating
+system that performs a fully comprehensive, automated network analysis
+with one execution.</span></li><li><i class="fa-solid fa-ban cs-orange"></i><span><b>Shortcut? There is no shortcut:</b> Network diagnostics require a
+systematic approach, where each potential issue must be carefully
+examined and ruled out one by one. Unlike other processes that may offer
+quick fixes or automated solutions, network troubleshooting involves
+methodically testing different aspects of the network to identify the
+root cause of a problem. This process is inherently time-consuming.
+Attempting to rush through diagnostics or skipping steps can lead to
+incomplete or inaccurate conclusions, making the resolution process even
+longer. Therefore, persistence and attention to detail are essential
+when working through network issues, as there is no single tool or
+command that can automatically solve all potential problems.</span></li><li><i class="fa-solid fa-lightbulb cs-yellow"></i><span><b>Is there really no shortcut? There is not.</b> While a theoretical
+"shortcut" might exist, it would be economically infeasible. [1]</span></li><li><i class="fa-solid fa-check-square cs-green"></i><span><b>How to proceed:</b> Please run the following checklist in the next
+chapter. Please ensure that you have completed all steps in this
+checklist. The results of each step should be included in your support
+request. Omitting these steps, failing to provide this information
+result will most likely result in unresolved connectivity issues.</span></li></ul></p>
 <p>[1] See the footnote for details. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
 <h2 id="Essential_Connectivity_Troubleshooting_Steps">Essential
-Connectivity Troubleshooting Steps</h2>
+Connectivity Troubleshooting Steps</h2><span class="share-tooltip" data-anchor="Essential_Connectivity_Troubleshooting_Steps"><a class="headline-anchor" href="#Essential_Connectivity_Troubleshooting_Steps" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Essential_Connectivity_Troubleshooting_Steps">https://www.whonix.org/wiki/Troubleshooting/#Essential_Connectivity_Troubleshooting_Steps</span></span></span></span>
 <p>In case of connectivity issues, please complete the following
 checklist:</p>
 <div class="info-box ">
@@ -193,7 +176,7 @@ de-anonymization attacks.</p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">13</i>
 <strong>Check if Tor Browser works on the host to rule out a possible <a href="../Network_Obstacle/">Network
 Obstacle</a>.</strong></p>
-<p>Download the Tor Browser Bundle from <a href="https://www.torproject.org/download/">torproject.org</a> and test
+<p>Download the Tor Browser Bundle from <a href="https://www.torproject.org/download/">torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.torproject.org/download/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and test
 if it is working on the host.</p>
 <p>If the Tor Browser Bundle is not functional on the host, then Whonix
 is unlikely to work either. In that case, see <a href="../Unspecific/">unspecific to Whonix</a>.</p>
@@ -208,7 +191,7 @@ Tor Browser</a>.</p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">14</i>
 <strong>Run
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</strong>.</p>
+systemcheck</strong>.</p>
 <p>Because when <code>systemcheck</code> is run in Whonix it performs
 various tests and might provide insights why there are connectivity or
 other issues.</p>
@@ -243,8 +226,7 @@ networking.</p>
 <p>In case you changed virtualizer settings but don't know which,
 perform a
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided], i.e. delete the Whonix VMs and
-re-import these.</p>
+factory reset, i.e. delete the Whonix VMs and re-import these.</p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">18</i>
 <strong>RELATED state fix (regarding <code>nftables</code> (formerly
 <code>iptables</code>)</strong></p>
@@ -263,7 +245,7 @@ Connectivity Troubleshooting</a>.</strong></p>
 Steps</a>.</strong></p>
 </div>
 <p>Information pertaining to these points should be included in any <a href="../Support/">support</a> request or <a href="../Reporting_Bugs/">bug report</a>.</p>
-<h2 id="RELATED_state_fix">RELATED state fix</h2>
+<h2 id="RELATED_state_fix">RELATED state fix</h2><span class="share-tooltip" data-anchor="RELATED_state_fix"><a class="headline-anchor" href="#RELATED_state_fix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#RELATED_state_fix">https://www.whonix.org/wiki/Troubleshooting/#RELATED_state_fix</span></span></span></span>
 <p><span class="manually-placed-anchor " id="RELATED_Fix"></span></p>
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
@@ -414,14 +396,14 @@ been completed.</p>
 </div>
 <p>related:</p>
 <ul>
-<li><a href="https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233">https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233</a></li>
-<li><a href="https://forums.whonix.org/t/tor-is-not-yet-fully-bootstrapped-30-done/8792/6">https://forums.whonix.org/t/tor-is-not-yet-fully-bootstrapped-30-done/8792/6</a></li>
+<li><a href="https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233">https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://forums.whonix.org/t/tor-is-not-yet-fully-bootstrapped-30-done/8792/6">https://forums.whonix.org/t/tor-is-not-yet-fully-bootstrapped-30-done/8792/6</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-is-not-yet-fully-bootstrapped-30-done/8792/6" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="ICMP_Fix">ICMP Fix</h2>
+<h2 id="ICMP_Fix">ICMP Fix</h2><span class="share-tooltip" data-anchor="ICMP_Fix"><a class="headline-anchor" href="#ICMP_Fix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#ICMP_Fix">https://www.whonix.org/wiki/Troubleshooting/#ICMP_Fix</span></span></span></span>
 <p>Using a dial-up connection? Or is Tor bootstrapping stuck at 45%?</p>
-<p><a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol">ICMP</a>
+<p><a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol">ICMP</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <a href="https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233/2">is
-disabled in Whonix by default for security reasons</a> because only a
+disabled in Whonix by default for security reasons</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233/2" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> because only a
 minority of users require it.</p>
 <p>Try allowing incoming ICMP on <a href="../Whonix-Gateway/">Whonix-Gateway</a>.</p>
 <div class="info-box ">
@@ -570,11 +552,11 @@ Done.</p>
 completed.</p>
 </div>
 <p>There might be <a href="https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233/3">a
-more restricted ICMP permission</a> but it is not implemented. <a href="../Reporting_Bugs/#Contributions">Contributions
+more restricted ICMP permission</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/have-firewall-accept-icmp-fragmentation-needed/10233/3" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> but it is not implemented. <a href="../Reporting_Bugs/#Contributions">Contributions
 welcome!</a></p>
 <p>Also see this related <a href="https://forums.whonix.org/t/icmp-support-is-required-for-networking-in-some-cases/12503">forum
-discussion</a>.</p>
-<h2 id="ARP_Fix">ARP Fix</h2>
+discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/icmp-support-is-required-for-networking-in-some-cases/12503" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h2 id="ARP_Fix">ARP Fix</h2><span class="share-tooltip" data-anchor="ARP_Fix"><a class="headline-anchor" href="#ARP_Fix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#ARP_Fix">https://www.whonix.org/wiki/Troubleshooting/#ARP_Fix</span></span></span></span>
 <div class="info-box ">
 <p><strong>Introduction</strong></p>
 <p>Whonix-Gateway uses the sysctl parameter
@@ -615,11 +597,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -627,7 +605,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -643,11 +621,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_5">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_5">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -655,7 +629,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -675,7 +649,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -687,11 +661,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -728,7 +698,7 @@ Template.</li>
 <code>arp_ignore=1</code> in Whonix-Gateway is complete.</p>
 </div>
 <h2 id="Advanced_Connectivity_Troubleshooting_Steps">Advanced
-Connectivity Troubleshooting Steps</h2>
+Connectivity Troubleshooting Steps</h2><span class="share-tooltip" data-anchor="Advanced_Connectivity_Troubleshooting_Steps"><a class="headline-anchor" href="#Advanced_Connectivity_Troubleshooting_Steps" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Advanced_Connectivity_Troubleshooting_Steps">https://www.whonix.org/wiki/Troubleshooting/#Advanced_Connectivity_Troubleshooting_Steps</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
 These Advanced Connectivity Troubleshooting Steps are supplementary and
@@ -765,7 +735,7 @@ step-by-step. Then please include the results for each troubleshooting
 step in the support request. Tedious, yes, but unfortunately there is no
 better option.</p>
 </div>
-<h2 id="Clock_Fix">Clock Fix</h2>
+<h2 id="Clock_Fix">Clock Fix</h2><span class="share-tooltip" data-anchor="Clock_Fix"><a class="headline-anchor" href="#Clock_Fix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Clock_Fix">https://www.whonix.org/wiki/Troubleshooting/#Clock_Fix</span></span></span></span>
 <p>Broken internet connectivity is to be expected if the clock is
 incorrect. At all times it is recommended to have a host clock with
 accuracy of up to &#177; 30 minutes.</p>
@@ -776,7 +746,7 @@ set to UTC. This means it may be a few hours before or ahead of your
 host system clock. <u>Do not change this setting!</u></p></blockquote></p>
 <p>See <a href="../Network_Time_Synchronization/#Manually_Set_Clock_Time_and_Date">Manually Set Clock Time and Date</a>.</p>
 <h2 id="Command_Line_Connectivity_Test">Command Line Connectivity
-Test</h2>
+Test</h2><span class="share-tooltip" data-anchor="Command_Line_Connectivity_Test"><a class="headline-anchor" href="#Command_Line_Connectivity_Test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Command_Line_Connectivity_Test">https://www.whonix.org/wiki/Troubleshooting/#Command_Line_Connectivity_Test</span></span></span></span>
 <p>Inside Whonix-Workstation.</p>
 <p><strong>1.</strong> Check if TCP is functional.</p>
 <ul>
@@ -785,7 +755,7 @@ Test</h2>
 <li>The following command uses an IP address
 <code>116.202.120.181</code>.</li>
 <li><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
---proto =https -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181/api/ip">https://116.202.120.181/api/ip</a></span></li>
+--proto =https -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181/api/ip">https://116.202.120.181/api/ip</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://116.202.120.181/api/ip" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
 </ul></li>
 </ul>
 <p><strong>2.</strong> Check if DNS + TCP is functional.</p>
@@ -795,10 +765,10 @@ Test</h2>
 <li>The following command uses a hostname
 <code>check.torproject.org</code>.</li>
 <li><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
---proto =https <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></li>
+--proto =https <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org/api/ip" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
 </ul></li>
 </ul>
-<h2 id="Clearnet_Connectivity_Test">Clearnet Connectivity Test</h2>
+<h2 id="Clearnet_Connectivity_Test">Clearnet Connectivity Test</h2><span class="share-tooltip" data-anchor="Clearnet_Connectivity_Test"><a class="headline-anchor" href="#Clearnet_Connectivity_Test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Clearnet_Connectivity_Test">https://www.whonix.org/wiki/Troubleshooting/#Clearnet_Connectivity_Test</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
 <strong>Warning:</strong> The following test might reveal the Whonix
@@ -809,9 +779,9 @@ connection to <code>check.torproject.org</code> is functional.
 <sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
 <p>On Whonix-Gateway<sup>&#8482;</sup>, run.</p>
 <p><span class="code-select">sudo -u clearnet UWT_DEV_PASSTHROUGH=1 curl
---tlsv1.3 -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181">https://116.202.120.181</a></span></p>
+--tlsv1.3 -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181">https://116.202.120.181</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://116.202.120.181" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <h2 id="General_Virtualizer_Connectivity_Test">General Virtualizer
-Connectivity Test</h2>
+Connectivity Test</h2><span class="share-tooltip" data-anchor="General_Virtualizer_Connectivity_Test"><a class="headline-anchor" href="#General_Virtualizer_Connectivity_Test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#General_Virtualizer_Connectivity_Test">https://www.whonix.org/wiki/Troubleshooting/#General_Virtualizer_Connectivity_Test</span></span></span></span>
 <p>If networking is unavailable inside Whonix, start by testing the
 virtualizer host software as if you've never encountered Whonix. This
 will give you a baseline. This can be done by trying the following
@@ -856,7 +826,7 @@ report for Whonix.</li>
 infrastructure is working correctly before troubleshooting Whonix
 specific issues.</p>
 <h2 id="Unsuitable_Connectivity_Troubleshooting_Tools">Unsuitable
-Connectivity Troubleshooting Tools</h2>
+Connectivity Troubleshooting Tools</h2><span class="share-tooltip" data-anchor="Unsuitable_Connectivity_Troubleshooting_Tools"><a class="headline-anchor" href="#Unsuitable_Connectivity_Troubleshooting_Tools" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Unsuitable_Connectivity_Troubleshooting_Tools">https://www.whonix.org/wiki/Troubleshooting/#Unsuitable_Connectivity_Troubleshooting_Tools</span></span></span></span>
 <p>The following tools have limited usefulness when attempting to fix
 connectivity issues.</p>
 <ul>
@@ -890,7 +860,7 @@ Tor or other parts of the system. Therefore, the Tor Control Panel
 message stating "Connected to the Tor network" could be stale. That was
 true when the tool was started, but it is not constantly monitored.</p>
 <p>From the perspective of the Tor software, these are <a href="https://en.wikipedia.org/wiki/High-level_programming_language">high-level
-level programming language</a> tools developed by a third party.
+level programming language</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/High-level_programming_language" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> tools developed by a third party.
 <sup class="reference"><a href="#cite_note-10">[10]</a></sup> These tools have a limited "understanding" of Tor's
 internals, let alone other aspects of the system configuration that
 might be broken. <sup class="reference"><a href="#cite_note-11">[11]</a></sup> When attempting to debug
@@ -908,14 +878,14 @@ Whonix-Workstation<sup>&#8482;</sup></a>.</li>
 <p>Other <a href="#Connectivity_Troubleshooting">recommended steps</a> mentioned on this page are far
 more promising.</p>
 <h2 id="Why_can't_I_Ping_the_Whonix-Gateway?">Why can't I Ping the
-Whonix-Gateway?</h2>
+Whonix-Gateway?</h2><span class="share-tooltip" data-anchor="Why_can&#x27;t_I_Ping_the_Whonix-Gateway?"><a class="headline-anchor" href="#Why_can&#x27;t_I_Ping_the_Whonix-Gateway?" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Why_can&#x27;t_I_Ping_the_Whonix-Gateway?">https://www.whonix.org/wiki/Troubleshooting/#Why_can&#x27;t_I_Ping_the_Whonix-Gateway?</span></span></span></span>
 <p>The Whonix-Gateway does not respond to ping or similar commands
 because it is firewalled for security reasons; see
 <em>/usr/bin/whonix_firewall</em> or refer to the Whonix source code. In
 most cases it is unnecessary to ping the Whonix-Gateway anyhow.</p>
 <p>If you insist on pinging the Whonix-Gateway or have a unique setup
 that requires it, then this can be tested by clearing all firewall rules
-with the <a href="https://github.com/Kicksecure/developer-meta-files/blob/master/dangerous-scripts/dev_clearnet">dev_clearnet</a>
+with the <a href="https://github.com/Kicksecure/developer-meta-files/blob/master/dangerous-scripts/dev_clearnet">dev_clearnet</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/developer-meta-files/blob/master/dangerous-scripts/dev_clearnet" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 script. Alternatively, a script can be run to try and <a href="../Dev/Firewall_Unload/">unload / remove every
 iptables rule</a>, or the Whonix firewall can be hacked to not load at
 all. The latter method is only for experts and it is necessary to
@@ -923,7 +893,7 @@ comment out <em>exit 0</em> at the beginning.</p>
 <h1 id="General_Troubleshooting">General Troubleshooting</h1>
 <p>This chapter covers general issues that you may encounter and
 solution approaches.</p>
-<h2 id="Introduction_3">Introduction</h2>
+<h2 id="Introduction_3">Introduction</h2><span class="share-tooltip" data-anchor="Introduction_3"><a class="headline-anchor" href="#Introduction_3" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Introduction_3">https://www.whonix.org/wiki/Troubleshooting/#Introduction_3</span></span></span></span>
 <p>Troubleshooting issues can be time intensive and success cannot be
 guaranteed. Some users expect Whonix to provide an easy experience
 similar to a Windows machine. While the Whonix developers make every
@@ -936,11 +906,11 @@ operating system. Most software such as the host operating system or the
 virtualizer is developed by independent entities; this is the norm in
 Linux distributions. See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] to learn more about these
-relationships, as well as organizational and funding issues in the Open
-Source ecosystem.</p>
+Linux User Experience versus Commercial Operating Systems to learn more
+about these relationships, as well as organizational and funding issues
+in the Open Source ecosystem.</p>
 <h2 id="Essential_General_Troubleshooting_Steps">Essential General
-Troubleshooting Steps</h2>
+Troubleshooting Steps</h2><span class="share-tooltip" data-anchor="Essential_General_Troubleshooting_Steps"><a class="headline-anchor" href="#Essential_General_Troubleshooting_Steps" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Essential_General_Troubleshooting_Steps">https://www.whonix.org/wiki/Troubleshooting/#Essential_General_Troubleshooting_Steps</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="info" /></span>
 The following recommended steps will fix many startup, freezing or other
@@ -959,7 +929,7 @@ the platform. Test your host computer first.</p>
 <strong>Ensure the virtual machine (VM) images have been imported into a
 supported virtualizer</strong> listed on the <a href="../Download/">Download</a> page.</p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
-<strong>Run <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a></strong>,
+<strong>Run <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></strong>,
 if possible.</p>
 <p>This verifies the Whonix system is up-to-date and that everything is
 in proper working order.</p>
@@ -1032,7 +1002,7 @@ mode</a>.</li>
 broken, try <a href="../Moved:Recovery/#Chroot">using a chroot
 for recovery</a>.</p>
 </div>
-<h2 id="Low_RAM_Issues">Low RAM Issues</h2>
+<h2 id="Low_RAM_Issues">Low RAM Issues</h2><span class="share-tooltip" data-anchor="Low_RAM_Issues"><a class="headline-anchor" href="#Low_RAM_Issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Low_RAM_Issues">https://www.whonix.org/wiki/Troubleshooting/#Low_RAM_Issues</span></span></span></span>
 <p>If insufficient RAM is available for Whonix VMs they might become
 unusable. Low RAM issues in Whonix are commonly caused by:</p>
 <ul>
@@ -1065,7 +1035,7 @@ platform-specific advice below.</p>
 <div class="tcc-image">
 </div>
 <div class="tcc-title">
-<h3 id="VirtualBox">VirtualBox</h3>
+<h3 id="VirtualBox">VirtualBox</h3><span class="share-tooltip" data-anchor="VirtualBox"><a class="headline-anchor" href="#VirtualBox" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#VirtualBox">https://www.whonix.org/wiki/Troubleshooting/#VirtualBox</span></span></span></span>
 </div>
 <div class="tcc-content">
 <ol>
@@ -1083,7 +1053,7 @@ down.</li>
 <div class="tcc-image">
 </div>
 <div class="tcc-title">
-<h3 id="KVM">KVM</h3>
+<h3 id="KVM">KVM</h3><span class="share-tooltip" data-anchor="KVM"><a class="headline-anchor" href="#KVM" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#KVM">https://www.whonix.org/wiki/Troubleshooting/#KVM</span></span></span></span>
 </div>
 <div class="tcc-content">
 <div class="info-box ">
@@ -1106,7 +1076,7 @@ down.</li>
 <div class="tcc-image">
 </div>
 <div class="tcc-title">
-<h3 id="Qubes-Whonix_6">Qubes-Whonix</h3>
+<h3 id="Qubes-Whonix_6">Qubes-Whonix</h3><span class="share-tooltip" data-anchor="Qubes-Whonix_6"><a class="headline-anchor" href="#Qubes-Whonix_6" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Qubes-Whonix_6">https://www.whonix.org/wiki/Troubleshooting/#Qubes-Whonix_6</span></span></span></span>
 </div>
 <div class="tcc-content">
 <p>Utilize Qube Manager:</p>
@@ -1121,7 +1091,7 @@ down.</li>
 <p>See also: <a href="../RAM/">Advice for Systems with Low
 RAM</a>.</p>
 <h3 id="Free_up_Additional_Memory_Resources">Free up Additional Memory
-Resources</h3>
+Resources</h3><span class="share-tooltip" data-anchor="Free_up_Additional_Memory_Resources"><a class="headline-anchor" href="#Free_up_Additional_Memory_Resources" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Free_up_Additional_Memory_Resources">https://www.whonix.org/wiki/Troubleshooting/#Free_up_Additional_Memory_Resources</span></span></span></span>
 <p>If a VM needs additional memory, then free up resources and/or add
 more RAM to the VM:</p>
 <ul>
@@ -1186,7 +1156,7 @@ correctly before troubleshooting Whonix specific issues.</p>
 <p>Use the system logs to your advantage.</p>
 <p><sup class="reference"><a href="#cite_note-13">[13]</a></sup></p>
 <h2 id="Check_Systemd_Journal_Log_of_Current_Boot">Check Systemd Journal
-Log of Current Boot</h2>
+Log of Current Boot</h2><span class="share-tooltip" data-anchor="Check_Systemd_Journal_Log_of_Current_Boot"><a class="headline-anchor" href="#Check_Systemd_Journal_Log_of_Current_Boot" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Check_Systemd_Journal_Log_of_Current_Boot">https://www.whonix.org/wiki/Troubleshooting/#Check_Systemd_Journal_Log_of_Current_Boot</span></span></span></span>
 <p>To inspect the systemd journal log of the current boot, run.</p>
 <p><span class="code-select">sudo journalctl -b</span></p>
 <p>This command requires pressing arrow keys like &#8593;, &#8595;, &#8592;, &#8594;, as well as
@@ -1200,12 +1170,12 @@ write the log to file <code>~/systemd-log</code>.</p>
 <code>mousepad</code>.</p>
 <p><span class="code-select">mousepad ~/systemd-log</span></p>
 <h2 id="Watch_Systemd_Journal_Log_of_Current_Boot">Watch Systemd Journal
-Log of Current Boot</h2>
+Log of Current Boot</h2><span class="share-tooltip" data-anchor="Watch_Systemd_Journal_Log_of_Current_Boot"><a class="headline-anchor" href="#Watch_Systemd_Journal_Log_of_Current_Boot" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Watch_Systemd_Journal_Log_of_Current_Boot">https://www.whonix.org/wiki/Troubleshooting/#Watch_Systemd_Journal_Log_of_Current_Boot</span></span></span></span>
 <p>It is possible to to watch the systemd journal log as it is
 written.</p>
 <p><span class="code-select">sudo journalctl -b -f</span></p>
 <h2 id="Check_Systemd_Journal_Log_of_Previous_Boot">Check Systemd
-Journal Log of Previous Boot</h2>
+Journal Log of Previous Boot</h2><span class="share-tooltip" data-anchor="Check_Systemd_Journal_Log_of_Previous_Boot"><a class="headline-anchor" href="#Check_Systemd_Journal_Log_of_Previous_Boot" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Check_Systemd_Journal_Log_of_Previous_Boot">https://www.whonix.org/wiki/Troubleshooting/#Check_Systemd_Journal_Log_of_Previous_Boot</span></span></span></span>
 <p><span class="code-select">sudo journalctl -b -1</span></p>
 <p>This command requires pressing arrow keys like &#8593;, &#8595;, &#8592;, &#8594;, as well as
 <code>PgUp</code> and <code>PgDn</code> for scrolling.</p>
@@ -1218,10 +1188,10 @@ write the log to file <code>~/systemd-log-previous</code>.</p>
 <code>mousepad</code>.</p>
 <p><span class="code-select">mousepad ~/systemd-log-previous</span></p>
 <h2 id="View_List_of_Systemd_Journal_Logs">View List of Systemd Journal
-Logs</h2>
+Logs</h2><span class="share-tooltip" data-anchor="View_List_of_Systemd_Journal_Logs"><a class="headline-anchor" href="#View_List_of_Systemd_Journal_Logs" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#View_List_of_Systemd_Journal_Logs">https://www.whonix.org/wiki/Troubleshooting/#View_List_of_Systemd_Journal_Logs</span></span></span></span>
 <p><span class="code-select">sudo journalctl --list-boots</span></p>
 <p><span class="manually-placed-anchor " id="Daemon_Log"></span></p>
-<h2 id="Daemon_Log_View">Daemon Log View</h2>
+<h2 id="Daemon_Log_View">Daemon Log View</h2><span class="share-tooltip" data-anchor="Daemon_Log_View"><a class="headline-anchor" href="#Daemon_Log_View" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Daemon_Log_View">https://www.whonix.org/wiki/Troubleshooting/#Daemon_Log_View</span></span></span></span>
 <p>To view the log of a specific systemd unit. Syntax:</p>
 <p>(Replace <code>unit-name</code> with the actual name of the systemd
 unit.)</p>
@@ -1230,7 +1200,7 @@ unit-name</span></p>
 <p>Example:</p>
 <p><span class="code-select">sudo journalctl -b --no-pager -u
 sdwdate</span></p>
-<h2 id="Daemon_Log_Follow">Daemon Log Follow</h2>
+<h2 id="Daemon_Log_Follow">Daemon Log Follow</h2><span class="share-tooltip" data-anchor="Daemon_Log_Follow"><a class="headline-anchor" href="#Daemon_Log_Follow" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Daemon_Log_Follow">https://www.whonix.org/wiki/Troubleshooting/#Daemon_Log_Follow</span></span></span></span>
 <p>To follow the log of a specific systemd unit. Syntax:</p>
 <p>(Replace <code>unit-name</code> with the actual name of the systemd
 unit.)</p>
@@ -1239,7 +1209,7 @@ unit-name</span></p>
 <p>Example:</p>
 <p><span class="code-select">sudo journalctl -f -b --no-pager -u
 sdwdate</span></p>
-<h2 id="Daemon_Status">Daemon Status</h2>
+<h2 id="Daemon_Status">Daemon Status</h2><span class="share-tooltip" data-anchor="Daemon_Status"><a class="headline-anchor" href="#Daemon_Status" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Daemon_Status">https://www.whonix.org/wiki/Troubleshooting/#Daemon_Status</span></span></span></span>
 <p>To view the status of a specific systemd unit. Syntax:</p>
 <p>(Replace <code>unit-name</code> with the actual name of the systemd
 unit.)</p>
@@ -1249,7 +1219,7 @@ unit-name</span></p>
 <p><span class="code-select">sudo systemctl status --no-pager
 sdwdate</span></p>
 <h2 id="Check_Systemd_Journal_Log_of_Failed_Boot">Check Systemd Journal
-Log of Failed Boot</h2>
+Log of Failed Boot</h2><span class="share-tooltip" data-anchor="Check_Systemd_Journal_Log_of_Failed_Boot"><a class="headline-anchor" href="#Check_Systemd_Journal_Log_of_Failed_Boot" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#Check_Systemd_Journal_Log_of_Failed_Boot">https://www.whonix.org/wiki/Troubleshooting/#Check_Systemd_Journal_Log_of_Failed_Boot</span></span></span></span>
 <p>An alternative to recovery mode might be <a href="../Desktop/#Virtual_Consoles">virtual consoles</a>,
 since they are an easier and more lightweight solution. A virtual
 console login might still be possible when the graphical user interface
@@ -1328,7 +1298,7 @@ click <code>Open Terminal</code>.</p>
 /home/user</span></p>
 <h1 id="Hardware_Issues">Hardware Issues</h1>
 <p>These are hardware issue that you may encouter.</p>
-<h2 id="General_Recommendations">General Recommendations</h2>
+<h2 id="General_Recommendations">General Recommendations</h2><span class="share-tooltip" data-anchor="General_Recommendations"><a class="headline-anchor" href="#General_Recommendations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#General_Recommendations">https://www.whonix.org/wiki/Troubleshooting/#General_Recommendations</span></span></span></span>
 <p>Rhetorical questions:</p>
 <ul>
 <li>When was the last time a qualified person disassembled your
@@ -1358,7 +1328,7 @@ help.</li>
 <p>None of these issues are related to Whonix. Therefore, please do not
 ask these questions in Whonix support channels (until there is a
 Whonix-Host operating system) as per <a href="../Self_Support_First_Policy/">Self Support First Policy</a>.</p>
-<h2 id="memtest86+">memtest86+</h2>
+<h2 id="memtest86+">memtest86+</h2><span class="share-tooltip" data-anchor="memtest86+"><a class="headline-anchor" href="#memtest86+" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#memtest86+">https://www.whonix.org/wiki/Troubleshooting/#memtest86+</span></span></span></span>
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Install the <code>memtest86+</code> tool.</p>
@@ -1376,14 +1346,15 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Update the package lists and upgrade the system.</p>
 <p><span class="code-select">sudo apt update &amp;&amp; sudo apt
 full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>memtest86+</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
 <p><span class="code-select">sudo apt install --no-install-recommends
 memtest86+</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
@@ -1393,7 +1364,7 @@ Platform specific notice.</p>
 <li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
 as per
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</li>
+Qubes Template Modification.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done.</p>
@@ -1432,7 +1403,7 @@ in various ways such as system crashes at random times. In such cases,
 the only likely solution is replacing the faulty hardware (RAM banks).
 <sup class="reference"><a href="#cite_note-15">[15]</a></sup></p>
 </div>
-<h2 id="gsmartcontrol">gsmartcontrol</h2>
+<h2 id="gsmartcontrol">gsmartcontrol</h2><span class="share-tooltip" data-anchor="gsmartcontrol"><a class="headline-anchor" href="#gsmartcontrol" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Troubleshooting/#gsmartcontrol">https://www.whonix.org/wiki/Troubleshooting/#gsmartcontrol</span></span></span></span>
 <div class="info-box ">
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Install the <code>gsmartcontrol+</code> tool.</p>
@@ -1450,14 +1421,15 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Update the package lists and upgrade the system.</p>
 <p><span class="code-select">sudo apt update &amp;&amp; sudo apt
 full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>gsmartcontrol</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
 <p><span class="code-select">sudo apt install --no-install-recommends
 gsmartcontrol</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
@@ -1467,7 +1439,7 @@ Platform specific notice.</p>
 <li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
 as per
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</li>
+Qubes Template Modification.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done.</p>
@@ -1529,12 +1501,12 @@ run. <span class="code-select">ping 8.8.8.8</span> Ping
 <code>google.com</code> and/or other websites.
 <span class="code-select">ping google.com</span> and so on.</li>
 <li id="cite_note-3">''' <span class="code-select">date</span></li>
-<li id="cite_note-4"><a href="https://forums.whonix.org/t/time-too-long-error-or-very-long-time/12716/4">https://forums.whonix.org/t/time-too-long-error-or-very-long-time/12716/4</a></li>
-<li id="cite_note-5"><a href="https://forums.whonix.org/t/ping-operation-permitted/11056">https://forums.whonix.org/t/ping-operation-permitted/11056</a></li>
-<li id="cite_note-6"><a href="https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium">https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium</a></li>
+<li id="cite_note-4"><a href="https://forums.whonix.org/t/time-too-long-error-or-very-long-time/12716/4">https://forums.whonix.org/t/time-too-long-error-or-very-long-time/12716/4</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/time-too-long-error-or-very-long-time/12716/4" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-5"><a href="https://forums.whonix.org/t/ping-operation-permitted/11056">https://forums.whonix.org/t/ping-operation-permitted/11056</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/ping-operation-permitted/11056" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-6"><a href="https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium">https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-7"><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
-<li id="cite_note-8"><a href="https://www.reddit.com/r/Whonix/comments/1easzpq/the_hellish_5_problem_plz_help/">https://www.reddit.com/r/Whonix/comments/1easzpq/the_hellish_5_problem_plz_help/</a></li>
+ARP sysctl settings</li>
+<li id="cite_note-8"><a href="https://www.reddit.com/r/Whonix/comments/1easzpq/the_hellish_5_problem_plz_help/">https://www.reddit.com/r/Whonix/comments/1easzpq/the_hellish_5_problem_plz_help/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.reddit.com/r/Whonix/comments/1easzpq/the_hellish_5_problem_plz_help/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-9">This test only uses TCP and not DNS.</li>
 <li id="cite_note-10">In computer science, a high-level programming language is a
 programming language with strong abstraction from the details of the
@@ -1548,7 +1520,7 @@ is.</li>
 <li id="cite_note-11">Such as broken networking in either the host network or in all
 virtual machines.</li>
 <li id="cite_note-12">This process can be lengthy.</li>
-<li id="cite_note-13">"user support template": <a href="https://forums.whonix.org/t/workstation-keeps-freezing/7693/6">https://forums.whonix.org/t/workstation-keeps-freezing/7693/6</a></li>
+<li id="cite_note-13">"user support template": <a href="https://forums.whonix.org/t/workstation-keeps-freezing/7693/6">https://forums.whonix.org/t/workstation-keeps-freezing/7693/6</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/workstation-keeps-freezing/7693/6" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-14">Perform thorough research beforehand.</li>
 <li id="cite_note-15">RAM bank warranties may apply.</li>
 <li id="cite_note-16">Hard drive warranties may apply.</li>

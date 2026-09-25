@@ -21,12 +21,12 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Template">Template</a></li><li class="toc-l2"><a href="#VM_Setup">VM Setup</a></li><li class="toc-l2"><a href="#sys-proxy_Setup">sys-proxy Setup</a></li><li class="toc-l3"><a href="#redsocks_Configuration">redsocks Configuration</a></li><li class="toc-l3"><a href="#Script">Script</a></li><li class="toc-l3"><a href="#Start">Start</a></li><li class="toc-l2"><a href="#anon-proxy_VM_setup">anon-proxy VM setup</a></li></ul></nav><div class="first-heading">
+<div class="first-heading">
 <p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Dev/Inspiration/" title="Dev/Inspiration"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Inspiration</span></a><a class="index internal" href="../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../Dev/Zerobox/" title="Dev/Zerobox"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Zerobox</span></a><span class="info"><span class="prev">Previous
 page: Dev/Inspiration</span><span class="index">Index page:
 Design</span><span class="next">Next page:
 Dev/Zerobox</span></span></span>ProxyBOX</p>
-</div>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Template">Template</a></li><li class="toc-l2"><a href="#VM_Setup">VM Setup</a></li><li class="toc-l2"><a href="#sys-proxy_Setup">sys-proxy Setup</a></li><li class="toc-l3"><a href="#redsocks_Configuration">redsocks Configuration</a></li><li class="toc-l3"><a href="#Script">Script</a></li><li class="toc-l3"><a href="#Start">Start</a></li><li class="toc-l2"><a href="#anon-proxy_VM_setup">anon-proxy VM setup</a></li></ul></nav>
 <div class="robots-nocontent" data-nosnippet="">
 </div>
 <p><img src="../../media/Proxybox123.jpg.webp" alt="Proxybox123.jpg" /></p>
@@ -59,7 +59,7 @@ including implications and possible alternatives.</p>
 <p>Advantage: IP forwarding not required</p>
 <p>For background information, see also: <a href="../Dev/Inspiration/#Proxy">Dev/Inspiration#Proxy</a></p>
 <h1 id="Setup">Setup</h1>
-<h2 id="Template">Template</h2>
+<h2 id="Template">Template</h2><span class="share-tooltip" data-anchor="Template"><a class="headline-anchor" href="#Template" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/ProxyBOX/#Template">https://www.whonix.org/wiki/ProxyBOX/#Template</span></span></span></span>
 <div class="info-box ">
 <p>Install package(s) <code>redsocks</code> following these
 instructions:</p>
@@ -73,14 +73,15 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Update the package lists and upgrade the system.</p>
 <p><span class="code-select">sudo apt update &amp;&amp; sudo apt
 full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>redsocks</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] is in most cases optional.</p>
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
 <p><span class="code-select">sudo apt install --no-install-recommends
 redsocks</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
@@ -90,20 +91,20 @@ Platform specific notice.</p>
 <li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
 as per
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</li>
+Qubes Template Modification.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
 Done.</p>
 <p>The procedure of installing package(s) <code>redsocks</code> is
 complete.</p>
 </div>
-<h2 id="VM_Setup">VM Setup</h2>
+<h2 id="VM_Setup">VM Setup</h2><span class="share-tooltip" data-anchor="VM_Setup"><a class="headline-anchor" href="#VM_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/ProxyBOX/#VM_Setup">https://www.whonix.org/wiki/ProxyBOX/#VM_Setup</span></span></span></span>
 <p><strong>1.</strong> Create a VM <code>sys-proxy</code> with checked
 <code>provides network</code> based on Debian 13 Template.</p>
 <p><strong>2.</strong> Create a VM <code>anon-proxy</code> which uses
 <code>net qube</code>: <code>sys-proxy</code>.</p>
-<h2 id="sys-proxy_Setup">sys-proxy Setup</h2>
-<h3 id="redsocks_Configuration">redsocks Configuration</h3>
+<h2 id="sys-proxy_Setup">sys-proxy Setup</h2><span class="share-tooltip" data-anchor="sys-proxy_Setup"><a class="headline-anchor" href="#sys-proxy_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/ProxyBOX/#sys-proxy_Setup">https://www.whonix.org/wiki/ProxyBOX/#sys-proxy_Setup</span></span></span></span>
+<h3 id="redsocks_Configuration">redsocks Configuration</h3><span class="share-tooltip" data-anchor="redsocks_Configuration"><a class="headline-anchor" href="#redsocks_Configuration" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/ProxyBOX/#redsocks_Configuration">https://www.whonix.org/wiki/ProxyBOX/#redsocks_Configuration</span></span></span></span>
 <p>In <code>sys-proxy</code>.</p>
 <p>file: <code>~/redsocks.conf</code></p>
 <pre><code>base {
@@ -197,7 +198,7 @@ dnstc {
 }
 
 // you can add more `redsocks&#39; and `redudp&#39; sections if you need.</code></pre>
-<h3 id="Script">Script</h3>
+<h3 id="Script">Script</h3><span class="share-tooltip" data-anchor="Script"><a class="headline-anchor" href="#Script" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/ProxyBOX/#Script">https://www.whonix.org/wiki/ProxyBOX/#Script</span></span></span></span>
 <p>In <code>sys-proxy</code>.</p>
 <p>file: <code>~/firewall</code></p>
 <pre><code>#!/bin/bash
@@ -289,10 +290,10 @@ $iptables_cmd -A OUTPUT -j REJECT
 
 cat /etc/resolv.conf</code></pre>
 <p><span class="code-select">chmod +x ~/firewall</span></p>
-<h3 id="Start">Start</h3>
+<h3 id="Start">Start</h3><span class="share-tooltip" data-anchor="Start"><a class="headline-anchor" href="#Start" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/ProxyBOX/#Start">https://www.whonix.org/wiki/ProxyBOX/#Start</span></span></span></span>
 <p>In <code>sys-proxy</code>.</p>
 <p><span class="code-select">sudo ~/firewall</span></p>
-<h2 id="anon-proxy_VM_setup">anon-proxy VM setup</h2>
+<h2 id="anon-proxy_VM_setup">anon-proxy VM setup</h2><span class="share-tooltip" data-anchor="anon-proxy_VM_setup"><a class="headline-anchor" href="#anon-proxy_VM_setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/ProxyBOX/#anon-proxy_VM_setup">https://www.whonix.org/wiki/ProxyBOX/#anon-proxy_VM_setup</span></span></span></span>
 <p>In <code>anon-proxy</code> VM.</p>
 <p>Open file <code>/etc/resolv.conf</code> in an editor with
 administrative ("<a href="../Moved:Root/"><code>root</code></a>")
@@ -309,11 +310,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -321,7 +318,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -336,11 +333,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -348,7 +341,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -367,7 +360,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -379,11 +372,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -413,9 +402,9 @@ Open the file with root rights.</p>
 </ol>
 <h1 id="Tests">Tests</h1>
 <p>TCP test:</p>
-<p><span class="code-select">curl -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181/api/ip">https://116.202.120.181/api/ip</a></span></p>
+<p><span class="code-select">curl -H 'Host: check.torproject.org' -k <a href="https://116.202.120.181/api/ip">https://116.202.120.181/api/ip</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://116.202.120.181/api/ip" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>TCP + DNS test:</p>
-<p><span class="code-select">curl <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a></span></p>
+<p><span class="code-select">curl <a href="https://check.torproject.org/api/ip">https://check.torproject.org/api/ip</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org/api/ip" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>DNS test:</p>
 <p><span class="code-select">nslookup check.torproject.org</span></p>
 <h1 id="Leak_Testing">Leak Testing</h1>

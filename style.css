@@ -132,6 +132,12 @@ hr {
 }
 a { color: var(--link); text-decoration: none; }
 a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: 2px; }
+/* External links are distinguished by the trailing archive <sup> (see _archive_links /
+   .ext-link-to-archive below), matching production -- no separate arrow, to avoid a
+   double affordance. */
+.ext-link-to-archive { margin-left: 0.15em; font-size: 0.75em; white-space: nowrap; }
+.ext-link-to-archive > a { color: var(--muted); }
+.ext-link-to-archive > a:hover { color: var(--link); text-decoration: none; }
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
@@ -434,12 +440,32 @@ code {
 .cs-red-font { color: var(--c-red); }
 
 /* ---- icon bullet list ---- */
+/* Each item is a rounded pill CARD; the FontAwesome letter/glyph icon becomes a
+   colored circle BADGE (its --callout comes from the item's cs-* class, e.g.
+   cs-blue/cs-green), matching production. Targets li > i (the block ul/li variant);
+   the inline span= variant is left as flowing text. */
 .icon-bullet-list { list-style: none; padding-left: 0; margin: 1rem 0; }
 .icon-bullet-list li {
   display: flex;
-  gap: 0.55rem;
-  align-items: baseline;
-  margin: 0.35rem 0;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0.5rem 0;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 2rem;
+}
+.icon-bullet-list li > i {
+  flex: 0 0 auto;
+  width: 1.9em;
+  height: 1.9em;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--callout, var(--accent));
+  color: #fff;
+  font-size: 0.95em;
 }
 .icon-bullet-list li .has-icon, .icon-bullet-list .info-box-icon {
   flex: 0 0 auto;
@@ -541,6 +567,30 @@ code {
 .tagline, .post-intro-p, .pre-intro-p, .intro-like { color: var(--fg-soft); }
 .references, .footnotes { font-size: 0.9rem; color: var(--fg-soft); }
 .reference { font-size: 0.85em; vertical-align: super; line-height: 0; }
+/* Jump-to-footnote target: box + tint the referenced note so a clicked [N] citation
+   lands somewhere visible (scroll-margin clears any fixed chrome). */
+.references li:target, .footnotes li:target {
+  background: var(--surface-2);
+  outline: 2px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 0.15rem 0.4rem;
+  scroll-margin-top: 4.5rem;
+}
+/* section-heading permalink + share menu (production ShareTooltip): a small share
+   icon linking to the section #id, with a hover menu holding the copyable direct URL
+   (app.js adds a Copy button to the inner .code-select). CSP-safe: pure-CSS hover. */
+.share-tooltip { position: relative; display: inline-block; margin-left: 0.45rem;
+  font-size: 0.72em; vertical-align: middle; }
+.share-tooltip .headline-anchor { color: var(--muted); }
+.share-tooltip .headline-anchor:hover { color: var(--link); text-decoration: none; }
+.share-tooltip .menu-wrapper { display: none; position: absolute; left: 0;
+  top: calc(100% + 0.3rem); z-index: 40; }
+.share-tooltip:hover .menu-wrapper, .share-tooltip:focus-within .menu-wrapper { display: block; }
+.share-tooltip .menu { display: block; width: max-content; max-width: min(90vw, 26rem);
+  padding: 0.6rem 0.8rem; font-size: 0.85rem; font-weight: normal; text-align: left;
+  background: var(--surface); color: var(--fg); border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px); box-shadow: var(--shadow-md); }
+.share-tooltip .menu-headline { display: block; margin-bottom: 0.4rem; font-weight: 600; }
 .image-right { float: right; margin: 0 0 1rem 1.25rem; max-width: 45%; }
 [hidden] { display: none !important; }
 
@@ -625,6 +675,12 @@ code {
    own <i> icons are hidden -- but Font Awesome IS shipped now, so DO NOT hide fa-* */
 .wiki-book-index .info { display: none; }
 .wiki-book-index i { display: none; }
+/* On phones the top book-nav shows SYMBOLS ONLY (the prev/index/next glyphs), no text
+   labels -- more compact, matching production. */
+@media (max-width: 480px) {
+  .wiki-book-index .text { display: none; }
+  .wiki-book-index { gap: 1.5rem; }
+}
 
 /* Book / related-links nav box: a .mininav carrying a title + link list (e.g. the
    "Legal Policies" grouping). :has(> ul) scopes this to the list variant, NOT the
@@ -796,7 +852,7 @@ code {
 /* Site-notice banner (#siteNotice, the id=38 donation promo) -- adapted from
    Sitenotice.css: shown by default (no-JS friendly), JS dismisses; a vendored FA
    icon replaces the former wiki image. */
-#siteNotice { display: block; margin: 0 0 1rem; text-align: center; }
+#siteNotice { display: block; margin: 1rem 0 1.25rem; text-align: center; }
 .sitenotice { position: relative; display: inline-block; max-width: 100%; }
 .sitenotice-close {
   width: 30px; height: 30px; position: absolute; top: 4px; right: 4px; z-index: 10;

@@ -20,18 +20,7 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>TimeSync</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l2"><a href="#Local_Clock_Leaks">Local Clock Leaks</a></li><li class="toc-l2"><a href="#Virtualizers_Time_Synchronization_Features">Virtualizers Time
-Synchronization Features</a></li><li class="toc-l3"><a href="#VirtualBox_Time_Synchronization_Features">VirtualBox Time
-Synchronization Features</a></li><li class="toc-l3"><a href="#KVM&#x27;s_Time_Synchronization_Features">KVM&#x27;s Time Synchronization
-Features</a></li><li class="toc-l3"><a href="#Qubes_Time_Synchronization_Features">Qubes Time Synchronization
-Features</a></li><li class="toc-l2"><a href="#sdwdate_Time_Sources_Criteria">sdwdate Time Sources
-Criteria</a></li><li class="toc-l2"><a href="#Facts">Facts</a></li><li class="toc-l2"><a href="#Other_Facts">Other Facts</a></li><li class="toc-l2"><a href="#Definitions">Definitions</a></li><li class="toc-l2"><a href="#Completely_Isolated_Virtual_Time">Completely Isolated Virtual
-Time</a></li><li class="toc-l2"><a href="#Overview">Overview</a></li><li class="toc-l2"><a href="#Block_Networking_until_sdwdate_Finishes">Block Networking until
-sdwdate Finishes</a></li><li class="toc-l2"><a href="#Boot_Clock_Randomization">Boot Clock Randomization</a></li><li class="toc-l3"><a href="#Introduction_2">Introduction</a></li><li class="toc-l3"><a href="#Log_Inspection">Log Inspection</a></li><li class="toc-l2"><a href="#Conclusions">Conclusions</a></li><li class="toc-l2"><a href="#NTP">NTP</a></li><li class="toc-l2"><a href="#tlsdate">tlsdate</a></li><li class="toc-l2"><a href="#htpdate">htpdate</a></li><li class="toc-l2"><a href="#Manual_Time_Setting">Manual Time Setting</a></li><li class="toc-l2"><a href="#Consideration_no_TimeSync_on_Host">Consideration no TimeSync on
-Host</a></li><li class="toc-l2"><a href="#Time_Source_of_Time_Servers">Time Source of Time Servers</a></li><li class="toc-l2"><a href="#Tor_Consensus_Method">Tor Consensus Method</a></li><li class="toc-l2"><a href="#Blockchain_Time">Blockchain Time</a></li><li class="toc-l2"><a href="#NTS_-_Network_Time_Security_-_Secure_NTP">NTS - Network Time
-Security - Secure NTP</a></li><li class="toc-l2"><a href="#roughtime">roughtime</a></li><li class="toc-l3"><a href="#roughtime_information">roughtime information</a></li><li class="toc-l3"><a href="#roughtime_client_list">roughtime client list</a></li><li class="toc-l2"><a href="#Other">Other</a></li><li class="toc-l2"><a href="#Previous_Discussion">Previous Discussion</a></li><li class="toc-l2"><a href="#Other_Projects">Other Projects</a></li><li class="toc-l2"><a href="#Comparison_with_Others">Comparison with Others</a></li><li class="toc-l2"><a href="#Tickets">Tickets</a></li><li class="toc-l3"><a href="#Qubes">Qubes</a></li><li class="toc-l3"><a href="#others">others</a></li><li class="toc-l2"><a href="#Clock_Correlation_Attack">Clock Correlation Attack</a></li><li class="toc-l3"><a href="#Attack">Attack</a></li><li class="toc-l3"><a href="#Defense">Defense</a></li><li class="toc-l3"><a href="#wallclock">wallclock</a></li><li class="toc-l3"><a href="#Development">Development</a></li><li class="toc-l3"><a href="#Sources">Sources</a></li><li class="toc-l2"><a href="#TSC">TSC</a></li><li class="toc-l2"><a href="#clocksource_xen">clocksource xen</a></li><li class="toc-l2"><a href="#Resources">Resources</a></li><li class="toc-l2"><a href="#Footnotes">Footnotes</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
-<div class="first-heading">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>TimeSync</span></nav><div class="first-heading">
 <p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../../Whonix_versus_Proxies/" title="Comparison Of Tor Proxies CGI proxies Proxy Chains And VPN Services"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Comparison
 Of Tor Proxies CGI proxies Proxy Chains And VPN
 Services</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../../Moved:Systemcheck/" title="systemcheck"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">systemcheck</span></a><span class="info"><span class="prev">Previous
@@ -40,8 +29,7 @@ Services</span><span class="index">Index page:
 Design</span><span class="next">Next page:
 systemcheck</span></span></span>TimeSync: Whonix Time Synchronization
 Mechanism</p>
-</div>
-<div class="mininav">
+</div><div class="mininav">
 <ul>
 <li><a href="../../Network_Time_Synchronization/">Network Time
 Synchronization</a></li>
@@ -54,7 +42,19 @@ Randomization</a></li>
 <li><a href="../../Moved:Dev_sdwdate/">Dev/sdwdate</a></li>
 <li><a href="./">Dev/TimeSync</a></li>
 </ul>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l2"><a href="#Local_Clock_Leaks">Local Clock Leaks</a></li><li class="toc-l2"><a href="#Virtualizers_Time_Synchronization_Features">Virtualizers Time
+Synchronization Features</a></li><li class="toc-l3"><a href="#VirtualBox_Time_Synchronization_Features">VirtualBox Time
+Synchronization Features</a></li><li class="toc-l3"><a href="#KVM&#x27;s_Time_Synchronization_Features">KVM&#x27;s Time Synchronization
+Features</a></li><li class="toc-l3"><a href="#Qubes_Time_Synchronization_Features">Qubes Time Synchronization
+Features</a></li><li class="toc-l2"><a href="#sdwdate_Time_Sources_Criteria">sdwdate Time Sources
+Criteria</a></li><li class="toc-l2"><a href="#Facts">Facts</a></li><li class="toc-l2"><a href="#Other_Facts">Other Facts</a></li><li class="toc-l2"><a href="#Definitions">Definitions</a></li><li class="toc-l2"><a href="#Completely_Isolated_Virtual_Time">Completely Isolated Virtual
+Time</a></li><li class="toc-l2"><a href="#Overview">Overview</a></li><li class="toc-l2"><a href="#Block_Networking_until_sdwdate_Finishes">Block Networking until
+sdwdate Finishes</a></li><li class="toc-l2"><a href="#Boot_Clock_Randomization">Boot Clock Randomization</a></li><li class="toc-l3"><a href="#Introduction_2">Introduction</a></li><li class="toc-l3"><a href="#Log_Inspection">Log Inspection</a></li><li class="toc-l2"><a href="#Conclusions">Conclusions</a></li><li class="toc-l2"><a href="#NTP">NTP</a></li><li class="toc-l2"><a href="#tlsdate">tlsdate</a></li><li class="toc-l2"><a href="#htpdate">htpdate</a></li><li class="toc-l2"><a href="#Manual_Time_Setting">Manual Time Setting</a></li><li class="toc-l2"><a href="#Consideration_no_TimeSync_on_Host">Consideration no TimeSync on
+Host</a></li><li class="toc-l2"><a href="#Time_Source_of_Time_Servers">Time Source of Time Servers</a></li><li class="toc-l2"><a href="#Tor_Consensus_Method">Tor Consensus Method</a></li><li class="toc-l2"><a href="#Blockchain_Time">Blockchain Time</a></li><li class="toc-l2"><a href="#NTS_-_Network_Time_Security_-_Secure_NTP">NTS - Network Time
+Security - Secure NTP</a></li><li class="toc-l2"><a href="#roughtime">roughtime</a></li><li class="toc-l3"><a href="#roughtime_information">roughtime information</a></li><li class="toc-l3"><a href="#roughtime_client_list">roughtime client list</a></li><li class="toc-l2"><a href="#Other">Other</a></li><li class="toc-l2"><a href="#Previous_Discussion">Previous Discussion</a></li><li class="toc-l2"><a href="#Other_Projects">Other Projects</a></li><li class="toc-l2"><a href="#Comparison_with_Others">Comparison with Others</a></li><li class="toc-l2"><a href="#Tickets">Tickets</a></li><li class="toc-l3"><a href="#Qubes">Qubes</a></li><li class="toc-l3"><a href="#others">others</a></li><li class="toc-l2"><a href="#Clock_Correlation_Attack">Clock Correlation Attack</a></li><li class="toc-l3"><a href="#Attack">Attack</a></li><li class="toc-l3"><a href="#Defense">Defense</a></li><li class="toc-l3"><a href="#wallclock">wallclock</a></li><li class="toc-l3"><a href="#Development">Development</a></li><li class="toc-l3"><a href="#Sources">Sources</a></li><li class="toc-l2"><a href="#TSC">TSC</a></li><li class="toc-l2"><a href="#clocksource_xen">clocksource xen</a></li><li class="toc-l2"><a href="#Resources">Resources</a></li><li class="toc-l2"><a href="#Footnotes">Footnotes</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
+
 <div class="pre-intro-p ">
 </div>
 <div class="hidden-thumbnail">
@@ -63,16 +63,16 @@ Randomization</a></li>
 <div class="post-intro-p">
 </div>
 <h1 id="Basic_Knowledge">Basic Knowledge</h1>
-<h2 id="Introduction">Introduction</h2>
+<h2 id="Introduction">Introduction</h2><span class="share-tooltip" data-anchor="Introduction"><a class="headline-anchor" href="#Introduction" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Introduction">https://www.whonix.org/wiki/Dev/TimeSync/#Introduction</span></span></span></span>
 <p>The Post Install Advice is part of this design. Therefore, read <a href="../../Post_Install_Advice/#Network_Time_Syncing">Network
 Time Syncing</a> first. Also read <a href="../../Network_Time_Synchronization/">Network Time Synchronization</a>.</p>
-<h2 id="Local_Clock_Leaks">Local Clock Leaks</h2>
+<h2 id="Local_Clock_Leaks">Local Clock Leaks</h2><span class="share-tooltip" data-anchor="Local_Clock_Leaks"><a class="headline-anchor" href="#Local_Clock_Leaks" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Local_Clock_Leaks">https://www.whonix.org/wiki/Dev/TimeSync/#Local_Clock_Leaks</span></span></span></span>
 <ul>
-<li>TCP Sequence Numbers &#8594; <a href="https://github.com/Kicksecure/tirdad"><code>tirdad</code></a>
+<li>TCP Sequence Numbers &#8594; <a href="https://github.com/Kicksecure/tirdad"><code>tirdad</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/tirdad" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
 <li>ICMP timestamps &#8594; blocked by Whonix firewall for Whonix VMs. Host:
 <a href="../../Moved:Disable_TCP_and_ICMP_Timestamps/#Disable_ICMP_Timestamps">Recommendation</a> to disable on the host.</li>
-<li>TCP timestamps &#8594; blocked in Whonix VMs by <a href="https://github.com/Kicksecure/security-misc">security-misc</a>. <a href="../../Computer_Security_Education/#Disable_TCP_Timestamps">Recommendation</a> to disable on the host.</li>
+<li>TCP timestamps &#8594; blocked in Whonix VMs by <a href="https://github.com/Kicksecure/security-misc">security-misc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/security-misc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. <a href="../../Computer_Security_Education/#Disable_TCP_Timestamps">Recommendation</a> to disable on the host.</li>
 <li>NTP <sup class="reference"><a href="#cite_note-2">[2]</a></sup> <sup class="reference"><a href="#cite_note-3">[3]</a></sup> &#8594; Not installed by default
 in Whonix. Host: TODO</li>
 <li>Automatic updaters and other network using cron jobs that run at
@@ -90,9 +90,9 @@ of SSL / TLS, other than OpenSSL?</li>
 <sup class="reference"><a href="#cite_note-14">[14]</a></sup></li>
 </ul>
 <h2 id="Virtualizers_Time_Synchronization_Features">Virtualizers Time
-Synchronization Features</h2>
+Synchronization Features</h2><span class="share-tooltip" data-anchor="Virtualizers_Time_Synchronization_Features"><a class="headline-anchor" href="#Virtualizers_Time_Synchronization_Features" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Virtualizers_Time_Synchronization_Features">https://www.whonix.org/wiki/Dev/TimeSync/#Virtualizers_Time_Synchronization_Features</span></span></span></span>
 <h3 id="VirtualBox_Time_Synchronization_Features">VirtualBox Time
-Synchronization Features</h3>
+Synchronization Features</h3><span class="share-tooltip" data-anchor="VirtualBox_Time_Synchronization_Features"><a class="headline-anchor" href="#VirtualBox_Time_Synchronization_Features" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#VirtualBox_Time_Synchronization_Features">https://www.whonix.org/wiki/Dev/TimeSync/#VirtualBox_Time_Synchronization_Features</span></span></span></span>
 <p><span class="manually-placed-anchor " id="VirtualBox&#x27;s_Time_Synchronization_Features"></span>
 To understand the Whonix Time Synchronization Mechanism, it is required
 to know VirtualBox's time synchronization features:</p>
@@ -110,7 +110,7 @@ hardware system clock,
 </ul></li>
 </ul>
 <h3 id="KVM's_Time_Synchronization_Features">KVM's Time Synchronization
-Features</h3>
+Features</h3><span class="share-tooltip" data-anchor="KVM&#x27;s_Time_Synchronization_Features"><a class="headline-anchor" href="#KVM&#x27;s_Time_Synchronization_Features" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#KVM&#x27;s_Time_Synchronization_Features">https://www.whonix.org/wiki/Dev/TimeSync/#KVM&#x27;s_Time_Synchronization_Features</span></span></span></span>
 <ul>
 <li>KVM attempts (in vain) to use:
 <ul>
@@ -128,7 +128,7 @@ as <code>kvm-clock</code> is not included within the output).
 <code>sdwdate</code> and <code>bootclockrandomization</code> fix any
 timing attacks that could be introduced.</p>
 <h3 id="Qubes_Time_Synchronization_Features">Qubes Time Synchronization
-Features</h3>
+Features</h3><span class="share-tooltip" data-anchor="Qubes_Time_Synchronization_Features"><a class="headline-anchor" href="#Qubes_Time_Synchronization_Features" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Qubes_Time_Synchronization_Features">https://www.whonix.org/wiki/Dev/TimeSync/#Qubes_Time_Synchronization_Features</span></span></span></span>
 <p>TODO: document</p>
 <p>Xen DomUs get their initial time from Xen (Qubes dom0) at VM
 start.</p>
@@ -139,7 +139,7 @@ start.</p>
 <p>qvm-sync-clock gets time from Qubes ClockVM.</p>
 <p>It is used because otherwise Xen DomUs would start to drift more and
 more. See <a href="https://forums.whonix.org/t/whonix-ws-16-fails-to-update-due-to-timing-issue/12739/10">this
-answer by marmarek</a>.</p>
+answer by marmarek</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-ws-16-fails-to-update-due-to-timing-issue/12739/10" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>qvm-sync-clock is unwanted in sys-whonix and anon-whonix because
 sdwdate runs there.</p>
 <p>qvm-sync-clock is disabled in Qubes-Whonix<sup>&#8482;</sup> Templates
@@ -152,9 +152,9 @@ Qubes-Whonix Templates, if passed through
 <code>clock-random-manual-cli</code>.</p>
 <p>When is <code>/etc/qubes-rpc/qubes.SetDateTime</code> run?</p>
 <h2 id="sdwdate_Time_Sources_Criteria">sdwdate Time Sources
-Criteria</h2>
+Criteria</h2><span class="share-tooltip" data-anchor="sdwdate_Time_Sources_Criteria"><a class="headline-anchor" href="#sdwdate_Time_Sources_Criteria" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#sdwdate_Time_Sources_Criteria">https://www.whonix.org/wiki/Dev/TimeSync/#sdwdate_Time_Sources_Criteria</span></span></span></span>
 <p>See <a href="../../Sdwdate/#sdwdate_Time_Sources_Criteria">sdwdate Time Sources Criteria</a>.</p>
-<h2 id="Facts">Facts</h2>
+<h2 id="Facts">Facts</h2><span class="share-tooltip" data-anchor="Facts"><a class="headline-anchor" href="#Facts" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Facts">https://www.whonix.org/wiki/Dev/TimeSync/#Facts</span></span></span></span>
 <p>People have been using:</p>
 <ul>
 <li>Tor Browser and Mozilla Firefox in parallel</li>
@@ -162,7 +162,7 @@ Criteria</h2>
 <li>Tor Browser inside Whonix-Workstation<sup>&#8482;</sup> and Mozilla
 Firefox on the host</li>
 </ul>
-<h2 id="Other_Facts">Other Facts</h2>
+<h2 id="Other_Facts">Other Facts</h2><span class="share-tooltip" data-anchor="Other_Facts"><a class="headline-anchor" href="#Other_Facts" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Other_Facts">https://www.whonix.org/wiki/Dev/TimeSync/#Other_Facts</span></span></span></span>
 <ul>
 <li>Almost no one, and no operating system, is using Secure Network Time
 Synchronization or External Clocks by default. Most systems synchronize
@@ -173,9 +173,9 @@ trust model.</li>
 <li>A system not using NTP or using authenticated NTP stands out from
 most other users.</li>
 <li>Clock jumps are bad: <a href="https://www.wired.com/2012/07/leap-second-glitch-explained/">Wired:
-The Inside Story of the Extra Second That Crashed the Web</a></li>
+The Inside Story of the Extra Second That Crashed the Web</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.wired.com/2012/07/leap-second-glitch-explained/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Definitions">Definitions</h2>
+<h2 id="Definitions">Definitions</h2><span class="share-tooltip" data-anchor="Definitions"><a class="headline-anchor" href="#Definitions" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Definitions">https://www.whonix.org/wiki/Dev/TimeSync/#Definitions</span></span></span></span>
 <ul>
 <li>Time Sanity Check in the context of Whonix: an init.d script that
 checks if the system clock is between the build timestamp and the
@@ -196,8 +196,8 @@ pseudonym <sup class="reference"><a href="#cite_note-20">[20]</a></sup></li>
 </ul>
 <h1 id="Goals">Goals</h1>
 <h2 id="Completely_Isolated_Virtual_Time">Completely Isolated Virtual
-Time</h2>
-<p>Quote <a href="https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt">https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt</a></p>
+Time</h2><span class="share-tooltip" data-anchor="Completely_Isolated_Virtual_Time"><a class="headline-anchor" href="#Completely_Isolated_Virtual_Time" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Completely_Isolated_Virtual_Time">https://www.whonix.org/wiki/Dev/TimeSync/#Completely_Isolated_Virtual_Time</span></span></span></span>
+<p>Quote <a href="https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt">https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p><blockquote><p>4.8) Covert channels and leaks</p>
 <p>In addition to the above problems, time information will inevitably
 leak to the guest about the host in anything but a perfect
@@ -217,7 +217,7 @@ clocks entirely independent from the host's wall clock if at all
 possible.</p>
 <h1 id="Whonix_Time_Synchronization_Mechanism">Whonix Time
 Synchronization Mechanism</h1>
-<h2 id="Overview">Overview</h2>
+<h2 id="Overview">Overview</h2><span class="share-tooltip" data-anchor="Overview"><a class="headline-anchor" href="#Overview" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Overview">https://www.whonix.org/wiki/Dev/TimeSync/#Overview</span></span></span></span>
 <ul>
 <li>Whonix leaves the host's system clock or time synchronization
 mechanism untouched.</li>
@@ -229,9 +229,9 @@ clocks.</li>
 <li>Most VirtualBox time synchronization features are disabled by
 Whonix.
 <ul>
-<li>Guest additions time synchronization is disabled by <a href="https://github.com/Whonix/vm-config-dist">vm-config-dist</a> at
+<li>Guest additions time synchronization is disabled by <a href="https://github.com/Whonix/vm-config-dist">vm-config-dist</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/vm-config-dist" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> at
 run time. See VirtualBox bug report <a href="https://www.virtualbox.org/ticket/10828">VBoxService
---disable-timesync broken</a>. They say it is actually not a bug. It is
+--disable-timesync broken</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.virtualbox.org/ticket/10828" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. They say it is actually not a bug. It is
 a missing feature, because running instances of VBoxService cannot be
 modified in their settings.</li>
 <li>built in time synchronization features are disabled by
@@ -241,9 +241,9 @@ build time.</li>
 </ul></li>
 <li>Qubes: TODO
 <ul>
-<li><a href="https://phabricator.whonix.org/T389">https://phabricator.whonix.org/T389</a></li>
-<li><a href="https://phabricator.whonix.org/T440">https://phabricator.whonix.org/T440</a></li>
-<li><a href="https://phabricator.whonix.org/T389">https://phabricator.whonix.org/T389</a></li>
+<li><a href="https://phabricator.whonix.org/T389">https://phabricator.whonix.org/T389</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T389" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://phabricator.whonix.org/T440">https://phabricator.whonix.org/T440</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T440" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://phabricator.whonix.org/T389">https://phabricator.whonix.org/T389</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T389" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 </ul></li>
 <li>VM Settings, Hardware Clock: set to UTC.</li>
@@ -255,12 +255,12 @@ the Advanced Security Guide, chapter <a href="../../Advanced_Security_Guide/#Net
 and not slow in 1980. The user is advised to fix the host clock in such
 cases.</li>
 <li>After they are connected to the Tor network, they use sdwdate
-(inspired by <a href="https://tails.boum.org/contribute/design/Time_syncing/">tails_htp</a>)
+(inspired by <a href="https://tails.boum.org/contribute/design/Time_syncing/">tails_htp</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/Time_syncing/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
 to set the system clock. <sup class="reference"><a href="#cite_note-23">[23]</a></sup></li>
 <li>Time Sanity Check runs after sdwdate is executed. This should catch
 possible major bugs and attacks. The user is informed if it fails.</li>
 <li>Using <a href="https://github.com/Whonix/bootclockrandomization">Boot Clock
-Randomization</a>, i.e. after boot, the clock is set randomly between 0
+Randomization</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/bootclockrandomization" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, i.e. after boot, the clock is set randomly between 0
 and 180 seconds into the past or future. This is useful to enforce the
 design goal that the host clock and Whonix-Workstation clock should
 always differ slightly. It is also useful to obfuscate the clock when
@@ -281,7 +281,7 @@ prevent time servers from tracking individual users.</li>
 Whonix-Gateway and Whonix-Workstation, slightly differ.</li>
 </ul>
 <h2 id="Block_Networking_until_sdwdate_Finishes">Block Networking until
-sdwdate Finishes</h2>
+sdwdate Finishes</h2><span class="share-tooltip" data-anchor="Block_Networking_until_sdwdate_Finishes"><a class="headline-anchor" href="#Block_Networking_until_sdwdate_Finishes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Block_Networking_until_sdwdate_Finishes">https://www.whonix.org/wiki/Dev/TimeSync/#Block_Networking_until_sdwdate_Finishes</span></span></span></span>
 <p>TODO: expand</p>
 <p><strong>This is not yet enabled by default.</strong></p>
 <p>Network access will be limited to Tor and sdwdate until network time
@@ -297,11 +297,11 @@ firewall, it runs in <code>full mode</code>.</p>
 OK: (Full torified network access allowed.)</code></pre>
 <p>Users are encouraged to test so we can enable it by default in the
 future.</p>
-<p><a href="https://forums.whonix.org/t/testers-wanted-blocking-networking-until-sdwdate-finished-status-of-sdwdate-gui/5372/6">https://forums.whonix.org/t/testers-wanted-blocking-networking-until-sdwdate-finished-status-of-sdwdate-gui/5372/6</a></p>
+<p><a href="https://forums.whonix.org/t/testers-wanted-blocking-networking-until-sdwdate-finished-status-of-sdwdate-gui/5372/6">https://forums.whonix.org/t/testers-wanted-blocking-networking-until-sdwdate-finished-status-of-sdwdate-gui/5372/6</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/testers-wanted-blocking-networking-until-sdwdate-finished-status-of-sdwdate-gui/5372/6" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Instructions:</p>
 <p><a href="../../Network_Time_Synchronization/#Block_Networking_until_sdwdate_Finishes">Network_Time_Synchronization#Block_Networking_until_sdwdate_Finishes</a></p>
-<h2 id="Boot_Clock_Randomization">Boot Clock Randomization</h2>
-<h3 id="Introduction_2">Introduction</h3>
+<h2 id="Boot_Clock_Randomization">Boot Clock Randomization</h2><span class="share-tooltip" data-anchor="Boot_Clock_Randomization"><a class="headline-anchor" href="#Boot_Clock_Randomization" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Boot_Clock_Randomization">https://www.whonix.org/wiki/Dev/TimeSync/#Boot_Clock_Randomization</span></span></span></span>
+<h3 id="Introduction_2">Introduction</h3><span class="share-tooltip" data-anchor="Introduction_2"><a class="headline-anchor" href="#Introduction_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Introduction_2">https://www.whonix.org/wiki/Dev/TimeSync/#Introduction_2</span></span></span></span>
 <p>The <a href="./#Whonix_Time_Synchronization_Mechanism">TimeSync</a> page notes:</p>
 <p><blockquote><ul>
 <li>Using Boot Clock Randomization, i.e. after boot, the clock is set
@@ -319,12 +319,12 @@ synchornization has succeeded. This prevents time-based fingerprinting
 and linkability issues, thereby improving anonymity and privacy.
 <sup class="reference"><a href="#cite_note-25">[25]</a></sup></p>
 <p>For technical discussion on the Boot Clock Randomization design, see
-<a href="https://forums.whonix.org/t/boot-clock-randomization-bootclockrandomization/2200">here</a>.
+<a href="https://forums.whonix.org/t/boot-clock-randomization-bootclockrandomization/2200">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/boot-clock-randomization-bootclockrandomization/2200" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 <sup class="reference"><a href="#cite_note-26">[26]</a></sup></p>
-<h3 id="Log_Inspection">Log Inspection</h3>
+<h3 id="Log_Inspection">Log Inspection</h3><span class="share-tooltip" data-anchor="Log_Inspection"><a class="headline-anchor" href="#Log_Inspection" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Log_Inspection">https://www.whonix.org/wiki/Dev/TimeSync/#Log_Inspection</span></span></span></span>
 <p><span class="code-select">sudo journalctl -b --no-pager -u
 bootclockrandomization</span></p>
-<h2 id="Conclusions">Conclusions</h2>
+<h2 id="Conclusions">Conclusions</h2><span class="share-tooltip" data-anchor="Conclusions"><a class="headline-anchor" href="#Conclusions" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Conclusions">https://www.whonix.org/wiki/Dev/TimeSync/#Conclusions</span></span></span></span>
 <ul>
 <li><span><strong>Attack
 1</strong></span> is a general Tor problem. It is impossible to solve
@@ -341,15 +341,15 @@ for Whonix. It is unsolved in other projects as well.</li>
 Brainstorm Idea #30050: Secure Network Time Synchronization</a></li>
 <li><a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=%23687166">Debian
 Bug Report ntp: NTP security vulnerability because not using
-authentication by default</a></li>
+authentication by default</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=%23687166" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://bugs.launchpad.net/ubuntu/+source/ntp/+bug/1039420">Ubuntu
 Bug Report NTP security vulnerability because not using authentication
-by default</a></li>
+by default</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugs.launchpad.net/ubuntu/+source/ntp/+bug/1039420" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 <li>Manual workaround: Check your clock manually and read <a href="../../Other_Operating_Systems/#About_Ubuntu">About
 Ubuntu</a> (stale mirror attack). (<a href="https://bugs.launchpad.net/launchpad/+bug/716535">Bug #716535:
 Please support Valid-Until in release files for
-security.ubuntu.com</a>)</li>
+security.ubuntu.com</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugs.launchpad.net/launchpad/+bug/716535" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</li>
 </ul></li>
 <li><span><strong>Attack
 3</strong></span> is defeated, Whonix adds additional security.</li>
@@ -386,23 +386,23 @@ Whonix-Workstation?</p>
 <p>Open question: would the GPS/atomic clock be too accurate and would
 that make Whonix more fingerprintable?</p>
 <h1 id="Discarded_Options">Discarded Options</h1>
-<h2 id="NTP">NTP</h2>
+<h2 id="NTP">NTP</h2><span class="share-tooltip" data-anchor="NTP"><a class="headline-anchor" href="#NTP" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#NTP">https://www.whonix.org/wiki/Dev/TimeSync/#NTP</span></span></span></span>
 <p><span class="manually-placed-anchor " id="NTP_authentication_(autokey)_is_insecure"></span></p>
 <ul>
 <li>unauthenticated by default</li>
 <li>NTP insecure
 <ul>
 <li><a href="https://web.archive.org/web/20200209084816/https://gist.github.com/CHEF-KOCH/12976cf15012d64b8fd2">https://web.archive.org/web/20200209084816/https://gist.github.com/CHEF-KOCH/12976cf15012d64b8fd2</a></li>
-<li><a href="https://blog.hboeck.de/archives/863-Dont-update-NTP-stop-using-it.html">https://blog.hboeck.de/archives/863-Dont-update-NTP-stop-using-it.html</a></li>
+<li><a href="https://blog.hboeck.de/archives/863-Dont-update-NTP-stop-using-it.html">https://blog.hboeck.de/archives/863-Dont-update-NTP-stop-using-it.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.hboeck.de/archives/863-Dont-update-NTP-stop-using-it.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 <li>NTP authentication (autokey):
 <ul>
-<li>info: <a href="https://datatracker.ietf.org/doc/html/draft-ietf-ntp-network-time-security-00">https://datatracker.ietf.org/doc/html/draft-ietf-ntp-network-time-security-00</a></li>
+<li>info: <a href="https://datatracker.ietf.org/doc/html/draft-ietf-ntp-network-time-security-00">https://datatracker.ietf.org/doc/html/draft-ietf-ntp-network-time-security-00</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://datatracker.ietf.org/doc/html/draft-ietf-ntp-network-time-security-00" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>insecure:
 http://www.innovationslab.net/~brian/NTP/autokey-analysis.pdf [down,
 contacted author] might be helpful alternatives <a href="https://web.archive.org/web/20200206053329/http://zero-entropy.de/autokey_analysis.pdf">Analysis
 of the NTP Autokey</a>, <a href="https://doc.ntp.org/reflib/reports/stime1/stime.pdf">The Autokey
-Security Architecture, Protocol and Algorithms</a></li>
+Security Architecture, Protocol and Algorithms</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://doc.ntp.org/reflib/reports/stime1/stime.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 </ul>
 <p>Procedures</p>
@@ -415,7 +415,7 @@ Security Architecture, Protocol and Algorithms</a></li>
 <li>NTP leaks the local time. <sup class="reference"><a href="#cite_note-2">[2]</a></sup> <sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
 <li>Does not work over Tor, because NTP uses UDP, while the Tor network
 does not support UDP</li>
-<li><a href="https://www.ntp.org/ntpfaq/NTP-s-algo.htm">Quote</a>:
+<li><a href="https://www.ntp.org/ntpfaq/NTP-s-algo.htm">Quote</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.ntp.org/ntpfaq/NTP-s-algo.htm" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:
 <blockquote><p>For example standard Linux adjusts the time with a rate of 0.5ms per
 second.</p></blockquote>
 <ul>
@@ -427,8 +427,8 @@ second.</p></blockquote>
 year)</li>
 </ul></li>
 </ul>
-<h2 id="tlsdate">tlsdate</h2>
-<p><a href="https://github.com/ioerror/tlsdate">https://github.com/ioerror/tlsdate</a></p>
+<h2 id="tlsdate">tlsdate</h2><span class="share-tooltip" data-anchor="tlsdate"><a class="headline-anchor" href="#tlsdate" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#tlsdate">https://www.whonix.org/wiki/Dev/TimeSync/#tlsdate</span></span></span></span>
+<p><a href="https://github.com/ioerror/tlsdate">https://github.com/ioerror/tlsdate</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/ioerror/tlsdate" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Pros:</p>
 <ul>
 <li>uses seccomp</li>
@@ -451,7 +451,7 @@ difficult or require patching tlsdate.</li>
 gradually adjust as
 <em><span>sdwdate</span></em> does with
 <a href="https://github.com/Whonix/Whonix/issues/169">Slow Clock
-Adjuster</a>. <sup class="reference"><a href="#cite_note-36">[36]</a></sup></li>
+Adjuster</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/Whonix/issues/169" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. <sup class="reference"><a href="#cite_note-36">[36]</a></sup></li>
 <li>Cannot connect to (most) Tor onion services, because most of those
 do not support SSL. <sup class="reference"><a href="#cite_note-37">[37]</a></sup> <sup class="reference"><a href="#cite_note-38">[38]</a></sup></li>
 <li>Minor: <em><span>command line
@@ -460,21 +460,21 @@ parameters</span></em> <sup class="reference"><a href="#cite_note-39">[39]</a></
 absence of bugs, but safer behavior for
 <em><span>tlsdate</span></em> would be
 to fail closed on extraneous / unknown command line parameters.</li>
-<li>Likely denial of service issue: <a href="https://github.com/ioerror/tlsdate/issues/149">https://github.com/ioerror/tlsdate/issues/149</a></li>
+<li>Likely denial of service issue: <a href="https://github.com/ioerror/tlsdate/issues/149">https://github.com/ioerror/tlsdate/issues/149</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/ioerror/tlsdate/issues/149" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="htpdate">htpdate</h2>
+<h2 id="htpdate">htpdate</h2><span class="share-tooltip" data-anchor="htpdate"><a class="headline-anchor" href="#htpdate" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#htpdate">https://www.whonix.org/wiki/Dev/TimeSync/#htpdate</span></span></span></span>
 <p>Original.</p>
 <ul>
-<li><a href="https://www.vervest.org/htp/">htpdate</a> (<a href="https://packages.debian.org/trixie/htpdate">debian
-package</a>)</li>
-<li>Detailed package status in Debian: <a href="https://packages.qa.debian.org/h/htpdate.html">https://packages.qa.debian.org/h/htpdate.html</a></li>
+<li><a href="https://www.vervest.org/htp/">htpdate</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.vervest.org/htp/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (<a href="https://packages.debian.org/trixie/htpdate">debian
+package</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.debian.org/trixie/htpdate" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</li>
+<li>Detailed package status in Debian: <a href="https://packages.qa.debian.org/h/htpdate.html">https://packages.qa.debian.org/h/htpdate.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.qa.debian.org/h/htpdate.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>unresponsive upstream [tails-dev contacted them because of their
 tails_htp fork - no reply] [no reply to Patrick in past]</li>
 <li>htp=htpdate (same program as the one on rkeene.org)</li>
 </ul>
 <p>Tails htpdate fork</p>
 <ul>
-<li>code in revision control: <a href="https://salsa.debian.org/debian/htpdate.git">https://salsa.debian.org/debian/htpdate.git</a></li>
+<li>code in revision control: <a href="https://salsa.debian.org/debian/htpdate.git">https://salsa.debian.org/debian/htpdate.git</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://salsa.debian.org/debian/htpdate.git" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>Tails' reasons to fork htpdate:
 <ul>
 <li>they wanted to add features such as TLS Authentication of
@@ -484,7 +484,7 @@ servers</li>
 <li>The htpdate implementation used by Tails is the perl one and not the
 C version.</li>
 </ul>
-<h2 id="Manual_Time_Setting">Manual Time Setting</h2>
+<h2 id="Manual_Time_Setting">Manual Time Setting</h2><span class="share-tooltip" data-anchor="Manual_Time_Setting"><a class="headline-anchor" href="#Manual_Time_Setting" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Manual_Time_Setting">https://www.whonix.org/wiki/Dev/TimeSync/#Manual_Time_Setting</span></span></span></span>
 <p>Prompts are very difficult.</p>
 <ul>
 <li>GUI users:
@@ -504,27 +504,27 @@ forced server restart).</li>
 </ul>
 <h1 id="TODO">TODO</h1>
 <h2 id="Consideration_no_TimeSync_on_Host">Consideration no TimeSync on
-Host</h2>
+Host</h2><span class="share-tooltip" data-anchor="Consideration_no_TimeSync_on_Host"><a class="headline-anchor" href="#Consideration_no_TimeSync_on_Host" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Consideration_no_TimeSync_on_Host">https://www.whonix.org/wiki/Dev/TimeSync/#Consideration_no_TimeSync_on_Host</span></span></span></span>
 <p>Would it be advisable to run no network time syncing daemon on the
 host at all? There are open questions. See:<br />
-<a href="https://forums.whonix.org/t/ntp-possible-skew-per-day-month-year/487/5">https://forums.whonix.org/t/ntp-possible-skew-per-day-month-year/487/5</a></p>
-<h2 id="Time_Source_of_Time_Servers">Time Source of Time Servers</h2>
+<a href="https://forums.whonix.org/t/ntp-possible-skew-per-day-month-year/487/5">https://forums.whonix.org/t/ntp-possible-skew-per-day-month-year/487/5</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/ntp-possible-skew-per-day-month-year/487/5" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<h2 id="Time_Source_of_Time_Servers">Time Source of Time Servers</h2><span class="share-tooltip" data-anchor="Time_Source_of_Time_Servers"><a class="headline-anchor" href="#Time_Source_of_Time_Servers" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Time_Source_of_Time_Servers">https://www.whonix.org/wiki/Dev/TimeSync/#Time_Source_of_Time_Servers</span></span></span></span>
 <p>Even if we could very securely obtain the time from a server with
 distributed trust and everything, the question is, how do these servers
 themselves set their own clock? If they just use unauthenticated NTP
 themselves, they might not be a big help.</p>
 <p>TODO: invent sdwdate-server</p>
-<h2 id="Tor_Consensus_Method">Tor Consensus Method</h2>
+<h2 id="Tor_Consensus_Method">Tor Consensus Method</h2><span class="share-tooltip" data-anchor="Tor_Consensus_Method"><a class="headline-anchor" href="#Tor_Consensus_Method" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Tor_Consensus_Method">https://www.whonix.org/wiki/Dev/TimeSync/#Tor_Consensus_Method</span></span></span></span>
 <h5 id="Introduction_3">Introduction</h5>
 <p><strong>Just an idea. Not implemented.</strong></p>
-<p>Tails' <a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/NetworkManager/dispatcher.d/20-time.sh"><em><span>tordate</span></em></a>
+<p>Tails' <a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/NetworkManager/dispatcher.d/20-time.sh"><em><span>tordate</span></em></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/NetworkManager/dispatcher.d/20-time.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 (<a href="https://tails.boum.org/contribute/design/Time_syncing/#index3h1">Guessing
-time based on Tor consensus</a>), renamed to
+time based on Tor consensus</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/Time_syncing/#index3h1" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>), renamed to
 <em><span><a href="../../Moved:Anondate/">anondate</a></span></em> for trademark reasons and
 refactored to work outside of Tails provides useful <code>bash</code>
 functions to check the system clock using Tor's consensus file and Tor's
 log.</p>
-<p><a href="https://github.com/Whonix/helper-scripts/blob/master/usr/sbin/anondate">https://github.com/Whonix/helper-scripts/blob/master/usr/sbin/anondate</a></p>
+<p><a href="https://github.com/Whonix/helper-scripts/blob/master/usr/sbin/anondate">https://github.com/Whonix/helper-scripts/blob/master/usr/sbin/anondate</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/helper-scripts/blob/master/usr/sbin/anondate" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Tor connects to the network. The Tor consensus file contains rough
 time information: since when and until when it is valid.</p>
 <p><em><span>tordate</span></em> (now
@@ -571,7 +571,7 @@ Clock Accuracy for Onion Services Accessibility</h5>
 <h6 id="Gateway">Gateway</h6>
 <p>Generally, computer running Tor (Whonix-Gateway):</p>
 <p><code>live consensus</code> definition, quote <a href="https://github.com/torproject/torspec/blob/master/dir-spec.txt">Tor
-directory protocol</a>:</p>
+directory protocol</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/torproject/torspec/blob/master/dir-spec.txt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</p>
 <p><blockquote><p>A network-status document is "live" if the time in its valid-after
 field has passed, and the time in its valid-until field has not
 passed.</p></blockquote></p>
@@ -582,7 +582,7 @@ ago.</p></blockquote></p>
 <p>How accurate does the clock have to be so onion services can be
 accessed? <sup class="reference"><a href="#cite_note-43">[43]</a></sup></p>
 <p>Due to issue <a href="https://forums.whonix.org/t/most-onions-down-due-to-a-denial-of-service-attack-on-the-tor-network/10979">Most
-Onions Down due to a Denial of Service Attack on the Tor Network</a>
+Onions Down due to a Denial of Service Attack on the Tor Network</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/most-onions-down-due-to-a-denial-of-service-attack-on-the-tor-network/10979" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 this question received attention.</p>
 <p>Previously a <code>live consensus</code> was required. From Tor
 <code>0.4.5.3</code> and above only a
@@ -613,10 +613,10 @@ Method requires to get a rough time guess.</li>
 </ul>
 <h5 id="anondate_issues">anondate issues</h5>
 <p>Originally posted in <a href="https://phabricator.whonix.org/T151">sdwdate Tor Consensus Time
-Sanity Check</a>:</p>
+Sanity Check</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T151" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</p>
 <ul>
 <li>As per <a href="https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/10">chat
-log with Roger</a> directory authorities can lie about time - so we need
+log with Roger</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/10" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> directory authorities can lie about time - so we need
 to use this with care.</li>
 <li>Tor consensus is not always downloaded directly from directory
 authorities, sometimes Tor downloads the Tor consensus from directory
@@ -653,7 +653,7 @@ required:
 <ul>
 <li>As per <a href="../../Comparison_with_Others/#Fingerprint">Comparison with Others#Fingerprint</a>, quoted from the
 <a href="https://tails.boum.org/contribute/design/Time_syncing/#index5h1">Tails
-Design about Time syncing</a>: "Our initial time guess based on the Tor
+Design about Time syncing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/Time_syncing/#index5h1" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>: "Our initial time guess based on the Tor
 consensus is probably easier to fingerprint, though: a fresh Tor is
 started, and restarted again right after the consensus has been
 downloaded."</li>
@@ -666,12 +666,12 @@ downloaded."</li>
 <li><s>Hidden services can only be accessed if the clock is no more than
 30 minutes slow or fast. <sup class="reference"><a href="#cite_note-44">[44]</a></sup></s></li>
 <li><a href="https://gitlab.tails.boum.org/tails/tails/-/issues/5774">Tails
-ticket: Robust time syncing</a> Quote: <blockquote><p>Currently we use tordate to set the initial clock. It is very messy
+ticket: Robust time syncing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/issues/5774" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> Quote: <blockquote><p>Currently we use tordate to set the initial clock. It is very messy
 and error prone, so we desperately need a robust replacement.</p></blockquote></li>
 <li>Vulnerable to ISP level man-in-the-middle attacks:
 <ul>
 <li><a href="https://tails.boum.org/contribute/design/Time_syncing/">Tails
-Design: Time Syncing</a> Quote: <blockquote><p>First, replaying a consensus older than one week or so results in
+Design: Time Syncing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/Time_syncing/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> Quote: <blockquote><p>First, replaying a consensus older than one week or so results in
 preventing access to the Tor network, and that's all, because onion keys
 will be wrong.</p></blockquote>
 <ul>
@@ -742,7 +742,7 @@ verified Tor consensus.</li>
 <li>Tor consensus is in some cases downloaded from Tor directory
 authorities and in some cases from Tor directory mirrors. The latter
 should not be trusted as much as the former.</li>
-<li><a href="https://github.com/torproject/torspec/blob/main/proposals/149-using-netinfo-data.txt">https://github.com/torproject/torspec/blob/main/proposals/149-using-netinfo-data.txt</a></li>
+<li><a href="https://github.com/torproject/torspec/blob/main/proposals/149-using-netinfo-data.txt">https://github.com/torproject/torspec/blob/main/proposals/149-using-netinfo-data.txt</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/torproject/torspec/blob/main/proposals/149-using-netinfo-data.txt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p><span class="manually-placed-anchor " id="Status_of_this_idea"></span></p>
 <h5 id="Tor_Certificate_Lifetime">Tor Certificate Lifetime</h5>
@@ -753,7 +753,7 @@ should not be trusted as much as the former.</li>
 --tor-cert-valid-after</span></p>
 <pre><code>Aug 27 00:00:00 2020 GMT</code></pre>
 <p>Might be related to the following. Quote <a href="https://github.com/torproject/torspec/blob/master/dir-spec.txt">Tor
-directory protocol</a>:</p>
+directory protocol</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/torproject/torspec/blob/master/dir-spec.txt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</p>
 <p><blockquote><p>Every authority has a very-secret, long-term "Authority Identity
 Key". This is stored encrypted and/or offline, and is used to sign "key
 certificate" documents. Every key certificate contains a medium-term
@@ -776,10 +776,10 @@ incorrect. What can be trusted, however, is that at least that time has
 already come. It is not a far future date because then Tor directory
 authorities would not have signed a Tor certificate with that lifetime
 yet.</p>
-<p>Related source code: <a href="https://src-ref.docs.torproject.org/tor/x509__openssl_8c.html#adcb9e22c87cb9ba135f6edf3e13386b4">https://src-ref.docs.torproject.org/tor/x509__openssl_8c.html#adcb9e22c87cb9ba135f6edf3e13386b4</a></p>
-<p>Related ticket: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/4370">https://gitlab.torproject.org/legacy/trac/-/issues/4370</a></p>
+<p>Related source code: <a href="https://src-ref.docs.torproject.org/tor/x509__openssl_8c.html#adcb9e22c87cb9ba135f6edf3e13386b4">https://src-ref.docs.torproject.org/tor/x509__openssl_8c.html#adcb9e22c87cb9ba135f6edf3e13386b4</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://src-ref.docs.torproject.org/tor/x509__openssl_8c.html#adcb9e22c87cb9ba135f6edf3e13386b4" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p>Related ticket: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/4370">https://gitlab.torproject.org/legacy/trac/-/issues/4370</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/4370" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h5 id="Tor_Consensus_Issues">Tor Consensus Issues</h5>
-<p><a href="https://lists.torproject.org/pipermail/tor-talk/2011-January/008551.html">Quote</a>
+<p><a href="https://lists.torproject.org/pipermail/tor-talk/2011-January/008551.html">Quote</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2011-January/008551.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 Roger Dingledine:</p>
 <p><blockquote><p>Whether this is a good idea depends on where you got the consensus.
 If you connect to a Tor directory mirror and it hands you a consensus
@@ -791,13 +791,13 @@ directory authorities anymore. And we ought not download the Tor
 consensus exclusively from Tor directory authorities. Source:
 <sup class="reference"><a href="#cite_note-46">[46]</a></sup> <blockquote><p> oh. i think that would be horrible. hundreds of thousands
 of users doing that could overwhelm the directory authorities.</p></blockquote></p>
-<p><a href="https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/print">https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/print</a></p>
+<p><a href="https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/print">https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/print</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/print" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h5 id="Fixing_Time_based_on_Tor_Consensus">Fixing Time based on Tor
 Consensus</h5>
 <p>Future Implementation consideration.</p>
 <p>This is how time syncing could be performed when Whonix starts:</p>
 <p>Credits: This is a rewrite of <a href="https://tails.boum.org/contribute/design/Time_syncing/">Tails Time
-Syncing Design</a></p>
+Syncing Design</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/Time_syncing/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <ol>
 <li>Start Tor. If Tor is already working, skip to the following anondate
 steps.</li>
@@ -847,7 +847,7 @@ bridge or not.</p>
 <ul>
 <li>Tor starts without a cached consensus.</li>
 <li>The Tor client starts by connecting directly to a <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/FallbackDirectoryMirrors">fallback
-directory mirror</a> to download the Tor consensus.</li>
+directory mirror</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/FallbackDirectoryMirrors" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> to download the Tor consensus.</li>
 <li>Feeding a stale consensus requires the attacker either to break SSL
 or to control the fallback directory mirror the user's Tor client
 connects to.</li>
@@ -1002,7 +1002,7 @@ a newer Tor consensus done yet?"</p>
 Tor consensus before Tor starts.</p>
 <p>(Easily implemented thanks to systemd units.) Tor would re-download
 the Tor consensus anyhow. This might be fingerprintable, but then again,
-being a user of Whonix might be fingerprintable anyhow (<a href="https://github.com/Kicksecure/tirdad">random ISN</a> / <a href="../../Moved:Security-misc/">security-misc</a> network
+being a user of Whonix might be fingerprintable anyhow (<a href="https://github.com/Kicksecure/tirdad">random ISN</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/tirdad" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> / <a href="../../Moved:Security-misc/">security-misc</a> network
 hardening). Instead of Tor starting with a stale consensus, figuring out
 it is stale and re-downloading one, it would go straight ahead and
 download a new one, which it has to do anyhow.</p>
@@ -1043,7 +1043,7 @@ far the time is skewed.</p>
 <h1 id="Notes">Notes</h1>
 <h1 id="Adjusting_time_slowly_using_adjtimex/ntp_adjtime">Adjusting time
 slowly using adjtimex/ntp_adjtime</h1>
-<p>Under <a href="https://github.com/Whonix/sdwdate/pull/4">consideration</a> is
+<p>Under <a href="https://github.com/Whonix/sdwdate/pull/4">consideration</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/sdwdate/pull/4" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is
 changing the time with <code>sclockadj2</code>. The initial drive for
 this was that calling <code>clock_settime()</code> in the original
 <code>sclockadj</code> can result in several thousand entries in
@@ -1122,151 +1122,151 @@ optional arguments:
 might be looping on values &gt; 0.5s), including stopping the internal
 offset, can easily be achieved by calling
 <code>sclockadj2 offset 0</code>.</p>
-<h2 id="Blockchain_Time">Blockchain Time</h2>
+<h2 id="Blockchain_Time">Blockchain Time</h2><span class="share-tooltip" data-anchor="Blockchain_Time"><a class="headline-anchor" href="#Blockchain_Time" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Blockchain_Time">https://www.whonix.org/wiki/Dev/TimeSync/#Blockchain_Time</span></span></span></span>
 <ul>
-<li><a href="https://bitcoinmagazine.com/articles/bip-the-end-to-end-encryption-bitcoin-never-had-but-soon-will-1465401187">https://bitcoinmagazine.com/articles/bip-the-end-to-end-encryption-bitcoin-never-had-but-soon-will-1465401187</a></li>
-<li><a href="https://github.com/bitcoin/bips/blob/master/bip-0150.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0150.mediawiki</a></li>
-<li><a href="https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-March/016806.html">https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-March/016806.html</a></li>
-<li><a href="https://en.bitcoin.it/wiki/Block_timestamp">https://en.bitcoin.it/wiki/Block_timestamp</a></li>
+<li><a href="https://bitcoinmagazine.com/articles/bip-the-end-to-end-encryption-bitcoin-never-had-but-soon-will-1465401187">https://bitcoinmagazine.com/articles/bip-the-end-to-end-encryption-bitcoin-never-had-but-soon-will-1465401187</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bitcoinmagazine.com/articles/bip-the-end-to-end-encryption-bitcoin-never-had-but-soon-will-1465401187" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/bitcoin/bips/blob/master/bip-0150.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0150.mediawiki</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/bitcoin/bips/blob/master/bip-0150.mediawiki" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-March/016806.html">https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-March/016806.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-March/016806.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://en.bitcoin.it/wiki/Block_timestamp">https://en.bitcoin.it/wiki/Block_timestamp</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.bitcoin.it/wiki/Block_timestamp" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://web.archive.org/web/20140213190023/http://james.lab6.com/2012/01/12/bitcoin-285-bytes-that-changed-the-world/">https://web.archive.org/web/20140213190023/http://james.lab6.com/2012/01/12/bitcoin-285-bytes-that-changed-the-world/</a></li>
-<li><a href="https://en.bitcoin.it/wiki/API_reference_(JSON-RPC)">https://en.bitcoin.it/wiki/API_reference_(JSON-RPC)</a></li>
-<li><a href="https://twitter.com/_jonasschnelli_/status/1119137870592102400">https://twitter.com/_jonasschnelli_/status/1119137870592102400</a>
+<li><a href="https://en.bitcoin.it/wiki/API_reference_(JSON-RPC)">https://en.bitcoin.it/wiki/API_reference_(JSON-RPC)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.bitcoin.it/wiki/API_reference_(JSON-RPC)" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://twitter.com/_jonasschnelli_/status/1119137870592102400">https://twitter.com/_jonasschnelli_/status/1119137870592102400</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://twitter.com/_jonasschnelli_/status/1119137870592102400" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <ul>
 <li><blockquote><p>A BIP158 based wallet rescans takes less then 5 minutes (back from
 genesis) on powerful consumer computer.</p></blockquote></li>
 </ul></li>
 </ul>
 <ul>
-<li><a href="https://electrum.readthedocs.io/en/latest/faq.html#does-electrum-trust-servers">https://electrum.readthedocs.io/en/latest/faq.html#does-electrum-trust-servers</a></li>
-<li><a href="https://electrum.readthedocs.io/en/latest/faq.html#i-might-run-my-own-server-are-client-server-connections-authenticated">https://electrum.readthedocs.io/en/latest/faq.html#i-might-run-my-own-server-are-client-server-connections-authenticated</a></li>
+<li><a href="https://electrum.readthedocs.io/en/latest/faq.html#does-electrum-trust-servers">https://electrum.readthedocs.io/en/latest/faq.html#does-electrum-trust-servers</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://electrum.readthedocs.io/en/latest/faq.html#does-electrum-trust-servers" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://electrum.readthedocs.io/en/latest/faq.html#i-might-run-my-own-server-are-client-server-connections-authenticated">https://electrum.readthedocs.io/en/latest/faq.html#i-might-run-my-own-server-are-client-server-connections-authenticated</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://electrum.readthedocs.io/en/latest/faq.html#i-might-run-my-own-server-are-client-server-connections-authenticated" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <ul>
 <li><a href="https://ieeexplore.ieee.org/document/8482304">Blockchain-Based
-Secure Time Protection Scheme in IoT</a></li>
+Secure Time Protection Scheme in IoT</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://ieeexplore.ieee.org/document/8482304" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://hal.univ-grenoble-alpes.fr/hal-01865259/document">Secure
-Time Synchronization Protocol</a></li>
+Time Synchronization Protocol</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://hal.univ-grenoble-alpes.fr/hal-01865259/document" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h2 id="NTS_-_Network_Time_Security_-_Secure_NTP">NTS - Network Time
-Security - Secure NTP</h2>
+Security - Secure NTP</h2><span class="share-tooltip" data-anchor="NTS_-_Network_Time_Security_-_Secure_NTP"><a class="headline-anchor" href="#NTS_-_Network_Time_Security_-_Secure_NTP" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#NTS_-_Network_Time_Security_-_Secure_NTP">https://www.whonix.org/wiki/Dev/TimeSync/#NTS_-_Network_Time_Security_-_Secure_NTP</span></span></span></span>
 <ul>
-<li><a href="https://fedoramagazine.org/secure-ntp-with-nts/">https://fedoramagazine.org/secure-ntp-with-nts/</a></li>
-<li><a href="https://weberblog.net/network-time-security-strengths-weaknesses/">https://weberblog.net/network-time-security-strengths-weaknesses/</a></li>
-<li><a href="https://weberblog.net/setting-up-nts-secured-ntp-with-ntpsec/">https://weberblog.net/setting-up-nts-secured-ntp-with-ntpsec/</a></li>
-<li><a href="https://weberblog.net/network-time-security-new-ntp-authentication-mechanism/">https://weberblog.net/network-time-security-new-ntp-authentication-mechanism/</a>
+<li><a href="https://fedoramagazine.org/secure-ntp-with-nts/">https://fedoramagazine.org/secure-ntp-with-nts/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://fedoramagazine.org/secure-ntp-with-nts/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://weberblog.net/network-time-security-strengths-weaknesses/">https://weberblog.net/network-time-security-strengths-weaknesses/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://weberblog.net/network-time-security-strengths-weaknesses/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://weberblog.net/setting-up-nts-secured-ntp-with-ntpsec/">https://weberblog.net/setting-up-nts-secured-ntp-with-ntpsec/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://weberblog.net/setting-up-nts-secured-ntp-with-ntpsec/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://weberblog.net/network-time-security-new-ntp-authentication-mechanism/">https://weberblog.net/network-time-security-new-ntp-authentication-mechanism/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://weberblog.net/network-time-security-new-ntp-authentication-mechanism/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <ul>
 <li><blockquote><p>the time data is not encrypted by NTS - but authenticated.</p></blockquote></li>
 </ul></li>
-<li><a href="https://chrony.tuxfamily.org/comparison.html">https://chrony.tuxfamily.org/comparison.html</a></li>
-<li><a href="https://blog.apnic.net/2019/11/08/network-time-security-new-ntp-authentication-mechanism/">https://blog.apnic.net/2019/11/08/network-time-security-new-ntp-authentication-mechanism/</a></li>
-<li><a href="https://www.cloudflare.com/time/">https://www.cloudflare.com/time/</a></li>
-<li><a href="https://blog.cloudflare.com/secure-time/">https://blog.cloudflare.com/secure-time/</a></li>
-<li><a href="https://blog.cloudflare.com/nts-is-now-rfc/">https://blog.cloudflare.com/nts-is-now-rfc/</a></li>
-<li><a href="https://blog.cloudflare.com/announcing-cfnts/">https://blog.cloudflare.com/announcing-cfnts/</a></li>
+<li><a href="https://chrony.tuxfamily.org/comparison.html">https://chrony.tuxfamily.org/comparison.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://chrony.tuxfamily.org/comparison.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://blog.apnic.net/2019/11/08/network-time-security-new-ntp-authentication-mechanism/">https://blog.apnic.net/2019/11/08/network-time-security-new-ntp-authentication-mechanism/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.apnic.net/2019/11/08/network-time-security-new-ntp-authentication-mechanism/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://www.cloudflare.com/time/">https://www.cloudflare.com/time/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.cloudflare.com/time/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://blog.cloudflare.com/secure-time/">https://blog.cloudflare.com/secure-time/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.cloudflare.com/secure-time/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://blog.cloudflare.com/nts-is-now-rfc/">https://blog.cloudflare.com/nts-is-now-rfc/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.cloudflare.com/nts-is-now-rfc/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://blog.cloudflare.com/announcing-cfnts/">https://blog.cloudflare.com/announcing-cfnts/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.cloudflare.com/announcing-cfnts/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="roughtime">roughtime</h2>
-<h3 id="roughtime_information">roughtime information</h3>
+<h2 id="roughtime">roughtime</h2><span class="share-tooltip" data-anchor="roughtime"><a class="headline-anchor" href="#roughtime" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#roughtime">https://www.whonix.org/wiki/Dev/TimeSync/#roughtime</span></span></span></span>
+<h3 id="roughtime_information">roughtime information</h3><span class="share-tooltip" data-anchor="roughtime_information"><a class="headline-anchor" href="#roughtime_information" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#roughtime_information">https://www.whonix.org/wiki/Dev/TimeSync/#roughtime_information</span></span></span></span>
 <ul>
-<li><a href="https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/">https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/</a></li>
-<li><a href="https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/?include_text=1">https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/?include_text=1</a></li>
-<li><a href="https://roughtime.googlesource.com/roughtime">https://roughtime.googlesource.com/roughtime</a></li>
-<li><a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=838416">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=838416</a></li>
-<li><a href="https://salsa.debian.org/lamby/pkg-roughtime">https://salsa.debian.org/lamby/pkg-roughtime</a></li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/">https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/?include_text=1">https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/?include_text=1</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://datatracker.ietf.org/doc/draft-ietf-ntp-roughtime/?include_text=1" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://roughtime.googlesource.com/roughtime">https://roughtime.googlesource.com/roughtime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://roughtime.googlesource.com/roughtime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=838416">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=838416</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=838416" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://salsa.debian.org/lamby/pkg-roughtime">https://salsa.debian.org/lamby/pkg-roughtime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://salsa.debian.org/lamby/pkg-roughtime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>UDP</li>
 <li>independent of TLS CAs (hardcoded keys)</li>
-<li>server list: <a href="https://github.com/cloudflare/roughtime/blob/master/ecosystem.json">https://github.com/cloudflare/roughtime/blob/master/ecosystem.json</a></li>
-<li><a href="https://int08h.com/post/to-catch-a-lying-timeserver/">https://int08h.com/post/to-catch-a-lying-timeserver/</a></li>
-<li><a href="https://int08h.com/post/roughtime-message-anatomy/">https://int08h.com/post/roughtime-message-anatomy/</a></li>
-<li><a href="https://roughtime.googlesource.com/roughtime/+/HEAD/ECOSYSTEM.md">https://roughtime.googlesource.com/roughtime/+/HEAD/ECOSYSTEM.md</a></li>
-<li><a href="https://roughtime.googlesource.com/roughtime/+/HEAD/PROTOCOL.md">https://roughtime.googlesource.com/roughtime/+/HEAD/PROTOCOL.md</a></li>
+<li>server list: <a href="https://github.com/cloudflare/roughtime/blob/master/ecosystem.json">https://github.com/cloudflare/roughtime/blob/master/ecosystem.json</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/cloudflare/roughtime/blob/master/ecosystem.json" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://int08h.com/post/to-catch-a-lying-timeserver/">https://int08h.com/post/to-catch-a-lying-timeserver/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://int08h.com/post/to-catch-a-lying-timeserver/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://int08h.com/post/roughtime-message-anatomy/">https://int08h.com/post/roughtime-message-anatomy/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://int08h.com/post/roughtime-message-anatomy/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://roughtime.googlesource.com/roughtime/+/HEAD/ECOSYSTEM.md">https://roughtime.googlesource.com/roughtime/+/HEAD/ECOSYSTEM.md</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://roughtime.googlesource.com/roughtime/+/HEAD/ECOSYSTEM.md" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://roughtime.googlesource.com/roughtime/+/HEAD/PROTOCOL.md">https://roughtime.googlesource.com/roughtime/+/HEAD/PROTOCOL.md</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://roughtime.googlesource.com/roughtime/+/HEAD/PROTOCOL.md" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h3 id="roughtime_client_list">roughtime client list</h3>
+<h3 id="roughtime_client_list">roughtime client list</h3><span class="share-tooltip" data-anchor="roughtime_client_list"><a class="headline-anchor" href="#roughtime_client_list" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#roughtime_client_list">https://www.whonix.org/wiki/Dev/TimeSync/#roughtime_client_list</span></span></span></span>
 <ul>
-<li><a href="https://roughtime.googlesource.com/roughtime">https://roughtime.googlesource.com/roughtime</a></li>
-<li><a href="https://github.com/cloudflare/roughtime">https://github.com/cloudflare/roughtime</a></li>
-<li><a href="https://github.com/int08h/roughenough">https://github.com/int08h/roughenough</a></li>
-<li><a href="https://github.com/int08h/roughenough-fuzz">https://github.com/int08h/roughenough-fuzz</a></li>
-<li><a href="https://github.com/ffledgling/python-roughtime">https://github.com/ffledgling/python-roughtime</a></li>
-<li><a href="https://github.com/dansarie/pyroughtime">https://github.com/dansarie/pyroughtime</a>
+<li><a href="https://roughtime.googlesource.com/roughtime">https://roughtime.googlesource.com/roughtime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://roughtime.googlesource.com/roughtime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/cloudflare/roughtime">https://github.com/cloudflare/roughtime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/cloudflare/roughtime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/int08h/roughenough">https://github.com/int08h/roughenough</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/int08h/roughenough" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/int08h/roughenough-fuzz">https://github.com/int08h/roughenough-fuzz</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/int08h/roughenough-fuzz" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/ffledgling/python-roughtime">https://github.com/ffledgling/python-roughtime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/ffledgling/python-roughtime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/dansarie/pyroughtime">https://github.com/dansarie/pyroughtime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/dansarie/pyroughtime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <ul>
-<li><a href="https://github.com/dansarie/pyroughtime/issues/3">https://github.com/dansarie/pyroughtime/issues/3</a></li>
+<li><a href="https://github.com/dansarie/pyroughtime/issues/3">https://github.com/dansarie/pyroughtime/issues/3</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/dansarie/pyroughtime/issues/3" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
-<li><a href="https://github.com/Merovius/notary/tree/master/roughtime">https://github.com/Merovius/notary/tree/master/roughtime</a></li>
-<li><a href="https://github.com/nahojkap/craggy">https://github.com/nahojkap/craggy</a></li>
-<li><a href="https://github.com/tajchert/securetime">https://github.com/tajchert/securetime</a></li>
-<li><a href="https://github.com/systemd/systemd/issues/12751">https://github.com/systemd/systemd/issues/12751</a></li>
-<li><a href="https://github.com/topics/roughtime">https://github.com/topics/roughtime</a></li>
-<li><a href="https://github.com/bnoordhuis/node-roughtime">https://github.com/bnoordhuis/node-roughtime</a></li>
+<li><a href="https://github.com/Merovius/notary/tree/master/roughtime">https://github.com/Merovius/notary/tree/master/roughtime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Merovius/notary/tree/master/roughtime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/nahojkap/craggy">https://github.com/nahojkap/craggy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/nahojkap/craggy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/tajchert/securetime">https://github.com/tajchert/securetime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/tajchert/securetime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/systemd/systemd/issues/12751">https://github.com/systemd/systemd/issues/12751</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/systemd/systemd/issues/12751" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/topics/roughtime">https://github.com/topics/roughtime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/topics/roughtime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/bnoordhuis/node-roughtime">https://github.com/bnoordhuis/node-roughtime</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/bnoordhuis/node-roughtime" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Debugging">Debugging</h1>
 <p>Useful to run in Qubes dom0.</p>
 <pre><code>qvm-run --pass-io {{project_name_gateway_vm}} &quot;date -u&quot; ; date -u</code></pre>
 <h1 id="See_Also">See Also</h1>
-<h2 id="Other">Other</h2>
+<h2 id="Other">Other</h2><span class="share-tooltip" data-anchor="Other"><a class="headline-anchor" href="#Other" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Other">https://www.whonix.org/wiki/Dev/TimeSync/#Other</span></span></span></span>
 <ul>
 <li><a href="https://curl.se/docs/security.html">List to keep track of
 curl advisories from the official website. Their descriptions are
-non-cryptic.</a></li>
+non-cryptic.</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://curl.se/docs/security.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="../../Time_Attacks/">Time Attacks</a></li>
 <li><a href="../../Sdwdate/">sdwdate - Secure Distributed Web
 Date - Homepage</a></li>
 <li><a href="../../Moved:Dev_sdwdate/">Dev/sdwdate</a></li>
 </ul>
-<h2 id="Previous_Discussion">Previous Discussion</h2>
+<h2 id="Previous_Discussion">Previous Discussion</h2><span class="share-tooltip" data-anchor="Previous_Discussion"><a class="headline-anchor" href="#Previous_Discussion" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Previous_Discussion">https://www.whonix.org/wiki/Dev/TimeSync/#Previous_Discussion</span></span></span></span>
 <ul>
 <li><a href="https://lists.torproject.org/pipermail/tor-talk/2011-January/008551.html">System
-time in anonymity oriented LiveCDs</a></li>
+time in anonymity oriented LiveCDs</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2011-January/008551.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://web.archive.org/web/20160629151935/https://mailman.boum.org/pipermail/tails-dev/2014-August/006821.html">Tails-dev
 mailing list - Tails htpdate - why use time information from neutral and
 foe pools?</a></li>
 <li><a href="https://web.archive.org/web/20160629152125/https://mailman.boum.org/pipermail/tails-dev/2013-February/002635.html">Tails-dev
 Endless Data Attack and Defense</a></li>
 </ul>
-<h2 id="Other_Projects">Other Projects</h2>
+<h2 id="Other_Projects">Other Projects</h2><span class="share-tooltip" data-anchor="Other_Projects"><a class="headline-anchor" href="#Other_Projects" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Other_Projects">https://www.whonix.org/wiki/Dev/TimeSync/#Other_Projects</span></span></span></span>
 <ul>
 <li><a href="https://tails.boum.org/contribute/design/Time_syncing/">Tails
-Design: Time syncing</a></li>
-<li><a href="https://docs.google.com/a/chromium.org/document/d/1ylaCHabUIHoKRJQWhBxqQ5Vck270fX7XCWBdiJofHbU/edit">https://docs.google.com/a/chromium.org/document/d/1ylaCHabUIHoKRJQWhBxqQ5Vck270fX7XCWBdiJofHbU/edit</a></li>
+Design: Time syncing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/Time_syncing/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://docs.google.com/a/chromium.org/document/d/1ylaCHabUIHoKRJQWhBxqQ5Vck270fX7XCWBdiJofHbU/edit">https://docs.google.com/a/chromium.org/document/d/1ylaCHabUIHoKRJQWhBxqQ5Vck270fX7XCWBdiJofHbU/edit</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://docs.google.com/a/chromium.org/document/d/1ylaCHabUIHoKRJQWhBxqQ5Vck270fX7XCWBdiJofHbU/edit" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Comparison_with_Others">Comparison with Others</h2>
+<h2 id="Comparison_with_Others">Comparison with Others</h2><span class="share-tooltip" data-anchor="Comparison_with_Others"><a class="headline-anchor" href="#Comparison_with_Others" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Comparison_with_Others">https://www.whonix.org/wiki/Dev/TimeSync/#Comparison_with_Others</span></span></span></span>
 <p><a href="../../Comparison_with_Others/#Network_Time_related">Network Time related</a></p>
-<h2 id="Tickets">Tickets</h2>
-<h3 id="Qubes">Qubes</h3>
+<h2 id="Tickets">Tickets</h2><span class="share-tooltip" data-anchor="Tickets"><a class="headline-anchor" href="#Tickets" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Tickets">https://www.whonix.org/wiki/Dev/TimeSync/#Tickets</span></span></span></span>
+<h3 id="Qubes">Qubes</h3><span class="share-tooltip" data-anchor="Qubes"><a class="headline-anchor" href="#Qubes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Qubes">https://www.whonix.org/wiki/Dev/TimeSync/#Qubes</span></span></span></span>
 <h4 id="high_priority">high priority</h4>
 <ul>
 <li><a href="https://phabricator.whonix.org/T389">make sure Qubes-Whonix
-has no access to clocksource=xen</a></li>
+has no access to clocksource=xen</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T389" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://phabricator.whonix.org/T397">prevent dom0 telling
-Qubes-Whonix VMs the time</a></li>
+Qubes-Whonix VMs the time</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T397" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h4 id="normal_priority">normal priority</h4>
 <ul>
 <li>document <a href="../../Advanced_Security_Guide/#Spoof_the_Initial_Virtual_Hardware_Clock_Offset">Spoof the Initial Virtual Hardware Clock Offset</a> for
 <a href="../../Advanced_Security_Guide/#Qubes">Qubes</a></li>
 <li><a href="https://phabricator.whonix.org/T387">Qubes-Whonix
-Whonix-Gateway as ClockVM</a></li>
+Whonix-Gateway as ClockVM</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T387" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h3 id="others">others</h3>
+<h3 id="others">others</h3><span class="share-tooltip" data-anchor="others"><a class="headline-anchor" href="#others" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#others">https://www.whonix.org/wiki/Dev/TimeSync/#others</span></span></span></span>
 <ul>
 <li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/6894">torproject.org
-#6894 answer network time requests</a></li>
+#6894 answer network time requests</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/6894" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://tails.boum.org/todo/robust_time_syncing/">Tails
-Todo: robust time syncing</a></li>
-<li><a href="https://tails.boum.org/blueprint/robust_time_syncing/">https://tails.boum.org/blueprint/robust_time_syncing/</a></li>
+Todo: robust time syncing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/todo/robust_time_syncing/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://tails.boum.org/blueprint/robust_time_syncing/">https://tails.boum.org/blueprint/robust_time_syncing/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/blueprint/robust_time_syncing/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://tails.boum.org/todo/safer_tordate_parameters/">Tails Todo:
-safer tordate parameters (always use tordate)</a></li>
+safer tordate parameters (always use tordate)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/todo/safer_tordate_parameters/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://tails.boum.org/todo/bridge_mode_vs_tordate_timeouts/">Tails
-Todo: bridge mode vs tordate timeouts</a></li>
+Todo: bridge mode vs tordate timeouts</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/todo/bridge_mode_vs_tordate_timeouts/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://tails.boum.org/todo/when_htp_fails_the_user_should_be_prompted/">Tails
-Todo: when htp fails the user should be prompted</a></li>
+Todo: when htp fails the user should be prompted</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/todo/when_htp_fails_the_user_should_be_prompted/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/QubesOS/qubes-issues/issues/2342">Qubes:
-secure time synchronization</a></li>
+secure time synchronization</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/2342" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/16659">Linux
-TCP Initial Sequence Numbers may aid correlation</a></li>
+TCP Initial Sequence Numbers may aid correlation</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/16659" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/8170">get
-independent from host clock time / insecure NTP</a></li>
+independent from host clock time / insecure NTP</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/8170" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Clock_Correlation_Attack">Clock Correlation Attack</h2>
-<h3 id="Attack">Attack</h3>
+<h2 id="Clock_Correlation_Attack">Clock Correlation Attack</h2><span class="share-tooltip" data-anchor="Clock_Correlation_Attack"><a class="headline-anchor" href="#Clock_Correlation_Attack" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Clock_Correlation_Attack">https://www.whonix.org/wiki/Dev/TimeSync/#Clock_Correlation_Attack</span></span></span></span>
+<h3 id="Attack">Attack</h3><span class="share-tooltip" data-anchor="Attack"><a class="headline-anchor" href="#Attack" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Attack">https://www.whonix.org/wiki/Dev/TimeSync/#Attack</span></span></span></span>
 <p>Prerequisite knowledge:</p>
 <ul>
 <li>Whonix-Gateway [Proxy]VMs and Whonix-Workstation [App]VM's system
@@ -1312,7 +1312,7 @@ leaked on many levels, see <a href="#Local_Clock_Leaks">#Local Clock Leaks</a>.<
 execution. Then the attacker uses the local exploit, reads clocksource
 'xen' / 'kvmclock'.</li>
 </ul>
-<h3 id="Defense">Defense</h3>
+<h3 id="Defense">Defense</h3><span class="share-tooltip" data-anchor="Defense"><a class="headline-anchor" href="#Defense" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Defense">https://www.whonix.org/wiki/Dev/TimeSync/#Defense</span></span></span></span>
 <p>We need to make sure that all of Whonix-Gateway, Whonix-Workstation,
 and NetVM use slightly different time. Even if Whonix-Workstation would
 be compromised, and the attacker gets knowledge of the time of [host |
@@ -1322,7 +1322,7 @@ synchronized, correct and secure as they can be.</p>
 <p>But those should differ from the clocks within Whonix VMs.</p>
 <p>We need completely isolated virtual time within Whonix VMs.
 <sup class="reference"><a href="#cite_note-48">[48]</a></sup> <sup class="reference"><a href="#cite_note-49">[49]</a></sup></p>
-<h3 id="wallclock">wallclock</h3>
+<h3 id="wallclock">wallclock</h3><span class="share-tooltip" data-anchor="wallclock"><a class="headline-anchor" href="#wallclock" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#wallclock">https://www.whonix.org/wiki/Dev/TimeSync/#wallclock</span></span></span></span>
 <p><blockquote><p>The other interface ("wallclock interface") would provide such time,
 though. And it is not configurable. But not sure if it is used anywhere
 in Linux by default (probably besides initial system time set).</p></blockquote></p>
@@ -1331,34 +1331,34 @@ chance to figure out the current time. And this is a problem, because we
 do not want the VM to know [host | dom0]'s time.</p>
 <p>We might be able to solve the wallclock [not pvclock] issue by <a href="../../Advanced_Security_Guide/#Spoof_the_Initial_Virtual_Hardware_Clock_Offset">Spoofing the Initial Virtual Hardware Clock
 Offset</a>.</p>
-<h3 id="Development">Development</h3>
+<h3 id="Development">Development</h3><span class="share-tooltip" data-anchor="Development"><a class="headline-anchor" href="#Development" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Development">https://www.whonix.org/wiki/Dev/TimeSync/#Development</span></span></span></span>
 <p>Rather than modifying [host | dom0]'s clock, we could perhaps spoof
 the initial virtual hardware clock offset. It is possible for KVM, as
-per: <a href="https://libvirt.org/formatdomain.html#time-keeping">https://libvirt.org/formatdomain.html#time-keeping</a></p>
+per: <a href="https://libvirt.org/formatdomain.html#time-keeping">https://libvirt.org/formatdomain.html#time-keeping</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://libvirt.org/formatdomain.html#time-keeping" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Something like this:</p>
 <pre><code>&lt;clock offset=&#39;variable&#39; adjustment=&#39;123456&#39; basis=&#39;utc&#39;&gt;</code></pre>
 <p>Reading clocksource xen as a [root] user is not easily possible.
-source: <a href="https://lists.xen.org/archives/html/xen-users/2015-08/msg00020.html">https://lists.xen.org/archives/html/xen-users/2015-08/msg00020.html</a></p>
+source: <a href="https://lists.xen.org/archives/html/xen-users/2015-08/msg00020.html">https://lists.xen.org/archives/html/xen-users/2015-08/msg00020.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.xen.org/archives/html/xen-users/2015-08/msg00020.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Would probably require writing a kernel module.</p>
 <ul>
 <li><a href="https://phabricator.whonix.org/T440">set random clock
 offset for Qubes-Whonix VMs using mgmt to prevent clock correlation
-attacks</a></li>
+attacks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T440" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://phabricator.whonix.org/T389">make sure Qubes-Whonix
-has no access to clocksource=xen</a></li>
-<li><a href="https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw">https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw</a></li>
+has no access to clocksource=xen</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T389" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw">https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h3 id="Sources">Sources</h3>
+<h3 id="Sources">Sources</h3><span class="share-tooltip" data-anchor="Sources"><a class="headline-anchor" href="#Sources" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Sources">https://www.whonix.org/wiki/Dev/TimeSync/#Sources</span></span></span></span>
 <ul>
-<li><a href="https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw">https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw</a></li>
+<li><a href="https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw">https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-devel/c/aN3IOv6JmKw" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>Document with general information on various clock interfaces.
 <ul>
 <li>Not very specific to KVM.</li>
 <li>PIT, RTC, APIC, HPET, Offboard Timers, TSC</li>
-<li><a href="https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt">https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt</a></li>
+<li><a href="https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt">https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 </ul>
-<h2 id="TSC">TSC</h2>
+<h2 id="TSC">TSC</h2><span class="share-tooltip" data-anchor="TSC"><a class="headline-anchor" href="#TSC" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#TSC">https://www.whonix.org/wiki/Dev/TimeSync/#TSC</span></span></span></span>
 <p>Needs more research.</p>
 <p>Why we should avoid leaking TSC from the host to the VM.</p>
 <p>Leaking anything related to time from the host into the VM [or from
@@ -1367,66 +1367,66 @@ be avoided.</p>
 <p>Search term:<br />
 time stamp counter tsc side channel</p>
 <p>Leads to:<br />
-<a href="https://blog.cr0.org/2009/05/time-stamp-counter-disabling-oddities.html">https://blog.cr0.org/2009/05/time-stamp-counter-disabling-oddities.html</a></p>
+<a href="https://blog.cr0.org/2009/05/time-stamp-counter-disabling-oddities.html">https://blog.cr0.org/2009/05/time-stamp-counter-disabling-oddities.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.cr0.org/2009/05/time-stamp-counter-disabling-oddities.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>TSC leaks may be similar to TCP sequence numbers.
 <sup class="reference"><a href="#cite_note-50">[50]</a></sup></p>
-<h2 id="clocksource_xen">clocksource xen</h2>
-<p><a href="https://github.com/QubesOS/qubes-issues/issues/1764#issuecomment-195619793">https://github.com/QubesOS/qubes-issues/issues/1764#issuecomment-195619793</a></p>
-<h2 id="Resources">Resources</h2>
+<h2 id="clocksource_xen">clocksource xen</h2><span class="share-tooltip" data-anchor="clocksource_xen"><a class="headline-anchor" href="#clocksource_xen" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#clocksource_xen">https://www.whonix.org/wiki/Dev/TimeSync/#clocksource_xen</span></span></span></span>
+<p><a href="https://github.com/QubesOS/qubes-issues/issues/1764#issuecomment-195619793">https://github.com/QubesOS/qubes-issues/issues/1764#issuecomment-195619793</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/1764#issuecomment-195619793" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<h2 id="Resources">Resources</h2><span class="share-tooltip" data-anchor="Resources"><a class="headline-anchor" href="#Resources" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Resources">https://www.whonix.org/wiki/Dev/TimeSync/#Resources</span></span></span></span>
 <ul>
 <li><a href="https://web.archive.org/web/20170701134458/https://software.intel.com/en-us/blogs/2013/06/20/eliminate-the-dreaded-clocksource-is-unstable-message-switch-to-tsc-for-a-stable">General
 information on various clock sources such as TSC, etc. by Intel</a></li>
 </ul>
-<h2 id="Footnotes">Footnotes</h2>
+<h2 id="Footnotes">Footnotes</h2><span class="share-tooltip" data-anchor="Footnotes"><a class="headline-anchor" href="#Footnotes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/TimeSync/#Footnotes">https://www.whonix.org/wiki/Dev/TimeSync/#Footnotes</span></span></span></span>
 <div class="references">
 <ol>
 <li id="cite_note-1">* <a href="https://web.archive.org/web/20160624053221/https://mailman.boum.org/pipermail/tails-dev/2014-September/007062.html">Tails-dev
 - TCP Sequence Numbers leak System Clock</a> * <a href="https://gitlab.torproject.org/legacy/trac/-/issues/16659">Linux
-TCP Initial Sequence Numbers may aid correlation</a></li>
-<li id="cite_note-2">Source: <a href="https://www.ietf.org/rfc/rfc5905.txt">RFC5905</a>
+TCP Initial Sequence Numbers may aid correlation</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/16659" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-2">Source: <a href="https://www.ietf.org/rfc/rfc5905.txt">RFC5905</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.ietf.org/rfc/rfc5905.txt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <blockquote><p>Origin Timestamp (org): Time at the client when the request departed
 for the server, in NTP timestamp format.</p></blockquote></li>
-<li id="cite_note-3">Credits: Thanks to <a href="https://security.stackexchange.com/users/4564/dfc">dfc</a> for <a href="https://security.stackexchange.com/a/67142/54240">the answer on
-security.se</a>.</li>
+<li id="cite_note-3">Credits: Thanks to <a href="https://security.stackexchange.com/users/4564/dfc">dfc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://security.stackexchange.com/users/4564/dfc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> for <a href="https://security.stackexchange.com/a/67142/54240">the answer on
+security.se</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://security.stackexchange.com/a/67142/54240" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li id="cite_note-4">By distribution defaults.</li>
-<li id="cite_note-5">Was <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3059">fixed</a>
+<li id="cite_note-5">Was <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3059">fixed</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3059" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 in Tor Browser, but remains open for other applications such as browsers
 like Mozilla Firefox.</li>
-<li id="cite_note-6">See <a href="https://ip-check.info/">https://ip-check.info/</a> for
+<li id="cite_note-6">See <a href="https://ip-check.info/">https://ip-check.info/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://ip-check.info/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> for
 demonstration.</li>
 <li id="cite_note-7">As of June 2016, Iceweasel has been replaced by Firefox-ESR in
-Debian, see <a href="https://wiki.debian.org/Iceweasel">https://wiki.debian.org/Iceweasel</a></li>
+Debian, see <a href="https://wiki.debian.org/Iceweasel">https://wiki.debian.org/Iceweasel</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://wiki.debian.org/Iceweasel" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-8"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/6314">prevent
-leak via Date header field (local timestamp disclosure)</a></li>
+leak via Date header field (local timestamp disclosure)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/6314" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-9"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/6315">prevent
-leak via Message-ID header field (local timestamp disclosure)</a></li>
+leak via Message-ID header field (local timestamp disclosure)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/6315" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-10"><a href="https://blog.torproject.org/torbirdy-013-our-fourth-beta-release">Quote,
-on October 24th, 2014 sukhbir said</a>:<br />
+on October 24th, 2014 sukhbir said</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/torbirdy-013-our-fourth-beta-release" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:<br />
 "The timestamp disclosures are via the date and the message-ID headers
-(relevant tickets: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/6314">#6314</a>,
-<a href="https://gitlab.torproject.org/legacy/trac/-/issues/6315">#6315</a>).
-We have submitted patches to Mozilla (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=902573">902573</a>,
-<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=902580">902580</a>)
+(relevant tickets: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/6314">#6314</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/6314" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
+<a href="https://gitlab.torproject.org/legacy/trac/-/issues/6315">#6315</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/6315" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>).
+We have submitted patches to Mozilla (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=902573">902573</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugzilla.mozilla.org/show_bug.cgi?id=902573" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
+<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=902580">902580</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugzilla.mozilla.org/show_bug.cgi?id=902580" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
 that have not yet been merged. The patches probably need more work and
 we are looking for volunteers to work on them and help us to get them
 merged. We will be doing a blog post about this soon and put out a call
 for help."</li>
 <li id="cite_note-11">For example the one shipped by Debian wheezy.</li>
-<li id="cite_note-12"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/8751">https://gitlab.torproject.org/legacy/trac/-/issues/8751</a></li>
+<li id="cite_note-12"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/8751">https://gitlab.torproject.org/legacy/trac/-/issues/8751</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/8751" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-13">See <a href="https://gitlab.torproject.org/legacy/trac/-/issues/4852">torproject.org
-#4852: Clients send NETINFO with time</a>. The ticket says fixed.
+#4852: Clients send NETINFO with time</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/4852" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. The ticket says fixed.
 However, <a href="https://packages.debian.org/de/wheezy/tor">Debian
-wheezy (which Whonix 10 was based on) was using Tor 0.2.3</a> but Nick's
+wheezy (which Whonix 10 was based on) was using Tor 0.2.3</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.debian.org/de/wheezy/tor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> but Nick's
 <a href="https://gitlab.torproject.org/legacy/trac/-/issues/4852#comment:20">patch
-appeared first in 0.2.4</a>. It was solved in Whonix 11, because it was
+appeared first in 0.2.4</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/4852#comment:20" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. It was solved in Whonix 11, because it was
 based on Debian jessie, that contained <a href="https://packages.debian.org/de/jessie/tor">a more recent version
-of Tor</a>.</li>
+of Tor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.debian.org/de/jessie/tor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li id="cite_note-14">For demonstration, you could use:
 <pre><code> curl -silent --head torproject.org | grep -i date: </code></pre></li>
-<li id="cite_note-15"><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/chap-kvm_guest_timing_management">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/chap-kvm_guest_timing_management</a></li>
-<li id="cite_note-16"><a href="https://www.linux-kvm.org/page/KVMClock">https://www.linux-kvm.org/page/KVMClock</a></li>
+<li id="cite_note-15"><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/chap-kvm_guest_timing_management">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/chap-kvm_guest_timing_management</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/chap-kvm_guest_timing_management" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-16"><a href="https://www.linux-kvm.org/page/KVMClock">https://www.linux-kvm.org/page/KVMClock</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.linux-kvm.org/page/KVMClock" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-17">Replay old Tor consensus, see <a href="https://tails.boum.org/contribute/design/Time_syncing/">Tails:
-Time syncing</a> for detailed explanation.</li>
+Time syncing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/Time_syncing/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> for detailed explanation.</li>
 <li id="cite_note-18">Cryptographic verification depends on the system clock, i.e. a clock
 two years in the past will accept certificates/updates that have been
 expired/revoked for two years.</li>
@@ -1439,13 +1439,13 @@ link the anonymous and non-anonymous session, thus deanonymizing.</li>
 server to detect "Oh, that's the Tor Browser user whose clock is X in
 the past/future.", thus allowing the adversary to link all sessions to
 the same pseudonym. See Tor Browser upstream bug #3059: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3059">Find some
-way to deal with time-based fingerprints</a>.</li>
+way to deal with time-based fingerprints</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3059" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li id="cite_note-21">For onion services a correct clock is crucial, see: * <a href="https://murdoch.is/papers/ccs06hotornot.pdf">Hot or Not: Revealing
-Hidden Services by their Clock Skew</a> * <a href="https://web.archive.org/web/20220324134410/https://caia.swin.edu.au/talks/CAIA-TALK-080728A.pdf">An
+Hidden Services by their Clock Skew</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://murdoch.is/papers/ccs06hotornot.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> * <a href="https://web.archive.org/web/20220324134410/https://caia.swin.edu.au/talks/CAIA-TALK-080728A.pdf">An
 improved clock-skew measurement technique for revealing hidden
 services</a> * <a href="https://web.archive.org/web/20120522143952/http://people.cs.umass.edu/~elisha/Papers/SkewMask%20-%20final%20version.pdf">SkewMask:
 Frustrating Clock Skew Fingerprinting Attempts</a> * <a href="https://catalog.caida.org/details/paper/2005_fingerprinting">Remote
-physical device fingerprinting</a></li>
+physical device fingerprinting</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://catalog.caida.org/details/paper/2005_fingerprinting" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-22">Developer information: If we needed or wanted to render the hardware
 clock unusable, we could set VirtualBox <em>--biossystemtimeoffset</em>
 several decades in the past or future.</li>
@@ -1454,11 +1454,11 @@ implementation. This prevents people using Tor Browser from notifying
 their exit relay that they are sdwdate or Whonix users.</li>
 <li id="cite_note-24">Check.
 <pre><code> grep -i &quot;Made up&quot; /var/log/sdwdate.log </code></pre></li>
-<li id="cite_note-25"><a href="https://github.com/Whonix/bootclockrandomization">https://github.com/Whonix/bootclockrandomization</a></li>
+<li id="cite_note-25"><a href="https://github.com/Whonix/bootclockrandomization">https://github.com/Whonix/bootclockrandomization</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/bootclockrandomization" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-26">Notably, one recent change is the 0-5 second time window is no
 longer excluded in the process as it was found to aid
 fingerprinting.</li>
-<li id="cite_note-27"><a href="https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html">https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html</a></li>
+<li id="cite_note-27"><a href="https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html">https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-28">General Tor problems, Tor is known to be broken against many active
 attacks. This cannot be solved by Whonix. When an adversary is capable
 of running active attacks, tampering with the time leading into a denial
@@ -1466,37 +1466,37 @@ of service is the least of the worries. The adversary could also disrupt
 the service more easily. And as for active attacking in general, there
 are other attacks which are easier to deploy and which pose a greater
 danger. Not a Whonix specific problem.</li>
-<li id="cite_note-29"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3">https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3</a></li>
+<li id="cite_note-29"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3">https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-30"><a href="https://web.archive.org/web/20210618153528/http://lists.ntp.org/pipermail/questions/2010-November/028033.html">https://web.archive.org/web/20210618153528/http://lists.ntp.org/pipermail/questions/2010-November/028033.html</a></li>
-<li id="cite_note-31"><a href="https://gitlab.tails.boum.org/tails/tails/-/issues/6113">https://gitlab.tails.boum.org/tails/tails/-/issues/6113</a></li>
+<li id="cite_note-31"><a href="https://gitlab.tails.boum.org/tails/tails/-/issues/6113">https://gitlab.tails.boum.org/tails/tails/-/issues/6113</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/issues/6113" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-32">60 s * 60 m * 24 h</li>
 <li id="cite_note-33">As <em><span>sdwdate</span></em>
 does.</li>
-<li id="cite_note-34"><a href="https://github.com/ioerror/tlsdate/issues/112">https://github.com/ioerror/tlsdate/issues/112</a></li>
-<li id="cite_note-35"><a href="https://github.com/ioerror/tlsdate/issues/143#issuecomment-57053323">https://github.com/ioerror/tlsdate/issues/143#issuecomment-57053323</a></li>
-<li id="cite_note-36"><a href="https://github.com/Whonix/sdwdate/blob/master/usr/src/sdwdate/sclockadj.c">sclockadj</a></li>
+<li id="cite_note-34"><a href="https://github.com/ioerror/tlsdate/issues/112">https://github.com/ioerror/tlsdate/issues/112</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/ioerror/tlsdate/issues/112" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-35"><a href="https://github.com/ioerror/tlsdate/issues/143#issuecomment-57053323">https://github.com/ioerror/tlsdate/issues/143#issuecomment-57053323</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/ioerror/tlsdate/issues/143#issuecomment-57053323" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-36"><a href="https://github.com/Whonix/sdwdate/blob/master/usr/src/sdwdate/sclockadj.c">sclockadj</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/sdwdate/blob/master/usr/src/sdwdate/sclockadj.c" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-37">Because in most cases, there is little need to combine Tor onion
 services with SSL. <a href="../../Onion_Services/#Notes_about_End-to-end_security_of_Onion_Services">connections to Tor onion services are Tor-to-Tor
 encrypted by default ("not exactly end-to-end")</a>.</li>
-<li id="cite_note-38"><a href="https://github.com/ioerror/tlsdate/issues/157">https://github.com/ioerror/tlsdate/issues/157</a></li>
-<li id="cite_note-39"><a href="https://github.com/ioerror/tlsdate/issues/158">https://github.com/ioerror/tlsdate/issues/158</a></li>
-<li id="cite_note-40"><a href="https://tails.boum.org/contribute/design/Time_syncing/#index4h1">https://tails.boum.org/contribute/design/Time_syncing/#index4h1</a></li>
-<li id="cite_note-41">Source, source code comment in tordate: <a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/NetworkManager/dispatcher.d/20-time.sh">https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/NetworkManager/dispatcher.d/20-time.sh</a>
+<li id="cite_note-38"><a href="https://github.com/ioerror/tlsdate/issues/157">https://github.com/ioerror/tlsdate/issues/157</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/ioerror/tlsdate/issues/157" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-39"><a href="https://github.com/ioerror/tlsdate/issues/158">https://github.com/ioerror/tlsdate/issues/158</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/ioerror/tlsdate/issues/158" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-40"><a href="https://tails.boum.org/contribute/design/Time_syncing/#index4h1">https://tails.boum.org/contribute/design/Time_syncing/#index4h1</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/Time_syncing/#index4h1" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-41">Source, source code comment in tordate: <a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/NetworkManager/dispatcher.d/20-time.sh">https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/NetworkManager/dispatcher.d/20-time.sh</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/NetworkManager/dispatcher.d/20-time.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <pre><code> # Since Tor 0.2.3.x Tor doesn&#39;t download a consensus for # clocks that are more than 30 days in the past or 2 days in # the future. For such clock skews we set the time to the # authority&#39;s cert&#39;s valid-after date. </code></pre></li>
-<li id="cite_note-42"><a href="https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html">https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html</a></li>
-<li id="cite_note-43"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/3460">https://gitlab.torproject.org/legacy/trac/-/issues/3460</a></li>
-<li id="cite_note-44"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3">https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3</a></li>
-<li id="cite_note-45"><a href="https://gitlab.tails.boum.org/tails/tails/-/issues/5774">https://gitlab.tails.boum.org/tails/tails/-/issues/5774</a></li>
-<li id="cite_note-46"><a href="https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/10">https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/10</a></li>
+<li id="cite_note-42"><a href="https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html">https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-February/023264.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-43"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/3460">https://gitlab.torproject.org/legacy/trac/-/issues/3460</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3460" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-44"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3">https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3582#comment:3" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-45"><a href="https://gitlab.tails.boum.org/tails/tails/-/issues/5774">https://gitlab.tails.boum.org/tails/tails/-/issues/5774</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/issues/5774" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-46"><a href="https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/10">https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/10</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-dev-mailinglist-proposal/489/10" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-47"><span class="code-select">anondate --show-valid-after</span>
 <pre><code> 2021-01-09 13:00:00 </code></pre>
 <p><span class="code-select">sudo anondate --show-valid-until</span></p>
 <pre><code> 2021-01-09 16:00:00 </code></pre>
 <p><span class="code-select">anondate --show-middle-range</span></p>
 <pre><code> 2021-01-09 14:30:00 </code></pre></li>
-<li id="cite_note-48"><a href="https://security.stackexchange.com/questions/106406/how-to-get-a-completely-isolated-virtual-time-using-xen">https://security.stackexchange.com/questions/106406/how-to-get-a-completely-isolated-virtual-time-using-xen</a></li>
-<li id="cite_note-49"><a href="https://lists.xen.org/archives/html/xen-users/2015-11/msg00114.html">https://lists.xen.org/archives/html/xen-users/2015-11/msg00114.html</a></li>
-<li id="cite_note-50"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/16659#comment:10">https://gitlab.torproject.org/legacy/trac/-/issues/16659#comment:10</a></li>
+<li id="cite_note-48"><a href="https://security.stackexchange.com/questions/106406/how-to-get-a-completely-isolated-virtual-time-using-xen">https://security.stackexchange.com/questions/106406/how-to-get-a-completely-isolated-virtual-time-using-xen</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://security.stackexchange.com/questions/106406/how-to-get-a-completely-isolated-virtual-time-using-xen" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-49"><a href="https://lists.xen.org/archives/html/xen-users/2015-11/msg00114.html">https://lists.xen.org/archives/html/xen-users/2015-11/msg00114.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.xen.org/archives/html/xen-users/2015-11/msg00114.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-50"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/16659#comment:10">https://gitlab.torproject.org/legacy/trac/-/issues/16659#comment:10</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/16659#comment:10" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ol>
 </div>
 <h1 id="License">License</h1>
@@ -1508,27 +1508,13 @@ SUPPORT LLC
 (Replace <code>(at)</code> with
 <code>@</code>.)<span class="tooltip"><span>Please <strong>DO
 NOT</strong> use e-mail for one of the following
-reasons:</span><span class="icon-bullet-list"><span><i class="fa-solid fa-lock cs-yellow"></i><span><u>Private
-Contact:</u> Please avoid e-mail whenever possible. (&lt;a
-href="../../Contact/#Private_Communications_Policy"&gt;Private
-Communications
-Policy&lt;/a&gt;)</span></span><span><i class="fas fa-headset cs-red"></i><span><u>User
-Support Questions:</u> No. (See &lt;a
-href="../../Support/"&gt;Support&lt;/a&gt;.)</span></span><span><i class="fa-solid fa-droplet cs-red"></i><span><u>Leaks
-Submissions:</u> No. (&lt;a href="../../Contact/#No_Leaks_Policy"&gt;No
-Leaks
-Policy&lt;/a&gt;)</span></span><span><i class="fa-solid fa-ban cs-red"></i><span><u>Sponsored
-posts:</u>
-No.</span></span><span><i class="fa-solid fa-link cs-red"></i><span><u>Paid
-links:</u>
-No.</span></span><span><i class="fa-solid fa-chart-line cs-red"></i><span><u>SEO
-reviews:</u>
-No.</span></span><span><i class="fa-solid fa-bullhorn cs-red"></i><span><u>Advertisement
-deals:</u>
-No.</span></span><span><i class="fa-solid fa-box-open cs-red"></i><span><u>Default
-application installation:</u> No. (&lt;a
-href="../../Contact/#Default_Application_Policy"&gt;Default Application
-Policy&lt;/a&gt;)</span></span></span></span></span>&gt;</p>
+reasons:</span><span class="icon-bullet-list"><span><i class="fa-solid fa-lock cs-yellow"></i><span><u>Private Contact:</u> Please avoid e-mail whenever possible.
+(<a href="../../Contact/#Private_Communications_Policy">Private
+Communications Policy</a>)</span></span><span><i class="fas fa-headset cs-red"></i><span><u>User Support Questions:</u> No. (See
+<a href="../../Support/">Support</a>.)</span></span><span><i class="fa-solid fa-droplet cs-red"></i><span><u>Leaks Submissions:</u> No.
+(<a href="../../Contact/#No_Leaks_Policy">No Leaks Policy</a>)</span></span><span><i class="fa-solid fa-ban cs-red"></i><span><u>Sponsored posts:</u> No.</span></span><span><i class="fa-solid fa-link cs-red"></i><span><u>Paid links:</u> No.</span></span><span><i class="fa-solid fa-chart-line cs-red"></i><span><u>SEO reviews:</u> No.</span></span><span><i class="fa-solid fa-bullhorn cs-red"></i><span><u>Advertisement deals:</u> No.</span></span><span><i class="fa-solid fa-box-open cs-red"></i><span><u>Default application installation:</u> No.
+(<a href="../../Contact/#Default_Application_Policy">Default Application
+Policy</a>)</span></span></span></span></span>&gt;</p>
 <p>This program comes with ABSOLUTELY NO WARRANTY; for details see the
 wiki source code.<br />
 This is free software, and you are welcome to redistribute it under

@@ -20,7 +20,18 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l3"><a href="#Essentials">Essentials</a></li><li class="toc-l3"><a href="#Transparent_Proxy">Transparent Proxy</a></li><li class="toc-l3"><a href="#Identity_Correlation_through_Tor_Circuit_Sharing">Identity
+<div class="mininav">
+<ul>
+<li><a href="Easy/">short stream
+isolation summary</a></li>
+<li><a href="./">all information
+below</a></li>
+</ul>
+</div><div class="intro-like">
+<p>Whonix provides a Tor-routed platform, not perfect
+application-specific stream isolation for all third-party
+applications.</p>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Introduction">Introduction</a></li><li class="toc-l3"><a href="#Essentials">Essentials</a></li><li class="toc-l3"><a href="#Transparent_Proxy">Transparent Proxy</a></li><li class="toc-l3"><a href="#Identity_Correlation_through_Tor_Circuit_Sharing">Identity
 Correlation through Tor Circuit Sharing</a></li><li class="toc-l2"><a href="#List">List</a></li><li class="toc-l3"><a href="#By_Settings">By Settings</a></li><li class="toc-l3"><a href="#By_uwt_wrapper">By uwt wrapper</a></li><li class="toc-l3"><a href="#none">none</a></li><li class="toc-l2"><a href="#Details">Details</a></li><li class="toc-l3"><a href="#Tor_Browser">Tor Browser</a></li><li class="toc-l3"><a href="#Onion_Services">Onion Services</a></li><li class="toc-l2"><a href="#How_to_mitigate_identity_correlation">How to mitigate identity
 correlation</a></li><li class="toc-l3"><a href="#Scope,_Responsibilities,_and_User_Expectations">Scope,
 Responsibilities, and User Expectations</a></li><li class="toc-l3"><a href="#Tor_friendly_applications_versus_Applications_without_native_Tor_support">Tor
@@ -36,14 +47,7 @@ is disabled</a></li><li class="toc-l3"><a href="#Check_if_Transparent_Proxying_i
 Proxying is disabled</a></li><li class="toc-l3"><a href="#Check_if_an_Application_is_properly_using_Stream_Isolation">Check if
 an Application is properly using Stream Isolation</a></li><li class="toc-l3"><a href="#Add_new_uwt_wrapper">Add new uwt wrapper</a></li><li class="toc-l2"><a href="#Sources">Sources</a></li><li class="toc-l2"><a href="#References">References</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
-<div class="mininav">
-<ul>
-<li><a href="Easy/">short stream
-isolation summary</a></li>
-<li><a href="./">all information
-below</a></li>
-</ul>
-</div>
+
 <div class="pre-intro-p ">
 </div>
 <div class="hidden-thumbnail">
@@ -53,8 +57,8 @@ Stream Isolation.</p>
 <div class="post-intro-p">
 </div>
 <p><img src="../../media/Streamisolationme.jpg.webp" alt="Old illustrative Whonix stream isolation image." /></p>
-<h2 id="Introduction">Introduction</h2>
-<h3 id="Essentials">Essentials</h3>
+<h2 id="Introduction">Introduction</h2><span class="share-tooltip" data-anchor="Introduction"><a class="headline-anchor" href="#Introduction" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Introduction">https://www.whonix.org/wiki/Stream_Isolation/#Introduction</span></span></span></span>
+<h3 id="Essentials">Essentials</h3><span class="share-tooltip" data-anchor="Essentials"><a class="headline-anchor" href="#Essentials" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Essentials">https://www.whonix.org/wiki/Stream_Isolation/#Essentials</span></span></span></span>
 <ul>
 <li><u>No common term without Tor:</u> If the internet is used normally,
 without Tor, a proxy, or VPN, there is no widely used term for this.
@@ -87,7 +91,7 @@ utilize the system's default DNS resolver. (DNS is like the internet's
 phonebook - it translates website names to IP addresses.) By default, no
 applications on Whonix-Gateway that generate network traffic use this
 default resolver. All default applications on Whonix-Gateway that
-produce network traffic (like apt, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>, <a href="../Sdwdate/">sdwdate</a>) are explicitly configured,
+produce network traffic (like apt, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="../Sdwdate/">sdwdate</a>) are explicitly configured,
 or forced by uwt wrappers, to use their dedicated Tor
 <code>SocksPort</code> (refer to <a href="./">Stream Isolation</a>).</li>
 <li><u>Whonix-Workstation DNS requests handled via Tor:</u>
@@ -152,7 +156,7 @@ Compared to IP hiding, stream isolation is a detail optimization
 precaution but not of critical importance.</li>
 </ul></li>
 </ul>
-<h3 id="Transparent_Proxy">Transparent Proxy</h3>
+<h3 id="Transparent_Proxy">Transparent Proxy</h3><span class="share-tooltip" data-anchor="Transparent_Proxy"><a class="headline-anchor" href="#Transparent_Proxy" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Transparent_Proxy">https://www.whonix.org/wiki/Stream_Isolation/#Transparent_Proxy</span></span></span></span>
 <p>This chapter explains what a Transparent Proxy is. It is required
 knowledge in order to understand the following chapters.</p>
 <p><u>Terminology:</u></p>
@@ -194,7 +198,7 @@ because it is not pre-configured by default to use Tor proxy
 settings.</li>
 </ul>
 <h3 id="Identity_Correlation_through_Tor_Circuit_Sharing">Identity
-Correlation through Tor Circuit Sharing</h3>
+Correlation through Tor Circuit Sharing</h3><span class="share-tooltip" data-anchor="Identity_Correlation_through_Tor_Circuit_Sharing"><a class="headline-anchor" href="#Identity_Correlation_through_Tor_Circuit_Sharing" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Identity_Correlation_through_Tor_Circuit_Sharing">https://www.whonix.org/wiki/Stream_Isolation/#Identity_Correlation_through_Tor_Circuit_Sharing</span></span></span></span>
 <ul>
 <li><u>Risk from circuit sharing:</u> If the user installs custom
 applications and omits explicitly taking precautions against
@@ -247,7 +251,7 @@ applications that come preinstalled with Whonix to use a different
 correlation</span></em> is at risk.</li>
 <li><u>How applications are directed to different
 <code>SocksPort</code>s:</u> Whonix uses either socks proxy settings to
-direct various applications to different <code>SocksPort</code>s or <a href="https://github.com/Whonix/uwt">uwt</a> (more information
+direct various applications to different <code>SocksPort</code>s or <a href="https://github.com/Whonix/uwt">uwt</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/uwt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (more information
 below).</li>
 <li><u><code>/etc/hosts</code> and stream isolation:</u> Applications
 configured for stream isolation (those using a <code>SocksPort</code>)
@@ -265,20 +269,20 @@ installed applications, misc applications, such as
 <code>nslookup</code>, goes through Tor's <code>DnsPort</code>, and/or
 <code>TransPort</code> (can be optionally disabled, see below).</li>
 </ul>
-<h2 id="List">List</h2>
+<h2 id="List">List</h2><span class="share-tooltip" data-anchor="List"><a class="headline-anchor" href="#List" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#List">https://www.whonix.org/wiki/Stream_Isolation/#List</span></span></span></span>
 <p>Related:</p>
 <ul>
 <li><a href="../Dev/Default_Application_Policy/">Whonix
 Default Application Policy</a></li>
 <li><a href="https://forums.whonix.org/t/should-strict-stream-isolation-by-a-requirement-in-whonixs-default-application-policy/3940">Should
 strict stream isolation by a requirement in Whonix's Default Application
-Policy?</a></li>
+Policy?</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/should-strict-stream-isolation-by-a-requirement-in-whonixs-default-application-policy/3940" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p>Applications in Whonix that are either prepared or fully
 pre-configured to prevent
 <em><span>identity correlation through
 Tor circuit sharing</span></em>:</p>
-<h3 id="By_Settings">By Settings</h3>
+<h3 id="By_Settings">By Settings</h3><span class="share-tooltip" data-anchor="By_Settings"><a class="headline-anchor" href="#By_Settings" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#By_Settings">https://www.whonix.org/wiki/Stream_Isolation/#By_Settings</span></span></span></span>
 <table>
 <caption>Stream Isolation - Settings Based</caption>
 <thead>
@@ -326,7 +330,7 @@ Thunderbird</a></p></td>
 <td><p><a href="../Dev/TimeSync/">Dev/TimeSync</a></p></td>
 </tr>
 <tr class="odd">
-<td><p><a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a></p></td>
+<td><p><a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p></td>
 <td><p>Yes</p></td>
 <td><p>Yes</p></td>
 <td><p>socks proxy settings</p></td>
@@ -338,7 +342,7 @@ Thunderbird</a></p></td>
 (BTC)</p></td>
 <td><p>Yes</p></td>
 <td><p>No
-(<a href="https://phabricator.whonix.org/T215">TODO</a>)</p></td>
+(<a href="https://phabricator.whonix.org/T215">TODO</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T215" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</p></td>
 <td><p>socks proxy settings</p></td>
 <td><p>port prepared, IP 10.152.152.10, port 9111</p></td>
 <td><p>-</p></td>
@@ -380,7 +384,7 @@ pre-installed</p></td>
 </tr>
 </tbody>
 </table>
-<h3 id="By_uwt_wrapper">By uwt wrapper</h3>
+<h3 id="By_uwt_wrapper">By uwt wrapper</h3><span class="share-tooltip" data-anchor="By_uwt_wrapper"><a class="headline-anchor" href="#By_uwt_wrapper" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#By_uwt_wrapper">https://www.whonix.org/wiki/Stream_Isolation/#By_uwt_wrapper</span></span></span></span>
 <table>
 <caption>Stream Isolation - uwt wrapper based</caption>
 <thead>
@@ -468,7 +472,7 @@ pre-installed</p></td>
 </tr>
 </tbody>
 </table>
-<h3 id="none">none</h3>
+<h3 id="none">none</h3><span class="share-tooltip" data-anchor="none"><a class="headline-anchor" href="#none" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#none">https://www.whonix.org/wiki/Stream_Isolation/#none</span></span></span></span>
 <table>
 <caption>Stream Isolation - none</caption>
 <thead>
@@ -492,7 +496,7 @@ pre-installed</p></td>
 <td><p>-</p></td>
 </tr>
 <tr class="even">
-<td><p><a href="https://www.kicksecure.com/wiki/Systemcheck"><code>systemcheck</code></a><code> --leak-tests</code></p></td>
+<td><p><a href="https://www.kicksecure.com/wiki/Systemcheck"><code>systemcheck</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup><code> --leak-tests</code></p></td>
 <td><p>yes</p></td>
 <td><p>no
 <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p></td>
@@ -510,13 +514,13 @@ pre-installed</p></td>
 </tr>
 </tbody>
 </table>
-<h2 id="Details">Details</h2>
+<h2 id="Details">Details</h2><span class="share-tooltip" data-anchor="Details"><a class="headline-anchor" href="#Details" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Details">https://www.whonix.org/wiki/Stream_Isolation/#Details</span></span></span></span>
 <ul>
 <li><u>How stream isolation is implemented:</u> The required socks proxy
 settings are set up by various Whonix configuration packages or uwt
 wrappers, which are set up on Whonix-Gateway<sup>&#8482;</sup> and on
 Whonix-Workstation.</li>
-<li><u>What uwt is:</u> uwt is a wrapper around <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/torsocks">torsocks</a>,
+<li><u>What uwt is:</u> uwt is a wrapper around <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/torsocks">torsocks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/torsocks" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
 which is also already installed to
 <span>/usr/bin/uwt</span>.</li>
 <li><u>How uwt wrappers behave by default:</u> For example, each time
@@ -562,22 +566,22 @@ therefore different ports) are already isolated through using different
 <code>SocksPort</code>s.</li>
 <li><u>Why it doesn't help for web browsing:</u> Isolate by destination
 port doesn't really achieve anything for web browsing: <a href="https://lists.torproject.org/pipermail/tor-talk/2012-May/024403.html">tor-talk
-Tor's stream isolation features defaults</a>.</li>
+Tor's stream isolation features defaults</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-May/024403.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li><u>Where to learn more:</u> For more information about stream
 isolation refer to the Tor manual.
 <ul>
 <li><u>Stable manual:</u> <a href="https://2019.www.torproject.org/docs/tor-manual.html.en">Tor
-stable manual</a></li>
+stable manual</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://2019.www.torproject.org/docs/tor-manual.html.en" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><u>Alpha manual:</u> <a href="https://2019.www.torproject.org/docs/tor-manual-dev.html.en">Tor
-alpha manual</a></li>
+alpha manual</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://2019.www.torproject.org/docs/tor-manual-dev.html.en" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 </ul>
-<h3 id="Tor_Browser">Tor Browser</h3>
+<h3 id="Tor_Browser">Tor Browser</h3><span class="share-tooltip" data-anchor="Tor_Browser"><a class="headline-anchor" href="#Tor_Browser" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Tor_Browser">https://www.whonix.org/wiki/Stream_Isolation/#Tor_Browser</span></span></span></span>
 <ul>
 <li><u>Domain-based SOCKS authentication:</u> Tor Browser has a feature
 <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3455">Tor
 Browser should set SOCKS username for a request based on first party
-domain</a>. Tor Browser makes use of Tor's <a href="./#IsolateSOCKSAuth"><code>IsolateSOCKSAuth</code></a> option. Whonix does
+domain</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3455" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Tor Browser makes use of Tor's <a href="./#IsolateSOCKSAuth"><code>IsolateSOCKSAuth</code></a> option. Whonix does
 not break this feature. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></li>
 <li><u>Note about a previous claim:</u> This wiki page stated
 <s>Different tabs and websites in Tor Browser are isolated by Tor
@@ -590,41 +594,37 @@ a third party in one URL bar origin MUST NOT be reused for that same
 third party in another URL bar origin.</p>
 <p><strong>Implementation Status:</strong> The isolation functionality
 is provided by a Torbutton component that <a href="https://gitweb.torproject.org/torbutton.git/tree/src/components/domain-isolator.js">sets
-the SOCKS username and password for each request</a>. The Tor client has
+the SOCKS username and password for each request</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitweb.torproject.org/torbutton.git/tree/src/components/domain-isolator.js" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. The Tor client has
 logic to prevent connections with different SOCKS usernames and
 passwords from using the same Tor circuit. Firefox has existing logic to
 ensure that connections with SOCKS proxies do not re-use existing HTTP
 Keep-Alive connections unless the proxy settings match. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1200802">We extended
-this logic</a> to cover SOCKS username and password authentication,
+this logic</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugzilla.mozilla.org/show_bug.cgi?id=1200802" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> to cover SOCKS username and password authentication,
 providing us with HTTP Keep-Alive unlinkability. While the vast majority
 of web requests adheres to the circuit and connection unlinkability
 requirement there are still corner cases we <a href="https://gitweb.torproject.org/tor-browser.git/commit/?h=tor-browser-52.5.2esr-7.0-2&amp;id=8661822237c56d543d5c9117c8a4708c402a110f">need
-to treat separately</a> or that <a href="https://bugs.torproject.org/22343">lack a fix
-altogether</a>.<span class="blockquote-context">upstream, The Tor
+to treat separately</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitweb.torproject.org/tor-browser.git/commit/?h=tor-browser-52.5.2esr-7.0-2&amp;id=8661822237c56d543d5c9117c8a4708c402a110f" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> or that <a href="https://bugs.torproject.org/22343">lack a fix
+altogether</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://bugs.torproject.org/22343" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.<span class="blockquote-context">upstream, The Tor
 Project: <a href="https://www.torproject.org/projects/torbrowser/design/">The Design
-and Implementation of the Tor Browser (DRAFT)</a></span></p></blockquote></p>
+and Implementation of the Tor Browser (DRAFT)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.torproject.org/projects/torbrowser/design/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p></blockquote></p>
 <ul>
 <li><u>Upstream is the source of truth:</u> Tor Browser is developed by
-upstream, <a href="https://www.torproject.org">The Tor Project</a>,
+upstream, <a href="https://www.torproject.org">The Tor Project</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
 which is an independent entity. For up-to-date information, refer to
 upstream, Tor Browser.</li>
-<li><u>Related forum discussion:</u> <a href="https://forums.whonix.org/t/tor-browser-new-identity-differs-from-restarting-tor-browser-in-whonix/3098/4">https://forums.whonix.org/t/tor-browser-new-identity-differs-from-restarting-tor-browser-in-whonix/3098/4</a></li>
+<li><u>Related forum discussion:</u> <a href="https://forums.whonix.org/t/tor-browser-new-identity-differs-from-restarting-tor-browser-in-whonix/3098/4">https://forums.whonix.org/t/tor-browser-new-identity-differs-from-restarting-tor-browser-in-whonix/3098/4</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-browser-new-identity-differs-from-restarting-tor-browser-in-whonix/3098/4" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h3 id="Onion_Services">Onion Services</h3>
+<h3 id="Onion_Services">Onion Services</h3><span class="share-tooltip" data-anchor="Onion_Services"><a class="headline-anchor" href="#Onion_Services" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Onion_Services">https://www.whonix.org/wiki/Stream_Isolation/#Onion_Services</span></span></span></span>
 <ul>
 <li><u>Automatic isolation for different onion services:</u> Connections
 to different Tor <a href="../Onion_Services/">Onion
 Services</a> are automatically stream isolated. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></li>
 </ul>
 <h2 id="How_to_mitigate_identity_correlation">How to mitigate identity
-correlation</h2>
+correlation</h2><span class="share-tooltip" data-anchor="How_to_mitigate_identity_correlation"><a class="headline-anchor" href="#How_to_mitigate_identity_correlation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#How_to_mitigate_identity_correlation">https://www.whonix.org/wiki/Stream_Isolation/#How_to_mitigate_identity_correlation</span></span></span></span>
 <h3 id="Scope,_Responsibilities,_and_User_Expectations">Scope,
-Responsibilities, and User Expectations</h3>
-<div class="intro-like">
-<p>Whonix provides a Tor-routed platform, not perfect
-application-specific stream isolation for all third-party
-applications.</p>
-</div>
+Responsibilities, and User Expectations</h3><span class="share-tooltip" data-anchor="Scope,_Responsibilities,_and_User_Expectations"><a class="headline-anchor" href="#Scope,_Responsibilities,_and_User_Expectations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Scope,_Responsibilities,_and_User_Expectations">https://www.whonix.org/wiki/Stream_Isolation/#Scope,_Responsibilities,_and_User_Expectations</span></span></span></span>
+
 <ul>
 <li><u>What Whonix does:</u> Whonix provides <a href="../Reliable_IP_Hiding/">Reliable IP Hiding</a> by
 default, <a href="./#Transparent_Proxy">transparent proxying</a>, and stream isolation for many
@@ -675,7 +675,7 @@ practices.</li>
 </ul>
 <h3 id="Tor_friendly_applications_versus_Applications_without_native_Tor_support">Tor
 friendly applications versus Applications without native Tor
-support</h3>
+support</h3><span class="share-tooltip" data-anchor="Tor_friendly_applications_versus_Applications_without_native_Tor_support"><a class="headline-anchor" href="#Tor_friendly_applications_versus_Applications_without_native_Tor_support" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Tor_friendly_applications_versus_Applications_without_native_Tor_support">https://www.whonix.org/wiki/Stream_Isolation/#Tor_friendly_applications_versus_Applications_without_native_Tor_support</span></span></span></span>
 <div class="intro-like">
 <p>Choose the tab that best matches the application.</p>
 </div>
@@ -733,7 +733,7 @@ specific application and its behavior.</p>
 <li><u>The legacy approach is less actively maintained:</u> The legacy
 approach of torification of arbitrary applications seems to have been
 largely given up. There are very few edits to the <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO">Torify
-HOWTO</a> over the years. Nowadays some application developers are
+HOWTO</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> over the years. Nowadays some application developers are
 providing Tor-safe by default applications, i.e. applications designed
 for use with Tor in mind and not as an afterthought. Examples include <a href="../Tor_Browser/">Tor Browser</a> and <a href="../OnionShare/">OnionShare</a>. Also if users are
 asking how to torify specific applications and make sure these are leak
@@ -778,7 +778,7 @@ application:</u> To protect against this, you have to set up and
 configure applications to use a dedicated Tor <code>SocksPort</code>.
 Each custom installed application has to be directed to a dedicated Tor
 <code>SocksPort</code>. For instructions how to do that, use the <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO">Torify
-HOWTO</a>. Generally, this can be done either by configuring the
+HOWTO</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Generally, this can be done either by configuring the
 application's proxy settings or by using a proxifier (socksifier) such
 as <code>torsocks</code>.</li>
 <li><u>Use a socksifier only when needed:</u> A socksifier such as
@@ -821,8 +821,8 @@ own.</li>
 and
 <em><span>IsolateDestPort</span></em>?
 You can learn about them in the <a href="https://2019.www.torproject.org/docs/tor-manual.html.en">Tor
-manual</a>. See also <a href="https://lists.torproject.org/pipermail/tor-talk/2012-May/024403.html">tor-talk
-mailing list: Tor's stream isolation features defaults</a>. Usually,
+manual</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://2019.www.torproject.org/docs/tor-manual.html.en" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. See also <a href="https://lists.torproject.org/pipermail/tor-talk/2012-May/024403.html">tor-talk
+mailing list: Tor's stream isolation features defaults</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-May/024403.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Usually,
 unless you know better, you are better off not using
 <em><span>IsolateDestAddr</span></em>
 or
@@ -834,27 +834,27 @@ whether the application still works only through the intended Tor
 the application's proxy settings or use a proxifier? There can be no
 generalized answer as this is highly application specific. The most
 comprehensive documentation of this is the <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO">Torify
-HOWTO</a>. Also, a web search can be performed on how to torify
+HOWTO</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Also, a web search can be performed on how to torify
 applications.</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
-<h3 id="Basic_Protection">Basic Protection</h3>
+<h3 id="Basic_Protection">Basic Protection</h3><span class="share-tooltip" data-anchor="Basic_Protection"><a class="headline-anchor" href="#Basic_Protection" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Basic_Protection">https://www.whonix.org/wiki/Stream_Isolation/#Basic_Protection</span></span></span></span>
 <ul>
 <li><u>Use the pre-configured list where possible:</u> A <a href="#List">#List</a> of applications that come pre-installed with
 Whonix are pre-configured to prevent
 <em><span>identity correlation through
 circuit sharing</span></em>.</li>
 <li><u>Be aware of <code>TransPort</code> pollution during tests:</u>
-Traffic going through <code>TransPort</code> by default includes <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a> when
+Traffic going through <code>TransPort</code> by default includes <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> when
 manually testing the <code>TransPort</code> by using
 <code>systemcheck --leak-tests</code>. If that is of concern to you, see
 the following bullets.</li>
 <li><u>Optionally adjust systemcheck behavior:</u> It can be disabled in
 systemcheck, see <a href="https://www.kicksecure.com/wiki/Systemcheck_Hardening#Prevent_Polluting_TransPort">prevent
-polluting <code>TransPort</code></a>, but that might make little sense.
+polluting <code>TransPort</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck_Hardening#Prevent_Polluting_TransPort" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, but that might make little sense.
 <ul>
 <li><u>Prefer to avoid the test instead:</u> Better to avoid the test
 instead.</li>
@@ -879,17 +879,17 @@ offers best possible <a href="../Protocol-Leak-Protection_and_Fingerprinting-Pro
 Fingerprinting-Protection</a>.</li>
 <li><u>IP leak protection always applies:</u> Whonix setup provides
 protection against IP leaks through <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#protocol-leaks">protocol
-leaks</a>.</li>
+leaks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#protocol-leaks" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li><u>Misconfiguration has predictable outcomes:</u> No connections
 will be possible or traffic will continue going through Tor's
 <code>TransPort</code> unless you <a href="#Better_Protection">disable transparent torification</a>.</li>
-<li><u>DNS warnings still matter:</u> DNS related <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorFAQ#i-keep-seeing-these-warnings-about-socks-and-dns-and-information-leaks-should-i-worry">warnings</a>
+<li><u>DNS warnings still matter:</u> DNS related <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorFAQ#i-keep-seeing-these-warnings-about-socks-and-dns-and-information-leaks-should-i-worry">warnings</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorFAQ#i-keep-seeing-these-warnings-about-socks-and-dns-and-information-leaks-should-i-worry" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 still apply, though to a lesser extent. An attack could only make
 correlations but still could not figure out your IP. To prevent that,
 see chapter <a href="#Better_Protection">better
 protection</a>.</li>
 <li><u>Avoid local DNS resolvers:</u> Do not use a <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/SupportPrograms#dns-resolvers">local
-DNS resolver</a>, as all DNS requests would be executed by the same Tor
+DNS resolver</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/SupportPrograms#dns-resolvers" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, as all DNS requests would be executed by the same Tor
 circuit.</li>
 <li><u>Some leak classes do not apply here:</u> Other leaks, such as
 applications not honoring the proxy settings / wrapper, ICMP or UDP
@@ -909,7 +909,7 @@ applications</strong></p>
 application.</li>
 <li>Configure application to use a dedicated Tor <code>SocksPort</code>
 according to <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO">Torify
-HOWTO</a> by either configuring the application's proxy settings or by
+HOWTO</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> by either configuring the application's proxy settings or by
 using a proxifier such as <code>torsocks</code>.</li>
 <li>Start custom application.</li>
 </ol>
@@ -987,7 +987,7 @@ using the application's proxy settings</strong></p>
 application.</li>
 <li>Configure application to use a dedicated Tor <code>SocksPort</code>
 according to <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO">Torify
-HOWTO</a> by either configuring the application's proxy settings.</li>
+HOWTO</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> by either configuring the application's proxy settings.</li>
 <li>protocol: socks 5</li>
 <li>Platform specific. Proxy IP: <strong>A)</strong> <u><a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a></u>
 <span class="code-select">10.152.152.10</span> <strong>B)</strong>
@@ -1002,7 +1002,7 @@ applications)</li>
 <p>Better generic instructions for this cannot be provided since this is
 application specific as mentioned above.</p>
 </div>
-<h3 id="Better_Protection">Better Protection</h3>
+<h3 id="Better_Protection">Better Protection</h3><span class="share-tooltip" data-anchor="Better_Protection"><a class="headline-anchor" href="#Better_Protection" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Better_Protection">https://www.whonix.org/wiki/Stream_Isolation/#Better_Protection</span></span></span></span>
 <p>For best protection against
 <em><span>identity
 correlation</span></em>:</p>
@@ -1019,16 +1019,16 @@ over stream isolation.</li>
 <li><u>Disable transparent proxying:</u> Disable transparent proxying as
 documented below.</li>
 </ul>
-<h3 id="Best_Protection">Best Protection</h3>
+<h3 id="Best_Protection">Best Protection</h3><span class="share-tooltip" data-anchor="Best_Protection"><a class="headline-anchor" href="#Best_Protection" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Best_Protection">https://www.whonix.org/wiki/Stream_Isolation/#Best_Protection</span></span></span></span>
 <p>Best stream isolation is only possible if you honor the advice above
 and only use one application per session and always revert to a fresh
 image or <a href="../Multiple_Whonix-Workstation/">Multiple
 Whonix-Workstation</a>. <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
-<h3 id="Disable_Transparent_Proxying">Disable Transparent Proxying</h3>
+<h3 id="Disable_Transparent_Proxying">Disable Transparent Proxying</h3><span class="share-tooltip" data-anchor="Disable_Transparent_Proxying"><a class="headline-anchor" href="#Disable_Transparent_Proxying" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Disable_Transparent_Proxying">https://www.whonix.org/wiki/Stream_Isolation/#Disable_Transparent_Proxying</span></span></span></span>
 <p>To deactivate transparent proxying, apply the following
 instructions.</p>
 <p>Following these steps will disable the Whonix-Gateway <a href="#Transparent_Proxy">transparent proxying</a>
-feature and transform Whonix-Gateway into an <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/IsolatingProxy">IsolatingProxy</a>.</p>
+feature and transform Whonix-Gateway into an <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/IsolatingProxy">IsolatingProxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/IsolatingProxy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p><strong>Note:</strong> The following instructions should be applied
 in Whonix-Gateway (<a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a>: In App Qubes
 <code>sys-whonix</code>).</p>
@@ -1185,18 +1185,18 @@ through that <code>SocksPort</code>.</p>
 <li><a href="#Check_if_Transparent_DNS_is_disabled">Check if Transparent DNS is disabled</a></li>
 <li><a href="#Check_if_Transparent_TCP_is_disabled">Check if Transparent TCP is disabled</a></li>
 </ul>
-<h3 id="IsolateSOCKSAuth">IsolateSOCKSAuth</h3>
+<h3 id="IsolateSOCKSAuth">IsolateSOCKSAuth</h3><span class="share-tooltip" data-anchor="IsolateSOCKSAuth"><a class="headline-anchor" href="#IsolateSOCKSAuth" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#IsolateSOCKSAuth">https://www.whonix.org/wiki/Stream_Isolation/#IsolateSOCKSAuth</span></span></span></span>
 <p>See <a href="https://2019.www.torproject.org/docs/tor-manual.html.en">Tor
-manual</a> <code>IsolateSOCKSAuth</code>.</p>
+manual</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://2019.www.torproject.org/docs/tor-manual.html.en" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <code>IsolateSOCKSAuth</code>.</p>
 <p><blockquote><p>Don't share circuits with streams for which different SOCKS
 authentication was provided. [...]</p></blockquote></p>
 <p>This can be used with the <code>SocksPort</code> option.</p>
 <p><blockquote><p>SocksPort [address:]port|unix:path|auto [flags] [isolation flags]</p></blockquote></p>
 <p><code>IsolateSOCKSAuth</code> is a sub option of the
 <code>SocksPort</code> option.</p>
-<h2 id="Qubes_Specific">Qubes Specific</h2>
+<h2 id="Qubes_Specific">Qubes Specific</h2><span class="share-tooltip" data-anchor="Qubes_Specific"><a class="headline-anchor" href="#Qubes_Specific" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Qubes_Specific">https://www.whonix.org/wiki/Stream_Isolation/#Qubes_Specific</span></span></span></span>
 <h3 id="Qubes_UpdatesProxy_Stream_Isolation">Qubes UpdatesProxy Stream
-Isolation</h3>
+Isolation</h3><span class="share-tooltip" data-anchor="Qubes_UpdatesProxy_Stream_Isolation"><a class="headline-anchor" href="#Qubes_UpdatesProxy_Stream_Isolation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Qubes_UpdatesProxy_Stream_Isolation">https://www.whonix.org/wiki/Stream_Isolation/#Qubes_UpdatesProxy_Stream_Isolation</span></span></span></span>
 <p>This chapter is for advanced users only.</p>
 <p>Platform specific:</p>
 <ul>
@@ -1216,7 +1216,7 @@ address of the VM is "lost in translation" and does not reach Tor on
 Whonix-Gateway. Hence, there is no benefit from
 <code>IsolateClientAddr</code>. <a href="https://github.com/QubesOS/qubes-issues/issues/8398">tinyproxy on
 Whonix-Gateway has been configured to use a dedicated Tor
-<code>SocksPort</code></a>. That, of course, does not result in
+<code>SocksPort</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/8398" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. That, of course, does not result in
 <code>IsolateClientAddr</code>. But at least traffic by tinyproxy is not
 mixed into Tor's <code>TransPort</code> / <code>DnsPort</code>.
 Unfortunately, all Templates using <code>sys-whonix</code> as
@@ -1237,19 +1237,19 @@ least avoids mixing UpdatesProxy traffic into Tor's
 <li><u>Remove tinyproxy idea:</u> <a href="https://github.com/QubesOS/qubes-issues/issues/7737">remove
 tinyproxy from Whonix-Gateway (<code>sys-whonix</code>) and make Whonix
 Templates networked by default with Net qube set to
-<code>sys-whonix</code></a>.</li>
+<code>sys-whonix</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7737" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li><u>User documentation:</u> <a href="../Qubes/UpdatesProxy/">Qubes-Whonix UpdatesProxy user documentation</a></li>
 <li><u>Developer documentation:</u> <a href="../Dev/Qubes/#Torified_UpdatesProxy">Torified
 UpdatesProxy developer documentation</a></li>
 <li><u>Future idea:</u> Maybe in the future, after/if <a href="https://github.com/QubesOS/qubes-issues/issues/9294">Create
 <code>sys-ops-whonix</code> VM for Enhanced Security and Isolation in
-Qubes-Whonix</a> gets implemented, <code>sys-ops-whonix</code> could
+Qubes-Whonix</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/9294" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> gets implemented, <code>sys-ops-whonix</code> could
 start a new instance of Qubes UpdatesProxy each time it receives a new
 connection from Qubes qrexec.</li>
 </ul></li>
 </ul>
-<h2 id="Deactivate_Stream_Isolation">Deactivate Stream Isolation</h2>
-<h3 id="Easy">Easy</h3>
+<h2 id="Deactivate_Stream_Isolation">Deactivate Stream Isolation</h2><span class="share-tooltip" data-anchor="Deactivate_Stream_Isolation"><a class="headline-anchor" href="#Deactivate_Stream_Isolation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Deactivate_Stream_Isolation">https://www.whonix.org/wiki/Stream_Isolation/#Deactivate_Stream_Isolation</span></span></span></span>
+<h3 id="Easy">Easy</h3><span class="share-tooltip" data-anchor="Easy"><a class="headline-anchor" href="#Easy" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Easy">https://www.whonix.org/wiki/Stream_Isolation/#Easy</span></span></span></span>
 <p>Choose an option. Either <strong>A)</strong> or
 <strong>B)</strong>.</p>
 <ul>
@@ -1258,7 +1258,7 @@ common methods only.</a> Or,</li>
 <li><strong>B)</strong> For more options, see below.</li>
 </ul>
 <h3 id="Deactivate_uwt_Stream_Isolation_Wrapper">Deactivate uwt Stream
-Isolation Wrapper</h3>
+Isolation Wrapper</h3><span class="share-tooltip" data-anchor="Deactivate_uwt_Stream_Isolation_Wrapper"><a class="headline-anchor" href="#Deactivate_uwt_Stream_Isolation_Wrapper" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Deactivate_uwt_Stream_Isolation_Wrapper">https://www.whonix.org/wiki/Stream_Isolation/#Deactivate_uwt_Stream_Isolation_Wrapper</span></span></span></span>
 <p><strong>OPTIONAL. Usually not required. Only for special setups and
 people who know what they are doing.</strong></p>
 <h4 id="Temporary">Temporary</h4>
@@ -1316,11 +1316,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1328,7 +1324,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1343,11 +1339,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_4">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_4">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1355,7 +1347,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1374,7 +1366,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -1386,11 +1378,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1421,7 +1409,7 @@ terminal: <span class="code-select">uwt_settings_show</span></p>
 </div>
 </div>
 <h3 id="Deactivate_Misc_Proxy_Settings">Deactivate Misc Proxy
-Settings</h3>
+Settings</h3><span class="share-tooltip" data-anchor="Deactivate_Misc_Proxy_Settings"><a class="headline-anchor" href="#Deactivate_Misc_Proxy_Settings" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Deactivate_Misc_Proxy_Settings">https://www.whonix.org/wiki/Stream_Isolation/#Deactivate_Misc_Proxy_Settings</span></span></span></span>
 <div class="info-box ">
 <p>On the <a href="./">Stream
 Isolation</a> page, there is a list of applications that are
@@ -1459,11 +1447,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_2">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1471,7 +1455,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1487,11 +1471,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_5">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_5">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1499,7 +1479,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1519,7 +1499,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -1531,11 +1511,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_2">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1587,11 +1563,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_3">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1599,7 +1571,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1615,11 +1587,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_6">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_6">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1627,7 +1595,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1647,7 +1615,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -1659,11 +1627,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_3">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1704,7 +1668,7 @@ use the system default. Therefore you can only deactivate sdwdate and/or
 not use applications like OnionShare and Ricochet IM.</p>
 </div>
 <h3 id="Tor_Browser_Remove_Proxy_Settings">Tor Browser Remove Proxy
-Settings</h3>
+Settings</h3><span class="share-tooltip" data-anchor="Tor_Browser_Remove_Proxy_Settings"><a class="headline-anchor" href="#Tor_Browser_Remove_Proxy_Settings" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Tor_Browser_Remove_Proxy_Settings">https://www.whonix.org/wiki/Stream_Isolation/#Tor_Browser_Remove_Proxy_Settings</span></span></span></span>
 <p>If you would like to remove proxy settings from Tor Browser, see
 below.</p>
 <div class="info-box ">
@@ -1757,7 +1721,7 @@ Whonix-Workstation<sup>&#8482;</sup> to use an additional proxy
 <p>To learn more about this organisational and technical background see
 also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</p>
+Linux User Experience versus Commercial Operating Systems</p>
 </div>
 </div>
 <p><span class="manually-placed-anchor " id="Community_Support"></span></p>
@@ -1772,7 +1736,7 @@ alternatives.</p>
 </div>
 </div>
 <p><u>Note</u>: This action will break both <a href="./">Stream Isolation</a> for Tor Browser and <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3455">Tor
-Browser's SOCKS username for a request based on first party domain</a>
+Browser's SOCKS username for a request based on first party domain</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3455" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 feature. This worsens the <a href="../Fingerprint/#web_fingerprint">web fingerprint</a> and leads to <a href="../Tips_on_Remaining_Anonymous/#Study:_Anonymity_and_Pseudonymity_are_not_the_same">pseudonymous (not anonymous) connections</a>. To
 mitigate these risks, consider using <a href="../Whonix-Workstation_Security_Hardening/#Multiple_Tor_Browser_Instances">More than one Tor Browser in Whonix</a>, or preferably
 <a href="../Multiple_Whonix-Workstation/">Multiple
@@ -1857,11 +1821,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1869,7 +1829,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1885,11 +1845,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_7">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_7">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -1897,7 +1853,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -1917,7 +1873,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -1929,11 +1885,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_4">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2190,11 +2142,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_5">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_5">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2202,7 +2150,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -2217,11 +2165,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_8">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_8">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2229,7 +2173,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -2248,7 +2192,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -2260,11 +2204,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_5">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_5">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2338,11 +2278,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_6">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_6">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2350,7 +2286,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -2366,11 +2302,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_9">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_9">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2378,7 +2310,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -2398,7 +2330,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -2410,11 +2342,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_6">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_6">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2491,11 +2419,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_7">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_7">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2503,7 +2427,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -2518,11 +2442,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_10">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_10">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2530,7 +2450,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -2549,7 +2469,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -2561,11 +2481,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_7">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_7">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2667,7 +2583,7 @@ Method configuration has been completed.</p>
 option in Tor Button. Read the footnote for further information.
 <sup class="reference"><a href="#cite_note-25">[25]</a></sup></p>
 </div>
-<h2 id="Nested_Execution">Nested Execution</h2>
+<h2 id="Nested_Execution">Nested Execution</h2><span class="share-tooltip" data-anchor="Nested_Execution"><a class="headline-anchor" href="#Nested_Execution" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Nested_Execution">https://www.whonix.org/wiki/Stream_Isolation/#Nested_Execution</span></span></span></span>
 <p>uwt version <code>4.0-1</code> and above protects from endless nested
 execution which could likely lead to a locked up session by aborting
 after 10 times an uwt wrapped application calling another uwt wrapped
@@ -2696,11 +2612,7 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_8">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_8">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2708,7 +2620,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -2723,11 +2635,7 @@ Open the file with root rights.</p>
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_11">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_11">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2735,7 +2643,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -2754,7 +2662,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -2766,11 +2674,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_8">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_8">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -2799,36 +2703,36 @@ protection.</p>
 <p>}</span></p>
 <p>Save and exit.</p>
 <p>Done.</p>
-<h2 id="Development">Development</h2>
-<h3 id="Information">Information</h3>
+<h2 id="Development">Development</h2><span class="share-tooltip" data-anchor="Development"><a class="headline-anchor" href="#Development" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Development">https://www.whonix.org/wiki/Stream_Isolation/#Development</span></span></span></span>
+<h3 id="Information">Information</h3><span class="share-tooltip" data-anchor="Information"><a class="headline-anchor" href="#Information" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Information">https://www.whonix.org/wiki/Stream_Isolation/#Information</span></span></span></span>
 <p>See also the <a href="https://2019.www.torproject.org/docs/tor-manual.html.en">Tor
-manual</a> on <code>SocksPort</code>, <code>HTTPTunnelPort</code>,
+manual</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://2019.www.torproject.org/docs/tor-manual.html.en" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> on <code>SocksPort</code>, <code>HTTPTunnelPort</code>,
 <code>TransPort</code> and <code>DnsPort</code>.</p>
 <h4 id="SocksPort">SocksPort</h4>
 <p>A <code>SocksPort</code> is a listen port by Tor which accepts
-traffic using the <a href="https://en.wikipedia.org/wiki/SOCKS">socks</a> protocol.</p>
+traffic using the <a href="https://en.wikipedia.org/wiki/SOCKS">socks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/SOCKS" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> protocol.</p>
 <p>Using a <code>SocksPort</code> is possible by using either:</p>
 <ul>
 <li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#Classicalcommonway:usetheapplicationsproxysettings">application
-specific socks proxy settings</a></li>
+specific socks proxy settings</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#Classicalcommonway:usetheapplicationsproxysettings" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#classical-common-way-use-the-applications-proxy-settings">wrapper
-method</a> such as <code>torsocks</code> (which can be automatically
-prepended using <a href="https://github.com/Whonix/uwt"><code>uwt</code></a>)</li>
+method</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#classical-common-way-use-the-applications-proxy-settings" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> such as <code>torsocks</code> (which can be automatically
+prepended using <a href="https://github.com/Whonix/uwt"><code>uwt</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/uwt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</li>
 </ul>
 <p>Traffic on separate <code>SocksPort</code>s is stream isolated by Tor
 by default.</p>
 <h4 id="HTTPTunnelPort">HTTPTunnelPort</h4>
 <p>A <code>HTTPTunnelPort</code> is a listen port by Tor which accepts
 traffic using the <a href="https://en.wikipedia.org/wiki/HTTP_tunnel">HTTP CONNECT
-method</a>.</p>
+method</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/HTTP_tunnel" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>This is a new feature of Tor.</p>
 <p>Traffic on separate <code>HTTPTunnelPort</code>s is stream isolated
 by Tor by default.</p>
 <p>Forum discussion:<br />
-<a href="https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373">https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373</a></p>
+<a href="https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373">https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h4 id="TransPort">TransPort</h4>
 <p><code>TransPort</code> is a feature where Tor accepts raw traffic on
-a listen port if redirected there using iptables. See also <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy">TransparentProxy</a>.</p>
+a listen port if redirected there using iptables. See also <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy">TransparentProxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>When using Transparent Proxying (default in Whonix), all applications
 that do not use a <code>SocksPort</code> or <code>HTTPTunnelPort</code>
 will fall back to using Tor's <code>TransPort</code> for TCP. I.e. using
@@ -2842,12 +2746,12 @@ unless originating from a <a href="../Multiple_Whonix-Workstation/">separate Who
 using Tor's <code>DnsPort</code> for DNS.</p>
 <h4 id="torsocks">torsocks</h4>
 <p>All <a href="./#By_uwt_wrapper">uwt
-wrapped applications</a> will be stream isolated by <a href="https://github.com/Whonix/uwt/blob/master/etc/tor/torsocks.conf.anondist"><code>torsocks</code></a>
+wrapped applications</a> will be stream isolated by <a href="https://github.com/Whonix/uwt/blob/master/etc/tor/torsocks.conf.anondist"><code>torsocks</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/uwt/blob/master/etc/tor/torsocks.conf.anondist" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <code>/etc/tor/torsocks.conf</code> setting
 <code>IsolatePID 1</code>.</p>
 <p>To test this, run the following command multiple times.</p>
 <pre><code>scurl https://check.torproject.org | grep IP</code></pre>
-<h3 id="Tests">Tests</h3>
+<h3 id="Tests">Tests</h3><span class="share-tooltip" data-anchor="Tests"><a class="headline-anchor" href="#Tests" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Tests">https://www.whonix.org/wiki/Stream_Isolation/#Tests</span></span></span></span>
 <p>1. Applications which internally use curl.</p>
 <p><span class="code-select">sudo update-command-not-found</span>
 <span class="code-select">sudo update-flashplugin-nonfree --install
@@ -2857,16 +2761,16 @@ ssh.</p>
 <p><span class="code-select">git push origin master</span></p>
 <p>3. Enigmail.</p>
 <h3 id="Debugging_/_List_of_all_uwt_wrappers">Debugging / List of all uwt
-wrappers</h3>
+wrappers</h3><span class="share-tooltip" data-anchor="Debugging_/_List_of_all_uwt_wrappers"><a class="headline-anchor" href="#Debugging_/_List_of_all_uwt_wrappers" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Debugging_/_List_of_all_uwt_wrappers">https://www.whonix.org/wiki/Stream_Isolation/#Debugging_/_List_of_all_uwt_wrappers</span></span></span></span>
 <p><span class="code-select">sudo dpkg-divert --list</span>
 <span class="code-select">ls -la /usr/bin/ssh</span></p>
-<h3 id="Deactivating_an_uwt_wrapper">Deactivating an uwt wrapper</h3>
+<h3 id="Deactivating_an_uwt_wrapper">Deactivating an uwt wrapper</h3><span class="share-tooltip" data-anchor="Deactivating_an_uwt_wrapper"><a class="headline-anchor" href="#Deactivating_an_uwt_wrapper" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Deactivating_an_uwt_wrapper">https://www.whonix.org/wiki/Stream_Isolation/#Deactivating_an_uwt_wrapper</span></span></span></span>
 <p>Example:</p>
 <p><span class="code-select">sudo unlink /usr/bin/ssh</span>
 <span class="code-select">sudo dpkg-divert --rename --remove
 /usr/bin/ssh</span></p>
 <h3 id="Check_if_Transparent_DNS_is_disabled">Check if Transparent DNS
-is disabled</h3>
+is disabled</h3><span class="share-tooltip" data-anchor="Check_if_Transparent_DNS_is_disabled"><a class="headline-anchor" href="#Check_if_Transparent_DNS_is_disabled" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Check_if_Transparent_DNS_is_disabled">https://www.whonix.org/wiki/Stream_Isolation/#Check_if_Transparent_DNS_is_disabled</span></span></span></span>
 <p><strong>Note:</strong> The following test should be performed in
 Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>:
 App Qube <code>anon-whonix</code>).</p>
@@ -2880,7 +2784,7 @@ $?</span></p>
 <p>If it shows something else, such as a resolved IP, then Transparent
 DNS is enabled.</p>
 <h3 id="Check_if_Transparent_TCP_is_disabled">Check if Transparent TCP
-is disabled</h3>
+is disabled</h3><span class="share-tooltip" data-anchor="Check_if_Transparent_TCP_is_disabled"><a class="headline-anchor" href="#Check_if_Transparent_TCP_is_disabled" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Check_if_Transparent_TCP_is_disabled">https://www.whonix.org/wiki/Stream_Isolation/#Check_if_Transparent_TCP_is_disabled</span></span></span></span>
 <p><strong>Note:</strong> The following test should be performed in
 Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>:
 App Qube <code>anon-whonix</code>).</p>
@@ -2893,12 +2797,12 @@ App Qube <code>anon-whonix</code>).</p>
 <p>If it shows something else, such as the html source code, then
 Transparent TCP is enabled.</p>
 <h3 id="Check_if_Transparent_Proxying_is_disabled">Check if Transparent
-Proxying is disabled</h3>
+Proxying is disabled</h3><span class="share-tooltip" data-anchor="Check_if_Transparent_Proxying_is_disabled"><a class="headline-anchor" href="#Check_if_Transparent_Proxying_is_disabled" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Check_if_Transparent_Proxying_is_disabled">https://www.whonix.org/wiki/Stream_Isolation/#Check_if_Transparent_Proxying_is_disabled</span></span></span></span>
 <p><strong>Note:</strong> The following test should be performed in
 Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>:
 App Qube <code>anon-whonix</code>).</p>
 <p>Test.</p>
-<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl <a href="https://check.torproject.org/">https://check.torproject.org/</a> ;
+<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl <a href="https://check.torproject.org/">https://check.torproject.org/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> ;
 echo $?</span></p>
 <p>Expected output.</p>
 <pre><code>curl: (6) Couldn&#39;t resolve host &#39;check.torproject.org&#39;
@@ -2906,7 +2810,7 @@ echo $?</span></p>
 <p>If it shows something else, such as the html source code, then
 Transparent Proxying is enabled.</p>
 <h3 id="Check_if_an_Application_is_properly_using_Stream_Isolation">Check if
-an Application is properly using Stream Isolation</h3>
+an Application is properly using Stream Isolation</h3><span class="share-tooltip" data-anchor="Check_if_an_Application_is_properly_using_Stream_Isolation"><a class="headline-anchor" href="#Check_if_an_Application_is_properly_using_Stream_Isolation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Check_if_an_Application_is_properly_using_Stream_Isolation">https://www.whonix.org/wiki/Stream_Isolation/#Check_if_an_Application_is_properly_using_Stream_Isolation</span></span></span></span>
 <ul>
 <li>Same as <code>leak testing</code> as if Whonix is not involved.</li>
 <li>Also... A weaker test... The
@@ -2936,42 +2840,42 @@ with Tor.</li>
 clearnet leaks.</li>
 <li>Discussion with software contributor about this if these haven't
 already happened.</li>
-<li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#Howtoreviewanapplication">https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#Howtoreviewanapplication</a></li>
-<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-April/024010.html">https://lists.torproject.org/pipermail/tor-talk/2012-April/024010.html</a></li>
-<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/5553">https://gitlab.torproject.org/legacy/trac/-/issues/5553</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#Howtoreviewanapplication">https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#Howtoreviewanapplication</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#Howtoreviewanapplication" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-April/024010.html">https://lists.torproject.org/pipermail/tor-talk/2012-April/024010.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-April/024010.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/5553">https://gitlab.torproject.org/legacy/trac/-/issues/5553</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/5553" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://github.com/rustybird/corridor">corridor - Tor
-traffic whitelisting gateway</a></li>
+traffic whitelisting gateway</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/rustybird/corridor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h3 id="Add_new_uwt_wrapper">Add new uwt wrapper</h3>
+<h3 id="Add_new_uwt_wrapper">Add new uwt wrapper</h3><span class="share-tooltip" data-anchor="Add_new_uwt_wrapper"><a class="headline-anchor" href="#Add_new_uwt_wrapper" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Add_new_uwt_wrapper">https://www.whonix.org/wiki/Stream_Isolation/#Add_new_uwt_wrapper</span></span></span></span>
 <p>Emulate <a href="https://github.com/Whonix/uwt/commit/03cc4c8568564d5993fcc8ea975cf00e851f7052">this
-commit</a>.</p>
-<h2 id="Sources">Sources</h2>
+commit</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/uwt/commit/03cc4c8568564d5993fcc8ea975cf00e851f7052" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h2 id="Sources">Sources</h2><span class="share-tooltip" data-anchor="Sources"><a class="headline-anchor" href="#Sources" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#Sources">https://www.whonix.org/wiki/Stream_Isolation/#Sources</span></span></span></span>
 <ul>
 <li><a href="https://gitweb.torproject.org/torspec.git/blob/HEAD:/proposals/171-separate-streams.txt">Separate
-streams across circuits by connection metadata</a></li>
+streams across circuits by connection metadata</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitweb.torproject.org/torspec.git/blob/HEAD:/proposals/171-separate-streams.txt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023496.html">tor-talk
 Operating system updates / software installation behind Tor Transparent
-Proxy</a></li>
+Proxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-March/023496.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023536.html">tor-talk
 Awareness for identity correlation through circuit sharing is almost
-zero.</a></li>
+zero.</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-March/023536.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-May/024401.html">tor-talk
-Tor's stream isolation features defaults Question</a></li>
+Tor's stream isolation features defaults Question</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-May/024401.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-May/024403.html">tor-talk
-Tor's stream isolation features defaults Answer</a></li>
+Tor's stream isolation features defaults Answer</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-May/024403.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://web.archive.org/web/20141005211329/https://mailman.boum.org/pipermail/tails-dev/2012-August/001422.html">Tails-dev
 separate Tor streams</a></li>
 <li><a href="https://tails.boum.org/todo/separate_Tor_streams/">Tails
-separate Tor streams</a></li>
+separate Tor streams</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/todo/separate_Tor_streams/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://web.archive.org/web/20160629092058/https://mailman.boum.org/pipermail/tails-dev/2012-August/001532.html">Tails-dev
 Please review Tails stream isolation plans</a></li>
 <li><a href="https://tails.boum.org/contribute/design/stream_isolation/">Tails
-Design: Tor stream isolation</a></li>
+Design: Tor stream isolation</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/stream_isolation/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p>Stream Isolation Graphic was contributed by: Cuan Knaggs, graphic and
 web design. <a href="https://web.archive.org/web/20160313102442/http://revolver.za.net/">revolver</a>
 print media, web design, web development, CMS, e-commerce</p>
-<h2 id="References">References</h2>
+<h2 id="References">References</h2><span class="share-tooltip" data-anchor="References"><a class="headline-anchor" href="#References" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Stream_Isolation/#References">https://www.whonix.org/wiki/Stream_Isolation/#References</span></span></span></span>
 <div class="references">
 <ol>
 <li id="cite_note-1">Tails used to have transparent proxying (could use any application
@@ -2979,7 +2883,7 @@ without configuration). Nowadays Tails has no transparent proxying.
 (Most) Custom installed applications (example: Mozilla Firefox) won't
 connect without manual configuration in Tails.</li>
 <li id="cite_note-2">Whonix-Workstation 127.0.0.1:9150 gets redirected to
-10.152.152.10:9150 by <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor">anon-ws-disable-stacked-tor</a>.
+10.152.152.10:9150 by <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor">anon-ws-disable-stacked-tor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 Changing proxy settings in Tor Browser has proven to be unreliable. At
 some point Tor Button may change its internals and therefore break
 something again. Keeping the default settings and not requiring any
@@ -2988,8 +2892,8 @@ in the long run and also is simplest in case
 <span>update-torbrowser</span> breaks
 and <a href="../Tor_Browser/Manual_Download/">manually
 updating Tor Browser</a> is required again in future.</li>
-<li id="cite_note-3">* <a href="https://github.com/Whonix/anon-apps-config/blob/master/etc/profile.d/50_anon-apps-config.sh">https://github.com/Whonix/anon-apps-config/blob/master/etc/profile.d/50_anon-apps-config.sh</a>
-* <a href="https://github.com/Whonix/anon-apps-config/blob/master/usr/share/anon-apps-config/kioslaverc">https://github.com/Whonix/anon-apps-config/blob/master/usr/share/anon-apps-config/kioslaverc</a></li>
+<li id="cite_note-3">* <a href="https://github.com/Whonix/anon-apps-config/blob/master/etc/profile.d/50_anon-apps-config.sh">https://github.com/Whonix/anon-apps-config/blob/master/etc/profile.d/50_anon-apps-config.sh</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-apps-config/blob/master/etc/profile.d/50_anon-apps-config.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://github.com/Whonix/anon-apps-config/blob/master/usr/share/anon-apps-config/kioslaverc">https://github.com/Whonix/anon-apps-config/blob/master/usr/share/anon-apps-config/kioslaverc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-apps-config/blob/master/usr/share/anon-apps-config/kioslaverc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-4"><code>systemcheck --leak-tests</code> runs only on user request and
 never by its own by chance. Tests two things, a Tor
 <code>SocksPort</code> and Tor's <code>TransPort</code>.
@@ -3001,13 +2905,13 @@ leak test is to check if connections not configured to use a Tor
 <li id="cite_note-5">This feature does not even require Tor <code>ControlPort</code>
 access. All that Tor Browser requires from Whonix is being able to
 connect to a Tor <code>SocksPort</code>.</li>
-<li id="cite_note-6"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/3455">https://gitlab.torproject.org/legacy/trac/-/issues/3455</a></li>
-<li id="cite_note-7"><a href="https://lists.torproject.org/pipermail/tor-talk/2012-September/025432.html">https://lists.torproject.org/pipermail/tor-talk/2012-September/025432.html</a></li>
+<li id="cite_note-6"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/3455">https://gitlab.torproject.org/legacy/trac/-/issues/3455</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3455" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-7"><a href="https://lists.torproject.org/pipermail/tor-talk/2012-September/025432.html">https://lists.torproject.org/pipermail/tor-talk/2012-September/025432.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-September/025432.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-8">This assumes the application properly supports Tor and uses stream
 isolation mechanisms such as <code>IsolateSOCKSAuth</code>.</li>
 <li id="cite_note-9">If you used to use only one <code>SocksPort</code> with the <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO">common
-torification methods</a>, the <a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023535.html">same
-thing happened</a>.</li>
+torification methods</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, the <a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023535.html">same
+thing happened</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-March/023535.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li id="cite_note-10">Tor configuration file <code>/etc/torrc.d/70_workstation.conf</code>
 <code>%include</code>s file
 <code>/usr/share/tor/tor-service-defaults-torrc.anondist</code>.</li>
@@ -3015,7 +2919,7 @@ thing happened</a>.</li>
 <li id="cite_note-12"><a href="../Multiple_Whonix-Workstation/">Multiple
 Whonix-Workstation</a> using different internal IP's are automatically
 separated by Tor (<code>IsolateClientAddr</code> is Tor's default).</li>
-<li id="cite_note-13">This is because <code>torsocks</code> configuration file <a href="https://github.com/Whonix/uwt/blob/master/etc/tor/torsocks.conf.anondist"><code>/etc/tor/torsocks.conf.anondist</code></a>
+<li id="cite_note-13">This is because <code>torsocks</code> configuration file <a href="https://github.com/Whonix/uwt/blob/master/etc/tor/torsocks.conf.anondist"><code>/etc/tor/torsocks.conf.anondist</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/uwt/blob/master/etc/tor/torsocks.conf.anondist" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 is preconfigured with setting <code>IsolatePID 1</code>.
 <pre><code> # Set Torsocks to use an automatically generated SOCKS5 username/password based # on the process ID and current time, that makes the connections to Tor use a # different circuit from other existing streams in Tor on a per-process basis. # If set, the SOCKS5Username and SOCKS5Password options must not be set. # (Default: 0) IsolatePID 1 </code></pre></li>
 <li id="cite_note-14">Although not strictly required, you could alternatively/additionally
@@ -3026,8 +2930,7 @@ Tor configuration file.
 <div class="intro-like">
 <p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] of your choice with administrative
-rights.</p>
+text editor of your choice with administrative rights.</p>
 </div>
 <p><i class="padded-content-icon pci-text fa-solid cs-blue iconset-h2">1</i>
 Sysmaint notice. Ensure the VM has administrative (<code>sudo</code> /
@@ -3050,7 +2953,7 @@ Platform specific. Select your platform.</p>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -3092,7 +2995,7 @@ step. <code>System Maintenance Panel</code> -&gt;
 <div class="tcc-content">
 <p><u>If you are using a graphical Whonix-Gateway</u> and enabled
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided], take the following step.
+unrestricted admin mode, take the following step.
 <code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
 <code>Tor User Config</code></p>
 </div>
@@ -3126,7 +3029,7 @@ step. <code>System Maintenance Panel</code> -&gt;
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -3203,8 +3106,8 @@ following.</p>
 <pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;. Configuration was valid</code></pre>
 </div>
 </div></li>
-<li id="cite_note-15"><a href="https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373">https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373</a></li>
-<li id="cite_note-16"><a href="https://github.com/Whonix/uwt/blob/master/usr/libexec/uwt/uwtwrapper#L194">https://github.com/Whonix/uwt/blob/master/usr/libexec/uwt/uwtwrapper#L194</a></li>
+<li id="cite_note-15"><a href="https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373">https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-can-now-serve-as-http-proxy-httptunnelport/5373" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-16"><a href="https://github.com/Whonix/uwt/blob/master/usr/libexec/uwt/uwtwrapper#L194">https://github.com/Whonix/uwt/blob/master/usr/libexec/uwt/uwtwrapper#L194</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/uwt/blob/master/usr/libexec/uwt/uwtwrapper#L194" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-17">Qubes-Whonix users note: Or alternatively in App Qube.
 <div class="info-box ">
 <p><strong>1.</strong> Create folder <code>/usr/local/etc/uwt.d</code>.
@@ -3239,17 +3142,13 @@ Select your platform.</p>
 <p><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_9">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_9">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes. * <u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it. * <u>Editor
 requirement:</u> Close Featherpad (or the chosen text editor) before
 running the <code>sudoedit</code> command.
@@ -3263,17 +3162,13 @@ Open the file with root rights. <span class="code-select">sudoedit
 <p><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix_12">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_12">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes. * <u>Sudoedit guidance:</u> See
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it. * <u>Editor
 requirement:</u> Close Featherpad (or the chosen text editor) before
 running the <code>sudoedit</code> command. * <u>Template
@@ -3288,8 +3183,8 @@ down the Template. * <u>Restart App Qubes:</u> All App Qubes based on
 the Template need to be restarted if they were already running. *
 <u>Qubes persistence:</u> See also
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] * <u>General procedure:</u> This
-is a general procedure required for Qubes and is <a href="../Unspecific/">unspecific to Qubes-Whonix</a>.</p>
+Qubes Persistence * <u>General procedure:</u> This is a general
+procedure required for Qubes and is <a href="../Unspecific/">unspecific to Qubes-Whonix</a>.</p>
 </div>
 </div>
 <div class="tcc-section info-box">
@@ -3297,11 +3192,7 @@ is a general procedure required for Qubes and is <a href="../Unspecific/">unspec
 <p><img src="../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives_9">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives_9">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -3332,7 +3223,7 @@ By utilizing a curl parameter we are using anyhow --
 disabled even if it is technically still set. This will result in
 downloading via the system's default networking.</li>
 <li id="cite_note-21">This term was coined in context of a <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy">Tor
-Transparent Proxy</a> (<a href="http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/legacy/trac/-/wikis/doc/TransparentProxy">.onion</a>).
+Transparent Proxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (<a href="http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/legacy/trac/-/wikis/doc/TransparentProxy">.onion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/legacy/trac/-/wikis/doc/TransparentProxy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>).
 It acts as a simple gateway that routes all connections through Tor, but
 does not provide <a href="./">Stream
 Isolation</a>.</li>
@@ -3340,14 +3231,14 @@ Isolation</a>.</li>
 red sign and state "Tor Disabled" when a mouse was hovered over it.</li>
 <li id="cite_note-23">Unless this environment variable is manually unset before starting
 Tor Browser.</li>
-<li id="cite_note-24">* <a href="https://forums.whonix.org/t/tor-browser-10-without-tor/10313">https://forums.whonix.org/t/tor-browser-10-without-tor/10313</a>
-* <a href="https://forums.whonix.org/t/tor-browser-not-working-user-tor-vpn-internet/10385">https://forums.whonix.org/t/tor-browser-not-working-user-tor-vpn-internet/10385</a>
-* <a href="https://forums.whonix.org/t/tor-browser-infinite-tab-opening-when-enabling-tor-transproxy-when-using-it-with-a-vpn/12791">https://forums.whonix.org/t/tor-browser-infinite-tab-opening-when-enabling-tor-transproxy-when-using-it-with-a-vpn/12791</a></li>
+<li id="cite_note-24">* <a href="https://forums.whonix.org/t/tor-browser-10-without-tor/10313">https://forums.whonix.org/t/tor-browser-10-without-tor/10313</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-browser-10-without-tor/10313" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://forums.whonix.org/t/tor-browser-not-working-user-tor-vpn-internet/10385">https://forums.whonix.org/t/tor-browser-not-working-user-tor-vpn-internet/10385</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-browser-not-working-user-tor-vpn-internet/10385" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://forums.whonix.org/t/tor-browser-infinite-tab-opening-when-enabling-tor-transproxy-when-using-it-with-a-vpn/12791">https://forums.whonix.org/t/tor-browser-infinite-tab-opening-when-enabling-tor-transproxy-when-using-it-with-a-vpn/12791</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-browser-infinite-tab-opening-when-enabling-tor-transproxy-when-using-it-with-a-vpn/12791" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-25">The regular Tor Browser Bundle from The Tor Project (without Whonix)
 allows networking settings to changed inside Tor via the
 <code>Open Network Settings</code> menu option. It has the same effect
 as editing Tor's config file torrc. In Whonix, the environment variable
-<code>export TOR_NO_DISPLAY_NETWORK_SETTINGS=1</code> has been <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">set</a>
+<code>export TOR_NO_DISPLAY_NETWORK_SETTINGS=1</code> has been <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">set</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 to disable the <code>Tor Browser</code> &#8594;
 <code>Open Network Settings...</code> menu item. It is not useful and
 confusing to have in the Whonix-Workstation because: * In Whonix, there

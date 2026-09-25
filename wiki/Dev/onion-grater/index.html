@@ -20,35 +20,18 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>onion-grater</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Whonix-Gateway">Whonix-Gateway</a></li><li class="toc-l2"><a href="#Whonix-Workstation">Whonix-Workstation</a></li><li class="toc-l2"><a href="#Talking_to_the_real_Tor_Controller">Talking to the real Tor
-Controller</a></li><li class="toc-l2"><a href="#For_third-party_projects_with_Tor-friendly_applications">For
-third-party projects with Tor-friendly applications</a></li><li class="toc-l2"><a href="#How_onion-grater_parses_files">How onion-grater parses
-files</a></li><li class="toc-l2"><a href="#name">name</a></li><li class="toc-l2"><a href="#apparmor-profiles">apparmor-profiles</a></li><li class="toc-l2"><a href="#users">users</a></li><li class="toc-l2"><a href="#hosts">hosts</a></li><li class="toc-l2"><a href="#Whonix_Default_Onion-Grater_Profile">Whonix Default Onion-Grater
-Profile</a></li><li class="toc-l2"><a href="#Tor_Browser">Tor Browser</a></li><li class="toc-l2"><a href="#OnionShare">OnionShare</a></li><li class="toc-l2"><a href="#Bitcoin_Core">Bitcoin Core</a></li><li class="toc-l2"><a href="#Bisq">Bisq</a></li><li class="toc-l2"><a href="#Wahay">Wahay</a></li><li class="toc-l2"><a href="#ZeroNet">ZeroNet</a></li><li class="toc-l2"><a href="#Systemcheck">Systemcheck</a></li><li class="toc-l2"><a href="#TorLauncher">TorLauncher</a></li><li class="toc-l2"><a href="#TorButton">TorButton</a></li><li class="toc-l3"><a href="#TorButton_commands">TorButton commands</a></li><li class="toc-l3"><a href="#TorButton_Network_Settings">TorButton Network Settings</a></li><li class="toc-l3"><a href="#TorButton_issues">TorButton issues</a></li><li class="toc-l2"><a href="#Indicator_for_current_Circuit_Status_and_Exit_IP">Indicator for
-current Circuit Status and Exit IP</a></li><li class="toc-l2"><a href="#onion_client_auth_add">onion_client_auth_add</a></li><li class="toc-l2"><a href="#UI_for_ExitNode_country_selection_in_tor-launcher">UI for
-ExitNode country selection in tor-launcher</a></li><li class="toc-l2"><a href="#Feedback_mechanism_for_clock-skew_and_other_bad_problems">Feedback
-mechanism for clock-skew and other bad problems</a></li><li class="toc-l2"><a href="#onion-grater_debug_mode">onion-grater debug mode</a></li><li class="toc-l2"><a href="#onion-grater_passthrough_mode">onion-grater passthrough
-mode</a></li><li class="toc-l2"><a href="#AppArmor_issues">AppArmor issues</a></li><li class="toc-l2"><a href="#Connect_to_onion-grater_from_Whonix-Gateway">Connect to
-onion-grater from Whonix-Gateway</a></li><li class="toc-l2"><a href="#Connect_to_onion-grater_from_Whonix-Workstation">Connect to
-onion-grater from Whonix-Workstation</a></li><li class="toc-l2"><a href="#tcpdump_-_Less_Important">tcpdump - Less Important</a></li><li class="toc-l2"><a href="#onion-grater_by_Tails">onion-grater by Tails</a></li><li class="toc-l2"><a href="#onion-grater_by_Tails_forked_by_Whonix">onion-grater by Tails
-forked by Whonix</a></li><li class="toc-l2"><a href="#roflcoptor_by_Subgraph_OS">roflcoptor by Subgraph OS</a></li><li class="toc-l2"><a href="#surrogate.go_by_Yawning_Angel">surrogate.go by Yawning
-Angel</a></li><li class="toc-l2"><a href="#legacy_control-port-filter-python_by_Whonix">legacy
-control-port-filter-python by Whonix</a></li><li class="toc-l2"><a href="#legacy2_control-port-filter_by_Whonix">legacy2
-control-port-filter by Whonix</a></li><li class="toc-l2"><a href="#Add_profile">Add profile</a></li><li class="toc-l2"><a href="#Remove_profile">Remove profile</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
-<div class="first-heading">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>onion-grater</span></nav><div class="first-heading">
 <p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../../Moved:Stateless/" title="Dev/Stateless"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Stateless</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../../Moved:Automatic_Updates/" title="Dev/Automatic Updates"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Automatic
 Updates</span></a><span class="info"><span class="prev">Previous page:
 Dev/Stateless</span><span class="index">Index page:
 Design</span><span class="next">Next page: Dev/Automatic
 Updates</span></span></span>onion-grater, a Tor Control Port Filter
 Proxy</p>
-</div>
-<div class="mininav">
+</div><div class="mininav">
 <ul>
 <li><a href="../../Tor/">Tor</a></li>
 <li><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Tor Versioning</li>
 <li><a href="../../Anon_Connection_Wizard/">Anon Connection
 Wizard</a></li>
 <li><a href="../../Tor-control-panel/">tor-control-panel</a></li>
@@ -66,7 +49,24 @@ and Misconceptions</a></li>
 (Developer)</a></li>
 <li><a href="../anon-ws-disable-stacked-tor/">anon-ws-disable-stacked-tor (Developer)</a></li>
 </ul>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Whonix-Gateway">Whonix-Gateway</a></li><li class="toc-l2"><a href="#Whonix-Workstation">Whonix-Workstation</a></li><li class="toc-l2"><a href="#Talking_to_the_real_Tor_Controller">Talking to the real Tor
+Controller</a></li><li class="toc-l2"><a href="#For_third-party_projects_with_Tor-friendly_applications">For
+third-party projects with Tor-friendly applications</a></li><li class="toc-l2"><a href="#How_onion-grater_parses_files">How onion-grater parses
+files</a></li><li class="toc-l2"><a href="#name">name</a></li><li class="toc-l2"><a href="#apparmor-profiles">apparmor-profiles</a></li><li class="toc-l2"><a href="#users">users</a></li><li class="toc-l2"><a href="#hosts">hosts</a></li><li class="toc-l2"><a href="#Whonix_Default_Onion-Grater_Profile">Whonix Default Onion-Grater
+Profile</a></li><li class="toc-l2"><a href="#Tor_Browser">Tor Browser</a></li><li class="toc-l2"><a href="#OnionShare">OnionShare</a></li><li class="toc-l2"><a href="#Bitcoin_Core">Bitcoin Core</a></li><li class="toc-l2"><a href="#Bisq">Bisq</a></li><li class="toc-l2"><a href="#Wahay">Wahay</a></li><li class="toc-l2"><a href="#ZeroNet">ZeroNet</a></li><li class="toc-l2"><a href="#Systemcheck">Systemcheck</a></li><li class="toc-l2"><a href="#TorLauncher">TorLauncher</a></li><li class="toc-l2"><a href="#TorButton">TorButton</a></li><li class="toc-l3"><a href="#TorButton_commands">TorButton commands</a></li><li class="toc-l3"><a href="#TorButton_Network_Settings">TorButton Network Settings</a></li><li class="toc-l3"><a href="#TorButton_issues">TorButton issues</a></li><li class="toc-l2"><a href="#Indicator_for_current_Circuit_Status_and_Exit_IP">Indicator for
+current Circuit Status and Exit IP</a></li><li class="toc-l2"><a href="#onion_client_auth_add">onion_client_auth_add</a></li><li class="toc-l2"><a href="#UI_for_ExitNode_country_selection_in_tor-launcher">UI for
+ExitNode country selection in tor-launcher</a></li><li class="toc-l2"><a href="#Feedback_mechanism_for_clock-skew_and_other_bad_problems">Feedback
+mechanism for clock-skew and other bad problems</a></li><li class="toc-l2"><a href="#onion-grater_debug_mode">onion-grater debug mode</a></li><li class="toc-l2"><a href="#onion-grater_passthrough_mode">onion-grater passthrough
+mode</a></li><li class="toc-l2"><a href="#AppArmor_issues">AppArmor issues</a></li><li class="toc-l2"><a href="#Connect_to_onion-grater_from_Whonix-Gateway">Connect to
+onion-grater from Whonix-Gateway</a></li><li class="toc-l2"><a href="#Connect_to_onion-grater_from_Whonix-Workstation">Connect to
+onion-grater from Whonix-Workstation</a></li><li class="toc-l2"><a href="#tcpdump_-_Less_Important">tcpdump - Less Important</a></li><li class="toc-l2"><a href="#onion-grater_by_Tails">onion-grater by Tails</a></li><li class="toc-l2"><a href="#onion-grater_by_Tails_forked_by_Whonix">onion-grater by Tails
+forked by Whonix</a></li><li class="toc-l2"><a href="#roflcoptor_by_Subgraph_OS">roflcoptor by Subgraph OS</a></li><li class="toc-l2"><a href="#surrogate.go_by_Yawning_Angel">surrogate.go by Yawning
+Angel</a></li><li class="toc-l2"><a href="#legacy_control-port-filter-python_by_Whonix">legacy
+control-port-filter-python by Whonix</a></li><li class="toc-l2"><a href="#legacy2_control-port-filter_by_Whonix">legacy2
+control-port-filter by Whonix</a></li><li class="toc-l2"><a href="#Add_profile">Add profile</a></li><li class="toc-l2"><a href="#Remove_profile">Remove profile</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
+
 <div class="pre-intro-p ">
 </div>
 <div class="hidden-thumbnail">
@@ -89,7 +89,7 @@ sending controller commands. It acts based on whitelists, denying
 everything by default and only allowing explicitly specified commands
 (and their arguments) and events.</p>
 <p>According to <a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater#L3">upstream
-Tails OS documentation</a>, onion-grater is defined as: <em>This filter
+Tails OS documentation</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater#L3" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, onion-grater is defined as: <em>This filter
 proxy allows fine-grained access whitelists of commands (and their
 arguments) and events on a per-application basis.</em></p>
 <p>Contrary to Tails, the fields user and per-application (AppArmor
@@ -119,20 +119,20 @@ Services Security</a></li>
 </ul>
 <p>These dangerous commands can only be limited with a proxy, as the
 feature request <a href="https://gitlab.torproject.org/legacy/trac/-/issues/8369">Option to
-limit information Tor's control port discloses</a> against Tor has not
+limit information Tor's control port discloses</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/8369" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> against Tor has not
 been implemented. This Tor control port feature also makes a <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/BridgeFirewall">Bridge
-Firewall</a> impossible.</p>
+Firewall</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/BridgeFirewall" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> impossible.</p>
 <p>Tor Browser <a href="https://gitlab.torproject.org/legacy/trac/-/issues/6546#comment:33">by
-default performs its own control port verification</a>. It checks via
+default performs its own control port verification</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/6546#comment:33" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. It checks via
 the Tor control port (!) that the socks port Tor reports is the same one
 Tor Browser is configured to use. If it fails, and it did fail in Whonix
 0.5.6, Tor Button would appear disabled and show a failure message. (To
 see an example, refer to <a href="https://forums.whonix.org/uploads/default/original/1X/c2c9bb5dc7efee7a933dd00d3bf0c30c29c99daa.png">this
-screenshot</a>.) (To understand the resulting user confusion, see <a href="https://forums.whonix.org/t/something-went-wrong/2080">this forum
-thread</a>.) Since Whonix 6, this check is disabled using the <a href="https://gitlab.torproject.org/legacy/trac/-/issues/13079">environment
-variable to skip TorButton control port verification</a>
+screenshot</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/uploads/default/original/1X/c2c9bb5dc7efee7a933dd00d3bf0c30c29c99daa.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.) (To understand the resulting user confusion, see <a href="https://forums.whonix.org/t/something-went-wrong/2080">this forum
+thread</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/something-went-wrong/2080" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.) Since Whonix 6, this check is disabled using the <a href="https://gitlab.torproject.org/legacy/trac/-/issues/13079">environment
+variable to skip TorButton control port verification</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/13079" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 (<code>export TOR_SKIP_CONTROLPORTTEST=1</code>), implemented via the
-package <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">anon-ws-disable-stacked-tor</a>.
+package <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">anon-ws-disable-stacked-tor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
 <p>Since Whonix-Workstation has no way to determine its own external IP
 address, joining Tor Browser's fingerprint for Whonix users, and having
@@ -160,7 +160,7 @@ utilize <code>/etc/onion-grater-merger.d/</code>, but in that case
 <code>/etc/onion-grater-merger.d/</code> must be made persistent. This
 means performing the procedure inside the Whonix-Gateway Template
 (commonly called <code>whonix-gateway-18</code>) and then restarting the
-Whonix-Gateway ProxyVM or using <a href="https://www.qubes-os.org/doc/bind-dirs/">bind-dirs</a>.</li>
+Whonix-Gateway ProxyVM or using <a href="https://www.qubes-os.org/doc/bind-dirs/">bind-dirs</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/bind-dirs/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul>
 <p>Both techniques are more complicated than simply using
 <code>/usr/local/etc/onion-grater-merger.d/</code>, since it is
@@ -170,7 +170,7 @@ Whonix-Gateway ProxyVM could extend and relax onion-grater's whitelist,
 while another could use the default, more restrictive whitelist.</p>
 <p>Onion-grater will only evaluate <code>*.yml</code> files.</p>
 <h1 id="Whonix_connection">Whonix connection</h1>
-<h2 id="Whonix-Gateway">Whonix-Gateway</h2>
+<h2 id="Whonix-Gateway">Whonix-Gateway</h2><span class="share-tooltip" data-anchor="Whonix-Gateway"><a class="headline-anchor" href="#Whonix-Gateway" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Whonix-Gateway">https://www.whonix.org/wiki/Dev/onion-grater/#Whonix-Gateway</span></span></span></span>
 <p>onion-grater listens on the Whonix internal network interface
 <sup class="reference"><a href="#cite_note-4">[4]</a></sup>, port <code>9051</code>. It filters (whitelists)
 incoming control port messages and forwards them to the real Tor Control
@@ -180,12 +180,12 @@ authentication to authenticate with Tor's control port. This detail is
 not crucial, since the Whonix-Gateway's sole purpose is running Tor. It
 is not a multi-user operating system, and if it were compromised, cookie
 authentication would no longer provide security.</p>
-<h2 id="Whonix-Workstation">Whonix-Workstation</h2>
+<h2 id="Whonix-Workstation">Whonix-Workstation</h2><span class="share-tooltip" data-anchor="Whonix-Workstation"><a class="headline-anchor" href="#Whonix-Workstation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Whonix-Workstation">https://www.whonix.org/wiki/Dev/onion-grater/#Whonix-Workstation</span></span></span></span>
 <p>Whonix sets the appropriate environment variables for the controller
 via a UNIX domain socket:
 <code>TOR_CONTROL_IPC_PATH=/run/anon-ws-disable-stacked-tor/127.0.0.1_9151.sock</code>,
 which is the socket used by Tor Browser.</p>
-<p>This functionality is implemented by the <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor">anon-ws-disable-stacked-tor</a>
+<p>This functionality is implemented by the <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor">anon-ws-disable-stacked-tor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 package. See also <a href="../anon-ws-disable-stacked-tor/">Dev/anon-ws-disable-stacked-tor</a>.</p>
 <h1 id="Attack_Scenarios">Attack Scenarios</h1>
 <p>Once Whonix-Workstation has been compromised, the adversary could
@@ -205,8 +205,8 @@ analysis to learn more about the paths the Tor client is using.</p>
 allowing commands to be sent from a compromised Whonix-Workstation to a
 Whonix-Gateway. This could include unsafe command parsing, memory leaks
 in Tor daemon C code, and other vulnerabilities.</p>
-<p>Information about these kinds of attacks
-[Broken-ExtLink--no-url-was-provided].</p>
+<p>Information about these kinds of attacks was requested upstream but
+received no expression of interest.</p>
 <h1 id="Imitating_real_Tor_Control_Connection">Imitating real Tor
 Control Connection</h1>
 <p>Should Tor close the connection, onion-grater will also close the
@@ -220,7 +220,7 @@ parity.)</p>
 <p>If Tor authentication fails, this is logged and onion-grater closes
 the client connection.</p>
 <h2 id="Talking_to_the_real_Tor_Controller">Talking to the real Tor
-Controller</h2>
+Controller</h2><span class="share-tooltip" data-anchor="Talking_to_the_real_Tor_Controller"><a class="headline-anchor" href="#Talking_to_the_real_Tor_Controller" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Talking_to_the_real_Tor_Controller">https://www.whonix.org/wiki/Dev/onion-grater/#Talking_to_the_real_Tor_Controller</span></span></span></span>
 <p>If, instead of connecting to onion-grater, you want to talk directly
 with the Tor Controller, it should be done on the Whonix-Gateway using
 the host <code>127.0.0.1</code>. See <a href="../../Tor_Controller/#Talking_to_the_real_Tor_Controller">Talking to the real Tor Controller</a> for more
@@ -233,7 +233,7 @@ examples available at
 <code>/usr/share/doc/onion-grater-merger/examples</code> in your
 Whonix-Gateway.</p>
 <h2 id="For_third-party_projects_with_Tor-friendly_applications">For
-third-party projects with Tor-friendly applications</h2>
+third-party projects with Tor-friendly applications</h2><span class="share-tooltip" data-anchor="For_third-party_projects_with_Tor-friendly_applications"><a class="headline-anchor" href="#For_third-party_projects_with_Tor-friendly_applications" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#For_third-party_projects_with_Tor-friendly_applications">https://www.whonix.org/wiki/Dev/onion-grater/#For_third-party_projects_with_Tor-friendly_applications</span></span></span></span>
 <p>Please document the Tor controller commands and provide hints to the
 scripts that send Tor commands. This can greatly increase the chance of
 your application being included in Whonix and used by real users.</p>
@@ -246,7 +246,7 @@ usability.</p>
 <h1 id="Profile_format">Profile format</h1>
 <p>There is no need to explain every directive in detail, as it is
 better to read the <a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater#L3">code
-comments</a> for more up-to-date information. The following sections
+comments</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater#L3" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> for more up-to-date information. The following sections
 only mention differences in directive usage on Whonix in comparison with
 Tails OS.</p>
 <p>A filter is matched if, for each of the relevant qualifiers, at least
@@ -257,17 +257,17 @@ on Whonix, as <code>apparmor-profiles</code> and <code>users</code>
 can't be set, and setting <code>hosts</code> requires user
 intervention.</p>
 <h2 id="How_onion-grater_parses_files">How onion-grater parses
-files</h2>
+files</h2><span class="share-tooltip" data-anchor="How_onion-grater_parses_files"><a class="headline-anchor" href="#How_onion-grater_parses_files" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#How_onion-grater_parses_files">https://www.whonix.org/wiki/Dev/onion-grater/#How_onion-grater_parses_files</span></span></span></span>
 <p>Parsing stops <strong>at the first match</strong>. This means that it
 is not possible to override files by using a higher-precedence name such
 as <code>50_user.yml</code> over <code>30_whonix-default.yml</code>.
 onion-grater sorts the files in reverse lexical order, so if
 <code>50_user.yml</code> matches, it will stop there; otherwise, it
 continues to <code>30_whonix-default.yml</code>.</p>
-<h2 id="name">name</h2>
+<h2 id="name">name</h2><span class="share-tooltip" data-anchor="name"><a class="headline-anchor" href="#name" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#name">https://www.whonix.org/wiki/Dev/onion-grater/#name</span></span></span></span>
 <p>We are not using the <em>name</em> directive because it is optional
 and the script file names already make the profiles unique.</p>
-<h2 id="apparmor-profiles">apparmor-profiles</h2>
+<h2 id="apparmor-profiles">apparmor-profiles</h2><span class="share-tooltip" data-anchor="apparmor-profiles"><a class="headline-anchor" href="#apparmor-profiles" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#apparmor-profiles">https://www.whonix.org/wiki/Dev/onion-grater/#apparmor-profiles</span></span></span></span>
 <p>For local (loopback) clients.</p>
 <p>We can't use the <em>apparmor-profiles</em> directive because, as per
 Whonix design, user programs run on the Whonix-Workstation, while the
@@ -275,7 +275,7 @@ controller resides on the Whonix-Gateway.</p>
 <p>Because of this, we default to:</p>
 <pre><code>  apparmor-profiles:
     - &#39;*&#39;</code></pre>
-<h2 id="users">users</h2>
+<h2 id="users">users</h2><span class="share-tooltip" data-anchor="users"><a class="headline-anchor" href="#users" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#users">https://www.whonix.org/wiki/Dev/onion-grater/#users</span></span></span></span>
 <p>For local (loopback) clients.</p>
 <p>We can't use the <em>users</em> directive because, as per Whonix
 design, user programs run on the Whonix-Workstation, while the
@@ -283,7 +283,7 @@ controller resides on the Whonix-Gateway.</p>
 <p>Because of this, we default to:</p>
 <pre><code>  users:
     - &#39;*&#39;</code></pre>
-<h2 id="hosts">hosts</h2>
+<h2 id="hosts">hosts</h2><span class="share-tooltip" data-anchor="hosts"><a class="headline-anchor" href="#hosts" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#hosts">https://www.whonix.org/wiki/Dev/onion-grater/#hosts</span></span></span></span>
 <p>For remote (non-local) clients.</p>
 <p>We can use the <em>hosts</em> directive, but the Whonix-Gateway
 doesn't know which of your multiple Whonix-Workstation instances require
@@ -302,68 +302,68 @@ on a per-host basis.</p>
 <u><strong>developers-only</strong></u>!</p>
 </div>
 <p>For users this is <a href="../../Unsupported/">unsupported</a>.</p>
-<p>Forum discussion: <a href="https://forums.whonix.org/t/workstation-hardcoded-ip-changes/21595">https://forums.whonix.org/t/workstation-hardcoded-ip-changes/21595</a></p>
+<p>Forum discussion: <a href="https://forums.whonix.org/t/workstation-hardcoded-ip-changes/21595">https://forums.whonix.org/t/workstation-hardcoded-ip-changes/21595</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/workstation-hardcoded-ip-changes/21595" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="Application_Support">Application Support</h1>
 <p>Some applications that use the commands and events whitelisted by
 default don't need to worry about setting profiles. Some applications
 might already be covered by profiles for other applications.</p>
 <h2 id="Whonix_Default_Onion-Grater_Profile">Whonix Default Onion-Grater
-Profile</h2>
+Profile</h2><span class="share-tooltip" data-anchor="Whonix_Default_Onion-Grater_Profile"><a class="headline-anchor" href="#Whonix_Default_Onion-Grater_Profile" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Whonix_Default_Onion-Grater_Profile">https://www.whonix.org/wiki/Dev/onion-grater/#Whonix_Default_Onion-Grater_Profile</span></span></span></span>
 <ul>
-<li><strong>Profile</strong>: <a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/onion-grater-merger.d/30_whonix-default.yml">/etc/onion-grater-merger.d/30_whonix-default.yml</a></li>
+<li><strong>Profile</strong>: <a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/onion-grater-merger.d/30_whonix-default.yml">/etc/onion-grater-merger.d/30_whonix-default.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/onion-grater-merger.d/30_whonix-default.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Tor_Browser">Tor Browser</h2>
+<h2 id="Tor_Browser">Tor Browser</h2><span class="share-tooltip" data-anchor="Tor_Browser"><a class="headline-anchor" href="#Tor_Browser" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Tor_Browser">https://www.whonix.org/wiki/Dev/onion-grater/#Tor_Browser</span></span></span></span>
 <ul>
 <li><strong>Page</strong>: <a href="../../Tor_Browser/">Tor
 Browser</a></li>
 <li><strong>Profile</strong>: Mostly whitelisted by default, except for
-<a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml">/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml</a></li>
+<a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml">/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="OnionShare">OnionShare</h2>
+<h2 id="OnionShare">OnionShare</h2><span class="share-tooltip" data-anchor="OnionShare"><a class="headline-anchor" href="#OnionShare" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#OnionShare">https://www.whonix.org/wiki/Dev/onion-grater/#OnionShare</span></span></span></span>
 <ul>
 <li><strong>Page</strong>: <a href="../../OnionShare/">OnionShare</a></li>
-<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml">/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml</a></li>
+<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml">/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Bitcoin_Core">Bitcoin Core</h2>
+<h2 id="Bitcoin_Core">Bitcoin Core</h2><span class="share-tooltip" data-anchor="Bitcoin_Core"><a class="headline-anchor" href="#Bitcoin_Core" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Bitcoin_Core">https://www.whonix.org/wiki/Dev/onion-grater/#Bitcoin_Core</span></span></span></span>
 <ul>
 <li><strong>Page</strong>: <a href="../../Bitcoin_Core/">Bitcoin_Core</a></li>
-<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bitcoind.yml">/usr/share/doc/onion-grater-merger/examples/40_bitcoind.yml</a></li>
+<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bitcoind.yml">/usr/share/doc/onion-grater-merger/examples/40_bitcoind.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bitcoind.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Bisq">Bisq</h2>
+<h2 id="Bisq">Bisq</h2><span class="share-tooltip" data-anchor="Bisq"><a class="headline-anchor" href="#Bisq" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Bisq">https://www.whonix.org/wiki/Dev/onion-grater/#Bisq</span></span></span></span>
 <ul>
 <li><strong>Page</strong>: <a href="../../Bisq/">Bisq</a></li>
-<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bisq.yml">/usr/share/doc/onion-grater-merger/examples/40_bisq.yml</a></li>
+<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bisq.yml">/usr/share/doc/onion-grater-merger/examples/40_bisq.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bisq.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Wahay">Wahay</h2>
+<h2 id="Wahay">Wahay</h2><span class="share-tooltip" data-anchor="Wahay"><a class="headline-anchor" href="#Wahay" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Wahay">https://www.whonix.org/wiki/Dev/onion-grater/#Wahay</span></span></span></span>
 <ul>
-<li><strong>Page</strong>: <a href="https://wahay.org/">wahay.org</a></li>
-<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_wahay.yml">/usr/share/doc/onion-grater-merger/examples/40_wahay.yml</a></li>
+<li><strong>Page</strong>: <a href="https://wahay.org/">wahay.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://wahay.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_wahay.yml">/usr/share/doc/onion-grater-merger/examples/40_wahay.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_wahay.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="ZeroNet">ZeroNet</h2>
+<h2 id="ZeroNet">ZeroNet</h2><span class="share-tooltip" data-anchor="ZeroNet"><a class="headline-anchor" href="#ZeroNet" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#ZeroNet">https://www.whonix.org/wiki/Dev/onion-grater/#ZeroNet</span></span></span></span>
 <ul>
 <li><strong>Page</strong>: <a href="../../ZeroNet/">ZeroNet</a></li>
-<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_zeronet.yml">/usr/share/doc/onion-grater-merger/examples/40_zeronet.yml</a></li>
+<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_zeronet.yml">/usr/share/doc/onion-grater-merger/examples/40_zeronet.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_zeronet.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="Systemcheck">Systemcheck</h2>
+<h2 id="Systemcheck">Systemcheck</h2><span class="share-tooltip" data-anchor="Systemcheck"><a class="headline-anchor" href="#Systemcheck" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Systemcheck">https://www.whonix.org/wiki/Dev/onion-grater/#Systemcheck</span></span></span></span>
 <ul>
-<li><strong>Page</strong>: <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a></li>
+<li><strong>Page</strong>: <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><strong>Profile</strong>: asks onion-grater for
 <code>status/bootstrap-phase</code> <sup class="reference"><a href="#cite_note-5">[5]</a></sup> as well as
 <code>status/circuit-established</code> <sup class="reference"><a href="#cite_note-6">[6]</a></sup> in the Tor
 Bootstrap Status Check <sup class="reference"><a href="#cite_note-7">[7]</a></sup> (usability feature).</li>
 </ul>
-<h2 id="TorLauncher">TorLauncher</h2>
+<h2 id="TorLauncher">TorLauncher</h2><span class="share-tooltip" data-anchor="TorLauncher"><a class="headline-anchor" href="#TorLauncher" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#TorLauncher">https://www.whonix.org/wiki/Dev/onion-grater/#TorLauncher</span></span></span></span>
 <p>To get a list of Tor ControlPort commands used by TorLauncher,
 extract the TorLauncher source code and run:</p>
 <p><span class="code-select">grep -r -i getconf</span></p>
-<h2 id="TorButton">TorButton</h2>
-<h3 id="TorButton_commands">TorButton commands</h3>
+<h2 id="TorButton">TorButton</h2><span class="share-tooltip" data-anchor="TorButton"><a class="headline-anchor" href="#TorButton" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#TorButton">https://www.whonix.org/wiki/Dev/onion-grater/#TorButton</span></span></span></span>
+<h3 id="TorButton_commands">TorButton commands</h3><span class="share-tooltip" data-anchor="TorButton_commands"><a class="headline-anchor" href="#TorButton_commands" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#TorButton_commands">https://www.whonix.org/wiki/Dev/onion-grater/#TorButton_commands</span></span></span></span>
 <p>To get a list of Tor ControlPort commands used by TorButton, extract
 the TorButton source code and run:</p>
 <p><span class="code-select">grep -r -i torbutton_send_ctrl_cmd
 *</span></p>
 <p><span class="code-select">grep -r -i sendCommand *</span></p>
-<h3 id="TorButton_Network_Settings">TorButton Network Settings</h3>
+<h3 id="TorButton_Network_Settings">TorButton Network Settings</h3><span class="share-tooltip" data-anchor="TorButton_Network_Settings"><a class="headline-anchor" href="#TorButton_Network_Settings" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#TorButton_Network_Settings">https://www.whonix.org/wiki/Dev/onion-grater/#TorButton_Network_Settings</span></span></span></span>
 <p><span class="code-select">TorButton &amp;rarr; Open Network
 Settings...</span></p>
 <p>Uses the following commands:</p>
@@ -376,21 +376,21 @@ Settings...</span></p>
 <code>&#160;&#160;"GETCONF&#160;Bridge"</code></span><code>&#160;</code></p>
 <p>As a next logical step, they are likely to add:</p>
 <p><span class="code-select">"GETCONF HTTPProxy"</span></p>
-<p>We are <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">setting</a>
-the environment variable <a href="https://gitlab.torproject.org/legacy/trac/-/issues/14100"><code>export TOR_NO_DISPLAY_NETWORK_SETTINGS=1</code></a>
+<p>We are <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">setting</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+the environment variable <a href="https://gitlab.torproject.org/legacy/trac/-/issues/14100"><code>export TOR_NO_DISPLAY_NETWORK_SETTINGS=1</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/14100" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 to disable the "TorButton" &#8594; "Open Network Settings..." menu item. It is
 not useful and is confusing to have on a workstation, because Tor must
 be configured on the gateway, and for security reasons this is forbidden
 from the workstation.</p>
-<h3 id="TorButton_issues">TorButton issues</h3>
+<h3 id="TorButton_issues">TorButton issues</h3><span class="share-tooltip" data-anchor="TorButton_issues"><a class="headline-anchor" href="#TorButton_issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#TorButton_issues">https://www.whonix.org/wiki/Dev/onion-grater/#TorButton_issues</span></span></span></span>
 <p>Looking for contributor!</p>
 <ul>
 <li>Say hello in the <a href="https://forums.whonix.org/c/development">Whonix Development
-Forum</a>.</li>
+Forum</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/c/development" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul>
 <h4 id="Clock_skew">Clock skew</h4>
-<p>In the future, Tor Button will likely use something like <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3652"><code>GETINFO clockskew</code></a>.
-The Tor Browser developer <a href="https://gitlab.torproject.org/legacy/trac/-/issues/8032">rejected</a>
+<p>In the future, Tor Button will likely use something like <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3652"><code>GETINFO clockskew</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3652" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
+The Tor Browser developer <a href="https://gitlab.torproject.org/legacy/trac/-/issues/8032">rejected</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/8032" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 the idea of adding the statement
 <em><span>require no access to Tor's
 control port</span></em> to Tor Browser's design.</p>
@@ -400,7 +400,7 @@ with <code>250-net/listeners/socks="127.0.0.1:9150"</code>. This
 satisfies Tor Button, causing it to show a "Congratulations!" (success)
 welcome page on its default homepage <a href="about:tor">about:tor</a>,
 rather than a failure page that would confuse users. Since bug <a href="https://gitlab.torproject.org/legacy/trac/-/issues/9224">TorButton
-<span>about:tor</span> fails when using additional socks listeners</a>
+<span>about:tor</span> fails when using additional socks listeners</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/9224" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 was fixed by the Tor Project, this lie is no longer technically
 necessary.</p>
 <p>We're keeping the lie because it's unnecessary for Tor
@@ -471,10 +471,10 @@ w Bandwidth=00
 <li>Current state:</li>
 </ul>
 <p>For the Tor Circuit View to appear, it requires valid credentials
-returned from the <code>SENTCONNECT</code> <a href="https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js#L167">event</a>.
+returned from the <code>SENTCONNECT</code> <a href="https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js#L167">event</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js#L167" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 If these are not the same credentials that the Tor Browser sent for that
 tab, <a href="https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js#L410">the
-circuits will not be shown</a>.</p>
+circuits will not be shown</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js#L410" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>Tor Browser expects to receive the same <code>SOCKS_USERNAME</code>
 and <code>SOCKS_PASSWORD</code> that it sent for that tab. If it does
 not, the entire tab is not displayed. You can check the reply using the
@@ -630,11 +630,11 @@ nodes for unknown reasons. Note that the command
 <code>getinfo ip-to-country</code> was never issued for reason unknown.
 After that, only redacted streams were returned.</p>
 <p>Folder with other examples already using this type of regex:</p>
-<p><a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples">https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples</a></p>
+<p><a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples">https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p>Direct links to profiles using similar regex:</p>
 <ul>
-<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bisq.yml">https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bisq.yml</a></li>
-<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml">https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml</a></li>
+<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bisq.yml">https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bisq.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_bisq.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml">https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Tor_Control_Protocol_Commands_Considerations">Tor Control
 Protocol Commands Considerations</h1>
@@ -664,36 +664,35 @@ enabling onion-grater profiles):
 <li>See onion-grater profiles source code.</li>
 <li>See also <a href="./#Application_Support">Application Support</a>.</li>
 <li><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] and
+Search the Source Code and
 <img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]:
-<code>onion-grater-merger</code></li>
-<li>For example, see <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml">/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml</a>.
+Find Files: <code>onion-grater-merger</code></li>
+<li>For example, see <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml">/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 Quote: <sup class="reference"><a href="#cite_note-8">[8]</a></sup></li>
 <li>For most other commands, no additional commentary by Whonix is
-available. For example, <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml">/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml</a>
+available. For example, <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml">/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onionshare.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 contains <code>onions/current</code>. These can be looked up in the <a href="https://spec.torproject.org/control-spec/commands.html">Tor
-Control Protocol</a>.</li>
+Control Protocol</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://spec.torproject.org/control-spec/commands.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul></li>
 </ul>
 <h1 id="Functionality_support">Functionality support</h1>
 <h2 id="Indicator_for_current_Circuit_Status_and_Exit_IP">Indicator for
-current Circuit Status and Exit IP</h2>
+current Circuit Status and Exit IP</h2><span class="share-tooltip" data-anchor="Indicator_for_current_Circuit_Status_and_Exit_IP"><a class="headline-anchor" href="#Indicator_for_current_Circuit_Status_and_Exit_IP" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Indicator_for_current_Circuit_Status_and_Exit_IP">https://www.whonix.org/wiki/Dev/onion-grater/#Indicator_for_current_Circuit_Status_and_Exit_IP</span></span></span></span>
 <ul>
 <li>The Tor Project Ticket: <a href="https://gitlab.torproject.org/legacy/trac/-/issues/8641">Create
-Browser UI indication for current circuit status and exit IP</a></li>
+Browser UI indication for current circuit status and exit IP</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/8641" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>Screenshots:
 <ul>
-<li><a href="https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/tor_circuit_diagram_screenshot.png">https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/tor_circuit_diagram_screenshot.png</a></li>
-<li><a href="https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/mockup_torCircuitStatus.png">https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/mockup_torCircuitStatus.png</a></li>
+<li><a href="https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/tor_circuit_diagram_screenshot.png">https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/tor_circuit_diagram_screenshot.png</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/tor_circuit_diagram_screenshot.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/mockup_torCircuitStatus.png">https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/mockup_torCircuitStatus.png</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://trac.torproject.org/projects/tor/raw-attachment/ticket/8641/mockup_torCircuitStatus.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
-<li>The Tor Project source code: <a href="https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js">https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js</a></li>
+<li>The Tor Project source code: <a href="https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js">https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/tpo/applications/torbutton/-/blob/main/chrome/content/tor-circuit-display.js" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>Requires <code>SETEVENTS STREAM</code>, which we do not want because
 we do not wish the workstation to know its Tor entry and/or Tor middle
 relay. The type and variation of messages make a catch-all solution too
 difficult to implement. It allows far too much information about what
 Tor is doing to be considered safe. <sup class="reference"><a href="#cite_note-9">[9]</a></sup></li>
-<li><a href="https://forums.whonix.org/t/tbb-sanitized-circuit-path-diagram-support/10284">Stalled</a>
+<li><a href="https://forums.whonix.org/t/tbb-sanitized-circuit-path-diagram-support/10284">Stalled</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tbb-sanitized-circuit-path-diagram-support/10284" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 onion-grater profile for enabling the circuit path diagram support.</li>
 </ul>
 <pre><code>---
@@ -721,9 +720,9 @@ onion-grater profile for enabling the circuit path diagram support.</li>
   events:
     STREAM:
   restrict-stream-events: true</code></pre>
-<h2 id="onion_client_auth_add">onion_client_auth_add</h2>
+<h2 id="onion_client_auth_add">onion_client_auth_add</h2><span class="share-tooltip" data-anchor="onion_client_auth_add"><a class="headline-anchor" href="#onion_client_auth_add" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#onion_client_auth_add">https://www.whonix.org/wiki/Dev/onion-grater/#onion_client_auth_add</span></span></span></span>
 <ul>
-<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml">/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml</a></li>
+<li><strong>Profile</strong>: <a href="https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml">/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/share/doc/onion-grater-merger/examples/40_onion_authentication.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p>Example command for Tor control protocol:
 <span class="code-select">onion_client_auth_add
@@ -732,13 +731,13 @@ x25519:uBKh6DGrkcFxB1adYuyKQltUDDUT9IZrOsne3nfHbHI=</span></p>
 <p>Test key that can be entered into browser.
 <span class="code-select">XAJKD2BRVOI4C4IHK2OWF3EKIJNVIDBVCP2IM2Z2ZHPN456HNRZA</span></p>
 <h2 id="UI_for_ExitNode_country_selection_in_tor-launcher">UI for
-ExitNode country selection in tor-launcher</h2>
-<p><a href="https://gitlab.torproject.org/legacy/trac/-/issues/11406">https://gitlab.torproject.org/legacy/trac/-/issues/11406</a></p>
+ExitNode country selection in tor-launcher</h2><span class="share-tooltip" data-anchor="UI_for_ExitNode_country_selection_in_tor-launcher"><a class="headline-anchor" href="#UI_for_ExitNode_country_selection_in_tor-launcher" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#UI_for_ExitNode_country_selection_in_tor-launcher">https://www.whonix.org/wiki/Dev/onion-grater/#UI_for_ExitNode_country_selection_in_tor-launcher</span></span></span></span>
+<p><a href="https://gitlab.torproject.org/legacy/trac/-/issues/11406">https://gitlab.torproject.org/legacy/trac/-/issues/11406</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/11406" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h2 id="Feedback_mechanism_for_clock-skew_and_other_bad_problems">Feedback
-mechanism for clock-skew and other bad problems</h2>
-<p><a href="https://gitlab.torproject.org/legacy/trac/-/issues/9675">https://gitlab.torproject.org/legacy/trac/-/issues/9675</a></p>
+mechanism for clock-skew and other bad problems</h2><span class="share-tooltip" data-anchor="Feedback_mechanism_for_clock-skew_and_other_bad_problems"><a class="headline-anchor" href="#Feedback_mechanism_for_clock-skew_and_other_bad_problems" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Feedback_mechanism_for_clock-skew_and_other_bad_problems">https://www.whonix.org/wiki/Dev/onion-grater/#Feedback_mechanism_for_clock-skew_and_other_bad_problems</span></span></span></span>
+<p><a href="https://gitlab.torproject.org/legacy/trac/-/issues/9675">https://gitlab.torproject.org/legacy/trac/-/issues/9675</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/9675" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="Debugging_Inspiration">Debugging Inspiration</h1>
-<h2 id="onion-grater_debug_mode">onion-grater debug mode</h2>
+<h2 id="onion-grater_debug_mode">onion-grater debug mode</h2><span class="share-tooltip" data-anchor="onion-grater_debug_mode"><a class="headline-anchor" href="#onion-grater_debug_mode" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#onion-grater_debug_mode">https://www.whonix.org/wiki/Dev/onion-grater/#onion-grater_debug_mode</span></span></span></span>
 <p>On Whonix-Gateway.</p>
 <p>Open file
 <code>/lib/systemd/system/onion-grater.service.d/50_user.conf</code> in
@@ -755,11 +754,7 @@ Select your platform.</p>
 <p><img src="../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">
-<p>Non-Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -767,7 +762,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -783,11 +778,7 @@ Open the file with root rights.</p>
 <p><img src="../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Qubes-Whonix">
-<p>Qubes-Whonix</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -795,7 +786,7 @@ Notes.</p>
 <ul>
 <li><u>Sudoedit guidance:</u> See
 <img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] for details on why using
+Open File with Root Rights for details on why using
 <code>sudoedit</code> improves security and how to use it.</li>
 <li><u>Editor requirement:</u> Close Featherpad (or the chosen text
 editor) before running the <code>sudoedit</code> command.</li>
@@ -815,7 +806,7 @@ Template.</li>
 to be restarted if they were already running.</li>
 <li><u>Qubes persistence:</u> See also
 <img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Qubes Persistence</li>
 <li><u>General procedure:</u> This is a general procedure required for
 Qubes and is <a href="../../Unspecific/">unspecific to
 Qubes-Whonix</a>.</li>
@@ -827,11 +818,7 @@ Qubes-Whonix</a>.</li>
 <p><img src="../../../media/Any12312.png.webp" width="25" alt="Any12312.png" /></p>
 </div>
 <div class="tcc-title">
-<div class="mw-heading mw-heading5 widget-headline ">
-<h5 role="heading" aria-level="5" id="Others_and_Alternatives">
-<p>Others and Alternatives</p>
-</h5>
-</div>
+<p><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Others_and_Alternatives">Others and Alternatives</h5></div></p>
 </div>
 <div class="tcc-content">
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -888,7 +875,7 @@ tab:</p>
 <p><span class="code-select">sudo journalctl -f -u
 onion-grater</span></p>
 <h2 id="onion-grater_passthrough_mode">onion-grater passthrough
-mode</h2>
+mode</h2><span class="share-tooltip" data-anchor="onion-grater_passthrough_mode"><a class="headline-anchor" href="#onion-grater_passthrough_mode" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#onion-grater_passthrough_mode">https://www.whonix.org/wiki/Dev/onion-grater/#onion-grater_passthrough_mode</span></span></span></span>
 <p>This disables filtering (allows all commands) and should be used
 during development only. Since this mode allows everything, we will not
 be running it as a service, but as a command in the terminal. This means
@@ -904,12 +891,12 @@ standard onion-grater service will be re-enabled.</p>
 <p><span class="code-select">tor-ctrl GETINFO
 status/bootstrap-phase</span></p>
 <p>Press <code>Enter</code>.</p>
-<h2 id="AppArmor_issues">AppArmor issues</h2>
+<h2 id="AppArmor_issues">AppArmor issues</h2><span class="share-tooltip" data-anchor="AppArmor_issues"><a class="headline-anchor" href="#AppArmor_issues" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#AppArmor_issues">https://www.whonix.org/wiki/Dev/onion-grater/#AppArmor_issues</span></span></span></span>
 <p>Watch <code>kern.log</code> for any potential AppArmor-related log
 messages. Run this on Whonix-Gateway:</p>
 <p><span class="code-select">sudo apparmor-info</span></p>
 <h2 id="Connect_to_onion-grater_from_Whonix-Gateway">Connect to
-onion-grater from Whonix-Gateway</h2>
+onion-grater from Whonix-Gateway</h2><span class="share-tooltip" data-anchor="Connect_to_onion-grater_from_Whonix-Gateway"><a class="headline-anchor" href="#Connect_to_onion-grater_from_Whonix-Gateway" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Connect_to_onion-grater_from_Whonix-Gateway">https://www.whonix.org/wiki/Dev/onion-grater/#Connect_to_onion-grater_from_Whonix-Gateway</span></span></span></span>
 <p>To connect to onion-grater from a <a href="../../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>-Gateway:</p>
 <p><span class="code-select">tor-ctrl -s 10.152.152.10:9051 GETINFO
 config-file</span></p>
@@ -917,13 +904,13 @@ config-file</span></p>
 <p><span class="code-select">tor-ctrl -s $(qubesdb-read /qubes-ip):9051
 GETINFO config-file</span></p>
 <h2 id="Connect_to_onion-grater_from_Whonix-Workstation">Connect to
-onion-grater from Whonix-Workstation</h2>
+onion-grater from Whonix-Workstation</h2><span class="share-tooltip" data-anchor="Connect_to_onion-grater_from_Whonix-Workstation"><a class="headline-anchor" href="#Connect_to_onion-grater_from_Whonix-Workstation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Connect_to_onion-grater_from_Whonix-Workstation">https://www.whonix.org/wiki/Dev/onion-grater/#Connect_to_onion-grater_from_Whonix-Workstation</span></span></span></span>
 <p>On the Whonix-Workstation you should be able to run this without
 setting the interface:</p>
 <p><span class="code-select">tor-ctrl GETINFO address</span></p>
 <p>Type <code>GETINFO address</code>. <code>Enter</code>. It should
 reply with <code>510 Command filtered</code>.</p>
-<h2 id="tcpdump_-_Less_Important">tcpdump - Less Important</h2>
+<h2 id="tcpdump_-_Less_Important">tcpdump - Less Important</h2><span class="share-tooltip" data-anchor="tcpdump_-_Less_Important"><a class="headline-anchor" href="#tcpdump_-_Less_Important" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#tcpdump_-_Less_Important">https://www.whonix.org/wiki/Dev/onion-grater/#tcpdump_-_Less_Important</span></span></span></span>
 <p>Use only in case of suspected fundamental issues with low-level
 networking.</p>
 <p>To see what's being sent to onion-grater's port, run this on
@@ -938,10 +925,10 @@ replace <code>vif18.0</code> with the device found using the command
 port 9051</span></p>
 <h1 id="Comparison_of_Control_Port_Filters">Comparison of Control Port
 Filters</h1>
-<h2 id="onion-grater_by_Tails">onion-grater by Tails</h2>
-<p><a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater">onion-grater</a>
+<h2 id="onion-grater_by_Tails">onion-grater by Tails</h2><span class="share-tooltip" data-anchor="onion-grater_by_Tails"><a class="headline-anchor" href="#onion-grater_by_Tails" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#onion-grater_by_Tails">https://www.whonix.org/wiki/Dev/onion-grater/#onion-grater_by_Tails</span></span></span></span>
+<p><a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater">onion-grater</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 by Tails (<a href="https://gitlab.tails.boum.org/tails/tails/-/tree/master/config/chroot_local-includes/etc/onion-grater.d">config
-folder</a>)</p>
+folder</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/tree/master/config/chroot_local-includes/etc/onion-grater.d" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</p>
 <ul>
 <li>Written in python3.</li>
 <li>All dependencies already included in Debian.</li>
@@ -959,11 +946,11 @@ net/listeners/socks</span></em> with the lie
 </ul>
 <hr />
 <h2 id="onion-grater_by_Tails_forked_by_Whonix">onion-grater by Tails
-forked by Whonix</h2>
-<p><a href="https://github.com/Whonix/onion-grater">onion-grater</a> (<a href="https://github.com/Whonix/onion-grater/blob/master/usr/lib/onion-grater-merger">config
-folder</a>) (<a href="https://github.com/Whonix/onion-grater/tree/master/usr/share/doc/onion-grater-merger/examples">additional
-onion-grater-<b>merger</b> example profiles</a>) (<a href="https://phabricator.whonix.org/project/view/72/">issue
-tracker</a>)</p>
+forked by Whonix</h2><span class="share-tooltip" data-anchor="onion-grater_by_Tails_forked_by_Whonix"><a class="headline-anchor" href="#onion-grater_by_Tails_forked_by_Whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#onion-grater_by_Tails_forked_by_Whonix">https://www.whonix.org/wiki/Dev/onion-grater/#onion-grater_by_Tails_forked_by_Whonix</span></span></span></span>
+<p><a href="https://github.com/Whonix/onion-grater">onion-grater</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (<a href="https://github.com/Whonix/onion-grater/blob/master/usr/lib/onion-grater-merger">config
+folder</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/lib/onion-grater-merger" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>) (<a href="https://github.com/Whonix/onion-grater/tree/master/usr/share/doc/onion-grater-merger/examples">additional
+onion-grater-<b>merger</b> example profiles</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/tree/master/usr/share/doc/onion-grater-merger/examples" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>) (<a href="https://phabricator.whonix.org/project/view/72/">issue
+tracker</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/project/view/72/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</p>
 <ul>
 <li>Mostly same as <a href="#onion-grater_by_Tails">#onion-grater by Tails</a></li>
 <li>Different config parsing mechanism</li>
@@ -976,8 +963,8 @@ https://mailman.boum.org/pipermail/tails-dev/2017-March/011327.html
 <li>AppArmor profile</li>
 </ul>
 <hr />
-<h2 id="roflcoptor_by_Subgraph_OS">roflcoptor by Subgraph OS</h2>
-<p><a href="https://github.com/subgraph/roflcoptor">roflcoptor</a> by
+<h2 id="roflcoptor_by_Subgraph_OS">roflcoptor by Subgraph OS</h2><span class="share-tooltip" data-anchor="roflcoptor_by_Subgraph_OS"><a class="headline-anchor" href="#roflcoptor_by_Subgraph_OS" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#roflcoptor_by_Subgraph_OS">https://www.whonix.org/wiki/Dev/onion-grater/#roflcoptor_by_Subgraph_OS</span></span></span></span>
+<p><a href="https://github.com/subgraph/roflcoptor">roflcoptor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/subgraph/roflcoptor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> by
 Subgraph OS</p>
 <ul>
 <li>Many golang dependencies that are not packaged for Debian.</li>
@@ -987,28 +974,28 @@ Subgraph OS</p>
 </ul>
 <hr />
 <h2 id="surrogate.go_by_Yawning_Angel">surrogate.go by Yawning
-Angel</h2>
+Angel</h2><span class="share-tooltip" data-anchor="surrogate.go_by_Yawning_Angel"><a class="headline-anchor" href="#surrogate.go_by_Yawning_Angel" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#surrogate.go_by_Yawning_Angel">https://www.whonix.org/wiki/Dev/onion-grater/#surrogate.go_by_Yawning_Angel</span></span></span></span>
 <p><a href="https://gitweb.torproject.org/tor-browser/sandboxed-tor-browser.git/tree/src/cmd/sandboxed-tor-browser/internal/tor/surrogate.go">surrogate.go
-(Tor Project gitweb)</a> by Yawning Angel</p>
+(Tor Project gitweb)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitweb.torproject.org/tor-browser/sandboxed-tor-browser.git/tree/src/cmd/sandboxed-tor-browser/internal/tor/surrogate.go" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> by Yawning Angel</p>
 <ul>
 <li>golang (build dependency, not runtime dependency)</li>
 <li>AGPL (Achtung!)</li>
 <li>Part of the new/upcoming <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorBrowser/Sandbox/Linux">Sandboxed
-Tor Browser</a></li>
+Tor Browser</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorBrowser/Sandbox/Linux" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>"Tor control/SOCKS port surrogates." (quoting top comment). Intended
 to proxy/filter both ControlPort and SOCKSPort of the Tor process in one
 bubblewrapped sandbox, while the actual Tor Browser runs in another
 bubblewrapped sandbox.</li>
-<li>Observed version: <a href="https://gitweb.torproject.org/tor-browser/sandboxed-tor-browser.git/commit/src/cmd/sandboxed-tor-browser/internal/tor/surrogate.go?id=6ff4802a9f4b76c791c2bf864b5446170474215f">6ff4802</a></li>
+<li>Observed version: <a href="https://gitweb.torproject.org/tor-browser/sandboxed-tor-browser.git/commit/src/cmd/sandboxed-tor-browser/internal/tor/surrogate.go?id=6ff4802a9f4b76c791c2bf864b5446170474215f">6ff4802</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitweb.torproject.org/tor-browser/sandboxed-tor-browser.git/commit/src/cmd/sandboxed-tor-browser/internal/tor/surrogate.go?id=6ff4802a9f4b76c791c2bf864b5446170474215f" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>So, official TPO Tor Browser variant also has this problem.
 Oops!</li>
 </ul>
 <hr />
 <h2 id="legacy_control-port-filter-python_by_Whonix">legacy
-control-port-filter-python by Whonix</h2>
-<p>Legacy <a href="https://github.com/adrelanos/control-port-filter-python">control-port-filter-python</a>
+control-port-filter-python by Whonix</h2><span class="share-tooltip" data-anchor="legacy_control-port-filter-python_by_Whonix"><a class="headline-anchor" href="#legacy_control-port-filter-python_by_Whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#legacy_control-port-filter-python_by_Whonix">https://www.whonix.org/wiki/Dev/onion-grater/#legacy_control-port-filter-python_by_Whonix</span></span></span></span>
+<p>Legacy <a href="https://github.com/adrelanos/control-port-filter-python">control-port-filter-python</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/adrelanos/control-port-filter-python" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 used from Whonix 10 to Whonix 13 (<a href="https://github.com/adrelanos/control-port-filter-python/releases/tag/1.7-1">version
-1.7-1</a>) (last git commit <a href="https://github.com/adrelanos/control-port-filter-python/commit/99e8395fbafcb7789c7d1b5cbf7410ed65192e9a">99e8395fbafcb7789c7d1b5cbf7410ed65192e9a</a>)
+1.7-1</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/adrelanos/control-port-filter-python/releases/tag/1.7-1" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>) (last git commit <a href="https://github.com/adrelanos/control-port-filter-python/commit/99e8395fbafcb7789c7d1b5cbf7410ed65192e9a">99e8395fbafcb7789c7d1b5cbf7410ed65192e9a</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/adrelanos/control-port-filter-python/commit/99e8395fbafcb7789c7d1b5cbf7410ed65192e9a" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
 [deprecated]</p>
 <ul>
 <li>A fork of a very early
@@ -1043,14 +1030,14 @@ folder.</li>
 </ul>
 <hr />
 <h2 id="legacy2_control-port-filter_by_Whonix">legacy2
-control-port-filter by Whonix</h2>
+control-port-filter by Whonix</h2><span class="share-tooltip" data-anchor="legacy2_control-port-filter_by_Whonix"><a class="headline-anchor" href="#legacy2_control-port-filter_by_Whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#legacy2_control-port-filter_by_Whonix">https://www.whonix.org/wiki/Dev/onion-grater/#legacy2_control-port-filter_by_Whonix</span></span></span></span>
 <p>Legacy^2 control-port-filter (used up to Whonix 9.x) [deprecated]</p>
 <ul>
 <li>Supports parallel connections.</li>
-<li>Written in bash. (<a href="https://github.com/adrelanos/control-port-filter">GitHub</a>)
+<li>Written in bash. (<a href="https://github.com/adrelanos/control-port-filter">GitHub</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/adrelanos/control-port-filter" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
 (archived)</li>
 <li><a href="https://github.com/adrelanos/control-port-filter/blob/master/etc/controlportfilt.d/30_controlportfilt_default">Whitelists
-multiple useful Tor ControlPort commands</a>.</li>
+multiple useful Tor ControlPort commands</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/adrelanos/control-port-filter/blob/master/etc/controlportfilt.d/30_controlportfilt_default" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>Configurable using /etc/controlportfilt.d drop-in files.</li>
 <li>Supports answering
 <em><span>getinfo
@@ -1071,7 +1058,7 @@ folder.</li>
 profiles</h1>
 <p>Previously manual instructions. No longer needed.
 <code>onion-grater-add</code> automates this.</p>
-<h2 id="Add_profile">Add profile</h2>
+<h2 id="Add_profile">Add profile</h2><span class="share-tooltip" data-anchor="Add_profile"><a class="headline-anchor" href="#Add_profile" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Add_profile">https://www.whonix.org/wiki/Dev/onion-grater/#Add_profile</span></span></span></span>
 <p><strong>1.</strong> Create the folder
 <code>/usr/local/etc/onion-grater-merger.d</code>.</p>
 <p><span class="code-select">sudo mkdir -p
@@ -1083,7 +1070,7 @@ onion-grater settings folder.</p>
 <p><strong>3.</strong> Restart onion-grater.</p>
 <p><span class="code-select">sudo service onion-grater
 restart</span></p>
-<h2 id="Remove_profile">Remove profile</h2>
+<h2 id="Remove_profile">Remove profile</h2><span class="share-tooltip" data-anchor="Remove_profile"><a class="headline-anchor" href="#Remove_profile" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/onion-grater/#Remove_profile">https://www.whonix.org/wiki/Dev/onion-grater/#Remove_profile</span></span></span></span>
 <p><strong>1.</strong> Remove the symlink for the onion-grater
 profile.</p>
 <p><span class="code-select">sudo unlink
@@ -1094,31 +1081,31 @@ restart</span></p>
 <h1 id="Whonix_Forum_Discussion">Whonix Forum Discussion</h1>
 <ul>
 <li><a href="https://forums.whonix.org/t/new-tor-controlport-commands-wanted-by-tbb-4-5-and-above">new
-Tor ControlPort commands wanted by TBB 4.5 and above</a></li>
-<li><a href="https://forums.whonix.org/t/onion-grater-development/15845">https://forums.whonix.org/t/onion-grater-development/15845</a></li>
+Tor ControlPort commands wanted by TBB 4.5 and above</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/new-tor-controlport-commands-wanted-by-tbb-4-5-and-above" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://forums.whonix.org/t/onion-grater-development/15845">https://forums.whonix.org/t/onion-grater-development/15845</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/onion-grater-development/15845" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Source_Code">Source Code</h1>
 <p>Original upstream by Tails:</p>
 <ul>
-<li><a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater">/config/chroot_local-includes/usr/local/lib/onion-grater</a></li>
-<li><a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/onion-grater.d/onionshare.yml">/config/chroot_local-includes/etc/onion-grater.d/onionshare.yml</a></li>
+<li><a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater">/config/chroot_local-includes/usr/local/lib/onion-grater</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/usr/local/lib/onion-grater" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/onion-grater.d/onionshare.yml">/config/chroot_local-includes/etc/onion-grater.d/onionshare.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.tails.boum.org/tails/tails/-/blob/master/config/chroot_local-includes/etc/onion-grater.d/onionshare.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p>Fork by Whonix:</p>
 <ul>
-<li><a href="https://github.com/Whonix/onion-grater">onion-grater</a></li>
-<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/lib/onion-grater">/usr/lib/onion-grater</a></li>
-<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/lib/onion-grater-merger">/usr/lib/onion-grater-merger</a></li>
-<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/lib/systemd/system/onion-grater.service">/lib/systemd/system/onion-grater.service</a></li>
-<li><a href="https://github.com/Whonix/onion-grater/tree/master/usr/share/doc/onion-grater-merger/examples">/usr/share/doc/onion-grater-merger/examples</a></li>
+<li><a href="https://github.com/Whonix/onion-grater">onion-grater</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/lib/onion-grater">/usr/lib/onion-grater</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/lib/onion-grater" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/lib/onion-grater-merger">/usr/lib/onion-grater-merger</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/lib/onion-grater-merger" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/onion-grater/blob/master/usr/lib/systemd/system/onion-grater.service">/lib/systemd/system/onion-grater.service</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/blob/master/usr/lib/systemd/system/onion-grater.service" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/onion-grater/tree/master/usr/share/doc/onion-grater-merger/examples">/usr/share/doc/onion-grater-merger/examples</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/onion-grater/tree/master/usr/share/doc/onion-grater-merger/examples" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p>Whonix supplementary:</p>
 <ul>
-<li><a href="https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf">/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf</a></li>
-<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/onion-grater.service.d/40_qubes.conf">/lib/systemd/system/onion-grater.service.d/40_qubes.conf</a></li>
-<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/onion-grater-merger.d/30_whonix-default.yml">/etc/onion-grater-merger.d/30_whonix-default.yml</a></li>
-<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/bin/onion-grater-add">/usr/bin/onion-grater-add</a></li>
-<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/bin/onion-grater-remove">/usr/bin/onion-grater-remove</a></li>
-<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/bin/onion-grater-list">/usr/bin/onion-grater-list</a></li>
+<li><a href="https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf">/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/onion-grater.service.d/40_qubes.conf">/lib/systemd/system/onion-grater.service.d/40_qubes.conf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/qubes-whonix/blob/master/usr/lib/systemd/system/onion-grater.service.d/40_qubes.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/onion-grater-merger.d/30_whonix-default.yml">/etc/onion-grater-merger.d/30_whonix-default.yml</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/etc/onion-grater-merger.d/30_whonix-default.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/bin/onion-grater-add">/usr/bin/onion-grater-add</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/bin/onion-grater-add" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/bin/onion-grater-remove">/usr/bin/onion-grater-remove</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/bin/onion-grater-remove" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/bin/onion-grater-list">/usr/bin/onion-grater-list</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/bin/onion-grater-list" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="See_Also">See Also</h1>
 <ul>
@@ -1126,18 +1113,18 @@ Tor ControlPort commands wanted by TBB 4.5 and above</a></li>
 <li><a href="../../Tor_Controller/">Tor_Controller</a></li>
 <li><a href="../anon-ws-disable-stacked-tor/">Dev/anon-ws-disable-stacked-tor</a></li>
 <li><a href="https://spec.torproject.org/control-spec/commands.html">Tor
-Control Protocol</a></li>
+Control Protocol</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://spec.torproject.org/control-spec/commands.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
 <ol>
-<li id="cite_note-1"><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh</a></li>
+<li id="cite_note-1"><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-2"><a href="https://web.archive.org/web/20170222094246/https://mailman.boum.org/pipermail/tails-dev/2014-February/005041.html">As
 done by Tails.</a></li>
 <li id="cite_note-3">Thanks to HulaHoop for
 [https://www.whonix.org/old-forum/index.php/topic,342.0.html suggesting
 this].</li>
-<li id="cite_note-4"><a href="https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf">https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf</a></li>
+<li id="cite_note-4"><a href="https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf">https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-5">Find out what <code>status/bootstrap-phase</code> answers yourself
 in Whonix-Gateway.
 <span class="code-select">/usr/lib/helper-scripts/tor_bootstrap_check.py
@@ -1148,7 +1135,7 @@ yourself in Whonix-Gateway.
 <span class="code-select">/usr/lib/helper-scripts/tor_circuit_established_check.py
 127.0.0.1 9051 1</span> Example answer.
 <span class="code-select">1</span></li>
-<li id="cite_note-7"><a href="https://github.com/Kicksecure/systemcheck/blob/master/usr/libexec/systemcheck/check_tor_bootstrap.bsh">https://github.com/Kicksecure/systemcheck/blob/master/usr/libexec/systemcheck/check_tor_bootstrap.bsh</a>
+<li id="cite_note-7"><a href="https://github.com/Kicksecure/systemcheck/blob/master/usr/libexec/systemcheck/check_tor_bootstrap.bsh">https://github.com/Kicksecure/systemcheck/blob/master/usr/libexec/systemcheck/check_tor_bootstrap.bsh</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/systemcheck/blob/master/usr/libexec/systemcheck/check_tor_bootstrap.bsh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <span class="code-select">whonixcheck --function
 check_tor_bootstrap</span> <span class="code-select">whonixcheck
 --function check_tor_bootstrap --verbose --debug</span></li>
@@ -1158,10 +1145,10 @@ check_tor_bootstrap</span> <span class="code-select">whonixcheck
 <strong>STREAM</strong> events for its + implementation of the circuit
 view. This means it will know + basically everything Tor is doing, which
 is pretty bad in case Tor + Browser is compromised.</li>
-<li id="cite_note-10"><a href="https://phabricator.whonix.org/T631">https://phabricator.whonix.org/T631</a></li>
+<li id="cite_note-10"><a href="https://phabricator.whonix.org/T631">https://phabricator.whonix.org/T631</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T631" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-11"><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
-<li id="cite_note-12"><a href="https://phabricator.whonix.org/T448">https://phabricator.whonix.org/T448</a></li>
+Style Configuration Folders</li>
+<li id="cite_note-12"><a href="https://phabricator.whonix.org/T448">https://phabricator.whonix.org/T448</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T448" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ol>
 </div>
 <p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../../Moved:Stateless/" title="Dev/Stateless"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Stateless</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../../Moved:Automatic_Updates/" title="Dev/Automatic Updates"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Automatic

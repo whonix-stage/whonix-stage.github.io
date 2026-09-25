@@ -20,13 +20,7 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>anon-ws-disable-stacked-tor</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Environmental_Variable_Adjustments">Environmental Variable
-Adjustments</a></li><li class="toc-l2"><a href="#Providing_Virtual_Tor_Package">Providing Virtual Tor
-Package</a></li><li class="toc-l2"><a href="#Tor_Binary_Replacement">Tor Binary Replacement</a></li><li class="toc-l2"><a href="#systemd-socket-proxyd_Listening_Port_Redirection">systemd-socket-proxyd
-Listening Port Redirection</a></li><li class="toc-l2"><a href="#Unix_Domain_Socket_File_Redirection">Unix Domain Socket File
-Redirection</a></li><li class="toc-l2"><a href="#Tor_State_File_Creation">Tor State File Creation</a></li><li class="toc-l2"><a href="#bindp">bindp</a></li><li class="toc-l2"><a href="#socat">socat</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
-<div class="first-heading">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>anon-ws-disable-stacked-tor</span></nav><div class="first-heading">
 <p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../../Moved:Automatic_Updates/" title="Dev/Automatic Updates"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Automatic
 Updates</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../../Moved:About_Debian_Packaging/" title="Dev/About Debian Packaging"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/About
 Debian
@@ -34,12 +28,11 @@ Packaging</span></a><span class="info"><span class="prev">Previous page:
 Dev/Automatic Updates</span><span class="index">Index page:
 Design</span><span class="next">Next page: Dev/About Debian
 Packaging</span></span></span>anon-ws-disable-stacked-tor</p>
-</div>
-<div class="mininav">
+</div><div class="mininav">
 <ul>
 <li><a href="../../Tor/">Tor</a></li>
 <li><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Tor Versioning</li>
 <li><a href="../../Anon_Connection_Wizard/">Anon Connection
 Wizard</a></li>
 <li><a href="../../Tor-control-panel/">tor-control-panel</a></li>
@@ -57,7 +50,14 @@ and Misconceptions</a></li>
 (Developer)</a></li>
 <li><a href="./">anon-ws-disable-stacked-tor (Developer)</a></li>
 </ul>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Environmental_Variable_Adjustments">Environmental Variable
+Adjustments</a></li><li class="toc-l2"><a href="#Providing_Virtual_Tor_Package">Providing Virtual Tor
+Package</a></li><li class="toc-l2"><a href="#Tor_Binary_Replacement">Tor Binary Replacement</a></li><li class="toc-l2"><a href="#systemd-socket-proxyd_Listening_Port_Redirection">systemd-socket-proxyd
+Listening Port Redirection</a></li><li class="toc-l2"><a href="#Unix_Domain_Socket_File_Redirection">Unix Domain Socket File
+Redirection</a></li><li class="toc-l2"><a href="#Tor_State_File_Creation">Tor State File Creation</a></li><li class="toc-l2"><a href="#bindp">bindp</a></li><li class="toc-l2"><a href="#socat">socat</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
+
 <div class="pre-intro-p ">
 </div>
 <div class="hidden-thumbnail">
@@ -77,18 +77,18 @@ default, except in the case of <a href="#Limitations">some corner cases</a>.</p>
 <p>See <a href="../../Tips_on_Remaining_Anonymous/#Prevent_Tor_over_Tor_scenarios">Prevent Tor over Tor Scenarios</a>.</p>
 <p><a href="https://forums.whonix.org/t/anon-ws-disable-stacked-tor-considered-useless/8471">Rationale
 on implementation details, SocksSocket vs TCP, environment variables vs
-settings file</a></p>
+settings file</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/anon-ws-disable-stacked-tor-considered-useless/8471" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="Implementation">Implementation</h1>
 <h2 id="Environmental_Variable_Adjustments">Environmental Variable
-Adjustments</h2>
+Adjustments</h2><span class="share-tooltip" data-anchor="Environmental_Variable_Adjustments"><a class="headline-anchor" href="#Environmental_Variable_Adjustments" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Environmental_Variable_Adjustments">https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Environmental_Variable_Adjustments</span></span></span></span>
 <ul>
-<li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/etc/X11/Xsession.d/20torbrowser"><code>/etc/X11/Xsession.d/20torbrowser</code></a></li>
-<li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh"><code>/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh</code></a></li>
+<li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/etc/X11/Xsession.d/20torbrowser"><code>/etc/X11/Xsession.d/20torbrowser</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/etc/X11/Xsession.d/20torbrowser" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh"><code>/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h2 id="Providing_Virtual_Tor_Package">Providing Virtual Tor
-Package</h2>
-<p>Implemented in <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor">anon-ws-disable-stacked-tor</a>,
-<a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/debian/control"><span>debian/control</span></a>.
+Package</h2><span class="share-tooltip" data-anchor="Providing_Virtual_Tor_Package"><a class="headline-anchor" href="#Providing_Virtual_Tor_Package" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Providing_Virtual_Tor_Package">https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Providing_Virtual_Tor_Package</span></span></span></span>
+<p>Implemented in <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor">anon-ws-disable-stacked-tor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
+<a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/debian/control"><span>debian/control</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/debian/control" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 The package uses the <code>Provides: tor</code> field<sup class="reference"><a href="#cite_note-1">[1]</a></sup>,
 which should avoid any conflicts in case upstream releases a higher
 version of Tor. This won't work for packages that depend on an explicit
@@ -96,18 +96,18 @@ version of Tor (such as TorChat). This is non-ideal since, for example,
 the <span>torchat</span> package will
 install Tor. However, this is still acceptable because of the following
 additional implementations.</p>
-<h2 id="Tor_Binary_Replacement">Tor Binary Replacement</h2>
+<h2 id="Tor_Binary_Replacement">Tor Binary Replacement</h2><span class="share-tooltip" data-anchor="Tor_Binary_Replacement"><a class="headline-anchor" href="#Tor_Binary_Replacement" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Tor_Binary_Replacement">https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Tor_Binary_Replacement</span></span></span></span>
 <p>Tor's binary was replaced (dpkg-diverted using config-package-dev)
 with dummy executables, so even if the real
 <span>tor</span> package gets
 installed, it won't be automatically started.</p>
 <ul>
-<li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/bin/tor.anondist">https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/bin/tor.anondist</a></li>
-<li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/sbin/tor.anondist">https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/sbin/tor.anondist</a></li>
+<li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/bin/tor.anondist">https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/bin/tor.anondist</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/bin/tor.anondist" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/sbin/tor.anondist">https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/sbin/tor.anondist</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/sbin/tor.anondist" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h2 id="systemd-socket-proxyd_Listening_Port_Redirection">systemd-socket-proxyd
-Listening Port Redirection</h2>
-<p><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator">Listening</a>
+Listening Port Redirection</h2><span class="share-tooltip" data-anchor="systemd-socket-proxyd_Listening_Port_Redirection"><a class="headline-anchor" href="#systemd-socket-proxyd_Listening_Port_Redirection" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#systemd-socket-proxyd_Listening_Port_Redirection">https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#systemd-socket-proxyd_Listening_Port_Redirection</span></span></span></span>
+<p><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator">Listening</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 using <code>systemd-socket-proxyd</code> on the following listening
 ports:</p>
 <ul>
@@ -133,7 +133,7 @@ ports:</p>
 gateway).</p>
 <ul>
 <li>and others, see <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator">full
-list</a>.</li>
+list</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/systemd-unit-files-generator" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>These listening ports are forwarded to Whonix-Gateway.</li>
 <li>This prevents the default Tor Browser and/or Tor package by The Tor
 Project from opening these default ports, which will result in Tor
@@ -146,40 +146,40 @@ preventing Tor over Tor.</li>
 <li><a href="https://web.archive.org/web/20221128013446/https://phabricator.whonix.org/T357">https://web.archive.org/web/20221128013446/https://phabricator.whonix.org/T357</a></li>
 </ul>
 <h2 id="Unix_Domain_Socket_File_Redirection">Unix Domain Socket File
-Redirection</h2>
-<p>Since Tor Browser, <a href="../../OnionShare/">OnionShare</a> (<a href="https://cloud.githubusercontent.com/assets/156128/21556064/8ead0338-cdd2-11e6-918c-d4ca61724b52.png">screenshot</a>)
-among more and more other applications require <a href="https://forums.whonix.org/t/tor-browser-6-5a4-connectivity-broken-blocked-by-apparmor-profile-since-tbb-changed-to-sockssocket/3154">SocksSocket</a>
+Redirection</h2><span class="share-tooltip" data-anchor="Unix_Domain_Socket_File_Redirection"><a class="headline-anchor" href="#Unix_Domain_Socket_File_Redirection" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Unix_Domain_Socket_File_Redirection">https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Unix_Domain_Socket_File_Redirection</span></span></span></span>
+<p>Since Tor Browser, <a href="../../OnionShare/">OnionShare</a> (<a href="https://cloud.githubusercontent.com/assets/156128/21556064/8ead0338-cdd2-11e6-918c-d4ca61724b52.png">screenshot</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://cloud.githubusercontent.com/assets/156128/21556064/8ead0338-cdd2-11e6-918c-d4ca61724b52.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
+among more and more other applications require <a href="https://forums.whonix.org/t/tor-browser-6-5a4-connectivity-broken-blocked-by-apparmor-profile-since-tbb-changed-to-sockssocket/3154">SocksSocket</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-browser-6-5a4-connectivity-broken-blocked-by-apparmor-profile-since-tbb-changed-to-sockssocket/3154" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <sup class="reference"><a href="#cite_note-2">[2]</a></sup>, anon-ws-disable-stacked-tor is also providing:</p>
 <ul>
 <li>Tor Control Unix Domain Socket file:
 <code>/var/run/tor/control</code>, which is redirected to Control Port
 Filter Proxy on Whonix-Gateway.</li>
 <li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/share/anon-ws-disable-stacked-tor/control.authcookie">Tor
-Control Auth Cookie</a>: a functional
+Control Auth Cookie</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/share/anon-ws-disable-stacked-tor/control.authcookie" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>: a functional
 <code>/var/run/tor/control.authcookie</code> that works with <a href="../onion-grater/">onion-grater (Control Port
 Filter Proxy)</a>.</li>
 <li>Tor Socks Unix Domain Socket file: <code>/var/run/tor/socks</code>
 that is redirected to Whonix-Gateway Tor port <code>9050</code>
 <ul>
 <li><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/etc/anon-ws-disable-stacked-tor.d/30_anon-dist.conf">full
-list</a>.</li>
+list</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/etc/anon-ws-disable-stacked-tor.d/30_anon-dist.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul></li>
 </ul>
-<h2 id="Tor_State_File_Creation">Tor State File Creation</h2>
+<h2 id="Tor_State_File_Creation">Tor State File Creation</h2><span class="share-tooltip" data-anchor="Tor_State_File_Creation"><a class="headline-anchor" href="#Tor_State_File_Creation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Tor_State_File_Creation">https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#Tor_State_File_Creation</span></span></span></span>
 <p>All required state files that Tor would normally create in
 <code>/var/run/tor</code> and <code>/var/lib/tor</code> are being
-created by <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/state-files">/usr/lib/anon-ws-disable-stacked-tor/state-files</a>.</p>
-<h2 id="bindp">bindp</h2>
+created by <a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/state-files">/usr/lib/anon-ws-disable-stacked-tor/state-files</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/state-files" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h2 id="bindp">bindp</h2><span class="share-tooltip" data-anchor="bindp"><a class="headline-anchor" href="#bindp" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#bindp">https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#bindp</span></span></span></span>
 <p>TODO: describe</p>
 <ul>
 <li>bindp</li>
-<li><a href="https://forums.whonix.org/t/find-way-to-have-tor-ephermal-hidden-service-using-applications-in-whonix-workstation-bind-on-all-interfaces/18846">https://forums.whonix.org/t/find-way-to-have-tor-ephermal-hidden-service-using-applications-in-whonix-workstation-bind-on-all-interfaces/18846</a></li>
+<li><a href="https://forums.whonix.org/t/find-way-to-have-tor-ephermal-hidden-service-using-applications-in-whonix-workstation-bind-on-all-interfaces/18846">https://forums.whonix.org/t/find-way-to-have-tor-ephermal-hidden-service-using-applications-in-whonix-workstation-bind-on-all-interfaces/18846</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/find-way-to-have-tor-ephermal-hidden-service-using-applications-in-whonix-workstation-bind-on-all-interfaces/18846" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="socat">socat</h2>
+<h2 id="socat">socat</h2><span class="share-tooltip" data-anchor="socat"><a class="headline-anchor" href="#socat" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#socat">https://www.whonix.org/wiki/Dev/anon-ws-disable-stacked-tor/#socat</span></span></span></span>
 <p>There are no <code>socat</code> redirections by default in
 Whonix.</p>
 <p>Advanced setups such as <a href="https://www.getmonero.org/resources/user-guides/cli_wallet_daemon_isolation_qubes_whonix.html">Monero
-CLI Wallet/Daemon Isolation with Qubes-Whonix<sup>&#8482;</sup></a> are using
+CLI Wallet/Daemon Isolation with Qubes-Whonix<sup>&#8482;</sup></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.getmonero.org/resources/user-guides/cli_wallet_daemon_isolation_qubes_whonix.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> are using
 things like <code>EXEC</code>. From that example:</p>
 <pre><code>socat TCP-LISTEN:18081,fork,bind=127.0.0.1 EXEC:&quot;qrexec-client-vm monerod-ws user.monerod&quot;</code></pre>
 <p><code>systemd-socket-proxyd</code> does not support
@@ -315,7 +315,7 @@ Isolation/Disable Easy</a></li>
 <ul>
 <li><a href="../Project_friendly_applications_best_practices/">Whonix friendly applications best practices</a></li>
 <li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/Tor_friendly_applications_best_practices">Tor
-friendly applications best practices</a></li>
+friendly applications best practices</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/Tor_friendly_applications_best_practices" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="See_Also">See Also</h1>
 <ul>
@@ -325,9 +325,9 @@ Files to Whonix-Gateway</a></li>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
 <ol>
-<li id="cite_note-1">See "7.5 Virtual packages - Provides" on <a href="https://www.debian.org/doc/debian-policy/ch-relationships.html">https://www.debian.org/doc/debian-policy/ch-relationships.html</a></li>
-<li id="cite_note-2">* <a href="https://gitlab.torproject.org/legacy/trac/-/issues/14272#comment:3">https://gitlab.torproject.org/legacy/trac/-/issues/14272#comment:3</a>
-* <a href="https://gitlab.torproject.org/legacy/trac/-/issues/20111#comment:5">https://gitlab.torproject.org/legacy/trac/-/issues/20111#comment:5</a></li>
+<li id="cite_note-1">See "7.5 Virtual packages - Provides" on <a href="https://www.debian.org/doc/debian-policy/ch-relationships.html">https://www.debian.org/doc/debian-policy/ch-relationships.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.debian.org/doc/debian-policy/ch-relationships.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-2">* <a href="https://gitlab.torproject.org/legacy/trac/-/issues/14272#comment:3">https://gitlab.torproject.org/legacy/trac/-/issues/14272#comment:3</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/14272#comment:3" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://gitlab.torproject.org/legacy/trac/-/issues/20111#comment:5">https://gitlab.torproject.org/legacy/trac/-/issues/20111#comment:5</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/20111#comment:5" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ol>
 </div>
 <p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../../Moved:Automatic_Updates/" title="Dev/Automatic Updates"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Automatic

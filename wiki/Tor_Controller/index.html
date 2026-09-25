@@ -21,14 +21,11 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Nyx_Usage">Nyx Usage</a></li><li class="toc-l2"><a href="#Nyx_FAQ">Nyx FAQ</a></li><li class="toc-l2"><a href="#Nyx_Autostart">Nyx Autostart</a></li><li class="toc-l2"><a href="#tor-ctrl">tor-ctrl</a></li><li class="toc-l2"><a href="#Talking_to_the_Real_Tor_Controller">Talking to the Real Tor
-Controller</a></li><li class="toc-l2"><a href="#netcat">netcat</a></li><li class="toc-l2"><a href="#tor-prompt">tor-prompt</a></li><li class="toc-l2"><a href="#Vidalia">Vidalia</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
 <div class="mininav">
 <ul>
 <li><a href="../Tor/">Tor</a></li>
 <li><img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Tor Versioning</li>
 <li><a href="../Anon_Connection_Wizard/">Anon Connection
 Wizard</a></li>
 <li><a href="../Tor-control-panel/">tor-control-panel</a></li>
@@ -46,7 +43,14 @@ and Misconceptions</a></li>
 (Developer)</a></li>
 <li><a href="../Dev/anon-ws-disable-stacked-tor/">anon-ws-disable-stacked-tor (Developer)</a></li>
 </ul>
+</div><div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+text editor of your choice with administrative rights.</p>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Nyx_Usage">Nyx Usage</a></li><li class="toc-l2"><a href="#Nyx_FAQ">Nyx FAQ</a></li><li class="toc-l2"><a href="#Nyx_Autostart">Nyx Autostart</a></li><li class="toc-l2"><a href="#tor-ctrl">tor-ctrl</a></li><li class="toc-l2"><a href="#Talking_to_the_Real_Tor_Controller">Talking to the Real Tor
+Controller</a></li><li class="toc-l2"><a href="#netcat">netcat</a></li><li class="toc-l2"><a href="#tor-prompt">tor-prompt</a></li><li class="toc-l2"><a href="#Vidalia">Vidalia</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
 <p><img src="../../media/Onioncircuits.png.webp" alt="onioncircuits - View Tor Circuits" /></p>
 <div class="pre-intro-p ">
 </div>
@@ -66,14 +70,14 @@ packaged in Debian.</p>
 <h1 id="Nyx">Nyx</h1>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
-The <a href="https://packages.debian.org/trixie/nyx">nyx</a> Tor
+The <a href="https://packages.debian.org/trixie/nyx">nyx</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.debian.org/trixie/nyx" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> Tor
 controller is a later version of the <code>arm</code> package, so the
-functionality and appearance are very similar. The <a href="https://nyx.torproject.org/">Tor Project nyx homepage</a> states:
+functionality and appearance are very similar. The <a href="https://nyx.torproject.org/">Tor Project nyx homepage</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://nyx.torproject.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> states:
 <i>"Nyx is a command-line monitor for Tor. With this you can get
 detailed real-time information about your relay such as bandwidth usage,
 connections, logs, and much more."</i></p>
 </div>
-<h2 id="Nyx_Usage">Nyx Usage</h2>
+<h2 id="Nyx_Usage">Nyx Usage</h2><span class="share-tooltip" data-anchor="Nyx_Usage"><a class="headline-anchor" href="#Nyx_Usage" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Controller/#Nyx_Usage">https://www.whonix.org/wiki/Tor_Controller/#Nyx_Usage</span></span></span></span>
 <p>Nyx is recommended and comes pre-installed in
 Whonix-Gateway<sup>&#8482;</sup>. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
 <div class="info-box ">
@@ -94,7 +98,7 @@ following steps.</p>
 <p>To exit Nyx, press:</p>
 <pre><code>q
 q</code></pre>
-<h2 id="Nyx_FAQ">Nyx FAQ</h2>
+<h2 id="Nyx_FAQ">Nyx FAQ</h2><span class="share-tooltip" data-anchor="Nyx_FAQ"><a class="headline-anchor" href="#Nyx_FAQ" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Controller/#Nyx_FAQ">https://www.whonix.org/wiki/Tor_Controller/#Nyx_FAQ</span></span></span></span>
 <p><span class="manually-placed-anchor " id="Arm_FAQ"></span></p>
 <table>
 <caption>Nyx FAQ</caption>
@@ -141,18 +145,18 @@ others.</p></td>
 system utilities like netstat and lsof from working. This means that nyx
 can't provide you with connection information. You can change this by
 adding 'DisableDebuggerAttachment 0' to your torrc and restarting tor.
-For more information see... <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3313">https://gitlab.torproject.org/legacy/trac/-/issues/3313</a></span></em></p></td>
-<td><p>If you want to learn about the technical details, read <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3313">https://gitlab.torproject.org/legacy/trac/-/issues/3313</a>.</p></td>
+For more information see... <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3313">https://gitlab.torproject.org/legacy/trac/-/issues/3313</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3313" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></em></p></td>
+<td><p>If you want to learn about the technical details, read <a href="https://gitlab.torproject.org/legacy/trac/-/issues/3313">https://gitlab.torproject.org/legacy/trac/-/issues/3313</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/3313" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p></td>
 </tr>
 <tr class="even">
 <td><p>DisableDebuggerAttachment even when running as root.</p></td>
-<td><p>This <a href="https://gitlab.torproject.org/legacy/trac/-/issues/7709">bug</a>
+<td><p>This <a href="https://gitlab.torproject.org/legacy/trac/-/issues/7709">bug</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/7709" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 in Nyx has been resolved.</p></td>
 </tr>
 <tr class="odd">
 <td><p><em><span>man page (GENERAL
 OPTIONS and COMMAND-LINE OPTIONS)</span></em></p></td>
-<td><p>This <a href="https://gitlab.torproject.org/legacy/trac/-/issues/9679">bug</a>
+<td><p>This <a href="https://gitlab.torproject.org/legacy/trac/-/issues/9679">bug</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/9679" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 in Nyx has been resolved.</p></td>
 </tr>
 <tr class="even">
@@ -160,7 +164,7 @@ in Nyx has been resolved.</p></td>
 71 not recognized. (Tor is not an http proxy.)</span></em></p></td>
 <td><p>This is caused by the
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] function
+systemcheck function
 <em><span>check_tor_socks_port_reachability</span></em>,
 which verifies if a Tor SocksPort is accessible by testing it using
 curl. <sup class="reference"><a href="#cite_note-5">[5]</a></sup> If successful, it does not return a response,
@@ -207,8 +211,8 @@ connection opened. [2 duplicates hidden]</span></em> (Or more
 duplicates.)</p></td>
 <td><p>This is caused by
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]'s Tor Bootstrap Status Test, which
-utilizes Tor's <code>ControlPort</code> or <a href="../Dev/onion-grater/">onion-grater</a>.</p></td>
+systemcheck's Tor Bootstrap Status Test, which utilizes Tor's
+<code>ControlPort</code> or <a href="../Dev/onion-grater/">onion-grater</a>.</p></td>
 </tr>
 <tr class="odd">
 <td><p><em><span>[NOTICE][NYX_WARN] The
@@ -233,7 +237,7 @@ Nickname of the Guard should be visible instead.
 </tr>
 </tbody>
 </table>
-<h2 id="Nyx_Autostart">Nyx Autostart</h2>
+<h2 id="Nyx_Autostart">Nyx Autostart</h2><span class="share-tooltip" data-anchor="Nyx_Autostart"><a class="headline-anchor" href="#Nyx_Autostart" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Controller/#Nyx_Autostart">https://www.whonix.org/wiki/Tor_Controller/#Nyx_Autostart</span></span></span></span>
 <p>Optional.</p>
 <p><strong>1.</strong> Platform specific notice:</p>
 <ul>
@@ -251,7 +255,7 @@ Nickname of the Guard should be visible instead.
 streams. It allows the user to inspect the circuits the locally running
 Tor daemon has built, along with some metadata for each node.</p></blockquote> <sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
 <p><a href="https://packages.debian.org/trixie/onioncircuits">Onion
-Circuits</a> is installed by default but is not a full Tor controller;
+Circuits</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.debian.org/trixie/onioncircuits" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is installed by default but is not a full Tor controller;
 it only displays Tor circuits. It can be launched from the start
 menu.</p>
 <h1 id="New_Identity_and_Tor_Circuits">New Identity and Tor
@@ -290,22 +294,22 @@ downloads, SSH, or IRC connections.</p>
 <p>Interested readers can verify the effect of "signal newnym" as
 follows:</p>
 <ol>
-<li>Open <a href="https://check.torproject.org">https://check.torproject.org</a> in
+<li>Open <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> in
 Tor Browser.</li>
 <li>Issue "signal newnym" using <a href="#Nyx">nyx</a>.</li>
-<li>Reload <a href="https://check.torproject.org">https://check.torproject.org</a>.</li>
+<li>Reload <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>In some cases, it will still show the same IP address, probably
-because the browser did not close the connection to <a href="https://check.torproject.org">https://check.torproject.org</a> in
+because the browser did not close the connection to <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> in
 the first place.</li>
 </ol>
 <p>Now, repeat this experiment with a small modification, which should
 result in a new Tor exit IP address:</p>
 <ol>
-<li>Open <a href="https://check.torproject.org">https://check.torproject.org</a> in
+<li>Open <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> in
 Tor Browser.</li>
 <li>Issue "signal newnym" using <a href="#Nyx">nyx</a>.</li>
 <li>Close Tor Browser, then restart it.</li>
-<li>Open <a href="https://check.torproject.org">https://check.torproject.org</a>
+<li>Open <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 again. A new Tor exit relay IP address is (likely) visible.</li>
 </ol>
 <p>New identity is not an IP selection or cycling feature; it is a
@@ -321,8 +325,8 @@ might be possible, but this is <a href="../Unsupported/">unsupported</a>. Users 
 configuration</a> themselves. The exact settings required would need to
 be researched by the user as per the <a href="../Self_Support_First_Policy/">Self Support First Policy</a>, rather than asking in
 Whonix forums.</p>
-<h2 id="tor-ctrl">tor-ctrl</h2>
-<p><a href="https://github.com/Kicksecure/tor-ctrl">tor-ctrl</a> is
+<h2 id="tor-ctrl">tor-ctrl</h2><span class="share-tooltip" data-anchor="tor-ctrl"><a class="headline-anchor" href="#tor-ctrl" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Controller/#tor-ctrl">https://www.whonix.org/wiki/Tor_Controller/#tor-ctrl</span></span></span></span>
+<p><a href="https://github.com/Kicksecure/tor-ctrl">tor-ctrl</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/tor-ctrl" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is
 installed by default.</p>
 <p>For example, to get a new circuit, run:</p>
 <p><span class="code-select">tor-ctrl signal NEWNYM</span></p>
@@ -337,7 +341,7 @@ installed by default.</p>
 Advanced users only.</p>
 </div>
 <h2 id="Talking_to_the_Real_Tor_Controller">Talking to the Real Tor
-Controller</h2>
+Controller</h2><span class="share-tooltip" data-anchor="Talking_to_the_Real_Tor_Controller"><a class="headline-anchor" href="#Talking_to_the_Real_Tor_Controller" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Controller/#Talking_to_the_Real_Tor_Controller">https://www.whonix.org/wiki/Tor_Controller/#Talking_to_the_Real_Tor_Controller</span></span></span></span>
 <p>To communicate directly with the Tor Controller, run the commands on
 Whonix-Gateway. If executed on Whonix-Workstation, the connection passes
 through the <a href="../Onion-grater/">onion-grater
@@ -350,12 +354,7 @@ example password. Use a different, stronger password if desired.</p>
 <pre><code>16:1CEAF6E6A08E0CF460AFD71772461C5F56BD9738FA8824B882FCA4A785</code></pre>
 <p>Tor configuration file.</p>
 <div class="info-box ">
-<div class="intro-like">
-<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
-<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] of your choice with administrative
-rights.</p>
-</div>
+
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Sysmaint notice.</p>
 <p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
@@ -376,7 +375,7 @@ Platform specific. Select your platform.</p>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -422,7 +421,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="tcc-content">
 <p><u>If you are using a graphical Whonix-Gateway</u> and enabled
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+unrestricted admin mode, take the following step.</p>
 <p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
 <code>Tor User Config</code></p>
 </div>
@@ -456,7 +455,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -563,7 +562,7 @@ socket connection, and cookie conversion to base32. While this section
 explains direct communication without external programs, users can
 accomplish the same task with:</p>
 <p><span class="code-select">tor-ctrl -w setevents stream</span></p>
-<h2 id="netcat">netcat</h2>
+<h2 id="netcat">netcat</h2><span class="share-tooltip" data-anchor="netcat"><a class="headline-anchor" href="#netcat" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Controller/#netcat">https://www.whonix.org/wiki/Tor_Controller/#netcat</span></span></span></span>
 <p>netcat is no longer required. <a href="#tor-ctrl">tor-ctrl</a> is recommended instead.</p>
 <p>netcat provides an easy way to send Tor protocol commands to Tor's
 <code>ControlPort</code> from within Whonix-Workstation. However, for
@@ -581,7 +580,7 @@ Proxy)</a>.</p>
 <p>Expected output:</p>
 <pre><code>250 OK</code></pre>
 </div>
-<h2 id="tor-prompt">tor-prompt</h2>
+<h2 id="tor-prompt">tor-prompt</h2><span class="share-tooltip" data-anchor="tor-prompt"><a class="headline-anchor" href="#tor-prompt" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Controller/#tor-prompt">https://www.whonix.org/wiki/Tor_Controller/#tor-prompt</span></span></span></span>
 <p>On Whonix-Gateway, run:</p>
 <p>Example of <code>tor-prompt</code> in non-interactive mode:</p>
 <p><span class="code-select">tor-prompt --no-color --run "getinfo
@@ -616,7 +615,7 @@ command intended to run.</p>
 <pre><code>250-version=0.2.5.1-alpha-dev (git-245ecfff36c0cecc)
 250 OK</code></pre>
 <h1 id="Deprecated">Deprecated</h1>
-<h2 id="Vidalia">Vidalia</h2>
+<h2 id="Vidalia">Vidalia</h2><span class="share-tooltip" data-anchor="Vidalia"><a class="headline-anchor" href="#Vidalia" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tor_Controller/#Vidalia">https://www.whonix.org/wiki/Tor_Controller/#Vidalia</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
 Vidalia is no longer maintained.</p>
@@ -648,25 +647,25 @@ Connection Destination Viewer</a></li>
 <ol>
 <li id="cite_note-1">Since <a href="#Vidalia">Vidalia</a> is <a href="#Vidalia_recommended_against">recommended
 against</a>.</li>
-<li id="cite_note-2"><a href="https://tor.stackexchange.com/tags/nyx/info">https://tor.stackexchange.com/tags/nyx/info</a></li>
+<li id="cite_note-2"><a href="https://tor.stackexchange.com/tags/nyx/info">https://tor.stackexchange.com/tags/nyx/info</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tor.stackexchange.com/tags/nyx/info" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-3">Nyx operates on a different level. It is a Tor Controller. Nyx
 communicates with Tor via the <code>ControlPort</code> and serves as an
 interface to display what Tor perceives. Neither Tor nor Nyx provides
 functionality for virus detection, compromise detection, or leak
 detection. While Nyx messages are generally informative and useful, they
 rarely indicate a cause for concern.</li>
-<li id="cite_note-4"><a href="https://forums.whonix.org/t/strange-nyx-behavior/9514">https://forums.whonix.org/t/strange-nyx-behavior/9514</a></li>
+<li id="cite_note-4"><a href="https://forums.whonix.org/t/strange-nyx-behavior/9514">https://forums.whonix.org/t/strange-nyx-behavior/9514</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/strange-nyx-behavior/9514" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-5"><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl
 10.152.152.10:9100</span></li>
-<li id="cite_note-6"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/16459">https://gitlab.torproject.org/legacy/trac/-/issues/16459</a></li>
+<li id="cite_note-6"><a href="https://gitlab.torproject.org/legacy/trac/-/issues/16459">https://gitlab.torproject.org/legacy/trac/-/issues/16459</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/16459" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-7">The issue was closed as 'not a bug' several years ago.</li>
 <li id="cite_note-8">https://forums.whonix.org/t/how-to-check-if-i-configured-bridges-correctly-and-the-bridges-are-working-properly/4371/5</li>
-<li id="cite_note-9"><a href="https://packages.debian.org/trixie/onioncircuits">https://packages.debian.org/trixie/onioncircuits</a></li>
-<li id="cite_note-10"><a href="https://blog.torproject.org/torbutton-141-released">https://blog.torproject.org/torbutton-141-released</a></li>
+<li id="cite_note-9"><a href="https://packages.debian.org/trixie/onioncircuits">https://packages.debian.org/trixie/onioncircuits</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.debian.org/trixie/onioncircuits" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-10"><a href="https://blog.torproject.org/torbutton-141-released">https://blog.torproject.org/torbutton-141-released</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.torproject.org/torbutton-141-released" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-11">This works in Whonix-Workstation because the <a href="../Dev/anon-ws-disable-stacked-tor/">anon-ws-disable-stacked-tor</a> package opens localhost
 listener ports and forwards connections to Whonix-Gateway, where <a href="../Dev/onion-grater/">onion-grater (Control Port
 Filter Proxy)</a> is listening.</li>
-<li id="cite_note-12"><a href="https://tor.stackexchange.com/questions/1075/what-happened-to-vidalia">https://tor.stackexchange.com/questions/1075/what-happened-to-vidalia</a></li>
+<li id="cite_note-12"><a href="https://tor.stackexchange.com/questions/1075/what-happened-to-vidalia">https://tor.stackexchange.com/questions/1075/what-happened-to-vidalia</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tor.stackexchange.com/questions/1075/what-happened-to-vidalia" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-13">As noted by Tor developer Roger Dingledine:<br />
 <blockquote><p>Cammy is right -- we've removed the bridge/relay/exit bundles from
 the download page too, since Vidalia has been unmaintained for years and

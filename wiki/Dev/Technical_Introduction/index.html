@@ -21,14 +21,7 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Technical Introduction</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Sensitive_Information">Sensitive Information</a></li><li class="toc-l2"><a href="#Origin_of_Leaks">Origin of Leaks</a></li><li class="toc-l2"><a href="#Design">Design</a></li><li class="toc-l2"><a href="#In_layman&#x27;s_terms">In layman&#x27;s terms</a></li><li class="toc-l2"><a href="#With_more_technical_terms">With more technical terms</a></li><li class="toc-l2"><a href="#Targeted_Surveillance">Targeted Surveillance</a></li><li class="toc-l2"><a href="#Passive_Surveillance">Passive Surveillance</a></li><li class="toc-l2"><a href="#Forensic_Considerations">Forensic Considerations</a></li><li class="toc-l2"><a href="#Anti-forensic_Claims">Anti-forensic Claims</a></li><li class="toc-l2"><a href="#Why_are_Whonix_Images_so_Large?">Why are Whonix Images so
-Large?</a></li><li class="toc-l2"><a href="#Is_there_Something_like_Whonix_Live?">Is there Something like
-Whonix Live?</a></li><li class="toc-l2"><a href="#Is_there_a_Whonix_Amnesic_Feature_/_Live_CD_/_Live_DVD?_What_about_Forensics?">Is
-there a Whonix Amnesic Feature / Live CD / Live DVD? What about
-Forensics?</a></li><li class="toc-l2"><a href="#Will_there_be_a_Whonix_Live_CD_or_DVD?">Will there be a Whonix
-Live CD or DVD?</a></li><li class="toc-l3"><a href="#Non-Qubes-Whonix&#8482;">Non-Qubes-Whonix&#8482;</a></li><li class="toc-l3"><a href="#Qubes-Whonix">Qubes-Whonix</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
-<div class="mininav">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Technical Introduction</span></nav><div class="mininav">
 <ul>
 <li><a href="../../Design/">Design Documentation</a></li>
 <li><a href="./">Technical
@@ -39,7 +32,14 @@ Others</a></li>
 <li><a href="../../Comparison_with_Kicksecure/">Comparison
 with Kicksecure</a></li>
 </ul>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Sensitive_Information">Sensitive Information</a></li><li class="toc-l2"><a href="#Origin_of_Leaks">Origin of Leaks</a></li><li class="toc-l2"><a href="#Design">Design</a></li><li class="toc-l2"><a href="#In_layman&#x27;s_terms">In layman&#x27;s terms</a></li><li class="toc-l2"><a href="#With_more_technical_terms">With more technical terms</a></li><li class="toc-l2"><a href="#Targeted_Surveillance">Targeted Surveillance</a></li><li class="toc-l2"><a href="#Passive_Surveillance">Passive Surveillance</a></li><li class="toc-l2"><a href="#Forensic_Considerations">Forensic Considerations</a></li><li class="toc-l2"><a href="#Anti-forensic_Claims">Anti-forensic Claims</a></li><li class="toc-l2"><a href="#Why_are_Whonix_Images_so_Large?">Why are Whonix Images so
+Large?</a></li><li class="toc-l2"><a href="#Is_there_Something_like_Whonix_Live?">Is there Something like
+Whonix Live?</a></li><li class="toc-l2"><a href="#Is_there_a_Whonix_Amnesic_Feature_/_Live_CD_/_Live_DVD?_What_about_Forensics?">Is
+there a Whonix Amnesic Feature / Live CD / Live DVD? What about
+Forensics?</a></li><li class="toc-l2"><a href="#Will_there_be_a_Whonix_Live_CD_or_DVD?">Will there be a Whonix
+Live CD or DVD?</a></li><li class="toc-l3"><a href="#Non-Qubes-Whonix&#8482;">Non-Qubes-Whonix&#8482;</a></li><li class="toc-l3"><a href="#Qubes-Whonix">Qubes-Whonix</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
 <p><img src="../../../media/Whonix-technical-introduction.png.webp" width="200" alt="Whonix-technical-introduction.png" /></p>
 <div class="pre-intro-p ">
 </div>
@@ -56,9 +56,8 @@ readers.</li>
 <h1 id="Summary">Summary</h1>
 <p>Whonix aims to be safer than Tor alone. The primary goal is that no
 one can find out the user's IP, location, or de-anonymize the user.</p>
-<p>Whonix consists of two Debian ([Broken-ExtLink--no-url-was-provided])
-based (virtual) machines (VMs), which are connected through an isolated
-network.</p>
+<p>Whonix consists of two Debian (Kicksecure) based (virtual) machines
+(VMs), which are connected through an isolated network.</p>
 <ul>
 <li>A) One machine acts as the client or <em>Whonix-Workstation</em>,
 running applications such as a browser; and</li>
@@ -87,7 +86,7 @@ utilize the system's default DNS resolver. (DNS is like the internet's
 phonebook - it translates website names to IP addresses.) By default, no
 applications on Whonix-Gateway that generate network traffic use this
 default resolver. All default applications on Whonix-Gateway that
-produce network traffic (like apt, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>, <a href="../../Sdwdate/">sdwdate</a>) are explicitly configured,
+produce network traffic (like apt, <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="../../Sdwdate/">sdwdate</a>) are explicitly configured,
 or forced by uwt wrappers, to use their dedicated Tor
 <code>SocksPort</code> (refer to <a href="../../Stream_Isolation/">Stream Isolation</a>).</li>
 <li><u>Whonix-Workstation DNS requests handled via Tor:</u>
@@ -145,25 +144,25 @@ this by design. Another way would be for computer B) to run proxy
 software that opens port(s) (services) that computer A) can access. This
 is the core principle of what Whonix does.</p>
 <p>Whonix comes with many <a href="https://www.whonix.org/#security">security-enhancing and
-anonymity-protecting features</a>.</p>
+anonymity-protecting features</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/#security" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p><a href="../../Reliable_IP_Hiding/">Whonix provides
 reliable IP hiding</a>. However, hiding your identity is harder than
 just hiding your IP. Merely <a href="../../IP_hiding_is_outdated/">hiding IP addresses is an outdated, year 1990 threat
 model</a>. Simply masking the user's IP address is insufficient, as
 adversaries employ various <a href="../../Data_Collection_Techniques/">Data Collection Techniques</a> that do not require IP
-addresses. This is evidenced by numerous <a href="../../Browser_Tests/">Browser Tests</a>, such as the <a href="https://fingerprint.com/demo/">Fingerprint.com Demo</a>,
+addresses. This is evidenced by numerous <a href="../../Browser_Tests/">Browser Tests</a>, such as the <a href="https://fingerprint.com/demo/">Fingerprint.com Demo</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://fingerprint.com/demo/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
 particularly since <a href="../../The_World_Wide_Web_And_Your_Privacy/#Fingerprint.com">"12% of the largest 500 websites use
 Fingerprint.com"</a>.</p>
-<p>To keep users anonymous, Whonix offers <a href="../../About/#Full_Spectrum_Anti-Tracking_Protection">Full Spectrum Anti-Tracking Protection</a> and is <a href="https://www.whonix.org/#vpn">much safer than VPNs</a> (refer to
+<p>To keep users anonymous, Whonix offers <a href="../../About/#Full_Spectrum_Anti-Tracking_Protection">Full Spectrum Anti-Tracking Protection</a> and is <a href="https://www.whonix.org/#vpn">much safer than VPNs</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/#vpn" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (refer to
 the comprehensive <a href="../../Whonix_versus_VPNs/">Whonix
 versus VPNs</a> comparison).</p>
 <p><a href="../../What_we_do/">Project activities</a>
 include:</p>
 <ul>
 <li>Maintaining approximately <a href="https://github.com/Whonix">~ 16
-Whonix source code repositories</a>.</li>
+Whonix source code repositories</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>and <a href="https://github.com/Kicksecure">~ 56 Kicksecure source
-code repositories</a>.</li>
+code repositories</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul>
 <h1 id="Essentials">Essentials</h1>
 <p>The basic assumption is, that all applications are untrustworthy. No
@@ -172,7 +171,7 @@ ensures that applications can only connect through Tor. Direct
 connections (leaks) must be impossible. This is the only way we know of,
 that can reliably protect your anonymity from client application
 vulnerabilities and IP/DNS and <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#protocol-leaks">protocol
-leaks</a>. When the term protocol leak or "information leak" is used in
+leaks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#protocol-leaks" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. When the term protocol leak or "information leak" is used in
 the context of security and anonymity it is referring to an event that
 causes the release of secure or private information to an untrusted
 party or environment <sup class="reference"><a href="#cite_note-1">[1]</a></sup> <sup class="reference"><a href="#cite_note-2">[2]</a></sup>.</p>
@@ -203,36 +202,36 @@ protected and under the user's control. This is a technically
 challenging task with a multitude of elements to be considered. The
 numerous applications and background processes running on a system at
 any given time exacerbate the difficulties encountered.</p>
-<h2 id="Sensitive_Information">Sensitive Information</h2>
+<h2 id="Sensitive_Information">Sensitive Information</h2><span class="share-tooltip" data-anchor="Sensitive_Information"><a class="headline-anchor" href="#Sensitive_Information" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Sensitive_Information">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Sensitive_Information</span></span></span></span>
 <p>In the context of privacy and anonymity, sensitive information is any
 information that can be used to identify an individual. An inexhaustive
 list of sensitive information includes:</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Serial_number">Hardware
-serials</a> - can be used to uniquely identify a computer and in turn be
+serials</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Serial_number" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> - can be used to uniquely identify a computer and in turn be
 linked to the person who purchased or was using it.</li>
 <li><a href="https://www.dnsleaktest.com/what-is-a-dns-leak.html">DNS
-leak</a> - if DNS queries are leaking, an ISP or any on-path
+leak</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.dnsleaktest.com/what-is-a-dns-leak.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> - if DNS queries are leaking, an ISP or any on-path
 eavesdropper can log the sites that are visited.<sup class="reference"><a href="#cite_note-3">[3]</a></sup></li>
-<li><a href="https://browserleaks.com/ip">IP leaks</a> - a user's
+<li><a href="https://browserleaks.com/ip">IP leaks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://browserleaks.com/ip" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> - a user's
 external (ISP-facing) IP address can be used to identify an individual
 as well as their location.</li>
 <li><a href="https://digitalguardian.com/blog/what-personally-identifiable-information">Personally
-identifiable information</a> (PII) - information that can be used on its
+identifiable information</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://digitalguardian.com/blog/what-personally-identifiable-information" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (PII) - information that can be used on its
 own or with other information to identify, contact, or locate a single
 person, or to identify an individual in context.<sup class="reference"><a href="#cite_note-4">[4]</a></sup>.</li>
 </ul>
-<h2 id="Origin_of_Leaks">Origin of Leaks</h2>
+<h2 id="Origin_of_Leaks">Origin of Leaks</h2><span class="share-tooltip" data-anchor="Origin_of_Leaks"><a class="headline-anchor" href="#Origin_of_Leaks" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Origin_of_Leaks">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Origin_of_Leaks</span></span></span></span>
 <p>Even if sensitive data is only a very small proportion of the total,
 it is extremely difficult to block all available leak avenues.
 Information leaks have several primary causes:</p>
 <ul>
-<li><strong>Misbehaving applications</strong> (<a href="https://en.wikipedia.org/wiki/Software_bug">buggy software</a>) -
+<li><strong>Misbehaving applications</strong> (<a href="https://en.wikipedia.org/wiki/Software_bug">buggy software</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Software_bug" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>) -
 programs that do not function as intended, leading directly to data
 leakage or causing other applications they interact with to leak.</li>
 </ul>
 <ul>
-<li><strong>Deliberate</strong> (<a href="https://en.wikipedia.org/wiki/Backdoor_(computing)">Backdoors</a>)
+<li><strong>Deliberate</strong> (<a href="https://en.wikipedia.org/wiki/Backdoor_(computing)">Backdoors</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Backdoor_(computing)" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
 - a backdoor is a method, often secret, of bypassing normal
 authentication or encryption in a computer system, product, or embedded
 device (like a home router), or its embodiment which forms part of a
@@ -243,8 +242,8 @@ computer".<sup class="reference"><a href="#cite_note-5">[5]</a></sup></li>
 <li><strong>Mis-configured applications</strong> - some applications can
 leak sensitive information if configured improperly. For instance, VPN
 clients can <a href="https://en.wikipedia.org/wiki/DNS_leak">leak DNS
-queries</a>. Other applications that can be used to block information
-leaks, such as <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a>, may be
+queries</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/DNS_leak" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Other applications that can be used to block information
+leaks, such as <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Iptables" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, may be
 ineffective if configured improperly.</li>
 </ul>
 <ul>
@@ -274,7 +273,7 @@ Bochs, etc. (See <a href="../Virtualization_Platform/#Other_Virtualization_Platf
 <p>Other operating systems (e.g. Windows; *nix; BSD; etc.) can
 potentially be used as host and/or guest operating system. See the <a href="../../Other_Operating_Systems/">Other Operating
 Systems</a> for more information.</p>
-<h2 id="Design">Design</h2>
+<h2 id="Design">Design</h2><span class="share-tooltip" data-anchor="Design"><a class="headline-anchor" href="#Design" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Design">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Design</span></span></span></span>
 <p>A robust "security by isolation" model is incorporated into the
 Whonix framework to counter the ever-present threat of information
 leaks. This model is composed of four (three when using physical
@@ -283,7 +282,7 @@ isolation)<sup class="reference"><a href="#cite_note-8">[8]</a></sup> unique, bu
 <li><strong>Hypervisor</strong> - also referred to as a virtual machine
 monitor. This is software, firmware, or hardware that creates and runs
 <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual
-machines</a>. Several elements are involved:
+machines</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Virtual_machine" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Several elements are involved:
 <ul>
 <li>The computer on which the hypervisor runs is called the host.</li>
 <li>The hypervisor in turn runs virtual machines which are called guest
@@ -306,7 +305,7 @@ each other.<sup class="reference"><a href="#cite_note-9">[9]</a></sup><sup class
 <ul>
 <li><strong>Whonix-Gateway</strong> - the first of two VMs that make up
 Whonix. The function of Whonix-Gateway is to run <a href="../../Tor/">Tor</a> processes and force all traffic through the Tor
-network. This is done through a modest application of <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a>, which blocks
+network. This is done through a modest application of <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Iptables" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, which blocks
 network traffic from passing through any other channel besides the
 dedicated Tor gateway. As mentioned earlier, the hypervisor enforces the
 isolation between the two VMs used in Whonix. Consequently, any <a href="../../Moved:Malware_and_Firmware_Trojans/">malware</a> that
@@ -327,7 +326,7 @@ eliminated since all DNS requests are sent over the Tor network via the
 Whonix-Gateway.</li>
 </ul>
 <ul>
-<li><strong>Tor</strong> -<a href="https://www.torproject.org">Tor</a>
+<li><strong>Tor</strong> -<a href="https://www.torproject.org">Tor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 is an anonymity network which helps users defend against traffic
 analysis, network surveillance and privacy threats. Tor protects users
 by bouncing their communications around a distributed network of
@@ -335,8 +334,8 @@ relays.<sup class="reference"><a href="#cite_note-11">[11]</a></sup></li>
 </ul>
 <h1 id="Whonix_Concept">Whonix Concept</h1>
 <p>Whonix is an <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/IsolatingProxy">Isolating
-Proxy</a> with an additional <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy">Transparent
-Proxy</a>, which can be optionally disabled. (See <a href="../../Stream_Isolation/">Stream Isolation</a>).</p>
+Proxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/IsolatingProxy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> with an additional <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy">Transparent
+Proxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TransparentProxy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, which can be optionally disabled. (See <a href="../../Stream_Isolation/">Stream Isolation</a>).</p>
 <h1 id="Goals_and_Non-Goals">Goals and Non-Goals</h1>
 <ul>
 <li>Tor Browser development non-goal: make every user look like someone
@@ -349,7 +348,7 @@ using Tor from destination websites.</li>
 <p>Goals are restricted not by what developers would ideally want to
 provide but by technical challenges and what's realistic.</p>
 <h1 id="Security_Overview">Security Overview</h1>
-<h2 id="In_layman's_terms">In layman's terms</h2>
+<h2 id="In_layman's_terms">In layman's terms</h2><span class="share-tooltip" data-anchor="In_layman&#x27;s_terms"><a class="headline-anchor" href="#In_layman&#x27;s_terms" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#In_layman&#x27;s_terms">https://www.whonix.org/wiki/Dev/Technical_Introduction/#In_layman&#x27;s_terms</span></span></span></span>
 <p>Is Whonix safe?</p>
 <p>Whonix has a solid 14 years <a href="../../History/">history</a> of providing <a href="../../Whonix_against_Real_Attacks/">Whonix Track Record
 against Real Cyber Attacks</a>. No data leaks have ever been
@@ -358,7 +357,7 @@ reported.</p>
 100% safety. Believe it or not, we use it ourselves and we keep
 maintaining and developing it. We believe that Whonix is safer than
 other tools in some aspects, threat models, and use cases. There is
-detailed reasoning for such claims on the <a href="https://www.whonix.org/#security">Whonix Homepage</a>.</p>
+detailed reasoning for such claims on the <a href="https://www.whonix.org/#security">Whonix Homepage</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/#security" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 <p>If you are more paranoid or have higher security needs, read
 everything, full documentation and full technical design, you'll learn
 about physical isolation and build Whonix from source code and so
@@ -374,7 +373,7 @@ things we could do better and we are still working on and try to
 consider all possibilities and document all thinkable and future
 threats. You must judge for your own which risks are acceptable for your
 use cases.</p>
-<h2 id="With_more_technical_terms">With more technical terms</h2>
+<h2 id="With_more_technical_terms">With more technical terms</h2><span class="share-tooltip" data-anchor="With_more_technical_terms"><a class="headline-anchor" href="#With_more_technical_terms" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#With_more_technical_terms">https://www.whonix.org/wiki/Dev/Technical_Introduction/#With_more_technical_terms</span></span></span></span>
 <p>It is difficult to write a summary of Whonix security features. Both
 anonymity and security consist of so many different aspects. That's why
 there is lots of <a href="../../Documentation/">Documentation</a> and the whole Technical <a href="../../Design/">Design</a>.</p>
@@ -404,7 +403,7 @@ most classes of <a href="../../Advanced_Security_Guide/#Side_Channel_Attacks">si
 secure system or able to provide anonymity if one faces a very powerful
 adversary, and so on.</p>
 <p>There are <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#general-torifying-information">to
-torify</a>. Read the link for a comparison of the security.</p>
+torify</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#general-torifying-information" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Read the link for a comparison of the security.</p>
 <p>Whonix-Workstation has no access to the internet without going
 through Tor. You can look into our setup. It is all Open Source and well
 documented.</p>
@@ -460,10 +459,10 @@ directly, thus leaks are prevented in case some application leaks.</li>
 Fingerprinting-Protection</a>.</li>
 <li><a href="../TimeSync/">Whonix Secure And
 Distributed Time Synchronization Mechanism</a>.</li>
-<li>Check.torproject.org is checked (see <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>)
+<li>Check.torproject.org is checked (see <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
 anyway, even though we are sure, that there are no leaks.</li>
 <li>Built in update notification for operating system updates, Tor
-Browser version and Whonix version (see <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a>).</li>
+Browser version and Whonix version (see <a href="https://www.kicksecure.com/wiki/Systemcheck">systemcheck</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Systemcheck" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>).</li>
 <li>Comprehensive, growing <a href="../../Documentation/">Documentation</a>.</li>
 <li>Comprehensive, growing <a href="../../Design/">Technical
 Design</a>.</li>
@@ -481,7 +480,7 @@ through Tor (because it chokes Tor nodes), but for leak testing it was
 welcome. Right now we don't know of any leak tests which leaks the real
 IP.</p>
 <p>Whonix is safe (not affected) from <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#protocol-leaks">Protocol
-leaks</a>, like this the ones listed on <a href="../../Whonix_against_Real_Attacks/">Whonix against Real
+leaks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO#protocol-leaks" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, like this the ones listed on <a href="../../Whonix_against_Real_Attacks/">Whonix against Real
 Attacks</a>, Skype, Flash or BitTorrent. This already justifies to use a
 "no non-Tor connections possible" approach.</p>
 <p>See also <a href="../../Security_Reviews_and_Feedback/">Security Reviews and Feedback</a>.</p>
@@ -493,7 +492,7 @@ SocksPort and get 100.000 $". Qualified people start looking into it and
 might find something.</p>
 <h1 id="Does_Whonix_/_Tor_Provide_Protection_from_Advanced_Adversaries?">Does
 Whonix / Tor Provide Protection from Advanced Adversaries?</h1>
-<h2 id="Targeted_Surveillance">Targeted Surveillance</h2>
+<h2 id="Targeted_Surveillance">Targeted Surveillance</h2><span class="share-tooltip" data-anchor="Targeted_Surveillance"><a class="headline-anchor" href="#Targeted_Surveillance" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Targeted_Surveillance">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Targeted_Surveillance</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" alt="Ambox_warning_pn.svg.png" /></span>
 Based on intelligence disclosures, users targeted for active
@@ -501,7 +500,7 @@ surveillance by advanced adversaries are almost guaranteed to be
 infected!</p>
 </div>
 <p>Whonix cannot provide protection against <a href="https://www.spiegel.de/international/world/catalog-reveals-nsa-has-back-doors-for-numerous-devices-a-940994.html">advanced
-attack tools</a> which have the capability to penetrate all types of
+attack tools</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.spiegel.de/international/world/catalog-reveals-nsa-has-back-doors-for-numerous-devices-a-940994.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> which have the capability to penetrate all types of
 OSes, firewalls, routers, VPN traffic, computers, smartphones and other
 digital devices. Implants are capable of surviving across reboots,
 software / firmware upgrades and following the re-installation of
@@ -512,7 +511,7 @@ moving on from the targeted physical / network location. Encryption, Tor
 / Tor Browser, other anonymity tools, "secure" hardware configurations
 and so on are helpless against these attacks, which are increasingly
 automated and being scaled up in size. For example, the American IC
-prefers using the <a href="https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/">TURBINE</a>
+prefers using the <a href="https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/">TURBINE</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 system for this purpose.</p>
 <p>The following is just a small sample of the hundreds of advanced
 implants and tools currently in use. Needless to say, advanced
@@ -539,7 +538,7 @@ GUMFISH).</li>
 <li>Image the hard drive (LIFESAFER).</li>
 <li>Jump air-gaps (GENIE).</li>
 <li>Inject ethernet packets onto targets (RADON).</li>
-<li>And much, much <a href="https://electrospaces.blogspot.fr/p/nicknames-and-codewords.html">more</a>.</li>
+<li>And much, much <a href="https://electrospaces.blogspot.fr/p/nicknames-and-codewords.html">more</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://electrospaces.blogspot.fr/p/nicknames-and-codewords.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul>
 </div>
 <p>The take-home message is that current hardware and software solutions
@@ -547,7 +546,7 @@ provide multiple attack vectors which are impossible to completely
 close. Air-gapped solutions which have never been connected to the
 Internet <em>may</em> provide security for targeted individuals, but
 Internet-connected devices should be considered completely unsafe.</p>
-<h2 id="Passive_Surveillance">Passive Surveillance</h2>
+<h2 id="Passive_Surveillance">Passive Surveillance</h2><span class="share-tooltip" data-anchor="Passive_Surveillance"><a class="headline-anchor" href="#Passive_Surveillance" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Passive_Surveillance">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Passive_Surveillance</span></span></span></span>
 <p>Users should be aware that passive surveillance systems will attempt
 to intercept, record, categorize and attribute all data that can be
 feasibly collected, including <a href="../../Surveillance_Capabilities/#Internet_Backbone_Surveillance">straight off the Internet backbone</a>. These systems
@@ -564,25 +563,25 @@ companies is also the IC's bread and butter.</p>
 <p>Consistent use of anonymous handles, strong encryption, Tor / Tor
 Browser and world class open source anonymity tools and platforms
 <em>may</em> provide partial protection against <a href="https://en.wikipedia.org/wiki/List_of_government_mass_surveillance_projects">passive
-surveillance programs</a>, such as:</p>
+surveillance programs</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/List_of_government_mass_surveillance_projects" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, such as:</p>
 <div>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/PRISM">PRISM</a>.</li>
-<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#fairview">FAIRVIEW</a>.</li>
-<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#blarney">BLARNEY</a>.</li>
+<li><a href="https://en.wikipedia.org/wiki/PRISM">PRISM</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/PRISM" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
+<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#fairview">FAIRVIEW</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#fairview" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
+<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#blarney">BLARNEY</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#blarney" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#so">STORMBREW
-and OAKSTAR</a>.</li>
-<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#xks">XKEYSCORE</a>.</li>
+and OAKSTAR</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#so" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
+<li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#xks">XKEYSCORE</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#xks" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li><a href="https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#mtp">MARINA,
-TRAFFICTHIEF, PINWHALE</a>.</li>
-<li><a href="https://en.wikipedia.org/wiki/MAINWAY">MAINWAY</a>.</li>
-<li><a href="https://en.wikipedia.org/wiki/MYSTIC">MYSTIC</a>.</li>
+TRAFFICTHIEF, PINWHALE</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.dailydot.com/debug/nsa-spy-prgrams-prism-fairview-blarney/#mtp" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
+<li><a href="https://en.wikipedia.org/wiki/MAINWAY">MAINWAY</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/MAINWAY" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
+<li><a href="https://en.wikipedia.org/wiki/MYSTIC">MYSTIC</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/MYSTIC" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>And many similar programs run by governments worldwide.</li>
 </ul>
 </div>
 <p>Be aware that this claim comes with an important caveat - it depends
 on whether Tor (and other software / hardware solutions) <a href="https://lists.torproject.org/pipermail/tor-talk/2013-July/029014.html">provide
-adequate protection or not</a>. The answer to that question is not
+adequate protection or not</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2013-July/029014.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. The answer to that question is not
 clear. Whonix has adopted a skeptical mindset and only makes
 conservative claims, because it is impossible to prove a negative. For a
 related statement about advanced adversaries, refer to the following <a href="./#With_more_technical_terms">technical introduction</a>.</p>
@@ -603,7 +602,7 @@ resolvers</a> or establishing permanent Tor exit relays.
 <sup class="reference"><a href="#cite_note-20">[20]</a></sup></li>
 </ul>
 <h1 id="Forensics">Forensics</h1>
-<h2 id="Forensic_Considerations">Forensic Considerations</h2>
+<h2 id="Forensic_Considerations">Forensic Considerations</h2><span class="share-tooltip" data-anchor="Forensic_Considerations"><a class="headline-anchor" href="#Forensic_Considerations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Forensic_Considerations">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Forensic_Considerations</span></span></span></span>
 <p>In the past, a number of ideas have been put forward as
 anti-forensics.</p>
 <ul>
@@ -612,7 +611,7 @@ anti-forensics.</p>
 every time Whonix is used.</li>
 <li>Restoring a fresh <a href="../../Whonix-Workstation_Security/#VM_Snapshots">snapshot</a> every time Whonix is used.</li>
 <li>Running Whonix <a href="https://forums.whonix.org/t/whonix-and-truecrypt/293/6">completely
-in ramdisks</a>.</li>
+in ramdisks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-and-truecrypt/293/6" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>Using <a href="../../Moved:Full_Disk_Encryption/">full disk
 encryption</a>.</li>
 <li>Logs deletion.</li>
@@ -621,43 +620,43 @@ encryption</a>.</li>
 <p>Unfortunately, these methods are not a sufficient substitute. It is
 manifestly unsafe to try and deal with data by wiping it after it has
 already been stored, so this is a poor design principle to implement.
-One reason for that is <a href="https://en.wikipedia.org/wiki/Wear_leveling">wear leveling</a>.
+One reason for that is <a href="https://en.wikipedia.org/wiki/Wear_leveling">wear leveling</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Wear_leveling" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 The issue with wear leveling is that the disk controller tells the
 kernel "file deleted," while in reality the sector has been marked as
 unusable but still contains data. This data can be recovered by data
 recovery professionals using low-level disk controller commands. This is
 documented in more detail here:
 <img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Advice for Solid-state Drives and USB Storage.</p>
 <p>Use <a href="../../Live_Mode/">Live Mode</a> on the host
 <u>o</u>perating <u>s</u>ystem (OS) instead. The advantage is that
 sensitive (or unencrypted) data is never stored on storage media in the
 first place. Ideally, this would be combined with
 <img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] mode.</p>
+read-only mode.</p>
 <p>Using full disk encryption is still useful to protect against
 forensic analysis, but in some parts of the world this is illegal or
 draws unwanted attention.</p>
-<h2 id="Anti-forensic_Claims">Anti-forensic Claims</h2>
+<h2 id="Anti-forensic_Claims">Anti-forensic Claims</h2><span class="share-tooltip" data-anchor="Anti-forensic_Claims"><a class="headline-anchor" href="#Anti-forensic_Claims" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Anti-forensic_Claims">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Anti-forensic_Claims</span></span></span></span>
 <p>Readers are urged to exercise caution when encountering claims about
 the capability to defeat disk forensics. For instance, the Whonix team
 does not possess expertise in areas such as:</p>
 <ul>
 <li>HDD/SSD swap space.</li>
 <li><a href="https://en.wikipedia.org/wiki/Computer_forensics">Computer
-forensics</a>.<sup class="reference"><a href="#cite_note-21">[21]</a></sup></li>
+forensics</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Computer_forensics" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.<sup class="reference"><a href="#cite_note-21">[21]</a></sup></li>
 <li>Residual data on USBs and SSDs post <a href="https://web.archive.org/web/20201201150503/http://www.infosecisland.com/blogview/12153-Data-Remains-on-USB-and-SSDs-After-Secure-Erase.html">"secure"
 erasure</a>.</li>
 <li><a href="https://en.wikipedia.org/wiki/Wear_leveling">Wear
-leveling</a>.
+leveling</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Wear_leveling" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 <ul>
 <li><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Advice for Solid-state Drives and USB Storage</li>
 </ul></li>
 <li>Occasional tendencies of conventional hard drives to flag sectors as
 defective, retaining their data indefinitely.<sup class="reference"><a href="#cite_note-22">[22]</a></sup></li>
 <li>Data remnants potentially <a href="https://research.torproject.org/techreports/tbb-forensic-analysis-2013-06-28.pdf">left
-behind by Tor Browser</a> across macOS, Linux, and Windows.</li>
+behind by Tor Browser</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://research.torproject.org/techreports/tbb-forensic-analysis-2013-06-28.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> across macOS, Linux, and Windows.</li>
 <li>Other associated <a href="https://web.archive.org/web/20170911205814/http://www.forensicswiki.org/wiki/Main_Page">forensic
 competencies</a>.</li>
 </ul>
@@ -674,7 +673,7 @@ the following procedures are fundamental:</p>
 <ol>
 <li>Boot using an alternate system, an external (Live) DVD or USB.</li>
 <li><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]</li>
+Create a raw disk backup image of the internal storage.</li>
 <li>Shutdown.</li>
 <li>Boot into live mode from the internal storage.</li>
 <li>Launch various applications and carry out a spectrum of regular user
@@ -695,22 +694,23 @@ demonstrates amnesia.</li>
 yet fail against modern forensic instruments. Those anxious about local
 forensic threats should consider
 <img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided]. Leveraging reputable open-source
-encryption methods like Linux dmcrypt, when used appropriately,
-generally delivers on its assurances. Nonetheless, be mindful that this
-strategy has its limitations, especially when users might be compelled
-to disclose their passwords. Opting for <a href="../../Live_Mode/">Live Mode</a> is a preferable alternative.</p>
+full disk encryption. Leveraging reputable open-source encryption
+methods like Linux dmcrypt, when used appropriately, generally delivers
+on its assurances. Nonetheless, be mindful that this strategy has its
+limitations, especially when users might be compelled to disclose their
+passwords. Opting for <a href="../../Live_Mode/">Live Mode</a>
+is a preferable alternative.</p>
 <p>Related:</p>
 <ul>
 <li>development task: <a href="https://phabricator.whonix.org/T910">anti-forensics / amnesia
-testing of Whonix-Host in Live mode</a></li>
+testing of Whonix-Host in Live mode</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T910" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li><a href="https://www.reddit.com/r/Whonix/comments/15q7vcs/have_the_dev_team_tested_the_antiforensic/">Have
 the dev team tested the anti-forensic capability of Whonix-live mode and
-grub live?</a></li>
+grub live?</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.reddit.com/r/Whonix/comments/15q7vcs/have_the_dev_team_tested_the_antiforensic/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Images">Images</h1>
 <h2 id="Why_are_Whonix_Images_so_Large?">Why are Whonix Images so
-Large?</h2>
+Large?</h2><span class="share-tooltip" data-anchor="Why_are_Whonix_Images_so_Large?"><a class="headline-anchor" href="#Why_are_Whonix_Images_so_Large?" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Why_are_Whonix_Images_so_Large?">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Why_are_Whonix_Images_so_Large?</span></span></span></span>
 <p>From Whonix 14:</p>
 <ul>
 <li>zerofree has been used to reduce the size of the Whonix-Gateway from
@@ -721,11 +721,11 @@ of Whonix</a> is available.</li>
 </ul>
 <p><s>This is still larger than other "Tor-VM" or "Tor-LiveCD/DVD"
 projects, which sometimes depend on specially "stripped-down" or minimal
-distributions like <a href="http://www.tinycorelinux.net/">TinyCore</a>,
-<a href="http://www.damnsmalllinux.org/">DSL</a> and <a href="https://puppylinux-woof-ce.github.io/">Puppy Linux</a>.</s></p>
+distributions like <a href="http://www.tinycorelinux.net/">TinyCore</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.tinycorelinux.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
+<a href="http://www.damnsmalllinux.org/">DSL</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.damnsmalllinux.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and <a href="https://puppylinux-woof-ce.github.io/">Puppy Linux</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://puppylinux-woof-ce.github.io/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</s></p>
 <h1 id="Live_Operating_System">Live Operating System</h1>
 <h2 id="Is_there_Something_like_Whonix_Live?">Is there Something like
-Whonix Live?</h2>
+Whonix Live?</h2><span class="share-tooltip" data-anchor="Is_there_Something_like_Whonix_Live?"><a class="headline-anchor" href="#Is_there_Something_like_Whonix_Live?" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Is_there_Something_like_Whonix_Live?">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Is_there_Something_like_Whonix_Live?</span></span></span></span>
 <p><a href="../../Non-Qubes-Whonix/">Non-Qubes-Whonix</a>: See
 <a href="../../Live_Mode/">Live Mode</a></p>
 <p><a href="../../Qubes/">Qubes-Whonix</a>: look into
@@ -736,18 +736,18 @@ combination with <a href="../../Moved:Full_Disk_Encryption/">full
 disk encryption</a>.</p>
 <h2 id="Is_there_a_Whonix_Amnesic_Feature_/_Live_CD_/_Live_DVD?_What_about_Forensics?">Is
 there a Whonix Amnesic Feature / Live CD / Live DVD? What about
-Forensics?</h2>
+Forensics?</h2><span class="share-tooltip" data-anchor="Is_there_a_Whonix_Amnesic_Feature_/_Live_CD_/_Live_DVD?_What_about_Forensics?"><a class="headline-anchor" href="#Is_there_a_Whonix_Amnesic_Feature_/_Live_CD_/_Live_DVD?_What_about_Forensics?" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Is_there_a_Whonix_Amnesic_Feature_/_Live_CD_/_Live_DVD?_What_about_Forensics?">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Is_there_a_Whonix_Amnesic_Feature_/_Live_CD_/_Live_DVD?_What_about_Forensics?</span></span></span></span>
 <p>Amnesic Feature: See <a href="../../Live_Mode/">Live
 Mode</a>.</p>
 <p>Live: See <a href="../../Whonix-Host/">Whonix-Host</a>.</p>
 <p><span class="manually-placed-anchor " id="future-live-dvd"></span></p>
 <h2 id="Will_there_be_a_Whonix_Live_CD_or_DVD?">Will there be a Whonix
-Live CD or DVD?</h2>
+Live CD or DVD?</h2><span class="share-tooltip" data-anchor="Will_there_be_a_Whonix_Live_CD_or_DVD?"><a class="headline-anchor" href="#Will_there_be_a_Whonix_Live_CD_or_DVD?" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Will_there_be_a_Whonix_Live_CD_or_DVD?">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Will_there_be_a_Whonix_Live_CD_or_DVD?</span></span></span></span>
 <p>Probably yes. See <a href="../../Whonix-Host/">Whonix-Host</a>.</p>
-<h3 id="Non-Qubes-Whonix&#8482;">Non-Qubes-Whonix<sup>&#8482;</sup></h3>
+<h3 id="Non-Qubes-Whonix&#8482;">Non-Qubes-Whonix<sup>&#8482;</sup></h3><span class="share-tooltip" data-anchor="Non-Qubes-Whonix&#8482;"><a class="headline-anchor" href="#Non-Qubes-Whonix&#8482;" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Non-Qubes-Whonix&#8482;">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Non-Qubes-Whonix&#8482;</span></span></span></span>
 <p><a href="../../Whonix-Host/">possibly in future</a>.</p>
-<h3 id="Qubes-Whonix">Qubes-Whonix</h3>
-<p>Another promising long term possibility may be running <a href="../../Qubes/">Qubes-Whonix</a> on <a href="https://www.qubes-os.org">Qubes OS</a> Live DVD/USB, which is
+<h3 id="Qubes-Whonix">Qubes-Whonix</h3><span class="share-tooltip" data-anchor="Qubes-Whonix"><a class="headline-anchor" href="#Qubes-Whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Technical_Introduction/#Qubes-Whonix">https://www.whonix.org/wiki/Dev/Technical_Introduction/#Qubes-Whonix</span></span></span></span>
+<p>Another promising long term possibility may be running <a href="../../Qubes/">Qubes-Whonix</a> on <a href="https://www.qubes-os.org">Qubes OS</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> Live DVD/USB, which is
 currently in Alpha. <sup class="reference"><a href="#cite_note-24">[24]</a></sup> Unfortunately, at the time of
 writing Live-mode is no longer supported or maintained by Qubes.
 <sup class="reference"><a href="#cite_note-25">[25]</a></sup> Nevertheless, if this is further developed in the
@@ -764,18 +764,18 @@ Whonix, Tails, Tor Browser, TorVM and corridor</a></li>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
 <ol>
-<li id="cite_note-1"><a href="https://en.wikipedia.org/wiki/Information_leakage"><span>https://en.wikipedia.org/wiki/Information_leakage</span></a></li>
-<li id="cite_note-2"><a href="https://en.wikipedia.org/wiki/Data_breach"><span>https://en.wikipedia.org/wiki/Data_breach</span></a></li>
-<li id="cite_note-3"><a href="https://en.wikipedia.org/wiki/DNS_leak">DNS leak</a></li>
-<li id="cite_note-4"><a href="https://en.wikipedia.org/wiki/Personal_data"><span>https://en.wikipedia.org/wiki/Personal_data</span></a></li>
-<li id="cite_note-5"><a href="https://en.wikipedia.org/wiki/Backdoor_(computing)"><span>https://en.wikipedia.org/wiki/Backdoor_(computing)</span></a></li>
-<li id="cite_note-6"><a href="https://en.wikipedia.org/wiki/Vulnerability_(computing)"><span>https://en.wikipedia.org/wiki/Vulnerability_(computing)</span></a></li>
-<li id="cite_note-7"><a href="https://en.wikipedia.org/wiki/Information_assurance"><span>https://en.wikipedia.org/wiki/Information_assurance</span></a></li>
+<li id="cite_note-1"><a href="https://en.wikipedia.org/wiki/Information_leakage"><span>https://en.wikipedia.org/wiki/Information_leakage</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Information_leakage" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-2"><a href="https://en.wikipedia.org/wiki/Data_breach"><span>https://en.wikipedia.org/wiki/Data_breach</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Data_breach" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-3"><a href="https://en.wikipedia.org/wiki/DNS_leak">DNS leak</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/DNS_leak" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-4"><a href="https://en.wikipedia.org/wiki/Personal_data"><span>https://en.wikipedia.org/wiki/Personal_data</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Personal_data" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-5"><a href="https://en.wikipedia.org/wiki/Backdoor_(computing)"><span>https://en.wikipedia.org/wiki/Backdoor_(computing)</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Backdoor_(computing)" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-6"><a href="https://en.wikipedia.org/wiki/Vulnerability_(computing)"><span>https://en.wikipedia.org/wiki/Vulnerability_(computing)</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Vulnerability_(computing)" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-7"><a href="https://en.wikipedia.org/wiki/Information_assurance"><span>https://en.wikipedia.org/wiki/Information_assurance</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Information_assurance" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-8">Whonix uses three components when using physical isolation,
 non-virtualization. Whonix-Workstation, Whonix-Gateway and Tor</li>
-<li id="cite_note-9"><a href="https://en.wikipedia.org/wiki/Hypervisor"><span>https://en.wikipedia.org/wiki/Hypervisor</span></a></li>
-<li id="cite_note-10"><a href="https://en.wikipedia.org/wiki/Hardware_virtualization"><span>https://en.wikipedia.org/wiki/Hardware_virtualization</span></a></li>
-<li id="cite_note-11"><a href="https://en.wikipedia.org/wiki/Tor_(network)"><span>https://en.wikipedia.org/wiki/Tor_(network)</span></a></li>
+<li id="cite_note-9"><a href="https://en.wikipedia.org/wiki/Hypervisor"><span>https://en.wikipedia.org/wiki/Hypervisor</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Hypervisor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-10"><a href="https://en.wikipedia.org/wiki/Hardware_virtualization"><span>https://en.wikipedia.org/wiki/Hardware_virtualization</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Hardware_virtualization" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-11"><a href="https://en.wikipedia.org/wiki/Tor_(network)"><span>https://en.wikipedia.org/wiki/Tor_(network)</span></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Tor_(network)" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-12">By comparison, when using popular VPN software, networking depends
 on the state of the VPN software modifying the routing table. This can
 cause clearnet leaks. See <a href="../../Whonix_versus_VPNs/#VPN_Software_is_not_Designed_for_Anonymity">VPN Software is not Designed for Anonymity</a>. Whonix
@@ -786,9 +786,9 @@ exploiting the hypervisor and executing code on the host operating
 system.</li>
 <li id="cite_note-14">For example, BIOS is a favorite target of IC operatives for
 persistence.</li>
-<li id="cite_note-15"><a href="https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/">https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/</a></li>
-<li id="cite_note-16"><a href="https://www.washingtonpost.com/world/national-security/powerful-nsa-hacking-tools-have-been-revealed-online/2016/08/16/bce4f974-63c7-11e6-96c0-37533479f3f5_story.html">https://www.washingtonpost.com/world/national-security/powerful-nsa-hacking-tools-have-been-revealed-online/2016/08/16/bce4f974-63c7-11e6-96c0-37533479f3f5_story.html</a></li>
-<li id="cite_note-17"><a href="https://www.schneier.com/blog/archives/2013/10/code_names_for.html">https://www.schneier.com/blog/archives/2013/10/code_names_for.html</a></li>
+<li id="cite_note-15"><a href="https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/">https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://theintercept.com/2014/03/12/nsa-plans-infect-millions-computers-malware/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-16"><a href="https://www.washingtonpost.com/world/national-security/powerful-nsa-hacking-tools-have-been-revealed-online/2016/08/16/bce4f974-63c7-11e6-96c0-37533479f3f5_story.html">https://www.washingtonpost.com/world/national-security/powerful-nsa-hacking-tools-have-been-revealed-online/2016/08/16/bce4f974-63c7-11e6-96c0-37533479f3f5_story.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.washingtonpost.com/world/national-security/powerful-nsa-hacking-tools-have-been-revealed-online/2016/08/16/bce4f974-63c7-11e6-96c0-37533479f3f5_story.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-17"><a href="https://www.schneier.com/blog/archives/2013/10/code_names_for.html">https://www.schneier.com/blog/archives/2013/10/code_names_for.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.schneier.com/blog/archives/2013/10/code_names_for.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-18">A popular attack against Tor Browser users.</li>
 <li id="cite_note-19">This relies on selector types like machine IDs, attached devices,
 cipher keys, network IDs and various user-specific leads such as
@@ -800,9 +800,9 @@ applications; for example, see <a href="../../VoIP/#Skype">Skype</a>.</li>
 <li id="cite_note-21">While the developers have a foundational understanding, they
 primarily advocate caution.</li>
 <li id="cite_note-22">This phenomenon warrants further research.</li>
-<li id="cite_note-23"><a href="https://phabricator.whonix.org/T790">https://phabricator.whonix.org/T790</a></li>
-<li id="cite_note-24">See also: <a href="https://groups.google.com/g/qubes-users/c/IQdCEpkooto">https://groups.google.com/g/qubes-users/c/IQdCEpkooto</a></li>
-<li id="cite_note-25"><a href="https://www.qubes-os.org/downloads/">https://www.qubes-os.org/downloads/</a></li>
+<li id="cite_note-23"><a href="https://phabricator.whonix.org/T790">https://phabricator.whonix.org/T790</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T790" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-24">See also: <a href="https://groups.google.com/g/qubes-users/c/IQdCEpkooto">https://groups.google.com/g/qubes-users/c/IQdCEpkooto</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/IQdCEpkooto" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-25"><a href="https://www.qubes-os.org/downloads/">https://www.qubes-os.org/downloads/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/downloads/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ol>
 </div>
 <div class="robots-nocontent" data-nosnippet="">

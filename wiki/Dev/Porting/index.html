@@ -20,18 +20,14 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../../Download/">Download</a></li><li><a href="../../Documentation/">Docs</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Support/">Help</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Porting</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Raspberry_Pi_-_RPi">Raspberry Pi - RPi</a></li><li class="toc-l2"><a href="#Apple_Silicon">Apple Silicon</a></li><li class="toc-l2"><a href="#ppc64el">ppc64el</a></li><li class="toc-l2"><a href="#ARM64">ARM64</a></li><li class="toc-l2"><a href="#Notes">Notes</a></li><li class="toc-l3"><a href="#Note_on_Terminology">Note on Terminology</a></li><li class="toc-l3"><a href="#Virtualization_versus_Emulation_versus_Architecture">Virtualization
-versus Emulation versus Architecture</a></li><li class="toc-l2"><a href="#grml-debootstrap">grml-debootstrap</a></li><li class="toc-l2"><a href="#Porting_Simplicity">Porting Simplicity</a></li><li class="toc-l2"><a href="#bindp">bindp</a></li><li class="toc-l2"><a href="#kloak">kloak</a></li><li class="toc-l2"><a href="#corridor">corridor</a></li><li class="toc-l2"><a href="#tb-updater">tb-updater</a></li><li class="toc-l2"><a href="#tirdad">tirdad</a></li><li class="toc-l2"><a href="#binaries-freedom">binaries-freedom</a></li><li class="toc-l2"><a href="#tor">tor</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
-<div class="first-heading">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Porting</span></nav><div class="first-heading">
 <p><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../../Moved:Password_Manager/" title="Dev/Password Manager"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Password
 Manager</span></a><a class="index internal" href="../../Design/" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="../Logo/" title="Dev/Logo"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Logo</span></a><span class="info"><span class="prev">Previous
 page: Dev/Password Manager</span><span class="index">Index page:
 Design</span><span class="next">Next page:
 Dev/Logo</span></span></span>Existing Ports of and Porting Whonix to
 other Architectures</p>
-</div>
-<div class="mininav">
+</div><div class="mininav">
 <ul>
 <li><a href="../../Ports/">Opening Ports in Whonix</a></li>
 <li><a href="./">Porting Whonix to other
@@ -39,7 +35,11 @@ Architectures</a></li>
 <li><a href="../Virtualization_Platform/">Porting
 Whonix to other Virtualizers</a></li>
 </ul>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Raspberry_Pi_-_RPi">Raspberry Pi - RPi</a></li><li class="toc-l2"><a href="#Apple_Silicon">Apple Silicon</a></li><li class="toc-l2"><a href="#ppc64el">ppc64el</a></li><li class="toc-l2"><a href="#ARM64">ARM64</a></li><li class="toc-l2"><a href="#Notes">Notes</a></li><li class="toc-l3"><a href="#Note_on_Terminology">Note on Terminology</a></li><li class="toc-l3"><a href="#Virtualization_versus_Emulation_versus_Architecture">Virtualization
+versus Emulation versus Architecture</a></li><li class="toc-l2"><a href="#grml-debootstrap">grml-debootstrap</a></li><li class="toc-l2"><a href="#Porting_Simplicity">Porting Simplicity</a></li><li class="toc-l2"><a href="#bindp">bindp</a></li><li class="toc-l2"><a href="#kloak">kloak</a></li><li class="toc-l2"><a href="#corridor">corridor</a></li><li class="toc-l2"><a href="#tb-updater">tb-updater</a></li><li class="toc-l2"><a href="#tirdad">tirdad</a></li><li class="toc-l2"><a href="#binaries-freedom">binaries-freedom</a></li><li class="toc-l2"><a href="#tor">tor</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
+
 <div class="mininav">
 <ul>
 <li><a href="../Installation_from_Repository/">Whonix
@@ -60,48 +60,48 @@ Intel and AMD. Porting Simplicity.</p>
 </div>
 <h1 id="Existing_Ports_of_Whonix">Existing Ports of Whonix</h1>
 <ul>
-<li><a href="https://wiki.raptorcs.com/wiki/Whonix">Whonix reported</a>
-to be running on POWER9 (<a href="https://wiki.raptorcs.com/wiki/OpenPOWER">OpenPOWER</a>)
-(<code>ppc64</code>), <a href="https://wiki.raptorcs.com/wiki/Main_Page">Raptor</a> <a href="https://wiki.raptorcs.com/wiki/Talos_II">Talos II</a> using <a href="../Installation_from_Repository/">distro-morphing</a>.</li>
+<li><a href="https://wiki.raptorcs.com/wiki/Whonix">Whonix reported</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://wiki.raptorcs.com/wiki/Whonix" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+to be running on POWER9 (<a href="https://wiki.raptorcs.com/wiki/OpenPOWER">OpenPOWER</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://wiki.raptorcs.com/wiki/OpenPOWER" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
+(<code>ppc64</code>), <a href="https://wiki.raptorcs.com/wiki/Main_Page">Raptor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://wiki.raptorcs.com/wiki/Main_Page" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <a href="https://wiki.raptorcs.com/wiki/Talos_II">Talos II</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://wiki.raptorcs.com/wiki/Talos_II" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> using <a href="../Installation_from_Repository/">distro-morphing</a>.</li>
 <li>Inoffical Whonix Docker port. Not reviwed by Whonix developers.
 <ul>
-<li><a href="https://forums.whonix.org/t/running-whonix-on-kvm-in-linux-containers/14048">https://forums.whonix.org/t/running-whonix-on-kvm-in-linux-containers/14048</a></li>
-<li><a href="https://github.com/nspin/whonix-now">https://github.com/nspin/whonix-now</a></li>
+<li><a href="https://forums.whonix.org/t/running-whonix-on-kvm-in-linux-containers/14048">https://forums.whonix.org/t/running-whonix-on-kvm-in-linux-containers/14048</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/running-whonix-on-kvm-in-linux-containers/14048" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://github.com/nspin/whonix-now">https://github.com/nspin/whonix-now</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/nspin/whonix-now" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
 <li>Some other inoffical Whonix docker ports of on GitHub.</li>
 </ul>
 <h1 id="Incomplete_Ports_of_Whonix">Incomplete Ports of Whonix</h1>
-<h2 id="Raspberry_Pi_-_RPi">Raspberry Pi - RPi</h2>
+<h2 id="Raspberry_Pi_-_RPi">Raspberry Pi - RPi</h2><span class="share-tooltip" data-anchor="Raspberry_Pi_-_RPi"><a class="headline-anchor" href="#Raspberry_Pi_-_RPi" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#Raspberry_Pi_-_RPi">https://www.whonix.org/wiki/Dev/Porting/#Raspberry_Pi_-_RPi</span></span></span></span>
 <p><img src="../../../media/Raspberry-pi-logo.svg" width="50" alt="raspberry-pi-logo.svg" /></p>
 <ul>
 <li><a href="https://forums.whonix.org/t/whonix-for-arm64-raspberry-pi-rpi-duplicate-forum-topic/1788">Whonix
-for <code>arm64</code> / Raspberry Pi ( RPi )</a> (<a href="../Build_Documentation/Physical_Isolation/#How_To_Install_Whonix-Gateway_on_the_Raspberry_Pi_3_B_.28RPI3.29">wiki</a>) (<a href="../../Unsupported/">unsupported</a>) See also <a href="../../Raspberry_Pi/">Raspberry Pi (RPi)</a>.</li>
+for <code>arm64</code> / Raspberry Pi ( RPi )</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-for-arm64-raspberry-pi-rpi-duplicate-forum-topic/1788" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (<a href="../Build_Documentation/Physical_Isolation/#How_To_Install_Whonix-Gateway_on_the_Raspberry_Pi_3_B_.28RPI3.29">wiki</a>) (<a href="../../Unsupported/">unsupported</a>) See also <a href="../../Raspberry_Pi/">Raspberry Pi (RPi)</a>.</li>
 </ul>
-<h2 id="Apple_Silicon">Apple Silicon</h2>
+<h2 id="Apple_Silicon">Apple Silicon</h2><span class="share-tooltip" data-anchor="Apple_Silicon"><a class="headline-anchor" href="#Apple_Silicon" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#Apple_Silicon">https://www.whonix.org/wiki/Dev/Porting/#Apple_Silicon</span></span></span></span>
 <p><img src="../../../media/Apple-mx-logo.jpg.webp" width="50" alt="Apple-mx-logo.jpg" /></p>
 <ul>
 <li>Whonix on <code>Mac</code> <code>M1</code> (<code>ARM</code>) based:
 <a href="../../MacOS/#M1">project status</a> / <a href="https://forums.whonix.org/t/whonix-on-mac-m1-arm/11310">forum
-discussion</a></li>
+discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-on-mac-m1-arm/11310" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <h1 id="Existing_Ports_of_Kicksecure&#8482;">Existing Ports of
 Kicksecure<sup>&#8482;</sup></h1>
-<h2 id="ppc64el">ppc64el</h2>
+<h2 id="ppc64el">ppc64el</h2><span class="share-tooltip" data-anchor="ppc64el"><a class="headline-anchor" href="#ppc64el" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#ppc64el">https://www.whonix.org/wiki/Dev/Porting/#ppc64el</span></span></span></span>
 <p><img src="../../../media/Ppc64-logo.svg" width="50" alt="Ppc64-logo.svg" /></p>
 <ul>
 <li><code>ppc64el</code> Kicksecure<sup>&#8482;</sup> functional, created
 using distro-morphing on a test server for Whonix developer Patrick. See
 also <a href="../../PPC64/">PPC64</a>.</li>
 </ul>
-<h2 id="ARM64">ARM64</h2>
+<h2 id="ARM64">ARM64</h2><span class="share-tooltip" data-anchor="ARM64"><a class="headline-anchor" href="#ARM64" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#ARM64">https://www.whonix.org/wiki/Dev/Porting/#ARM64</span></span></span></span>
 <p><img src="../../../media/Arm64-logo.svg" width="50" alt="Arm64-logo.svg" /></p>
 <ul>
 <li>Distro-morphing should generate viable images for KVM on
 <code>arm64</code>. See also <a href="../../ARM64/">ARM64</a>.</li>
 </ul>
-<h2 id="Notes">Notes</h2>
+<h2 id="Notes">Notes</h2><span class="share-tooltip" data-anchor="Notes"><a class="headline-anchor" href="#Notes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#Notes">https://www.whonix.org/wiki/Dev/Porting/#Notes</span></span></span></span>
 <p><span class="manually-placed-anchor " id="NOTE"></span></p>
-<h3 id="Note_on_Terminology">Note on Terminology</h3>
+<h3 id="Note_on_Terminology">Note on Terminology</h3><span class="share-tooltip" data-anchor="Note_on_Terminology"><a class="headline-anchor" href="#Note_on_Terminology" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#Note_on_Terminology">https://www.whonix.org/wiki/Dev/Porting/#Note_on_Terminology</span></span></span></span>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="info" /></span>
 <code>amd64</code> might imply AMD only. This is wrong.</p>
@@ -110,10 +110,10 @@ also <a href="../../PPC64/">PPC64</a>.</li>
 <p>For technical reasons, in Debian (and in many other Linux / Freedom
 Software related places) both, Intel and AMD, is called
 <code>amd64</code>. This is common knowledge without controversy among
-technical people, in doubt see <a href="https://en.wikipedia.org/wiki/X86-64">Wikipedia X86-64</a>.</p>
+technical people, in doubt see <a href="https://en.wikipedia.org/wiki/X86-64">Wikipedia X86-64</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/X86-64" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
 </div>
 <h3 id="Virtualization_versus_Emulation_versus_Architecture">Virtualization
-versus Emulation versus Architecture</h3>
+versus Emulation versus Architecture</h3><span class="share-tooltip" data-anchor="Virtualization_versus_Emulation_versus_Architecture"><a class="headline-anchor" href="#Virtualization_versus_Emulation_versus_Architecture" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#Virtualization_versus_Emulation_versus_Architecture">https://www.whonix.org/wiki/Dev/Porting/#Virtualization_versus_Emulation_versus_Architecture</span></span></span></span>
 <ul>
 <li><u>prerequisite knowledge:</u> <a href="#Note_on_Terminology">Note on Terminology</a></li>
 <li><u>Examples of architectures:</u> amd64, arm64, riscv64, POWER9</li>
@@ -143,23 +143,23 @@ likely possible. These packages are documented below. Furthermore, a
 bootable image (VM or ISO) needs to be created. Depending on the
 architecture, this can be a difficult process, which is elaborated on
 <img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</li>
+Development of System Image Creation and Bootstrapping Tools.</li>
 </ul>
 <h1 id="VM_images_creation_using_derivative-maker">VM images creation
 using derivative-maker</h1>
-<h2 id="grml-debootstrap">grml-debootstrap</h2>
+<h2 id="grml-debootstrap">grml-debootstrap</h2><span class="share-tooltip" data-anchor="grml-debootstrap"><a class="headline-anchor" href="#grml-debootstrap" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#grml-debootstrap">https://www.whonix.org/wiki/Dev/Porting/#grml-debootstrap</span></span></span></span>
 <p><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] uses <a href="https://github.com/grml/grml-debootstrap">grml-debootstrap</a> to
+derivative-maker uses <a href="https://github.com/grml/grml-debootstrap">grml-debootstrap</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/grml/grml-debootstrap" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> to
 create base bootable raw images.</p>
 <p>grml-debootstrap currently supports architectures <code>amd64</code>
 and <code>arm64</code> only. See grml-debootstrap discussion <a href="https://github.com/grml/grml-debootstrap/issues/311">Clarify
-design goals</a>. For other architectures, please consider to comment in
+design goals</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/grml/grml-debootstrap/issues/311" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. For other architectures, please consider to comment in
 the ticket or create a new one as appropriate.</p>
 <p>Raw image creation is a difficult process. See also
 <img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+Development of System Image Creation and Bootstrapping Tools.</p>
 <h1 id="Packages">Packages</h1>
-<h2 id="Porting_Simplicity">Porting Simplicity</h2>
+<h2 id="Porting_Simplicity">Porting Simplicity</h2><span class="share-tooltip" data-anchor="Porting_Simplicity"><a class="headline-anchor" href="#Porting_Simplicity" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#Porting_Simplicity">https://www.whonix.org/wiki/Dev/Porting/#Porting_Simplicity</span></span></span></span>
 <p>To simplify ports to other architectures, all of the following
 packages are optional dependencies. These packages have very useful
 functionality however to simplify bootstrapping a port of Whonix for a
@@ -182,7 +182,7 @@ first might be helpful.</p>
 <p>A production quality, redistributable port of Whonix however should
 be created using Whonix build script instead of distro-morphing.</p>
 <p>Related: <a href="../Virtualization_Platform/#Other_Virtualization_Platforms">porting Whonix to other virtualizers</a></p>
-<h2 id="bindp">bindp</h2>
+<h2 id="bindp">bindp</h2><span class="share-tooltip" data-anchor="bindp"><a class="headline-anchor" href="#bindp" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#bindp">https://www.whonix.org/wiki/Dev/Porting/#bindp</span></span></span></span>
 <ul>
 <li>maintained by third party: yes</li>
 <li>compiled: yes</li>
@@ -191,11 +191,11 @@ time</li>
 <li>language: C</li>
 <li>no upstream version number</li>
 <li>documentation: none</li>
-<li>upstream: <a href="https://github.com/yongboy/bindp">https://github.com/yongboy/bindp</a></li>
-<li>package source code: <a href="https://github.com/Kicksecure/bindp">https://github.com/Kicksecure/bindp</a></li>
+<li>upstream: <a href="https://github.com/yongboy/bindp">https://github.com/yongboy/bindp</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/yongboy/bindp" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li>package source code: <a href="https://github.com/Kicksecure/bindp">https://github.com/Kicksecure/bindp</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/bindp" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>kernel module: no</li>
 </ul>
-<h2 id="kloak">kloak</h2>
+<h2 id="kloak">kloak</h2><span class="share-tooltip" data-anchor="kloak"><a class="headline-anchor" href="#kloak" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#kloak">https://www.whonix.org/wiki/Dev/Porting/#kloak</span></span></span></span>
 <ul>
 <li>maintained by third party: <s>yes</s> no</li>
 <li>compiled: yes</li>
@@ -204,13 +204,13 @@ time</li>
 <li>version number by upstream: yes</li>
 <li>architecture support: any <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
 <li>documentation: <a href="../../Keystroke_and_Mouse_Deanonymization/#Kloak">kloak</a></li>
-<li>upstream: <a href="https://github.com/Whonix/kloak">https://github.com/Whonix/kloak</a></li>
-<li>Debian package source code: <a href="https://github.com/Whonix/kloak">https://github.com/Whonix/kloak</a></li>
+<li>upstream: <a href="https://github.com/Whonix/kloak">https://github.com/Whonix/kloak</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/kloak" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li>Debian package source code: <a href="https://github.com/Whonix/kloak">https://github.com/Whonix/kloak</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/kloak" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>kernel module: no</li>
 <li><a href="https://forums.whonix.org/t/kloak-keystroke-anonymization-tool/7089">Kloak
-Forum Discussion</a></li>
+Forum Discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/kloak-keystroke-anonymization-tool/7089" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="corridor">corridor</h2>
+<h2 id="corridor">corridor</h2><span class="share-tooltip" data-anchor="corridor"><a class="headline-anchor" href="#corridor" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#corridor">https://www.whonix.org/wiki/Dev/Porting/#corridor</span></span></span></span>
 <ul>
 <li>maintained by third party: yes</li>
 <li>compiled: no</li>
@@ -218,13 +218,13 @@ Forum Discussion</a></li>
 <li>version number by upstream: yes</li>
 <li>upstream architecture support: any</li>
 <li>documentation: <a href="../../Corridor/">Corridor</a></li>
-<li>upstream: <a href="https://github.com/rustybird/corridor">https://github.com/rustybird/corridor</a></li>
-<li>Debian package source code: <a href="https://github.com/Whonix/corridor">https://github.com/Whonix/corridor</a></li>
+<li>upstream: <a href="https://github.com/rustybird/corridor">https://github.com/rustybird/corridor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/rustybird/corridor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li>Debian package source code: <a href="https://github.com/Whonix/corridor">https://github.com/Whonix/corridor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/corridor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>kernel module: no</li>
 <li><a href="https://forums.whonix.org/t/corridor-a-tor-traffic-whitelisting-gateway-a-clearnet-leak-tester/2765">corridor
-Development Discussion</a></li>
+Development Discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/corridor-a-tor-traffic-whitelisting-gateway-a-clearnet-leak-tester/2765" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="tb-updater">tb-updater</h2>
+<h2 id="tb-updater">tb-updater</h2><span class="share-tooltip" data-anchor="tb-updater"><a class="headline-anchor" href="#tb-updater" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#tb-updater">https://www.whonix.org/wiki/Dev/Porting/#tb-updater</span></span></span></span>
 <ul>
 <li>maintained by third party: no</li>
 <li>compiled: no</li>
@@ -236,14 +236,14 @@ Development Discussion</a></li>
 <li><code>i386</code> and <code>amd64</code>
 <ul>
 <li>For the Linux platform The Tor Project is only providing
-<code>i386</code> and <code>amd64</code> downloads. See <a href="https://dist.torproject.org/torbrowser/">https://dist.torproject.org/torbrowser/</a>.</li>
+<code>i386</code> and <code>amd64</code> downloads. See <a href="https://dist.torproject.org/torbrowser/">https://dist.torproject.org/torbrowser/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://dist.torproject.org/torbrowser/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 </ul></li>
-<li><code>arm64</code> -&gt; <a href="https://forums.whonix.org/t/arm64-tor-browser/11806">https://forums.whonix.org/t/arm64-tor-browser/11806</a></li>
+<li><code>arm64</code> -&gt; <a href="https://forums.whonix.org/t/arm64-tor-browser/11806">https://forums.whonix.org/t/arm64-tor-browser/11806</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/arm64-tor-browser/11806" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul></li>
-<li>Debian package source code: <a href="https://github.com/Kicksecure/tb-updater">https://github.com/Kicksecure/tb-updater</a></li>
+<li>Debian package source code: <a href="https://github.com/Kicksecure/tb-updater">https://github.com/Kicksecure/tb-updater</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/tb-updater" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>kernel module: no</li>
 </ul>
-<h2 id="tirdad">tirdad</h2>
+<h2 id="tirdad">tirdad</h2><span class="share-tooltip" data-anchor="tirdad"><a class="headline-anchor" href="#tirdad" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#tirdad">https://www.whonix.org/wiki/Dev/Porting/#tirdad</span></span></span></span>
 <ul>
 <li>maintained by third party: yes</li>
 <li>compiled: yes</li>
@@ -252,7 +252,7 @@ time</li>
 <li>version number by upstream: upstream does not (yet) provide version
 numbers</li>
 <li>architecture support: <a href="https://forums.whonix.org/t/tcp-isn-cpu-information-leak-protection-tirdad/8552/33"><code>amd64</code>
-only</a>
+only</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tcp-isn-cpu-information-leak-protection-tirdad/8552/33" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <ul>
 <li><code>amd64</code> support: Yes.</li>
 <li><code>arm64</code> support: No, because the Linux kernel does not
@@ -261,29 +261,29 @@ support live patching on <code>arm64</code>.</li>
 Linux kernel supports live patching on that architecture.</li>
 </ul></li>
 <li>documentation: TODO</li>
-<li>upstream: <a href="https://github.com/0xsirus/tirdad">https://github.com/0xsirus/tirdad</a></li>
-<li>Debian package source code: <a href="https://github.com/Kicksecure/tirdad">https://github.com/Kicksecure/tirdad</a></li>
+<li>upstream: <a href="https://github.com/0xsirus/tirdad">https://github.com/0xsirus/tirdad</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/0xsirus/tirdad" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li>Debian package source code: <a href="https://github.com/Kicksecure/tirdad">https://github.com/Kicksecure/tirdad</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/tirdad" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>kernel module: yes</li>
 <li>kernel: <code>Linux</code> only</li>
 <li><a href="https://forums.whonix.org/t/tcp-secure-sn-generation-in-linux-and-its-privacy-issues-tirdad-kernel-module-for-random-isn-generation/8552">tirdad
-Development Discussion</a></li>
+Development Discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tcp-secure-sn-generation-in-linux-and-its-privacy-issues-tirdad-kernel-module-for-random-isn-generation/8552" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
-<h2 id="binaries-freedom">binaries-freedom</h2>
+<h2 id="binaries-freedom">binaries-freedom</h2><span class="share-tooltip" data-anchor="binaries-freedom"><a class="headline-anchor" href="#binaries-freedom" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#binaries-freedom">https://www.whonix.org/wiki/Dev/Porting/#binaries-freedom</span></span></span></span>
 <ul>
 <li>Currently not in use.</li>
 </ul>
-<h2 id="tor">tor</h2>
+<h2 id="tor">tor</h2><span class="share-tooltip" data-anchor="tor"><a class="headline-anchor" href="#tor" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Porting/#tor">https://www.whonix.org/wiki/Dev/Porting/#tor</span></span></span></span>
 <ul>
 <li>Architectures <code>amd64</code>, <code>i386</code> and
 <code>arm64</code> are using the <a href="https://deb.torproject.org"><code>deb.torproject.org</code>
-<code>tor</code> package</a>. A newer version. The latest stable version
+<code>tor</code> package</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://deb.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. A newer version. The latest stable version
 provided by The Tor Project for the stable release of Debian. Why? See
-<a href="../Tor/">Dev/Tor</a> and <a href="https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762">https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762</a>.</li>
+<a href="../Tor/">Dev/Tor</a> and <a href="https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762">https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
 <li>Architectures other than <code>amd64</code>, <code>i386</code> and
 <code>arm64</code> are using the <a href="https://packages.debian.org"><code>packages.debian.org</code>
-<code>tor</code> package</a>. An older version. The frozen stable
+<code>tor</code> package</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.debian.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. An older version. The frozen stable
 version provided by Debian for Debian stable. This has a disadvantage:
-<a href="https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762">https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762</a></li>
+<a href="https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762">https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-package-urgently-needs-update-to-v0-4-6-8-due-to-tor-browser-11-stable-fingerprintability/12762" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li>package maintained by third party: yes</li>
 <li>compiled during package build process: no</li>
 <li>contains binaries: yes</li>
@@ -326,7 +326,7 @@ Reachability</h1>
 510 Unrecognized command &quot;&quot;</code></pre>
 <p>Otherwise, it would be a grave error (<a href="../onion-grater/">onion-grater</a> not reachable).</p>
 <h1 id="Forum_Discussion">Forum Discussion</h1>
-<p><a href="https://forums.whonix.org/t/architecture-specific-compiled-third-party-special-packages-porting-whonix/8562">https://forums.whonix.org/t/architecture-specific-compiled-third-party-special-packages-porting-whonix/8562</a></p>
+<p><a href="https://forums.whonix.org/t/architecture-specific-compiled-third-party-special-packages-porting-whonix/8562">https://forums.whonix.org/t/architecture-specific-compiled-third-party-special-packages-porting-whonix/8562</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/architecture-specific-compiled-third-party-special-packages-porting-whonix/8562" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <h1 id="RPM">RPM</h1>
 <p>These are some random notes about porting Whonix update debs to
 rpm.</p>
@@ -347,10 +347,10 @@ debian/rules)</li>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
 <ol>
-<li id="cite_note-1">* <a href="https://github.com/Whonix/derivative-maker/blob/master/aptrepo_remote">https://github.com/Whonix/derivative-maker/blob/master/aptrepo_remote</a>
-* <a href="https://github.com/Whonix/derivative-maker/blob/master/aptrepo_local">https://github.com/Whonix/derivative-maker/blob/master/aptrepo_local</a></li>
-<li id="cite_note-2">** <a href="https://github.com/vmonaco/kloak/issues/24">https://github.com/vmonaco/kloak/issues/24</a>
-** <a href="https://github.com/vmonaco/kloak/issues/25">https://github.com/vmonaco/kloak/issues/25</a></li>
+<li id="cite_note-1">* <a href="https://github.com/Whonix/derivative-maker/blob/master/aptrepo_remote">https://github.com/Whonix/derivative-maker/blob/master/aptrepo_remote</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/derivative-maker/blob/master/aptrepo_remote" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://github.com/Whonix/derivative-maker/blob/master/aptrepo_local">https://github.com/Whonix/derivative-maker/blob/master/aptrepo_local</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/derivative-maker/blob/master/aptrepo_local" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-2">** <a href="https://github.com/vmonaco/kloak/issues/24">https://github.com/vmonaco/kloak/issues/24</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/vmonaco/kloak/issues/24" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+** <a href="https://github.com/vmonaco/kloak/issues/25">https://github.com/vmonaco/kloak/issues/25</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/vmonaco/kloak/issues/25" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ol>
 </div>
 <p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../../Moved:Password_Manager/" title="Dev/Password Manager"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/Password

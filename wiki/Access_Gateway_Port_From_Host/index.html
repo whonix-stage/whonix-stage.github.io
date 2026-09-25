@@ -21,9 +21,6 @@
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li><a href="../Download/">Download</a></li><li><a href="../Documentation/">Docs</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Support/">Help</a></li><li><a href="../Contribute/">Contribute</a></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Example:_Make_port_9050_accessible_from_the_host.">Example: Make
-port 9050 accessible from the host.</a></li><li class="toc-l3"><a href="#Host_Setup">Host Setup</a></li><li class="toc-l3"><a href="#Whonix-Gateway_Setup">Whonix-Gateway Setup</a></li><li class="toc-l2"><a href="#Debugging">Debugging</a></li><li class="toc-l2"><a href="#Testing">Testing</a></li><li class="toc-l2"><a href="#Forwarding_that_port_to_LAN">Forwarding that port to LAN</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
-</div>
 <div class="mininav">
 <ul>
 <li><a href="../Connections_between_Gateway_and_Workstation/">Connections between Whonix-Gateway and
@@ -34,7 +31,14 @@ Whonix-Gateway Ports from the Host</a></li>
 <li><a href="../Access_Workstation_Port_From_Host/">Access
 Whonix-Workstation Ports from the Host</a></li>
 </ul>
+</div><div class="intro-like">
+<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+text editor of your choice with administrative rights.</p>
+</div><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Example:_Make_port_9050_accessible_from_the_host.">Example: Make
+port 9050 accessible from the host.</a></li><li class="toc-l3"><a href="#Host_Setup">Host Setup</a></li><li class="toc-l3"><a href="#Whonix-Gateway_Setup">Whonix-Gateway Setup</a></li><li class="toc-l2"><a href="#Debugging">Debugging</a></li><li class="toc-l2"><a href="#Testing">Testing</a></li><li class="toc-l2"><a href="#Forwarding_that_port_to_LAN">Forwarding that port to LAN</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
+
 <p><img src="../../media/Accessgateway.jpg.webp" alt="Accessgateway.jpg" /></p>
 <div class="pre-intro-p ">
 </div>
@@ -53,8 +57,8 @@ From Host</h1>
 <p><strong>Not tested since Whonix 0.5.6. May or may not work. Might
 need changes for later versions.</strong></p>
 <h2 id="Example:_Make_port_9050_accessible_from_the_host.">Example: Make
-port 9050 accessible from the host.</h2>
-<h3 id="Host_Setup">Host Setup</h3>
+port 9050 accessible from the host.</h2><span class="share-tooltip" data-anchor="Example:_Make_port_9050_accessible_from_the_host."><a class="headline-anchor" href="#Example:_Make_port_9050_accessible_from_the_host." aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Example:_Make_port_9050_accessible_from_the_host.">https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Example:_Make_port_9050_accessible_from_the_host.</span></span></span></span>
+<h3 id="Host_Setup">Host Setup</h3><span class="share-tooltip" data-anchor="Host_Setup"><a class="headline-anchor" href="#Host_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Host_Setup">https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Host_Setup</span></span></span></span>
 <p>On the host.</p>
 <p>In the Whonix-Gateway VM network settings. &#8594; Set up Port Forwarding:
 &#8594; within the <code>Adapter 1</code> tab click <code>Advanced</code> &#8594;
@@ -73,19 +77,14 @@ your Whonix-Gateway.</p>
 <p>CLI:</p>
 <p><span class="code-select">VBoxManage modifyvm "Whonix-Gateway-CLI"
 --natpf1 "9050",tcp,127.0.0.1,9050,,9050</span></p>
-<h3 id="Whonix-Gateway_Setup">Whonix-Gateway Setup</h3>
+<h3 id="Whonix-Gateway_Setup">Whonix-Gateway Setup</h3><span class="share-tooltip" data-anchor="Whonix-Gateway_Setup"><a class="headline-anchor" href="#Whonix-Gateway_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Whonix-Gateway_Setup">https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Whonix-Gateway_Setup</span></span></span></span>
 <p>Inside Whonix-Gateway...</p>
 <p>IP <code>10.0.2.15</code> is usually obtained from VirtualBox's DHCP
 server. Hope this always works, otherwise you have to adjust the IP or
 edit the network config. And use a static virtual LAN IP. (<a href="../Template:Network_Config/">Template:Network_Config</a>)</p>
 <p>Tor configuration file.</p>
 <div class="info-box ">
-<div class="intro-like">
-<p>Open the file <code>/usr/local/etc/torrc.d/50_user.conf</code> in a
-<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided] of your choice with administrative
-rights.</p>
-</div>
+
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 Sysmaint notice.</p>
 <p>Ensure the VM has administrative (<code>sudo</code> / <a href="../Moved:Root/"><code>root</code></a>) access first. See also <a href="../Sysmaint/">sysmaint</a>.</p>
@@ -106,7 +105,7 @@ Platform specific. Select your platform.</p>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -152,7 +151,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="tcc-content">
 <p><u>If you are using a graphical Whonix-Gateway</u> and enabled
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided], take the following step.</p>
+unrestricted admin mode, take the following step.</p>
 <p><code>Start Menu</code> -&gt; <code>System Tools</code> -&gt;
 <code>Tor User Config</code></p>
 </div>
@@ -186,7 +185,7 @@ Whonix-Gateway Unrestricted Admin Mode</h5>
 <div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
-[Broken-ExtLink--no-url-was-provided].</p>
+unrestricted admin mode.</p>
 </div>
 <div class="tab-content-controller ">
 <div class="mininav ">
@@ -412,7 +411,7 @@ EXTERNAL_UDP_OPEN_PORTS+=" 9050 "</span></p>
 </div>
 </div>
 </div>
-<h2 id="Debugging">Debugging</h2>
+<h2 id="Debugging">Debugging</h2><span class="share-tooltip" data-anchor="Debugging"><a class="headline-anchor" href="#Debugging" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Debugging">https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Debugging</span></span></span></span>
 <p>Inside Whonix-Gateway...</p>
 <p>Switch to clearnet user.</p>
 <p><span class="code-select">sudo -u clearnet bash</span></p>
@@ -426,14 +425,14 @@ curl wrapper.</p>
 127.0.0.1:9050</span></p>
 <p>It should answer
 <code>This is a SOCKs proxy, not an HTTP proxy.</code>.</p>
-<h2 id="Testing">Testing</h2>
+<h2 id="Testing">Testing</h2><span class="share-tooltip" data-anchor="Testing"><a class="headline-anchor" href="#Testing" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Testing">https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Testing</span></span></span></span>
 <p>On the host...</p>
 <p><span class="code-select">curl 127.0.0.1:9050</span></p>
 <p>It should answer
 <code>This is a SOCKs proxy, not an HTTP proxy.</code>.</p>
 <p>If you see that, that indicates that Tor is, which runs inside
 Whonix-Gateway is accessible on the host as well.</p>
-<h2 id="Forwarding_that_port_to_LAN">Forwarding that port to LAN</h2>
+<h2 id="Forwarding_that_port_to_LAN">Forwarding that port to LAN</h2><span class="share-tooltip" data-anchor="Forwarding_that_port_to_LAN"><a class="headline-anchor" href="#Forwarding_that_port_to_LAN" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Forwarding_that_port_to_LAN">https://www.whonix.org/wiki/Access_Gateway_Port_From_Host/#Forwarding_that_port_to_LAN</span></span></span></span>
 <p>On the host...</p>
 <p>This is untested, but should work.</p>
 <p>You can use something like <code>socat</code>,
@@ -451,8 +450,8 @@ Whonix-Workstation Ports from the Host</a></li>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
 <ol>
-<li id="cite_note-1">* <a href="https://github.com/Whonix/whonix-firewall/blob/master/etc/whonix_firewall.d/30_whonix_gateway_default.conf">https://github.com/Whonix/whonix-firewall/blob/master/etc/whonix_firewall.d/30_whonix_gateway_default.conf</a>
-* <a href="https://forums.whonix.org/t/redirect-host-traffic-to-whonix-gateway-allow-multiple-incoming-flashproxy-ports/7448">https://forums.whonix.org/t/redirect-host-traffic-to-whonix-gateway-allow-multiple-incoming-flashproxy-ports/7448</a>
+<li id="cite_note-1">* <a href="https://github.com/Whonix/whonix-firewall/blob/master/etc/whonix_firewall.d/30_whonix_gateway_default.conf">https://github.com/Whonix/whonix-firewall/blob/master/etc/whonix_firewall.d/30_whonix_gateway_default.conf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/whonix-firewall/blob/master/etc/whonix_firewall.d/30_whonix_gateway_default.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+* <a href="https://forums.whonix.org/t/redirect-host-traffic-to-whonix-gateway-allow-multiple-incoming-flashproxy-ports/7448">https://forums.whonix.org/t/redirect-host-traffic-to-whonix-gateway-allow-multiple-incoming-flashproxy-ports/7448</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/redirect-host-traffic-to-whonix-gateway-allow-multiple-incoming-flashproxy-ports/7448" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 * Look at
 <code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>. Open
 file <code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>
