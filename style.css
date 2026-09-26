@@ -361,6 +361,15 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 
 /* ---- content ---- */
+/* A few wiki pages embed a raw MediaWiki skin HTML dump (mw-body/vector-body/mw-parser-output)
+   inside the content; strip its skin padding/margin/width so it does not double-pad and push
+   the page a couple px past the mobile viewport. */
+.wiki-content .mw-body,
+.wiki-content .vector-body,
+.wiki-content .mw-body-content,
+.wiki-content .mw-parser-output {
+  padding: 0; margin: 0; width: auto; max-width: 100%; border: none; background: none;
+}
 .wiki-content {
   max-width: var(--maxw);
   margin: 2rem auto 3rem;
@@ -797,11 +806,21 @@ code {
   border-bottom: 1px solid currentColor;
 }
 .footer-social-icons {
-  display: flex; flex-wrap: wrap; gap: 0.85rem;
-  margin: 0 0 0.75rem; font-size: 1.35rem;
+  display: flex; flex-wrap: wrap; gap: 0.55rem;
+  margin: 0 0 0.75rem; font-size: 1rem;
 }
-.footer-social-icons .icon-link { color: var(--muted); line-height: 1; }
-.footer-social-icons .icon-link:hover { color: var(--link); text-decoration: none; }
+/* Production look: round badges with a drop-shadow that zoom on hover (Footer.css .icon-link),
+   not flat glyphs. */
+.footer-social-icons .icon-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--surface); color: var(--fg-soft); line-height: 1;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.footer-social-icons .icon-link:hover {
+  transform: scale(1.15); background: var(--surface-2); color: var(--fg); text-decoration: none;
+}
 .footer-sponsor { margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--muted); }
 .footer-freedom ul, .footer-links ul {
   display: flex; flex-direction: column; gap: 0.3rem;
