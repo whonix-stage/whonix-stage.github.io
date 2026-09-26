@@ -447,21 +447,48 @@
       active.modal.hidden = true;
       document.body.classList.remove("mini-modal-active");
       var cb = active.onClose;
+      var opener = active.opener;  // restore focus to the trigger (a11y: no lost focus)
       active = null;
       if (cb) cb();
+      if (opener && opener.focus) { try { opener.focus(); } catch (e) {} }
     }
     function open(modal, onClose) {
       if (!modal) return;
+      var opener = document.activeElement;  // remember the trigger to refocus on close
       if (active) close();  // one modal at a time: run the previous onClose (stops its timer)
       modal.hidden = false;
       modal.classList.add("active");
       document.body.classList.add("mini-modal-active");
-      active = { modal: modal, onClose: onClose };
+      active = { modal: modal, onClose: onClose, opener: opener };
       var c = modal.querySelector(".mm-close");
       if (c) c.focus();
     }
+    // Focusable elements inside the active modal, in DOM order.
+    function focusables() {
+      if (!active) return [];
+      var sel = 'a[href], button:not([disabled]), input:not([disabled]), '
+        + '[tabindex]:not([tabindex="-1"])';
+      var all = active.modal.querySelectorAll(sel);
+      var out = [];
+      for (var i = 0; i < all.length; i++) {
+        if (!all[i].hidden && all[i].offsetParent !== null) out.push(all[i]);
+      }
+      return out;
+    }
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") close();
+      if (!active) return;
+      if (e.key === "Escape") { close(); return; }
+      // Focus trap: keep Tab within the dialog (else focus escapes behind it).
+      if (e.key === "Tab") {
+        var f = focusables();
+        if (!f.length) { e.preventDefault(); return; }
+        var first = f[0], last = f[f.length - 1], cur = document.activeElement;
+        if (e.shiftKey && (cur === first || !active.modal.contains(cur))) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && (cur === last || !active.modal.contains(cur))) {
+          e.preventDefault(); first.focus();
+        }
+      }
     });
     document.addEventListener("click", function (e) {
       if (!active) return;
@@ -535,6 +562,9 @@
           document.body.appendChild(modal);
           var seconds = 5;
           var timer = setInterval(function () {
+            // Pause the countdown while the tab is hidden: don't navigate away from
+            // a page the user isn't looking at; resume ticking when it's visible again.
+            if (document.hidden) return;
             seconds -= 1;
             count.textContent = String(seconds);
             // Navigate by CLICKING the proceed anchor so its rel="noreferrer" is

@@ -332,16 +332,29 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 @media (max-width: 640px) {
   .site-header { padding: 0.55rem 1rem; }
   .nav-toggle-label { display: inline-flex; align-items: center; margin-left: auto; order: 2; }
-  .site-nav { flex-basis: 100%; order: 3; }
-  .site-nav ul { flex-direction: column; gap: 0.1rem; }
-  .site-nav a { padding: 0.55rem 0.65rem; }
-  /* submenus render inline + expanded in the mobile drawer (no hover on touch) */
+  /* Open menu: a clean full-width panel with its OWN scroll and sectioned groups (bold
+     label + separators), not a cramped wall of links. Collapsed by default; the hamburger
+     plus outside-tap / Esc (app.js initNavToggle) toggle it. */
+  .site-nav {
+    flex-basis: 100%; order: 3;
+    max-height: calc(100vh - 130px); overflow-y: auto;
+    margin: 0.4rem -1rem 0; padding: 0 1rem 0.4rem;
+    border-top: 1px solid var(--border);
+  }
+  .site-nav ul { flex-direction: column; gap: 0; }
+  .site-nav > ul > li:not(:last-child) { border-bottom: 1px solid var(--border-soft); }
+  .nav-group > .nav-top {
+    font-weight: 700; font-size: 1rem; color: var(--fg);
+    padding: 0.7rem 0.5rem 0.35rem;
+  }
+  .site-nav a { padding: 0.5rem 0.65rem; }
+  /* submenus render inline + expanded in the drawer (no hover on touch), indented + muted */
   .nav-submenu {
     display: block; position: static; min-width: 0;
-    margin: 0 0 0.25rem 0.9rem; padding: 0;
+    margin: 0 0 0.35rem 0.5rem; padding: 0;
     background: transparent; border: none; box-shadow: none;
   }
-  .nav-submenu a { padding: 0.4rem 0.65rem; font-size: 0.88rem; color: var(--muted); }
+  .nav-submenu a { padding: 0.4rem 0.65rem; font-size: 0.9rem; color: var(--muted); }
   .nav-toggle:not(:checked) ~ .site-nav { display: none; }
   .site-search { order: 4; flex-basis: 100%; margin-left: 0; }
   .site-search input { min-width: 0; flex: 1 1 auto; }
@@ -974,6 +987,8 @@ code {
 .mininav.mn-switcher li:not(:last-child) > * { margin-right: 11px; }
 .mininav.mn-switcher li > *:hover,
 .mininav.mn-switcher li > *.active { background-color: white; color: #36b; }
+/* pills are buttons, not prose links: no underline (overrides .wiki-content li a + a:hover). */
+.mininav.mn-switcher a, .mininav.mn-switcher a:hover { text-decoration: none; }
 /* width:auto so a square icon keeps its ratio (a bare height + an HTML width attr squish it). */
 .mininav.mn-switcher li > * > img { height: 1.2em; width: auto; vertical-align: middle; margin-right: 6px; }
 .mininav:empty { display: none; }
@@ -1027,24 +1042,43 @@ code {
    tab-controller mininav (which JS fills with .mininav-tab buttons). */
 /* Book / related-links nav (a mininav with a real <ul> link list) -- scoped :not(.mn-switcher)
    so it never hits the JS tab switcher, which also builds a <ul>. */
-.mininav:not(.mn-switcher):has(> ul) {
-  margin: 0 0 1.25rem; padding: 0.6rem 0.9rem;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-md, 6px); font-size: 0.9rem;
+/* Production chip-button row (Mininav.css): color-only chips, never underlined; a leading
+   icon sits in a fixed 25x25 gutter -- OVERRIDING the wiki markup's pixel width so a 100px
+   architecture logo does not blow the row up (the Raspberry_Pi "Architecture Support" case). */
+.mininav:not(.mn-switcher) { margin: 15px 0; }
+.mininav:not(.mn-switcher) > p:first-child {
+  background: var(--surface); color: var(--muted); margin: 0 0 5px;
+  padding: 3px 15px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.06); font-weight: 600;
+  display: inline-block;
 }
-.mininav:not(.mn-switcher) > p { font-weight: 600; margin: 0 0 0.45rem; }
 .mininav:not(.mn-switcher) > ul {
   list-style: none; margin: 0; padding: 0;
-  display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem;
+  display: inline-block; font-size: 0;              /* kill inline-block whitespace gaps */
 }
-.mininav:not(.mn-switcher) > ul > li { margin: 0; }
-/* current page selflink: MediaWiki renders a link to the current page href-less with
-   .mw-selflink -- bold everywhere, and highlighted inside the book mininav. */
+.mininav:not(.mn-switcher) > ul > li {
+  display: inline-block; margin: 0 3px 5px 0; padding: 0;
+  position: relative; min-height: 40px;
+}
+.mininav:not(.mn-switcher) li > a {
+  display: inline-block; background: var(--surface); color: var(--link);
+  padding: 6px 10px; font-size: 15px; text-decoration: none;
+  border-bottom: 4px solid var(--bg);
+  transition: background-color 0.3s, border-bottom-color 0.3s;
+}
+.mininav:not(.mn-switcher) li > a:hover,
+.mininav:not(.mn-switcher) li > a.selflink,
+.mininav:not(.mn-switcher) li > a[aria-current="page"] {
+  background: var(--bg); border-bottom-color: var(--accent);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05); font-weight: normal;
+}
+/* leading icon forced into a 25x25 gutter (overrides the markup width); label cleared. */
+.mininav:not(.mn-switcher) li > img:first-child {
+  position: absolute; left: 10px; top: 8px;
+  width: 25px; height: 25px; object-fit: contain;
+}
+.mininav:not(.mn-switcher) li > img:first-child + a { padding-left: 46px; }
+/* current-page selflink: bold everywhere (used outside the mininav too). */
 .mw-selflink, a.selflink { font-weight: 700; color: var(--fg); cursor: default; }
-.mininav:not(.mn-switcher) > ul > li > a.selflink,
-.mininav:not(.mn-switcher) > ul > li > a[aria-current="page"] {
-  color: var(--accent); font-weight: 700; text-decoration: none;
-}
 
 /* Anti-spam e-mail: the "please do not e-mail for..." reasons are revealed on
    hover/focus (restores the MediaWiki hover feature) and hidden otherwise, so the
@@ -1210,6 +1244,9 @@ code {
    a previously-dismissed banner should stay hidden, so it never paints then vanishes. */
 html.sitenotice-hidden #siteNotice,
 html.legal-ack-hidden .consent-banner { display: none; }
+/* No-JS notice: the pre-paint marks <html class="client-js"> when JS is on, so the
+   "works without JavaScript" callout only shows to actual no-JS visitors (no flash). */
+html.client-js .show-for-nojs-only { display: none; }
 #siteNotice { display: block; margin: 1rem 0 1.25rem; text-align: center; }
 .sitenotice { position: relative; display: inline-block; max-width: 100%; }
 .sitenotice-close {

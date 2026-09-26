@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Build Configuration</title>
 <meta name="description" content="Non-Qubes-Whonix&lt;sup&gt;&amp;trade;&lt;/sup&gt; Build Configuration. APT Repository, Onion Sources, APT Cache, VM Settings, Skip Steps, Source Code Changes">
@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
-<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -475,8 +475,10 @@ of official 64-bit builds</a><sup class="ext-link-to-archive has-sibling" title=
 <li id="cite_note-2">Don't get confused by the term <code>amd64</code>. It runs on both,
 Intel and AMD. <code>amd64</code> is only how Debian names the kernel.
 It works equally well on Intel and AMD.</li>
-<li id="cite_note-3">kFreeBSD (32-bit). zZmwstaticVERBATIMzZ1zZ kFreeBSD (64-bit).
-zZmwstaticVERBATIMzZ2zZ</li>
+<li id="cite_note-3">kFreeBSD (32-bit).
+<pre><code> --arch kfreebsd-i386 --kernel kfreebsd-image --headers kfreebsd-headers </code></pre>
+<p>kFreeBSD (64-bit).</p>
+<pre><code> --arch kfreebsd-amd64 --kernel kfreebsd-image --headers kfreebsd-headers </code></pre></li>
 <li id="cite_note-4"><a href="https://github.com/grml/grml-debootstrap/pull/13">https://github.com/grml/grml-debootstrap/pull/13</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/grml/grml-debootstrap/pull/13" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-5">In this case, try installing the packages
 <span>linux-image-amd64</span> and

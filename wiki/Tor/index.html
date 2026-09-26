@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Tor Documentation for Whonix Users</title>
 <meta name="description" content="Notes about Tor (The Onion Router) on Log Analysis, Non-Persistent Entry Guards, Blacklist Certain Onion Services from Connecting, Additional SocksPorts, UDP and more.">
@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
-<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -1606,14 +1606,15 @@ interface:
 interface:
 <span class="code-select inline-style" data-code="curl.anondist-orig --head $(qubesdb-read /qubes-netvm-gateway):9100">curl.anondist-orig
 --head $(qubesdb-read /qubes-netvm-gateway):9100</span> Expected output:
-zZmwstaticVERBATIMzZ11zZ This means the port was reachable. Or. *
+<pre><code> HTTP/1.0 501 Tor is not an HTTP Proxy </code></pre>
+<p>This means the port was reachable. Or. *
 Non-Qubes-Whonix-Workstation:
 <span class="code-select inline-style" data-code="curl.anondist-orig --head 10.152.152.10:9100">curl.anondist-orig
 --head 10.152.152.10:9100</span> * Qubes-Whonix-Workstation:
 <span class="code-select inline-style" data-code="curl.anondist-orig --head $(qubesdb-read /qubes-gateway):9100">curl.anondist-orig
 --head $(qubesdb-read /qubes-gateway):9100</span> Also useful.
 <span class="code-select" data-code="sudo ifconfig">sudo
-ifconfig</span></li>
+ifconfig</span></p></li>
 <li id="cite_note-13">On Whonix-Gateway, by default no linux usernames other than
 <code>debian-tor</code> are permitted to connect using clearnet. The Tor
 process is by default the only thing running under linux user name

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>onion-grater, a Tor Control Port Filter Proxy</title>
 <meta name="description" content="onion-grater - filtering dangerous Tor Control Port commands - Design Documentation">
@@ -17,7 +17,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../../../favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../../../favicon-16x16.png">
 <link rel="apple-touch-icon" href="../../../apple-touch-icon.png">
-<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -1141,7 +1141,8 @@ Control Protocol</a><sup class="ext-link-to-archive has-sibling" title="Link to 
 <li id="cite_note-1"><a href="https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh">https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-ws-disable-stacked-tor/blob/master/usr/libexec/anon-ws-disable-stacked-tor/torbrowser.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-2"><a href="https://web.archive.org/web/20170222094246/https://mailman.boum.org/pipermail/tails-dev/2014-February/005041.html">As
 done by Tails.</a></li>
-<li id="cite_note-3">Thanks to HulaHoop for [zZmwstaticVERBATIMzZ0zZ suggesting
+<li id="cite_note-3">Thanks to HulaHoop for
+[https://www.whonix.org/old-forum/index.php/topic,342.0.html suggesting
 this].</li>
 <li id="cite_note-4"><a href="https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf">https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/whonix-gw-network-conf/blob/master/usr/lib/systemd/system/onion-grater.service.d/30_cpfpy.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-5">Find out what <code>status/bootstrap-phase</code> answers yourself
@@ -1160,12 +1161,12 @@ yourself in Whonix-Gateway.
 --function check_tor_bootstrap</span>
 <span class="code-select" data-code="whonixcheck --function check_tor_bootstrap --verbose --debug">whonixcheck
 --function check_tor_bootstrap --verbose --debug</span></li>
-<li id="cite_note-8">zZmwstaticVERBATIMzZ15zZ</li>
-<li id="cite_note-9">zZmwstaticVERBATIMzZ16zZ +* <strong>EVENTS</strong>: Tor Browser is
-subscribed to all <strong>STREAM</strong> events for its +
-implementation of the circuit view. This means it will know + basically
-everything Tor is doing, which is pretty bad in case Tor + Browser is
-compromised.</li>
+<li id="cite_note-8"><pre><code> ## Onion Authentication ## Not default when one workstation would login, this would login all workstations. ## Therefore potential cross VM linking identifier. ## https://blog.torproject.org/new-release-tor-browser-95 </code></pre></li>
+<li id="cite_note-9">https://git-tails.immerda.ch/onion-grater/commit/?id=33ae20850329930bd1a3686cca2a9ac4dc766aea
++* <strong>EVENTS</strong>: Tor Browser is subscribed to all
+<strong>STREAM</strong> events for its + implementation of the circuit
+view. This means it will know + basically everything Tor is doing, which
+is pretty bad in case Tor + Browser is compromised.</li>
 <li id="cite_note-10"><a href="https://phabricator.whonix.org/T631">https://phabricator.whonix.org/T631</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T631" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-11"><img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 Style Configuration Folders</li>
