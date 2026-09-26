@@ -491,7 +491,10 @@ blockquote p:last-child { margin-bottom: 0; }
 }
 .code-select > .cbutton.fa-check { color: #00d400; }
 .code-select:not(.copied) > .cbutton:hover { color: #0054a8; }
-.code-select .viewport { width: 100%; display: block; }
+/* The viewport scrolls a wide (white-space:pre) code line, so it stays within the box
+   instead of overflowing the page -- the container itself keeps overflow:visible so the
+   hover tooltip can escape. (No custom scrollbar here, so this is unconditional.) */
+.code-select .viewport { width: 100%; display: block; overflow-x: auto; }
 .code-select .code {
   display: block; overflow: visible; padding: 0 0 0 2px; width: fit-content;
   white-space: pre;
