@@ -576,8 +576,12 @@ code {
 }
 /* Only an icon callout is a horizontal icon|content row. A plain/step info-box (a
    numbered section box, an OS-chooser wrapper) has block children that must STACK --
-   flex-row here laid them side by side and overflowed the viewport horizontally. */
-.info-box.has-icon { display: flex; gap: 0.75rem; align-items: flex-start; }
+   flex-row here laid them side by side and overflowed the viewport horizontally.
+   The content is often a single <p> that (invalidly) wraps block children, which the
+   browser splits into sibling flex items: flex-wrap + min-width:0 lets them shrink and
+   stack instead of marching past the viewport. */
+.info-box.has-icon { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-start; }
+.info-box.has-icon > * { min-width: 0; max-width: 100%; }
 .info-box-icon { flex: 0 0 auto; color: var(--callout, var(--accent)); font-size: 1.1rem; }
 .mbox > :first-child, .info-box > :last-child > :first-child { margin-top: 0; }
 .mbox > :last-child { margin-bottom: 0; }
@@ -884,11 +888,14 @@ code {
 
 /* --- table of contents (pure-CSS collapsible; no-JS friendly, CSP-safe) --- */
 .toc {
-  display: table; min-width: 15rem; max-width: 100%;
+  display: table; min-width: 15rem; max-width: 100%; box-sizing: border-box;
   margin: 0 0 1.5rem; padding: 0.5rem 1rem 0.7rem;
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-md, 6px); font-size: 0.95rem;
 }
+/* overflow-wrap:anywhere (not break-word) shrinks the min-content width, so a long entry
+   lets the shrink-to-fit TOC honor max-width:100% instead of overflowing the viewport. */
+.toc a { overflow-wrap: anywhere; }
 .toc-toggle { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .toc-title {
   font-weight: 600; cursor: pointer; user-select: none;
@@ -916,12 +923,14 @@ code {
   display: flex; flex-direction: column; align-items: center;
   max-width: 12rem; font-size: 0.85rem; color: var(--muted);
 }
-.gallery .thumb { display: block; line-height: 0; }
-.gallery .thumb img {
+/* Border/padding/background live on the WRAPPER, not the img: uniform padding on a
+   non-square img skews its border-box ratio vs the intrinsic one (image-aspect-ratio fail). */
+.gallery .thumb {
+  display: inline-block; line-height: 0;
   border: 1px solid var(--border); border-radius: var(--radius-sm, 4px);
-  background: var(--surface); max-width: 100%; height: auto;
-  padding: 0.4rem; box-sizing: border-box;
+  background: var(--surface); padding: 0.4rem; max-width: 100%; box-sizing: border-box;
 }
+.gallery .thumb img { display: block; max-width: 100%; height: auto; }
 .gallery .gallerytext { display: block; margin-top: 0.3rem; text-align: center; line-height: 1.3; }
 .gallery a:hover img { transform: scale(1.1); }
 .justify-left { justify-content: left; }
@@ -963,9 +972,16 @@ code {
 .mininav.mn-switcher li:not(:last-child) > * { margin-right: 11px; }
 .mininav.mn-switcher li > *:hover,
 .mininav.mn-switcher li > *.active { background-color: white; color: #36b; }
-.mininav.mn-switcher li > * > img { height: 1.2em; vertical-align: middle; margin-right: 6px; }
+/* width:auto so a square icon keeps its ratio (a bare height + an HTML width attr squish it). */
+.mininav.mn-switcher li > * > img { height: 1.2em; width: auto; vertical-align: middle; margin-right: 6px; }
 .mininav:empty { display: none; }
-.tab-content-controller.mininav-ready .tcc-title { display: none; }
+/* Hide the tab-title visually but KEEP it in the a11y tree (sr-only, not display:none):
+   the pill nav shows the label, but the section's heading must stay so screen readers get
+   the authored h2->h3->h4 order (display:none drops the h3 -> heading-order a11y fail). */
+.tab-content-controller.mininav-ready .tcc-title {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
 @media (max-width: 420px) {
   .mininav.mn-switcher li > :not(span, img) { font-size: 15px; padding: 4px 10px; }
   .mininav.mn-switcher > ul { padding: 5px 12px; }
