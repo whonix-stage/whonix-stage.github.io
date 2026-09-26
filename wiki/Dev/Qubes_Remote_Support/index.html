@@ -636,20 +636,16 @@ Documentation</h1>
 restart instead.</li>
 <li id="cite_note-2">Useful for debugging. x) <code>sys-whonix</code> software
 installation Inside <code>sys-whonix</code> VM. Install ssh and x2go.
-<pre><code> sudo apt --no-install-recommends install openssh-client x2goclient </code></pre></li>
-<li id="cite_note-3">Previously functional socat method.
-<pre><code> sudo socat TCP-LISTEN:22,fork EXEC:&quot;qrexec-client-vm dom0 local.ssh&quot; </code></pre>
-<p>Last tested, functional version of this page using
-<code>socat</code>: <a href="https://www.whonix.org/w/index.php?title=Dev/Qubes_Remote_Support&amp;oldid=58559">https://www.whonix.org/w/index.php?title=Dev/Qubes_Remote_Support&amp;oldid=58559</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/w/index.php?title=Dev/Qubes_Remote_Support&amp;oldid=58559" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p></li>
-<li id="cite_note-4"><pre><code> user@host:~$ qvm-connect-tcp Usage: /usr/bin/qvm-connect-tcp [localport]:[vmname]:[port] Bind localport to another VM port using the qubes.ConnectTCP RPC service. </code></pre></li>
+zZmwstaticVERBATIMzZ2zZ</li>
+<li id="cite_note-3">Previously functional socat method. zZmwstaticVERBATIMzZ3zZ Last
+tested, functional version of this page using <code>socat</code>: <a href="https://www.whonix.org/w/index.php?title=Dev/Qubes_Remote_Support&amp;oldid=58559">https://www.whonix.org/w/index.php?title=Dev/Qubes_Remote_Support&amp;oldid=58559</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/w/index.php?title=Dev/Qubes_Remote_Support&amp;oldid=58559" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li id="cite_note-4">zZmwstaticVERBATIMzZ4zZ</li>
 <li id="cite_note-5">Symptom inside <code>sys-whonix</code> VM if refused/missing dom0
-qrexec policy in dom0.
-<pre><code> 2020/07/11 13:20:25 socat[2807] E waitpid(): child 2808 exited with status 126 </code></pre></li>
+qrexec policy in dom0. zZmwstaticVERBATIMzZ5zZ</li>
 <li id="cite_note-6">See <a href="#Archive">archive</a> for
 unauthenticated onion v3.</li>
 <li id="cite_note-7">Initial proof of concept had <code>socat</code> added here too.</li>
-<li id="cite_note-8">sftp-server required.
-<pre><code> Unable to find the sftp-server binary. Neither bundled, nor found in $PATH nor additional directories. If you are using a Linux-based operating system, please ask your system administrator to install the package containing the sftp-server binary. Common names are openssh, openssh-server or openssh-sftp-server depending upon distribution. If the sftp-server binary is installed on your system, please report a bug mentioning its path on: https://wiki.x2go.org/doku.php/wiki:bugs </code></pre></li>
+<li id="cite_note-8">sftp-server required. zZmwstaticVERBATIMzZ15zZ</li>
 <li id="cite_note-9">Currently broken. <s>Use <a href="../../SSH/#Server_Configuration_File">this</a> file as
 <code>/etc/ssh/sshd_config</code>.</s></li>
 <li id="cite_note-10">Currently broken due to <a href="#x2go_bugs">x2go
@@ -658,15 +654,13 @@ bugs</a>.</li>
 running.</li>
 <li id="cite_note-12">x) dom0 qrexec rpc setup In dom0. Setup qrexec rpc. Open file
 <code>/etc/qubes-rpc/local.ssh</code> in an editor with root rights.
-Add.
-<pre><code> #!/bin/sh exec socat STDIO TCP-CONNECT:localhost:22 </code></pre>
-<p>Save. Make executable. (Symptom if qubes-rpc is not executable.)</p>
-<pre><code> 2020/07/10 14:00:35 socat[14462] E waitpid(): child 14463 exited with status 127 </code></pre>
-<pre><code> sudo chmod +x /etc/qubes-rpc/local.ssh </code></pre>
-<p>Previous functional example using <code>socat</code>. Open file
+Add. zZmwstaticVERBATIMzZ24zZ Save. Make executable. (Symptom if
+qubes-rpc is not executable.) zZmwstaticVERBATIMzZ25zZ
+zZmwstaticVERBATIMzZ26zZ Previous functional example using
+<code>socat</code>. Open file
 <code>/etc/qubes-rpc/policy/local.ssh</code> in an editor with
 administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>")
-rights.</p>
+rights.
 <div class="info-box ">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform. <div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section info-box"><div class="tcc-image"><img src="../../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -717,11 +711,8 @@ sshd would refuse with insecure permissions error message.
 <code>chmod --recursive og-rwx ~/.ssh</code> was insufficient probably
 because file was owned by root, not user.</li>
 <li id="cite_note-14">During testing in remote-support-receiver <code>sys-whonix</code>
-VM.
-<pre><code> qvm-copy /var/lib/tor_autogen/remote_support/1.auth_private </code></pre>
-<p>In another <code>sys-whonix-two</code> remote-support-provider
-VM.</p>
-<pre><code> mv QubesIncoming/{{project_name_gateway_vm}}/1.auth_private ~/ </code></pre></li>
+VM. zZmwstaticVERBATIMzZ30zZ In another <code>sys-whonix-two</code>
+remote-support-provider VM. zZmwstaticVERBATIMzZ31zZ</li>
 <li id="cite_note-15">Currently broken. <s>Harden <code>/etc/ssh/ssh_config</code> as per
 <a href="../../SSH/#Client_Configuration_File">here</a>.</s></li>
 <li id="cite_note-16"><blockquote><p>[NOTICE] Guard guard-name ($fingerprint) is failing more circuits

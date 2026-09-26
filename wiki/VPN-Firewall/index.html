@@ -778,10 +778,10 @@ having it just work including autostart of VPN-Firewall and OpenVPN will
 not work yet. Help welcome! In future, perhaps the following
 instructions could be made to work after some <a href="https://github.com/marmarek/qubes-core-agent-linux/blob/master/vm-systemd/bind-dirs.sh">bind-dirs.sh</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/marmarek/qubes-core-agent-linux/blob/master/vm-systemd/bind-dirs.sh" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 enhancements. When using a TemplateBasedVM, to persist these changes use
-the Qubes bind dirs mechanism.
-<pre><code> sudo mkdir /rw/config/qubes-bind-dirs.d </code></pre>
-<p>Open file <code>/rw/config/qubes-bind-dirs.d/50_user.conf</code> in
-an editor with administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>") rights.</p>
+the Qubes bind dirs mechanism. zZmwstaticVERBATIMzZ1zZ Open file
+<code>/rw/config/qubes-bind-dirs.d/50_user.conf</code> in an editor with
+administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>")
+rights.
 <div class="info-box ">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform. <div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_4">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -824,13 +824,10 @@ Open the file with root rights.
 <span class="code-select" data-code="sudoedit /rw/config/qubes-bind-dirs.d/50_user.conf">sudoedit
 /rw/config/qubes-bind-dirs.d/50_user.conf</span></div></div></div></div></p>
 </div>
-<pre><code> binds+=( &#39;/etc/openvpn&#39; ) binds+=( &#39;/lib/systemd/system/openvpn@openvpn.service&#39; ) binds+=( &#39;/etc/systemd/system/multi-user.target.wants/openvpn@openvpn.service&#39; ) </code></pre>
-<p>TODO: Does not work yet. Files need to exist first. TODO: umount
-during run is probably not sane.</p>
-<pre><code> /usr/lib/qubes/bind-dirs.sh umount </code></pre>
-<p>TODO: re-running bind-dirs.sh without previous umount does not work
-yet.</p>
-<pre><code> /usr/lib/qubes/bind-dirs.sh </code></pre></li>
+<p>zZmwstaticVERBATIMzZ2zZ TODO: Does not work yet. Files need to exist
+first. TODO: umount during run is probably not sane.
+zZmwstaticVERBATIMzZ3zZ TODO: re-running bind-dirs.sh without previous
+umount does not work yet. zZmwstaticVERBATIMzZ4zZ</p></li>
 <li id="cite_note-3">Riseup notes: <blockquote><p>Every CA (certificate authority) has a file that is distributed
 publicly. This file, called a "CA certificate", is used by your local
 program to confirm the identity of servers you connect with.</p></blockquote></li>
@@ -847,13 +844,11 @@ for the lines beginning with <em>script-security</em>, <em>up</em>, and
 <em>down</em> to function properly.</li>
 <li id="cite_note-8"><div class="info-box ">
 <p><strong>1.</strong> In the <code>/etc/openvpn/openvpn.conf</code>
-file, change the following text.</p>
-<pre><code> script-security 2 up &quot;/etc/openvpn/update-resolv-conf script_type=up dev=tun0&quot; down &quot;/etc/openvpn/update-resolv-conf script_type=down dev=tun0&quot; </code></pre>
-<p>To the following. Remove or comment out the lines beginning with "up"
-and "down", and change the 2 to a 1.</p>
-<pre><code> script-security 1 </code></pre>
-<p><strong>2.</strong> Open file <code>/etc/resolv.conf</code> in an
-editor with administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>") rights.</p>
+file, change the following text. zZmwstaticVERBATIMzZ8zZ To the
+following. Remove or comment out the lines beginning with "up" and
+"down", and change the 2 to a 1. zZmwstaticVERBATIMzZ9zZ
+<strong>2.</strong> Open file <code>/etc/resolv.conf</code> in an editor
+with administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>") rights.</p>
 <div class="info-box ">
 <p><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">1</i>
 Select your platform. <div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Non-Qubes-Whonix_5">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><i class="padded-content-icon pci-text fa-solid cs-yellow iconset-h3">2</i>
@@ -896,21 +891,18 @@ Open the file with root rights.
 <span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
 /etc/resolv.conf</span></div></div></div></div></p>
 </div>
-<p><strong>3.</strong> Comment out the nameserver.</p>
-<pre><code> #nameserver 10.152.152.10 </code></pre>
-<p><strong>4.</strong> Add the VPN provider's DNS server.</p>
-<pre><code> ## Riseup.net OpenVPN DNS server nameserver 172.27.100.1 </code></pre>
-<p>If Riseup is not in use, replace <em>172.27.100.1</em> with the
-virtual LAN IP address of the VPN provider's DNS server. If unsure, the
-VPN provider might provide it. To try to infer it, run
-<code>sudo route</code> after successfully connecting to the VPN. The
-first destination default gateway should also function as a DNS server.
-<strong>5.</strong> Save and exit. <strong>6.</strong>
-<em>Optional:</em> Prevent <code>/etc/resolv.conf</code> being
-overwritten by other packages like DHCP or <code>resolvconf</code>.
-Run.</p>
-<pre><code> sudo chattr +i /etc/resolv.conf </code></pre>
-<p>In order to revert this change, use <em>-i</em>. Ignore the
+<p><strong>3.</strong> Comment out the nameserver.
+zZmwstaticVERBATIMzZ10zZ <strong>4.</strong> Add the VPN provider's DNS
+server. zZmwstaticVERBATIMzZ11zZ If Riseup is not in use, replace
+<em>172.27.100.1</em> with the virtual LAN IP address of the VPN
+provider's DNS server. If unsure, the VPN provider might provide it. To
+try to infer it, run <code>sudo route</code> after successfully
+connecting to the VPN. The first destination default gateway should also
+function as a DNS server. <strong>5.</strong> Save and exit.
+<strong>6.</strong> <em>Optional:</em> Prevent
+<code>/etc/resolv.conf</code> being overwritten by other packages like
+DHCP or <code>resolvconf</code>. Run. zZmwstaticVERBATIMzZ12zZ In order
+to revert this change, use <em>-i</em>. Ignore the
 <code>/etc/resolv.conf</code> instructions below.</p>
 </div></li>
 <li id="cite_note-9">This is done to prevent the old DNS server being used. For further
