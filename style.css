@@ -32,7 +32,7 @@
   --c-blue: #2f6fd0;
   --c-yellow: #c98a00;
   --c-orange: #d9730d;
-  --c-gray: #6b7178;
+  --c-gray: #565c64;
 
   /* shape + depth */
   --radius: 8px;
@@ -132,6 +132,11 @@ hr {
 }
 a { color: var(--link); text-decoration: none; }
 a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: 2px; }
+/* Links inside running text are underlined, not distinguished by colour alone
+   (a11y: link-in-text-block). Nav/TOC/footer links (lists of links, not in prose)
+   keep the clean colour-only look. */
+.wiki-content p a, .wiki-content li a, .wiki-content dd a,
+.wiki-content td a, .wiki-content th a { text-decoration: underline; text-underline-offset: 2px; }
 /* External links are distinguished by the trailing archive <sup> (see _archive_links /
    .ext-link-to-archive below), matching production -- no separate arrow, to avoid a
    double affordance. */
@@ -819,11 +824,21 @@ code {
 .share-tooltip .menu-wrapper { display: none; position: absolute; left: 0;
   top: calc(100% + 0.3rem); z-index: 40; }
 .share-tooltip:hover .menu-wrapper, .share-tooltip:focus-within .menu-wrapper { display: block; }
-.share-tooltip .menu { display: block; width: max-content; max-width: min(90vw, 26rem);
-  padding: 0.6rem 0.8rem; font-size: 0.85rem; font-weight: normal; text-align: left;
-  background: var(--surface); color: var(--fg); border: 1px solid var(--border);
-  border-radius: var(--radius-md, 6px); box-shadow: var(--shadow-md); }
-.share-tooltip .menu-headline { display: block; margin-bottom: 0.4rem; font-weight: 600; }
+/* production ShareTooltip.css: a white, centered menu (not the surface/left-aligned one) */
+.share-tooltip .menu { display: block; width: 315px; max-width: calc(100vw - 10px);
+  padding: 10px; font-size: 13px; font-weight: normal; text-align: center;
+  background: #fff; color: #333; border: 1px solid #eee;
+  border-radius: 10px; box-shadow: 1px 1px 3px rgb(0 0 0 / 20%); }
+.share-tooltip .menu-headline {
+  display: block; margin: 8px 0 12px; font-weight: bold; font-size: 20px; color: #333;
+}
+/* keep the menu on-screen on phones (ShareTooltip.css overflow handling) */
+@media (max-width: 800px) {
+  .share-tooltip .menu-wrapper { left: auto; right: 0; }
+}
+@media (max-width: 440px) {
+  .share-tooltip .menu-wrapper { position: fixed; top: 55px; left: auto; right: 5px; }
+}
 .share-tooltip .share-social { display: flex; gap: 0.6rem; margin: 0.55rem 0 0.2rem; }
 .share-tooltip .share-icon { color: var(--muted); font-size: 1.2rem; }
 .share-tooltip .share-icon:hover { color: var(--link); text-decoration: none; }
@@ -832,6 +847,32 @@ code {
 }
 .image-right { float: right; margin: 0 0 1rem 1.25rem; max-width: 45%; }
 [hidden] { display: none !important; }
+
+/* comparison-table info tooltip (production Utility.css .info-tooltip; the /w/images
+   Ambox icon is replaced by a FontAwesome info glyph). Hover/focus the icon to reveal
+   the note. The popup is display:none until then, so it adds no layout width. */
+.info-tooltip { display: inline-block; position: relative; cursor: help; margin-left: 4px; vertical-align: middle; }
+/* the info badge is drawn in CSS (fa-circle-info is not in the FA subset): a small
+   filled "i" circle, so it renders regardless of the icon font. */
+.info-tooltip > i {
+  font-family: inherit; font-style: normal; font-weight: bold;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 15px; height: 15px; border-radius: 50%; background: #5594c7; color: #fff;
+  font-size: 11px; line-height: 1;
+}
+.info-tooltip > i::before { content: "i"; }
+.info-tooltip > span {
+  display: none; position: absolute; max-width: 260px; width: max-content;
+  background: #fff; border: 1px solid #ccc; box-shadow: 2px 2px 4px rgb(0 0 0 / 15%);
+  padding: 8px 10px; border-radius: 5px; top: 1.6em; left: -10px; z-index: 20;
+  font-size: 13px; font-weight: normal; line-height: 1.4; text-align: left; color: #333;
+  white-space: normal;
+}
+.info-tooltip:hover > span, .info-tooltip:focus-within > span { display: block; }
+/* comparison Yes/No cells (green check / red cross). Unscoped: pandoc drops the
+   wikitable's own class, so these are keyed on the inline span classes that survive. */
+.cmp-yes { color: #1a8a1a; font-weight: 600; white-space: nowrap; }
+.cmp-no { color: #c0392b; font-weight: 600; white-space: nowrap; }
 
 @media (max-width: 480px) {
   .wiki-content { margin: 1.25rem auto 2rem; padding: 0 1rem; }
@@ -910,7 +951,9 @@ code {
 }
 .mininav.mn-switcher > ul > li { display: inline-block; margin: 0; padding: 0; }
 .mininav.mn-switcher li > :not(span, img) {
-  background-color: #9aabed; color: white; padding: 3px 11px 5px; text-decoration: none;
+  /* dark text on the light-blue pill: white failed WCAG contrast (2.22) on #9aabed;
+     dark navy keeps the production pill colour while passing a11y */
+  background-color: #9aabed; color: #1c2a5e; padding: 3px 11px 5px; text-decoration: none;
   font-size: 17px; display: inline-block; border: none; border-radius: 50px; cursor: pointer;
   margin: 5px 0; box-shadow: 1px 1px 3px #0002; transition: background-color .2s, color .2s;
 }
