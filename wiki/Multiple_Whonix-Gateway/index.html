@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Multiple Whonix-Gateway</title>
 <meta name="description" content="Compartmentalization. Managing multiple Whonix-Gateway.">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Multiplegateways131231.jpg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -133,13 +133,14 @@ snapshots.</p>
 <p>The Whonix-Gateway lacks a DHCP client for security hardening reasons
 and so cannot be attached to the same external network without
 conflicting with other Whonix-Gateways' traffic.</p>
-<p><span class="code-select">sudo virsh net-dumpxml Whonix-External &gt;
-Whonix-External2.xml</span></p>
+<p><span class="code-select" data-code="sudo virsh net-dumpxml Whonix-External &gt; Whonix-External2.xml">sudo
+virsh net-dumpxml Whonix-External &gt; Whonix-External2.xml</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 <strong>Edit the external network config:</strong></p>
 <p>Make the network unique, so it does not clash with the existing
 one.</p>
-<p><span class="code-select">sudo nano Whonix-External2.xml</span></p>
+<p><span class="code-select" data-code="sudo nano Whonix-External2.xml">sudo
+nano Whonix-External2.xml</span></p>
 <ul>
 <li>Change the <strong>name</strong> and <strong>bridge
 name</strong>.</li>
@@ -167,12 +168,12 @@ y
 CTRL-M</code></pre>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
 <strong>Import and start the new external network:</strong></p>
-<p><span class="code-select">virsh -c qemu:///system net-define
-Whonix-External2.xml</span></p>
-<p><span class="code-select">virsh -c qemu:///system net-autostart
-Whonix-External2</span></p>
-<p><span class="code-select">virsh -c qemu:///system net-start
-Whonix-External2</span></p>
+<p><span class="code-select" data-code="virsh -c qemu:///system net-define Whonix-External2.xml">virsh
+-c qemu:///system net-define Whonix-External2.xml</span></p>
+<p><span class="code-select" data-code="virsh -c qemu:///system net-autostart Whonix-External2">virsh
+-c qemu:///system net-autostart Whonix-External2</span></p>
+<p><span class="code-select" data-code="virsh -c qemu:///system net-start Whonix-External2">virsh
+-c qemu:///system net-start Whonix-External2</span></p>
 <p>Attach the Gateway and Workstation VM NICs to the new network.</p>
 <p>To edit the VM virtual NIC settings:<br />
 <code>Highlight VM</code> &#8594; <code>Open</code> &#8594;
@@ -188,11 +189,12 @@ to <code>virbr4</code>.</li>
 </ul>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
 <strong>Export Whonix internal network settings:</strong></p>
-<p><span class="code-select">sudo virsh net-dumpxml Whonix-Internal &gt;
-Whonix-Internal2.xml</span></p>
+<p><span class="code-select" data-code="sudo virsh net-dumpxml Whonix-Internal &gt; Whonix-Internal2.xml">sudo
+virsh net-dumpxml Whonix-Internal &gt; Whonix-Internal2.xml</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
 <strong>Edit the internal network config:</strong></p>
-<p><span class="code-select">sudo nano Whonix-Internal2.xml</span></p>
+<p><span class="code-select" data-code="sudo nano Whonix-Internal2.xml">sudo
+nano Whonix-Internal2.xml</span></p>
 <ul>
 <li>Change the <strong>name</strong> and <strong>bridge
 name</strong>.</li>
@@ -218,12 +220,12 @@ to <code>virbr3</code>.</li>
 </ul>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
 <strong>Import and start the new internal network:</strong></p>
-<p><span class="code-select">virsh -c qemu:///system net-define
-Whonix-Internal2.xml</span></p>
-<p><span class="code-select">virsh -c qemu:///system net-autostart
-Whonix-Internal2</span></p>
-<p><span class="code-select">virsh -c qemu:///system net-start
-Whonix-Internal2</span></p>
+<p><span class="code-select" data-code="virsh -c qemu:///system net-define Whonix-Internal2.xml">virsh
+-c qemu:///system net-define Whonix-Internal2.xml</span></p>
+<p><span class="code-select" data-code="virsh -c qemu:///system net-autostart Whonix-Internal2">virsh
+-c qemu:///system net-autostart Whonix-Internal2</span></p>
+<p><span class="code-select" data-code="virsh -c qemu:///system net-start Whonix-Internal2">virsh
+-c qemu:///system net-start Whonix-Internal2</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
 <strong>Attach VM NICs to the new internal network:</strong></p>
 <p>To edit the VM virtual NIC settings:<br />
@@ -247,8 +249,8 @@ partially override the settings in <code>30_non-qubes-whonix</code>.</p>
 <ul>
 <li>Boot the Whonix-Gateway2 VM from KVM and create a new file:</li>
 </ul>
-<p><span class="code-select">sudo nano
-/etc/network/interfaces.d/50_custom-whonix</span></p>
+<p><span class="code-select" data-code="sudo nano /etc/network/interfaces.d/50_custom-whonix">sudo
+nano /etc/network/interfaces.d/50_custom-whonix</span></p>
 <ul>
 <li>Then copy and paste:</li>
 </ul>
@@ -266,8 +268,8 @@ CTRL-M</code></pre>
 <ul>
 <li>Restart network interface (or whole machine):</li>
 </ul>
-<p><span class="code-select">sudo ifdown eth0 &amp;&amp; sudo ifup
-eth0</span></p>
+<p><span class="code-select" data-code="sudo ifdown eth0 &amp;&amp; sudo ifup eth0">sudo
+ifdown eth0 &amp;&amp; sudo ifup eth0</span></p>
 <p>Related forum discussion: <a href="https://forums.whonix.org/t/do-multiple-whonix-gateways-require-different-whonix-external-virtual-nics/19903">https://forums.whonix.org/t/do-multiple-whonix-gateways-require-different-whonix-external-virtual-nics/19903</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/do-multiple-whonix-gateways-require-different-whonix-external-virtual-nics/19903" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">10</i>
 <strong>Change the number of pinned CPUs:</strong></p>
@@ -318,8 +320,8 @@ to provide networking for other App Qubes.</li>
 </ol>
 <p><u>Note:</u> Replace <code>sys-whonix</code><u><code>-2</code></u>
 with the actual name of the VM.</p>
-<p><span class="code-select">qvm-tags sys-whonix-2 add anon-gateway
-sdwdate-gui-server</span></p>
+<p><span class="code-select" data-code="qvm-tags sys-whonix-2 add anon-gateway sdwdate-gui-server">qvm-tags
+sys-whonix-2 add anon-gateway sdwdate-gui-server</span></p>
 <p>12. Done.</p></div></div></p></div></div></p>
 <h1 id="See_Also">See Also</h1>
 <div class="mininav">

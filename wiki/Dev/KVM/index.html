@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Dev/KVM</title>
 <meta name="description" content="Development Notes for adding KVM support to Whonix.">
@@ -13,14 +13,14 @@
 <meta property="og:title" content="Dev/KVM">
 <link rel="stylesheet" href="../../../style.css">
 <link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../../Trademark_Policy/" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../../Download/">Download</a><ul class="nav-submenu"><li><a href="../../VirtualBox/">Windows</a></li><li><a href="../../Linux/">Linux</a></li><li><a href="../../MacOS/">Mac</a></li><li><a href="../../VirtualBox/">VirtualBox</a></li><li><a href="../../KVM/">KVM</a></li><li><a href="../../Qubes/">Qubes</a></li><li><a href="../../Intel_AMD64/">Intel / AMD64</a></li><li><a href="../../ARM64/">ARM64</a></li><li><a href="../../USB_Installation/">USB</a></li><li><a href="../../Whonix-Host/">ISO</a></li><li><a href="../../Download/">More options</a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer">Source Code</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../About/">About</a><ul class="nav-submenu"><li><a href="../../About/">Overview</a></li><li><a href="../../Features/">Features</a></li><li><a href="../../Whonix_versus_VPNs/">Whonix vs VPNs</a></li><li><a href="../../Reasons_for_Freedom_Software/">Why Open Source?</a></li><li><a href="../../What_we_do/">Project Activities</a></li><li><a href="../../Contributors/">Contributors</a></li><li><a href="../../Anonymity/">Mission &amp; Vision</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../Documentation/">Docs</a><ul class="nav-submenu"><li><a href="../../Documentation/">Documentation</a></li><li><a href="../../FAQ/">FAQ</a></li><li><a href="../../Troubleshooting/">Troubleshooting</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../Contribute/">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer">Forums</a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/">Forum Best Practices</a></li><li><a href="../../Contribute/">Contribute</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../Support/">Support</a><ul class="nav-submenu"><li><a href="../../Self_Support_First_Policy/">Self Support First Policy</a></li><li><a href="../../Support/">Support (Limited)</a></li><li><a href="../../Plus_Support/">Plus</a></li><li><a href="../../Premium_Support/">Premium</a></li><li><a href="../../Reporting_Bugs/">Reporting Bugs</a></li><li><a href="../../Contact/">Contact (Restricted)</a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>KVM</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Converting_QEMU_command_line_args_to_libvirt_domain_xml">Converting
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>KVM</span></nav><h1 id="firstHeading" class="first-heading">Dev/KVM</h1><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Converting_QEMU_command_line_args_to_libvirt_domain_xml">Converting
 QEMU command line args to libvirt domain xml</a></li><li class="toc-l2"><a href="#Bullseye_and_Beyond">Bullseye and Beyond</a></li><li class="toc-l3"><a href="#Test_headless_admin_on_Bullseye">Test headless admin on
 Bullseye</a></li><li class="toc-l2"><a href="#Document_new_features_and_open_relevant_upstream_tickets">Document
 new features and open relevant upstream tickets</a></li><li class="toc-l2"><a href="#Canokey">Canokey</a></li><li class="toc-l2"><a href="#QEMU_commands_in_Libvirt_Schema">QEMU commands in Libvirt
@@ -96,8 +96,8 @@ QEMU command line args to libvirt domain xml</h2><span class="share-tooltip" dat
 QEMU command line args to libvirt domain xml[/url]">[url=https://www.whonix.org/wiki/Dev/KVM/#Converting_QEMU_command_line_args_to_libvirt_domain_xml]Converting
 QEMU command line args to libvirt domain xml[/url]</span></span></span></span>
 <p><sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
-<p><span class="code-select">virsh domxml-from-native
-qemu-argv</span></p>
+<p><span class="code-select" data-code="virsh domxml-from-native qemu-argv">virsh
+domxml-from-native qemu-argv</span></p>
 <ul>
 <li>Requires the XML namespace be specified in the first line of the XML
 file</li>
@@ -615,37 +615,42 @@ some of the above mechanisms would be better.</p>
 <h1 id="In_Progress">In Progress</h1>
 <h2 id="Shared_Folder">Shared Folder</h2><span class="share-tooltip" data-anchor="Shared_Folder"><a class="headline-anchor" href="#Shared_Folder" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/KVM/#Shared_Folder">https://www.whonix.org/wiki/Dev/KVM/#Shared_Folder</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FKVM%2F%23Shared_Folder&amp;text=Shared%20Folder" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FKVM%2F%23Shared_Folder&amp;text=Shared%20Folder" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FKVM%2F%23Shared_Folder&amp;title=Shared%20Folder" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Shared%20Folder&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FKVM%2F%23Shared_Folder" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/KVM/#Shared_Folder]Shared Folder[/url]">[url=https://www.whonix.org/wiki/Dev/KVM/#Shared_Folder]Shared Folder[/url]</span></span></span></span>
 <p>Run as non-root!</p>
-<p><span class="code-select">groups</span></p>
+<p><span class="code-select" data-code="groups">groups</span></p>
 <p>Check if being a member of groups:</p>
 <ul>
 <li><code>libvirt</code></li>
 <li><code>kvm</code></li>
 </ul>
 <p>Create folder <code>/mnt/shared</code>.</p>
-<p><span class="code-select">sudo mkdir -p /mnt/shared</span></p>
+<p><span class="code-select" data-code="sudo mkdir -p /mnt/shared">sudo
+mkdir -p /mnt/shared</span></p>
 <p>Optional. Should already be the case. Make sure folder
 <code>/mnt</code> is owned by user and group <code>root</code>.</p>
-<p><span class="code-select">sudo chown root:root /mnt</span></p>
+<p><span class="code-select" data-code="sudo chown root:root /mnt">sudo
+chown root:root /mnt</span></p>
 <p>Optional. Should already be the case. Make sure folder
 <code>/mnt</code> is readable by any linux user account and linux user
 group ("public").</p>
-<p><span class="code-select">sudo chmod o+r /mnt</span></p>
+<p><span class="code-select" data-code="sudo chmod o+r /mnt">sudo chmod
+o+r /mnt</span></p>
 <p><a href="https://askubuntu.com/questions/862289/difference-between-executable-directory-vs-executable-files">https://askubuntu.com/questions/862289/difference-between-executable-directory-vs-executable-files</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://askubuntu.com/questions/862289/difference-between-executable-directory-vs-executable-files" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
-<p><span class="code-select">sudo chmod o+x /mnt</span></p>
+<p><span class="code-select" data-code="sudo chmod o+x /mnt">sudo chmod
+o+x /mnt</span></p>
 <p>Set owner of folder <code>/mnt/shared</code> to user
 <code>libvirt</code> and group <code>kvm</code>.</p>
-<p><span class="code-select">sudo chown --recursive libvirt:kvm
-/mnt/shared</span></p>
+<p><span class="code-select" data-code="sudo chown --recursive libvirt:kvm /mnt/shared">sudo
+chown --recursive libvirt:kvm /mnt/shared</span></p>
 <p>Permission hardening. Prevent "public" from reading the shared
 folder.</p>
-<p><span class="code-select">sudo chmod --recursive o-rwx
-/mnt/shared</span></p>
+<p><span class="code-select" data-code="sudo chmod --recursive o-rwx /mnt/shared">sudo
+chmod --recursive o-rwx /mnt/shared</span></p>
 <p>Allow folder <code>/mnt/shared</code> to be readable and writeable by
 user <code>libvirt</code> and group <code>kvm</code>.</p>
-<p><span class="code-select">sudo chmod --recursive ug+rw
-/mnt/shared</span></p>
+<p><span class="code-select" data-code="sudo chmod --recursive ug+rw /mnt/shared">sudo
+chmod --recursive ug+rw /mnt/shared</span></p>
 <p><a href="https://askubuntu.com/questions/862289/difference-between-executable-directory-vs-executable-files">https://askubuntu.com/questions/862289/difference-between-executable-directory-vs-executable-files</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://askubuntu.com/questions/862289/difference-between-executable-directory-vs-executable-files" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
-<p><span class="code-select">sudo chmod ug+x /mnt/shared</span></p>
+<p><span class="code-select" data-code="sudo chmod ug+x /mnt/shared">sudo
+chmod ug+x /mnt/shared</span></p>
 <h1 id="Done">Done</h1>
 <h2 id="Port_to_QEMU_Session_(unprivileged_mode)">Port to QEMU Session
 (unprivileged mode)</h2><span class="share-tooltip" data-anchor="Port_to_QEMU_Session_(unprivileged_mode)"><a class="headline-anchor" href="#Port_to_QEMU_Session_(unprivileged_mode)" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/KVM/#Port_to_QEMU_Session_(unprivileged_mode)">https://www.whonix.org/wiki/Dev/KVM/#Port_to_QEMU_Session_(unprivileged_mode)</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FKVM%2F%23Port_to_QEMU_Session_%28unprivileged_mode%29&amp;text=Port%20to%20QEMU%20Session%0A%28unprivileged%20mode%29" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FKVM%2F%23Port_to_QEMU_Session_%28unprivileged_mode%29&amp;text=Port%20to%20QEMU%20Session%0A%28unprivileged%20mode%29" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FKVM%2F%23Port_to_QEMU_Session_%28unprivileged_mode%29&amp;title=Port%20to%20QEMU%20Session%0A%28unprivileged%20mode%29" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Port%20to%20QEMU%20Session%0A%28unprivileged%20mode%29&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FKVM%2F%23Port_to_QEMU_Session_%28unprivileged_mode%29" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/KVM/#Port_to_QEMU_Session_(unprivileged_mode)]Port to QEMU Session

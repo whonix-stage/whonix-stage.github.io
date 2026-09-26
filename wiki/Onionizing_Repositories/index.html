@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Onionizing Repositories</title>
 <meta name="description" content="The guide explains how to configure Tor onion services for APT repositories to enhance security and privacy, but it may cause system updates to fail due to unreliability. The configuration provides protection against targeted and man-in-the-middle attacks, and prevents tracking of installed programs.">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Onionrepository23234.jpg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -81,13 +81,55 @@ Whonix-Gateway and Whonix-Workstation.</li>
 <div class="info-box ">
 <p><strong>1.</strong> Open the Debian <code>sources</code> file using
 an editor with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/apt/sources.list.d/debian.sources">sudoedit
 /etc/apt/sources.list.d/debian.sources</span></p>
 <p><strong>2.</strong> Enable the onionized Debian repositories and
 disable the clearnet repositories.</p>
 <p>Enable the following .onion mirrors and disable the corresponding
 https repositories (except the fasttrack repository).</p>
-<p><span class="code-select">######## ENABLED SOURCES ########</p>
+<p><span class="code-select" data-code="######## ENABLED SOURCES ########
+
+Types: deb
+URIs: tor+https://deb.debian.org/debian
+Suites: trixie trixie-updates trixie-backports
+Components: main contrib non-free non-free-firmware
+Enabled: no                     # &lt;&lt;&lt;&lt;&lt; change this line from &quot;yes&quot; to &quot;no&quot;
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: tor+https://deb.debian.org/debian-security
+Suites: trixie-security
+Components: main contrib non-free non-free-firmware
+Enabled: no                     # &lt;&lt;&lt;&lt;&lt; change this line from &quot;yes&quot; to &quot;no&quot;
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: tor+https://fasttrack.debian.net/debian-fasttrack
+Suites: trixie-fasttrack trixie-backports-staging
+Components: main contrib non-free
+Enabled: yes                    # &lt;&lt;&lt;&lt;&lt; keep this line saying &quot;yes&quot;
+Signed-By: /usr/share/keyrings/fasttrack-archive-keyring.gpg
+
+######## DISABLED BY DEFAULT SOURCES ########
+
+#### deb ####
+
+Types: deb
+URIs: tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
+Suites: trixie trixie-updates trixie-backports
+Components: main contrib non-free non-free-firmware
+Enabled: yes                    # &lt;&lt;&lt;&lt;&lt; change this line from &quot;no&quot; to &quot;yes&quot;
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion/debian-security
+Suites: trixie-security
+Components: main contrib non-free non-free-firmware
+Enabled: yes                    # &lt;&lt;&lt;&lt;&lt; change this line from &quot;no&quot; to &quot;yes&quot;
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+## No onion for fasttrack yet: https://salsa.debian.org/fasttrack-team/support/-/issues/27">########
+ENABLED SOURCES ########</p>
 <p>Types: deb URIs: tor+https://deb.debian.org/debian Suites: trixie
 trixie-updates trixie-backports Components: main contrib non-free
 non-free-firmware Enabled: no # &lt;&lt;&lt;&lt;&lt; change this line
@@ -143,11 +185,11 @@ repository (if enabled).</p>
 <code>--transport onion</code> option.</p>
 <div class="info-box ">
 <p><strong>1.</strong> Run the following command:</p>
-<p><span class="code-select">sudo repository-dist --enable --transport
-onion</span></p>
+<p><span class="code-select" data-code="sudo repository-dist --enable --transport onion">sudo
+repository-dist --enable --transport onion</span></p>
 <p><strong>2.</strong> Confirm the onionized repository is
 functional.</p>
-<p><span class="code-select">upgrade-nonroot</span></p>
+<p><span class="code-select" data-code="upgrade-nonroot">upgrade-nonroot</span></p>
 </div>
 <h3 id="Non-Qubes-Whonix_Notes">Non-Qubes-Whonix Notes</h3><span class="share-tooltip" data-anchor="Non-Qubes-Whonix_Notes"><a class="headline-anchor" href="#Non-Qubes-Whonix_Notes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onionizing_Repositories/#Non-Qubes-Whonix_Notes">https://www.whonix.org/wiki/Onionizing_Repositories/#Non-Qubes-Whonix_Notes</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Non-Qubes-Whonix_Notes&amp;text=Non-Qubes-Whonix%20Notes" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Non-Qubes-Whonix_Notes&amp;text=Non-Qubes-Whonix%20Notes" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Non-Qubes-Whonix_Notes&amp;title=Non-Qubes-Whonix%20Notes" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Non-Qubes-Whonix%20Notes&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Non-Qubes-Whonix_Notes" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Non-Qubes-Whonix_Notes]Non-Qubes-Whonix Notes[/url]">[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Non-Qubes-Whonix_Notes]Non-Qubes-Whonix Notes[/url]</span></span></span></span>
 <ul>
@@ -173,7 +215,7 @@ onionized.</li>
 <div class="info-box ">
 <p><strong>1.</strong> In a <code>dom0</code> terminal, open the
 <code>qubes-dom0.repo</code> configuration file in a text editor.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/yum.repos.d/qubes-dom0.repo">sudoedit
 /etc/yum.repos.d/qubes-dom0.repo</span></p>
 <ul>
 <li>comment the lines that contain <code>metalink</code></li>
@@ -182,7 +224,10 @@ onionized.</li>
 </ul>
 <p>Once completed, each of the four code blocks will have http(s)
 repository lines similar to the following example.</p>
-<p><span class="code-select">#baseurl = <a href="https://yum.qubes-os.org/r$releasever/current/host/fc37">https://yum.qubes-os.org/r$releasever/current/host/fc37</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://yum.qubes-os.org/r$releasever/current/host/fc37" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<p><span class="code-select" data-code="#baseurl = https://yum.qubes-os.org/r$releasever/current/host/fc37
+baseurl = http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/current/host/fc37
+#metalink = https://yum.qubes-os.org/r$releasever/current/host/fc37/repodata/repomd.xml.metalink">#baseurl
+= <a href="https://yum.qubes-os.org/r$releasever/current/host/fc37">https://yum.qubes-os.org/r$releasever/current/host/fc37</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://yum.qubes-os.org/r$releasever/current/host/fc37" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 baseurl = <a href="http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/current/host/fc37">http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/current/host/fc37</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/current/host/fc37" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <ol>
 <li>metalink = <a href="https://yum.qubes-os.org/r$releasever/current/host/fc37/repodata/repomd.xml.metalink">https://yum.qubes-os.org/r$releasever/current/host/fc37/repodata/repomd.xml.metalink</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://yum.qubes-os.org/r$releasever/current/host/fc37/repodata/repomd.xml.metalink" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
@@ -191,7 +236,7 @@ baseurl = <a href="http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxq
 <p><strong>3.</strong> In a <code>dom0</code> terminal, open the
 <code>qubes-templates.repo</code> configuration file in a text
 editor.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/qubes/repo-templates/qubes-templates.repo">sudoedit
 /etc/qubes/repo-templates/qubes-templates.repo</span></p>
 <ul>
 <li>comment the lines that contain <code>metalink</code></li>
@@ -200,7 +245,10 @@ editor.</p>
 </ul>
 <p>Once completed, each of the two code blocks will have http(s)
 repository lines similar to the following example.</p>
-<p><span class="code-select">#baseurl = <a href="https://yum.qubes-os.org/r$releasever/templates-itl">https://yum.qubes-os.org/r$releasever/templates-itl</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://yum.qubes-os.org/r$releasever/templates-itl" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<p><span class="code-select" data-code="#baseurl = https://yum.qubes-os.org/r$releasever/templates-itl
+baseurl = http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/templates-itl
+#metalink = https://yum.qubes-os.org/r$releasever/templates-itl/repodata/repomd.xml.metalink">#baseurl
+= <a href="https://yum.qubes-os.org/r$releasever/templates-itl">https://yum.qubes-os.org/r$releasever/templates-itl</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://yum.qubes-os.org/r$releasever/templates-itl" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 baseurl = <a href="http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/templates-itl">http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/templates-itl</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r$releasever/templates-itl" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <ol>
 <li>metalink = <a href="https://yum.qubes-os.org/r$releasever/templates-itl/repodata/repomd.xml.metalink">https://yum.qubes-os.org/r$releasever/templates-itl/repodata/repomd.xml.metalink</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://yum.qubes-os.org/r$releasever/templates-itl/repodata/repomd.xml.metalink" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
@@ -210,8 +258,8 @@ baseurl = <a href="http://yum.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxq
 repositories are functional.</p>
 <p>Using <code>--show-output --console</code> is optional but
 recommended because of a Qubes upstream bug. <sup class="reference"><a href="#cite_note-4">[4]</a></sup><br />
-<span class="code-select">sudo qubes-dom0-update --show-output
---console</span></p>
+<span class="code-select" data-code="sudo qubes-dom0-update --show-output --console">sudo
+qubes-dom0-update --show-output --console</span></p>
 </div>
 <h3 id="Debian_Templates">Debian Templates</h3><span class="share-tooltip" data-anchor="Debian_Templates"><a class="headline-anchor" href="#Debian_Templates" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onionizing_Repositories/#Debian_Templates">https://www.whonix.org/wiki/Onionizing_Repositories/#Debian_Templates</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Debian_Templates&amp;text=Debian%20Templates" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Debian_Templates&amp;text=Debian%20Templates" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Debian_Templates&amp;title=Debian%20Templates" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Debian%20Templates&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Debian_Templates" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Debian_Templates]Debian Templates[/url]">[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Debian_Templates]Debian Templates[/url]</span></span></span></span>
 <p>Debian templates can be updated exclusively over onion services.
@@ -226,12 +274,15 @@ unwanted.</p>
 <div class="info-box ">
 <p><strong>1.</strong> In Debian TemplateVM, open the
 <code>qubes-r4.list</code> file in a text editor.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/apt/sources.list.d/qubes-r*.list">sudoedit
 /etc/apt/sources.list.d/qubes-r*.list</span></p>
 <p><strong>2.</strong> Comment the first line underneath "Main qubes
 updates repository".</p>
 <p>The first code block should look similar to this.</p>
-<p><span class="code-select"># Main qubes updates repository</p>
+<p><span class="code-select" data-code="# Main qubes updates repository
+# deb [arch=amd64 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg] https://deb.qubes-os.org/r4.3/vm trixie main
+#deb-src [arch=amd64 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg] https://deb.qubes-os.org/r4.3/vm trixie main">#
+Main qubes updates repository</p>
 <ol>
 <li>deb [arch=amd64
 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg] <a href="https://deb.qubes-os.org/r4.3/vm">https://deb.qubes-os.org/r4.3/vm</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://deb.qubes-os.org/r4.3/vm" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
@@ -243,7 +294,11 @@ trixie main</span></li>
 <p><strong>3.</strong> Uncomment the corresponding line underneath
 "Qubes Tor updates repositories".</p>
 <p>The first code block should look similar to this.</p>
-<p><span class="code-select"># Qubes Tor updates repositories</p>
+<p><span class="code-select" data-code="# Qubes Tor updates repositories
+# Main qubes updates repository
+deb [arch=amd64 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg] tor+http://deb.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r4.3/vm trixie main
+#deb-src [arch=amd64 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg ] tor+http://deb.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r4.3/vm trixie main">#
+Qubes Tor updates repositories</p>
 <ol>
 <li>Main qubes updates repository</li>
 </ol>
@@ -260,8 +315,8 @@ trixie main</span></li>
 <p>Save and exit.</p>
 <p><strong>4.</strong> Confirm the onionized repositories are
 functional.</p>
-<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
-full-upgrade</span></p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt full-upgrade">sudo
+apt update &amp;&amp; sudo apt full-upgrade</span></p>
 </div>
 <h4 id="Onionize_Debian_sources.list">Onionize Debian sources.list</h4>
 <p>The <code>sources.list</code> file can be edited so it points to the
@@ -270,11 +325,21 @@ than clearnet for updates and software installation.</p>
 <div class="info-box ">
 <p><strong>1.</strong> Open the Debian <code>sources.list</code> file
 using an editor with root rights.</p>
-<p><span class="code-select">sudo nano /etc/apt/sources.list</span></p>
+<p><span class="code-select" data-code="sudo nano /etc/apt/sources.list">sudo
+nano /etc/apt/sources.list</span></p>
 <p><strong>2.</strong> Reference the onionized Debian repositories.</p>
 <p>Cut and paste the following <i>.onion</i> mirrors and comment out (#)
 the corresponding https repositories.</p>
-<p><span class="code-select">#deb <a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://deb.debian.org/debian" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<p><span class="code-select" data-code="#deb https://deb.debian.org/debian trixie main contrib non-free
+deb tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian trixie main contrib non-free
+
+#deb https://deb.debian.org/debian-security trixie-security main contrib non-free
+deb tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion trixie-security main contrib non-free
+
+#Optional Backports
+#deb https://deb.debian.org/debian trixie-backports main contrib non-free
+deb tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian trixie-backports main contrib non-free">#deb
+<a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://deb.debian.org/debian" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 trixie main contrib non-free deb
 tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
 trixie main contrib non-free</p>
@@ -296,8 +361,8 @@ trixie-backports main contrib non-free</span></p>
 <p>Save and exit.</p>
 <p><strong>3.</strong> Confirm the onionized repositories are
 functional.</p>
-<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
-full-upgrade</span></p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt full-upgrade">sudo
+apt update &amp;&amp; sudo apt full-upgrade</span></p>
 </div>
 <h3 id="Whonix_Templates">Whonix Templates</h3><span class="share-tooltip" data-anchor="Whonix_Templates"><a class="headline-anchor" href="#Whonix_Templates" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onionizing_Repositories/#Whonix_Templates">https://www.whonix.org/wiki/Onionizing_Repositories/#Whonix_Templates</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Whonix_Templates&amp;text=Whonix%20Templates" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Whonix_Templates&amp;text=Whonix%20Templates" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Whonix_Templates&amp;title=Whonix%20Templates" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Whonix%20Templates&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Whonix_Templates" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Whonix_Templates]Whonix Templates[/url]">[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Whonix_Templates]Whonix Templates[/url]</span></span></span></span>
 <p>Whonix templates can be updated exclusively over onion services by
@@ -310,12 +375,15 @@ Whonix-Gateway<sup>&#8482;</sup> and Whonix-Workstation<sup>&#8482;</sup>.</p>
 <div class="info-box ">
 <p><strong>1.</strong> In Whonix TemplateVM, open
 <code>qubes-r4.list</code> in a text editor.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/apt/sources.list.d/qubes-r*.list">sudoedit
 /etc/apt/sources.list.d/qubes-r*.list</span></p>
 <p><strong>2.</strong> Comment the first line underneath "Main qubes
 updates repository".</p>
 <p>The first code block should look similar to this.</p>
-<p><span class="code-select"># Main qubes updates repository</p>
+<p><span class="code-select" data-code="# Main qubes updates repository
+#deb [arch=amd64 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg ] https://deb.qubes-os.org/r4.3/vm trixie main
+#deb-src [arch=amd64 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg ] https://deb.qubes-os.org/r4.3/vm trixie main">#
+Main qubes updates repository</p>
 <ol>
 <li>deb [arch=amd64
 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg ] <a href="https://deb.qubes-os.org/r4.3/vm">https://deb.qubes-os.org/r4.3/vm</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://deb.qubes-os.org/r4.3/vm" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
@@ -327,7 +395,11 @@ trixie main</span></li>
 <p><strong>3.</strong> Uncomment the corresponding line underneath
 "Qubes Tor updates repositories".</p>
 <p>The first code block should look similar to this.</p>
-<p><span class="code-select"># Qubes Tor updates repositories</p>
+<p><span class="code-select" data-code="# Qubes Tor updates repositories
+# Main qubes updates repository
+deb [arch=amd64 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg] tor+http://deb.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r4.3/vm trixie main
+#deb-src [arch=amd64 signed-by=/usr/share/keyrings/qubes-archive-keyring-4.3.gpg] tor+http://deb.qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/r4.3/vm trixie main">#
+Qubes Tor updates repositories</p>
 <ol>
 <li>Main qubes updates repository</li>
 </ol>
@@ -344,19 +416,61 @@ trixie main</span></li>
 <p>Save and exit.</p>
 <p><strong>4.</strong> Confirm the onionized repositories are
 functional.</p>
-<p><span class="code-select">upgrade-nonroot</span></p>
+<p><span class="code-select" data-code="upgrade-nonroot">upgrade-nonroot</span></p>
 </div>
 <h4 id="Onionize_debian.sources">Onionize debian.sources</h4>
 <div class="info-box ">
 <p><strong>1.</strong> Open the Debian <code>sources</code> file using
 an editor with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/apt/sources.list.d/debian.sources">sudoedit
 /etc/apt/sources.list.d/debian.sources</span></p>
 <p><strong>2.</strong> Enable the onionized Debian repositories and
 disable the clearnet repositories.</p>
 <p>Enable the following .onion mirrors and disable the corresponding
 https repositories (except the fasttrack repository).</p>
-<p><span class="code-select">######## ENABLED SOURCES ########</p>
+<p><span class="code-select" data-code="######## ENABLED SOURCES ########
+
+Types: deb
+URIs: tor+https://deb.debian.org/debian
+Suites: trixie trixie-updates trixie-backports
+Components: main contrib non-free non-free-firmware
+Enabled: no                     # &lt;&lt;&lt;&lt;&lt; change this line from &quot;yes&quot; to &quot;no&quot;
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: tor+https://deb.debian.org/debian-security
+Suites: trixie-security
+Components: main contrib non-free non-free-firmware
+Enabled: no                     # &lt;&lt;&lt;&lt;&lt; change this line from &quot;yes&quot; to &quot;no&quot;
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: tor+https://fasttrack.debian.net/debian-fasttrack
+Suites: trixie-fasttrack trixie-backports-staging
+Components: main contrib non-free
+Enabled: yes                    # &lt;&lt;&lt;&lt;&lt; keep this line saying &quot;yes&quot;
+Signed-By: /usr/share/keyrings/fasttrack-archive-keyring.gpg
+
+######## DISABLED BY DEFAULT SOURCES ########
+
+#### deb ####
+
+Types: deb
+URIs: tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
+Suites: trixie trixie-updates trixie-backports
+Components: main contrib non-free non-free-firmware
+Enabled: yes                    # &lt;&lt;&lt;&lt;&lt; change this line from &quot;no&quot; to &quot;yes&quot;
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion/debian-security
+Suites: trixie-security
+Components: main contrib non-free non-free-firmware
+Enabled: yes                    # &lt;&lt;&lt;&lt;&lt; change this line from &quot;no&quot; to &quot;yes&quot;
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+## No onion for fasttrack yet: https://salsa.debian.org/fasttrack-team/support/-/issues/27">########
+ENABLED SOURCES ########</p>
 <p>Types: deb URIs: tor+https://deb.debian.org/debian Suites: trixie
 trixie-updates trixie-backports Components: main contrib non-free
 non-free-firmware Enabled: no # &lt;&lt;&lt;&lt;&lt; change this line
@@ -401,7 +515,7 @@ from "no" to "yes" Signed-By:
 <p>Save and exit.</p>
 <p><strong>3.</strong> Confirm the onionized repositories are
 functional.</p>
-<p><span class="code-select">upgrade-nonroot</span></p>
+<p><span class="code-select" data-code="upgrade-nonroot">upgrade-nonroot</span></p>
 </div>
 <h4 id="Onionize_derivative.sources">Onionize derivative.sources</h4>
 <p>Follow these steps to point the Whonix <code>sources</code> file to
@@ -412,11 +526,11 @@ four repository choices.</p>
 <code>--transport onion</code> option.</p>
 <div class="info-box ">
 <p><strong>1.</strong> Run the following command:</p>
-<p><span class="code-select">sudo repository-dist --enable --transport
-onion</span></p>
+<p><span class="code-select" data-code="sudo repository-dist --enable --transport onion">sudo
+repository-dist --enable --transport onion</span></p>
 <p><strong>2.</strong> Confirm the onionized repository is
 functional.</p>
-<p><span class="code-select">upgrade-nonroot</span></p>
+<p><span class="code-select" data-code="upgrade-nonroot">upgrade-nonroot</span></p>
 </div></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Debian.png.webp" width="25" alt="Debian.png" /></div><div class="tcc-title"><h2 id="Debian_Hosts">Debian Hosts</h2><span class="share-tooltip" data-anchor="Debian_Hosts"><a class="headline-anchor" href="#Debian_Hosts" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onionizing_Repositories/#Debian_Hosts">https://www.whonix.org/wiki/Onionizing_Repositories/#Debian_Hosts</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Debian_Hosts&amp;text=Debian%20Hosts" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Debian_Hosts&amp;text=Debian%20Hosts" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Debian_Hosts&amp;title=Debian%20Hosts" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Debian%20Hosts&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Debian_Hosts" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Debian_Hosts]Debian Hosts[/url]">[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Debian_Hosts]Debian Hosts[/url]</span></span></span></span></div><div class="tcc-content"><ul>
 <li><u>What to change:</u> Debian hosts and VMs can be onionized by
@@ -435,11 +549,21 @@ Tor are unwanted.</li>
 <div class="info-box ">
 <p><strong>1.</strong> Open the Debian <code>sources.list</code> file
 using an editor with root rights.</p>
-<p><span class="code-select">sudo nano /etc/apt/sources.list</span></p>
+<p><span class="code-select" data-code="sudo nano /etc/apt/sources.list">sudo
+nano /etc/apt/sources.list</span></p>
 <p><strong>2.</strong> Reference the onionized Debian repositories.</p>
 <p>Cut and paste the following <i>.onion</i> mirrors and comment out (#)
 the corresponding https repositories.</p>
-<p><span class="code-select">#deb <a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://deb.debian.org/debian" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<p><span class="code-select" data-code="#deb https://deb.debian.org/debian trixie main contrib non-free
+deb tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian trixie main contrib non-free
+
+#deb https://deb.debian.org/debian-security trixie-security main contrib non-free
+deb tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion trixie-security main contrib non-free
+
+#Optional Backports
+#deb https://deb.debian.org/debian trixie-backports main contrib non-free
+deb tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian trixie-backports main contrib non-free">#deb
+<a href="https://deb.debian.org/debian">https://deb.debian.org/debian</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://deb.debian.org/debian" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 trixie main contrib non-free deb
 tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
 trixie main contrib non-free</p>
@@ -461,8 +585,8 @@ trixie-backports main contrib non-free</span></p>
 <p>Save and exit.</p>
 <p><strong>3.</strong> Confirm the onionized repositories are
 functional.</p>
-<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
-full-upgrade</span></p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt full-upgrade">sudo
+apt update &amp;&amp; sudo apt full-upgrade</span></p>
 </div></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Kicksecure-icon-logo.svg" width="25" alt="Kicksecure-icon-logo.svg" /></div><div class="tcc-title"><h2 id="Kicksecure_Hosts">Kicksecure Hosts</h2><span class="share-tooltip" data-anchor="Kicksecure_Hosts"><a class="headline-anchor" href="#Kicksecure_Hosts" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Onionizing_Repositories/#Kicksecure_Hosts">https://www.whonix.org/wiki/Onionizing_Repositories/#Kicksecure_Hosts</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Kicksecure_Hosts&amp;text=Kicksecure%20Hosts" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Kicksecure_Hosts&amp;text=Kicksecure%20Hosts" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Kicksecure_Hosts&amp;title=Kicksecure%20Hosts" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Kicksecure%20Hosts&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FOnionizing_Repositories%2F%23Kicksecure_Hosts" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Kicksecure_Hosts]Kicksecure Hosts[/url]">[url=https://www.whonix.org/wiki/Onionizing_Repositories/#Kicksecure_Hosts]Kicksecure Hosts[/url]</span></span></span></span></div><div class="tcc-content"><p>If your host operating system is Kicksecure, follow the Kicksecure
 documentation (separate project / separate wiki):</p>
@@ -492,8 +616,9 @@ shows <code>No updates available</code> in case of network is down /
 <code>qubes-dom0-update</code> fails to notice if repositories are
 unreachable / network is down</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/7254" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-5">For support in downloading APT packages anonymously via the Tor
-network. To install it: <span class="code-select">sudo apt install
---no-install-recommends apt-transport-tor</span></li>
+network. To install it:
+<span class="code-select" data-code="sudo apt install --no-install-recommends apt-transport-tor">sudo
+apt install --no-install-recommends apt-transport-tor</span></li>
 <li id="cite_note-6">Also edit Whonix <code>sources.list</code> if you are using <a href="../Packages_for_Debian_Hosts/">Whonix Packages for
 Debian Hosts</a>.</li>
 </ol>

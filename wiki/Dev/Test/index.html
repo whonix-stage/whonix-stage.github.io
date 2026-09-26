@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>How-to: &quot;UnWhonix&quot; - using clearnet networking</title>
 <meta name="description" content="Using clearnet networking for Whonix-Gateway and/or Whonix-Workstation / Curl Clearnet Connectivity Test from Whonix-Gateway.">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="How-to: &quot;UnWhonix&quot; - using clearnet networking">
 <link rel="stylesheet" href="../../../style.css">
 <link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -111,8 +111,8 @@ Whonix-Gateway.</li>
 <li><a href="../../Qubes/">Qubes-Whonix</a>: On
 <code>whonix-gateway-18</code> Template. <sup class="reference"><a href="#cite_note-1">[1]</a></sup></li>
 </ul>
-<p><span class="code-select">sudo usermod -d /home/clearnet
-clearnet</span></p>
+<p><span class="code-select" data-code="sudo usermod -d /home/clearnet clearnet">sudo
+usermod -d /home/clearnet clearnet</span></p>
 <p><strong>2.</strong> Create the new persistent home folder.</p>
 <p>Platform specific. See below on where to run the following
 commands.</p>
@@ -122,13 +122,15 @@ Whonix-Gateway.</li>
 <li><a href="../../Qubes/">Qubes-Whonix</a>: On
 <code>sys-whonix</code> App Qube. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></li>
 </ul>
-<p><span class="code-select">sudo mkdir -p /home/clearnet</span></p>
+<p><span class="code-select" data-code="sudo mkdir -p /home/clearnet">sudo
+mkdir -p /home/clearnet</span></p>
 <p><strong>3.</strong> Change owner and group to
 <code>clearnet</code>.</p>
-<p><span class="code-select">sudo chown -R clearnet:clearnet
-/home/clearnet</span></p>
+<p><span class="code-select" data-code="sudo chown -R clearnet:clearnet /home/clearnet">sudo
+chown -R clearnet:clearnet /home/clearnet</span></p>
 <p><strong>4.</strong> Adjust permissions.</p>
-<p><span class="code-select">sudo chmod 755 /home/clearnet</span></p>
+<p><span class="code-select" data-code="sudo chmod 755 /home/clearnet">sudo
+chmod 755 /home/clearnet</span></p>
 <p>This will most likely be simplified in a future Whonix version, where
 user <code>clearnet</code> will have a persistent home folder by
 default.</p>
@@ -142,8 +144,9 @@ Clearnet Connectivity Test from Whonix-Gateway</h1>
 Whonix-Gateway<sup>&#8482;</sup> does not have a global DNS resolver enabled
 by default for its own traffic (details on page <a href="../../Whonix-Gateway_System_DNS/">Whonix-Gateway System
 DNS</a>).</p>
-<p><span class="code-select">sudo -u clearnet UWT_DEV_PASSTHROUGH=1 curl
---silent --tlsv1.3 --header 'Host: check.torproject.org' --insecure <a href="https://116.202.120.181">https://116.202.120.181</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://116.202.120.181" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="sudo -u clearnet UWT_DEV_PASSTHROUGH=1 curl --silent --tlsv1.3 --header &#x27;Host: check.torproject.org&#x27; --insecure https://116.202.120.181">sudo
+-u clearnet UWT_DEV_PASSTHROUGH=1 curl --silent --tlsv1.3 --header
+'Host: check.torproject.org' --insecure <a href="https://116.202.120.181">https://116.202.120.181</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://116.202.120.181" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <h1 id="Enable_Clearnet_Networking">Enable Clearnet Networking</h1>
 <h2 id="restore_Whonix-Gateway_clearnet_networking">restore
 Whonix-Gateway clearnet networking</h2><span class="share-tooltip" data-anchor="restore_Whonix-Gateway_clearnet_networking"><a class="headline-anchor" href="#restore_Whonix-Gateway_clearnet_networking" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Test/#restore_Whonix-Gateway_clearnet_networking">https://www.whonix.org/wiki/Dev/Test/#restore_Whonix-Gateway_clearnet_networking</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FTest%2F%23restore_Whonix-Gateway_clearnet_networking&amp;text=restore%0AWhonix-Gateway%20clearnet%20networking" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FTest%2F%23restore_Whonix-Gateway_clearnet_networking&amp;text=restore%0AWhonix-Gateway%20clearnet%20networking" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FTest%2F%23restore_Whonix-Gateway_clearnet_networking&amp;title=restore%0AWhonix-Gateway%20clearnet%20networking" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=restore%0AWhonix-Gateway%20clearnet%20networking&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FTest%2F%23restore_Whonix-Gateway_clearnet_networking" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Test/#restore_Whonix-Gateway_clearnet_networking]restore
@@ -170,7 +173,8 @@ accident, see <a href="../Technical_Introduction/#Security_Overview">Dev/Technic
 Firewall</a>.</p>
 <p><strong>2.</strong> Inside <code>Whonix-Gateway</code>: Verify that
 the firewall rules have been unloaded. .</p>
-<p><span class="code-select">sudo iptables --list</span></p>
+<p><span class="code-select" data-code="sudo iptables --list">sudo
+iptables --list</span></p>
 <p>Expected output:</p>
 <pre><code>Chain INPUT (policy ACCEPT)
 target     prot opt source               destination
@@ -186,8 +190,15 @@ target     prot opt source               destination</code></pre>
 <ul>
 <li><strong>A)</strong> Use your router's IP address.</li>
 <li><strong>B)</strong> Use a public DNS server. (Potential privacy
-issues!) <span class="code-select">## Cloudflare</li>
+issues!) &lt;span class="code-select" data-code="## Cloudflare</li>
 </ul>
+<p>nameserver 1.1.1.1</p>
+<ol>
+<li><ol>
+<li>Google</li>
+</ol></li>
+<li>nameserver 8.8.8.8"&gt;## Cloudflare</li>
+</ol>
 <p>nameserver 1.1.1.1</p>
 <ol>
 <li><ol>
@@ -202,10 +213,12 @@ address.</li>
 <p>Inside any other VM, any non-Tor VM, any non-Whonix VM. Such as a
 Debian (based) VM that has functional internet.</p>
 <p>Figure out its <code>/etc/resolv.conf</code> settings.</p>
-<p><span class="code-select">cat /etc/resolv.conf</span></p>
+<p><span class="code-select" data-code="cat /etc/resolv.conf">cat
+/etc/resolv.conf</span></p>
 <p><strong>4.</strong> Inside <code>Whonix-Gateway</code>: Delete
 <code>/etc/resolv.conf</code>.</p>
-<p><span class="code-select">sudo rm /etc/resolv.conf</span></p>
+<p><span class="code-select" data-code="sudo rm /etc/resolv.conf">sudo
+rm /etc/resolv.conf</span></p>
 <p><strong>5.</strong> Inside <code>Whonix-Gateway</code>: Use the same
 settings from the non-Tor VM.</p>
 <p>Open file <code>/etc/resolv.conf</code> in an editor with
@@ -226,7 +239,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/resolv.conf</span></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
@@ -241,7 +255,8 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
 <ul>
@@ -267,7 +282,8 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/resolv.conf</span></p></div></div></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>6.</strong> Inside <code>Whonix-Gateway</code>: Deactivate
 all uwt wrappers globally.</p>
@@ -302,7 +318,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/uwt.d/50_user.conf">sudoedit
+/etc/uwt.d/50_user.conf</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
@@ -317,7 +334,8 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p>
+<p><span class="code-select" data-code="sudoedit /etc/uwt.d/50_user.conf">sudoedit
+/etc/uwt.d/50_user.conf</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
 <ul>
@@ -343,40 +361,47 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/uwt.d/50_user.conf</span></p></div></div></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/uwt.d/50_user.conf">sudoedit
+/etc/uwt.d/50_user.conf</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>3.</strong> Add.</p>
-<p><span class="code-select">uwtwrapper_global="0"</span></p>
+<p><span class="code-select" data-code="uwtwrapper_global=&quot;0&quot;">uwtwrapper_global="0"</span></p>
 <p><strong>4.</strong> Save and exit.</p>
 <p><strong>5.</strong> Check that the changes have taken effect. Run in
-terminal: <span class="code-select">uwt_settings_show</span></p>
+terminal:
+<span class="code-select" data-code="uwt_settings_show">uwt_settings_show</span></p>
 <p>It should print</p>
 <pre><code>uwt INFO: disabled.</code></pre>
 <p><strong>6.</strong> Done.</p>
 </div>
 </div>
 <p><strong>7.</strong> Inside <code>Whonix-Gateway</code>: Download <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
-<p><span class="code-select">scurl --remote-name <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="scurl --remote-name https://check.torproject.org">scurl
+--remote-name <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>Or manually run <i>curl</i> with these parameters.
 <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
-<p><span class="code-select">curl --tlsv1.3 --remote-name <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="curl --tlsv1.3 --remote-name https://check.torproject.org">curl
+--tlsv1.3 --remote-name <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>Open file <code>index.html</code> in a <a href="https://www.kicksecure.com/wiki/Software/#Text_Editor">text editor</a> of your choice as a regular, non-root
 user.</p>
 <div class="info-box ">
 <p><u>If you are using a graphical environment</u>, run.
-<span class="code-select">featherpad index.html</span></p>
+<span class="code-select" data-code="featherpad index.html">featherpad
+index.html</span></p>
 <p><u>If you are using a terminal</u>, run.
-<span class="code-select">nano index.html</span></p>
+<span class="code-select" data-code="nano index.html">nano
+index.html</span></p>
 </div>
 <p>Should include.</p>
 <pre><code>Sorry. You are not using Tor.</code></pre>
 <p><strong>8.</strong> Inside <code>Whonix-Gateway</code>: Untorify APT
 sources.</p>
 <p>For all files in <code>/etc/apt/sources.list.d</code> folder, remove
-the <span class="code-select inline-style">tor+</span> prefix.</p>
-<p><span class="code-select">for file_name in /etc/apt/sources.list
-/etc/apt/sources.list.d/* ; do sudo str_replace "tor+" "" "$file_name" ;
-done</span></p>
+the <span class="code-select inline-style" data-code="tor+">tor+</span>
+prefix.</p>
+<p><span class="code-select" data-code="for file_name in /etc/apt/sources.list /etc/apt/sources.list.d/* ; do sudo str_replace &quot;tor+&quot; &quot;&quot; &quot;$file_name&quot; ; done">for
+file_name in /etc/apt/sources.list /etc/apt/sources.list.d/* ; do sudo
+str_replace "tor+" "" "$file_name" ; done</span></p>
 <p><strong>9.</strong> Done.</p>
 <h2 id="restore_Whonix-Workstation_clearnet_networking">restore
 Whonix-Workstation clearnet networking</h2><span class="share-tooltip" data-anchor="restore_Whonix-Workstation_clearnet_networking"><a class="headline-anchor" href="#restore_Whonix-Workstation_clearnet_networking" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Test/#restore_Whonix-Workstation_clearnet_networking">https://www.whonix.org/wiki/Dev/Test/#restore_Whonix-Workstation_clearnet_networking</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FTest%2F%23restore_Whonix-Workstation_clearnet_networking&amp;text=restore%0AWhonix-Workstation%20clearnet%20networking" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FTest%2F%23restore_Whonix-Workstation_clearnet_networking&amp;text=restore%0AWhonix-Workstation%20clearnet%20networking" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FTest%2F%23restore_Whonix-Workstation_clearnet_networking&amp;title=restore%0AWhonix-Workstation%20clearnet%20networking" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=restore%0AWhonix-Workstation%20clearnet%20networking&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FTest%2F%23restore_Whonix-Workstation_clearnet_networking" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Test/#restore_Whonix-Workstation_clearnet_networking]restore
@@ -415,9 +440,10 @@ image.</li>
 <li id="cite_note-3">Qubes-Whonix users note: Or alternatively in App Qube.
 <div class="info-box ">
 <p><strong>1.</strong> Create folder <code>/usr/local/etc/uwt.d</code>.
-<span class="code-select">sudo mkdir -p /usr/local/etc/uwt.d</span>
-<strong>2.</strong> Open with root rights:
-<span class="code-select">sudoedit
+<span class="code-select" data-code="sudo mkdir -p /usr/local/etc/uwt.d">sudo
+mkdir -p /usr/local/etc/uwt.d</span> <strong>2.</strong> Open with root
+rights:
+<span class="code-select" data-code="sudoedit /usr/local/etc/uwt.d/50_user.conf">sudoedit
 /usr/local/etc/uwt.d/50_user.conf</span></p>
 </div></li>
 <li id="cite_note-4">This has the same effect as the <i>scurl</i> command above.</li>

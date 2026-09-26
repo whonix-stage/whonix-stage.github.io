@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>How-to: Use Monero with Wallet Isolation in Qubes-Whonix</title>
 <meta name="description" content="Isolate the network part (monerod) from the wallet part (Monero Wallet) for better security.">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Moneroheader.png">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -185,10 +185,12 @@ Install Monero using Flatpak in <code>monerod-ws</code>.</p>
 Monero</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/wiki/Monero#c-qubes-whonix-app-qube" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 Create data folder for <code>monero</code><u><code>d</code></u>.</p>
-<p><span class="code-select">mkdir -p ~/.bitmonero</span></p>
+<p><span class="code-select" data-code="mkdir -p ~/.bitmonero">mkdir -p
+~/.bitmonero</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Create folder for <code>systemd --user</code>.</p>
-<p><span class="code-select">mkdir -p ~/.config/systemd/user</span></p>
+<p><span class="code-select" data-code="mkdir -p ~/.config/systemd/user">mkdir
+-p ~/.config/systemd/user</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
 Create file
 <code>~/.config/systemd/user/monero</code><u><code>d</code></u><code>.service</code>.</p>
@@ -196,10 +198,10 @@ Create file
 choice as a regular, non-root user.</p>
 <div class="info-box ">
 <p><u>If you are using a graphical environment</u>, run.
-<span class="code-select">featherpad
+<span class="code-select" data-code="featherpad ~/.config/systemd/user/monerod.service">featherpad
 ~/.config/systemd/user/monerod.service</span></p>
 <p><u>If you are using a terminal</u>, run.
-<span class="code-select">nano
+<span class="code-select" data-code="nano ~/.config/systemd/user/monerod.service">nano
 ~/.config/systemd/user/monerod.service</span></p>
 </div>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
@@ -216,8 +218,34 @@ sync process, but it prevents the
 if you accidentally kill the <code>monero</code><u><code>d</code></u>
 VM.</li>
 </ul>
-<p><span class="code-select">[Unit] Description=Monero daemon (Flatpak,
-user service) After=network.target Wants=network.target</p>
+<p><span class="code-select" data-code="[Unit]
+Description=Monero daemon (Flatpak, user service)
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+
+ExecStart=/usr/bin/flatpak run \
+--command=monerod \
+--share=network \
+--filesystem=%h/.bitmonero:rw \
+org.getmonero.Monero \
+--prune-blockchain \
+--db-sync-mode=safe \
+--data-dir=%h/.bitmonero \
+--non-interactive
+
+ExecStop=/usr/bin/flatpak kill org.getmonero.Monero
+
+Restart=on-failure
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target">[Unit] Description=Monero daemon (Flatpak, user
+service) After=network.target Wants=network.target</p>
 <p>[Service] Type=simple</p>
 <p>ExecStart=/usr/bin/flatpak run \ --command=monerod \ --share=network
 \ --filesystem=%h/.bitmonero:rw \ org.getmonero.Monero \
@@ -231,19 +259,23 @@ StandardError=journal</p>
 Save and close file.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
 Reload the <code>systemd</code> user instance.</p>
-<p><span class="code-select">systemctl --user daemon-reload</span></p>
+<p><span class="code-select" data-code="systemctl --user daemon-reload">systemctl
+--user daemon-reload</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">8</i>
 Optional: Enable autostart for the
 <code>monero</code><u><code>d</code></u> <code>systemd</code> user
 service.</p>
-<p><span class="code-select">systemctl --user enable monerod</span></p>
+<p><span class="code-select" data-code="systemctl --user enable monerod">systemctl
+--user enable monerod</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">9</i>
 Start the <code>monero</code><u><code>d</code></u> <code>systemd</code>
 user service.</p>
-<p><span class="code-select">systemctl --user restart monerod</span></p>
+<p><span class="code-select" data-code="systemctl --user restart monerod">systemctl
+--user restart monerod</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">10</i>
 Check <code>monero</code><u><code>d</code></u> status.</p>
-<p><span class="code-select">curl -s <a href="http://127.0.0.1:18081/get_info">http://127.0.0.1:18081/get_info</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:18081/get_info" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="curl -s http://127.0.0.1:18081/get_info">curl
+-s <a href="http://127.0.0.1:18081/get_info">http://127.0.0.1:18081/get_info</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:18081/get_info" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>You should see detailed dictionary output from
 <code>monero</code><u><code>d</code></u> reporting its status; if
 nothing appears, the <code>monero</code><u><code>d</code></u> service is
@@ -276,7 +308,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /rw/config/rc.local</span></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /rw/config/rc.local">sudoedit
+/rw/config/rc.local</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
@@ -291,7 +324,8 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /rw/config/rc.local</span></p>
+<p><span class="code-select" data-code="sudoedit /rw/config/rc.local">sudoedit
+/rw/config/rc.local</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
 <ul>
@@ -317,23 +351,25 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /rw/config/rc.local</span></p></div></div></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /rw/config/rc.local">sudoedit
+/rw/config/rc.local</span></p></div></div></p></div></div></p>
 </div>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Append the following line at the bottom.</p>
-<p><span class="code-select">qvm-connect-tcp
+<p><span class="code-select" data-code="qvm-connect-tcp 18081:monerod-ws:18081">qvm-connect-tcp
 18081:monerod-ws:18081</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
 Save and close file.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
 Make the <code>/rw/config/rc.local</code> script executable.</p>
-<p><span class="code-select">sudo chmod +x
-/rw/config/rc.local</span></p>
+<p><span class="code-select" data-code="sudo chmod +x /rw/config/rc.local">sudo
+chmod +x /rw/config/rc.local</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">6</i>
 Restart the <code>monero-wallet-ws</code> VM.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
 Check <code>monerod</code> access in <code>monero-wallet-ws</code>.</p>
-<p><span class="code-select">curl -s <a href="http://127.0.0.1:18081/get_info">http://127.0.0.1:18081/get_info</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:18081/get_info" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="curl -s http://127.0.0.1:18081/get_info">curl
+-s <a href="http://127.0.0.1:18081/get_info">http://127.0.0.1:18081/get_info</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:18081/get_info" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>You should see detailed dictionary output from <code>monerod</code>;
 if you do not, it indicates that <code>monero-wallet-ws</code> was
 unable to connect to the <code>monerod</code> service in
@@ -351,7 +387,8 @@ Start <code>monero</code><u><code>d</code></u><code>-ws</code> VM.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 Check synchronization status.</p>
 <p>Run the command in <code>monerod-ws</code>:</p>
-<p><span class="code-select">curl -s <a href="http://127.0.0.1:18081/get_info">http://127.0.0.1:18081/get_info</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:18081/get_info" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<p><span class="code-select" data-code="curl -s http://127.0.0.1:18081/get_info | grep synchronized">curl
+-s <a href="http://127.0.0.1:18081/get_info">http://127.0.0.1:18081/get_info</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:18081/get_info" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 | grep synchronized</span></p>
 <p>If you see <code>"synchronized": true</code>, your node is ready.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
@@ -421,12 +458,12 @@ in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 <li>Outdated command. Requires <code>monero-wallet-cli</code> in
 <code>/usr/bin</code>.
 <ul>
-<li><span class="code-select">monero-wallet-cli</span></li>
+<li><span class="code-select" data-code="monero-wallet-cli">monero-wallet-cli</span></li>
 </ul></li>
 <li>Untested command:
 <ul>
-<li><span class="code-select">flatpak run --command=monero-wallet-cli
-org.getmonero.Monero</span></li>
+<li><span class="code-select" data-code="flatpak run --command=monero-wallet-cli org.getmonero.Monero">flatpak
+run --command=monero-wallet-cli org.getmonero.Monero</span></li>
 </ul></li>
 </ul>
 <p>Monero Wallet CLI is more "clever" and automatically detects the
@@ -442,27 +479,30 @@ in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 <code>monero</code><u><code>d</code></u><code>-ws</code>).</p>
 <p>Check the status of the <code>monero</code><u><code>d</code></u>
 <code>systemd</code> user service.</p>
-<p><span class="code-select">systemctl --user status monerod</span></p>
+<p><span class="code-select" data-code="systemctl --user status monerod">systemctl
+--user status monerod</span></p>
 <p>Monitor block height.</p>
-<p><span class="code-select">curl -s <a href="http://127.0.0.1:18081/get_info">http://127.0.0.1:18081/get_info</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:18081/get_info" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<p><span class="code-select" data-code="curl -s http://127.0.0.1:18081/get_info | grep height">curl
+-s <a href="http://127.0.0.1:18081/get_info">http://127.0.0.1:18081/get_info</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:18081/get_info" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 | grep height</span></p>
 <p>Follow the journal log of the
 <code>monero</code><u><code>d</code></u> <code>systemd</code> user
 service.</p>
-<p><span class="code-select">journalctl --boot --user -f -u
-monerod</span></p>
+<p><span class="code-select" data-code="journalctl --boot --user -f -u monerod">journalctl
+--boot --user -f -u monerod</span></p>
 <p>Follow the log file of <code>monero</code><u><code>d</code></u>.</p>
-<p><span class="code-select">tail -f
-~/.bitmonero/bitmonero.log</span></p>
+<p><span class="code-select" data-code="tail -f ~/.bitmonero/bitmonero.log">tail
+-f ~/.bitmonero/bitmonero.log</span></p>
 <p>View the log file of <code>monero</code><u><code>d</code></u>.</p>
 <p>Open file <code>~/.bitmonero/bitmonero.log</code> in a <a href="https://www.kicksecure.com/wiki/Software/#Text_Editor">text editor</a> of your
 choice as a regular, non-root user.</p>
 <div class="info-box ">
 <p><u>If you are using a graphical environment</u>, run.
-<span class="code-select">featherpad
+<span class="code-select" data-code="featherpad ~/.bitmonero/bitmonero.log">featherpad
 ~/.bitmonero/bitmonero.log</span></p>
 <p><u>If you are using a terminal</u>, run.
-<span class="code-select">nano ~/.bitmonero/bitmonero.log</span></p>
+<span class="code-select" data-code="nano ~/.bitmonero/bitmonero.log">nano
+~/.bitmonero/bitmonero.log</span></p>
 </div>
 <p>For the initial author of this wiki page, it took approximately 7
 minutes from <code>monero</code><u><code>d</code></u> logging
@@ -481,7 +521,7 @@ a donation to the Monero and Whonix projects (<a href="../Donate/">Donate</a>) t
 come.</p>
 <p><img src="../../media/Monero-symbol-1280.png.webp" width="25" alt="Monero accepted here" />
 Donate Monero (XMR) to Whonix.</p>
-<p><span class="code-select">84ZZSsqyh5niztCgxmWAejDLu9eDerWo4Wsx8woEhDGpdKP3BWPtqenNjKuv8vojrB968U3hqYTKgLGt2zEcGopX1qaEPew</span></p>
+<p><span class="code-select" data-code="84ZZSsqyh5niztCgxmWAejDLu9eDerWo4Wsx8woEhDGpdKP3BWPtqenNjKuv8vojrB968U3hqYTKgLGt2zEcGopX1qaEPew">84ZZSsqyh5niztCgxmWAejDLu9eDerWo4Wsx8woEhDGpdKP3BWPtqenNjKuv8vojrB968U3hqYTKgLGt2zEcGopX1qaEPew</span></p>
 <p><img src="../../media/Whonix_donate_monero.png.webp" width="100" alt="Whonix_donate_monero.png" /></p>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">

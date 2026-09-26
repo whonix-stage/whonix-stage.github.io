@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Connections between Whonix-Gateway and Whonix-Workstation</title>
 <meta name="description" content="Authenticated / Encrypted Connections between Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt; and Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt;, ARP spoofing defense, SSH, OpenVPN, Using additional (isolated) network interfaces. Remote Whonix-Gateway&lt;sup&gt;&amp;trade;&lt;/sup&gt;.">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Binary-503583640.jpg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -182,11 +182,14 @@ following steps.</p>
 complete the following steps.</p>
 <pre><code>lxsudo kate /etc/network/interfaces.d/30_non-qubes-whonix</code></pre>
 <p><u>If you are using a terminal Whonix-Gateway</u>, complete the
-following steps. <span class="code-select">sudo nano
-/etc/network/interfaces.d/30_non-qubes-whonix</span></p>
+following steps.
+<span class="code-select" data-code="sudo nano /etc/network/interfaces.d/30_non-qubes-whonix">sudo
+nano /etc/network/interfaces.d/30_non-qubes-whonix</span></p>
 </div>
 <p>Use these settings:</p>
-<p><span class="code-select">address 10.152.152.17 netmask 255.255.192.0
+<p><span class="code-select" data-code="address 10.152.152.17
+netmask 255.255.192.0
+gateway 10.152.152.13">address 10.152.152.17 netmask 255.255.192.0
 gateway 10.152.152.13</span></p>
 <p>On Whonix-Gateway:</p>
 <p>Modify the Whonix Network Configuration.</p>
@@ -198,11 +201,15 @@ following steps.</p>
 complete the following steps.</p>
 <pre><code>lxsudo kate /etc/network/interfaces.d/30_non-qubes-whonix</code></pre>
 <p><u>If you are using a terminal Whonix-Gateway</u>, complete the
-following steps. <span class="code-select">sudo nano
-/etc/network/interfaces.d/30_non-qubes-whonix</span></p>
+following steps.
+<span class="code-select" data-code="sudo nano /etc/network/interfaces.d/30_non-qubes-whonix">sudo
+nano /etc/network/interfaces.d/30_non-qubes-whonix</span></p>
 </div>
 <p>Add this:</p>
-<p><span class="code-select">auto eth2 iface eth2 inet static</p>
+<p><span class="code-select" data-code="auto eth2
+iface eth2 inet static
+       address 10.152.152.13
+       netmask 255.255.192.0">auto eth2 iface eth2 inet static</p>
 <p><code>&#160;&#160;&#160;&#160;&#160;&#160;address&#160;10.152.152.13</code><br />
 <code>&#160;&#160;&#160;&#160;&#160;&#160;netmask&#160;255.255.192.0</code></span><code>&#160;</code></p>
 <p><strong>Modify Whonix-Gateway User Firewall Settings.</strong></p>
@@ -215,7 +222,7 @@ Firewall Settings, then the Whonix User Firewall Settings File
 <code>Settings</code> &#8594; <code>User Firewall Settings</code></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" alt="25x" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h4></div><div class="tcc-content"><p>In Whonix-Gateway, open the whonix_firewall configuration file in an
 editor.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf">sudoedit
 /usr/local/etc/whonix_firewall.d/50_user.conf</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" alt="25x" /></div><div class="tcc-title"><h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
 <code>Whonix-Gateway App Qube (commonly called </code><em><span><code>sys-whonix</code></span></em><code>)</code>
@@ -251,19 +258,26 @@ complete these steps.</p>
 <code>Settings</code> &#8594; <code>Global Firewall Settings</code></p>
 <p><u>If using a terminal Whonix-Gateway</u>, complete these steps.</p>
 <p>In Whonix-Gateway, view the global firewall configuration file in an
-editor. <span class="code-select">nano
+editor.
+<span class="code-select" data-code="nano /etc/whonix_firewall.d/30_whonix_gateway_default.conf">nano
 /etc/whonix_firewall.d/30_whonix_gateway_default.conf</span></p>
 </div>
 </div>
 </div>
 </div>
 <p>And add additional interfaces to the firewall config:</p>
-<p><span class="code-select">INT_IF="\ eth1 eth2"</p>
+<p><span class="code-select" data-code="INT_IF=&quot;\
+eth1
+eth2&quot;
+
+INT_TIF=&quot;$INT_IF&quot;">INT_IF="\ eth1 eth2"</p>
 <p>INT_TIF="$INT_IF"</span></p>
 <p>Reload Whonix firewall (or reboot):</p>
-<p><span class="code-select">sudo whonix_firewall</span></p>
+<p><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></p>
 <p>Restart networking:</p>
-<p><span class="code-select">sudo service networking restart</span></p>
+<p><span class="code-select" data-code="sudo service networking restart">sudo
+service networking restart</span></p>
 <p>Perhaps NetworkManager is interfering and must be disabled.</p>
 <p>Also, the file <code>/usr/share/tor/tor-service-defaults-torrc</code>
 needs some changes. Tor needs to listen on the additional
@@ -285,7 +299,7 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/share/tor/tor-service-defaults-torrc">sudoedit
 /usr/share/tor/tor-service-defaults-torrc</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
@@ -301,7 +315,7 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/share/tor/tor-service-defaults-torrc">sudoedit
 /usr/share/tor/tor-service-defaults-torrc</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
@@ -328,14 +342,15 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/share/tor/tor-service-defaults-torrc">sudoedit
 /usr/share/tor/tor-service-defaults-torrc</span></p></div></div></p></div></div></p>
 </div>
 <p>Use this file:<br />
 <a href="https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/share/tor/tor-service-defaults-torrc.anondist">tor-service-defaults-torrc.anondist</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-gw-anonymizer-config/blob/master/usr/share/tor/tor-service-defaults-torrc.anondist" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
 <p><sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
 <p>Restart Tor.</p>
-<p><span class="code-select">sudo service tor@default restart</span></p>
+<p><span class="code-select" data-code="sudo service tor@default restart">sudo
+service tor@default restart</span></p>
 <p>It will now loudly complain that Tor is listening on all IPs, which
 may not be what you want. You can ignore this because the external
 network interface is firewalled.</p>
@@ -419,23 +434,34 @@ The following information only applies to the <u>deprecated</u> version
 of Whonix 0.5.6. It requires updating for more recent versions of
 Whonix. Nowadays using WireGuard instead of OpenVPN? Please help.</p>
 </div>
-<p><span class="code-select">sudo -i</span>
-<span class="code-select">apt --yes install openvpn</span></p>
+<p><span class="code-select" data-code="sudo -i">sudo -i</span>
+<span class="code-select" data-code="apt --yes install openvpn">apt
+--yes install openvpn</span></p>
 <p>Create a new symmetric key:</p>
-<p><span class="code-select">sudo -u user openvpn --genkey --secret
-/home/user/static.key</span></p>
+<p><span class="code-select" data-code="sudo -u user openvpn --genkey --secret /home/user/static.key">sudo
+-u user openvpn --genkey --secret /home/user/static.key</span></p>
 <p>Copy key to workstation (Firewall needs to be disabled and
 OpenSSH-server installed on Whonix-Workstation for this to work).</p>
-<p><span class="code-select">sudo -u user scp /home/user/static.key
+<p><span class="code-select" data-code="sudo -u user scp /home/user/static.key user@10.152.152.10:/home/user/static.key">sudo
+-u user scp /home/user/static.key
 user@10.152.152.10:/home/user/static.key</span>
-<span class="code-select">mv /home/user/static.key
-/etc/openvpn/static.key</span> <span class="code-select">chown root:root
-/etc/openvpn/static.key</span> <span class="code-select">chmod 700
-/etc/openvpn/static.key</span></p>
+<span class="code-select" data-code="mv /home/user/static.key /etc/openvpn/static.key">mv
+/home/user/static.key /etc/openvpn/static.key</span>
+<span class="code-select" data-code="chown root:root /etc/openvpn/static.key">chown
+root:root /etc/openvpn/static.key</span>
+<span class="code-select" data-code="chmod 700 /etc/openvpn/static.key">chmod
+700 /etc/openvpn/static.key</span></p>
 <p>Create server configuration:</p>
-<p><span class="code-select">echo " user nobody group nogroup daemon dev
-tun ifconfig 10.8.0.1 10.8.0.2 secret /etc/openvpn/static.key" &gt;
-/etc/openvpn/server.conf</span> <span class="code-select">service
+<p><span class="code-select" data-code="echo &quot;
+user nobody
+group nogroup
+daemon
+dev tun
+ifconfig 10.8.0.1 10.8.0.2
+secret /etc/openvpn/static.key&quot; &gt; /etc/openvpn/server.conf">echo
+" user nobody group nogroup daemon dev tun ifconfig 10.8.0.1 10.8.0.2
+secret /etc/openvpn/static.key" &gt; /etc/openvpn/server.conf</span>
+<span class="code-select" data-code="service openvpn restart">service
 openvpn restart</span></p>
 <p>Edit torrc.<br />
 TODO: only selectively change listening addresses.
@@ -443,11 +469,15 @@ TODO: only selectively change listening addresses.
 to remain available if unauthenticated workstations are to be used.
 NOTE: we are using a hardcoded default IP here, if you are using
 non-standard settings this will have to be edited.</p>
-<p><span class="code-select">ed -s /usr/local/etc/torrc.d/50_user.conf
-&lt;&lt;&lt; $',s/10.152.152.10/10.8.0.1/g\nw'</span></p>
+<p><span class="code-select" data-code="ed -s /usr/local/etc/torrc.d/50_user.conf &lt;&lt;&lt; $&#x27;,s/10.152.152.10/10.8.0.1/g\nw&#x27;">ed
+-s /usr/local/etc/torrc.d/50_user.conf &lt;&lt;&lt;
+$',s/10.152.152.10/10.8.0.1/g\nw'</span></p>
 <p>Edit <code>/usr/local/bin/whonix_firewall</code>.<br />
 TODO: Put this automatically where it actually belongs.</p>
-<p><span class="code-select">echo '</p>
+<p><span class="code-select" data-code="echo &#x27;
+# Allow openvpn in on port 1194
+iptables -A INPUT -i $INT_IF -p udp --dport 1194 -j ACCEPT&#x27; &gt;&gt; /usr/local/bin/whonix_firewall
+# TODO: replace hardcoded &quot;eth1&quot; with a wildcard">echo '</p>
 <ol>
 <li>Allow openvpn in on port 1194</li>
 </ol>
@@ -456,26 +486,40 @@ TODO: Put this automatically where it actually belongs.</p>
 <ol>
 <li>TODO: replace hardcoded "eth1" with a wildcard</span></li>
 </ol>
-<p><span class="code-select">ed -s
-/usr/local/bin/whonix_firewall&lt;&lt;&lt;
+<p><span class="code-select" data-code="ed -s /usr/local/bin/whonix_firewall&lt;&lt;&lt; $&#x27;,s/INT_TIF=eth1/INT_TIF=tun0/g\nw&#x27;">ed
+-s /usr/local/bin/whonix_firewall&lt;&lt;&lt;
 $',s/INT_TIF=eth1/INT_TIF=tun0/g\nw'</span>
-<span class="code-select">/usr/local/bin/whonix_firewall</span></p>
+<span class="code-select" data-code="/usr/local/bin/whonix_firewall">/usr/local/bin/whonix_firewall</span></p>
 <p>On the Workstation(s):</p>
 <p>TODO: Disable/tweak the new firewall.</p>
-<p><span class="code-select">sudo -i</span> <span class="code-select">mv
+<p><span class="code-select" data-code="sudo -i">sudo -i</span>
+<span class="code-select" data-code="mv /home/user/static.key /etc/openvpn/static.key">mv
 /home/user/static.key /etc/openvpn/static.key</span>
-<span class="code-select">chown root:root /etc/openvpn/static.key</span>
-<span class="code-select">chmod 700 /etc/openvpn/static.key</span></p>
+<span class="code-select" data-code="chown root:root /etc/openvpn/static.key">chown
+root:root /etc/openvpn/static.key</span>
+<span class="code-select" data-code="chmod 700 /etc/openvpn/static.key">chmod
+700 /etc/openvpn/static.key</span></p>
 <p>Should be in the default installation:</p>
-<p><span class="code-select">apt --yes install --no-install-recommends
-torsocks</span> <span class="code-select">echo " user nobody group
-nogroup daemon remote 10.152.152.10 dev tun ifconfig 10.8.0.2 10.8.0.1
-secret /etc/openvpn/static.key" &gt; /etc/openvpn/server.conf</span></p>
+<p><span class="code-select" data-code="apt --yes install --no-install-recommends torsocks">apt
+--yes install --no-install-recommends torsocks</span>
+<span class="code-select" data-code="echo &quot;
+user nobody
+group nogroup
+daemon
+remote 10.152.152.10
+dev tun
+ifconfig 10.8.0.2 10.8.0.1
+secret /etc/openvpn/static.key&quot; &gt; /etc/openvpn/server.conf">echo
+" user nobody group nogroup daemon remote 10.152.152.10 dev tun ifconfig
+10.8.0.2 10.8.0.1 secret /etc/openvpn/static.key" &gt;
+/etc/openvpn/server.conf</span></p>
 <p>Edit resolv.conf:</p>
-<p><span class="code-select">chattr -i /etc/resolv.conf</span>
-<span class="code-select">echo "nameserver 10.8.0.1" &gt;
-/etc/resolv.conf</span> <span class="code-select">chattr +i
-/etc/resolv.conf</span></p>
+<p><span class="code-select" data-code="chattr -i /etc/resolv.conf">chattr
+-i /etc/resolv.conf</span>
+<span class="code-select" data-code="echo &quot;nameserver 10.8.0.1&quot; &gt; /etc/resolv.conf">echo
+"nameserver 10.8.0.1" &gt; /etc/resolv.conf</span>
+<span class="code-select" data-code="chattr +i /etc/resolv.conf">chattr
++i /etc/resolv.conf</span></p>
 </div>
 </div>
 <h1 id="Remote_Whonix-Gateway">Remote Whonix-Gateway</h1>

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Multiple Whonix-Workstation</title>
 <meta name="description" content="Compartmentalization. Better separation of different tasks and/or pseudonyms by using multiple Whonix-Workstation.">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Petunia-14052640.jpg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -337,7 +337,7 @@ Continue with the steps below.</li>
 <strong>Edit the network interfaces file:</strong></p>
 <p>Change the internal LAN IP address, so the cloned VM does not reuse
 the same IP as the original VM.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/network/interfaces.d/30_non-qubes-whonix">sudoedit
 /etc/network/interfaces.d/30_non-qubes-whonix</span></p>
 <p>Ignore all lines starting with a hashtag ("<code>#</code>"). That is
 because comments are only for documentation and notes. However, comments
@@ -355,7 +355,7 @@ Change the last number in the address. For example, change
 <strong>Review your changes:</strong></p>
 <p>This is optional, but it helps confirm the file looks correct and
 shows the contents without comment lines.</p>
-<p><span class="code-select">cat
+<p><span class="code-select" data-code="cat /etc/network/interfaces.d/30_non-qubes-whonix | grep --invert-match &quot;#&quot;">cat
 /etc/network/interfaces.d/30_non-qubes-whonix | grep --invert-match
 "#"</span></p>
 <p>That should show for example:</p>
@@ -384,7 +384,8 @@ fourth workstation, and so forth.</p>
 <p>Apply the new IP settings by rebooting, or by restarting
 networking.</p>
 <p>Reboot the Whonix-Workstation or alternately restart the network.</p>
-<p><span class="code-select">sudo service networking restart</span></p>
+<p><span class="code-select" data-code="sudo service networking restart">sudo
+service networking restart</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">7</i>
 <strong>Done.</strong></p>
 <p>The additional Whonix-Workstation VM should now have a unique MAC
@@ -443,8 +444,8 @@ Qube something generic, for example:
 the newly created App Qube. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
 <p><u>Note:</u> Replace <code>anon-whonix</code><u><code>-2</code></u>
 with the actual name of the VM.</p>
-<p><span class="code-select">qvm-tags anon-whonix-2 add anon-vm
-sdwdate-gui-client</span></p>
+<p><span class="code-select" data-code="qvm-tags anon-whonix-2 add anon-vm sdwdate-gui-client">qvm-tags
+anon-whonix-2 add anon-vm sdwdate-gui-client</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">11</i>
 <strong>Done.</strong></p>
 </div>
@@ -471,12 +472,12 @@ Whonix-Gateway</a> wiki page.</p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">1</i>
 <strong>Create the config folder:</strong></p>
 <p>Create folder <code>/usr/local/etc/sdwdate-gui.d</code>.</p>
-<p><span class="code-select">sudo mkdir -p
-/usr/local/etc/sdwdate-gui.d</span></p>
+<p><span class="code-select" data-code="sudo mkdir -p /usr/local/etc/sdwdate-gui.d">sudo
+mkdir -p /usr/local/etc/sdwdate-gui.d</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
 <strong>Open the config file:</strong></p>
 <p>Open with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/sdwdate-gui.d/50_user.conf">sudoedit
 /usr/local/etc/sdwdate-gui.d/50_user.conf</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
 <strong>Add the gateway setting:</strong></p>
@@ -487,7 +488,7 @@ Whonix-Gateway</a> wiki page.</p>
 Whonix-Gateway which this Whonix-Workstation App Qube uses as its
 <code>net qube</code>. For example,
 <code>sys-whonix</code><u><code>-3</code></u>.</p>
-<p><span class="code-select">gateway="sys-whonix-2"</span></p>
+<p><span class="code-select" data-code="gateway=&quot;sys-whonix-2&quot;">gateway="sys-whonix-2"</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">4</i>
 <strong>Save the file:</strong></p>
 <p>Save the file.</p>
@@ -543,8 +544,9 @@ is the Tor default.</li>
 <li id="cite_note-6"><a href="../Dev/Qubes/#qvm-tags">Developer
 documentation about <code>qvm-tags</code></a></li>
 <li id="cite_note-7">Or restart sdwdate-watcher (sdwdate-gui).
-<span class="code-select">killall sdwdate-watcher</span>
-<span class="code-select">/usr/libexec/sdwdate-gui/start-maybe</span></li>
+<span class="code-select" data-code="killall sdwdate-watcher">killall
+sdwdate-watcher</span>
+<span class="code-select" data-code="/usr/libexec/sdwdate-gui/start-maybe">/usr/libexec/sdwdate-gui/start-maybe</span></li>
 </ol>
 </div>
 <p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Whonix-Workstation_Security_Hardening/" title="Whonix-Workstation Security Hardening"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Whonix-Workstation

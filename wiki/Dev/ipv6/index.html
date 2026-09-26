@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>IPv6 Development</title>
 <meta name="description" content="Development notes for adding IPv6 support to Whonix.">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="IPv6 Development">
 <link rel="stylesheet" href="../../../style.css">
 <link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -156,7 +156,8 @@ ticket?</li>
 <li>Qubes-Whonix
 <ul>
 <li>temporarily during development in dom0:
-<span class="code-select">qvm-features sys-whonix ipv6 1</span></li>
+<span class="code-select" data-code="qvm-features sys-whonix ipv6 1">qvm-features
+sys-whonix ipv6 1</span></li>
 <li><strong>TODO:</strong> Send a pull request to Qubes salt to no
 longer run command <code>qvm-features sys-whonix ipv6 ""</code> or maybe
 <code>qvm-features sys-whonix ipv6 0</code>.</li>
@@ -253,9 +254,12 @@ ip6tables created by libvirt:</li>
 first start and makes one-time-only persistent changes to its <a href="about:config">about:config</a> info. No indication at time of
 writing that this will change in future versions.</p>
 <h1 id="Tor_IPv6_Configuration">Tor IPv6 Configuration</h1>
-<p><span class="code-select">sudo nano /etc/tor/torrc</span></p>
-<p><span class="code-select">SocksPort [::1]:9050</span></p>
-<p><span class="code-select">sudo systemctl restart tor</span></p>
+<p><span class="code-select" data-code="sudo nano /etc/tor/torrc">sudo
+nano /etc/tor/torrc</span></p>
+<p><span class="code-select" data-code="SocksPort [::1]:9050">SocksPort
+[::1]:9050</span></p>
+<p><span class="code-select" data-code="sudo systemctl restart tor">sudo
+systemctl restart tor</span></p>
 <ul>
 <li><a href="https://tor.stackexchange.com/questions/24029/how-to-listen-on-both-localhost-ipv4-and-ipv6-at-the-same-time-with-1-configura">How
 to listen on both localhost, IPv4 and IPv6 at the same time with 1
@@ -285,15 +289,15 @@ are broken.</li>
 <li>Using v6.ipv6test.app, <strong>NOTE:</strong> blocks Tor sometimes,
 not reliable
 <ul>
-<li><span class="code-select">curl.anondist-orig --ipv6 --proxy
-socks5h://[::1]:9050 --resolve
+<li><span class="code-select" data-code="curl.anondist-orig --ipv6 --proxy socks5h://[::1]:9050 --resolve v6.ipv6test.app:443:[2600:9000:21f3:1800:18:3c03:3680:93a1] https://v6.ipv6test.app/">curl.anondist-orig
+--ipv6 --proxy socks5h://[::1]:9050 --resolve
 v6.ipv6test.app:443:[2600:9000:21f3:1800:18:3c03:3680:93a1] <a href="https://v6.ipv6test.app/">https://v6.ipv6test.app/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://v6.ipv6test.app/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
 </ul></li>
 <li>Using ipify.org, seems to not block Tor at least sometimes
 <ul>
-<li><span class="code-select">curl.anondist-orig --ipv6 --proxy
-socks5h://[::1]::9050 --resolve api6.ipify.org:443:[2607:f2d8:1:3c::4]
-<a href="https://api6.ipify.org/">https://api6.ipify.org/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://api6.ipify.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li><span class="code-select" data-code="curl.anondist-orig --ipv6 --proxy socks5h://[::1]::9050 --resolve api6.ipify.org:443:[2607:f2d8:1:3c::4] https://api6.ipify.org/">curl.anondist-orig
+--ipv6 --proxy socks5h://[::1]::9050 --resolve
+api6.ipify.org:443:[2607:f2d8:1:3c::4] <a href="https://api6.ipify.org/">https://api6.ipify.org/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://api6.ipify.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
 </ul></li>
 </ul></li>
 <li>using DNS
@@ -301,13 +305,13 @@ socks5h://[::1]::9050 --resolve api6.ipify.org:443:[2607:f2d8:1:3c::4]
 <li>Using v6.ipv6test.app, <strong>NOTE:</strong> blocks Tor sometimes,
 not reliable
 <ul>
-<li><span class="code-select">curl.anondist-orig --ipv6 --proxy
-socks5h://[::1]:9050 <a href="https://v6.ipv6test.app/">https://v6.ipv6test.app/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://v6.ipv6test.app/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li><span class="code-select" data-code="curl.anondist-orig --ipv6 --proxy socks5h://[::1]:9050 https://v6.ipv6test.app/">curl.anondist-orig
+--ipv6 --proxy socks5h://[::1]:9050 <a href="https://v6.ipv6test.app/">https://v6.ipv6test.app/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://v6.ipv6test.app/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
 </ul></li>
 <li>Using ipify.org, seems to not block Tor at least sometimes
 <ul>
-<li><span class="code-select">curl.anondist-orig --ipv6 --proxy
-socks5h://[::1]::9050 <a href="https://api6.ipify.org/">https://api6.ipify.org/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://api6.ipify.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li><span class="code-select" data-code="curl.anondist-orig --ipv6 --proxy socks5h://[::1]::9050 https://api6.ipify.org/">curl.anondist-orig
+--ipv6 --proxy socks5h://[::1]::9050 <a href="https://api6.ipify.org/">https://api6.ipify.org/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://api6.ipify.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
 </ul></li>
 </ul></li>
 <li>example output: <code>2a0b:f4c2:1::1</code>
@@ -326,7 +330,8 @@ page</li>
 <li>Find out the IP address of an IPv6 test server. Requires functional
 IPv6 connectivity somewhere.
 <ul>
-<li><span class="code-select">nslookup v6.ipv6test.app</span>
+<li><span class="code-select" data-code="nslookup v6.ipv6test.app">nslookup
+v6.ipv6test.app</span>
 <ul>
 <li><code>2600:9000:21f3:1800:18:3c03:3680:93a1</code></li>
 </ul></li>
@@ -339,7 +344,8 @@ IP only (without DNS)
 <ul>
 <li>useful for testing if IP connectivity is functional while exluding
 potential DNS related issues</li>
-<li><span class="code-select">curl --ipv6 --resolve
+<li><span class="code-select" data-code="curl --ipv6 --resolve v6.ipv6test.app:443:[2600:9000:21f3:1800:18:3c03:3680:93a1] https://v6.ipv6test.app/">curl
+--ipv6 --resolve
 v6.ipv6test.app:443:[2600:9000:21f3:1800:18:3c03:3680:93a1] <a href="https://v6.ipv6test.app/">https://v6.ipv6test.app/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://v6.ipv6test.app/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
 </ul></li>
 </ul>

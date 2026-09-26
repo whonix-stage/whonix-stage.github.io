@@ -59,24 +59,80 @@
     }
   }
 
-  // Copy-to-clipboard button on each code block (raw text from data-code or text).
+  // Copy-to-clipboard button on each code block (raw text from data-code or text),
+  // plus production's CodeSelect behavior: clicking the block selects all its text so
+  // a keyboard copy works even where the clipboard API is unavailable.
+  function selectNodeText(node) {
+    var sel = window.getSelection();
+    if (!sel) return;
+    var range = document.createRange();
+    range.selectNodeContents(node);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  // Enrich each `.code-select` into the CodeSelect widget (matches the MediaWiki
+  // gadget): an in-box copy icon + a "Click = Copy" tooltip that turns green
+  // "Copied to clipboard!" on copy; clicking the code selects it. TT-safe: built
+  // with createElement/textContent/classList only, no HTML-string sinks.
   function initCopyButtons() {
     var blocks = document.querySelectorAll(".code-select");
     for (var i = 0; i < blocks.length; i++) {
       (function (block) {
+        if (block.classList.contains("js-fully-loaded")) return;
+        var text = block.getAttribute("data-code");
+        if (text === null) text = block.textContent;
         var btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "copy-button";
-        btn.textContent = "Copy";
+        btn.className = "fa-regular fa-clone fa-rotate-90 cbutton";
+        btn.setAttribute("aria-label", "Copy code to clipboard");
+        var tip = document.createElement("span");
+        tip.className = "tooltip2 robots-nocontent";
+        var hov = document.createElement("span");
+        hov.className = "hover";
+        hov.textContent = "Click = Copy";
+        var cop = document.createElement("span");
+        cop.className = "copied";
+        var chk = document.createElement("i");
+        chk.className = "fa-solid fa-check";
+        chk.setAttribute("aria-hidden", "true");
+        cop.appendChild(chk);
+        cop.appendChild(document.createTextNode(" Copied to clipboard!"));
+        tip.appendChild(hov);
+        tip.appendChild(cop);
+        var wrap = document.createElement("span");
+        var vp = document.createElement("span");
+        vp.className = "viewport";
+        var code = document.createElement("span");
+        code.className = "code";
+        code.textContent = text;
+        vp.appendChild(code);
+        wrap.appendChild(vp);
+        block.textContent = "";
+        block.appendChild(btn);
+        block.appendChild(tip);
+        block.appendChild(wrap);
+        block.classList.add("js-fully-loaded");
+        var timer;
+        function markCopied() {
+          block.classList.add("copied");
+          btn.classList.remove("fa-regular", "fa-clone", "fa-rotate-90");
+          btn.classList.add("fa-solid", "fa-check");
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            block.classList.remove("copied");
+            btn.classList.remove("fa-solid", "fa-check");
+            btn.classList.add("fa-regular", "fa-clone", "fa-rotate-90");
+          }, 3000);
+        }
         btn.addEventListener("click", function () {
-          var text = block.getAttribute("data-code");
-          if (text === null) text = block.textContent;
-          var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1500); };
           if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(done, function () {});
+            navigator.clipboard.writeText(text).then(markCopied, function () { selectNodeText(code); });
+          } else {
+            selectNodeText(code);
+            markCopied();
           }
         });
-        block.parentNode.insertBefore(btn, block);
+        vp.addEventListener("click", function () { selectNodeText(code); });
       })(blocks[i]);
     }
   }
@@ -122,46 +178,89 @@
     }
   }
 
-  // Tab controllers: build the mininav (one button per section, labelled by the
-  // section title), default to the first tab, switch on click. No-JS shows all
-  // sections (CSS only hides inactive when an .active marker exists), so this is
-  // progressive enhancement. TT-safe: textContent/createElement/classList only.
+  // A controller's DIRECT sections (nested controllers are handled by their own pass).
+  function tabSections(ctrl) { return ctrl.querySelectorAll(":scope > .tcc-content > .tcc-section"); }
+  // Activate section idx of ctrl (toggle both the section and its pill).
+  function activateTab(ctrl, idx) {
+    var secs = tabSections(ctrl);
+    var pills = ctrl.querySelectorAll(":scope > .mininav > ul > li > .tcc-tab");
+    for (var k = 0; k < secs.length; k++) secs[k].classList.toggle("active", k === idx);
+    for (var b = 0; b < pills.length; b++) pills[b].classList.toggle("active", b === idx);
+  }
+
+  // Tab controllers: build the mininav switcher (one pill per section, labelled by the
+  // section title), default to the active/first tab, switch on click. No-JS shows all
+  // sections. TT-safe: createElement/textContent/classList only.
   function initTabs() {
     var controllers = document.querySelectorAll(".tab-content-controller");
     for (var i = 0; i < controllers.length; i++) {
       (function (ctrl) {
-        var sections = ctrl.querySelectorAll(".tcc-section");
-        var nav = ctrl.querySelector(".mininav");
+        var sections = tabSections(ctrl);
+        var nav = ctrl.querySelector(":scope > .mininav");
         if (!sections.length || !nav) return;
-        var btns = [];
-        function activate(idx) {
-          for (var k = 0; k < sections.length; k++)
-            sections[k].classList.toggle("active", k === idx);
-          for (var b = 0; b < btns.length; b++)
-            btns[b].classList.toggle("active", b === idx);
-        }
+        nav.classList.add("mn-switcher");
+        var ul = document.createElement("ul");
         for (var j = 0; j < sections.length; j++) {
-          var title = sections[j].querySelector(".tcc-title");
-          var btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "mininav-tab";
-          btn.textContent = title ? title.textContent.trim() : "Tab " + (j + 1);
+          var sec = sections[j];
+          var title = sec.querySelector(".tcc-title");
+          var heading = title && title.querySelector("h1, h2, h3, h4, h5, h6");
+          var hid = heading && heading.id;
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.className = "tcc-tab";
+          a.href = hid ? ("#" + hid) : "#";
+          var img = sec.querySelector(".tcc-image img");
+          if (img) a.appendChild(img);
+          // Label from the title text ONLY -- a section title is also a real heading, so
+          // it carries an injected .share-tooltip (permalink menu); strip it first.
+          var label = "Tab " + (j + 1);
+          if (title) {
+            var tclone = title.cloneNode(true);
+            var strip = tclone.querySelectorAll(".share-tooltip");
+            for (var s = 0; s < strip.length; s++) strip[s].parentNode.removeChild(strip[s]);
+            var t = tclone.textContent.trim();
+            if (t) label = t;
+          }
+          a.appendChild(document.createTextNode(label));
           (function (idx) {
-            btn.addEventListener("click", function () { activate(idx); });
+            a.addEventListener("click", function (e) { e.preventDefault(); activateTab(ctrl, idx); });
           })(j);
-          nav.appendChild(btn);
-          btns.push(btn);
+          li.appendChild(a);
+          ul.appendChild(li);
         }
+        nav.appendChild(ul);
         ctrl.classList.add("mininav-ready");
-        // default to the server-rendered active section (#tab active=true) if any,
-        // else the first -- do not clobber the intended default tab.
         var def = 0;
         for (var d = 0; d < sections.length; d++) {
           if (sections[d].classList.contains("active")) { def = d; break; }
         }
-        activate(def);
+        activateTab(ctrl, def);
       })(controllers[i]);
     }
+    syncTabsFromHash();
+  }
+
+  // If the URL fragment targets an element inside an INACTIVE tab section, activate the
+  // tab(s) containing it (outermost first, for nesting) and scroll it into view -- else
+  // the anchor lands on hidden content (a "broken" in-page link). Runs on load + hashchange.
+  function syncTabsFromHash() {
+    var id;
+    try { id = decodeURIComponent((location.hash || "").slice(1)); } catch (e) { return; }
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el || !el.closest) return;
+    var chain = [];
+    var n = el.closest(".tcc-section");
+    while (n) { chain.unshift(n); var p = n.parentElement; n = p && p.closest ? p.closest(".tcc-section") : null; }
+    if (!chain.length) return;
+    for (var c = 0; c < chain.length; c++) {
+      var sec = chain[c];
+      var ctrl = sec.closest(".tab-content-controller");
+      if (!ctrl) continue;
+      var secs = tabSections(ctrl);
+      activateTab(ctrl, Array.prototype.indexOf.call(secs, sec));
+    }
+    if (el.scrollIntoView) el.scrollIntoView();
   }
 
   // Mobile nav menu is a pure-CSS checkbox toggle (#nav-toggle). With JS on, also
@@ -281,8 +380,10 @@
     var banner = wrap.querySelector(".sitenotice-banner[data-banner-id]");
     if (!banner) return;
     var id = banner.getAttribute("data-banner-id") || "";
+    var forced = banner.classList.contains("force-show");
     try {
-      if (localStorage.getItem(LS_SITENOTICE) === id) { wrap.hidden = true; return; }
+      // force-show (the fly-in test page's EOY banner) ignores the dismissal
+      if (!forced && localStorage.getItem(LS_SITENOTICE) === id) { wrap.hidden = true; return; }
     } catch (err) {}
     var btn = wrap.querySelector("[data-sitenotice-dismiss]");
     if (btn) btn.addEventListener("click", function () {
@@ -297,16 +398,34 @@
   function initFlyin() {
     var panel = document.getElementById("fly-in-notification-panel");
     if (!panel) return;
-    var DAY = 86400000, dismissDays = 7, waitMs = 120000;
-    try {
-      var last = parseInt(localStorage.getItem(LS_FLYIN) || "0", 10);
-      if (last && (Date.now() - last) < dismissDays * DAY) return;
-    } catch (err) {}
-    var timer = setTimeout(function () { panel.hidden = false; }, waitMs);
+    var DAY = 86400000, waitMs = 120000, dismissDays = 7;
+    if (new Date().getMonth() === 11) { waitMs = 60000; dismissDays = 3; }  // December
+    // The test page carries a settings div (attr names lowercased by the parser) and
+    // ALWAYS shows the toast (bypasses the dismissal), so its behavior is demonstrable.
+    var t = document.getElementById("fly-in-notification-test-settings");
+    var isTest = !!t, now = Date.now();
+    if (t) {
+      var w = parseInt(t.getAttribute("data-waitinseconds"), 10);  if (!isNaN(w)) waitMs = w * 1000;
+      var d = parseInt(t.getAttribute("data-dismissfordays"), 10); if (!isNaN(d)) dismissDays = d;
+      var nn = parseInt(t.getAttribute("data-now"), 10);           if (!isNaN(nn)) now = nn;
+    }
+    if (!isTest) {
+      try {
+        var last = parseInt(localStorage.getItem(LS_FLYIN) || "0", 10);
+        if (last && Math.floor((now - last) / DAY) < dismissDays) return;
+      } catch (err) {}
+    }
+    var timer = setTimeout(function () {
+      panel.hidden = false;                             // slide in from the right edge
+      requestAnimationFrame(function () { panel.classList.add("flyin-shown"); });
+    }, waitMs);
     function close() {
       clearTimeout(timer);
-      panel.hidden = true;
-      try { localStorage.setItem(LS_FLYIN, String(Date.now())); } catch (err) {}
+      try { localStorage.setItem(LS_FLYIN, String(now)); } catch (err) {}
+      panel.classList.remove("flyin-shown");
+      panel.addEventListener("transitionend", function te() {
+        panel.hidden = true; panel.removeEventListener("transitionend", te);
+      });
     }
     var btn = panel.querySelector(".close-panel");
     if (btn) {
@@ -653,6 +772,7 @@
     initCollapsibles();
     initExpandCollapseAll();
     initTabs();
+    window.addEventListener("hashchange", syncTabsFromHash);
     initNavToggle();
     initBackToTop();
     initSearch();

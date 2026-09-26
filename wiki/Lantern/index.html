@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Lantern: Alternative Censorship Circumvention Tool</title>
 <meta name="description" content="Alternative Censorship Circumvention. Lantern over Tor. Combining Whonix with Lantern. Connecting to Lantern before Tor (&lt;code&gt;User&lt;/code&gt; &amp;rarr; &lt;code&gt;Lantern&lt;/code&gt; &amp;rarr; &lt;code&gt;Tor&lt;/code&gt; &amp;rarr; &lt;code&gt;Internet&lt;/code&gt;). &#x27;&#x27;Possible&#x27;&#x27; alternative to Tor bridges.">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Lanterns-111003640.jpg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -136,9 +136,11 @@ sudo systemctl stop qubes-firewall</code></pre>
 choice as a regular, non-root user.</p>
 <div class="info-box ">
 <p><u>If you are using a graphical environment</u>, run.
-<span class="code-select">featherpad ~/fw-unload</span></p>
+<span class="code-select" data-code="featherpad ~/fw-unload">featherpad
+~/fw-unload</span></p>
 <p><u>If you are using a terminal</u>, run.
-<span class="code-select">nano ~/fw-unload</span></p>
+<span class="code-select" data-code="nano ~/fw-unload">nano
+~/fw-unload</span></p>
 </div>
 <p>Add.</p>
 <pre><code>#!/bin/bash
@@ -217,40 +219,43 @@ COMMIT</code></pre>
 <p><strong>3.</strong> Disable IP Forwarding in the
 <code>Lantern-Gateway</code> ProxyVM.</p>
 <p>This should be disabled since it is not required.</p>
-<p><span class="code-select">sudo sysctl -w
-net.ipv4.ip_forward=0</span></p>
+<p><span class="code-select" data-code="sudo sysctl -w net.ipv4.ip_forward=0">sudo
+sysctl -w net.ipv4.ip_forward=0</span></p>
 <p><strong>4.</strong> Install a missing Lantern dependency.
 <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
-<p><span class="code-select">sudo apt install
-libappindicator3-1</span></p>
+<p><span class="code-select" data-code="sudo apt install libappindicator3-1">sudo
+apt install libappindicator3-1</span></p>
 <p><strong>5.</strong> Download and install Lantern.</p>
 <p>Check if the path to the downloadable deb file is still correct.
 Navigate to <a href="https://getlantern.org/">https://getlantern.org/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://getlantern.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and check for
 Linux desktop downloads.</p>
-<p><span class="code-select">curl --tlsv1.3 <a href="https://s3.amazonaws.com/lantern/lantern-installer-beta-64-bit.deb">https://s3.amazonaws.com/lantern/lantern-installer-beta-64-bit.deb</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://s3.amazonaws.com/lantern/lantern-installer-beta-64-bit.deb" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<p><span class="code-select" data-code="curl --tlsv1.3 https://s3.amazonaws.com/lantern/lantern-installer-beta-64-bit.deb --output ~/lantern-installer-beta-64-bit.deb">curl
+--tlsv1.3 <a href="https://s3.amazonaws.com/lantern/lantern-installer-beta-64-bit.deb">https://s3.amazonaws.com/lantern/lantern-installer-beta-64-bit.deb</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://s3.amazonaws.com/lantern/lantern-installer-beta-64-bit.deb" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 --output ~/lantern-installer-beta-64-bit.deb</span></p>
 <p>Install Lantern. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
-<p><span class="code-select">sudo dpkg -i
-~/lantern-installer-beta-64-bit.deb</span></p>
+<p><span class="code-select" data-code="sudo dpkg -i ~/lantern-installer-beta-64-bit.deb">sudo
+dpkg -i ~/lantern-installer-beta-64-bit.deb</span></p>
 <p><strong>6.</strong> Launch Lantern and configure HTTP proxy
 requests.</p>
 <p>Start Lantern while listening on all, not just the internal network
 interfaces so it is reachable from <code>sys-whonix</code>.</p>
 <p>Let Lantern listen for HTTP proxy requests.</p>
-<p><span class="code-select">lantern -addr 0.0.0.0:8787</span></p>
+<p><span class="code-select" data-code="lantern -addr 0.0.0.0:8787">lantern
+-addr 0.0.0.0:8787</span></p>
 <p>Or let Lantern listen for SOCKS5 proxy requests which is
 preferred.</p>
-<p><span class="code-select">lantern -socksaddr 0.0.0.0:8788</span></p>
+<p><span class="code-select" data-code="lantern -socksaddr 0.0.0.0:8788">lantern
+-socksaddr 0.0.0.0:8788</span></p>
 <p><strong>7.</strong> Test Lantern's HTTP or SOCKS port is
 functional.</p>
 <p>In <code>Lantern-Gateway</code>, check if Lantern's HTTP port is
 functional.</p>
-<p><span class="code-select">curl --tlsv1.3 --proxytunnel --proxy
-127.0.0.1:8788 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="curl --tlsv1.3 --proxytunnel --proxy 127.0.0.1:8788 https://check.torproject.org">curl
+--tlsv1.3 --proxytunnel --proxy 127.0.0.1:8788 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>Alternatively, in <code>Lantern-Gateway</code>, check if Lantern's
 SOCKS port is functional.</p>
-<p><span class="code-select">curl --tlsv1.3 --socks5-hostname
-socks5h://127.0.0.1:8788 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="curl --tlsv1.3 --socks5-hostname socks5h://127.0.0.1:8788 https://check.torproject.org">curl
+--tlsv1.3 --socks5-hostname socks5h://127.0.0.1:8788 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p><strong>8.</strong> Change <code>sys-whonix</code> NetVM
 settings.</p>
 <ul>
@@ -263,12 +268,12 @@ settings.</p>
 SOCKS port.</p>
 <p>In <code>sys-whonix</code>, test if Tor is able to connect to the
 HTTP proxy that Lantern is providing.</p>
-<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
---proxytunnel --proxy 10.137.11.1:8788 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3 --proxytunnel --proxy 10.137.11.1:8788 https://check.torproject.org">UWT_DEV_PASSTHROUGH=1
+curl --tlsv1.3 --proxytunnel --proxy 10.137.11.1:8788 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>Alternatively, in <code>sys-whonix</code>, test if Tor is able to
 connect to the SOCKS proxy that Lantern is providing.</p>
-<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3
---socks5-hostname socks5h://10.137.11.1:8788 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3 --socks5-hostname socks5h://10.137.11.1:8788 https://check.torproject.org">UWT_DEV_PASSTHROUGH=1
+curl --tlsv1.3 --socks5-hostname socks5h://10.137.11.1:8788 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p><strong>10.</strong> Edit the Tor configuration file in
 <code>sys-whonix</code>.</p>
 <p>Tor configuration file.</p>
@@ -301,7 +306,7 @@ unrestricted admin mode, take the following step.</p>
 <code>Tor User Config</code></p></div></div></p>
 <p><div class="tcc-section  "><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5></div><div class="tcc-content"><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
 <u>i</u>nterface (CLI)</u>, take the following step.
-<span class="code-select">sudoedit
+<span class="code-select" data-code="sudoedit /usr/local/etc/torrc.d/50_user.conf">sudoedit
 /usr/local/etc/torrc.d/50_user.conf</span></div></div></p></div></div></p></div></div></p>
 <p><div class="tcc-section  "><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4></div><div class="tcc-content"><div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
@@ -316,7 +321,7 @@ desktop</u>, take the following step.</p>
 -&gt; <code>Tor User Config</code></p></div></div></p>
 <p><div class="tcc-section  "><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5></div><div class="tcc-content"><p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
 a terminal in <code>sys-whonix</code> and run the following command.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/torrc.d/50_user.conf">sudoedit
 /usr/local/etc/torrc.d/50_user.conf</span></p></div></div></p></div></div></p></div></div></p></div></div></p>
 </div>
 <p>Depending on the proxy type configured at step 6, add the relevant
@@ -325,7 +330,8 @@ setting below. <sup class="reference"><a href="#cite_note-7">[7]</a></sup> <sup 
 with the IP of the <code>Lantern-Gateway</code> ProxyVM. To discover the
 <code>Lantern-Gateway</code> ProxyVM IP, run the following command in
 <code>sys-whonix</code>:</p>
-<p><span class="code-select">qubesdb-read /qubes-gateway</span></p>
+<p><span class="code-select" data-code="qubesdb-read /qubes-gateway">qubesdb-read
+/qubes-gateway</span></p>
 <pre><code>HTTPSProxy 10.137.11.1:8787</code></pre>
 <pre><code>Socks5Proxy 10.137.11.1:8788</code></pre>
 <p><strong>11.</strong> Reload Tor.</p>
@@ -353,17 +359,17 @@ for instructions.</p>
 <div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
 <p>Complete the following steps.</p>
 <p>Reload Tor.</p>
-<p><span class="code-select">sudo systemctl reload
-tor@default.service</span></p>
+<p><span class="code-select" data-code="sudo systemctl reload tor@default.service">sudo
+systemctl reload tor@default.service</span></p>
 <p>Check Tor's daemon status.</p>
-<p><span class="code-select">sudo systemctl status
-tor@default.service</span></p>
+<p><span class="code-select" data-code="sudo systemctl status tor@default.service">sudo
+systemctl status tor@default.service</span></p>
 <p>It should include a a message saying.</p>
 <pre><code>Active: active (running) since ...</code></pre>
 <p>In case of issues, try the following debugging steps.</p>
 <p>Check Tor's config.</p>
-<p><span class="code-select">sudo -u debian-tor tor
---verify-config</span></p>
+<p><span class="code-select" data-code="sudo -u debian-tor tor --verify-config">sudo
+-u debian-tor tor --verify-config</span></p>
 <p>The output should be similar to the following.</p>
 <pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
 Configuration was valid</code></pre>

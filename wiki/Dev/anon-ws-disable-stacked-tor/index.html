@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>anon-ws-disable-stacked-tor</title>
 <meta name="description" content="Preventing Tor over Tor for Tor Browser, TorChat and others.">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="anon-ws-disable-stacked-tor">
 <link rel="stylesheet" href="../../../style.css">
 <link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -209,17 +209,19 @@ matters, for example, for <a href="../../OnionShare/">OnionShare</a> if installe
 </ul>
 <h1 id="Debugging">Debugging</h1>
 <p>Run:</p>
-<p><span class="code-select">echo "$TOR_SOCKS_IPC_PATH"</span></p>
+<p><span class="code-select" data-code="echo &quot;$TOR_SOCKS_IPC_PATH&quot;">echo
+"$TOR_SOCKS_IPC_PATH"</span></p>
 <p>Should show the following:</p>
 <pre><code>/var/run/anon-ws-disable-stacked-tor/127.0.0.1_9150.sock</code></pre>
 <hr />
 <p>Run:</p>
-<p><span class="code-select">echo "$TOR_CONTROL_IPC_PATH"</span></p>
+<p><span class="code-select" data-code="echo &quot;$TOR_CONTROL_IPC_PATH&quot;">echo
+"$TOR_CONTROL_IPC_PATH"</span></p>
 <p>Should show the following:</p>
 <pre><code>/var/run/anon-ws-disable-stacked-tor/127.0.0.1_9151.sock</code></pre>
 <p>Also, please run:</p>
-<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl
-127.0.0.1:9150</span></p>
+<p><span class="code-select" data-code="UWT_DEV_PASSTHROUGH=1 curl 127.0.0.1:9150">UWT_DEV_PASSTHROUGH=1
+curl 127.0.0.1:9150</span></p>
 <p>Should show the following:</p>
 <pre><code>&lt;html&gt;
 &lt;head&gt;
@@ -243,8 +245,8 @@ See &lt;a href=&quot;https://www.torproject.org/documentation.html&quot;&gt;http
 <p>Should show the same as above.</p>
 <hr />
 <p>Next one to try:</p>
-<p><span class="code-select">UWT_DEV_PASSTHROUGH=1 curl
-127.0.0.1:9151</span></p>
+<p><span class="code-select" data-code="UWT_DEV_PASSTHROUGH=1 curl 127.0.0.1:9151">UWT_DEV_PASSTHROUGH=1
+curl 127.0.0.1:9151</span></p>
 <p>Should show the following:</p>
 <pre><code>510 Request filtered
 ...</code></pre>
@@ -268,11 +270,12 @@ or disabled.</li>
 </ul>
 <p>In Whonix-Gateway or <code>sys-whonix</code> <a href="../../Qubes/">Qubes-Whonix</a>:</p>
 <p><strong>1.</strong> Switch to user <code>clearnet</code>:</p>
-<p><span class="code-select">sudo -su clearnet</span></p>
+<p><span class="code-select" data-code="sudo -su clearnet">sudo -su
+clearnet</span></p>
 <p><strong>2.</strong> Circumvent the <code>uwt</code> stream isolation
 wrapper by appending <code>.anondist-orig</code> to
 <code>curl</code>:</p>
-<p><span class="code-select">curl.anondist-orig
+<p><span class="code-select" data-code="curl.anondist-orig &lt;your_url&gt;">curl.anondist-orig
 &lt;your_url&gt;</span></p>
 <p>In the following examples, the <code>exec</code> calls from the
 command output show the difference between running <code>curl</code>
@@ -280,8 +283,8 @@ with the <code>uwtwrapper</code> both enabled and disabled.</p>
 <p><strong><i>Example 1</i></strong></p>
 <p><code>curl</code> is run with the <code>uwtwrapper</code>
 enabled:</p>
-<p><span class="code-select">uwtwrapper_verbose=1 curl
-&lt;your_url&gt;</span></p>
+<p><span class="code-select" data-code="uwtwrapper_verbose=1 curl &lt;your_url&gt;">uwtwrapper_verbose=1
+curl &lt;your_url&gt;</span></p>
 <p>This results in the following <code>exec</code> calls. Only the
 latest (most recent) call matters, which shows <code>torsocks</code> is
 prepended before running <code>curl</code>:</p>
@@ -290,8 +293,8 @@ exec -a /usr/bin/curl /usr/bin/curl.anondist-orig &lt;your_url&gt;</code></pre>
 <p><strong><i>Example 2</i></strong></p>
 <p><code>curl</code> is run with the <code>uwtwrapper</code>
 disabled:</p>
-<p><span class="code-select">uwtwrapper_verbose=1 UWT_DEV_PASSTHROUGH=1
-curl &lt;your_url&gt;</span></p>
+<p><span class="code-select" data-code="uwtwrapper_verbose=1 UWT_DEV_PASSTHROUGH=1 curl &lt;your_url&gt;">uwtwrapper_verbose=1
+UWT_DEV_PASSTHROUGH=1 curl &lt;your_url&gt;</span></p>
 <p>This command results in the following <code>exec</code> calls, which
 show <code>torsocks</code> does not get prepended before
 <code>curl</code>. Since <code>curl</code> does not run under

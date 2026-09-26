@@ -347,6 +347,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   max-width: var(--maxw);
   margin: 2rem auto 3rem;
   padding: 0 1.25rem;
+  /* Break an over-long word/URL/badge instead of letting it force a horizontally
+     scrolling page on narrow (mobile) viewports. */
+  overflow-wrap: break-word;
 }
 .wiki-content h1, .wiki-content h2, .wiki-content h3,
 .wiki-content h4, .wiki-content h5, .wiki-content h6 {
@@ -376,21 +379,31 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 /* heading wrapper carries no box, so the inner hN margins govern rhythm */
 .widget-headline { margin: 0; }
 .wiki-content > .widget-headline:first-child h1 { margin-top: 0.25rem; }
-/* Page title box ({{Title}} -> .first-heading): a padded light panel with a larger
-   title, matching production's styled .first-heading (was near-unstyled small text). */
-.first-heading {
+/* Page title (#firstHeading / .first-heading) -- production Boilerplate.css values:
+   a subtle near-white panel, borderless, 28px. The generator synthesizes an
+   <h1 id="firstHeading" class="first-heading"> for a normal page (see page.py). */
+#firstHeading, .first-heading {
+  background: #fafafa;
+  max-width: 100%;
+  padding: 10px 17px 11px;
+  margin: 25px 0 25px -2px;
+  color: #444;
+  border: none;
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
-  padding: 0.65rem 1.05rem 0.75rem;
-  margin: 1.5rem 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
 }
 .first-heading > h1, .first-heading .widget-headline h1 {
   margin: 0;
-  border-bottom: 0;
-  padding-bottom: 0;
-  font-size: 1.7rem;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+@media (max-width: 600px) {
+  #firstHeading, .first-heading { font-size: 25px; }
 }
 
 .wiki-content p { margin: 0 0 1rem; }
@@ -414,7 +427,7 @@ blockquote p:last-child { margin-bottom: 0; }
 }
 
 /* ---- code + pre ---- */
-.wiki-content pre, .code-select {
+.wiki-content pre {
   display: block;
   background: var(--code-bg);
   border: 1px solid var(--border);
@@ -427,11 +440,59 @@ blockquote p:last-child { margin-bottom: 0; }
   tab-size: 4;
 }
 .wiki-content pre code { background: none; padding: 0; border: 0; font-size: inherit; }
-.code-select.inline-style, .code-select.display-inline-block {
-  display: inline;
-  padding: 0.1rem 0.35rem;
-  overflow: visible;
+
+/* ---- CodeSelect widget (adopted from the MediaWiki CodeSelect.css, the canonical
+   source; production is light-only). The generator emits `.code-select` flat + a
+   data-code attribute; app.js enriches it into the .cbutton/.tooltip2/.viewport/.code
+   structure these rules target. ---- */
+.code-select {
+  display: inline-block; background: #f6f6f6; border-radius: 7px;
+  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.05); border: 1px solid #e3e3e3;
+  padding: 5px 13px 0 40px; position: relative; max-width: 100%; vertical-align: middle;
+  min-height: 31px; overflow: auto;
+  font-family: var(--font-mono); font-size: 13px; color: #0054a8; line-height: 1.6em;
+  white-space: pre;
 }
+.code-select, .code-select > *:not(.cbutton) { cursor: copy; }
+.code-select:hover { border-color: #d8d8d8; background: #f0f0f0; }
+.code-select.js-fully-loaded { overflow: visible; padding-left: 38px; white-space: unset; }
+.code-select .tooltip2 {
+  position: absolute; top: -39px; left: 6px; background: white; color: #337cd9;
+  border: 1px solid #337cd9; padding: 6px 10px; border-radius: 6px; z-index: 1010;
+  font-weight: bold; font-size: 14px; display: none; white-space: nowrap;
+  font-family: Courier, monospace;
+}
+.code-select .tooltip2::after {
+  content: " "; position: absolute; top: 100%; left: 7px; border-width: 7px;
+  border-style: solid; border-color: #337cd9 transparent transparent transparent;
+}
+.code-select .tooltip2 .copied { display: none; }
+.code-select .tooltip2 .hover { display: inline-block; }
+.code-select.copied .tooltip2 .copied { display: inline-block; }
+.code-select.copied .tooltip2 .hover { display: none; }
+.code-select.copied .tooltip2 {
+  display: inline-block; background: #07c007; border-color: #01b101; color: white;
+}
+.code-select.copied .tooltip2::after { border-top-color: #00a400; }
+.code-select .tooltip2 .copied > i { margin-right: 3px; position: relative; top: 1px; }
+.code-select > .cbutton:hover ~ .tooltip2 { display: inline-block; }
+.code-select > .cbutton {
+  cursor: pointer; display: inline-block; background: none; border: none; margin: 0;
+  padding: 0; -webkit-appearance: none; appearance: none;
+}
+.code-select:not([data-button-image-src]) > .cbutton {
+  position: absolute; left: 8px; top: 2px; height: 25px; width: 27px; text-align: center;
+  padding-top: 4px; border-radius: 5px; color: #5594c7; font-size: 16px;
+}
+.code-select > .cbutton.fa-check { color: #00d400; }
+.code-select:not(.copied) > .cbutton:hover { color: #0054a8; }
+.code-select .viewport { width: 100%; display: block; }
+.code-select .code {
+  display: block; overflow: visible; padding: 0 0 0 2px; width: fit-content;
+  white-space: pre;
+}
+.code-select.inline-style .code, .code-select.inline-style { width: auto; white-space: unset; }
+.code-select.breaklines-style .code { white-space: pre-line; }
 code {
   background: var(--code-bg);
   border: 1px solid var(--border-soft);
@@ -505,10 +566,40 @@ code {
   background: var(--surface);
   background: color-mix(in srgb, var(--callout, var(--accent)) 7%, var(--surface));
 }
-.info-box { display: flex; gap: 0.75rem; align-items: flex-start; }
+/* Only an icon callout is a horizontal icon|content row. A plain/step info-box (a
+   numbered section box, an OS-chooser wrapper) has block children that must STACK --
+   flex-row here laid them side by side and overflowed the viewport horizontally. */
+.info-box.has-icon { display: flex; gap: 0.75rem; align-items: flex-start; }
 .info-box-icon { flex: 0 0 auto; color: var(--callout, var(--accent)); font-size: 1.1rem; }
 .mbox > :first-child, .info-box > :last-child > :first-child { margin-top: 0; }
 .mbox > :last-child { margin-bottom: 0; }
+
+/* Numbered section/step badge (production "padded-content-icon" widget): a bold
+   numeral, coloured by the element's cs-* --callout. pci-style-circle makes it a
+   filled circle (the step numbers 1,2,3); plain pci-text is just a coloured numeral.
+   The digit is text, not a glyph, so override the fa-solid icon font. */
+.padded-content-icon {
+  font-style: normal; font-weight: 700; font-family: inherit;
+  color: var(--callout, var(--accent));
+}
+.padded-content-icon.iconset-h1 { font-size: 1.5rem; }
+.padded-content-icon.iconset-h2 { font-size: 1.1rem; }
+.padded-content-icon.pci-style-circle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.9em; height: 1.9em; border-radius: 50%; line-height: 1;
+  margin-right: 0.5rem; vertical-align: middle;
+  background: var(--callout, var(--accent)); color: #fff;
+}
+/* A rounded text badge (e.g. the "CONGRATULATIONS!" banner) constrained to the
+   content width so a long word breaks rather than overflowing a narrow viewport. */
+.padded-content-icon.pci-style-rounded {
+  display: inline-block; max-width: 100%; overflow-wrap: anywhere;
+  padding: 0.1em 0.45em; border-radius: var(--radius-md, 6px);
+}
+.padded-content-icon.pci-border-thick {
+  border: 2px solid color-mix(in srgb, var(--callout, var(--accent)) 55%, transparent);
+}
+.padded-content-icon.pci-shadow { box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.2)); }
 
 /* color-scheme accents: set --callout so box border + tint follow */
 .cs-red, .cs-red-light, .cs-red-font { --callout: var(--c-red); }
@@ -585,10 +676,10 @@ code {
 }
 .tcc-section.active .tcc-title { color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
 .tcc-content { padding: 0.8rem; border-top: 1px solid var(--border-soft); }
-/* once JS marks one section active, hide the inactive panels' content */
-.tab-content-controller:has(.tcc-section.active) .tcc-section:not(.active) .tcc-content {
-  display: none;
-}
+/* Once the JS mininav switcher is built, hide the WHOLE inactive section (production);
+   no-JS shows every section (progressive enhancement). */
+.tab-content-controller.mininav-ready .tcc-section:not(.active) { display: none; }
+.tab-content-controller.mininav-ready .tcc-section { border: none; margin: 0; }
 
 /* ---- collapsibles: rendered expanded no-JS; JS adds the toggle button ---- */
 .mw-collapsible, .toccolours {
@@ -645,10 +736,23 @@ code {
 
 /* ---- footer (three columns, production #custom-footer) ---- */
 .site-footer {
-  border-top: 1px solid var(--border);
-  background: var(--surface);
-  padding: 2rem 1.25rem;
-  margin-top: 3rem;
+  /* Production ships a DARK footer in BOTH themes. Re-point the palette tokens to
+     light-on-dark within the footer subtree so every child (headlines, links, the
+     dark-mode/social widgets) follows, then set the dark ground. */
+  --fg: #f5f5f5;
+  --fg-soft: #ececec;
+  --muted: #bcbcbc;
+  --link: #8ab4f8;
+  --border: #565656;
+  --border-soft: #4a4a4a;
+  --surface: #424242;
+  --surface-2: #4d4d4d;
+  /* Production footer ground: a horizontal charcoal gradient (Footer.css), not a flat
+     fill. The footer is body-width already, so it spans edge to edge without a vw
+     full-bleed trick (which would risk mobile horizontal overflow). */
+  background: linear-gradient(90deg, #333, #5a5a5a, #5a5a5a, #333);
+  padding: 30px 20px;
+  margin-top: 60px;
   color: var(--muted);
   font-size: 0.9rem;
 }
@@ -656,14 +760,17 @@ code {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem 2.5rem;
-  max-width: var(--maxw);
+  max-width: 960px;
   margin: 0 auto;
 }
 .footer-col { flex: 1 1 15rem; min-width: 0; }
-.footer-headline { margin: 0 0 0.5rem; font-weight: 700; font-size: 1.15rem; color: var(--fg-soft); }
-.footer-tm { color: var(--muted); font-size: 0.75em; vertical-align: super; }
+.footer-headline { margin: 0 0 8px; font-weight: bold; font-size: 25px; line-height: 1.05em; color: var(--fg); }
+.footer-tm { color: var(--muted); font-size: 0.55em; vertical-align: super; }
 .footer-claim { margin: 0 0 0.9rem; color: var(--muted); }
-.footer-subhead { margin: 0 0 0.5rem; font-weight: 600; color: var(--fg-soft); }
+.footer-subhead {
+  margin: 0 0 14px; padding-bottom: 9px; font-weight: bold; color: var(--fg);
+  border-bottom: 1px solid currentColor;
+}
 .footer-social-icons {
   display: flex; flex-wrap: wrap; gap: 0.85rem;
   margin: 0 0 0.75rem; font-size: 1.35rem;
@@ -754,32 +861,69 @@ code {
 .toc a:hover { text-decoration: underline; }
 
 /* --- gallery (native image grid) --- */
-.gallery { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; }
-.gallery-item {
+/* Galleries: production card grid (Utility.css). render_galleries emits
+   ul.gallery > li.gallerybox > (.thumb + .gallerytext), propagating the gallery-tag
+   layout classes (thumb-gallery-style / gallery-white / justify-*). A See-Also gallery
+   is thumb-gallery-style (framed cards); a bare gallery is a simple centered icon row. */
+.gallery {
+  margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
+}
+.gallery .gallerybox {
   display: flex; flex-direction: column; align-items: center;
   max-width: 12rem; font-size: 0.85rem; color: var(--muted);
 }
-.gallery-item img {
+.gallery .thumb { display: block; line-height: 0; }
+.gallery .thumb img {
   border: 1px solid var(--border); border-radius: var(--radius-sm, 4px);
   background: var(--surface); max-width: 100%; height: auto;
+  padding: 0.4rem; box-sizing: border-box;
 }
-.gallery-caption { margin-top: 0.3rem; text-align: center; }
+.gallery .gallerytext { display: block; margin-top: 0.3rem; text-align: center; line-height: 1.3; }
+.gallery a:hover img { transform: scale(1.1); }
+.justify-left { justify-content: left; }
+.justify-center { justify-content: center; }
+.justify-right { justify-content: right; }
+/* thumb-gallery-style: the framed "See Also" cards */
+.gallery.thumb-gallery-style { margin: 20px 0; gap: 10px; }
+.gallery.thumb-gallery-style .gallerybox {
+  justify-content: space-between; border: 1px solid #c8ccd1; background-color: #f8f9fa;
+  border-radius: 8px; box-shadow: 3px 3px 5px rgb(0 0 0 / 0.1); padding: 0;
+}
+.gallery.thumb-gallery-style.gallery-white .gallerybox { background-color: white; }
+.gallery.thumb-gallery-style .gallerybox > .thumb { margin-left: -2px; }
+.gallery.thumb-gallery-style .gallerybox > .thumb img { border: none; }
+.gallery.thumb-gallery-style .gallerytext {
+  padding: 0 6px 5px; text-align: center; color: #707070; font-style: italic;
+}
+@media (max-width: 500px) {
+  .gallery.thumb-gallery-style .gallerybox { display: block; width: 100%; }
+  .gallery.thumb-gallery-style .gallerybox > .thumb { margin: 15px auto 10px; }
+}
 
-/* --- tab mininav (JS builds the buttons; no-JS shows all sections) --- */
-.mininav { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border); }
+/* --- tab mininav SWITCHER (JS builds a pill cloud; the production Mininav.css look:
+   a rounded blue bar of pills, inactive #9aabed, active white/#36b) --- */
+.tab-content-controller > .mininav { overflow: auto; margin: 0 0 0.5rem; text-align: center; }
+.mininav.mn-switcher > ul {
+  display: inline-block; list-style: none; margin: 0; padding: 5px 20px;
+  background-color: #89d; border-radius: 50px; box-shadow: 2px 2px 6px #00000028 inset;
+  text-align: center; font-size: 0;
+}
+.mininav.mn-switcher > ul > li { display: inline-block; margin: 0; padding: 0; }
+.mininav.mn-switcher li > :not(span, img) {
+  background-color: #9aabed; color: white; padding: 3px 11px 5px; text-decoration: none;
+  font-size: 17px; display: inline-block; border: none; border-radius: 50px; cursor: pointer;
+  margin: 5px 0; box-shadow: 1px 1px 3px #0002; transition: background-color .2s, color .2s;
+}
+.mininav.mn-switcher li:not(:last-child) > * { margin-right: 11px; }
+.mininav.mn-switcher li > *:hover,
+.mininav.mn-switcher li > *.active { background-color: white; color: #36b; }
+.mininav.mn-switcher li > * > img { height: 1.2em; vertical-align: middle; margin-right: 6px; }
 .mininav:empty { display: none; }
-.mininav-tab {
-  border: 1px solid transparent; border-bottom: none; background: none;
-  padding: 0.35rem 0.75rem; cursor: pointer; font: inherit; color: var(--fg-soft, var(--fg));
-  border-radius: var(--radius-sm, 4px) var(--radius-sm, 4px) 0 0;
-}
-.mininav-tab:hover { background: var(--surface); }
-.mininav-tab.active {
-  border-color: var(--border); background: var(--surface);
-  color: var(--accent); font-weight: 600;
-}
 .tab-content-controller.mininav-ready .tcc-title { display: none; }
+@media (max-width: 420px) {
+  .mininav.mn-switcher li > :not(span, img) { font-size: 15px; padding: 4px 10px; }
+  .mininav.mn-switcher > ul { padding: 5px 12px; }
+}
 
 /* --- breadcrumbs + categories box --- */
 .breadcrumbs { font-size: 0.85rem; color: var(--muted); margin: 0 0 0.75rem; }
@@ -817,22 +961,24 @@ code {
 /* Book / related-links nav box: a .mininav carrying a title + link list (e.g. the
    "Legal Policies" grouping). :has(> ul) scopes this to the list variant, NOT the
    tab-controller mininav (which JS fills with .mininav-tab buttons). */
-.mininav:has(> ul) {
+/* Book / related-links nav (a mininav with a real <ul> link list) -- scoped :not(.mn-switcher)
+   so it never hits the JS tab switcher, which also builds a <ul>. */
+.mininav:not(.mn-switcher):has(> ul) {
   margin: 0 0 1.25rem; padding: 0.6rem 0.9rem;
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-md, 6px); font-size: 0.9rem;
 }
-.mininav > p { font-weight: 600; margin: 0 0 0.45rem; }
-.mininav > ul {
+.mininav:not(.mn-switcher) > p { font-weight: 600; margin: 0 0 0.45rem; }
+.mininav:not(.mn-switcher) > ul {
   list-style: none; margin: 0; padding: 0;
   display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem;
 }
-.mininav > ul > li { margin: 0; }
+.mininav:not(.mn-switcher) > ul > li { margin: 0; }
 /* current page selflink: MediaWiki renders a link to the current page href-less with
    .mw-selflink -- bold everywhere, and highlighted inside the book mininav. */
 .mw-selflink, a.selflink { font-weight: 700; color: var(--fg); cursor: default; }
-.mininav > ul > li > a.selflink,
-.mininav > ul > li > a[aria-current="page"] {
+.mininav:not(.mn-switcher) > ul > li > a.selflink,
+.mininav:not(.mn-switcher) > ul > li > a[aria-current="page"] {
   color: var(--accent); font-weight: 700; text-decoration: none;
 }
 
@@ -996,6 +1142,10 @@ code {
 /* Site-notice banner (#siteNotice, the id=38 donation promo) -- adapted from
    Sitenotice.css: shown by default (no-JS friendly), JS dismisses; a vendored FA
    icon replaces the former wiki image. */
+/* Flash-free dismiss: the <head> pre-paint (page.py THEME_INIT_JS) marks <html> when
+   a previously-dismissed banner should stay hidden, so it never paints then vanishes. */
+html.sitenotice-hidden #siteNotice,
+html.legal-ack-hidden .consent-banner { display: none; }
 #siteNotice { display: block; margin: 1rem 0 1.25rem; text-align: center; }
 .sitenotice { position: relative; display: inline-block; max-width: 100%; }
 .sitenotice-close {
@@ -1020,7 +1170,10 @@ code {
   width: 300px; background: #fff; color: #555; box-shadow: 3px 3px 7px rgba(0,0,0,.2);
   border-radius: 10px 0 0 10px; position: fixed; right: 0; top: calc(50% - 160px);
   z-index: 1000; overflow: hidden; border: 6px solid #22a7df; border-right: none;
+  /* slide in from the right edge (app.js un-hides, then adds .flyin-shown next frame) */
+  transform: translateX(100%); transition: transform 0.4s ease;
 }
+#fly-in-notification-panel.flyin-shown { transform: translateX(0); }
 @media (max-width: 550px) { #fly-in-notification-panel { width: 230px; } }
 #fly-in-notification-panel .close-panel {
   color: #fff; font-size: 26px; padding: 10px; cursor: pointer; position: absolute;

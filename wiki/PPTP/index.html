@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>PPTP (Point-to-Point Tunneling Protocol) and Whonix</title>
 <meta name="description" content="PPTP (Point-to-Point Tunneling Protocol) and Whonix">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Bridge-19513640.jpg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -106,10 +106,11 @@ connection.</p>
 <h1 id="Install_PPTPd">Install PPTPd</h1>
 <p>(Whonix-Gateway<sup>&#8482;</sup>)</p>
 <p>From your Whonix-Gateway:</p>
-<p><span class="code-select">apt install pptpd</span></p>
+<p><span class="code-select" data-code="apt install pptpd">apt install
+pptpd</span></p>
 <p>This will install and start the <code>pptpd</code> daemon on your
 Whonix-Gateway. Verify its running:</p>
-<p><span class="code-select">ps aux</span></p>
+<p><span class="code-select" data-code="ps aux">ps aux</span></p>
 <p>Should show something similar to:</p>
 <pre><code>root      8357  0.0  0.5  10512   696 ?        Ss   17:26   0:00 /usr/sbin/pptpd</code></pre>
 <p>Stop it for the time being, while we configure it.</p>
@@ -117,7 +118,8 @@ Whonix-Gateway. Verify its running:</p>
 <h1 id="Configure_PPTP">Configure PPTP</h1>
 <p>(Whonix-Gateway)</p>
 <p>Configure PPTP settings:</p>
-<p><span class="code-select">nano /etc/pptpd.conf</span></p>
+<p><span class="code-select" data-code="nano /etc/pptpd.conf">nano
+/etc/pptpd.conf</span></p>
 <p>Setup your <code>localip</code> and <code>remoteip</code>
 settings:</p>
 <pre><code>localip 192.168.0.1 #your eth1 address
@@ -158,7 +160,8 @@ as well. Subneting in this fashion is beyond the scope of this
 document.)</p>
 <h1 id="Configure_PPTP_Options">Configure PPTP Options</h1>
 <p>(Whonix-Gateway)</p>
-<p><span class="code-select">nano /etc/ppp/pptpd-options</span></p>
+<p><span class="code-select" data-code="nano /etc/ppp/pptpd-options">nano
+/etc/ppp/pptpd-options</span></p>
 <p>Verify the following settings are configured as shown:</p>
 <pre><code>refuse-pap
 refuse-chap
@@ -185,7 +188,8 @@ IPtables rules for client connect and disconnect</h1>
 <p>The <code>ip-up</code> script is called on each connection by a PPTP
 client, so we can put special firewall rules here to help with Torifying
 the traffic through this interface.</p>
-<p><span class="code-select">nano /etc/ppp/ip-up</span></p>
+<p><span class="code-select" data-code="nano /etc/ppp/ip-up">nano
+/etc/ppp/ip-up</span></p>
 <p>Add to the end:</p>
 <pre><code>#Firewall rules to add to route PPTP through TOR
 #Tor&#39;s TransPort
@@ -200,7 +204,8 @@ ppp0).</p>
 <p>Similarly the <code>ip-down</code> script is called when tearing down
 the connection. To prevent your iptables from getting polluted with
 redundant rules, we remove the previously configured rules here:</p>
-<p><span class="code-select">nano /etc/ppp/ip-down</span></p>
+<p><span class="code-select" data-code="nano /etc/ppp/ip-down">nano
+/etc/ppp/ip-down</span></p>
 <p>Add to the end:</p>
 <pre><code>#Firewall rules to add to route PPTP through TOR
 #Tor&#39;s TransPort
@@ -217,7 +222,8 @@ IPTables documentation</a><sup class="ext-link-to-archive has-sibling" title="Li
 <h1 id="Testing">Testing</h1>
 <p>(Whonix-Gateway)</p>
 <p>Start up your PPTP server:</p>
-<p><span class="code-select">/etc/init.d/pptpd start</span></p>
+<p><span class="code-select" data-code="/etc/init.d/pptpd start">/etc/init.d/pptpd
+start</span></p>
 <p>(Client)</p>
 <p>From a client on your network (preferably one outside of your Tor
 network, e.g. not your Whonix-Workstation) connect to your VPN
@@ -231,7 +237,7 @@ Ubuntu Community Documentation</a><sup class="ext-link-to-archive has-sibling" t
 7 VPN step by step guide</a></p>
 <p>Now verify the connection on the gateway, after successfully
 connecting: (Whonix-Gateway)</p>
-<p><span class="code-select">ifconfig</span></p>
+<p><span class="code-select" data-code="ifconfig">ifconfig</span></p>
 <p>Should show something like:</p>
 <pre><code>ppp0      Link encap:Point-to-Point Protocol
     inet addr:192.168.0.1  P-t-P:192.168.0.200  Mask:255.255.255.255
@@ -241,7 +247,8 @@ connecting: (Whonix-Gateway)</p>
     collisions:0 txqueuelen:3
     RX bytes:10080 (10.0 KB)  TX bytes:3622 (3.6 KB)</code></pre>
 <p>.</p>
-<p><span class="code-select">iptables -vnL -t nat</span></p>
+<p><span class="code-select" data-code="iptables -vnL -t nat">iptables
+-vnL -t nat</span></p>
 <p>Should show:</p>
 <pre><code>Chain PREROUTING (policy ACCEPT 103 packets, 14589 bytes)
 pkts bytes target     prot opt in     out     source                   destination
@@ -259,11 +266,12 @@ PREROUTING chain)</p>
 <p>Next disconnect from the VPN. On the server you should see several
 changes: (Whonix-Gateway)</p>
 <ul>
-<li><span class="code-select">ifconfig</span></li>
+<li><span class="code-select" data-code="ifconfig">ifconfig</span></li>
 </ul>
 <p>should no longer show any ppp interfaces</p>
 <ul>
-<li><span class="code-select">iptables -vnL -t nat</span></li>
+<li><span class="code-select" data-code="iptables -vnL -t nat">iptables
+-vnL -t nat</span></li>
 </ul>
 <p>should show no rules that involve any ppp interfaces</p>
 <p>You can in fact test several client connections in this way. Each

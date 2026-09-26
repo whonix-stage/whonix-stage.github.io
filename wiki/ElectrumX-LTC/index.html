@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Litecoin How-to: Use ElectrumX Personal Server in Whonix</title>
 <meta name="description" content="Higher Security and Privacy through using a Self-Hosted, Fully Validating Litecoin Node (ElectrumX + Litecoin Core)">
@@ -13,14 +13,14 @@
 <meta property="og:title" content="Litecoin How-to: Use ElectrumX Personal Server in Whonix">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../Trademark_Policy/" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../Download/">Download</a><ul class="nav-submenu"><li><a href="../VirtualBox/">Windows</a></li><li><a href="../Linux/">Linux</a></li><li><a href="../MacOS/">Mac</a></li><li><a href="../VirtualBox/">VirtualBox</a></li><li><a href="../KVM/">KVM</a></li><li><a href="../Qubes/">Qubes</a></li><li><a href="../Intel_AMD64/">Intel / AMD64</a></li><li><a href="../ARM64/">ARM64</a></li><li><a href="../USB_Installation/">USB</a></li><li><a href="../Whonix-Host/">ISO</a></li><li><a href="../Download/">More options</a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer">Source Code</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../About/">About</a><ul class="nav-submenu"><li><a href="../About/">Overview</a></li><li><a href="../Features/">Features</a></li><li><a href="../Whonix_versus_VPNs/">Whonix vs VPNs</a></li><li><a href="../Reasons_for_Freedom_Software/">Why Open Source?</a></li><li><a href="../What_we_do/">Project Activities</a></li><li><a href="../Contributors/">Contributors</a></li><li><a href="../Anonymity/">Mission &amp; Vision</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Documentation/">Docs</a><ul class="nav-submenu"><li><a href="../Documentation/">Documentation</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Troubleshooting/">Troubleshooting</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Contribute/">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer">Forums</a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/">Forum Best Practices</a></li><li><a href="../Contribute/">Contribute</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Support/">Support</a><ul class="nav-submenu"><li><a href="../Self_Support_First_Policy/">Self Support First Policy</a></li><li><a href="../Support/">Support (Limited)</a></li><li><a href="../Plus_Support/">Plus</a></li><li><a href="../Premium_Support/">Premium</a></li><li><a href="../Reporting_Bugs/">Reporting Bugs</a></li><li><a href="../Contact/">Contact (Restricted)</a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Isolating_Proxy_Setup">Isolating Proxy Setup</a></li><li class="toc-l2"><a href="#Electrum-LTC_Safeguard">Electrum-LTC Safeguard</a></li><li class="toc-l2"><a href="#Package_Dependency_Installation">Package Dependency
+<h1 id="firstHeading" class="first-heading">Litecoin How-to: Use ElectrumX Personal Server in Whonix</h1><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Isolating_Proxy_Setup">Isolating Proxy Setup</a></li><li class="toc-l2"><a href="#Electrum-LTC_Safeguard">Electrum-LTC Safeguard</a></li><li class="toc-l2"><a href="#Package_Dependency_Installation">Package Dependency
 Installation</a></li><li class="toc-l2"><a href="#Software_Dependency_Installation">Software Dependency
 Installation</a></li><li class="toc-l2"><a href="#Source_Code_Download_and_Digital_Software_Signature_Verification">Source
 Code Download and Digital Software Signature Verification</a></li><li class="toc-l2"><a href="#Litecoin-Qt_Configuration">Litecoin-Qt Configuration</a></li><li class="toc-l2"><a href="#ElectrumX_Configuration">ElectrumX Configuration</a></li><li class="toc-l3"><a href="#ElectrumX_Server_Configuration">ElectrumX Server
@@ -190,9 +190,9 @@ the electrum using its default start menu entry.</p>
 <p><strong>Note:</strong> The following command should be applied in
 Whonix-Workstation<sup>&#8482;</sup> (<a href="../Qubes/">Qubes-Whonix</a>: In Template
 <code>whonix-workstation-18</code>).</p>
-<p><span class="code-select">sudo dpkg-divert --local --divert
-/usr/share/applications/electrum.desktop --rename --add
-/usr/share/electrum-invalid</span></p>
+<p><span class="code-select" data-code="sudo dpkg-divert --local --divert /usr/share/applications/electrum.desktop --rename --add /usr/share/electrum-invalid">sudo
+dpkg-divert --local --divert /usr/share/applications/electrum.desktop
+--rename --add /usr/share/electrum-invalid</span></p>
 <h2 id="Package_Dependency_Installation">Package Dependency
 Installation</h2><span class="share-tooltip" data-anchor="Package_Dependency_Installation"><a class="headline-anchor" href="#Package_Dependency_Installation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/ElectrumX-LTC/#Package_Dependency_Installation">https://www.whonix.org/wiki/ElectrumX-LTC/#Package_Dependency_Installation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FElectrumX-LTC%2F%23Package_Dependency_Installation&amp;text=Package%20Dependency%0AInstallation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FElectrumX-LTC%2F%23Package_Dependency_Installation&amp;text=Package%20Dependency%0AInstallation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FElectrumX-LTC%2F%23Package_Dependency_Installation&amp;title=Package%20Dependency%0AInstallation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Package%20Dependency%0AInstallation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FElectrumX-LTC%2F%23Package_Dependency_Installation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/ElectrumX-LTC/#Package_Dependency_Installation]Package Dependency
 Installation[/url]">[url=https://www.whonix.org/wiki/ElectrumX-LTC/#Package_Dependency_Installation]Package Dependency
@@ -217,8 +217,8 @@ Template.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 Update the package lists and upgrade the system.</p>
-<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
-full-upgrade</span></p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt full-upgrade">sudo
+apt update &amp;&amp; sudo apt full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the
 <code>git python3-rocksdb python3-aiohttp python3-plyvel</code>
@@ -227,8 +227,9 @@ package(s).</p>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 &lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
 optional.</p>
-<p><span class="code-select">sudo apt install --no-install-recommends
-git python3-rocksdb python3-aiohttp python3-plyvel</span></p>
+<p><span class="code-select" data-code="sudo apt install --no-install-recommends git python3-rocksdb python3-aiohttp python3-plyvel">sudo
+apt install --no-install-recommends git python3-rocksdb python3-aiohttp
+python3-plyvel</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Platform specific notice.</p>
 <ul>
@@ -275,10 +276,12 @@ familiar with advanced computer security concepts, you can learn more
 about digital signatures here: <a href="https://www.kicksecure.com/wiki/Verifying_Software_Signatures/">Verifying Software Signatures</a></span></li></ul></p>
 <p><a href="https://www.kicksecure.com/wiki/Secure_Downloads/">Securely download</a> the
 signing key.</p>
-<p><span class="code-select">scurl-download <a href="https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/sombernight.asc">https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/sombernight.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/sombernight.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="scurl-download https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/sombernight.asc">scurl-download
+<a href="https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/sombernight.asc">https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/sombernight.asc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/sombernight.asc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p>Display the key's fingerprint.</p>
-<p><span class="code-select">gpg --keyid-format long --import
---import-options show-only --with-fingerprint sombernight.asc</span></p>
+<p><span class="code-select" data-code="gpg --keyid-format long --import --import-options show-only --with-fingerprint sombernight.asc">gpg
+--keyid-format long --import --import-options show-only
+--with-fingerprint sombernight.asc</span></p>
 <p>Verify the fingerprint. It should show.</p>
 <p><u>Note</u>: Key fingerprints provided on the Whonix website are for
 convenience only. The Whonix project does not have the authorization or
@@ -299,19 +302,23 @@ infected or erroneous files! The whole point of verification is to
 confirm file integrity.</p>
 </div>
 <p>Add the signing key.</p>
-<p><span class="code-select">gpg --import sombernight.asc</span></p>
+<p><span class="code-select" data-code="gpg --import sombernight.asc">gpg
+--import sombernight.asc</span></p>
 </div>
 <p><strong>3.</strong> Download the ElectrumX server source code using
 <code>git</code>.</p>
-<p><span class="code-select">git clone <a href="https://github.com/spesmilo/electrumx.git">https://github.com/spesmilo/electrumx.git</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/spesmilo/electrumx.git" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="git clone https://github.com/spesmilo/electrumx.git">git
+clone <a href="https://github.com/spesmilo/electrumx.git">https://github.com/spesmilo/electrumx.git</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/spesmilo/electrumx.git" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p><strong>4.</strong> Change directory.</p>
-<p><span class="code-select">cd electrumx</span></p>
+<p><span class="code-select" data-code="cd electrumx">cd
+electrumx</span></p>
 <p><strong>5.</strong> Digital signature verification.</p>
 <p><u>Note:</u> At the time of writing, <code>1.16.0</code> was the
 latest stable release. Before starting the ElectrumX source code
 download, browse to <a href="https://github.com/spesmilo/electrumx/tags"><code>github.com/spesmilo/electrumx/tags</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/spesmilo/electrumx/tags" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 to verify the version number.</p>
-<p><span class="code-select">git tag --verify 1.16.0</span></p>
+<p><span class="code-select" data-code="git tag --verify 1.16.0">git tag
+--verify 1.16.0</span></p>
 <p><u>If the file is verified successfully</u>, the output will include
 <code>Good signature</code>, which is the most important thing to
 check.</p>
@@ -323,7 +330,8 @@ placed in the Whonix signing key and the <a href="https://www.kicksecure.com/wik
 trust</a>. To remove this warning, the Whonix signing key must be
 personally signed with your own key.</p>
 <p><strong>6.</strong> Checkout the git tag.</p>
-<p><span class="code-select">git checkout --quiet 1.16.0</span></p>
+<p><span class="code-select" data-code="git checkout --quiet 1.16.0">git
+checkout --quiet 1.16.0</span></p>
 <p><strong>7.</strong> Done.</p>
 <p>Download, digital software verification and git checkout --quiet of
 the ElectrumX server source code is complete.</p>
@@ -336,27 +344,37 @@ in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 <p>Note: It is OK Litecoin-Qt has been previously used and folder
 <code>~/.litecoin</code> already exists. Running the following command
 would be optional, OK and do nothing.</p>
-<p><span class="code-select">mkdir -p ~/.litecoin</span></p>
+<p><span class="code-select" data-code="mkdir -p ~/.litecoin">mkdir -p
+~/.litecoin</span></p>
 <p><strong>2.</strong> Create the Litecoin Core configuration file
 <code>~/.litecoin/litecoin.conf</code>.</p>
 <p>Open file <code>~/.litecoin/litecoin.conf</code> in a <a href="https://www.kicksecure.com/wiki/Software/#Text_Editor">text editor</a> of your
 choice as a regular, non-root user.</p>
 <div class="info-box ">
 <p><u>If you are using a graphical environment</u>, run.
-<span class="code-select">featherpad
+<span class="code-select" data-code="featherpad ~/.litecoin/litecoin.conf">featherpad
 ~/.litecoin/litecoin.conf</span></p>
 <p><u>If you are using a terminal</u>, run.
-<span class="code-select">nano ~/.litecoin/litecoin.conf</span></p>
+<span class="code-select" data-code="nano ~/.litecoin/litecoin.conf">nano
+~/.litecoin/litecoin.conf</span></p>
 </div>
 <p><strong>3.</strong> Paste the following text. <sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
-<p><span class="code-select">server=1 bind=127.0.0.1 rpcbind=127.0.0.1
+<p><span class="code-select" data-code="server=1
+bind=127.0.0.1
+rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
+txindex=1
+prune=0
+rpcuser=username
+rpcpassword=password
+proxy=10.152.152.10:9111">server=1 bind=127.0.0.1 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1 txindex=1 prune=0 rpcuser=username
 rpcpassword=password proxy=10.152.152.10:9111</span></p>
 <p><strong>4.</strong> Save.</p>
 <p><strong>5.</strong> Start Litecoin-Qt.</p>
 <p>Litecoin-Qt can be started using any method (from command line or
 start menu entry). Starting normally. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
-<p><span class="code-select">~/litecoin-*/bin/litecoin-qt</span></p>
+<p><span class="code-select" data-code="~/litecoin-*/bin/litecoin-qt">~/litecoin-*/bin/litecoin-qt</span></p>
 <p><strong>6.</strong> Disable pruning in Litecoin-Qt.</p>
 <p><code>Litecoin Core</code> &#8594; <code>Settings</code> &#8594;
 <code>Options</code> &#8594; <u>un</u>select
@@ -372,7 +390,7 @@ step which requires that Litecoin-Qt is not running.</p>
 <p><strong>9.</strong> Reindex the blockchain using Litecoin-Qt.</p>
 <p>Litecoin-Qt needs to be started at least once from the command line
 with the <code>-reindex</code> parameter. <sup class="reference"><a href="#cite_note-10">[10]</a></sup></p>
-<p><span class="code-select">~/litecoin-*/bin/litecoin-qt
+<p><span class="code-select" data-code="~/litecoin-*/bin/litecoin-qt -reindex">~/litecoin-*/bin/litecoin-qt
 -reindex</span></p>
 <p>When Litecoin-Qt is started next time, there is no more need for
 <code>-reindex</code> and it probably should not be used since it takes
@@ -394,18 +412,24 @@ Configuration[/url]</span></span></span></span>
 in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 <code>anon-whonix</code>).</p>
 <p><strong>1.</strong> Create folder <code>~/.electrumx</code>.</p>
-<p><span class="code-select">mkdir -p ~/.electrumx</span></p>
+<p><span class="code-select" data-code="mkdir -p ~/.electrumx">mkdir -p
+~/.electrumx</span></p>
 <p><strong>2.</strong> Open file <code>~/electrumx.conf</code> in a <a href="https://www.kicksecure.com/wiki/Software/#Text_Editor">text editor</a> of your
 choice as a regular, non-root user.</p>
 <div class="info-box ">
 <p><u>If you are using a graphical environment</u>, run.
-<span class="code-select">featherpad ~/electrumx.conf</span></p>
+<span class="code-select" data-code="featherpad ~/electrumx.conf">featherpad
+~/electrumx.conf</span></p>
 <p><u>If you are using a terminal</u>, run.
-<span class="code-select">nano ~/electrumx.conf</span></p>
+<span class="code-select" data-code="nano ~/electrumx.conf">nano
+~/electrumx.conf</span></p>
 </div>
 <p><strong>3.</strong> Paste the following contents.</p>
-<p><span class="code-select">COIN=Litecoin
+<p><span class="code-select" data-code="COIN=Litecoin
 DB_DIRECTORY=/home/user/.electrumx
+DAEMON_URL=username:password@127.0.0.1
+SERVICES=tcp://127.0.0.1:5000,rpc://127.0.0.1:2401
+PEER_DISCOVERY=self">COIN=Litecoin DB_DIRECTORY=/home/user/.electrumx
 DAEMON_URL=username:password@127.0.0.1
 SERVICES=tcp://127.0.0.1:5000,rpc://127.0.0.1:2401
 PEER_DISCOVERY=self</span></p>
@@ -421,7 +445,8 @@ in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 <code>anon-whonix</code>).</p>
 <p><strong>1.</strong> Create folder
 <code>~/.config/systemd/user</code>.</p>
-<p><span class="code-select">mkdir -p ~/.config/systemd/user</span></p>
+<p><span class="code-select" data-code="mkdir -p ~/.config/systemd/user">mkdir
+-p ~/.config/systemd/user</span></p>
 <p><strong>2.</strong> Create file
 <code>~/.config/systemd/user/electrumx.service</code>.</p>
 <p>Open file <code>~/.config/systemd/user/electrumx.service</code> in a
@@ -429,15 +454,26 @@ in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 choice as a regular, non-root user.</p>
 <div class="info-box ">
 <p><u>If you are using a graphical environment</u>, run.
-<span class="code-select">featherpad
+<span class="code-select" data-code="featherpad ~/.config/systemd/user/electrumx.service">featherpad
 ~/.config/systemd/user/electrumx.service</span></p>
 <p><u>If you are using a terminal</u>, run.
-<span class="code-select">nano
+<span class="code-select" data-code="nano ~/.config/systemd/user/electrumx.service">nano
 ~/.config/systemd/user/electrumx.service</span></p>
 </div>
 <p><sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
 <p><strong>3.</strong> Paste the following contents.</p>
-<p><span class="code-select">[Unit] Description=ElectrumX
+<p><span class="code-select" data-code="[Unit]
+Description=ElectrumX
+After=network.target
+
+[Service]
+EnvironmentFile=/home/user/electrumx.conf
+ExecStart=/home/user/electrumx/electrumx_server
+LimitNOFILE=8192
+TimeoutStopSec=30min
+
+[Install]
+WantedBy=default.target">[Unit] Description=ElectrumX
 After=network.target</p>
 <p>[Service] EnvironmentFile=/home/user/electrumx.conf
 ExecStart=/home/user/electrumx/electrumx_server LimitNOFILE=8192
@@ -445,14 +481,15 @@ TimeoutStopSec=30min</p>
 <p>[Install] WantedBy=default.target</span></p>
 <p><strong>4.</strong> Save.</p>
 <p><strong>5.</strong> Reload systemd user instance.</p>
-<p><span class="code-select">systemctl --user daemon-reload</span></p>
+<p><span class="code-select" data-code="systemctl --user daemon-reload">systemctl
+--user daemon-reload</span></p>
 <p><strong>6.</strong> Optional: Enable autostart for the ElectrumX
 systemd user instance.</p>
-<p><span class="code-select">systemctl --user enable
-electrumx</span></p>
+<p><span class="code-select" data-code="systemctl --user enable electrumx">systemctl
+--user enable electrumx</span></p>
 <p><strong>7.</strong> Start ElectrumX systemd user instance.</p>
-<p><span class="code-select">systemctl --user restart
-electrumx</span></p>
+<p><span class="code-select" data-code="systemctl --user restart electrumx">systemctl
+--user restart electrumx</span></p>
 <p><strong>8.</strong> Done.</p>
 <p>Creation and configuration of ElectrumX systemd user unit has been
 completed.</p>
@@ -465,15 +502,15 @@ in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 <code>anon-whonix</code>).</p>
 <p>Connect only to one server (own server) instead of any third party
 servers.</p>
-<p><span class="code-select">~/bin/electrum-ltc --offline setconfig
-oneserver true</span></p>
+<p><span class="code-select" data-code="~/bin/electrum-ltc --offline setconfig oneserver true">~/bin/electrum-ltc
+--offline setconfig oneserver true</span></p>
 <p>Connect to own local server.</p>
-<p><span class="code-select">~/bin/electrum-ltc --offline setconfig
-server 127.0.0.1:5000:t</span></p>
+<p><span class="code-select" data-code="~/bin/electrum-ltc --offline setconfig server 127.0.0.1:5000:t">~/bin/electrum-ltc
+--offline setconfig server 127.0.0.1:5000:t</span></p>
 <p>Avoid auto connecting to third party servers (and avoid Electrum-LTC
 first start wizard asking to).</p>
-<p><span class="code-select">~/bin/electrum-ltc --offline setconfig
-auto_connect false</span></p>
+<p><span class="code-select" data-code="~/bin/electrum-ltc --offline setconfig auto_connect false">~/bin/electrum-ltc
+--offline setconfig auto_connect false</span></p>
 <h2 id="Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry">Add a
 Electrum-LTC using Local ElectrumX Start Menu Entry</h2><span class="share-tooltip" data-anchor="Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry"><a class="headline-anchor" href="#Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/ElectrumX-LTC/#Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry">https://www.whonix.org/wiki/ElectrumX-LTC/#Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FElectrumX-LTC%2F%23Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry&amp;text=Add%20a%0AElectrum-LTC%20using%20Local%20ElectrumX%20Start%20Menu%20Entry" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FElectrumX-LTC%2F%23Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry&amp;text=Add%20a%0AElectrum-LTC%20using%20Local%20ElectrumX%20Start%20Menu%20Entry" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FElectrumX-LTC%2F%23Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry&amp;title=Add%20a%0AElectrum-LTC%20using%20Local%20ElectrumX%20Start%20Menu%20Entry" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Add%20a%0AElectrum-LTC%20using%20Local%20ElectrumX%20Start%20Menu%20Entry&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FElectrumX-LTC%2F%23Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/ElectrumX-LTC/#Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry]Add a
 Electrum-LTC using Local ElectrumX Start Menu Entry[/url]">[url=https://www.whonix.org/wiki/ElectrumX-LTC/#Add_a_Electrum-LTC_using_Local_ElectrumX_Start_Menu_Entry]Add a
@@ -489,27 +526,35 @@ in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 <code>anon-whonix</code>).</p>
 <p><strong>1.</strong> Create folder
 <code>~/.local/share/applications</code>.</p>
-<p><span class="code-select">mkdir -p
-~/.local/share/applications</span></p>
+<p><span class="code-select" data-code="mkdir -p ~/.local/share/applications">mkdir
+-p ~/.local/share/applications</span></p>
 <p><strong>2.</strong> Open file
 <code>~/.local/share/applications/electrum-ltc-with-electrumx.desktop</code>
 in a <a href="https://www.kicksecure.com/wiki/Software/#Text_Editor">text editor</a> of
 your choice as a regular, non-root user.</p>
 <div class="info-box ">
 <p><u>If you are using a graphical environment</u>, run.
-<span class="code-select">featherpad
+<span class="code-select" data-code="featherpad ~/.local/share/applications/electrum-ltc-with-electrumx.desktop">featherpad
 ~/.local/share/applications/electrum-ltc-with-electrumx.desktop</span></p>
 <p><u>If you are using a terminal</u>, run.
-<span class="code-select">nano
+<span class="code-select" data-code="nano ~/.local/share/applications/electrum-ltc-with-electrumx.desktop">nano
 ~/.local/share/applications/electrum-ltc-with-electrumx.desktop</span></p>
 </div>
 <p><strong>3.</strong> Paste the following contents.</p>
-<p><span class="code-select">[Desktop Entry] Name=Electrum-LTC with
-ElectrumX Comment=electrum-ltc-with-electrumx Exec=bash -c
-'~/bin/electrum-ltc -v --oneserver --server 127.0.0.1:5000:t'
-Terminal=false Type=Application Icon=money-manager-ex
-StartupWMClass=litecoin MimeType=x-scheme-handler/litecoin;
-Categories=Finance;</span></p>
+<p><span class="code-select" data-code="[Desktop Entry]
+Name=Electrum-LTC with ElectrumX
+Comment=electrum-ltc-with-electrumx
+Exec=bash -c &#x27;~/bin/electrum-ltc -v --oneserver --server 127.0.0.1:5000:t&#x27;
+Terminal=false
+Type=Application
+Icon=money-manager-ex
+StartupWMClass=litecoin
+MimeType=x-scheme-handler/litecoin;
+Categories=Finance;">[Desktop Entry] Name=Electrum-LTC with ElectrumX
+Comment=electrum-ltc-with-electrumx Exec=bash -c '~/bin/electrum-ltc -v
+--oneserver --server 127.0.0.1:5000:t' Terminal=false Type=Application
+Icon=money-manager-ex StartupWMClass=litecoin
+MimeType=x-scheme-handler/litecoin; Categories=Finance;</span></p>
 <p><strong>4.</strong> Save.</p>
 <p><strong>5.</strong> Qubes-Whonix: perform platform-specific
 steps.</p>
@@ -539,13 +584,14 @@ in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 Electrum-LTC Start Menu Entry</a> first.</p>
 <p><strong>2.</strong> Create folder
 <code>~/.config/autostart</code>.</p>
-<p><span class="code-select">mkdir -p ~/.config/autostart</span></p>
+<p><span class="code-select" data-code="mkdir -p ~/.config/autostart">mkdir
+-p ~/.config/autostart</span></p>
 <p><strong>3.</strong> Create a symlink from
 <code>~/.local/share/applications/electrum-ltc-with-electrumx.desktop</code>
 to
 <code>~/.config/autostart/electrum-ltc-with-electrumx.desktop</code>.</p>
-<p><span class="code-select">ln -s
-~/.local/share/applications/electrum-ltc-with-electrumx.desktop
+<p><span class="code-select" data-code="ln -s ~/.local/share/applications/electrum-ltc-with-electrumx.desktop ~/.config/autostart/electrum-ltc-with-electrumx.desktop">ln
+-s ~/.local/share/applications/electrum-ltc-with-electrumx.desktop
 ~/.config/autostart/electrum-ltc-with-electrumx.desktop</span></p>
 <p><strong>4.</strong> Done.</p>
 <p><code>Electrum-LTC with ElectrumX</code> will be automatically
@@ -557,20 +603,20 @@ in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 <code>anon-whonix</code>).</p>
 <p><strong>1.</strong> Start Litecoin-Qt using any method (from start
 menu entry, autostart or manually from the command line).</p>
-<p><span class="code-select">~/litecoin-*/bin/litecoin-qt</span></p>
+<p><span class="code-select" data-code="~/litecoin-*/bin/litecoin-qt">~/litecoin-*/bin/litecoin-qt</span></p>
 <p><strong>2.</strong> Check the the blockchain download in Litecoin-Qt
 is functional.</p>
 <p><strong>3.</strong> Run the ElectrumX server using any method
 (autostart, or manually form the command line).</p>
-<p><span class="code-select">systemctl --user restart
-electrumx</span></p>
+<p><span class="code-select" data-code="systemctl --user restart electrumx">systemctl
+--user restart electrumx</span></p>
 <p><strong>4.</strong> Check that ElectrumX blockchain processing is
 functional.</p>
 <p>See <a href="#Monitoring">monitoring</a>.</p>
 <p><strong>5.</strong> Start the <a href="../Electrum-LTC/">Electrum-LTC</a> wallet using any method (autostart, or
 manually form the command line). <sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
-<p><span class="code-select">~/bin/electrum-ltc -v --oneserver --server
-127.0.0.1:5000:t</span></p>
+<p><span class="code-select" data-code="~/bin/electrum-ltc -v --oneserver --server 127.0.0.1:5000:t">~/bin/electrum-ltc
+-v --oneserver --server 127.0.0.1:5000:t</span></p>
 <p>If Electrum-LTC shows "not connected" then that could be because
 Litecoin Core has not downloaded enough blockchain yet and/or ElectrumX
 has not caught up with the blockchain yet. In that case, the console
@@ -591,11 +637,11 @@ with the litecoin daemon</a><sup class="ext-link-to-archive has-sibling" title="
 in Whonix-Workstation (<a href="../Qubes/">Qubes-Whonix</a>: App Qube
 <code>anon-whonix</code>).</p>
 <p>Check the status of the ElectrumX systemd user service.</p>
-<p><span class="code-select">systemctl --no-pager --full --user status
-electrumx</span></p>
+<p><span class="code-select" data-code="systemctl --no-pager --full --user status electrumx">systemctl
+--no-pager --full --user status electrumx</span></p>
 <p>Follow the log of the ElectrumX systemd user service.</p>
-<p><span class="code-select">journalctl --boot --user -f -u
-electrumx</span></p>
+<p><span class="code-select" data-code="journalctl --boot --user -f -u electrumx">journalctl
+--boot --user -f -u electrumx</span></p>
 <p>If all is going well, it should be showing output similar to the
 following.</p>
 <pre><code>electrumx_server[7426]: INFO:Prefetcher:new block height 144,270 hash 00000000000002606168ac016368896d79c591bff2b6580db2e398faef7ec093</code></pre>

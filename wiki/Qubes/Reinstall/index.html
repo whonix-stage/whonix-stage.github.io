@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Reinstall Qubes-Whonix Templates</title>
 <meta name="description" content="How to Reinstall Qubes-Whonix Templates">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Qubesreinstall123123.png">
 <link rel="stylesheet" href="../../../style.css">
 <link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -164,7 +164,8 @@ complete. <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">2</i>
 <strong>Upgrade Qubes <code>dom0</code>.</strong> This step is
 mandatory. <sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
-<p><span class="code-select">sudo qubes-dom0-update</span></p>
+<p><span class="code-select" data-code="sudo qubes-dom0-update">sudo
+qubes-dom0-update</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-blue iconset-h2">3</i>
 <strong>Done.</strong></p>
 <p>The <code>dom0</code> upgrade has been completed.</p>
@@ -183,8 +184,8 @@ Testers only.</p>
 <p>The following command will configure Qubes <code>dom0</code> salt to
 use <code>qubes-templates-community-testing</code> for downloading
 Whonix. <sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
-<p><span class="code-select">sudo qubesctl top.enable qvm.whonix-testing
-pillar=true</span></p>
+<p><span class="code-select" data-code="sudo qubesctl top.enable qvm.whonix-testing pillar=true">sudo
+qubesctl top.enable qvm.whonix-testing pillar=true</span></p>
 <div class="toccolours mw-collapsible mw-collapsed">
 <p>The following steps to enable the
 <code>qubes-templates-community-testing</code> repository should no
@@ -197,7 +198,7 @@ you.</p>
 <code>qubes-templates-community-testing</code> repository.</p>
 <p>View the <a href="https://github.com/QubesOS/qubes-qubes-release/blob/87a279b64c37e7bb3ae7d24aa413b33734da8856/qubes-templates.repo">Qubes
 Templates <code>.repo</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-qubes-release/blob/87a279b64c37e7bb3ae7d24aa413b33734da8856/qubes-templates.repo" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> file.</p>
-<p><span class="code-select">cat
+<p><span class="code-select" data-code="cat /etc/yum.repos.d/qubes-templates.repo">cat
 /etc/yum.repos.d/qubes-templates.repo</span></p>
 <p><strong>2.</strong> Ensure the file contains
 <code>[qubes-templates-community-testing]</code>.</p>
@@ -227,8 +228,8 @@ manually updated.</p>
 <li>Overwrite the <code>.repo</code> file with the
 <code>.repo.rpmnew</code> file:
 <ul>
-<li><span class="code-select">sudo cp
-/etc/yum.repos.d/qubes-templates.repo.rpmnew
+<li><span class="code-select" data-code="sudo cp /etc/yum.repos.d/qubes-templates.repo.rpmnew /etc/yum.repos.d/qubes-templates.repo">sudo
+cp /etc/yum.repos.d/qubes-templates.repo.rpmnew
 /etc/yum.repos.d/qubes-templates.repo</span></li>
 <li>And then manually add back necessary changes. If the command fails
 because <code>/etc/yum.repos.d/qubes-templates.repo.rpmnew</code> does
@@ -272,12 +273,12 @@ tester.</li>
 <pre><code>qvm-template --enablerepo=qubes-templates-community upgrade &lt;qubes-template-package&gt;</code></pre>
 <p>For example, to upgrade the <code>whonix-gateway-18</code>
 Template:</p>
-<p><span class="code-select">qvm-template
+<p><span class="code-select" data-code="qvm-template --enablerepo=qubes-templates-community upgrade whonix-gateway-18">qvm-template
 --enablerepo=qubes-templates-community upgrade
 whonix-gateway-18</span></p>
 <p>For example, to upgrade the <code>whonix-workstation-18</code>
 Template:</p>
-<p><span class="code-select">qvm-template
+<p><span class="code-select" data-code="qvm-template --enablerepo=qubes-templates-community upgrade whonix-workstation-18">qvm-template
 --enablerepo=qubes-templates-community upgrade
 whonix-workstation-18</span></p>
 <p><strong>3.</strong> Check the command output. The following results
@@ -303,12 +304,12 @@ up-to-date. It will simply be reinstalled.</li>
 <pre><code>qvm-template --enablerepo=qubes-templates-community reinstall &lt;qubes-template-package&gt;</code></pre>
 <p>For example, to reinstall the <code>whonix-gateway-18</code>
 Template:</p>
-<p><span class="code-select">qvm-template
+<p><span class="code-select" data-code="qvm-template --enablerepo=qubes-templates-community reinstall qubes-template-whonix-gateway-18">qvm-template
 --enablerepo=qubes-templates-community reinstall
 qubes-template-whonix-gateway-18</span></p>
 <p>For example, to reinstall the <code>whonix-workstation-18</code>
 Template:</p>
-<p><span class="code-select">qvm-template
+<p><span class="code-select" data-code="qvm-template --enablerepo=qubes-templates-community reinstall qubes-template-whonix-workstation-18">qvm-template
 --enablerepo=qubes-templates-community reinstall
 qubes-template-whonix-workstation-18</span></p>
 <ul>
@@ -325,22 +326,22 @@ This step is mandatory. <sup class="reference"><a href="#cite_note-13">[13]</a><
 </div>
 <p>Use <code>salt</code> to configure <code>dom0</code> settings.
 <sup class="reference"><a href="#cite_note-14">[14]</a></sup></p>
-<p><span class="code-select">sudo qubesctl state.sls
-qvm.anon-whonix</span></p>
+<p><span class="code-select" data-code="sudo qubesctl state.sls qvm.anon-whonix">sudo
+qubesctl state.sls qvm.anon-whonix</span></p>
 <h1 id="Optional_Steps">Optional Steps</h1>
 <h2 id="Whonix_Disposable_Template">Whonix Disposable Template</h2><span class="share-tooltip" data-anchor="Whonix_Disposable_Template"><a class="headline-anchor" href="#Whonix_Disposable_Template" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/Reinstall/#Whonix_Disposable_Template">https://www.whonix.org/wiki/Qubes/Reinstall/#Whonix_Disposable_Template</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FReinstall%2F%23Whonix_Disposable_Template&amp;text=Whonix%20Disposable%20Template" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FReinstall%2F%23Whonix_Disposable_Template&amp;text=Whonix%20Disposable%20Template" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FReinstall%2F%23Whonix_Disposable_Template&amp;title=Whonix%20Disposable%20Template" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Whonix%20Disposable%20Template&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FReinstall%2F%23Whonix_Disposable_Template" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Qubes/Reinstall/#Whonix_Disposable_Template]Whonix Disposable Template[/url]">[url=https://www.whonix.org/wiki/Qubes/Reinstall/#Whonix_Disposable_Template]Whonix Disposable Template[/url]</span></span></span></span>
 <p>Qubes-Whonix Disposable Template can optionally be set up as a base
 for <a href="../Disposables/">Disposables</a>.
 <sup class="reference"><a href="#cite_note-15">[15]</a></sup></p>
 <p>In <code>dom0</code>, run.</p>
-<p><span class="code-select">sudo qubesctl state.sls
-qvm.whonix-workstation-dvm</span></p>
+<p><span class="code-select" data-code="sudo qubesctl state.sls qvm.whonix-workstation-dvm">sudo
+qubesctl state.sls qvm.whonix-workstation-dvm</span></p>
 <h2 id="Updates_over_Tor">Updates over Tor</h2><span class="share-tooltip" data-anchor="Updates_over_Tor"><a class="headline-anchor" href="#Updates_over_Tor" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/Reinstall/#Updates_over_Tor">https://www.whonix.org/wiki/Qubes/Reinstall/#Updates_over_Tor</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FReinstall%2F%23Updates_over_Tor&amp;text=Updates%20over%20Tor" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FReinstall%2F%23Updates_over_Tor&amp;text=Updates%20over%20Tor" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FReinstall%2F%23Updates_over_Tor&amp;title=Updates%20over%20Tor" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Updates%20over%20Tor&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FReinstall%2F%23Updates_over_Tor" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Qubes/Reinstall/#Updates_over_Tor]Updates over Tor[/url]">[url=https://www.whonix.org/wiki/Qubes/Reinstall/#Updates_over_Tor]Updates over Tor[/url]</span></span></span></span>
 <h4 id="Templates">Templates</h4>
 <p>To force <u>all</u> Template updates over Tor, use
 <code>qubesctl</code> in <code>dom0</code>. <sup class="reference"><a href="#cite_note-16">[16]</a></sup></p>
-<p><span class="code-select">sudo qubesctl state.sls
-qvm.updates-via-whonix</span></p>
+<p><span class="code-select" data-code="sudo qubesctl state.sls qvm.updates-via-whonix">sudo
+qubesctl state.sls qvm.updates-via-whonix</span></p>
 <p>To undo this setting, modify,</p>
 <ul>
 <li>Qubes R4.3:
@@ -401,10 +402,10 @@ terms</a></li>
 <code>sys-whonix</code> &#8594; <code>UpdateVM</code> * <code>UpdateVM</code>
 &#8594; <code>sys-whonix</code> &#8594; <code>sys-firewall</code> &#8594;
 <code>sys-net</code></li>
-<li id="cite_note-5"><span class="code-select">qvm-prefs updatevm-name netvm
-sys-whonix</span></li>
-<li id="cite_note-6"><span class="code-select">qvm-prefs updatevm-name netvm
-sys-whonix</span></li>
+<li id="cite_note-5"><span class="code-select" data-code="qvm-prefs updatevm-name netvm sys-whonix">qvm-prefs
+updatevm-name netvm sys-whonix</span></li>
+<li id="cite_note-6"><span class="code-select" data-code="qvm-prefs updatevm-name netvm sys-whonix">qvm-prefs
+updatevm-name netvm sys-whonix</span></li>
 <li id="cite_note-7">If the <code>dom0</code> UpdateVM is based on a Template that is
 broken or no longer trusted (the Template is broken, misconfigured, or
 compromised), an alternate UpdateVM can be used temporarily. In other
@@ -445,9 +446,11 @@ related source code file: <a href="https://github.com/QubesOS/qubes-mgmt-salt-do
 to change Template update method from Whonix to just another
 appvm?</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://groups.google.com/g/qubes-users/c/_jI2uWPPMMA" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-18">Or manually set the torified UpdateVM in <code>dom0</code> terminal.
-<span class="code-select">qubes-prefs updatevm sys-whonix</span></li>
+<span class="code-select" data-code="qubes-prefs updatevm sys-whonix">qubes-prefs
+updatevm sys-whonix</span></li>
 <li id="cite_note-19">To revert this change in <code>dom0</code> terminal, run.
-<span class="code-select">qubes-prefs updatevm sys-firewall</span></li>
+<span class="code-select" data-code="qubes-prefs updatevm sys-firewall">qubes-prefs
+updatevm sys-firewall</span></li>
 </ol>
 </div>
 <p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Install/" title="Qubes/Install"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Qubes/Install</span></a><a class="index internal" href="../../Documentation/" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Uninstall/" title="Qubes/Uninstall"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Qubes/Uninstall</span></a><span class="info"><span class="prev">Previous

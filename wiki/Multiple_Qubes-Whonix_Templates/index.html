@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Multiple Qubes-Whonix Templates</title>
 <meta name="description" content="Compartmentalization. Managing multiple Qubes-Whonix&lt;sup&gt;&amp;trade;&lt;/sup&gt; Templates.">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Multiplequbeshwonix.jpg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -150,14 +150,14 @@ Template, apply the following steps.</p>
 The only purpose of this step is to make sure
 <code>/etc/qubes-rpc/policy/qubes.UpdatesProxy</code> no longer
 exists.</p>
-<p><span class="code-select">sudo mv
-/etc/qubes-rpc/policy/qubes.UpdatesProxy ~/</span></p>
+<p><span class="code-select" data-code="sudo mv /etc/qubes-rpc/policy/qubes.UpdatesProxy ~/">sudo
+mv /etc/qubes-rpc/policy/qubes.UpdatesProxy ~/</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 <strong>Open the new-style policy file:</strong></p>
 <p>In <code>dom0</code>, open
 <code>/etc/qubes/policy.d/30-user.policy</code> with root rights.</p>
-<p><span class="code-select">sudo nano
-/etc/qubes/policy.d/30-user.policy</span></p>
+<p><span class="code-select" data-code="sudo nano /etc/qubes/policy.d/30-user.policy">sudo
+nano /etc/qubes/policy.d/30-user.policy</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 <strong>Learn the syntax:</strong></p>
 <p>Syntax: <sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
@@ -165,15 +165,16 @@ exists.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
 <strong>See an example rule:</strong></p>
 <p>Example line entry example:</p>
-<p><span class="code-select">qubes.UpdatesProxy *
-whonix-workstation-18-clone-1 @default allow
+<p><span class="code-select" data-code="qubes.UpdatesProxy      *   whonix-workstation-18-clone-1    @default    allow target=sys-whonix-cloned">qubes.UpdatesProxy
+* whonix-workstation-18-clone-1 @default allow
 target=sys-whonix-cloned</span></p>
 <p>Full example:</p>
 <p>If the user already completed adding the above line entry, the
 following is not required. It is only for illustrative purposes. A
 complete file could look like this.</p>
-<p><span class="code-select">qubes.UpdatesProxy *
-whonix-gateway-18-clone-1 @default allow target=sys-whonix-cloned
+<p><span class="code-select" data-code="qubes.UpdatesProxy      *   whonix-gateway-18-clone-1    @default    allow target=sys-whonix-cloned
+qubes.UpdatesProxy      *   whonix-workstation-18-clone-1    @default    allow target=sys-whonix-cloned">qubes.UpdatesProxy
+* whonix-gateway-18-clone-1 @default allow target=sys-whonix-cloned
 qubes.UpdatesProxy * whonix-workstation-18-clone-1 @default allow
 target=sys-whonix-cloned</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
@@ -234,7 +235,7 @@ to Whonix</a>.</li>
 file <code>/etc/qubes/policy.d/30-user.policy</code> before
 <code>/etc/qubes/policy.d/90-default.policy</code>. See also Qubes dom0
 file <code>/etc/qubes/policy.d/90-default.policy</code>.
-<span class="code-select">cat
+<span class="code-select" data-code="cat /etc/qubes/policy.d/90-default.policy">cat
 /etc/qubes/policy.d/90-default.policy</span>
 <code>/etc/qubes/policy.d/90-default.policy</code> comes with the
 following comment on top.

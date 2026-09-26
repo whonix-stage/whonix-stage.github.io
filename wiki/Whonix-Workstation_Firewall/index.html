@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Whonix-Workstation Firewall</title>
 <meta name="description" content="How-To: Open a Port in Whonix-Workstation&lt;sup&gt;&amp;trade;&lt;/sup&gt; Firewall, Restrict Outgoing IPs, Additional User Custom Firewall Rules and other settings for advanced users.">
@@ -14,14 +14,14 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Firewall-34227640.png">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../Trademark_Policy/" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../Download/">Download</a><ul class="nav-submenu"><li><a href="../VirtualBox/">Windows</a></li><li><a href="../Linux/">Linux</a></li><li><a href="../MacOS/">Mac</a></li><li><a href="../VirtualBox/">VirtualBox</a></li><li><a href="../KVM/">KVM</a></li><li><a href="../Qubes/">Qubes</a></li><li><a href="../Intel_AMD64/">Intel / AMD64</a></li><li><a href="../ARM64/">ARM64</a></li><li><a href="../USB_Installation/">USB</a></li><li><a href="../Whonix-Host/">ISO</a></li><li><a href="../Download/">More options</a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer">Source Code</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../About/">About</a><ul class="nav-submenu"><li><a href="../About/">Overview</a></li><li><a href="../Features/">Features</a></li><li><a href="../Whonix_versus_VPNs/">Whonix vs VPNs</a></li><li><a href="../Reasons_for_Freedom_Software/">Why Open Source?</a></li><li><a href="../What_we_do/">Project Activities</a></li><li><a href="../Contributors/">Contributors</a></li><li><a href="../Anonymity/">Mission &amp; Vision</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Documentation/">Docs</a><ul class="nav-submenu"><li><a href="../Documentation/">Documentation</a></li><li><a href="../FAQ/">FAQ</a></li><li><a href="../Troubleshooting/">Troubleshooting</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Contribute/">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer">Forums</a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/">Forum Best Practices</a></li><li><a href="../Contribute/">Contribute</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Support/">Support</a><ul class="nav-submenu"><li><a href="../Self_Support_First_Policy/">Self Support First Policy</a></li><li><a href="../Support/">Support (Limited)</a></li><li><a href="../Plus_Support/">Plus</a></li><li><a href="../Premium_Support/">Premium</a></li><li><a href="../Reporting_Bugs/">Reporting Bugs</a></li><li><a href="../Contact/">Contact (Restricted)</a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<div class="mininav">
+<h1 id="firstHeading" class="first-heading">Whonix-Workstation Firewall</h1><div class="mininav">
 <ul>
 <li><a href="../Host_Firewall/">Host (or <code>dom0</code>)
 Firewall</a></li>
@@ -80,7 +80,7 @@ run <code>/usr/libexec/whonix-firewall/firewall50user</code></div></div></p>
 <code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
 with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf">sudoedit
 /usr/local/etc/whonix_firewall.d/50_user.conf</span></p></div></div></p></div></div></p>
 <div class="toccolours mw-collapsible mw-collapsed">
 <p>For more help, press on Learn More on the right.</p>
@@ -116,7 +116,8 @@ steps.</p>
 <p><u>If using a terminal Whonix-Workstation</u>, complete these
 steps.</p>
 <p>In Whonix-Workstation, view the global firewall configuration file in
-an editor. <span class="code-select">nano
+an editor.
+<span class="code-select" data-code="nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf">nano
 /etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
 </div>
 </div>
@@ -125,7 +126,8 @@ an editor. <span class="code-select">nano
 <p><strong>2.</strong> Add.</p>
 <p>Replace <code>80</code> with the actual port you would like to
 open.</p>
-<p><span class="code-select">EXTERNAL_OPEN_PORTS+=" 80 "</span></p>
+<p><span class="code-select" data-code="EXTERNAL_OPEN_PORTS+=&quot; 80 &quot;">EXTERNAL_OPEN_PORTS+="
+80 "</span></p>
 <p><strong>3.</strong> Save.</p>
 <p><strong>4.</strong> <strong>Reload Whonix-Workstation
 Firewall.</strong></p>
@@ -140,7 +142,8 @@ Whonix-Workstation USER Session</h4></div><div class="tcc-content"><code>Start M
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_2">Graphical
 Whonix-Workstation SYSMAINT Session</h4></div><div class="tcc-content"><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
 run <code>sudo whonix_firewall</code></div></div></p>
-<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_2">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select">sudo whonix_firewall</span></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_2">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix-Workstation_2"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
 <code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
 <code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></div></div></p></div></div></p>
@@ -192,7 +195,7 @@ run <code>/usr/libexec/whonix-firewall/firewall50user</code></div></div></p>
 <code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_3">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
 with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf">sudoedit
 /usr/local/etc/whonix_firewall.d/50_user.conf</span></p></div></div></p></div></div></p>
 <div class="toccolours mw-collapsible mw-collapsed">
 <p>For more help, press on Learn More on the right.</p>
@@ -228,7 +231,8 @@ steps.</p>
 <p><u>If using a terminal Whonix-Workstation</u>, complete these
 steps.</p>
 <p>In Whonix-Workstation, view the global firewall configuration file in
-an editor. <span class="code-select">nano
+an editor.
+<span class="code-select" data-code="nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf">nano
 /etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
 </div>
 </div>
@@ -237,7 +241,8 @@ an editor. <span class="code-select">nano
 <p><strong>3.</strong> Add.</p>
 <p>Note: Replace <code>9230</code> with the actual port you would like
 to open.</p>
-<p><span class="code-select">INTERNAL_OPEN_PORTS+=" 9230 "</span></p>
+<p><span class="code-select" data-code="INTERNAL_OPEN_PORTS+=&quot; 9230 &quot;">INTERNAL_OPEN_PORTS+="
+9230 "</span></p>
 <p><strong>4.</strong> Save.</p>
 <p><strong>5.</strong> <strong>Reload Whonix-Workstation
 Firewall.</strong></p>
@@ -252,7 +257,8 @@ Whonix-Workstation USER Session</h4></div><div class="tcc-content"><code>Start M
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_4">Graphical
 Whonix-Workstation SYSMAINT Session</h4></div><div class="tcc-content"><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
 run <code>sudo whonix_firewall</code></div></div></p>
-<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_4">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select">sudo whonix_firewall</span></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_4">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix-Workstation_4"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
 <code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
 <code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></div></div></p></div></div></p>
@@ -291,7 +297,7 @@ run <code>/usr/libexec/whonix-firewall/firewall50user</code></div></div></p>
 <code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_5">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
 with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf">sudoedit
 /usr/local/etc/whonix_firewall.d/50_user.conf</span></p></div></div></p></div></div></p>
 <div class="toccolours mw-collapsible mw-collapsed">
 <p>For more help, press on Learn More on the right.</p>
@@ -327,14 +333,15 @@ steps.</p>
 <p><u>If using a terminal Whonix-Workstation</u>, complete these
 steps.</p>
 <p>In Whonix-Workstation, view the global firewall configuration file in
-an editor. <span class="code-select">nano
+an editor.
+<span class="code-select" data-code="nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf">nano
 /etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
 </div>
 </div>
 </div>
 </div>
 <p><strong>2.</strong> Add.</p>
-<p><span class="code-select">EXTERNAL_OPEN_ALL=true</span></p>
+<p><span class="code-select" data-code="EXTERNAL_OPEN_ALL=true">EXTERNAL_OPEN_ALL=true</span></p>
 <p>Save.</p>
 <p><strong>3.</strong> <strong>Reload Whonix-Workstation
 Firewall.</strong></p>
@@ -349,7 +356,8 @@ Whonix-Workstation USER Session</h4></div><div class="tcc-content"><code>Start M
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_6">Graphical
 Whonix-Workstation SYSMAINT Session</h4></div><div class="tcc-content"><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
 run <code>sudo whonix_firewall</code></div></div></p>
-<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_6">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select">sudo whonix_firewall</span></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_6">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix-Workstation_6"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
 <code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
 <code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></div></div></p></div></div></p>
@@ -384,7 +392,7 @@ run <code>/usr/libexec/whonix-firewall/firewall50user</code></div></div></p>
 <code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_7">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
 with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf">sudoedit
 /usr/local/etc/whonix_firewall.d/50_user.conf</span></p></div></div></p></div></div></p>
 <div class="toccolours mw-collapsible mw-collapsed">
 <p>For more help, press on Learn More on the right.</p>
@@ -420,7 +428,8 @@ steps.</p>
 <p><u>If using a terminal Whonix-Workstation</u>, complete these
 steps.</p>
 <p>In Whonix-Workstation, view the global firewall configuration file in
-an editor. <span class="code-select">nano
+an editor.
+<span class="code-select" data-code="nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf">nano
 /etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
 </div>
 </div>
@@ -429,8 +438,8 @@ an editor. <span class="code-select">nano
 <p><strong>2.</strong> Add.</p>
 <p>Note: Replace the example IP address <code>95.216.25.250</code> with
 an actual IP address. Multiple similar lines are supported.</p>
-<p><span class="code-select">outgoing_allow_ip_list+=" 95.216.25.250
-"</span></p>
+<p><span class="code-select" data-code="outgoing_allow_ip_list+=&quot; 95.216.25.250 &quot;">outgoing_allow_ip_list+="
+95.216.25.250 "</span></p>
 <p>Save.</p>
 <p><strong>3.</strong> <strong>Reboot</strong> <u>or</u> <strong>Reload
 Whonix-Workstation Firewall.</strong></p>
@@ -445,14 +454,16 @@ Whonix-Workstation USER Session</h4></div><div class="tcc-content"><code>Start M
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_8">Graphical
 Whonix-Workstation SYSMAINT Session</h4></div><div class="tcc-content"><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
 run <code>sudo whonix_firewall</code></div></div></p>
-<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_8">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select">sudo whonix_firewall</span></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_8">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix-Workstation_8"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
 <code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
 <code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></div></div></p></div></div></p>
 <p><strong>4.</strong> The procedure is complete.</p>
 </div>
 <p>To test:</p>
-<p><span class="code-select">curl.anondist-orig 95.216.25.250</span></p>
+<p><span class="code-select" data-code="curl.anondist-orig 95.216.25.250">curl.anondist-orig
+95.216.25.250</span></p>
 <h1 id="Disable_Whonix-Workstation_Firewall_Until_Reboot">Disable
 Whonix-Workstation Firewall Until Reboot</h1>
 <p>To disable until reboot.</p>
@@ -461,8 +472,8 @@ Whonix-Workstation Firewall Until Reboot</h1>
 Disable Whonix-Workstation Firewall</h1>
 <p>Perform this action inside Whonix-Workstation.</p>
 <p>(In Qubes-Whonix: In Template.)</p>
-<p><span class="code-select">sudo systemctl mask
-whonix-firewall</span></p>
+<p><span class="code-select" data-code="sudo systemctl mask whonix-firewall">sudo
+systemctl mask whonix-firewall</span></p>
 <p>No firewall rules will load after rebooting.</p>
 <h1 id="Additional_User_Custom_Firewall_Rules">Additional User Custom
 Firewall Rules</h1>
@@ -490,7 +501,7 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/bin/user-firewall-script">sudoedit
 /usr/bin/user-firewall-script</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
@@ -506,7 +517,7 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/bin/user-firewall-script">sudoedit
 /usr/bin/user-firewall-script</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
@@ -533,13 +544,15 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/bin/user-firewall-script">sudoedit
 /usr/bin/user-firewall-script</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>3.</strong> Paste.</p>
 <p>NOTE: Replace <code>## custom user firewall rules here</code> with
 the actual user custom firewall rules.</p>
-<p><span class="code-select">#!/bin/bash</p>
+<p><span class="code-select" data-code="#!/bin/bash
+
+## custom user firewall rules here">#!/bin/bash</p>
 <ol>
 <li><ol>
 <li>custom user firewall rules here</span></li>
@@ -547,16 +560,17 @@ the actual user custom firewall rules.</p>
 </ol>
 <p><strong>4.</strong> Save and exit.</p>
 <p><strong>5.</strong> Make executable.</p>
-<p><span class="code-select">sudo chmod +x
-/usr/bin/user-firewall-script</span></p>
+<p><span class="code-select" data-code="sudo chmod +x /usr/bin/user-firewall-script">sudo
+chmod +x /usr/bin/user-firewall-script</span></p>
 <p><strong>6.</strong> Manually test the user firewall script.</p>
-<p><span class="code-select">sudo user-firewall-script</span></p>
+<p><span class="code-select" data-code="sudo user-firewall-script">sudo
+user-firewall-script</span></p>
 <p>Once the user firewall script is functional, the user can proceed to
 automate loading of the user firewall script.</p>
 <p><strong>7.</strong> Create folder
 <code>/lib/systemd/system/whonix-firewall.service.d</code>.</p>
-<p><span class="code-select">sudo mkdir -p
-/lib/systemd/system/whonix-firewall.service.d</span></p>
+<p><span class="code-select" data-code="sudo mkdir -p /lib/systemd/system/whonix-firewall.service.d">sudo
+mkdir -p /lib/systemd/system/whonix-firewall.service.d</span></p>
 <p><strong>8.</strong> Open file
 <code>/lib/systemd/system/whonix-firewall.service.d/50_user.conf</code>
 in an editor with administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>") rights.</p>
@@ -575,7 +589,7 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /lib/systemd/system/whonix-firewall.service.d/50_user.conf">sudoedit
 /lib/systemd/system/whonix-firewall.service.d/50_user.conf</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
@@ -591,7 +605,7 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /lib/systemd/system/whonix-firewall.service.d/50_user.conf">sudoedit
 /lib/systemd/system/whonix-firewall.service.d/50_user.conf</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
@@ -618,15 +632,17 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /lib/systemd/system/whonix-firewall.service.d/50_user.conf">sudoedit
 /lib/systemd/system/whonix-firewall.service.d/50_user.conf</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>9.</strong> Paste.</p>
-<p><span class="code-select">[Service]
+<p><span class="code-select" data-code="[Service]
+ExecStartPost=/usr/bin/user-firewall-script">[Service]
 ExecStartPost=/usr/bin/user-firewall-script</span></p>
 <p><strong>10.</strong> Save and exit.</p>
 <p><strong>11.</strong> Reload systemd.</p>
-<p><span class="code-select">sudo systemctl daemon-reload</span></p>
+<p><span class="code-select" data-code="sudo systemctl daemon-reload">sudo
+systemctl daemon-reload</span></p>
 <p><strong>12.</strong> <strong>Reload Whonix-Workstation
 Firewall.</strong></p>
 <p>Ensure the VM has sudo access first. If
@@ -640,7 +656,8 @@ Whonix-Workstation USER Session</h4></div><div class="tcc-content"><code>Start M
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_9">Graphical
 Whonix-Workstation SYSMAINT Session</h4></div><div class="tcc-content"><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
 run <code>sudo whonix_firewall</code></div></div></p>
-<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_9">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select">sudo whonix_firewall</span></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_9">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix-Workstation_9"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
 <code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
 <code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></div></div></p></div></div></p>
@@ -679,7 +696,7 @@ connectivity issue that Tor does not support UDP.</li>
 operation permitted?</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/ping-operation-permitted/11056/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 </ul>
 <p><u><strong>Alternative:</strong></u></p>
-<p><span class="code-select">nping</span></p>
+<p><span class="code-select" data-code="nping">nping</span></p>
 <h1 id="Allow_UDP">Allow UDP</h1>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" alt="Ambox_notice.png" /></span>
@@ -717,7 +734,7 @@ run <code>/usr/libexec/whonix-firewall/firewall50user</code></div></div></p>
 <code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_10">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
 with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf">sudoedit
 /usr/local/etc/whonix_firewall.d/50_user.conf</span></p></div></div></p></div></div></p>
 <div class="toccolours mw-collapsible mw-collapsed">
 <p>For more help, press on Learn More on the right.</p>
@@ -753,14 +770,15 @@ steps.</p>
 <p><u>If using a terminal Whonix-Workstation</u>, complete these
 steps.</p>
 <p>In Whonix-Workstation, view the global firewall configuration file in
-an editor. <span class="code-select">nano
+an editor.
+<span class="code-select" data-code="nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf">nano
 /etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
 </div>
 </div>
 </div>
 </div>
 <p><strong>2.</strong> Add. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p>
-<p><span class="code-select">firewall_allow_udp=true</span></p>
+<p><span class="code-select" data-code="firewall_allow_udp=true">firewall_allow_udp=true</span></p>
 <p>Save.</p>
 <p><strong>3.</strong> <strong>Reload Whonix-Workstation
 Firewall.</strong></p>
@@ -775,7 +793,8 @@ Whonix-Workstation USER Session</h4></div><div class="tcc-content"><code>Start M
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_11">Graphical
 Whonix-Workstation SYSMAINT Session</h4></div><div class="tcc-content"><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
 run <code>sudo whonix_firewall</code></div></div></p>
-<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_11">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select">sudo whonix_firewall</span></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_11">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix-Workstation_11"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
 <code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
 <code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></div></div></p></div></div></p>
@@ -835,7 +854,8 @@ Files to Whonix-Gateway</a></li>
 <div class="references">
 <ol>
 <li id="cite_note-1"><a href="https://gitlab.com/Whonix/whonix-firewall/blob/master/man/whonix_firewall.8.ronn">https://gitlab.com/Whonix/whonix-firewall/blob/master/man/whonix_firewall.8.ronn</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.com/Whonix/whonix-firewall/blob/master/man/whonix_firewall.8.ronn" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
-<li id="cite_note-2"><span class="code-select">man whonix_firewall</span></li>
+<li id="cite_note-2"><span class="code-select" data-code="man whonix_firewall">man
+whonix_firewall</span></li>
 <li id="cite_note-3"><a href="https://phabricator.whonix.org/T533#11025">https://phabricator.whonix.org/T533#11025</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://phabricator.whonix.org/T533#11025" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-4">* <u>Source code file:</u> <a href="https://github.com/Whonix/anon-apps-config/blob/master/etc/permission-hardener.d/30_ping.conf">https://github.com/Whonix/anon-apps-config/blob/master/etc/permission-hardener.d/30_ping.conf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-apps-config/blob/master/etc/permission-hardener.d/30_ping.conf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 * <u>Potential future enhancement:</u> In the future, capability removal

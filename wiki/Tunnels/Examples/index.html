@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>VPN Tunnel Setup Examples</title>
 <meta name="description" content="Instructions on how to combine VPN tunnels with Tor in Whonix">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Dykeroad-41832640.jpg">
 <link rel="stylesheet" href="../../../style.css">
 <link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -93,22 +93,24 @@ page</a><sup class="ext-link-to-archive has-sibling" title="Link to archived ver
 <p><strong>4.</strong> Open a terminal.</p>
 <p>Navigate to the folder where <code>RiseupCA.pem</code> was saved.</p>
 <p><strong>5.</strong> Install <a href="https://openvpn.net/">OpenVPN</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://openvpn.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
-<p><span class="code-select">sudo apt update &amp;&amp; sudo apt install
-openvpn</span></p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt install openvpn">sudo
+apt update &amp;&amp; sudo apt install openvpn</span></p>
 <p><strong>6.</strong> Test the connection from the command line.</p>
 <p>The following line from the Riseup OpenVPN for Linux page
 <sup class="reference"><a href="#cite_note-1">[1]</a></sup> will not work for the connection: <code>user</code> &#8594;
 <code>Tor</code> &#8594; <code>VPN</code> &#8594; <code>Internet</code>, because the
 Tor network does not support UDP.</p>
-<p><span class="code-select">sudo openvpn --client --dev tun
---auth-user-pass --remote vpn.riseup.net 1194 --keysize 256 --auth
-SHA256 --cipher AES-256-CBC --ca RiseupCA.pem</span></p>
+<p><span class="code-select" data-code="sudo openvpn --client --dev tun --auth-user-pass --remote vpn.riseup.net 1194 --keysize 256 --auth SHA256 --cipher AES-256-CBC --ca RiseupCA.pem">sudo
+openvpn --client --dev tun --auth-user-pass --remote vpn.riseup.net 1194
+--keysize 256 --auth SHA256 --cipher AES-256-CBC --ca
+RiseupCA.pem</span></p>
 <p>Instead, use the following functional command utilizing TCP for the
 connection: <code>user</code> &#8594; <code>Tor</code> &#8594; <code>VPN</code> &#8594;
 <code>Internet</code>.</p>
-<p><span class="code-select">sudo openvpn --client --dev tun
---auth-user-pass --remote vpn.riseup.net 1194 --keysize 256 --auth
-SHA256 --cipher AES-256-CBC --ca RiseupCA.pem --proto tcp</span></p>
+<p><span class="code-select" data-code="sudo openvpn --client --dev tun --auth-user-pass --remote vpn.riseup.net 1194 --keysize 256 --auth SHA256 --cipher AES-256-CBC --ca RiseupCA.pem --proto tcp">sudo
+openvpn --client --dev tun --auth-user-pass --remote vpn.riseup.net 1194
+--keysize 256 --auth SHA256 --cipher AES-256-CBC --ca RiseupCA.pem
+--proto tcp</span></p>
 <p><strong>7.</strong> For DNS, see <a href="#Riseup_DNS">Riseup DNS</a> below.</p>
 </div>
 <h2 id="Riseup_riseup.conf">Riseup riseup.conf</h2><span class="share-tooltip" data-anchor="Riseup_riseup.conf"><a class="headline-anchor" href="#Riseup_riseup.conf" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples/#Riseup_riseup.conf">https://www.whonix.org/wiki/Tunnels/Examples/#Riseup_riseup.conf</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Riseup_riseup.conf&amp;text=Riseup%20riseup.conf" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Riseup_riseup.conf&amp;text=Riseup%20riseup.conf" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Riseup_riseup.conf&amp;title=Riseup%20riseup.conf" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Riseup%20riseup.conf&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Riseup_riseup.conf" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples/#Riseup_riseup.conf]Riseup riseup.conf[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples/#Riseup_riseup.conf]Riseup riseup.conf[/url]</span></span></span></span>
@@ -131,9 +133,11 @@ same folder.</p>
 user.</p>
 <div class="info-box ">
 <p><u>If you are using a graphical environment</u>, run.
-<span class="code-select">featherpad auth.txt</span></p>
+<span class="code-select" data-code="featherpad auth.txt">featherpad
+auth.txt</span></p>
 <p><u>If you are using a terminal</u>, run.
-<span class="code-select">nano auth.txt</span></p>
+<span class="code-select" data-code="nano auth.txt">nano
+auth.txt</span></p>
 </div>
 <p><strong>5.</strong> Paste the following content.</p>
 <p><u>Notes:</u></p>
@@ -161,7 +165,8 @@ script-security 1
 proto tcp
 #log /var/log/openvpn.log</code></pre>
 <p><strong>7.</strong> Start OpenVPN.</p>
-<p><span class="code-select">sudo openvpn riseup.conf</span></p>
+<p><span class="code-select" data-code="sudo openvpn riseup.conf">sudo
+openvpn riseup.conf</span></p>
 <p><strong>8.</strong> For DNS, see <a href="#Riseup_DNS">Riseup DNS</a> below.</p>
 </div>
 <h2 id="Riseup_DNS">Riseup DNS</h2><span class="share-tooltip" data-anchor="Riseup_DNS"><a class="headline-anchor" href="#Riseup_DNS" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples/#Riseup_DNS">https://www.whonix.org/wiki/Tunnels/Examples/#Riseup_DNS</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Riseup_DNS&amp;text=Riseup%20DNS" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Riseup_DNS&amp;text=Riseup%20DNS" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Riseup_DNS&amp;title=Riseup%20DNS" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Riseup%20DNS&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Riseup_DNS" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples/#Riseup_DNS]Riseup DNS[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples/#Riseup_DNS]Riseup DNS[/url]</span></span></span></span>
@@ -184,7 +189,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/resolv.conf</span></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
@@ -199,7 +205,8 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
 <ul>
@@ -225,7 +232,8 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/resolv.conf</span></p></div></div></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>2.</strong> Comment out the nameserver.</p>
 <pre><code>#nameserver 10.152.152.10</code></pre>
@@ -244,14 +252,15 @@ server.</p>
 configuration file.</p>
 <p>To ensure that <code>/etc/resolv.conf</code> is not overwritten by
 other packages like DHCP or resolvconf, run.</p>
-<p><span class="code-select">sudo chattr +i /etc/resolv.conf</span></p>
+<p><span class="code-select" data-code="sudo chattr +i /etc/resolv.conf">sudo
+chattr +i /etc/resolv.conf</span></p>
 <p>If you ever want to remove it, use <code>-i</code>.</p>
 </div>
 <h3 id="Testing">Testing</h3><span class="share-tooltip" data-anchor="Testing"><a class="headline-anchor" href="#Testing" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples/#Testing">https://www.whonix.org/wiki/Tunnels/Examples/#Testing</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Testing&amp;text=Testing" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Testing&amp;text=Testing" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Testing&amp;title=Testing" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Testing&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Testing" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples/#Testing]Testing[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples/#Testing]Testing[/url]</span></span></span></span>
 <p>Use nslookup to query the DNS to obtain domain name and IP address
 mapping. <sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
 <p>When using <code>nameserver 10.152.152.10</code> ...</p>
-<p><span class="code-select">nslookup
+<p><span class="code-select" data-code="nslookup vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion">nslookup
 vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion</span></p>
 <p>The command will show.</p>
 <pre><code>Server:         10.152.152.10
@@ -260,7 +269,7 @@ Non-authoritative answer:
 Name:   vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion
 Address: 10.192.0.1</code></pre>
 <p>When using <code>nameserver 172.27.100.1</code> ...</p>
-<p><span class="code-select">nslookup
+<p><span class="code-select" data-code="nslookup vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion">nslookup
 vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion</span></p>
 <p>The command will show.</p>
 <pre><code>Server:         172.27.100.1
@@ -270,7 +279,8 @@ Address:        172.27.100.1#53
 VPN has been chained (<code>user</code> &#8594; <code>Tor</code> &#8594;
 <code>VPN</code> &#8594; <code>Internet</code>).</p>
 <p>Resolving clearnet DNS should work.</p>
-<p><span class="code-select">nslookup riseup.net</span></p>
+<p><span class="code-select" data-code="nslookup riseup.net">nslookup
+riseup.net</span></p>
 <p>The command should show.</p>
 <pre><code>Server:         172.27.100.1
 Address:        172.27.100.1#53
@@ -290,12 +300,14 @@ on the right.</p>
 <div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" alt="Info" /></span>
 At the time of writing, it appeared that USAIP was probably blocking <a href="https://www.kicksecure.com/wiki/SSL/">TLS</a>, therefore the following command is
-possibly non-functional: <span class="code-select">UWT_DEV_PASSTHROUGH=1
+possibly non-functional:
+<span class="code-select" data-code="UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3 https://check.torproject.org">UWT_DEV_PASSTHROUGH=1
 curl --tlsv1.3 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 </div>
 <div class="info-box ">
 <p><strong>1.</strong> Install OpenVPN.</p>
-<p><span class="code-select">sudo apt install openvpn</span></p>
+<p><span class="code-select" data-code="sudo apt install openvpn">sudo
+apt install openvpn</span></p>
 <p><strong>2.</strong> Navigate to <a href="https://usaip.eu/en/index.php">USAIP</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://usaip.eu/en/index.php" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and source the free
 test.</p>
 <ul>
@@ -307,13 +319,13 @@ configuration files)</li>
 </ul>
 <p><strong>3.</strong> Open a terminal.</p>
 <p>Navigate to the USAIP folder.</p>
-<p><span class="code-select">cd usaip</span></p>
+<p><span class="code-select" data-code="cd usaip">cd usaip</span></p>
 <p>List the available files.</p>
-<p><span class="code-select">dir</span></p>
+<p><span class="code-select" data-code="dir">dir</span></p>
 <p><strong>4.</strong> Connect to a free VPN.</p>
 <p>For example, run.</p>
-<p><span class="code-select">sudo openvpn
-/home/user/usaip/eu-luxemburg.ovpn</span></p>
+<p><span class="code-select" data-code="sudo openvpn /home/user/usaip/eu-luxemburg.ovpn">sudo
+openvpn /home/user/usaip/eu-luxemburg.ovpn</span></p>
 <p>At the time of writing, the page stated, the password was
 <em>demo</em>, while the password was also <em>demo</em>.</p>
 <p>Wait until it has connected. If it is successful, it will show
@@ -333,8 +345,8 @@ Interface</h1>
 If you would like to see more information, please press on expand on the
 right.</p>
 <div class="mw-collapsible-content">
-<p><span class="code-select">sudo apt install
-network-manager-kde</span></p>
+<p><span class="code-select" data-code="sudo apt install network-manager-kde">sudo
+apt install network-manager-kde</span></p>
 <p><code>Start menu</code> &#8594; <code>System Settings</code> &#8594;
 <code>Network Settings</code></p>
 <p>At the time of writing the former, there is no OpenVPN instructions
@@ -357,7 +369,8 @@ as possible. This means that one settings manager will not show up when
 the other desktop has been started in a dual (KDE, GNOME)
 installation.</p>
 <p>If you want to install the GNOME Network Manager, run.</p>
-<p><span class="code-select">sudo apt install network-manager-gnome
+<p><span class="code-select" data-code="sudo apt install network-manager-gnome network-manager-openvpn-gnome">sudo
+apt install network-manager-gnome
 network-manager-openvpn-gnome</span></p>
 <h3 id="Autostart_GNOME_Network_Manager">Autostart GNOME Network
 Manager</h3><span class="share-tooltip" data-anchor="Autostart_GNOME_Network_Manager"><a class="headline-anchor" href="#Autostart_GNOME_Network_Manager" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples/#Autostart_GNOME_Network_Manager">https://www.whonix.org/wiki/Tunnels/Examples/#Autostart_GNOME_Network_Manager</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Autostart_GNOME_Network_Manager&amp;text=Autostart%20GNOME%20Network%0AManager" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Autostart_GNOME_Network_Manager&amp;text=Autostart%20GNOME%20Network%0AManager" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Autostart_GNOME_Network_Manager&amp;title=Autostart%20GNOME%20Network%0AManager" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Autostart%20GNOME%20Network%0AManager&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Autostart_GNOME_Network_Manager" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples/#Autostart_GNOME_Network_Manager]Autostart GNOME Network
@@ -385,7 +398,7 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/xdg/autostart/nm-applet.desktop">sudoedit
 /etc/xdg/autostart/nm-applet.desktop</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
@@ -401,7 +414,7 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/xdg/autostart/nm-applet.desktop">sudoedit
 /etc/xdg/autostart/nm-applet.desktop</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
@@ -428,11 +441,11 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/xdg/autostart/nm-applet.desktop">sudoedit
 /etc/xdg/autostart/nm-applet.desktop</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>2.</strong> Comment out.</p>
-<p><span class="code-select">NotShowIn=KDE;</span></p>
+<p><span class="code-select" data-code="NotShowIn=KDE;">NotShowIn=KDE;</span></p>
 </div>
 <h3 id="Visible_nm-applet_Start_Menu_Entries">Visible nm-applet Start
 Menu Entries</h3><span class="share-tooltip" data-anchor="Visible_nm-applet_Start_Menu_Entries"><a class="headline-anchor" href="#Visible_nm-applet_Start_Menu_Entries" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples/#Visible_nm-applet_Start_Menu_Entries">https://www.whonix.org/wiki/Tunnels/Examples/#Visible_nm-applet_Start_Menu_Entries</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Visible_nm-applet_Start_Menu_Entries&amp;text=Visible%20nm-applet%20Start%0AMenu%20Entries" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Visible_nm-applet_Start_Menu_Entries&amp;text=Visible%20nm-applet%20Start%0AMenu%20Entries" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Visible_nm-applet_Start_Menu_Entries&amp;title=Visible%20nm-applet%20Start%0AMenu%20Entries" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Visible%20nm-applet%20Start%0AMenu%20Entries&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Visible_nm-applet_Start_Menu_Entries" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples/#Visible_nm-applet_Start_Menu_Entries]Visible nm-applet Start
@@ -460,7 +473,7 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-applet.desktop">sudoedit
 /usr/share/applications/nm-applet.desktop</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_3">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
@@ -476,7 +489,7 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-applet.desktop">sudoedit
 /usr/share/applications/nm-applet.desktop</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
@@ -503,13 +516,13 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-applet.desktop">sudoedit
 /usr/share/applications/nm-applet.desktop</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>2.</strong> Comment out.</p>
-<p><span class="code-select">NotShowIn=KDE;</span></p>
+<p><span class="code-select" data-code="NotShowIn=KDE;">NotShowIn=KDE;</span></p>
 <p><strong>3.</strong> Add.</p>
-<p><span class="code-select">Categories=GNOME;GTK;Settings;X-GNOME-NetworkSettings;</span></p>
+<p><span class="code-select" data-code="Categories=GNOME;GTK;Settings;X-GNOME-NetworkSettings;">Categories=GNOME;GTK;Settings;X-GNOME-NetworkSettings;</span></p>
 </div>
 <h3 id="Visible_nm-connection-editor_Start_Menu_Entries">Visible
 nm-connection-editor Start Menu Entries</h3><span class="share-tooltip" data-anchor="Visible_nm-connection-editor_Start_Menu_Entries"><a class="headline-anchor" href="#Visible_nm-connection-editor_Start_Menu_Entries" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples/#Visible_nm-connection-editor_Start_Menu_Entries">https://www.whonix.org/wiki/Tunnels/Examples/#Visible_nm-connection-editor_Start_Menu_Entries</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Visible_nm-connection-editor_Start_Menu_Entries&amp;text=Visible%0Anm-connection-editor%20Start%20Menu%20Entries" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Visible_nm-connection-editor_Start_Menu_Entries&amp;text=Visible%0Anm-connection-editor%20Start%20Menu%20Entries" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Visible_nm-connection-editor_Start_Menu_Entries&amp;title=Visible%0Anm-connection-editor%20Start%20Menu%20Entries" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Visible%0Anm-connection-editor%20Start%20Menu%20Entries&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%2F%23Visible_nm-connection-editor_Start_Menu_Entries" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples/#Visible_nm-connection-editor_Start_Menu_Entries]Visible
@@ -538,7 +551,7 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-connection-editor.desktop">sudoedit
 /usr/share/applications/nm-connection-editor.desktop</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_4">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
@@ -554,7 +567,7 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-connection-editor.desktop">sudoedit
 /usr/share/applications/nm-connection-editor.desktop</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
@@ -581,11 +594,11 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-connection-editor.desktop">sudoedit
 /usr/share/applications/nm-connection-editor.desktop</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>2.</strong> Comment out.</p>
-<p><span class="code-select">NotShowIn=KDE;</span></p>
+<p><span class="code-select" data-code="NotShowIn=KDE;">NotShowIn=KDE;</span></p>
 <p><strong>3.</strong> Open the settings.</p>
 <pre><code>Applications &amp;rarr; Settings &amp;rarr; Network Connections</code></pre>
 <p>Alternatively, you could also try the <a href="https://riseup.net/en/vpn/linux#have-the-tray-icon-visible-on-gnome">Riseup

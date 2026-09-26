@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Qubes-Whonix UpdatesProxy Settings</title>
 <meta name="description" content="Qubes dom0 Qubes-Whonix UpdatesProxy and UpdateVM Settings.">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Qubesupdateproxy31231235.png">
 <link rel="stylesheet" href="../../../style.css">
 <link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -96,7 +96,7 @@ Locating the settings file.</p>
 <code>/etc/qubes/policy.d/50-config-updates.policy</code> settings.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 View its contents.</p>
-<p><span class="code-select">cat
+<p><span class="code-select" data-code="cat /etc/qubes/policy.d/50-config-updates.policy">cat
 /etc/qubes/policy.d/50-config-updates.policy</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Verify its default entries.</p>
@@ -153,19 +153,20 @@ Open a terminal.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 Use <code>qubesctl</code> (Qubes salt) to set up <code>dom0</code>
 settings. <sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
-<p><span class="code-select">sudo qubesctl state.sls
-qvm.anon-whonix</span></p>
+<p><span class="code-select" data-code="sudo qubesctl state.sls qvm.anon-whonix">sudo
+qubesctl state.sls qvm.anon-whonix</span></p>
 </div>
 <div class="info-box ">
 <p>In Whonix Template.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Next, check if the problem has been corrected.</p>
 <p>Run the following command in Whonix Template.</p>
-<p><span class="code-select">sudo systemctl restart
-qubes-whonix-torified-updates-proxy-check</span></p>
+<p><span class="code-select" data-code="sudo systemctl restart qubes-whonix-torified-updates-proxy-check">sudo
+systemctl restart qubes-whonix-torified-updates-proxy-check</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
 Then try to update or use <code>apt</code> again.</p>
-<p><span class="code-select">sudo apt update</span></p>
+<p><span class="code-select" data-code="sudo apt update">sudo apt
+update</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
 <u>If there are still problems,</u> try re-installation of
 Qubes-Whonix.</p>
@@ -193,14 +194,16 @@ are recommended for interested readers:</p>
 <li>Qubes defaults are configured in file <a href="https://github.com/QubesOS/qubes-core-admin/blob/main/qubes-rpc-policy/90-default.policy"><code>/etc/qubes/policy.d/90-default.policy</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-core-admin/blob/main/qubes-rpc-policy/90-default.policy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 <ul>
 <li>Search this file for lines starting with:
-<span class="code-select">qubes.UpdatesProxy</span></li>
+<span class="code-select" data-code="qubes.UpdatesProxy">qubes.UpdatesProxy</span></li>
 <li>The following comment at the top of this file explains the general
-principle. <span class="code-select">## Do not modify this file, create
-a new policy file with a lower number in the</li>
+principle. &lt;span class="code-select" data-code="## Do not modify this
+file, create a new policy file with a lower number in the</li>
 </ul></li>
 </ul>
 <ol>
 <li><ol>
+<li>filename instead. For example 30-user.policy."&gt;## Do not modify
+this file, create a new policy file with a lower number in the</li>
 <li>filename instead. For example 30-user.policy.</span></li>
 </ol></li>
 </ol>
@@ -224,11 +227,12 @@ UpdatesProxy check failed[/url]</span></span></span></span>
 <p><u>In Template.</u></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
 Simulate Qubes-Whonix UpdatesProxy check failed.</p>
-<p><span class="code-select">sudo rm
-/run/updatesproxycheck/whonix-secure-proxy</span></p>
+<p><span class="code-select" data-code="sudo rm /run/updatesproxycheck/whonix-secure-proxy">sudo
+rm /run/updatesproxycheck/whonix-secure-proxy</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 Run APT.</p>
-<p><span class="code-select">sudo apt update</span></p>
+<p><span class="code-select" data-code="sudo apt update">sudo apt
+update</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Result.</p>
 <pre><code>WARNING: Execution of /usr/bin/apt prevented by /etc/uwt.d/40_qubes.conf because no torified Qubes updates proxy found.
@@ -258,8 +262,8 @@ router.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 View <code>qubes-updates-proxy.service</code> logs.</p>
 <p><u>In sys-whonix.</u></p>
-<p><span class="code-select">sudo journalctl --boot -u
-qubes-updates-proxy.service</span></p>
+<p><span class="code-select" data-code="sudo journalctl --boot -u qubes-updates-proxy.service">sudo
+journalctl --boot -u qubes-updates-proxy.service</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Result.</p>
 <pre><code>Sep 05 13:24:22 host tinyproxy[33224]: opensock: Could not retrieve address info for deb.debian.org:443: Temporary failure in name resolution</code></pre>
@@ -288,14 +292,16 @@ WiFi, or similar.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
 Stop Tor.</p>
 <p>In <code>sys-whonix</code>, execute:</p>
-<p><span class="code-select">sudo systemctl stop tor@default</span></p>
+<p><span class="code-select" data-code="sudo systemctl stop tor@default">sudo
+systemctl stop tor@default</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 Confirm in the journal log that the Tor service has indeed stopped.</p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Attempt an update.</p>
 <p>Run the update command in <code>whonix-gateway-18</code>
 Template:</p>
-<p><span class="code-select">sudo apt update</span></p>
+<p><span class="code-select" data-code="sudo apt update">sudo apt
+update</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
 Result.</p>
 <p>Now Tor is stopped while attempting to run an apt update in the
@@ -376,9 +382,10 @@ happens if the UpdatesProxy (in case of Qubes-Whonix most likely:
 <code>sys-whonix</code>) used by the Template has not been started
 yet.</p>
 <p>To reproduce, in Template:</p>
-<p><span class="code-select">sudo systemctl stop
-qubes-updates-proxy-forwarder.socket</span></p>
-<p><span class="code-select">sudo apt update</span></p>
+<p><span class="code-select" data-code="sudo systemctl stop qubes-updates-proxy-forwarder.socket">sudo
+systemctl stop qubes-updates-proxy-forwarder.socket</span></p>
+<p><span class="code-select" data-code="sudo apt update">sudo apt
+update</span></p>
 <p>Expected output:</p>
 <pre><code>Could not connect to 127.0.0.1:8082 (127.0.0.1). - connect (113: No route to host)</code></pre>
 <h2 id="Reading_from_proxy_failed_-_read_(11:_Resource_temporarily_unavailable)_[IP:_127.0.0.1_8082]">Reading
@@ -389,17 +396,19 @@ from proxy failed - read (11: Resource temporarily unavailable) [IP:
 from proxy failed - read (11: Resource temporarily unavailable) [IP:
 127.0.0.1 8082][/url]</span></span></span></span>
 <p>In <code>sys-whonix</code>:</p>
-<p><span class="code-select">sudo systemctl stop
-qubes-updates-proxy.service</span></p>
+<p><span class="code-select" data-code="sudo systemctl stop qubes-updates-proxy.service">sudo
+systemctl stop qubes-updates-proxy.service</span></p>
 <p>In Template:</p>
-<p><span class="code-select">sudo apt update</span></p>
+<p><span class="code-select" data-code="sudo apt update">sudo apt
+update</span></p>
 <p>Expected output:</p>
 <pre><code>Reading from proxy failed - read (11: Resource temporarily unavailable) [IP: 127.0.0.1 8082]</code></pre>
 <h2 id="Qubes_UpdatesProxy_running_test">Qubes UpdatesProxy running
 test</h2><span class="share-tooltip" data-anchor="Qubes_UpdatesProxy_running_test"><a class="headline-anchor" href="#Qubes_UpdatesProxy_running_test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_running_test">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_running_test</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FUpdatesProxy%2F%23Qubes_UpdatesProxy_running_test&amp;text=Qubes%20UpdatesProxy%20running%0Atest" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FUpdatesProxy%2F%23Qubes_UpdatesProxy_running_test&amp;text=Qubes%20UpdatesProxy%20running%0Atest" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FUpdatesProxy%2F%23Qubes_UpdatesProxy_running_test&amp;title=Qubes%20UpdatesProxy%20running%0Atest" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Qubes%20UpdatesProxy%20running%0Atest&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FUpdatesProxy%2F%23Qubes_UpdatesProxy_running_test" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_running_test]Qubes UpdatesProxy running
 test[/url]">[url=https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_running_test]Qubes UpdatesProxy running
 test[/url]</span></span></span></span>
-<p><span class="code-select">sudo systemctl --no-pager --full -l status
+<p><span class="code-select" data-code="sudo systemctl --no-pager --full -l status qubes-updates-proxy-forwarder.socket">sudo
+systemctl --no-pager --full -l status
 qubes-updates-proxy-forwarder.socket</span></p>
 <h2 id="Qubes_UpdatesProxy_reachability_test">Qubes UpdatesProxy
 reachability test</h2><span class="share-tooltip" data-anchor="Qubes_UpdatesProxy_reachability_test"><a class="headline-anchor" href="#Qubes_UpdatesProxy_reachability_test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_reachability_test">https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_reachability_test</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FUpdatesProxy%2F%23Qubes_UpdatesProxy_reachability_test&amp;text=Qubes%20UpdatesProxy%0Areachability%20test" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FUpdatesProxy%2F%23Qubes_UpdatesProxy_reachability_test&amp;text=Qubes%20UpdatesProxy%0Areachability%20test" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FUpdatesProxy%2F%23Qubes_UpdatesProxy_reachability_test&amp;title=Qubes%20UpdatesProxy%0Areachability%20test" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Qubes%20UpdatesProxy%0Areachability%20test&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FQubes%2FUpdatesProxy%2F%23Qubes_UpdatesProxy_reachability_test" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qubes_UpdatesProxy_reachability_test]Qubes UpdatesProxy
@@ -407,7 +416,8 @@ reachability test[/url]">[url=https://www.whonix.org/wiki/Qubes/UpdatesProxy/#Qu
 reachability test[/url]</span></span></span></span>
 <p>In Template, use <code>curl</code> to check if Qubes UpdatesProxy is
 running on IP <code>127.0.0.1</code>, port <code>8082</code>.</p>
-<p><span class="code-select">curl 127.0.0.1:8082</span></p>
+<p><span class="code-select" data-code="curl 127.0.0.1:8082">curl
+127.0.0.1:8082</span></p>
 <p>Expected output:</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot; &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
@@ -446,9 +456,11 @@ Isolation[/url]</span></span></span></span>
 <div class="references">
 <ol>
 <li id="cite_note-1">Or manually set the torified UpdateVM in <code>dom0</code> terminal.
-<span class="code-select">qubes-prefs updatevm sys-whonix</span></li>
+<span class="code-select" data-code="qubes-prefs updatevm sys-whonix">qubes-prefs
+updatevm sys-whonix</span></li>
 <li id="cite_note-2">To revert this change in <code>dom0</code> terminal, run.
-<span class="code-select">qubes-prefs updatevm sys-firewall</span></li>
+<span class="code-select" data-code="qubes-prefs updatevm sys-firewall">qubes-prefs
+updatevm sys-firewall</span></li>
 <li id="cite_note-3"><a href="../../Dev/Qubes/#salt">Dev/Qubes#salt</a></li>
 </ol>
 </div>

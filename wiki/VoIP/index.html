@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Voice over IP (VoIP)</title>
 <meta name="description" content="Anonymous Voice over IP (VoIP). Encrypted, anonymous phone calls using the Tor Anonymity Network.">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Sound-856771640.png">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -360,7 +360,7 @@ unrestricted admin mode, take the following step.</p>
 <code>Tor User Config</code></p></div></div></p>
 <p><div class="tcc-section  "><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h5 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h5></div><div class="tcc-content"><u>If you are using Whonix-Gateway with <u>c</u>ommand <u>l</u>ine
 <u>i</u>nterface (CLI)</u>, take the following step.
-<span class="code-select">sudoedit
+<span class="code-select" data-code="sudoedit /usr/local/etc/torrc.d/50_user.conf">sudoedit
 /usr/local/etc/torrc.d/50_user.conf</span></div></div></p></div></div></p></div></div></p>
 <p><div class="tcc-section  "><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix"><a href="../Qubes/">Qubes-Whonix</a></h4></div><div class="tcc-content"><div class="intro-like">
 <p>Requires booting into <a href="../Sysmaint/">sysmaint</a> session or
@@ -375,7 +375,7 @@ desktop</u>, take the following step.</p>
 -&gt; <code>Tor User Config</code></p></div></div></p>
 <p><div class="tcc-section  "><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h5 id="Terminal_Qubes-Whonix">Terminal Qubes-Whonix</h5></div><div class="tcc-content"><p><u>If you are using <a href="../Qubes/">Qubes-Whonix<sup>&#8482;</sup></a> with a terminal</u>, open
 a terminal in <code>sys-whonix</code> and run the following command.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/torrc.d/50_user.conf">sudoedit
 /usr/local/etc/torrc.d/50_user.conf</span></p></div></div></p></div></div></p></div></div></p></div></div></p>
 </div>
 <p>Add.</p>
@@ -386,16 +386,19 @@ needs to be replaced with the actual IP address. To find out the IP
 address of the Qubes-Whonix<sup>&#8482;</sup> Whonix-Workstation<sup>&#8482;</sup>
 AppVM, the following command can be run within the
 Qubes-Whonix<sup>&#8482;</sup> Whonix-Workstation<sup>&#8482;</sup> AppVM.</p>
-<p><span class="code-select">qubesdb-read /qubes-ip</span></p>
+<p><span class="code-select" data-code="qubesdb-read /qubes-ip">qubesdb-read
+/qubes-ip</span></p>
 <p>Do not use IP <code>10.152.152.11</code> because that only works with
 <a href="../Non-Qubes-Whonix/">Non-Qubes-Whonix</a> but not
 with <a href="../Qubes/">Qubes-Whonix</a>. The IP
 <code>10.152.152.11</code> in line starting with
 <code>HiddenServicePort</code> needs to be replaced.</p>
 </div>
-<p><span class="code-select">HiddenServiceDir
-/var/lib/tor/mumble_service/ HiddenServicePort 64738 10.152.152.11:64738
-HiddenServiceVersion 3</span></p>
+<p><span class="code-select" data-code="HiddenServiceDir /var/lib/tor/mumble_service/
+HiddenServicePort 64738 10.152.152.11:64738
+HiddenServiceVersion 3">HiddenServiceDir /var/lib/tor/mumble_service/
+HiddenServicePort 64738 10.152.152.11:64738 HiddenServiceVersion
+3</span></p>
 <p>Save.</p>
 <p><strong>2.</strong> Reload Tor.</p>
 <p>Reload Tor.</p>
@@ -423,25 +426,25 @@ for instructions.</p>
 <div id="mw-customcollapsible-myDivision" class="mw-collapsible mw-collapsed">
 <p>Complete the following steps.</p>
 <p>Reload Tor.</p>
-<p><span class="code-select">sudo systemctl reload
-tor@default.service</span></p>
+<p><span class="code-select" data-code="sudo systemctl reload tor@default.service">sudo
+systemctl reload tor@default.service</span></p>
 <p>Check Tor's daemon status.</p>
-<p><span class="code-select">sudo systemctl status
-tor@default.service</span></p>
+<p><span class="code-select" data-code="sudo systemctl status tor@default.service">sudo
+systemctl status tor@default.service</span></p>
 <p>It should include a a message saying.</p>
 <pre><code>Active: active (running) since ...</code></pre>
 <p>In case of issues, try the following debugging steps.</p>
 <p>Check Tor's config.</p>
-<p><span class="code-select">sudo -u debian-tor tor
---verify-config</span></p>
+<p><span class="code-select" data-code="sudo -u debian-tor tor --verify-config">sudo
+-u debian-tor tor --verify-config</span></p>
 <p>The output should be similar to the following.</p>
 <pre><code>Sep 17 17:40:41.416 [notice] Read configuration file &quot;/usr/local/etc/torrc.d/50_user.conf&quot;.
 Configuration was valid</code></pre>
 </div>
 </div>
 <p><strong>3.</strong> Retrieve the Tor onion service url.</p>
-<p><span class="code-select">sudo cat
-/var/lib/tor/mumble_service/hostname</span></p>
+<p><span class="code-select" data-code="sudo cat /var/lib/tor/mumble_service/hostname">sudo
+cat /var/lib/tor/mumble_service/hostname</span></p>
 <p>Reminder: Always backup the onion service key. This is necessary in
 order to restore it on another machine, on a newer
 Whonix-Gateway<sup>&#8482;</sup>, after HDD/SSD failure, etc. Follow the
@@ -457,15 +460,15 @@ from the
 the <em><span>vault</span></em> VM
 (which should be started beforehand) using <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/">qvm-copy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/how-to-copy-and-move-files/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
 A dialog will appear asking for the destination VM.</p>
-<p><span class="code-select">sudo qvm-copy
-/var/lib/tor/mumble_service/hs_ed25519_secret_key</span></p>
+<p><span class="code-select" data-code="sudo qvm-copy /var/lib/tor/mumble_service/hs_ed25519_secret_key">sudo
+qvm-copy /var/lib/tor/mumble_service/hs_ed25519_secret_key</span></p>
 <p>When the dialog appears asking to confirm, select
 <em><span>vault</span></em>. This
 copies the Tor onion service private key file to the
 <em><span>QubesIncoming</span></em>
 folder of the
 <em><span>vault</span></em> VM.</p>
-<p><span class="code-select">/home/user/QubesIncoming/sys-whonix/hs_ed25519_secret_key</span></p>
+<p><span class="code-select" data-code="/home/user/QubesIncoming/sys-whonix/hs_ed25519_secret_key">/home/user/QubesIncoming/sys-whonix/hs_ed25519_secret_key</span></p>
 <p>Consider moving the file from the
 <em><span>QubesIncoming</span></em>
 folder to another preferred location.</p>
@@ -511,7 +514,7 @@ run <code>/usr/libexec/whonix-firewall/firewall50user</code></div></div></p>
 <code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
 with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf">sudoedit
 /usr/local/etc/whonix_firewall.d/50_user.conf</span></p></div></div></p></div></div></p>
 <div class="toccolours mw-collapsible mw-collapsed">
 <p>For more help, press on Learn More on the right.</p>
@@ -547,14 +550,16 @@ steps.</p>
 <p><u>If using a terminal Whonix-Workstation</u>, complete these
 steps.</p>
 <p>In Whonix-Workstation, view the global firewall configuration file in
-an editor. <span class="code-select">nano
+an editor.
+<span class="code-select" data-code="nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf">nano
 /etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
 </div>
 </div>
 </div>
 </div>
 <p>Add.</p>
-<p><span class="code-select">EXTERNAL_OPEN_PORTS+=" 64738 "</span></p>
+<p><span class="code-select" data-code="EXTERNAL_OPEN_PORTS+=&quot; 64738 &quot;">EXTERNAL_OPEN_PORTS+="
+64738 "</span></p>
 <p>Save.</p>
 <p><strong>5.</strong> Reload the firewall.</p>
 <p><strong>Reload Whonix-Workstation Firewall.</strong></p>
@@ -569,25 +574,28 @@ Whonix-Workstation USER Session</h4></div><div class="tcc-content"><code>Start M
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Logo_box.png.webp" width="25" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_2">Graphical
 Whonix-Workstation SYSMAINT Session</h4></div><div class="tcc-content"><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
 run <code>sudo whonix_firewall</code></div></div></p>
-<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_2">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select">sudo whonix_firewall</span></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Utilities-terminal.png.webp" width="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_2">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-icon.png.webp" width="25" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix-Workstation_2"><a href="../Qubes/">Qubes-Whonix-Workstation</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
 <code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
 <code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></div></div></p></div></div></p>
 <p><strong>6.</strong> Update the package lists and install necessary
 software.</p>
-<p><span class="code-select">sudo apt update</span></p>
+<p><span class="code-select" data-code="sudo apt update">sudo apt
+update</span></p>
 <p>Install the
 <em><span>mumble-server</span></em>
 package.</p>
-<p><span class="code-select">sudo apt install mumble-server</span></p>
+<p><span class="code-select" data-code="sudo apt install mumble-server">sudo
+apt install mumble-server</span></p>
 <p><strong>7.</strong> Configure the server.</p>
-<p><span class="code-select">sudo dpkg-reconfigure
-mumble-server</span></p>
+<p><span class="code-select" data-code="sudo dpkg-reconfigure mumble-server">sudo
+dpkg-reconfigure mumble-server</span></p>
 <p>Follow the recommendations below:</p>
 <ul>
 <li>Autostart is suggested, unless you want to run
-<span class="code-select">sudo service mumble-server start</span> (which
-failed in the past).</li>
+<span class="code-select" data-code="sudo service mumble-server start">sudo
+service mumble-server start</span> (which failed in the past).</li>
 <li>Higher priority? Select 'Yes'.</li>
 <li>Password: choose a secure password.</li>
 </ul>
@@ -614,7 +622,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/mumble-server.ini</span></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/mumble-server.ini">sudoedit
+/etc/mumble-server.ini</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
@@ -629,7 +638,8 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/mumble-server.ini</span></p>
+<p><span class="code-select" data-code="sudoedit /etc/mumble-server.ini">sudoedit
+/etc/mumble-server.ini</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
 <ul>
@@ -655,26 +665,29 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/mumble-server.ini</span></p></div></div></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/mumble-server.ini">sudoedit
+/etc/mumble-server.ini</span></p></div></div></p></div></div></p>
 </div>
 <p>Search for "<em>serverpassword=</em>" and file in.</p>
 <pre><code>serverpassword=use_a_long_and_secure_server_password</code></pre>
 <p><strong>9.</strong> Restart mumble-server.</p>
-<p><span class="code-select">sudo service mumble-server
-restart</span></p>
+<p><span class="code-select" data-code="sudo service mumble-server restart">sudo
+service mumble-server restart</span></p>
 </div>
 <h2 id="Mumble_Client">Mumble Client</h2><span class="share-tooltip" data-anchor="Mumble_Client"><a class="headline-anchor" href="#Mumble_Client" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#Mumble_Client">https://www.whonix.org/wiki/VoIP/#Mumble_Client</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Mumble_Client&amp;text=Mumble%20Client" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Mumble_Client&amp;text=Mumble%20Client" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Mumble_Client&amp;title=Mumble%20Client" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Mumble%20Client&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Mumble_Client" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#Mumble_Client]Mumble Client[/url]">[url=https://www.whonix.org/wiki/VoIP/#Mumble_Client]Mumble Client[/url]</span></span></span></span>
 <h3 id="Installation">Installation</h3><span class="share-tooltip" data-anchor="Installation"><a class="headline-anchor" href="#Installation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#Installation">https://www.whonix.org/wiki/VoIP/#Installation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Installation&amp;text=Installation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Installation&amp;text=Installation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Installation&amp;title=Installation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Installation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Installation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#Installation]Installation[/url]">[url=https://www.whonix.org/wiki/VoIP/#Installation]Installation[/url]</span></span></span></span>
 <p>Update the package lists.</p>
-<p><span class="code-select">sudo apt update</span></p>
+<p><span class="code-select" data-code="sudo apt update">sudo apt
+update</span></p>
 <p>Install mumble.</p>
-<p><span class="code-select">sudo apt install mumble</span></p>
+<p><span class="code-select" data-code="sudo apt install mumble">sudo
+apt install mumble</span></p>
 <h3 id="Start">Start</h3><span class="share-tooltip" data-anchor="Start"><a class="headline-anchor" href="#Start" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#Start">https://www.whonix.org/wiki/VoIP/#Start</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Start&amp;text=Start" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Start&amp;text=Start" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Start&amp;title=Start" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Start&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Start" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#Start]Start[/url]">[url=https://www.whonix.org/wiki/VoIP/#Start]Start[/url]</span></span></span></span>
 <p>Launch Mumble.</p>
 <p><code>Start menu</code> &#8594; <code>Applications</code> &#8594;
 <code>Internet</code> &#8594; <code>Voice Chat</code></p>
 <p>Or in a terminal, run.</p>
-<p><span class="code-select">mumble</span></p>
+<p><span class="code-select" data-code="mumble">mumble</span></p>
 <p><strong>Figure:</strong> <em>Mumble Client in Whonix</em></p>
 <p><img src="../../media/Mumbleclient.png.webp" alt="Mumbleclient.png" /></p>
 <h3 id="Configure">Configure</h3><span class="share-tooltip" data-anchor="Configure"><a class="headline-anchor" href="#Configure" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#Configure">https://www.whonix.org/wiki/VoIP/#Configure</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Configure&amp;text=Configure" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Configure&amp;text=Configure" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Configure&amp;title=Configure" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Configure&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Configure" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#Configure]Configure[/url]">[url=https://www.whonix.org/wiki/VoIP/#Configure]Configure[/url]</span></span></span></span>
@@ -771,8 +784,37 @@ cryptography).</p>
 openvpn.conf Configuration File</h2><span class="share-tooltip" data-anchor="OpenVPN_Server_openvpn.conf_Configuration_File"><a class="headline-anchor" href="#OpenVPN_Server_openvpn.conf_Configuration_File" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#OpenVPN_Server_openvpn.conf_Configuration_File">https://www.whonix.org/wiki/VoIP/#OpenVPN_Server_openvpn.conf_Configuration_File</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23OpenVPN_Server_openvpn.conf_Configuration_File&amp;text=OpenVPN%20Server%0Aopenvpn.conf%20Configuration%20File" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23OpenVPN_Server_openvpn.conf_Configuration_File&amp;text=OpenVPN%20Server%0Aopenvpn.conf%20Configuration%20File" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23OpenVPN_Server_openvpn.conf_Configuration_File&amp;title=OpenVPN%20Server%0Aopenvpn.conf%20Configuration%20File" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=OpenVPN%20Server%0Aopenvpn.conf%20Configuration%20File&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23OpenVPN_Server_openvpn.conf_Configuration_File" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#OpenVPN_Server_openvpn.conf_Configuration_File]OpenVPN Server
 openvpn.conf Configuration File[/url]">[url=https://www.whonix.org/wiki/VoIP/#OpenVPN_Server_openvpn.conf_Configuration_File]OpenVPN Server
 openvpn.conf Configuration File[/url]</span></span></span></span>
-<p><span class="code-select">mode server tls-server dev tun proto
-tcp-server port 1194</p>
+<p><span class="code-select" data-code="mode server
+tls-server
+dev tun
+proto tcp-server
+port 1194
+
+server 10.8.0.0 255.255.0.0
+
+ca /vpn/ca.crt
+cert /vpn/server.crt
+key /vpn/server.key
+dh /vpn/dh2048.pem
+tls-crypt /vpn/ta.key
+
+cipher AES-256-CBC
+auth SHA3-512
+
+log /var/log/openvpn.log
+status /var/log/openvpn-status.log
+
+user nobody
+group nobody
+persist-key
+persist-tun
+chroot /usr/local/etc/openvpn/jail
+auth-nocache
+
+# If you want to allow clients to communicate between themselves e.g. start own services like UnrealIRCd Servers.
+client-to-client
+client-config-dir /ccd">mode server tls-server dev tun proto tcp-server
+port 1194</p>
 <p>server 10.8.0.0 255.255.0.0</p>
 <p>ca /vpn/ca.crt cert /vpn/server.crt key /vpn/server.key dh
 /vpn/dh2048.pem tls-crypt /vpn/ta.key</p>
@@ -789,7 +831,39 @@ start own services like UnrealIRCd Servers.</li>
 client.conf Configuration File</h2><span class="share-tooltip" data-anchor="OpenVPN_Clients_client.conf_Configuration_File"><a class="headline-anchor" href="#OpenVPN_Clients_client.conf_Configuration_File" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#OpenVPN_Clients_client.conf_Configuration_File">https://www.whonix.org/wiki/VoIP/#OpenVPN_Clients_client.conf_Configuration_File</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23OpenVPN_Clients_client.conf_Configuration_File&amp;text=OpenVPN%20Clients%0Aclient.conf%20Configuration%20File" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23OpenVPN_Clients_client.conf_Configuration_File&amp;text=OpenVPN%20Clients%0Aclient.conf%20Configuration%20File" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23OpenVPN_Clients_client.conf_Configuration_File&amp;title=OpenVPN%20Clients%0Aclient.conf%20Configuration%20File" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=OpenVPN%20Clients%0Aclient.conf%20Configuration%20File&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23OpenVPN_Clients_client.conf_Configuration_File" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#OpenVPN_Clients_client.conf_Configuration_File]OpenVPN Clients
 client.conf Configuration File[/url]">[url=https://www.whonix.org/wiki/VoIP/#OpenVPN_Clients_client.conf_Configuration_File]OpenVPN Clients
 client.conf Configuration File[/url]</span></span></span></span>
-<p><span class="code-select">client remote-cert-tls server dev tun</p>
+<p><span class="code-select" data-code="client
+remote-cert-tls server
+dev tun
+
+&lt;connection&gt;
+remote youroniondomain.onion 1194 tcp-client
+socks-proxy 127.0.0.1 9050
+&lt;/connection&gt;
+
+cipher AES-256-CBC
+auth SHA3-512
+
+user nobody
+group nogroup
+persist-key
+persist-tun
+chroot /etc/openvpn/jail
+auth-nocache
+
+log /var/log/openvpn/openvpn.log
+status /var/log/openvpn/openvpn-status.log
+
+&lt;ca&gt;
+&lt;/ca&gt;
+
+&lt;cert&gt;
+&lt;/cert&gt;
+
+&lt;key&gt;
+&lt;/key&gt;
+
+&lt;tls-crypt&gt;
+&lt;/tls-crypt&gt;">client remote-cert-tls server dev tun</p>
 <p>&lt;connection&gt; remote youroniondomain.onion 1194 tcp-client
 socks-proxy 127.0.0.1 9050 &lt;/connection&gt;</p>
 <p>cipher AES-256-CBC auth SHA3-512</p>
@@ -805,21 +879,48 @@ socks-proxy 127.0.0.1 9050 &lt;/connection&gt;</p>
 torrc Configuration File</h2><span class="share-tooltip" data-anchor="Tor_Hidden_Service_torrc_Configuration_File"><a class="headline-anchor" href="#Tor_Hidden_Service_torrc_Configuration_File" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#Tor_Hidden_Service_torrc_Configuration_File">https://www.whonix.org/wiki/VoIP/#Tor_Hidden_Service_torrc_Configuration_File</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Tor_Hidden_Service_torrc_Configuration_File&amp;text=Tor%20Hidden%20Service%0Atorrc%20Configuration%20File" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Tor_Hidden_Service_torrc_Configuration_File&amp;text=Tor%20Hidden%20Service%0Atorrc%20Configuration%20File" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Tor_Hidden_Service_torrc_Configuration_File&amp;title=Tor%20Hidden%20Service%0Atorrc%20Configuration%20File" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Tor%20Hidden%20Service%0Atorrc%20Configuration%20File&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Tor_Hidden_Service_torrc_Configuration_File" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#Tor_Hidden_Service_torrc_Configuration_File]Tor Hidden Service
 torrc Configuration File[/url]">[url=https://www.whonix.org/wiki/VoIP/#Tor_Hidden_Service_torrc_Configuration_File]Tor Hidden Service
 torrc Configuration File[/url]</span></span></span></span>
-<p><span class="code-select">HiddenServiceDir
+<p><span class="code-select" data-code="HiddenServiceDir /usr/local/torhs/hiddenservice/
+HiddenServicePort 1194 127.0.0.1:1194">HiddenServiceDir
 /usr/local/torhs/hiddenservice/ HiddenServicePort 1194
 127.0.0.1:1194</span></p>
 <h2 id="Tor_clients_torrc_Configuration_File">Tor clients torrc
 Configuration File</h2><span class="share-tooltip" data-anchor="Tor_clients_torrc_Configuration_File"><a class="headline-anchor" href="#Tor_clients_torrc_Configuration_File" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#Tor_clients_torrc_Configuration_File">https://www.whonix.org/wiki/VoIP/#Tor_clients_torrc_Configuration_File</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Tor_clients_torrc_Configuration_File&amp;text=Tor%20clients%20torrc%0AConfiguration%20File" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Tor_clients_torrc_Configuration_File&amp;text=Tor%20clients%20torrc%0AConfiguration%20File" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Tor_clients_torrc_Configuration_File&amp;title=Tor%20clients%20torrc%0AConfiguration%20File" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Tor%20clients%20torrc%0AConfiguration%20File&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Tor_clients_torrc_Configuration_File" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#Tor_clients_torrc_Configuration_File]Tor clients torrc
 Configuration File[/url]">[url=https://www.whonix.org/wiki/VoIP/#Tor_clients_torrc_Configuration_File]Tor clients torrc
 Configuration File[/url]</span></span></span></span>
-<p><span class="code-select">SOCKSPort 9050</span></p>
+<p><span class="code-select" data-code="SOCKSPort 9050">SOCKSPort
+9050</span></p>
 <h2 id="Asterisk_sip.conf_Configuration_File">Asterisk sip.conf
 Configuration File</h2><span class="share-tooltip" data-anchor="Asterisk_sip.conf_Configuration_File"><a class="headline-anchor" href="#Asterisk_sip.conf_Configuration_File" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#Asterisk_sip.conf_Configuration_File">https://www.whonix.org/wiki/VoIP/#Asterisk_sip.conf_Configuration_File</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Asterisk_sip.conf_Configuration_File&amp;text=Asterisk%20sip.conf%0AConfiguration%20File" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Asterisk_sip.conf_Configuration_File&amp;text=Asterisk%20sip.conf%0AConfiguration%20File" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Asterisk_sip.conf_Configuration_File&amp;title=Asterisk%20sip.conf%0AConfiguration%20File" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Asterisk%20sip.conf%0AConfiguration%20File&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Asterisk_sip.conf_Configuration_File" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#Asterisk_sip.conf_Configuration_File]Asterisk sip.conf
 Configuration File[/url]">[url=https://www.whonix.org/wiki/VoIP/#Asterisk_sip.conf_Configuration_File]Asterisk sip.conf
 Configuration File[/url]</span></span></span></span>
-<p><span class="code-select">[general] transport=udp port=5060
-bindaddr=10.8.0.1 disallow=all allow=ulaw allow=alaw allow=gsm
-directmedia=no nat=yes localnet=10.8.0.0/255.255.255.0</p>
+<p><span class="code-select" data-code="[general]
+transport=udp
+port=5060
+bindaddr=10.8.0.1
+disallow=all
+allow=ulaw
+allow=alaw
+allow=gsm
+directmedia=no
+nat=yes
+localnet=10.8.0.0/255.255.255.0
+
+[friends_internal](!)
+type=friend
+host=dynamic
+context=from-internal
+disallow=all
+allow=ulaw
+allow=alaw
+allow=gsm
+
+[demo-alice](friends_internal)
+secret=password
+
+[demo-bob](friends_internal)
+secret=password">[general] transport=udp port=5060 bindaddr=10.8.0.1
+disallow=all allow=ulaw allow=alaw allow=gsm directmedia=no nat=yes
+localnet=10.8.0.0/255.255.255.0</p>
 <p>[friends_internal](!) type=friend host=dynamic context=from-internal
 disallow=all allow=ulaw allow=alaw allow=gsm</p>
 <p>[demo-alice](friends_internal) secret=password</p>
@@ -828,7 +929,9 @@ disallow=all allow=ulaw allow=alaw allow=gsm</p>
 extensions.conf Configuration File</h2><span class="share-tooltip" data-anchor="Asterisk_extensions.conf_Configuration_File"><a class="headline-anchor" href="#Asterisk_extensions.conf_Configuration_File" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#Asterisk_extensions.conf_Configuration_File">https://www.whonix.org/wiki/VoIP/#Asterisk_extensions.conf_Configuration_File</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Asterisk_extensions.conf_Configuration_File&amp;text=Asterisk%0Aextensions.conf%20Configuration%20File" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Asterisk_extensions.conf_Configuration_File&amp;text=Asterisk%0Aextensions.conf%20Configuration%20File" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Asterisk_extensions.conf_Configuration_File&amp;title=Asterisk%0Aextensions.conf%20Configuration%20File" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Asterisk%0Aextensions.conf%20Configuration%20File&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Asterisk_extensions.conf_Configuration_File" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#Asterisk_extensions.conf_Configuration_File]Asterisk
 extensions.conf Configuration File[/url]">[url=https://www.whonix.org/wiki/VoIP/#Asterisk_extensions.conf_Configuration_File]Asterisk
 extensions.conf Configuration File[/url]</span></span></span></span>
-<p><span class="code-select">[from-internal]
+<p><span class="code-select" data-code="[from-internal]
+exten=&gt;6001,1,Dial(SIP/demo-alice,20)
+exten=&gt;6002,1,Dial(SIP/demo-bob,20)">[from-internal]
 exten=&gt;6001,1,Dial(SIP/demo-alice,20)
 exten=&gt;6002,1,Dial(SIP/demo-bob,20)</span></p>
 <h2 id="Quantum_Resistant_OpenVPN">Quantum Resistant OpenVPN</h2><span class="share-tooltip" data-anchor="Quantum_Resistant_OpenVPN"><a class="headline-anchor" href="#Quantum_Resistant_OpenVPN" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/VoIP/#Quantum_Resistant_OpenVPN">https://www.whonix.org/wiki/VoIP/#Quantum_Resistant_OpenVPN</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Quantum_Resistant_OpenVPN&amp;text=Quantum%20Resistant%20OpenVPN" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Quantum_Resistant_OpenVPN&amp;text=Quantum%20Resistant%20OpenVPN" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Quantum_Resistant_OpenVPN&amp;title=Quantum%20Resistant%20OpenVPN" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Quantum%20Resistant%20OpenVPN&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FVoIP%2F%23Quantum_Resistant_OpenVPN" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/VoIP/#Quantum_Resistant_OpenVPN]Quantum Resistant OpenVPN[/url]">[url=https://www.whonix.org/wiki/VoIP/#Quantum_Resistant_OpenVPN]Quantum Resistant OpenVPN[/url]</span></span></span></span>

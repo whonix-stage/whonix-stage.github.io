@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Whonix Windows Installer - Design Documentation</title>
 <meta name="description" content="The Whonix Windows Installer was designed as a simple and fast way to set-up Whonix on a system running Microsoft Windows.">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="Whonix Windows Installer - Design Documentation">
 <link rel="stylesheet" href="../../../style.css">
 <link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -282,8 +282,8 @@ Signing Process[/url]</span></span></span></span>
 Authenticode signatures ("<code>signtool</code>").</p>
 <p>VirtualBox's digital signature can be verified on the Linux platform
 using <code>osslsigncode</code>. Example:</p>
-<p><span class="code-select">osslsigncode verify -in
-VirtualBox-*.exe</span></p>
+<p><span class="code-select" data-code="osslsigncode verify -in VirtualBox-*.exe">osslsigncode
+verify -in VirtualBox-*.exe</span></p>
 <p>A script <a href="https://gitlab.com/kicksecure/virtualbox-windows-installer-binary/-/blob/master/verify"><code>verify</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.com/kicksecure/virtualbox-windows-installer-binary/-/blob/master/verify" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 has been added to the <code>virtualbox-windows-installer-binary</code>
 repository as a reminder and example how to verify the digital software
@@ -321,13 +321,14 @@ in various stages and through different methods. The key stages are as
 follows:</p>
 <p>1. Extract the signature from the signed file using
 <code>osslsigncode</code>:</p>
-<p><span class="code-select">osslsigncode extract-signature -in
-hello_signed.exe -out hello_signature.pem</span></p>
+<p><span class="code-select" data-code="osslsigncode extract-signature -in hello_signed.exe -out hello_signature.pem">osslsigncode
+extract-signature -in hello_signed.exe -out
+hello_signature.pem</span></p>
 <p>2. The original file (<code>hello.exe</code>) is then re-signed using
 this extracted signature to create a new file
 (<code>hello_with_signature.exe</code>):</p>
-<p><span class="code-select">osslsigncode attach-signature -sigin
-hello_signature.pem -in hello.exe -out
+<p><span class="code-select" data-code="osslsigncode attach-signature -sigin hello_signature.pem -in hello.exe -out hello_with_signature.exe">osslsigncode
+attach-signature -sigin hello_signature.pem -in hello.exe -out
 hello_with_signature.exe</span></p>
 <p>At this point, one would expect <code>hello_signed.exe</code> to be
 identical to <code>hello_with_signature.exe</code>. However, it was
@@ -344,15 +345,15 @@ brought to light the change in the PE checksum.</p>
 mirroring its original state in <code>hello.exe</code> and
 <code>hello_signed.exe</code>. This was achieved using a Python script
 named <code>pe-header-to-zero</code>:</p>
-<p><span class="code-select">pe-header-to-zero hello_with_signature.exe
-hello_with_signature_reset_PE.exe</span></p>
+<p><span class="code-select" data-code="pe-header-to-zero hello_with_signature.exe hello_with_signature_reset_PE.exe">pe-header-to-zero
+hello_with_signature.exe hello_with_signature_reset_PE.exe</span></p>
 <p>After running this script, the newly created file
 <code>hello_with_signature_reset_PE.exe</code> was found to be an exact
 match to <code>hello_signed.exe</code>.</p>
 <p>4. The script <code>pe-header-to-zero</code> was also used on
 <code>hello_without_signature.exe</code> to create
 <code>hello_without_signature_reset_PE.exe</code>:</p>
-<p><span class="code-select">pe-header-to-zero
+<p><span class="code-select" data-code="pe-header-to-zero hello_without_signature.exe hello_without_signature_reset_PE.exe">pe-header-to-zero
 hello_without_signature.exe
 hello_without_signature_reset_PE.exe</span></p>
 <p>It was found that <code>hello_without_signature_reset_PE.exe</code>
@@ -365,13 +366,15 @@ modifications to the original executable file.</p>
 tool.</p>
 <p>To install and examine PE headers, the <code>pev</code> tool was
 used:</p>
-<p><span class="code-select">sudo apt install pev</span></p>
+<p><span class="code-select" data-code="sudo apt install pev">sudo apt
+install pev</span></p>
 <p>To view the PE checksum, the <code>readpe</code> utility was
 used:</p>
-<p><span class="code-select">readpe hello_signed.exe</span></p>
-<p><span class="code-select">readpe
+<p><span class="code-select" data-code="readpe hello_signed.exe">readpe
+hello_signed.exe</span></p>
+<p><span class="code-select" data-code="readpe hello_with_signature_reset_PE.exe">readpe
 hello_with_signature_reset_PE.exe</span></p>
-<p><span class="code-select">readpe
+<p><span class="code-select" data-code="readpe hello_without_signature_reset_PE.exe">readpe
 hello_without_signature_reset_PE.exe</span></p>
 <h1 id="Archived_Tasks">Archived Tasks</h1>
 <h2 id="do_not_delete_WhonixStarter.msi_after_installation">do not

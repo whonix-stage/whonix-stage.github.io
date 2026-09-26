@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Whonix VM Build Documentation</title>
 <meta name="description" content="Instructions to build Whonix Virtual Machine Images from Source Code.">
@@ -13,14 +13,14 @@
 <meta property="og:title" content="Whonix VM Build Documentation">
 <link rel="stylesheet" href="../../../../style.css">
 <link rel="stylesheet" href="../../../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
 <header class="site-header"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../../../Trademark_Policy/" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../../../Download/">Download</a><ul class="nav-submenu"><li><a href="../../../VirtualBox/">Windows</a></li><li><a href="../../../Linux/">Linux</a></li><li><a href="../../../MacOS/">Mac</a></li><li><a href="../../../VirtualBox/">VirtualBox</a></li><li><a href="../../../KVM/">KVM</a></li><li><a href="../../../Qubes/">Qubes</a></li><li><a href="../../../Intel_AMD64/">Intel / AMD64</a></li><li><a href="../../../ARM64/">ARM64</a></li><li><a href="../../../USB_Installation/">USB</a></li><li><a href="../../../Whonix-Host/">ISO</a></li><li><a href="../../../Download/">More options</a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer">Source Code</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../../About/">About</a><ul class="nav-submenu"><li><a href="../../../About/">Overview</a></li><li><a href="../../../Features/">Features</a></li><li><a href="../../../Whonix_versus_VPNs/">Whonix vs VPNs</a></li><li><a href="../../../Reasons_for_Freedom_Software/">Why Open Source?</a></li><li><a href="../../../What_we_do/">Project Activities</a></li><li><a href="../../../Contributors/">Contributors</a></li><li><a href="../../../Anonymity/">Mission &amp; Vision</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../../Documentation/">Docs</a><ul class="nav-submenu"><li><a href="../../../Documentation/">Documentation</a></li><li><a href="../../../FAQ/">FAQ</a></li><li><a href="../../../Troubleshooting/">Troubleshooting</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../../Contribute/">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer">Forums</a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/">Forum Best Practices</a></li><li><a href="../../../Contribute/">Contribute</a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../../Support/">Support</a><ul class="nav-submenu"><li><a href="../../../Self_Support_First_Policy/">Self Support First Policy</a></li><li><a href="../../../Support/">Support (Limited)</a></li><li><a href="../../../Plus_Support/">Plus</a></li><li><a href="../../../Premium_Support/">Premium</a></li><li><a href="../../../Reporting_Bugs/">Reporting Bugs</a></li><li><a href="../../../Contact/">Contact (Restricted)</a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="search" id="search-input" aria-label="Search" placeholder="Search" autocomplete="off"><a class="search-browse" href="../../../Special:AllPages/">Browse</a></div></header>
 <div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../../Donate/"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
 <main class="wiki-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Build Documentation</span> / <span>images</span></nav><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Host_Preparation_Notices">Host Preparation Notices</a></li><li class="toc-l2"><a href="#Host_Preparation_Steps">Host Preparation Steps</a></li><li class="toc-l3"><a href="#Option_A:_passwordless_sudo">Option A: passwordless sudo</a></li><li class="toc-l3"><a href="#Option_B:_long_sudo_timeout">Option B: long sudo timeout</a></li><li class="toc-l2"><a href="#Zsh_in_Whonix_or_Derivatives">Zsh in Whonix or Derivatives</a></li><li class="toc-l2"><a href="#bash_and_other_shells">bash and other shells</a></li><li class="toc-l2"><a href="#Build_repeatedly_errors_out_with_hash_sum_mismatch">Build
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Dev</span> / <span>Build Documentation</span> / <span>images</span></nav><h1 id="firstHeading" class="first-heading">Whonix VM Build Documentation</h1><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l2"><a href="#Host_Preparation_Notices">Host Preparation Notices</a></li><li class="toc-l2"><a href="#Host_Preparation_Steps">Host Preparation Steps</a></li><li class="toc-l3"><a href="#Option_A:_passwordless_sudo">Option A: passwordless sudo</a></li><li class="toc-l3"><a href="#Option_B:_long_sudo_timeout">Option B: long sudo timeout</a></li><li class="toc-l2"><a href="#Zsh_in_Whonix_or_Derivatives">Zsh in Whonix or Derivatives</a></li><li class="toc-l2"><a href="#bash_and_other_shells">bash and other shells</a></li><li class="toc-l2"><a href="#Build_repeatedly_errors_out_with_hash_sum_mismatch">Build
 repeatedly errors out with hash sum mismatch</a></li></ul></nav><div class="robots-nocontent" data-nosnippet="">
 </div>
 <div class="pre-intro-p ">
@@ -155,7 +155,8 @@ Integration (CI) environments for anything besides testing!</li>
 environments without knowing it.</p>
 <p>You can find out if you are running inside a CI environment by
 running:</p>
-<p><span class="code-select">echo "$CI"</span></p>
+<p><span class="code-select" data-code="echo &quot;$CI&quot;">echo
+"$CI"</span></p>
 <p>If it shows nothing, i.e.</p>
 <pre><code></code></pre>
 <p>Everything is fine.</p>
@@ -173,7 +174,7 @@ expand on the right side.</li>
 </ul>
 <div class="mw-collapsible-content">
 <p>Prepend the following variable:
-<span class="code-select">dist_build_redistributable=true</span></p>
+<span class="code-select" data-code="dist_build_redistributable=true">dist_build_redistributable=true</span></p>
 <p>sets:</p>
 <ul>
 <li><code>--repo true</code></li>
@@ -195,11 +196,12 @@ unrestricted_admin_mode. See also <a href="../../../Sysmaint/">Sysmaint</a>.</p>
 <p><strong>1.</strong> <u>build dependencies:</u></p>
 <p>Install build dependencies and get the source code.</p>
 <p>Update the package lists.</p>
-<p><span class="code-select">sudo apt update</span></p>
+<p><span class="code-select" data-code="sudo apt update">sudo apt
+update</span></p>
 <p>Install build dependencies.</p>
-<p><span class="code-select">sudo apt install git time curl approx
-lsb-release fakeroot dpkg-dev fasttrack-archive-keyring
-safe-rm</span></p>
+<p><span class="code-select" data-code="sudo apt install git time curl approx lsb-release fakeroot dpkg-dev fasttrack-archive-keyring safe-rm">sudo
+apt install git time curl approx lsb-release fakeroot dpkg-dev
+fasttrack-archive-keyring safe-rm</span></p>
 <p><strong>2.</strong> <u>Platform specific notices</u>:</p>
 <ul>
 <li>VirtualBox: Install VirtualBox on the build machine as per <a href="../../../VirtualBox/Recommended_Version/">recommended
@@ -227,20 +229,21 @@ default. Therefore the following step "1." can be skipped.</li>
 to sudoers.</p>
 <div class="info-box ">
 <p>Become root.</p>
-<p><span class="code-select">su</span></p>
+<p><span class="code-select" data-code="su">su</span></p>
 <p>Add the <em><span>user</span></em>
 account to the sudoer's group. Replace
 <em><span>user</span></em> with the
 actual operating system user name.</p>
-<p><span class="code-select">adduser user sudo</span></p>
+<p><span class="code-select" data-code="adduser user sudo">adduser user
+sudo</span></p>
 <p>Reboot so group changes take effect.</p>
-<p><span class="code-select">reboot</span></p>
+<p><span class="code-select" data-code="reboot">reboot</span></p>
 </div>
 <p><strong>2.</strong> Configure account <code>user</code> to be able to
 use sudo without a password.</p>
-<p><span class="code-select">echo '%sudo ALL=(ALL:ALL) NOPASSWD:ALL' |
-sudo EDITOR=tee visudo -f /etc/sudoers.d/dist-build-sudo-passwordless
-&gt;/dev/null</span></p>
+<p><span class="code-select" data-code="echo &#x27;%sudo ALL=(ALL:ALL) NOPASSWD:ALL&#x27; | sudo EDITOR=tee visudo -f /etc/sudoers.d/dist-build-sudo-passwordless &gt;/dev/null">echo
+'%sudo ALL=(ALL:ALL) NOPASSWD:ALL' | sudo EDITOR=tee visudo -f
+/etc/sudoers.d/dist-build-sudo-passwordless &gt;/dev/null</span></p>
 <p><strong>3.</strong> Done.</p>
 <p>The process of setting up passwordless sudo has been completed.</p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"></div><div class="tcc-title"><h3 id="Option_B:_long_sudo_timeout">Option B: long sudo timeout</h3><span class="share-tooltip" data-anchor="Option_B:_long_sudo_timeout"><a class="headline-anchor" href="#Option_B:_long_sudo_timeout" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images/#Option_B:_long_sudo_timeout">https://www.whonix.org/wiki/Dev/Build_Documentation/images/#Option_B:_long_sudo_timeout</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23Option_B%3A_long_sudo_timeout&amp;text=Option%20B%3A%20long%20sudo%20timeout" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23Option_B%3A_long_sudo_timeout&amp;text=Option%20B%3A%20long%20sudo%20timeout" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23Option_B%3A_long_sudo_timeout&amp;title=Option%20B%3A%20long%20sudo%20timeout" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Option%20B%3A%20long%20sudo%20timeout&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23Option_B%3A_long_sudo_timeout" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images/#Option_B:_long_sudo_timeout]Option B: long sudo timeout[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images/#Option_B:_long_sudo_timeout]Option B: long sudo timeout[/url]</span></span></span></span></div><div class="tcc-content"><p><u>Option B:</u> Set a longer sudo password timeout.</p>
 <ul>
@@ -262,20 +265,21 @@ default. Therefore the following step "1." can be skipped.</li>
 to sudoers.</p>
 <div class="info-box ">
 <p>Become root.</p>
-<p><span class="code-select">su</span></p>
+<p><span class="code-select" data-code="su">su</span></p>
 <p>Add the <em><span>user</span></em>
 account to the sudoer's group. Replace
 <em><span>user</span></em> with the
 actual operating system user name.</p>
-<p><span class="code-select">adduser user sudo</span></p>
+<p><span class="code-select" data-code="adduser user sudo">adduser user
+sudo</span></p>
 <p>Reboot so group changes take effect.</p>
-<p><span class="code-select">reboot</span></p>
+<p><span class="code-select" data-code="reboot">reboot</span></p>
 </div>
 <p><strong>2.</strong> Configure <code>sudo</code> to use a longer
 password timeout.</p>
-<p><span class="code-select">echo 'Defaults timestamp_timeout=30' | sudo
-EDITOR=tee visudo -f /etc/sudoers.d/dist-build-sudo-timeout
-&gt;/dev/null</span></p>
+<p><span class="code-select" data-code="echo &#x27;Defaults timestamp_timeout=30&#x27; | sudo EDITOR=tee visudo -f /etc/sudoers.d/dist-build-sudo-timeout &gt;/dev/null">echo
+'Defaults timestamp_timeout=30' | sudo EDITOR=tee visudo -f
+/etc/sudoers.d/dist-build-sudo-timeout &gt;/dev/null</span></p>
 <p><strong>3.</strong> Done.</p>
 <p>The process of setting up a longer sudo timeout has been
 completed.</p></div></div></div></div></p>
@@ -343,16 +347,16 @@ Agreement</span></a>.</p>
 </div>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
 Install <code>git</code>.</p>
-<p><span class="code-select">sudo apt update &amp;&amp; sudo apt install
-git</span></p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt install git">sudo
+apt update &amp;&amp; sudo apt install git</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 Get the source code including git submodules. <sup class="reference"><a href="#cite_note-3">[3]</a></sup>
 <sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
 <p><u>Note:</u> Replace <code>18.2.1.9-developers-only</code> with the
 actual tag or branch you intend to build.</p>
-<p><span class="code-select">git clone --depth=1 --branch
-18.2.1.9-developers-only --jobs=4 --recurse-submodules
---shallow-submodules <a href="https://github.com/Whonix/derivative-maker.git">https://github.com/Whonix/derivative-maker.git</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/derivative-maker.git" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><span class="code-select" data-code="git clone --depth=1 --branch 18.2.1.9-developers-only --jobs=4 --recurse-submodules --shallow-submodules https://github.com/Whonix/derivative-maker.git">git
+clone --depth=1 --branch 18.2.1.9-developers-only --jobs=4
+--recurse-submodules --shallow-submodules <a href="https://github.com/Whonix/derivative-maker.git">https://github.com/Whonix/derivative-maker.git</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/derivative-maker.git" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Check if the above command succeeded.</p>
 <p>If there were errors such as:</p>
@@ -365,7 +369,7 @@ Check if the above command succeeded.</p>
 <p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active info-box"><div class="tcc-image"></div><div class="tcc-title"><h2 id="Zsh_in_Whonix_or_Derivatives">Zsh in Whonix or Derivatives</h2><span class="share-tooltip" data-anchor="Zsh_in_Whonix_or_Derivatives"><a class="headline-anchor" href="#Zsh_in_Whonix_or_Derivatives" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images/#Zsh_in_Whonix_or_Derivatives">https://www.whonix.org/wiki/Dev/Build_Documentation/images/#Zsh_in_Whonix_or_Derivatives</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23Zsh_in_Whonix_or_Derivatives&amp;text=Zsh%20in%20Whonix%20or%20Derivatives" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23Zsh_in_Whonix_or_Derivatives&amp;text=Zsh%20in%20Whonix%20or%20Derivatives" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23Zsh_in_Whonix_or_Derivatives&amp;title=Zsh%20in%20Whonix%20or%20Derivatives" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Zsh%20in%20Whonix%20or%20Derivatives&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23Zsh_in_Whonix_or_Derivatives" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images/#Zsh_in_Whonix_or_Derivatives]Zsh in Whonix or Derivatives[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images/#Zsh_in_Whonix_or_Derivatives]Zsh in Whonix or Derivatives[/url]</span></span></span></span></div><div class="tcc-content"><p>If the last line contains something similar to:</p>
 <pre><code>zsh: exit 1</code></pre>
 <p>then do not proceed. See footnote. <sup class="reference"><a href="#cite_note-5">[5]</a></sup></p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"></div><div class="tcc-title"><h2 id="bash_and_other_shells">bash and other shells</h2><span class="share-tooltip" data-anchor="bash_and_other_shells"><a class="headline-anchor" href="#bash_and_other_shells" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images/#bash_and_other_shells">https://www.whonix.org/wiki/Dev/Build_Documentation/images/#bash_and_other_shells</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23bash_and_other_shells&amp;text=bash%20and%20other%20shells" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23bash_and_other_shells&amp;text=bash%20and%20other%20shells" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23bash_and_other_shells&amp;title=bash%20and%20other%20shells" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=bash%20and%20other%20shells&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%2F%23bash_and_other_shells" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images/#bash_and_other_shells]bash and other shells[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images/#bash_and_other_shells]bash and other shells[/url]</span></span></span></span></div><div class="tcc-content"><p>Show the exit code.</p>
-<p><span class="code-select">echo $?</span></p>
+<p><span class="code-select" data-code="echo $?">echo $?</span></p>
 <p>The output should be:</p>
 <pre><code>0</code></pre>
 <p>If any other exit code is shown, do not proceed and see footnote.
@@ -378,7 +382,8 @@ Done.</p>
 folder because later on, package build commands using
 <code>./derivative-maker</code> are expected to be run from the root of
 the source folder.</p>
-<p><span class="code-select">cd derivative-maker</span></p>
+<p><span class="code-select" data-code="cd derivative-maker">cd
+derivative-maker</span></p>
 <h1 id="OpenPGP_Verify_the_Source_Code">OpenPGP Verify the Source
 Code</h1>
 <p><strong>This chapter is recommended for better security, but is not
@@ -393,7 +398,8 @@ familiar with advanced computer security concepts, you can learn more
 about digital signatures here: <a href="https://www.kicksecure.com/wiki/Verifying_Software_Signatures/">Verifying Software Signatures</a></span></li></ul></p>
 <p><strong>1.</strong> Verify the chosen tag to build.</p>
 <p>Note: Replace with the tag you want to build.</p>
-<p><span class="code-select">git verify-tag 18.2.1.9-stable</span></p>
+<p><span class="code-select" data-code="git verify-tag 18.2.1.9-stable">git
+verify-tag 18.2.1.9-stable</span></p>
 <p><strong>2.</strong> Check the output of the verification step.</p>
 <p><u>If the file is verified successfully</u>, the output will include
 <code>Good signature</code>, which is the most important thing to
@@ -418,14 +424,15 @@ attack.<sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
 <sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
 <p>Note: Replace <code>18.2.1.9</code> with the actual git tag being
 verified.</p>
-<p><span class="code-select">git verify-commit
-18.2.1.9-stable^{commit}</span></p>
+<p><span class="code-select" data-code="git verify-commit 18.2.1.9-stable^{commit}">git
+verify-commit 18.2.1.9-stable^{commit}</span></p>
 <p><strong>4.</strong> Check the output of the verification step.</p>
 <p><strong>5.</strong> Done.</p>
 <h1 id="Checkout_Version">Checkout Version</h1>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
 Retrieve a list of available git tags.</p>
-<p><span class="code-select">git --no-pager tag</span></p>
+<p><span class="code-select" data-code="git --no-pager tag">git
+--no-pager tag</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
 Use <i>git checkout</i> to select the preferred version to build.</p>
 <p><u>Note:</u> Replace <code>18.2.1.9-stable</code> with the actual
@@ -433,24 +440,27 @@ version chosen for the build. Common sense is required when choosing the
 right version number. For example, the latest available version number
 is not necessarily the most stable or suitable. Follow the <a href="../../../Stay_Tuned/">Whonix News Blog</a> as it might
 contain information.</p>
-<p><span class="code-select">git checkout --recurse-submodules
-18.2.1.9-stable</span></p>
+<p><span class="code-select" data-code="git checkout --recurse-submodules 18.2.1.9-stable">git
+checkout --recurse-submodules 18.2.1.9-stable</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Digital signature verification.</p>
 <p><u>Optional.</u> If you choose to perform digital signature
 verification above, you can verify the currently chosen commit
 (<code>HEAD</code>) again for additional assurance.</p>
-<p><span class="code-select">git verify-commit HEAD</span></p>
+<p><span class="code-select" data-code="git verify-commit HEAD">git
+verify-commit HEAD</span></p>
 <p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
 Done.</p>
 <p>Version selection has been completed.</p>
 <h1 id="Check_Git">Check Git</h1>
 <p><strong>1.</strong> Check if you really got the version you want.</p>
-<p><span class="code-select">git describe</span></p>
+<p><span class="code-select" data-code="git describe">git
+describe</span></p>
 <p>The output should show.</p>
 <pre><code>18.2.1.9-stable</code></pre>
 <p><strong>2.</strong> Check if source folder is pristine.</p>
-<p><span class="code-select">git status</span></p>
+<p><span class="code-select" data-code="git status">git
+status</span></p>
 <p>Output should be the following.</p>
 <ul>
 <li><strong>A)</strong></li>
@@ -488,7 +498,7 @@ nothing to commit, working tree clean</code></pre>
 <td><p><a href="../../../VirtualBox/">VirtualBox</a> VMs</p></td>
 <td><p>Stable.</p></td>
 <td><p><span class="nowrap"><code>.vdi</code></span></p></td>
-<td><p><span class="code-select">--target
+<td><p><span class="code-select" data-code="--target virtualbox">--target
 virtualbox</span></p></td>
 </tr>
 <tr class="even">
@@ -496,7 +506,7 @@ virtualbox</span></p></td>
 <td><p><a href="../../../KVM/">KVM</a> (and <a href="../../../QEMU/">QEMU</a>)</p></td>
 <td><p>KVM: Stable. QEMU: <a href="../../../Unsupported/">unsupported</a></p></td>
 <td><p><span class="nowrap"><code>.qcow2</code></span></p></td>
-<td><p><span class="code-select">--target
+<td><p><span class="code-select" data-code="--target qcow2">--target
 qcow2</span></p></td>
 </tr>
 <tr class="odd">
@@ -505,7 +515,7 @@ qcow2</span></p></td>
 <td><p>Mostly relevant for developers /
 porters.</p></td>
 <td><p><code>.raw</code></p></td>
-<td><p><span class="code-select">--target
+<td><p><span class="code-select" data-code="--target raw">--target
 raw</span></p></td>
 </tr>
 <tr class="even">
@@ -515,7 +525,7 @@ raw</span></p></td>
 <td><p>Developers only,
 <code>--arch </code><u><code>arm64</code></u>.</p></td>
 <td><p><code>.raw</code></p></td>
-<td><p><span class="code-select">--target
+<td><p><span class="code-select" data-code="--target utm">--target
 utm</span></p></td>
 </tr>
 <tr class="odd">
@@ -523,7 +533,7 @@ utm</span></p></td>
 <td><p><a href="../../../Whonix-Host/">ISO</a></p></td>
 <td><p>Developers only.</p></td>
 <td><p><code>.iso</code></p></td>
-<td><p><span class="code-select">--target
+<td><p><span class="code-select" data-code="--target iso">--target
 iso</span></p></td>
 </tr>
 <tr class="even">
@@ -622,7 +632,8 @@ iso</span></p></td>
 <p><u>Optional</u>. Enable <a href="../../../Project-APT-Repository/">Whonix APT repository</a> inside the images.
 <sup class="reference"><a href="#cite_note-14">[14]</a></sup> See <a href="../../../Trust/">Trust</a>. This
 is done for official Whonix <a href="../../Redistribution/">redistributable</a> builds.</p>
-<p><span class="code-select">--repo true</span></p>
+<p><span class="code-select" data-code="--repo true">--repo
+true</span></p>
 <p><strong>5.</strong> Optional configurations.</p>
 <p><u>Optional</u>. See also <a href="../../../Build_Configuration/">Optional Build Configuration</a>.</p>
 <p><strong>6.</strong> Notices.</p>
@@ -646,14 +657,14 @@ command</span></em>:</p>
 <tr class="odd">
 <td><p>VirtualBox</p></td>
 <td><p>Intel / AMD64 (stable)</p></td>
-<td><p><span class="code-select">~/derivative-maker/derivative-maker
+<td><p><span class="code-select" data-code="~/derivative-maker/derivative-maker --arch amd64 --flavor whonix-gateway-lxqt --target virtualbox --repo true">~/derivative-maker/derivative-maker
 --arch amd64 --flavor whonix-gateway-lxqt --target virtualbox --repo
 true</span></p></td>
 </tr>
 <tr class="even">
 <td><p>VirtualBox</p></td>
 <td><p>ARM64 (Mac <code>M#</code>, testers-only)</p></td>
-<td><p><span class="code-select">~/derivative-maker/derivative-maker
+<td><p><span class="code-select" data-code="~/derivative-maker/derivative-maker --arch arm64 --flavor whonix-gateway-lxqt --target virtualbox --repo true">~/derivative-maker/derivative-maker
 --arch arm64 --flavor whonix-gateway-lxqt --target virtualbox --repo
 true</span></p></td>
 </tr>
@@ -674,14 +685,14 @@ command</span></em>:</p>
 <tr class="odd">
 <td><p>VirtualBox</p></td>
 <td><p>Intel / AMD64 (stable)</p></td>
-<td><p><span class="code-select">~/derivative-maker/derivative-maker
+<td><p><span class="code-select" data-code="~/derivative-maker/derivative-maker --arch amd64 --flavor whonix-workstation-lxqt --target virtualbox --repo true">~/derivative-maker/derivative-maker
 --arch amd64 --flavor whonix-workstation-lxqt --target virtualbox --repo
 true</span></p></td>
 </tr>
 <tr class="even">
 <td><p>VirtualBox</p></td>
 <td><p>ARM64 (Mac <code>M#</code>, testers-only)</p></td>
-<td><p><span class="code-select">~/derivative-maker/derivative-maker
+<td><p><span class="code-select" data-code="~/derivative-maker/derivative-maker --arch arm64 --flavor whonix-workstation-lxqt --target virtualbox --repo true">~/derivative-maker/derivative-maker
 --arch arm64 --flavor whonix-workstation-lxqt --target virtualbox --repo
 true</span></p></td>
 </tr>
@@ -703,8 +714,8 @@ in case there are issues.</li>
 <li><strong>B)</strong> <u>CLI (command line user interface):</u> In
 case there are build issues, it is recommended to redirect the build log
 to a text file. To do that, for example
-<span class="code-select">&gt;&gt; ~/build-log 2&gt;&amp;1</span> could
-be appended to the very end of the
+<span class="code-select" data-code="&gt;&gt; ~/build-log 2&gt;&amp;1">&gt;&gt;
+~/build-log 2&gt;&amp;1</span> could be appended to the very end of the
 <em><span>build command</span></em> to
 redirect the build output to
 <em><span>build log file</span></em>
@@ -718,8 +729,9 @@ To see if the build is stuck, it would be possible to open the
 <em><span>build log file</span></em>
 with a text editor. In that case, the file would have to be re-opened or
 refreshed with the F5 key to see new build output appended to the build
-log file. Or by using for example <span class="code-select">tail -n 100
--f ~/build-log 2&gt;&amp;1</span></li>
+log file. Or by using for example
+<span class="code-select" data-code="tail -n 100 -f ~/build-log 2&gt;&amp;1">tail
+-n 100 -f ~/build-log 2&gt;&amp;1</span></li>
 </ul></li>
 </ul>
 <h1 id="VM_Build_Result">VM Build Result</h1>
@@ -752,8 +764,9 @@ Codecrypt signatures</li>
 <li>Adding the license agreement.</li>
 <li>Adding the disclaimer.</li>
 <li><a href="../../Redistribution/">Redistribution</a>.</li>
-<li>Example: <span class="code-select">dm-prepare-release --build
---target virtualbox --flavor kicksecure-lxqt</span></li>
+<li>Example:
+<span class="code-select" data-code="dm-prepare-release --build --target virtualbox --flavor kicksecure-lxqt">dm-prepare-release
+--build --target virtualbox --flavor kicksecure-lxqt</span></li>
 </ul>
 <p>For private builds, i.e. for builds which are not supposed to be
 redistributed to others, none of this is important. If any of this is
@@ -768,8 +781,8 @@ will generate a hash sum mismatch error which will cause the build to
 fail. approx may also have cached the corrupted file, meaning all
 subsequent builds will fail until apt-cacher-ng's cache is purged.</p>
 <p>To purge the cache, run:</p>
-<p><span class="code-select">sudo safe-rm -rf
-/var/cache/approx-derivative-maker</span></p>
+<p><span class="code-select" data-code="sudo safe-rm -rf /var/cache/approx-derivative-maker">sudo
+safe-rm -rf /var/cache/approx-derivative-maker</span></p>
 <p>The cache has now been purged.</p>
 <h1 id="Footnotes">Footnotes</h1>
 <div class="references">
@@ -794,21 +807,25 @@ all required submodules are fetched efficiently. Experienced
 <code>git</code> users may omit any of these optional parameters.</li>
 <li id="cite_note-4">Alternatively, this can be achieved in several steps. This may be
 useful if network issues arise. * <u>Over HTTPS:</u> **
-<span class="code-select">git clone --depth=1 --branch
-18.2.1.9-developers-only --jobs=4 --recurse-submodules
---shallow-submodules <a href="https://github.com/Whonix/derivative-maker.git">https://github.com/Whonix/derivative-maker.git</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/derivative-maker.git" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span>
+<span class="code-select" data-code="git clone --depth=1 --branch 18.2.1.9-developers-only --jobs=4 --recurse-submodules --shallow-submodules https://github.com/Whonix/derivative-maker.git">git
+clone --depth=1 --branch 18.2.1.9-developers-only --jobs=4
+--recurse-submodules --shallow-submodules <a href="https://github.com/Whonix/derivative-maker.git">https://github.com/Whonix/derivative-maker.git</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/derivative-maker.git" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span>
 * <u>Over SSH:</u> ** Might work better over slow or unstable networks
 but requires a GitHub account and a configured SSH public key at GitHub.
-See footnote [A] below. ** <span class="code-select">git clone --depth=1
---branch 18.2.1.9-developers-only
+See footnote [A] below. **
+<span class="code-select" data-code="git clone --depth=1 --branch 18.2.1.9-developers-only git@github.com:Whonix/derivative-maker.git">git
+clone --depth=1 --branch 18.2.1.9-developers-only
 git@github.com:Whonix/derivative-maker.git</span>
-<span class="code-select">cd derivative-maker</span>
-<span class="code-select">git submodule update --init --recursive
---progress --jobs=4</span> ---- [A] GitHub SSH public key setup.
+<span class="code-select" data-code="cd derivative-maker">cd
+derivative-maker</span>
+<span class="code-select" data-code="git submodule update --init --recursive --progress --jobs=4">git
+submodule update --init --recursive --progress --jobs=4</span> ---- [A]
+GitHub SSH public key setup.
 <i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
 Create an SSH public key. See <a href="../../../SSH/">SSH</a>.
 <i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
-View your SSH public key. <span class="code-select">cat
+View your SSH public key.
+<span class="code-select" data-code="cat ~/.ssh/id_ed25519.pub">cat
 ~/.ssh/id_ed25519.pub</span>
 <i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
 Copy the SSH public key.
@@ -824,10 +841,11 @@ By convention, git tags should point to signed git commits. Beginning
 from git tag 9.6 and above. (<a href="https://forums.whonix.org/t/security-git-general-verification-verifying-whonix-submodules/513">forum
 discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/security-git-general-verification-verifying-whonix-submodules/513" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</li>
 <li id="cite_note-8">Multiple build targets can also be selected simultaneously.
-<span class="code-select">--target virtualbox --target qcow2 --target
-raw</span></li>
+<span class="code-select" data-code="--target virtualbox --target qcow2 --target raw">--target
+virtualbox --target qcow2 --target raw</span></li>
 <li id="cite_note-9"><a href="../Physical_Isolation/">Physical Isolation Build Documentation</a>
-<span class="code-select">--target root</span></li>
+<span class="code-select" data-code="--target root">--target
+root</span></li>
 <li id="cite_note-10">* <a href="../../../MacOS/#M1">MacOS#M1</a> * <a href="https://forums.whonix.org/t/whonix-on-mac-m1-arm/11310">https://forums.whonix.org/t/whonix-on-mac-m1-arm/11310</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-on-mac-m1-arm/11310" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-11"><div class="info-box has-icon">
 <p><span class="info-box-icon"><img src="../../../../media/Ambox_notice.png.webp" width="40" alt="info" /></span>

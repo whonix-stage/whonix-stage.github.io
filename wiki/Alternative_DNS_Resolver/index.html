@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sn-id="38">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-CfNaB52bngqEHx7jciumppsSI2ETl8okuB+c5yVEAL4='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-/EIM37O72cJgw3uUn5Mj0uAwPs+uoIinE4FkmT5B+bg='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
 <meta name="robots" content="noindex,nofollow">
 <title>Alternative DNS Resolver</title>
 <meta name="description" content="Authenticated/Encrypted DNS over Tor, DNSSEC over Tor, DNSCrypt by OpenDNS, httpsdnsd by JonDos">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.whonix.org/media/orig/Connect-20333640.jpg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
 </head>
 <body>
 <div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
@@ -171,8 +171,8 @@ the warning above.</p>
 <p>Everything inside Whonix-Workstation<sup>&#8482;</sup>.</p>
 <p><strong>1.</strong> Create folder
 <code>/etc/unbound/unbound.conf.d</code>.</p>
-<p><span class="code-select">mkdir --parents
-/etc/unbound/unbound.conf.d</span></p>
+<p><span class="code-select" data-code="mkdir --parents /etc/unbound/unbound.conf.d">mkdir
+--parents /etc/unbound/unbound.conf.d</span></p>
 <p><strong>2.</strong> <code>Unbound</code> configuration.</p>
 <p>Open file <code>/etc/unbound/unbound.conf.d/50_user.conf</code> in an
 editor with administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>") rights.</p>
@@ -191,7 +191,7 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/unbound/unbound.conf.d/50_user.conf">sudoedit
 /etc/unbound/unbound.conf.d/50_user.conf</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
@@ -207,7 +207,7 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/unbound/unbound.conf.d/50_user.conf">sudoedit
 /etc/unbound/unbound.conf.d/50_user.conf</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
@@ -234,11 +234,29 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/unbound/unbound.conf.d/50_user.conf">sudoedit
 /etc/unbound/unbound.conf.d/50_user.conf</span></p></div></div></p></div></div></p>
 </div>
 <p><strong>3.</strong> Paste the following lines.</p>
-<p><span class="code-select">server:</p>
+<p><span class="code-select" data-code="server:
+    hide-identity: yes
+    hide-version: yes
+    interface: 127.0.0.1
+    do-ip6: no
+    tcp-upstream: yes
+
+## TODO: onion resolution over Tor-only does not work yet.
+## Please use search engines, see unbound documentation,
+## find out how to fix this and improve this documentation!
+##
+## Optional: leave resolving onion to Tor.
+## Feel free to comment the following 4 lines out,
+## but this would break onion resolving since unbound
+## cannot resolve &#x27;.onion&#x27; domains.
+#forward-zone:
+#    name: &quot;onion&quot;
+#    forward-addr: 10.152.152.10@9050
+#    forward-no-cache: yes">server:</p>
 <p><code>&#160;&#160;&#160;hide-identity:&#160;yes</code><br />
 <code>&#160;&#160;&#160;hide-version:&#160;yes</code><br />
 <code>&#160;&#160;&#160;interface:&#160;127.0.0.1</code><br />
@@ -278,16 +296,16 @@ Template.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 Update the package lists and upgrade the system.</p>
-<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
-full-upgrade</span></p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt full-upgrade">sudo
+apt update &amp;&amp; sudo apt full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>dnssec-trigger</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 &lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
 optional.</p>
-<p><span class="code-select">sudo apt install --no-install-recommends
-dnssec-trigger</span></p>
+<p><span class="code-select" data-code="sudo apt install --no-install-recommends dnssec-trigger">sudo
+apt install --no-install-recommends dnssec-trigger</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Platform specific notice.</p>
 <ul>
@@ -332,16 +350,16 @@ Template.</li>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 Update the package lists and upgrade the system.</p>
-<p><span class="code-select">sudo apt update &amp;&amp; sudo apt
-full-upgrade</span></p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt full-upgrade">sudo
+apt update &amp;&amp; sudo apt full-upgrade</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Install the <code>dnscrypt-proxy</code> package(s).</p>
 <p>Using <code>apt</code> command line
 <img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
 &lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
 optional.</p>
-<p><span class="code-select">sudo apt install --no-install-recommends
-dnscrypt-proxy</span></p>
+<p><span class="code-select" data-code="sudo apt install --no-install-recommends dnscrypt-proxy">sudo
+apt install --no-install-recommends dnscrypt-proxy</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Platform specific notice.</p>
 <ul>
@@ -374,7 +392,7 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/dnscrypt-proxy/dnscrypt-proxy.toml">sudoedit
 /etc/dnscrypt-proxy/dnscrypt-proxy.toml</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_2">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
@@ -390,7 +408,7 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/dnscrypt-proxy/dnscrypt-proxy.toml">sudoedit
 /etc/dnscrypt-proxy/dnscrypt-proxy.toml</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
@@ -417,7 +435,7 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit
+<p><span class="code-select" data-code="sudoedit /etc/dnscrypt-proxy/dnscrypt-proxy.toml">sudoedit
 /etc/dnscrypt-proxy/dnscrypt-proxy.toml</span></p></div></div></p></div></div></p>
 </div>
 <p>Add the following text <u>at the very top of the file</u>. Note: The
@@ -426,24 +444,30 @@ following instructions advise commenting that server out and adding a
 random alternative server that worked. <sup class="reference"><a href="#cite_note-4">[4]</a></sup> This is not an
 endorsement or rejection of any server. Pick your own server. DNSCrypt
 publishes a list of servers <a href="https://dnscrypt.info/public-servers/">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://dnscrypt.info/public-servers/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
-<p><span class="code-select">force_tcp = true</p>
+<p><span class="code-select" data-code="force_tcp = true
+
+#proxy = &quot;socks5://127.0.0.1:9050&quot;
+
+server_names = [&#x27;arvind-io&#x27;]">force_tcp = true</p>
 <ol>
 <li>proxy = "socks5://127.0.0.1:9050"</li>
 </ol>
 <p>server_names = ['arvind-io']</span></p>
 <p>Comment out:</p>
-<p><span class="code-select">server_names = ['cloudflare']</span></p>
+<p><span class="code-select" data-code="server_names = [&#x27;cloudflare&#x27;]">server_names
+= ['cloudflare']</span></p>
 <p>In other words, rewrite <code>server_names = ['cloudflare']</code> to
 <code>#server_names = ['cloudflare']</code> by adding a hash
 <code>#</code> in front of it. So it would look like this:</p>
-<p><span class="code-select">#server_names = ['cloudflare']</span></p>
+<p><span class="code-select" data-code="#server_names = [&#x27;cloudflare&#x27;]">#server_names
+= ['cloudflare']</span></p>
 <p>Save.</p>
 <p>Restart dnscrypt-proxy.service.</p>
-<p><span class="code-select">sudo systemctl restart
-dnscrypt-proxy.service</span></p>
+<p><span class="code-select" data-code="sudo systemctl restart dnscrypt-proxy.service">sudo
+systemctl restart dnscrypt-proxy.service</span></p>
 <p>Restart dnscrypt-proxy.socket.</p>
-<p><span class="code-select">sudo systemctl restart
-dnscrypt-proxy.socket</span></p>
+<p><span class="code-select" data-code="sudo systemctl restart dnscrypt-proxy.socket">sudo
+systemctl restart dnscrypt-proxy.socket</span></p>
 <p>3) Open file <code>/etc/resolv.conf</code> in an editor with
 administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>")
 rights.</p>
@@ -462,7 +486,8 @@ editor) before running the <code>sudoedit</code> command.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/resolv.conf</span></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p></div></div></p>
 <p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 role="heading" aria-level="5" id="Qubes-Whonix_3">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
 Notes.</p>
 <ul>
@@ -477,7 +502,8 @@ Template.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/resolv.conf</span></p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
 Notes.</p>
 <ul>
@@ -503,23 +529,24 @@ with Root Rights</a>.</li>
 </ul>
 <p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
 Open the file with root rights.</p>
-<p><span class="code-select">sudoedit /etc/resolv.conf</span></p></div></div></p></div></div></p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p></div></div></p></div></div></p>
 </div>
 <p>4) Comment out everything and add <sup class="reference"><a href="#cite_note-5">[5]</a></sup> (It is
 <u>not</u> <code>127.0.0.1</code>. It really is
 <code>127.0.</code><strong><code>2</code></strong><code>.1</code>.):</p>
-<p><span class="code-select">options use-vc nameserver
-127.0.2.1</span></p>
+<p><span class="code-select" data-code="options use-vc
+nameserver 127.0.2.1">options use-vc nameserver 127.0.2.1</span></p>
 <p>Save.</p>
 <h2 id="Testing">Testing</h2><span class="share-tooltip" data-anchor="Testing"><a class="headline-anchor" href="#Testing" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Alternative_DNS_Resolver/#Testing">https://www.whonix.org/wiki/Alternative_DNS_Resolver/#Testing</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23Testing&amp;text=Testing" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23Testing&amp;text=Testing" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23Testing&amp;title=Testing" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Testing&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23Testing" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Alternative_DNS_Resolver/#Testing]Testing[/url]">[url=https://www.whonix.org/wiki/Alternative_DNS_Resolver/#Testing]Testing[/url]</span></span></span></span>
 <h2 id="DNSCrypt_In_Use">DNSCrypt In Use</h2><span class="share-tooltip" data-anchor="DNSCrypt_In_Use"><a class="headline-anchor" href="#DNSCrypt_In_Use" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Alternative_DNS_Resolver/#DNSCrypt_In_Use">https://www.whonix.org/wiki/Alternative_DNS_Resolver/#DNSCrypt_In_Use</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23DNSCrypt_In_Use&amp;text=DNSCrypt%20In%20Use" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23DNSCrypt_In_Use&amp;text=DNSCrypt%20In%20Use" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23DNSCrypt_In_Use&amp;title=DNSCrypt%20In%20Use" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=DNSCrypt%20In%20Use&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23DNSCrypt_In_Use" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Alternative_DNS_Resolver/#DNSCrypt_In_Use]DNSCrypt In Use[/url]">[url=https://www.whonix.org/wiki/Alternative_DNS_Resolver/#DNSCrypt_In_Use]DNSCrypt In Use[/url]</span></span></span></span>
 <p>Stop dnscrypt-proxy systemd socket.</p>
-<p><span class="code-select">sudo systemctl stop
-dnscrypt-proxy.socket</span></p>
+<p><span class="code-select" data-code="sudo systemctl stop dnscrypt-proxy.socket">sudo
+systemctl stop dnscrypt-proxy.socket</span></p>
 <p>Test again. Now it is expected to fail.</p>
 <p>Restart dnscrypt-proxy systemd socket.</p>
-<p><span class="code-select">sudo systemctl restart
-dnscrypt-proxy.socket</span></p>
+<p><span class="code-select" data-code="sudo systemctl restart dnscrypt-proxy.socket">sudo
+systemctl restart dnscrypt-proxy.socket</span></p>
 <p>Test again. Now it is expected to work.</p>
 <h2 id="FAQ">FAQ</h2><span class="share-tooltip" data-anchor="FAQ"><a class="headline-anchor" href="#FAQ" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Alternative_DNS_Resolver/#FAQ">https://www.whonix.org/wiki/Alternative_DNS_Resolver/#FAQ</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23FAQ&amp;text=FAQ" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23FAQ&amp;text=FAQ" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23FAQ&amp;title=FAQ" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=FAQ&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAlternative_DNS_Resolver%2F%23FAQ" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Alternative_DNS_Resolver/#FAQ]FAQ[/url]">[url=https://www.whonix.org/wiki/Alternative_DNS_Resolver/#FAQ]FAQ[/url]</span></span></span></span>
 <h3 id="Why_not_Use_DNSCrypt_by_Default_in_Whonix?">Why not Use DNSCrypt
@@ -589,7 +616,8 @@ for full DNS and DNSSEC resolution</a><sup class="ext-link-to-archive has-siblin
 DNSSEC? <a href="https://docs.pi-hole.net/guides/misc/tor/dnssec/">https://docs.pi-hole.net/guides/misc/tor/dnssec/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://docs.pi-hole.net/guides/misc/tor/dnssec/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
 <li id="cite_note-3">Quote <a href="https://github.com/DNSCrypt/dnscrypt-proxy/issues/167#issuecomment-367689381">https://github.com/DNSCrypt/dnscrypt-proxy/issues/167#issuecomment-367689381</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/DNSCrypt/dnscrypt-proxy/issues/167#issuecomment-367689381" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
 <blockquote><p>dnscrypt-proxy doesn't validate dnssec signatures yet :)</p></blockquote></li>
-<li id="cite_note-4">Test was done using: <span class="code-select">dig +dnssec
+<li id="cite_note-4">Test was done using:
+<span class="code-select" data-code="dig +dnssec google.com">dig +dnssec
 google.com</span></li>
 <li id="cite_note-5"><code>options use-vc</code> is optional, as it also works without
 it.</li>
