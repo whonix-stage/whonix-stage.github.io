@@ -224,8 +224,19 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   font-size: 1.2rem;
   letter-spacing: -0.01em;
   color: var(--fg);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 .site-logo:hover { color: var(--fg); text-decoration: none; }
+.site-logo-img { display: block; width: 1.6em; height: 1.6em; }
+/* Static "Developer Zone" badge (Dev-namespace pages only). */
+.dev-zone-badge {
+  font-size: 0.7rem; font-weight: 600; line-height: 1;
+  padding: 0.2rem 0.45rem; border-radius: var(--radius-sm, 4px);
+  background: var(--surface-2, var(--surface)); border: 1px solid var(--border);
+  color: var(--fg-soft, var(--muted)); white-space: nowrap;
+}
 .site-nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -316,6 +327,14 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   border-color: var(--accent);
 }
 .edit-source { color: var(--muted); font-size: 0.9rem; }
+/* Header Donate call-to-action (production parity). Red heart glyph + link. */
+.header-donate {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  color: var(--fg); font-size: 0.9rem; font-weight: 600; white-space: nowrap;
+  text-decoration: none;
+}
+.header-donate:hover { text-decoration: underline; }
+.header-donate .fa-heart { color: #e0245e; }
 
 /* JS-created search results dropdown */
 .search-results {
@@ -701,7 +720,14 @@ code {
 .strict-list-columns { list-style-position: inside; }
 .force-column-break { break-before: column; }
 @media (max-width: 720px) { .use-3-columns { columns: 2; } }
-@media (max-width: 480px) { .use-2-columns, .use-3-columns { columns: 1; } }
+@media (max-width: 480px) {
+  .use-2-columns, .use-3-columns { columns: 1; }
+  /* Single column: a column-break spacer has no next column to break to, and Chromium paints
+     its forced break as overflow columns PAST the viewport (an expanded mw-collapsible then
+     scrolls horizontally). Drop the spacers -- they only balance the multi-column desktop
+     layout. */
+  .force-column-break { display: none; }
+}
 
 /* ---- tabs (tcc): JS toggles .active; no-JS shows all (progressive) ---- */
 .tab-content-controller, .tcc-section {
@@ -816,6 +842,11 @@ code {
   margin: 0 0 14px; padding-bottom: 9px; font-weight: bold; color: var(--fg);
   border-bottom: 1px solid currentColor;
 }
+/* Open Source / Freedom Software badges (OSI + GNU logos), a row above the text links,
+   sized to production's ~50px. */
+.footer-badges { display: flex; align-items: center; gap: 0.75rem; margin: 0 0 0.9rem; }
+.footer-badges img { width: 50px; height: auto; }
+.footer-badges a:hover { opacity: 0.85; }
 .footer-social-icons {
   display: flex; flex-wrap: wrap; gap: 0.55rem;
   margin: 0 0 0.75rem; font-size: 1rem;
@@ -986,7 +1017,14 @@ code {
 .toc-toggle:focus-visible ~ .toc-title { outline: 2px solid var(--link); outline-offset: 2px; }
 .toc ul { list-style: none; margin: 0.5rem 0 0; padding: 0; }
 .toc li { margin: 0.15rem 0; }
-.toc-l3 { padding-left: 1.2rem; }
+/* Indent by RELATIVE nesting depth (build_toc emits toc-l1..toc-l6). */
+.toc-l1 { padding-left: 0; }
+.toc-l2 { padding-left: 1.2rem; }
+.toc-l3 { padding-left: 2.4rem; }
+.toc-l4 { padding-left: 3.6rem; }
+.toc-l5 { padding-left: 4.8rem; }
+.toc-l6 { padding-left: 6rem; }
+.toc .tocnumber { color: var(--muted); margin-right: 0.4rem; }
 /* inline-block + vertical padding gives each TOC link a >=24px tap target and spacing
    (a11y target-size, flagged on desktop). */
 .toc a { color: var(--link); display: inline-block; padding: 3px 0; }
