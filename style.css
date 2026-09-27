@@ -935,6 +935,23 @@ code {
    wikitable's own class, so these are keyed on the inline span classes that survive. */
 .cmp-yes { color: #1a8a1a; font-weight: 600; white-space: nowrap; }
 .cmp-no { color: #c0392b; font-weight: 600; white-space: nowrap; }
+/* Status icon/text colors rescued from inline color: by sanitize (strict CSP strips the
+   inline style) -- {{Check-yes}} green check, {{Check-no}} red cross, {{Check-todo}} orange
+   clock. Dark-mode gets brighter variants for contrast. */
+.text-green { color: #1a8a1a; }
+.text-red { color: #c0392b; }
+.text-orange { color: #c9700a; }
+.text-yellow { color: #b8960b; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .text-green { color: #4ac94a; }
+  :root:not([data-theme="light"]) .text-red { color: #ef6b5c; }
+  :root:not([data-theme="light"]) .text-orange { color: #f0a13a; }
+  :root:not([data-theme="light"]) .text-yellow { color: #e0c341; }
+}
+:root[data-theme="dark"] .text-green { color: #4ac94a; }
+:root[data-theme="dark"] .text-red { color: #ef6b5c; }
+:root[data-theme="dark"] .text-orange { color: #f0a13a; }
+:root[data-theme="dark"] .text-yellow { color: #e0c341; }
 
 @media (max-width: 480px) {
   .wiki-content { margin: 1.25rem auto 2rem; padding: 0 1rem; }
