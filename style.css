@@ -846,22 +846,29 @@ code {
 .copyright { margin: 0.6rem 0 0; }
 
 /* ---- misc content hooks ---- */
-.tagline, .post-intro-p, .pre-intro-p { color: var(--fg-soft); }
-/* IntroLike: production lead callout (Utility.css) -- a soft italic gray box whose child
-   paragraphs stack into one continuous band, rounded at top/bottom with inset shadows. */
+.tagline { color: var(--fg-soft); }
+/* IntroLike: production lead callout (Utility.css) -- a soft italic gray box. Two markups
+   get it: a .intro-like div ({{IntroLike}}), AND the content {{Intro}} emits between empty
+   .pre-intro-p / .post-intro-p markers (so the ACTUAL page-lead text is the box, not just a
+   separate donate callout). Child paragraphs stack into one continuous rounded band. */
 .intro-like { margin: 1.5em 0; }
-.intro-like > * {
+.pre-intro-p + .hidden-thumbnail { display: none; }
+.intro-like > *,
+.pre-intro-p ~ :not(.post-intro-p):not(.post-intro-p ~ *) {
   font-size: 1.06rem; line-height: 1.55; color: var(--muted); font-style: italic;
   background: var(--surface); display: flow-root; margin: 0;
   padding: 6px 20px 7px 26px;
   box-shadow: inset 11px 0 8px -8px rgb(0 0 0 / 9%);
 }
-.intro-like > :first-child {
+.intro-like > :first-child,
+.pre-intro-p + *,
+.pre-intro-p + .hidden-thumbnail + * {
   padding-top: 1em;
   border-top-left-radius: 9px; border-top-right-radius: 9px;
   box-shadow: inset 5px 5px 8px -2px rgb(0 0 0 / 9%);
 }
-.intro-like > :last-child {
+.intro-like > :last-child,
+.pre-intro-p ~ :has(+ .post-intro-p) {
   padding-bottom: 1.1em;
   border-bottom-left-radius: 9px; border-bottom-right-radius: 9px;
 }
