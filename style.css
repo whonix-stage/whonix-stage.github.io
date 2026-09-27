@@ -122,7 +122,14 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-wrap: break-word;
+  /* Sticky footer: fill at least the viewport and let the content column grow, so the
+     footer sits at the bottom instead of leaving white space below it on a short page
+     or a tall viewport. */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+.wiki-content { flex: 1 0 auto; }
 img { max-width: 100%; height: auto; }
 hr {
   height: 0;
@@ -789,6 +796,7 @@ code {
   margin-top: 60px;
   color: var(--muted);
   font-size: 0.9rem;
+  flex-shrink: 0;   /* sticky-footer flex column: never shrink the footer */
 }
 .footer-cols {
   display: flex;
