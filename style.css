@@ -822,10 +822,13 @@ code {
   transform: scale(1.15); background: var(--surface-2); color: var(--fg); text-decoration: none;
 }
 .footer-sponsor { margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--muted); }
+/* Production flows these inline as a comma-separated disclaimer, NOT one link per line. */
 .footer-freedom ul, .footer-links ul {
-  display: flex; flex-direction: column; gap: 0.3rem;
-  list-style: none; padding: 0; margin: 0 0 0.9rem;
+  display: flex; flex-wrap: wrap; gap: 0.15rem 0.5rem;
+  list-style: none; padding: 0; margin: 0 0 0.9rem; line-height: 1.5;
 }
+.footer-freedom li:not(:last-child)::after,
+.footer-links li:not(:last-child)::after { content: ","; color: var(--muted); }
 .footer-freedom a, .footer-links a { color: var(--muted); }
 .footer-freedom a:hover, .footer-links a:hover { color: var(--link); }
 .darkmode-toggle { display: inline-block; margin: 0.9rem 0 0; }
@@ -833,15 +836,24 @@ code {
 
 /* ---- misc content hooks ---- */
 .tagline, .post-intro-p, .pre-intro-p { color: var(--fg-soft); }
-/* IntroLike: a page lead paragraph -- readable normal-color text, slightly larger,
-   not the muted gray it used to share with the intro pre/post markers. */
-.intro-like {
-  font-size: 1.08rem;
-  line-height: 1.6;
-  color: var(--fg);
-  margin: 0 0 1.25rem;
+/* IntroLike: production lead callout (Utility.css) -- a soft italic gray box whose child
+   paragraphs stack into one continuous band, rounded at top/bottom with inset shadows. */
+.intro-like { margin: 1.5em 0; }
+.intro-like > * {
+  font-size: 1.06rem; line-height: 1.55; color: var(--muted); font-style: italic;
+  background: var(--surface); display: flow-root; margin: 0;
+  padding: 6px 20px 7px 26px;
+  box-shadow: inset 11px 0 8px -8px rgb(0 0 0 / 9%);
 }
-.intro-like > :last-child { margin-bottom: 0; }
+.intro-like > :first-child {
+  padding-top: 1em;
+  border-top-left-radius: 9px; border-top-right-radius: 9px;
+  box-shadow: inset 5px 5px 8px -2px rgb(0 0 0 / 9%);
+}
+.intro-like > :last-child {
+  padding-bottom: 1.1em;
+  border-bottom-left-radius: 9px; border-bottom-right-radius: 9px;
+}
 .references, .footnotes { font-size: 0.9rem; color: var(--fg-soft); }
 .reference { font-size: 0.85em; vertical-align: super; line-height: 0; }
 /* Jump-to-footnote target: box + tint the referenced note so a clicked [N] citation
@@ -1040,7 +1052,8 @@ code {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-md, 6px);
 }
-.wiki-book-index a { display: inline-flex; align-items: center; gap: 0.3rem; }
+/* book-nav links are chrome, not prose -- color-only, never the content-link underline. */
+.wiki-book-index a, .wiki-book-index a:hover { display: inline-flex; align-items: center; gap: 0.3rem; text-decoration: none; }
 .wiki-book-index a.next { margin-left: auto; }
 .wiki-book-index a.prev::before { content: "\2039\00a0"; color: var(--muted); }
 .wiki-book-index a.index::before { content: "\2261\00a0"; color: var(--muted); }
