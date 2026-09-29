@@ -512,7 +512,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
      label + separators), not a cramped wall of links. Collapsed by default; the hamburger
      plus outside-tap / Esc (app.js initNavToggle) toggle it. */
   .site-nav {
-    flex-basis: 100%; order: 3;
+    /* order 5: LAST of the header flex items, so the open drawer wraps to its own
+       full-width row BELOW search(2)/tools(3)/Donate(4) instead of sharing order 3
+       with .tools and shoving Donate below the menu. */
+    flex-basis: 100%; order: 5;
     max-height: calc(100vh - 130px); overflow-y: auto;
     margin: 0.4rem -1rem 0; padding: 0 1rem 0.4rem;
     border-top: 1px solid var(--border);
@@ -542,7 +545,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   .nav-toggle:not(:checked) ~ .site-nav { display: none; }
   /* Right-side group (prod order): search THEN Donate heart, pushed to the far right.
      margin-left:auto on the search (first of the group) shoves both to the right edge;
-     order:2 on both keeps them after the logo/wordmark, ahead of the nav drawer (order 3). */
+     order:2 on both keeps them after the logo/wordmark, ahead of the nav drawer (order 5). */
   /* right group order (prod): search, chevron supermenu, Donate -- all pushed to the far
      right by the auto-margin on the search (the first of the group). The chevron MUST carry
      an order too, or it stays in the left group and overflows the row (Donate then wraps). */
