@@ -6,18 +6,41 @@
    explicit choice wins) AND [data-theme=dark] (set flash-free by the pre-paint
    script). All color/spacing/shape is a token, redefined only for dark. */
 
+/* Self-hosted webfonts (production parity, served from 'self' under the strict CSP).
+   Only the weights production ships: Roboto 400 + 300, Cousine (mono). Bold/italic are
+   the browser's synthetic faces, exactly as production renders them. */
+/* CSS-RELATIVE font URLs (resolved against style.css's own location, like Font Awesome's
+   ../webfonts/): root-absolute /fonts/... would 404 on a subpath (project Pages) or file://
+   deploy, where relativize_assets does not rewrite CSS url()s. */
+@font-face {
+  font-family: Roboto; font-weight: 400; font-display: swap;
+  src: url(fonts/Roboto-Regular-webfont.woff) format("woff");
+}
+@font-face {
+  font-family: Roboto; font-weight: 300; font-display: swap;
+  src: url(fonts/Roboto-Light-webfont.woff) format("woff");
+}
+@font-face {
+  font-family: Cousine; font-display: swap;
+  src: url(fonts/Cousine-Regular.woff) format("woff");
+}
+
 /* ---- design tokens: light (default) ---- */
 :root {
   /* surfaces + text */
   --bg: #ffffff;
+  --page-bg: #f3f3f3;
   --surface: #f6f7f9;
   --surface-2: #eceff2;
   --fg: #1b1d1f;
   --fg-soft: #3c4147;
   --muted: #5c626a;
+  --heading: #444444;
   --border: #d5d9de;
   --border-soft: #e6e9ec;
   --code-bg: #f3f4f6;
+  --pre-bg: #dddddd;
+  --pre-fg: #636363;
 
   /* interaction */
   --link: #0b57d0;
@@ -41,25 +64,29 @@
   --shadow-md: 0 4px 12px rgba(20, 24, 31, 0.10);
 
   /* rhythm + measure */
-  --maxw: 62rem;
+  --maxw: 60rem;   /* production content column ~960px */
   --gap: 1rem;
 
   /* fonts */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans", sans-serif;
-  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", "Cousine", Menlo, Consolas, "Courier New", monospace;
+  --font-sans: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "Noto Sans", sans-serif;
+  --font-mono: Cousine, ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "Courier New", monospace;
 }
 
 /* ---- design tokens: dark ---- */
 :root[data-theme="dark"] {
   --bg: #16181b;
+  --page-bg: #16181b;
   --surface: #1e2126;
   --surface-2: #262a30;
   --fg: #e7e8ea;
   --fg-soft: #c6c9ce;
   --muted: #9aa1a9;
+  --heading: #9aa1a9;
   --border: #333840;
   --border-soft: #2a2e35;
   --code-bg: #1e2126;
+  --pre-bg: #23262b;
+  --pre-fg: #b6bdc4;
 
   --link: #74b1ff;
   --link-hover: #9cc8ff;
@@ -80,14 +107,18 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #16181b;
+    --page-bg: #16181b;
     --surface: #1e2126;
     --surface-2: #262a30;
     --fg: #e7e8ea;
     --fg-soft: #c6c9ce;
     --muted: #9aa1a9;
+    --heading: #9aa1a9;
     --border: #333840;
     --border-soft: #2a2e35;
     --code-bg: #1e2126;
+    --pre-bg: #23262b;
+    --pre-fg: #b6bdc4;
 
     --link: #74b1ff;
     --link-hover: #9cc8ff;
@@ -116,9 +147,9 @@ html {
 }
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--page-bg);   /* prod's light-gray page frame (#f3f3f3) */
   color: var(--fg);
-  font: 16px/1.65 var(--font-sans);
+  font: 15px/1.6 var(--font-sans);   /* production content metric: 15px Roboto, 1.6 line-height */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-wrap: break-word;
@@ -142,11 +173,8 @@ hr {
 }
 a { color: var(--link); text-decoration: none; }
 a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: 2px; }
-/* Links inside running text are underlined, not distinguished by colour alone
-   (a11y: link-in-text-block). Nav/TOC/footer links (lists of links, not in prose)
-   keep the clean colour-only look. */
-.wiki-content p a, .wiki-content li a, .wiki-content dd a,
-.wiki-content td a, .wiki-content th a { text-decoration: underline; text-underline-offset: 2px; }
+/* Production distinguishes links by COLOUR only (no underline) -- match it for pixel
+   parity. (Trades away the link-in-text-block a11y underline; underline-on-hover stays.) */
 /* External links are distinguished by the trailing archive <sup> (see _archive_links /
    .ext-link-to-archive below), matching production -- no separate arrow, to avoid a
    double affordance. */
@@ -164,7 +192,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .mw-ui-button,
 .expand-or-collapse-all-button,
 .github-link-widget,
-.search-browse,
 .darkmode-toggle,
 .collapsible-toggle,
 .copy-button {
@@ -185,7 +212,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .mw-ui-button:hover,
 .expand-or-collapse-all-button:hover,
 .github-link-widget:hover,
-.search-browse:hover,
 .darkmode-toggle:hover,
 .collapsible-toggle:hover,
 .copy-button:hover {
@@ -210,34 +236,120 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   position: sticky;
   top: 0;
   z-index: 30;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem 1.1rem;
-  flex-wrap: wrap;
-  padding: 0.55rem 1.25rem;
+  font-size: 16px;   /* chrome stays 16px (body is 15px for content parity) */
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
+/* the bar spans the viewport, but its CONTENT is constrained + centered to the article
+   column (prod), so the logo/nav/donate align with the content below instead of the edges. */
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem 1.1rem;
+  flex-wrap: wrap;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 3px 6px;   /* prod header is ~50px tall (44px logo + ~3px); logo ~6px in */
+  position: relative;   /* anchor for the hanging Developer-Zone tab (Dev pages) */
+}
 .site-logo {
-  font-weight: 700;
-  font-size: 1.2rem;
-  letter-spacing: -0.01em;
+  font-weight: 400;   /* prod wordmark: 20px / 400 Roboto (not bold) */
+  font-size: 20px;
   color: var(--fg);
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
 .site-logo:hover { color: var(--fg); text-decoration: none; }
-.site-logo-img { display: block; width: 1.6em; height: 1.6em; }
-/* Static "Developer Zone" badge (Dev-namespace pages only). */
+/* Shield logo: production renders the rectangle SVG at a fixed 44x44 square. */
+.site-logo-img { display: block; height: 44px; width: 44px; }
+.header-cta { display: flex; align-items: center; }
+/* Developer-Zone tab (Dev-namespace pages): a small cream tab hanging from the header
+   column's bottom-right edge, overlapping ~11px into the bar (matches production's
+   .style-wrapper::after: #f9f5e4 bg, #555 700 12px Roboto, bottom-rounded). */
 .dev-zone-badge {
-  font-size: 0.7rem; font-weight: 600; line-height: 1;
-  padding: 0.2rem 0.45rem; border-radius: var(--radius-sm, 4px);
-  background: var(--surface-2, var(--surface)); border: 1px solid var(--border);
-  color: var(--fg-soft, var(--muted)); white-space: nowrap;
+  position: absolute;
+  right: 3px;
+  top: calc(100% - 11px);
+  background: #f9f5e4;
+  color: #555555;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+  padding: 0 8px 2px;
+  border-radius: 0 0 8px 8px;
+  white-space: nowrap;
 }
-.site-nav ul {
+/* Header "supermenu": a pure-CSS chevron dropdown (Edit/History/Print/Permalink/Share)
+   between the search icon and the Donate CTA, matching production's page-tools chevron. */
+.tools { position: relative; display: inline-flex; align-items: center; }
+.tools-label {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem; cursor: pointer; color: var(--fg-soft);
+  border-radius: var(--radius-sm);
+}
+.tools-label:hover,
+.tools-toggle:checked ~ .tools-label { background: var(--surface-2); color: var(--fg); }
+.tools-menu {
+  display: none; position: absolute; top: 100%; right: 0; z-index: 50;
+  min-width: 250px; margin-top: 0.4rem; padding: 0.35rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 0 0 10px 10px; box-shadow: var(--shadow-md);
+}
+.tools-toggle:checked ~ .tools-menu { display: block; }
+.tools-item {
+  display: flex; align-items: center; gap: 0.6rem; width: 100%;
+  padding: 0.5rem 0.7rem; border: 0; background: none; border-radius: var(--radius-sm);
+  color: var(--fg-soft); font: inherit; font-size: 0.95rem; text-align: left; cursor: pointer;
+}
+.tools-item:hover { background: var(--surface-2); color: var(--fg); text-decoration: none; }
+.tools-item i { color: var(--muted); }
+.tools-item.copied::after {
+  content: attr(data-copied); margin-left: auto; color: #2e7d32; font-size: 0.85em;
+}
+.share-panel { margin-top: 0.35rem; padding: 0.55rem 0.7rem 0.4rem; border-top: 1px solid var(--border); }
+.share-head { margin: 0 0 0.45rem; font-weight: 600; font-size: 0.9rem; color: var(--fg); }
+.share-copies { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.55rem; }
+.share-copy {
+  display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.55rem;
+  border: 1px solid var(--border); background: var(--bg); border-radius: var(--radius-sm);
+  color: var(--fg-soft); font: inherit; font-size: 0.85rem; cursor: pointer; text-align: left;
+}
+.share-copy:hover { background: var(--surface-2); color: var(--fg); }
+.share-copy.copied::after {
+  content: attr(data-copied); margin-left: auto; color: #2e7d32; font-size: 0.9em;
+}
+.share-socials { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
+.share-social {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--surface-2); color: var(--fg-soft);
+}
+.share-social:hover { background: var(--border); color: var(--fg); text-decoration: none; }
+.share-note { margin: 0; font-size: 0.75rem; color: var(--muted); }
+.share-note a { color: var(--link); }
+@media (max-width: 720px) {
+  /* full-width dropped panel on phones so the wide share panel never overflows the viewport */
+  .tools-menu {
+    position: fixed; left: 8px; right: 8px; top: 52px; min-width: 0;
+    max-height: calc(100vh - 64px); overflow-y: auto;
+  }
+}
+/* Printable view: strip all chrome, print the article only (the supermenu Print action). */
+@media print {
+  .site-header, .site-footer, .bottom-stack, .consent-banner, .stage-banner,
+  #fly-in-notification-panel, .sitenotice, #siteNotice, .back-to-top, .wiki-book-index {
+    display: none !important;
+  }
+  .wiki-content { max-width: 100%; margin: 0; padding: 0; }
+  body { background: #fff; padding: 0; }
+}
+/* DIRECT-child ul only: the horizontal top bar. `.site-nav ul` (unscoped) also matched the
+   nested .nav-submenu ul and -- at higher specificity than `.nav-submenu {display:none}` --
+   forced EVERY dropdown open by default on desktop. `>` confines the flex bar to the top ul
+   so the submenu's own display:none / :hover reveal wins. */
+.site-nav > ul {
   display: flex;
   flex-wrap: wrap;
   gap: 0.15rem;
@@ -250,8 +362,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   padding: 0.35rem 0.65rem;
   border-radius: var(--radius-sm);
   color: var(--fg-soft);
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-weight: 400;   /* prod nav: 18px / 400 Roboto */
+  font-size: 18px;
 }
 .site-nav a:hover {
   background: var(--surface-2);
@@ -286,7 +398,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .nav-group:focus-within > .nav-submenu { display: block; }
 .nav-submenu li { margin: 0; }
 .nav-submenu a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   padding: 0.4rem 0.6rem;
   border-radius: var(--radius-sm);
   color: var(--fg-soft);
@@ -294,6 +408,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   font-size: 0.9rem;
   white-space: nowrap;
 }
+.nav-submenu a i { color: var(--muted); font-size: 0.95em; flex: none; }
 .nav-submenu a:hover { background: var(--surface-2); color: var(--fg); text-decoration: none; }
 .nav-toggle-label {
   display: none;
@@ -305,23 +420,47 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   border-radius: var(--radius-sm);
   color: var(--fg);
 }
+/* Hamburger <-> X swap: the label shows the bars glyph closed, the xmark when the toggle
+   checkbox is checked (matches production's open-menu X). */
+.nav-toggle-label .nav-ico-close { display: none; }   /* 2 classes: beat FontAwesome's .fa-solid (loaded after) */
+.nav-toggle:checked ~ .nav-toggle-label .nav-ico-open { display: none; }
+.nav-toggle:checked ~ .nav-toggle-label .nav-ico-close { display: inline-block; }
+/* Production Vector search: a magnifier ICON that expands the search box on click
+   (pure-CSS checkbox toggle) so the header stays compact like prod. */
 .site-search {
   margin-left: auto;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.25rem;
   align-items: center;
 }
-.site-search input {
-  padding: 0.4rem 0.65rem;
-  min-width: 12rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg);
-  color: var(--fg);
-  font: inherit;
-  font-size: 0.9rem;
+/* visually hidden yet focusable (screen readers + keyboard): NOT display:none, so the
+   search toggle stays in the tab order -- tab to it, Space opens the box. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
 }
-.site-search input:focus-visible {
+.search-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.1rem; height: 2.1rem; border-radius: var(--radius-sm);
+  color: var(--fg); cursor: pointer; font-size: 1.05rem;
+}
+.search-icon:hover { background: var(--surface-2); }
+/* keyboard focus on the (visually hidden) toggle shows a ring on the magnifier */
+.search-toggle:focus-visible ~ .search-icon {
+  outline: 2px solid var(--focus); outline-offset: 2px;
+}
+.search-field {
+  order: -1;                 /* box expands to the LEFT of the magnifier, as in prod */
+  width: 0; padding: 0; border: 0; opacity: 0; pointer-events: none;
+  background: var(--bg); color: var(--fg); font: inherit; font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  transition: width 0.18s ease, opacity 0.18s ease, padding 0.18s ease;
+}
+.search-toggle:checked ~ .search-field {
+  width: 12rem; padding: 0.4rem 0.65rem; border: 1px solid var(--border);
+  opacity: 1; pointer-events: auto;
+}
+.search-field:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 1px;
   border-color: var(--accent);
@@ -334,7 +473,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   text-decoration: none;
 }
 .header-donate:hover { text-decoration: underline; }
-.header-donate .fa-heart { color: #e0245e; }
+.header-donate .fa-heart { color: #f80000; }   /* prod Donate heart red */
 
 /* JS-created search results dropdown */
 .search-results {
@@ -358,9 +497,17 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .search-results a:hover { background: var(--surface-2); text-decoration: none; }
 
-@media (max-width: 640px) {
-  .site-header { padding: 0.55rem 1rem; }
-  .nav-toggle-label { display: inline-flex; align-items: center; margin-left: auto; order: 2; }
+/* Mobile header: prod (Vector legacy) collapses the nav to a hamburger at <=720px and
+   shrinks the logo to a 46x34 box; the wordmark + Donate text stay, the trademark mark
+   drops. Match that breakpoint + compaction so hamburger + logo + wordmark + search +
+   Donate fit ONE row (a 44px logo + 20px wordmark + TM had wrapped search to a 2nd row). */
+@media (max-width: 720px) {
+  .site-header-inner { padding: 5px 1rem; gap: 0.3rem 0.5rem; }
+  .site-logo { font-size: 17px; gap: 0.3rem; }
+  .site-logo-img { height: 34px; width: 46px; }   /* prod mobile logo box */
+  .site-tm { display: none; }   /* prod omits the trademark mark on mobile */
+  /* hamburger stays top-LEFT like prod (order -1), so it never wraps below the wide CTA */
+  .nav-toggle-label { display: inline-flex; align-items: center; margin: 0 0.5rem 0 0; order: -1; }
   /* Open menu: a clean full-width panel with its OWN scroll and sectioned groups (bold
      label + separators), not a cramped wall of links. Collapsed by default; the hamburger
      plus outside-tap / Esc (app.js initNavToggle) toggle it. */
@@ -370,23 +517,46 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
     margin: 0.4rem -1rem 0; padding: 0 1rem 0.4rem;
     border-top: 1px solid var(--border);
   }
-  .site-nav ul { flex-direction: column; gap: 0; }
-  .site-nav > ul > li:not(:last-child) { border-bottom: 1px solid var(--border-soft); }
+  .site-nav > ul { flex-direction: column; gap: 0; }
+  /* every section header carries an underline (prod), including the last section */
   .nav-group > .nav-top {
     font-weight: 700; font-size: 1rem; color: var(--fg);
-    padding: 0.7rem 0.5rem 0.35rem;
+    padding: 0.7rem 4px 0.35rem;
+    border-bottom: 1px solid #858585;
   }
   .site-nav a { padding: 0.5rem 0.65rem; }
-  /* submenus render inline + expanded in the drawer (no hover on touch), indented + muted */
+  /* submenu: production's mobile mega-menu is a 2-column CSS-multicolumn list with a
+     vertical divider rule between the columns; each item stays whole (no column split). */
   .nav-submenu {
     display: block; position: static; min-width: 0;
-    margin: 0 0 0.35rem 0.5rem; padding: 0;
+    columns: 2; column-gap: 1px; column-rule: 1px solid #858585;
+    margin: 0.35rem 0 0.6rem; padding: 0;
     background: transparent; border: none; box-shadow: none;
   }
-  .nav-submenu a { padding: 0.4rem 0.65rem; font-size: 0.9rem; color: var(--muted); }
+  .nav-submenu li { break-inside: avoid; }
+  /* labels wrap within their narrow column (prod wraps e.g. "Debian morph to Kicksecure"),
+     icon pinned to the first line */
+  .nav-submenu a { padding: 0.5rem 0.4rem; font-size: 0.95rem; color: var(--fg-soft);
+    white-space: normal; align-items: flex-start; }
+  .nav-submenu a i { margin-top: 0.2em; }
   .nav-toggle:not(:checked) ~ .site-nav { display: none; }
-  .site-search { order: 4; flex-basis: 100%; margin-left: 0; }
-  .site-search input { min-width: 0; flex: 1 1 auto; }
+  /* Right-side group (prod order): search THEN Donate heart, pushed to the far right.
+     margin-left:auto on the search (first of the group) shoves both to the right edge;
+     order:2 on both keeps them after the logo/wordmark, ahead of the nav drawer (order 3). */
+  /* right group order (prod): search, chevron supermenu, Donate -- all pushed to the far
+     right by the auto-margin on the search (the first of the group). The chevron MUST carry
+     an order too, or it stays in the left group and overflows the row (Donate then wraps). */
+  .site-search { order: 2; margin-left: auto; }
+  .tools { order: 3; }
+  .header-cta { order: 4; }
+  .search-toggle:checked ~ .search-field { width: min(55vw, 11rem); }
+}
+/* Narrow phones: production drops the "Donate" word (heart glyph only) at <=382px, where
+   the label would otherwise crowd the bar. font-size:0 hides the text node; the heart keeps
+   its own size. */
+@media (max-width: 382px) {
+  .header-donate { font-size: 0; }
+  .header-donate .fa-heart { font-size: 20px; }
 }
 
 /* ---- content ---- */
@@ -401,37 +571,29 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .wiki-content {
   max-width: var(--maxw);
-  margin: 2rem auto 3rem;
-  padding: 0 1.25rem;
+  margin: 28px auto 3rem;   /* prod .mw-body margin-top is 28px (header->content gap) */
+  padding: 0 12px;   /* prod body text sits 12px inside the 960 content column */
   /* Break an over-long word/URL/badge instead of letting it force a horizontally
      scrolling page on narrow (mobile) viewports. */
   overflow-wrap: break-word;
 }
+/* Production (Vector + Roboto) headings: NORMAL weight, smaller, NO underline border.
+   Measured on prod: h1 26px, h2 18px, h3 ~17px, all font-weight 400; h4+ bold. */
 .wiki-content h1, .wiki-content h2, .wiki-content h3,
 .wiki-content h4, .wiki-content h5, .wiki-content h6 {
-  color: var(--fg);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  margin: 2rem 0 0.75rem;
+  color: var(--heading);   /* prod section headings are gray (#777), not near-black */
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 1.1em 0 0.5em;
   scroll-margin-top: 4.5rem;
   text-wrap: balance;
 }
-.wiki-content h1 { font-size: 2rem; font-weight: 700; }
-.wiki-content h2 { font-size: 1.55rem; }
-.wiki-content h3 { font-size: 1.28rem; }
-.wiki-content h4 { font-size: 1.1rem; }
-.wiki-content h5 { font-size: 1rem; }
-.wiki-content h6 {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-}
-.wiki-content h1, .wiki-content h2 {
-  border-bottom: 1px solid var(--border-soft);
-  padding-bottom: 0.3rem;
-}
+.wiki-content h1 { font-size: 26px; }
+.wiki-content h2 { font-size: 18px; }
+.wiki-content h3 { font-size: 17px; }
+.wiki-content h4 { font-size: 16px; font-weight: 700; }
+.wiki-content h5 { font-size: 15px; font-weight: 700; }
+.wiki-content h6 { font-size: 13px; font-weight: 700; }
 /* heading wrapper carries no box, so the inner hN margins govern rhythm */
 .widget-headline { margin: 0; }
 .wiki-content > .widget-headline:first-child h1 { margin-top: 0.25rem; }
@@ -447,8 +609,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   border: none;
   position: relative;
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 400;   /* prod page title is normal-weight Roboto, not bold */
   line-height: 1.25;
+  /* title on the LEFT, book-nav on the RIGHT (prod) -- flex, not a float, so the book-nav
+     stays right even when the title wraps to several lines on mobile. */
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
 }
 .first-heading > h1, .first-heading .widget-headline h1 {
   margin: 0;
@@ -457,12 +624,19 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   font-size: inherit;
   font-weight: inherit;
   color: inherit;
+  flex: 1 1 auto;
+}
+.first-heading > .wiki-book-index {
+  float: none; order: 2; margin-left: auto; flex: none;
 }
 @media (max-width: 600px) {
   #firstHeading, .first-heading { font-size: 25px; }
 }
 
-.wiki-content p { margin: 0 0 1rem; }
+.wiki-content p { margin: 0 0 0.85em; }   /* prod paragraph spacing */
+/* pandoc wraps every table-cell's content in <p>; prod's wikitable cells hold bare text,
+   so the 0.85em paragraph margin makes stage rows ~13px taller. Zero it inside cells. */
+.wiki-content td > p, .wiki-content th > p { margin: 0; }
 .wiki-content ul, .wiki-content ol { margin: 0 0 1rem; padding-left: 1.6rem; }
 .wiki-content li { margin: 0.3rem 0; }
 .wiki-content li > ul, .wiki-content li > ol { margin: 0.3rem 0 0.3rem; }
@@ -485,13 +659,14 @@ blockquote p:last-child { margin-bottom: 0; }
 /* ---- code + pre ---- */
 .wiki-content pre {
   display: block;
-  background: var(--code-bg);
+  background: var(--pre-bg);   /* prod code blocks are a medium gray (#ddd), no radius */
+  color: var(--pre-fg);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 0.8rem 0.95rem;
+  border-radius: 0;
+  padding: 13px;
   overflow-x: auto;
   font-family: var(--font-mono);
-  font-size: 0.88rem;
+  font-size: 13px;
   line-height: 1.55;
   tab-size: 4;
 }
@@ -530,6 +705,40 @@ blockquote p:last-child { margin-bottom: 0; }
   display: inline-block; background: #07c007; border-color: #01b101; color: white;
 }
 .code-select.copied .tooltip2::after { border-top-color: #00a400; }
+/* --- Donate page crypto panel. Production styles it via the retired kicksecure_css_page_donate
+   (MediaWiki CSS extension, dropped under strict CSP); reproduced here. Floats right of the
+   appeal text as a compact box; each coin row shows its icon, name and copyable address with
+   the QR collapsed by default (prod's default view -- the address stays copyable). --- */
+.donate-area { display: flow-root; }
+.donation-panel { float: right; width: 360px; max-width: 100%; margin: 0.2rem 0 1rem 1.5rem; }
+.donation-panel > p { margin: 0; }
+.crypto {
+  border: 1px solid var(--border); border-radius: var(--radius-md, 6px);
+  overflow: hidden; background: var(--surface);
+}
+.crypto > .headline {
+  font-weight: 700; padding: 0.6rem 0.85rem; border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 55%, var(--fg) 12%);
+}
+.payitem.line {
+  display: flex; align-items: center; gap: 0.5rem 0.75rem; flex-wrap: wrap;
+  padding: 0.55rem 0.85rem; border-bottom: 1px solid var(--border-soft); font-size: 0;
+}
+.payitem.line > * { font-size: 0.9rem; }
+.payitem .qr-button { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; }
+.payitem .qr-button .icon { width: 1.4rem; height: 1.4rem; object-fit: contain; }
+.payitem .code-select { flex: 1 1 7rem; font-size: 0.78rem; }
+/* QR collapsed by default -- matches prod's default (collapsed) view; the address stays
+   copyable. The interactive expand is intentionally NOT wired: it would need content
+   checkboxes/labels, whose sanitizer allowance was reverted for security (phishing-input
+   forgery + chrome-checkbox toggling). The sanitizer drops the stripped label/checkbox. */
+.payitem .expand { display: none; }
+.donation-panel .info, .donate-legal-disclaimer {
+  font-size: 0.78rem; color: var(--muted); padding: 0.55rem 0.85rem;
+}
+@media (max-width: 640px) {
+  .donation-panel { float: none; width: 100%; margin: 1rem 0; }
+}
 .code-select .tooltip2 .copied > i { margin-right: 3px; position: relative; top: 1px; }
 .code-select > .cbutton:hover ~ .tooltip2 { display: inline-block; }
 .code-select > .cbutton {
@@ -555,8 +764,8 @@ blockquote p:last-child { margin-bottom: 0; }
 code {
   background: var(--code-bg);
   border: 1px solid var(--border-soft);
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
+  padding: 3px 7px;
+  border-radius: 3px;
   font-family: var(--font-mono);
   font-size: 0.88em;
 }
@@ -645,6 +854,11 @@ code {
   font-style: normal; font-weight: 700; font-family: inherit;
   color: var(--callout, var(--accent));
 }
+/* A pci-text IconSet is a plain-text LABEL (FAILURE / PASS / a numeral), not a glyph, so it
+   must NOT render in the Font Awesome font that the element's co-present `fa-solid` class
+   sets (same specificity as the base rule, wins on source order) -- that gave "FAILURE" the
+   icon-font's cramped metrics. The extra class outranks `.fa-solid`. */
+.padded-content-icon.pci-text { font-family: inherit; }
 .padded-content-icon.iconset-h1 { font-size: 1.5rem; }
 .padded-content-icon.iconset-h2 { font-size: 1.1rem; }
 .padded-content-icon.pci-style-circle {
@@ -744,7 +958,9 @@ code {
   background: var(--surface);
   cursor: pointer;
 }
-.tcc-section.active .tcc-title { color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+/* active tab: prod's Mininav marks the current tab BLUE (the JS switcher pills use the
+   same blue below); use --link, not the teal --accent, so both tab states match prod. */
+.tcc-section.active .tcc-title { color: var(--link); box-shadow: inset 3px 0 0 var(--link); }
 .tcc-content { padding: 0.8rem; border-top: 1px solid var(--border-soft); }
 /* Once the JS mininav switcher is built, hide the WHOLE inactive section (production);
    no-JS shows every section (progressive enhancement). */
@@ -763,11 +979,12 @@ code {
    production's .mw-collapsible-toggle (was a plain gray "Toggle" at the top-left). */
 .collapsible-toggle {
   float: right; margin: 0 0 0.5rem 0.5rem;
-  background: var(--accent); border-color: var(--accent); color: var(--accent-fg); font-weight: 700;
+  /* prod's collapsible toggle is BLUE, not the teal site accent */
+  background: var(--link); border-color: var(--link); color: #fff; font-weight: 700;
 }
 .collapsible-toggle:hover {
-  background: color-mix(in srgb, var(--accent) 85%, #000);
-  border-color: var(--accent); color: var(--accent-fg);
+  background: var(--link-hover);
+  border-color: var(--link-hover); color: #fff;
 }
 .collapsible-toggle::before { content: "\25B2"; margin-right: 0.4rem; font-size: 0.8em; }
 .mw-collapsed > .collapsible-toggle::before { content: "\25BC"; }
@@ -839,8 +1056,7 @@ code {
 .footer-tm { color: var(--muted); font-size: 0.55em; vertical-align: super; }
 .footer-claim { margin: 0 0 0.9rem; color: var(--muted); }
 .footer-subhead {
-  margin: 0 0 14px; padding-bottom: 9px; font-weight: bold; color: var(--fg);
-  border-bottom: 1px solid currentColor;
+  margin: 0 0 14px; font-weight: bold; color: var(--fg);
 }
 /* Open Source / Freedom Software badges (OSI + GNU logos), a row above the text links,
    sized to production's ~50px. */
@@ -863,7 +1079,13 @@ code {
 .footer-social-icons .icon-link:hover {
   transform: scale(1.15); background: var(--surface-2); color: var(--fg); text-decoration: none;
 }
-.footer-sponsor { margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--muted); }
+.footer-sponsor-head { margin: 0.9rem 0 0.3rem; font-weight: bold; color: var(--fg); }
+.footer-sponsor { margin: 0.3rem 0 0; font-size: 0.85rem; color: var(--muted); }
+.footer-sponsor a { color: var(--link); }
+.footer-opensource-note { margin: 0 0 0.9rem; font-size: 0.85rem; color: var(--muted); }
+.footer-legal-intro { margin: 0 0 0.6rem; font-size: 0.85rem; color: var(--muted); }
+.copyright a { color: var(--muted); }
+.copyright a:hover { color: var(--fg); }
 /* Production flows these inline as a comma-separated disclaimer, NOT one link per line. */
 .footer-freedom ul, .footer-links ul {
   display: flex; flex-wrap: wrap; gap: 0.15rem 0.5rem;
@@ -884,11 +1106,14 @@ code {
    separate donate callout). Child paragraphs stack into one continuous rounded band. */
 .intro-like { margin: 1.5em 0; }
 .pre-intro-p + .hidden-thumbnail { display: none; }
-.intro-like > *,
-.pre-intro-p ~ :not(.post-intro-p):not(.post-intro-p ~ *) {
+/* `.wiki-content` prefix raises specificity above `.wiki-content p{margin:0 0 1rem}`
+   (0,1,1) -- without it that rule beat `.intro-like > *` (0,1,0) and re-added a 1rem gap
+   between the paragraphs, breaking the box into disconnected slabs. */
+.wiki-content .intro-like > *,
+.pre-intro-p ~ :not(.post-intro-p):not(.post-intro-p ~ *):not(.hidden-thumbnail) {
   font-size: 1.06rem; line-height: 1.55; color: var(--muted); font-style: italic;
   background: var(--surface); display: flow-root; margin: 0;
-  padding: 6px 20px 7px 26px;
+  padding: 17px 20px 18px 26px;   /* prod intro box is roomier (was cramped 6/7px) */
   box-shadow: inset 11px 0 8px -8px rgb(0 0 0 / 9%);
 }
 .intro-like > :first-child,
@@ -902,6 +1127,19 @@ code {
 .pre-intro-p ~ :has(+ .post-intro-p) {
   padding-bottom: 1.1em;
   border-bottom-left-radius: 9px; border-bottom-right-radius: 9px;
+}
+/* {{LeftRightImageText}} (production Utility.css): image + text side by side, image on
+   the left by default, right with .image-right; stacks on a phone. */
+.left-right-image-text {
+  display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; margin: 1.5rem 0;
+}
+.left-right-image-text.image-right { flex-direction: row-reverse; }
+.left-right-image-text > .image { flex: 0 0 auto; max-width: 45%; }
+.left-right-image-text > .image img { max-width: 100%; height: auto; display: block; }
+.left-right-image-text > .text { flex: 1 1 15rem; }
+@media (max-width: 640px) {
+  .left-right-image-text { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+  .left-right-image-text > .image { max-width: 100%; }
 }
 .references, .footnotes { font-size: 0.9rem; color: var(--fg-soft); }
 .reference { font-size: 0.85em; vertical-align: super; line-height: 0; }
@@ -946,6 +1184,29 @@ code {
   display: block; margin: 0.55rem 0 0.25rem; font-weight: 600; font-size: 0.8rem; color: var(--muted);
 }
 .image-right { float: right; margin: 0 0 1rem 1.25rem; max-width: 45%; }
+/* float rescued from an inline style by sanitize (strict CSP strips style=):
+   the {{Contributor}} support-status box floats right of the lead prose in prod.
+   Margin mirrors prod's margin-top-5/margin-left-10; max-width keeps it from
+   eating the column on narrow desktops. Collapses to in-flow on mobile below. */
+.wiki-content .float-right { float: right; margin: 0.3rem 0 0.75rem 0.75rem; max-width: 60%; }
+.wiki-content .float-left { float: left; margin: 0.3rem 0.75rem 0.75rem 0; max-width: 60%; }
+/* {{Contributor}} infobox (a floated wikitable): production renders it BORDERLESS with
+   shaded cells (header/label #dfdfdf, value #ebebeb, 4px radius), not the generic bordered
+   content-table look. Labels are <td> here (pandoc downgrades the row-header), so shade by
+   column: first cell = label shade, the rest = value shade. */
+.wiki-content .float-right table { border: none; border-radius: 4px; overflow: hidden; }
+/* :not(.toc):not(.storage-table) matches the generic content-table selector's specificity
+   so these (later) rules win the border/padding cascade. */
+.wiki-content .float-right table:not(.toc):not(.storage-table) th,
+.wiki-content .float-right table:not(.toc):not(.storage-table) td {
+  border: none; padding: 10px 15px; vertical-align: middle;
+}
+.wiki-content .float-right table:not(.toc):not(.storage-table) td { background: #ebebeb; }
+/* header row + label column: shaded, CENTERED and BOLD (prod), value cells stay left/regular */
+.wiki-content .float-right table:not(.toc):not(.storage-table) th,
+.wiki-content .float-right table:not(.toc):not(.storage-table) td:first-child {
+  background: #dfdfdf; text-align: center; font-weight: 700;
+}
 [hidden] { display: none !important; }
 
 /* comparison-table info tooltip (production Utility.css .info-tooltip; the /w/images
@@ -994,14 +1255,15 @@ code {
 @media (max-width: 480px) {
   .wiki-content { margin: 1.25rem auto 2rem; padding: 0 1rem; }
   .image-right { float: none; margin: 1rem 0; max-width: 100%; }
+  .wiki-content .float-right, .wiki-content .float-left { float: none; margin: 1rem 0; max-width: 100%; }
 }
 
 /* --- table of contents (pure-CSS collapsible; no-JS friendly, CSP-safe) --- */
 .toc {
   display: table; min-width: 15rem; max-width: 100%; box-sizing: border-box;
-  margin: 0 0 1.5rem; padding: 0.5rem 1rem 0.7rem;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-md, 6px); font-size: 0.95rem;
+  margin: 0 0 1.5rem; padding: 20px 25px;   /* prod TOC: roomy padding */
+  background: var(--bg); border: 1px solid var(--border);   /* prod TOC is white, not gray */
+  border-radius: 8px; font-size: 14px;
 }
 /* overflow-wrap:anywhere (not break-word) shrinks the min-content width, so a long entry
    lets the shrink-to-fit TOC honor max-width:100% instead of overflowing the viewport. */
@@ -1109,8 +1371,6 @@ code {
 }
 
 /* --- breadcrumbs + categories box --- */
-.breadcrumbs { font-size: 0.85rem; color: var(--muted); margin: 0 0 0.75rem; }
-.breadcrumbs a { color: var(--link); }
 .catlinks {
   margin: 2rem 0 0; padding: 0.6rem 0.9rem; font-size: 0.9rem;
   border-top: 1px solid var(--border); color: var(--muted);
@@ -1119,28 +1379,21 @@ code {
 .catlinks a { color: var(--link); margin-right: 0.5rem; }
 
 /* --- book prev/index/next nav (#wikibookindex) --- */
+/* Production shows this as a compact prev/index/next ICON cluster at the top-right of the title,
+   NOT a full-width text bar. Float it right of the title text, icon-only (the shipped
+   FontAwesome chevron-left / list / chevron-right glyphs), no labels, no box. */
 .wiki-book-index {
-  display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
-  margin: 0 0 1.25rem; padding: 0.5rem 0.85rem; font-size: 0.9rem;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-md, 6px);
+  float: right;
+  display: inline-flex; gap: 0.55rem; align-items: center;
+  margin: 0.15rem 0 0 1rem; padding: 0; font-size: 1.05rem;
 }
-/* book-nav links are chrome, not prose -- color-only, never the content-link underline. */
-.wiki-book-index a, .wiki-book-index a:hover { display: inline-flex; align-items: center; gap: 0.3rem; text-decoration: none; }
-.wiki-book-index a.next { margin-left: auto; }
-.wiki-book-index a.prev::before { content: "\2039\00a0"; color: var(--muted); }
-.wiki-book-index a.index::before { content: "\2261\00a0"; color: var(--muted); }
-.wiki-book-index a.next::after { content: "\00a0\203a"; color: var(--muted); }
-/* info spans duplicate the links; the book nav uses text arrows (::before), so its
-   own <i> icons are hidden -- but Font Awesome IS shipped now, so DO NOT hide fa-* */
+.wiki-book-index a, .wiki-book-index a:hover {
+  display: inline-flex; align-items: center; color: var(--muted); text-decoration: none;
+}
+.wiki-book-index a:hover { color: var(--link); }
+.wiki-book-index i { display: inline-block; }   /* SHOW the FA prev/index/next icons */
+.wiki-book-index .text { display: none; }        /* icon-only, like prod */
 .wiki-book-index .info { display: none; }
-.wiki-book-index i { display: none; }
-/* On phones the top book-nav shows SYMBOLS ONLY (the prev/index/next glyphs), no text
-   labels -- more compact, matching production. */
-@media (max-width: 480px) {
-  .wiki-book-index .text { display: none; }
-  .wiki-book-index { gap: 1.5rem; }
-}
 
 /* Book / related-links nav box: a .mininav carrying a title + link list (e.g. the
    "Legal Policies" grouping). :has(> ul) scopes this to the list variant, NOT the
@@ -1162,18 +1415,19 @@ code {
 }
 .mininav:not(.mn-switcher) > ul > li {
   display: inline-block; margin: 0 3px 5px 0; padding: 0;
-  position: relative; min-height: 40px;
+  position: relative; min-height: 50px;   /* prod tab rows are 50px tall */
 }
 .mininav:not(.mn-switcher) li > a {
-  display: inline-block; background: var(--surface); color: var(--link);
-  padding: 6px 10px; font-size: 15px; text-decoration: none;
+  display: inline-block; background: #fafafa; color: #3366bb;   /* prod tab colours */
+  padding: 11px 15px; font-size: 17px; text-decoration: none;   /* ~49px tall, matching prod */
   border-bottom: 4px solid var(--bg);
   transition: background-color 0.3s, border-bottom-color 0.3s;
 }
 .mininav:not(.mn-switcher) li > a:hover,
 .mininav:not(.mn-switcher) li > a.selflink,
 .mininav:not(.mn-switcher) li > a[aria-current="page"] {
-  background: var(--bg); border-bottom-color: var(--accent);
+  /* prod marks the current book tab with a BLUE underline; use --link, not teal --accent. */
+  background: var(--bg); border-bottom-color: var(--link);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05); font-weight: normal;
 }
 /* leading icon forced into a 25x25 gutter (overrides the markup width); label cleared. */
@@ -1204,8 +1458,15 @@ code {
 /* --- consent / privacy banner (no-JS shows it; JS dismiss -> localStorage) --- */
 /* Fixed translucent overlay pinned to the viewport bottom that follows on scroll,
    matching production's CookieWarning (position:fixed; rgba dark bg; white text). */
+/* Bottom-fixed stack holding the permanent staging notice ABOVE the dismissible consent
+   banner, so the "not production" warning is never hidden. Both children flow in the
+   column; each spans full width. */
+.bottom-stack {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 450;
+  display: flex; flex-direction: column;
+}
 .consent-banner {
-  position: fixed; left: 0; bottom: 0; width: 100%; z-index: 450; box-sizing: border-box;
+  width: 100%; box-sizing: border-box;
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 0.9rem;
   padding: 0.5rem 1rem; font-size: 0.88rem;
   background: rgba(60, 60, 60, 0.9); color: #fff; box-shadow: 0 -2px 8px rgb(0 0 0 / 25%);
@@ -1220,13 +1481,19 @@ code {
 .consent-dismiss:hover { background: rgba(255, 255, 255, 0.25); }
 
 /* Staging notice -- STAGE builds only; loud + non-dismissible so stage is never
-   mistaken for production. */
+   mistaken for production. Fixed to the viewport BOTTOM so it is out of the header:
+   the header then renders at y=0 exactly like production (no top offset), which keeps
+   stage-vs-prod pixel comparison aligned. Always visible while scrolling. */
 .stage-banner {
   padding: 0.5rem 1rem; font-size: 0.9rem; text-align: center;
   color: #3a2500; background: #ffcf33;
-  border-bottom: 2px solid #e0a800;
+  border-top: 2px solid #e0a800;
 }
 .stage-banner strong { color: #7a1f00; }
+/* Reserve space so the fixed bottom stack never hides the last of the footer (stage builds
+   only). The staging notice wraps to ~3 lines at phone width, so reserve more there. */
+body:has(.stage-banner) { padding-bottom: 3.5rem; }
+@media (max-width: 720px) { body:has(.stage-banner) { padding-bottom: 6rem; } }
 
 /* Browser-storage viewer (Special:BrowserStorage) */
 .storage-table {

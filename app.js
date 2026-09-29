@@ -137,6 +137,42 @@
     }
   }
 
+  // Generic copy button: any [data-copy] element copies its attribute to the clipboard and
+  // flashes a `.copied` class for ~2s (the label's data-copied text is shown via CSS ::after).
+  // Used by the header supermenu's Permalink and the share panel's copy-as-X cards.
+  function initDataCopy() {
+    var btns = document.querySelectorAll("[data-copy]");
+    for (var i = 0; i < btns.length; i++) {
+      (function (btn) {
+        var text = btn.getAttribute("data-copy");
+        var timer;
+        function done() {
+          btn.classList.add("copied");
+          clearTimeout(timer);
+          timer = setTimeout(function () { btn.classList.remove("copied"); }, 2000);
+        }
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done, done);
+          } else { done(); }
+        });
+      })(btns[i]);
+    }
+  }
+
+  // Print button: the supermenu's [data-action="print"] triggers the browser print dialog
+  // (a print stylesheet strips chrome). window.print is the only static-safe "printable view".
+  function initPagePrint() {
+    var btns = document.querySelectorAll('[data-action="print"]');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function (e) {
+        e.preventDefault();
+        try { window.print(); } catch (err) {}
+      });
+    }
+  }
+
   // Collapsibles: a top-right toggle collapses/expands the box (rendered expanded
   // no-JS). Matches production: the label reflects state (Collapse/Expand) and a CSS
   // triangle (::before) points up when expanded, down when collapsed.
@@ -148,7 +184,7 @@
         toggle.type = "button";
         toggle.className = "collapsible-toggle";
         function label() {
-          toggle.textContent = item.classList.contains("mw-collapsed") ? "Expand" : "Collapse";
+          toggle.textContent = item.classList.contains("mw-collapsed") ? "Learn More" : "Collapse";
         }
         label();
         toggle.addEventListener("click", function () {
@@ -799,6 +835,8 @@
   ready(function () {
     initDarkMode();
     initCopyButtons();
+    initDataCopy();
+    initPagePrint();
     initCollapsibles();
     initExpandCollapseAll();
     initTabs();
