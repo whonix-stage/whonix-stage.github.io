@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix VM Build Documentation</title>
+<meta name="description" content="Instructions to build Whonix Virtual Machine Images from Source Code.">
+<meta property="og:description" content="Instructions to build Whonix Virtual Machine Images from Source Code.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Build_Documentation/images">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Build_Documentation/images">
+<meta property="og:title" content="Whonix VM Build Documentation">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../../../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../../Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../../Download">Download</a><ul class="nav-submenu"><li><a href="../../VirtualBox"><span>Windows</span></a></li><li><a href="../../Linux"><span>Linux</span></a></li><li><a href="../../MacOS"><span>Mac</span></a></li><li><a href="../../VirtualBox"><span>VirtualBox</span></a></li><li><a href="../../KVM"><span>KVM</span></a></li><li><a href="../../Qubes"><span>Qubes</span></a></li><li><a href="../../Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="../../ARM64"><span>ARM64</span></a></li><li><a href="../../USB_Installation"><span>USB</span></a></li><li><a href="../../Whonix-Host"><span>ISO</span></a></li><li><a href="../../Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../About">About</a><ul class="nav-submenu"><li><a href="../../About"><span>Overview</span></a></li><li><a href="../../Features"><span>Features</span></a></li><li><a href="../../Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="../../Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="../../What_we_do"><span>Project Activities</span></a></li><li><a href="../../Contributors"><span>Contributors</span></a></li><li><a href="../../Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../Documentation">Docs</a><ul class="nav-submenu"><li><a href="../../Documentation"><span>Documentation</span></a></li><li><a href="../../FAQ"><span>FAQ</span></a></li><li><a href="../../Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="../../Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../../Support">Support</a><ul class="nav-submenu"><li><a href="../../Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="../../Support"><span>Support (Limited)</span></a></li><li><a href="../../Plus_Support"><span>Plus</span></a></li><li><a href="../../Premium_Support"><span>Premium</span></a></li><li><a href="../../Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="../../Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/Dev/Build_Documentation/images" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[Dev/Build Documentation/images|Whonix VM Build Documentation]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[Whonix VM Build Documentation](https://www.whonix.org/wiki/Dev/Build_Documentation/images)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images]Whonix VM Build Documentation[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages&amp;text=Whonix%20VM%20Build%20Documentation" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages&amp;text=Whonix%20VM%20Build%20Documentation" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages&amp;title=Whonix%20VM%20Build%20Documentation" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages&amp;summary=Whonix%20VM%20Build%20Documentation" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages&amp;t=Whonix%20VM%20Build%20Documentation" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=Whonix%20VM%20Build%20Documentation%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=Whonix%20VM%20Build%20Documentation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="../../Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div><span class="dev-zone-badge">Developer Zone</span></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../../Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<h1 id="firstHeading" class="first-heading">Whonix VM Build Documentation</h1><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Instructions to build Whonix Virtual Machine Images from Source
+Code.</p>
+<div class="post-intro-p">
+</div>
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li><li class="toc-l1"><a href="#Host_Preparation"><span class="tocnumber">2</span> <span class="toctext">Host Preparation</span></a></li><li class="toc-l2"><a href="#Host_Preparation_Notices"><span class="tocnumber">2.1</span> <span class="toctext">Host Preparation Notices</span></a></li><li class="toc-l2"><a href="#Host_Preparation_Steps"><span class="tocnumber">2.2</span> <span class="toctext">Host Preparation Steps</span></a></li><li class="toc-l3"><a href="#Option_A:_passwordless_sudo"><span class="tocnumber">2.2.1</span> <span class="toctext">Option A: passwordless sudo</span></a></li><li class="toc-l3"><a href="#Option_B:_long_sudo_timeout"><span class="tocnumber">2.2.2</span> <span class="toctext">Option B: long sudo timeout</span></a></li><li class="toc-l1"><a href="#Special_Notice"><span class="tocnumber">3</span> <span class="toctext">Special Notice</span></a></li><li class="toc-l1"><a href="#Choose_Version"><span class="tocnumber">4</span> <span class="toctext">Choose Version</span></a></li><li class="toc-l1"><a href="#Get_the_Signing_Key"><span class="tocnumber">5</span> <span class="toctext">Get the Signing Key</span></a></li><li class="toc-l1"><a href="#Get_the_Source_Code"><span class="tocnumber">6</span> <span class="toctext">Get the Source Code</span></a></li><li class="toc-l2"><a href="#Zsh_in_Whonix_or_Derivatives"><span class="tocnumber">6.1</span> <span class="toctext">Zsh in Whonix or Derivatives</span></a></li><li class="toc-l2"><a href="#bash_and_other_shells"><span class="tocnumber">6.2</span> <span class="toctext">bash and other shells</span></a></li><li class="toc-l1"><a href="#Change_Directory"><span class="tocnumber">7</span> <span class="toctext">Change Directory</span></a></li><li class="toc-l1"><a href="#OpenPGP_Verify_the_Source_Code"><span class="tocnumber">8</span> <span class="toctext">OpenPGP Verify the Source Code</span></a></li><li class="toc-l1"><a href="#Checkout_Version"><span class="tocnumber">9</span> <span class="toctext">Checkout Version</span></a></li><li class="toc-l1"><a href="#Check_Git"><span class="tocnumber">10</span> <span class="toctext">Check Git</span></a></li><li class="toc-l1"><a href="#Build"><span class="tocnumber">11</span> <span class="toctext">Build</span></a></li><li class="toc-l1"><a href="#Build_Logs"><span class="tocnumber">12</span> <span class="toctext">Build Logs</span></a></li><li class="toc-l1"><a href="#VM_Build_Result"><span class="tocnumber">13</span> <span class="toctext">VM Build Result</span></a></li><li class="toc-l1"><a href="#Prepare_Release"><span class="tocnumber">14</span> <span class="toctext">Prepare Release</span></a></li><li class="toc-l1"><a href="#Troubleshooting"><span class="tocnumber">15</span> <span class="toctext">Troubleshooting</span></a></li><li class="toc-l2"><a href="#Build_repeatedly_errors_out_with_hash_sum_mismatch"><span class="tocnumber">15.1</span> <span class="toctext">Build repeatedly errors out with hash sum mismatch</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">16</span> <span class="toctext">Footnotes</span></a></li></ul></nav><h1 id="Introduction">Introduction</h1>
+<p>This page documents how to <u>build Whonix</u> VM (<u>V</u>irtual
+<u>M</u>achine) images for <a href="../../VirtualBox">VirtualBox</a>
+(<em><span>.ova</span></em>) or <a href="../../KVM">KVM</a>
+(<em><span>.qcow2</span></em>) <a href="../../Trust#Builds_from_Source_Code_versus_Builds_including_Binary_Packages"><u>"from source code"</u></a> using
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+derivative-maker. Most users do not build Whonix from source code, but
+instead <a href="../../Download">download Whonix</a>.</p>
+<p>For <a href="../../Qubes">Qubes-Whonix<sup>&#8482;</sup></a>,
+see <a href="../Qubes#Build_Qubes-Whonix_Templates">Qubes-Whonix<sup>&#8482;</sup> Build Documentation</a>.</p>
+<p>Building from source code has security advantages (see <a href="../../Trust">Trust</a>).</p>
+<p>The goal of this build documentation is to be usable by as many users
+as possible. Therefore it is written as simply as possible and does not
+require prior knowledge of the tools used.</p>
+<p>The high level summary is as follows:</p>
+<ol>
+<li>Host preparation.</li>
+<li>Get derivative-maker source code.</li>
+<li>Run derivative-maker.</li>
+<li>Done, build of Whonix has been completed.</li>
+</ol>
+<p>Advanced users who already know how to use <code>git</code> and how
+to perform digital software verification using OpenPGP
+(<code>gpg</code>) do not need to strictly follow this documentation.
+See footnote(s) for details. <sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup></p>
+<p>Due to digital software verification instructions and <a href="https://www.kicksecure.com/wiki/Software_Signature_Verification_Usability_Issues_and_Proposed_Solutions/">Software Signature Verification Usability Issues</a>,
+these instructions might look more complicated than they actually
+are.</p>
+<p><ul class="icon-bullet-list ibl-fs-17"><li><i class="fa-solid fa-key cs-green"></i><span><b>Digital signatures</b> are a tool enhancing download security.
+They are commonly used across the internet and nothing special to worry
+about.</span></li><li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional, not required:</b> Digital signatures are optional and
+not mandatory for using Whonix, but an extra security measure for <a href="../../Advanced_Users">advanced users</a>. If you've
+never used them before, it might be overwhelming to look into them at
+this stage. Just ignore them for now.</span></li><li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b> Curious? If you are interested in becoming more
+familiar with advanced computer security concepts, you can learn more
+about digital signatures here: <a href="https://www.kicksecure.com/wiki/Verifying_Software_Signatures/">Verifying Software Signatures</a></span></li></ul></p>
+<p>Steps concerning digital software verification are pointed out as
+"This step is recommended for better security, but is not strictly
+required. (See <a href="../../Trust">Trust</a>.)"</p>
+<p>When verifying digital software signatures, these instructions will
+be slightly more complicated, but even more secure.</p>
+<ol>
+<li>Host preparation.</li>
+<li>Get Whonix source code (which includes Whonix build script).</li>
+<li>Verify digital software signatures.</li>
+<li>Run Whonix build script.</li>
+<li>Done, build of Whonix has been completed.</li>
+</ol>
+<h1 id="Host_Preparation">Host Preparation</h1>
+<h2 id="Host_Preparation_Notices">Host Preparation Notices</h2><span class="share-tooltip" data-anchor="Host_Preparation_Notices"><a class="headline-anchor" href="#Host_Preparation_Notices" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images#Host_Preparation_Notices">https://www.whonix.org/wiki/Dev/Build_Documentation/images#Host_Preparation_Notices</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Host_Preparation_Notices&amp;text=Host%20Preparation%20Notices" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Host_Preparation_Notices&amp;text=Host%20Preparation%20Notices" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Host_Preparation_Notices&amp;title=Host%20Preparation%20Notices" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Host%20Preparation%20Notices&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Host_Preparation_Notices" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Host_Preparation_Notices]Host Preparation Notices[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Host_Preparation_Notices]Host Preparation Notices[/url]</span></span></span></span>
+<p><button class="expand-or-collapse-all-button">Expand
+all</button></p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<ul>
+<li><u>operating system:</u> You need to build on a
+<strong>Debian</strong> <u><code>trixie</code></u> based operating
+system, such as Whonix-Workstation<sup>&#8482;</sup> <code>18</code> or a
+Debian <code>trixie</code> VM.</li>
+<li><u>disk space:</u> You need ~ <code>30</code> GB free disk
+space.</li>
+<li><u>RAM:</u> You need ~ <code>4</code> GB free RAM.
+<ul>
+<li>Might actually work with a lot less RAM.</li>
+<li>Might actually work with less RAM if you have swap.</li>
+</ul></li>
+<li><u>linux user account:</u> Do not build under user
+<code>root</code>. Log in as account <code>user</code>. Do not use
+<code>sudo</code> to run <code>derivative-maker</code> because becoming
+root when necessary is handled by the build script.</li>
+<li><u>build place notice:</u> You cannot build on
+Whonix-Gateway<sup>&#8482;</sup> (due to networking issues).</li>
+<li><u>build logs:</u> If using a GUI (graphical user interface) it is
+recommended to set your terminal (for example <code>qterminal</code>) to
+unlimited scrollback, so you can watch the full build log and share it
+for support in case there are issues.</li>
+</ul>
+<div class="mw-collapsible-content">
+<p>...</p>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<ul>
+<li><u>private files in source code warning:</u> Do not add private
+files to Whonix source code folder! [...]</li>
+</ul>
+<div class="mw-collapsible-content">
+<p>Unless you know what you are doing. Technically, it would work. This
+is recommended against. Those files would get managed by the respective
+package. When you later update Whonix debian packages, your files would
+get deleted by the package manager. Also adding private files to Whonix
+source code folder, later contributing to Whonix development and
+accidentally pushing the wrong git branch would be a disaster. Better
+add your private files to Whonix after building Whonix. Or add a custom
+build step adding your files, which then get copied from a folder
+outside of Whonix source folder. See "Source Code Changes" in "Optional
+Build Configuration" below.</p>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<ul>
+<li><u>parallel builds unsupported warning:</u> Do not try to build
+Whonix-Gateway and Whonix-Workstation at the same time!</li>
+</ul>
+<div class="mw-collapsible-content">
+<p>Building Whonix-Gateway and Whonix-Workstation at the same time is
+not supported due to limitations in the build script. In other words, do
+not try to run for example
+<span>~/derivative-maker/derivative-maker
+--flavor whonix-gateway -- --target virtualbox</span> and
+<span>~/derivative-maker/derivative-maker
+--flavor whonix-workstation -- --target virtualbox</span> at the same
+time. The build would probably fail.</p>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<ul>
+<li><u>CI warning:</u> Do not use images created inside Continuous
+Integration (CI) environments for anything besides testing!</li>
+</ul>
+<div class="mw-collapsible-content">
+<p>Usually you are not using <a href="https://en.wikipedia.org/wiki/Continuous_integration">CI</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Continuous_integration" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+environments without knowing it.</p>
+<p>You can find out if you are running inside a CI environment by
+running:</p>
+<p><span class="code-select" data-code="echo &quot;$CI&quot;">echo
+"$CI"</span></p>
+<p>If it shows nothing, i.e.</p>
+<pre><code></code></pre>
+<p>Everything is fine.</p>
+<p>Otherwise, if it were to show:</p>
+<pre><code>true</code></pre>
+<p>Then do not use these images for anything besides testing.</p>
+<p>Reason: <a href="https://github.com/Whonix/derivative-maker/blob/master/build-steps.d/1200_prepare-build-machine">https://github.com/Whonix/derivative-maker/blob/master/build-steps.d/1200_prepare-build-machine</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/derivative-maker/blob/master/build-steps.d/1200_prepare-build-machine" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+</div>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed">
+<ul>
+<li><u>official builds:</u> In case of creating official builds to be
+redistributed on <code>whonix.org</code> and not for personal use, press
+expand on the right side.</li>
+</ul>
+<div class="mw-collapsible-content">
+<p>Prepend the following variable:
+<span class="code-select" data-code="dist_build_redistributable=true">dist_build_redistributable=true</span></p>
+<p>sets:</p>
+<ul>
+<li><code>--repo true</code></li>
+<li><code>--tb closed</code></li>
+</ul>
+<p>See also: <a href="../Redistribution">Dev/Redistribution</a></p>
+</div>
+</div>
+<h2 id="Host_Preparation_Steps">Host Preparation Steps</h2><span class="share-tooltip" data-anchor="Host_Preparation_Steps"><a class="headline-anchor" href="#Host_Preparation_Steps" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images#Host_Preparation_Steps">https://www.whonix.org/wiki/Dev/Build_Documentation/images#Host_Preparation_Steps</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Host_Preparation_Steps&amp;text=Host%20Preparation%20Steps" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Host_Preparation_Steps&amp;text=Host%20Preparation%20Steps" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Host_Preparation_Steps&amp;title=Host%20Preparation%20Steps" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Host%20Preparation%20Steps&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Host_Preparation_Steps" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Host_Preparation_Steps]Host Preparation Steps[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Host_Preparation_Steps]Host Preparation Steps[/url]</span></span></span></span>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" height="40" alt="Info" /></span>
+If you are building Whonix on Whonix-Workstation, you usually must boot
+into
+<code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>
+for the build to succeed. Alternatively, you may enable
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+unrestricted_admin_mode. See also <a href="../../Sysmaint">Sysmaint</a>.</p>
+</div>
+<p><strong>1.</strong> <u>build dependencies:</u></p>
+<p>Install build dependencies and get the source code.</p>
+<p>Update the package lists.</p>
+<p><span class="code-select" data-code="sudo apt update">sudo apt
+update</span></p>
+<p>Install build dependencies.</p>
+<p><span class="code-select" data-code="sudo apt install git time curl approx lsb-release fakeroot dpkg-dev fasttrack-archive-keyring safe-rm">sudo
+apt install git time curl approx lsb-release fakeroot dpkg-dev
+fasttrack-archive-keyring safe-rm</span></p>
+<p><strong>2.</strong> <u>Platform specific notices</u>:</p>
+<ul>
+<li>VirtualBox: Install VirtualBox on the build machine as per <a href="../../VirtualBox/Recommended_Version">recommended
+VirtualBox version</a>. <sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup></li>
+<li>Other platforms: No special notice.</li>
+</ul>
+<p><strong>3.</strong> <u>sudo setup</u>:</p>
+<p>Choose either Option A <u>or</u> Option B.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active info-box active"><div class="tcc-image"></div><div class="tcc-title"><h3 id="Option_A:_passwordless_sudo">Option A: passwordless sudo</h3><span class="share-tooltip" data-anchor="Option_A:_passwordless_sudo"><a class="headline-anchor" href="#Option_A:_passwordless_sudo" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images#Option_A:_passwordless_sudo">https://www.whonix.org/wiki/Dev/Build_Documentation/images#Option_A:_passwordless_sudo</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Option_A%3A_passwordless_sudo&amp;text=Option%20A%3A%20passwordless%20sudo" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Option_A%3A_passwordless_sudo&amp;text=Option%20A%3A%20passwordless%20sudo" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Option_A%3A_passwordless_sudo&amp;title=Option%20A%3A%20passwordless%20sudo" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Option%20A%3A%20passwordless%20sudo&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Option_A%3A_passwordless_sudo" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Option_A:_passwordless_sudo]Option A: passwordless sudo[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Option_A:_passwordless_sudo]Option A: passwordless sudo[/url]</span></span></span></span></div><div class="tcc-content"><p><u>Option A:</u> Set up passwordless sudo.</p>
+<ul>
+<li>Abstract task overview: Setup passwordless sudo for your Linux user
+account.</li>
+<li>Detailed task overview: Setup sudo and add your Linux user account
+to the Linux user group <code>sudo</code>. The following instructions
+use Linux user account name <code>user</code> as an example. If the user
+is using a different Linux user account name such as <code>myname</code>
+then the commands below have to be adjusted accordingly.</li>
+<li>Unspecific: Configuration of sudo is <a href="../../Unspecific">unspecific to Whonix</a>.</li>
+<li>Whonix specific: When building inside Whonix-Workstation, account
+<code>user</code> is already a member of group <code>sudo</code> by
+default. Therefore the following step "1." can be skipped.</li>
+<li>Detailed steps:</li>
+</ul>
+<p><strong>1.</strong> Setup sudoers. Add the operating system user name
+to sudoers.</p>
+<div class="info-box ">
+<p>Become root.</p>
+<p><span class="code-select" data-code="su">su</span></p>
+<p>Add the <em><span>user</span></em>
+account to the sudoer's group. Replace
+<em><span>user</span></em> with the
+actual operating system user name.</p>
+<p><span class="code-select" data-code="adduser user sudo">adduser user
+sudo</span></p>
+<p>Reboot so group changes take effect.</p>
+<p><span class="code-select" data-code="reboot">reboot</span></p>
+</div>
+<p><strong>2.</strong> Configure account <code>user</code> to be able to
+use sudo without a password.</p>
+<p><span class="code-select" data-code="echo &#x27;%sudo ALL=(ALL:ALL) NOPASSWD:ALL&#x27; | sudo EDITOR=tee visudo -f /etc/sudoers.d/dist-build-sudo-passwordless &gt;/dev/null">echo
+'%sudo ALL=(ALL:ALL) NOPASSWD:ALL' | sudo EDITOR=tee visudo -f
+/etc/sudoers.d/dist-build-sudo-passwordless &gt;/dev/null</span></p>
+<p><strong>3.</strong> Done.</p>
+<p>The process of setting up passwordless sudo has been completed.</p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"></div><div class="tcc-title"><h3 id="Option_B:_long_sudo_timeout">Option B: long sudo timeout</h3><span class="share-tooltip" data-anchor="Option_B:_long_sudo_timeout"><a class="headline-anchor" href="#Option_B:_long_sudo_timeout" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images#Option_B:_long_sudo_timeout">https://www.whonix.org/wiki/Dev/Build_Documentation/images#Option_B:_long_sudo_timeout</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Option_B%3A_long_sudo_timeout&amp;text=Option%20B%3A%20long%20sudo%20timeout" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Option_B%3A_long_sudo_timeout&amp;text=Option%20B%3A%20long%20sudo%20timeout" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Option_B%3A_long_sudo_timeout&amp;title=Option%20B%3A%20long%20sudo%20timeout" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Option%20B%3A%20long%20sudo%20timeout&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Option_B%3A_long_sudo_timeout" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Option_B:_long_sudo_timeout]Option B: long sudo timeout[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Option_B:_long_sudo_timeout]Option B: long sudo timeout[/url]</span></span></span></span></div><div class="tcc-content"><p><u>Option B:</u> Set a longer sudo password timeout.</p>
+<ul>
+<li>Abstract task overview: Setup sudo with a longer timeout for your
+Linux user account name.</li>
+<li>Detailed task overview: Setup sudo and increase the sudo password
+timeout (for all Linux user accounts or all users). The following
+instructions use Linux user account name <code>user</code> as an
+example. If the user is using a different Linux user account name such
+as <code>myname</code> then the commands below have to be adjusted
+accordingly.</li>
+<li>Unspecific: Configuration of sudo is <a href="../../Unspecific">unspecific to Whonix</a>.</li>
+<li>Whonix specific: When building inside Whonix-Workstation, account
+<code>user</code> is already a member of group <code>sudo</code> by
+default. Therefore the following step "1." can be skipped.</li>
+<li>Detailed steps:</li>
+</ul>
+<p><strong>1.</strong> Setup sudoers. Add the operating system user name
+to sudoers.</p>
+<div class="info-box ">
+<p>Become root.</p>
+<p><span class="code-select" data-code="su">su</span></p>
+<p>Add the <em><span>user</span></em>
+account to the sudoer's group. Replace
+<em><span>user</span></em> with the
+actual operating system user name.</p>
+<p><span class="code-select" data-code="adduser user sudo">adduser user
+sudo</span></p>
+<p>Reboot so group changes take effect.</p>
+<p><span class="code-select" data-code="reboot">reboot</span></p>
+</div>
+<p><strong>2.</strong> Configure <code>sudo</code> to use a longer
+password timeout.</p>
+<p><span class="code-select" data-code="echo &#x27;Defaults timestamp_timeout=30&#x27; | sudo EDITOR=tee visudo -f /etc/sudoers.d/dist-build-sudo-timeout &gt;/dev/null">echo
+'Defaults timestamp_timeout=30' | sudo EDITOR=tee visudo -f
+/etc/sudoers.d/dist-build-sudo-timeout &gt;/dev/null</span></p>
+<p><strong>3.</strong> Done.</p>
+<p>The process of setting up a longer sudo timeout has been
+completed.</p></div></div></div></div></p>
+<h1 id="Special_Notice">Special Notice</h1>
+<p>Currently none.</p>
+<h1 id="Choose_Version">Choose Version</h1>
+<p><span class="manually-placed-anchor " id="Choose_Version"></span></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" height="40" alt="info" /></span>
+<u>Version Numbers Choice Information</u></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Common sense is required when choosing the right version number.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+This project publishes git tags using the <code>-developers-only</code>
+suffix. This suffix is intentionally used to make clear that the tag
+refers to a developer-focused release line, and that users should verify
+suitability before using it.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+A separate <code>-stable</code> or <code>-testers-only</code> tag is not
+maintained. This reduces ongoing maintenance work and avoids requiring
+additional tagging steps for every release.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Using a <code>-developers-only</code> tag can still be appropriate, as
+long as you select the correct version number and confirm that it
+matches the latest stable release announcement.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">5</i>
+Follow the <a href="../../Stay_Tuned">Whonix News Blog</a>
+and the forums announcements, as they might contain important version
+selection information.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" height="40" alt="info" /></span>
+<u>Version Numbers Choice Instructions</u></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Go to <a href="https://forums.whonix.org/c/news/">Whonix forums news
+category</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/c/news/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and look for the latest stable version number.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Use that version number when choosing the git tag to build, even though
+the available tag uses the <code>-developers-only</code> suffix.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Compare this with the version number mentioned in the wiki
+documentation, and prefer the stable release announcement if there is
+any mismatch.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+For example, if <code>18.2.1.9</code> has been announced as the latest
+stable release and a git tag <code>18.2.1.9-developers-only</code> is
+available, then <code>18.2.1.9-developers-only</code> can be used.</p>
+</div>
+<h1 id="Get_the_Signing_Key">Get the Signing Key</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" height="40" alt="Info" /></span>
+This step is recommended for better security, but is not strictly
+required. (See <a href="../../Trust">Trust</a>.)</p>
+</div>
+<p>Get the <a href="../../Signing_Key">Whonix Signing Key</a>
+and import it.</p>
+<h1 id="Get_the_Source_Code">Get the Source Code</h1>
+<p><strong><a href="../../Reasons_for_Freedom_Software" class="freelink" aria-label="Link to: Reasons for Freedom Software">FREE</a></strong></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Ambox_warning_pn.svg.png" /></span>
+<u>Note</u>: By proceeding, you acknowledge that you have read,
+understood, and agreed to our <a href="../../Terms_of_Service"><span>Terms of
+Service</span></a> and <a href="../../Copyright"><span>License
+Agreement</span></a>.</p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Install <code>git</code>.</p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt install git">sudo
+apt update &amp;&amp; sudo apt install git</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Get the source code including git submodules. <sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup>
+<sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span class="cite-bracket">[</span>4<span class="cite-bracket">]</span></a></sup></p>
+<p><u>Note:</u> Replace <code>18.2.1.9-developers-only</code> with the
+actual tag or branch you intend to build.</p>
+<p><span class="code-select" data-code="git clone --depth=1 --branch 18.2.1.9-developers-only --jobs=4 --recurse-submodules --shallow-submodules https://github.com/Whonix/derivative-maker.git">git
+clone --depth=1 --branch 18.2.1.9-developers-only --jobs=4
+--recurse-submodules --shallow-submodules <a href="https://github.com/Whonix/derivative-maker.git">https://github.com/Whonix/derivative-maker.git</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/derivative-maker.git" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Check if the above command succeeded.</p>
+<p>If there were errors such as:</p>
+<pre><code>fatal: unable to access &#39;https://github.com/.../&#39;: Could not resolve host: github.com</code></pre>
+<p>Or:</p>
+<pre><code>fatal: unable to access &#39;https://github.com/.../&#39;: gnutls_handshake() failed: The TLS connection was non-properly terminated.</code></pre>
+<p>then the download likely failed.</p>
+<p>Verify success by checking the exit code.</p>
+<p>Choose your shell.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active info-box"><div class="tcc-image"></div><div class="tcc-title"><h2 id="Zsh_in_Whonix_or_Derivatives">Zsh in Whonix or Derivatives</h2><span class="share-tooltip" data-anchor="Zsh_in_Whonix_or_Derivatives"><a class="headline-anchor" href="#Zsh_in_Whonix_or_Derivatives" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images#Zsh_in_Whonix_or_Derivatives">https://www.whonix.org/wiki/Dev/Build_Documentation/images#Zsh_in_Whonix_or_Derivatives</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Zsh_in_Whonix_or_Derivatives&amp;text=Zsh%20in%20Whonix%20or%20Derivatives" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Zsh_in_Whonix_or_Derivatives&amp;text=Zsh%20in%20Whonix%20or%20Derivatives" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Zsh_in_Whonix_or_Derivatives&amp;title=Zsh%20in%20Whonix%20or%20Derivatives" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Zsh%20in%20Whonix%20or%20Derivatives&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Zsh_in_Whonix_or_Derivatives" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Zsh_in_Whonix_or_Derivatives]Zsh in Whonix or Derivatives[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Zsh_in_Whonix_or_Derivatives]Zsh in Whonix or Derivatives[/url]</span></span></span></span></div><div class="tcc-content"><p>If the last line contains something similar to:</p>
+<pre><code>zsh: exit 1</code></pre>
+<p>then do not proceed. See footnote. <sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span class="cite-bracket">[</span>5<span class="cite-bracket">]</span></a></sup></p></div></div> <div class="tcc-section  info-box"><div class="tcc-image"></div><div class="tcc-title"><h2 id="bash_and_other_shells">bash and other shells</h2><span class="share-tooltip" data-anchor="bash_and_other_shells"><a class="headline-anchor" href="#bash_and_other_shells" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images#bash_and_other_shells">https://www.whonix.org/wiki/Dev/Build_Documentation/images#bash_and_other_shells</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23bash_and_other_shells&amp;text=bash%20and%20other%20shells" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23bash_and_other_shells&amp;text=bash%20and%20other%20shells" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23bash_and_other_shells&amp;title=bash%20and%20other%20shells" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=bash%20and%20other%20shells&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23bash_and_other_shells" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#bash_and_other_shells]bash and other shells[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#bash_and_other_shells]bash and other shells[/url]</span></span></span></span></div><div class="tcc-content"><p>Show the exit code.</p>
+<p><span class="code-select" data-code="echo $?">echo $?</span></p>
+<p>The output should be:</p>
+<pre><code>0</code></pre>
+<p>If any other exit code is shown, do not proceed and see footnote.
+<sup id="cite_ref-5-2" class="reference"><a href="#cite_note-5"><span class="cite-bracket">[</span>5<span class="cite-bracket">]</span></a></sup></p></div></div></div></div></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Done.</p>
+<p>Git repository cloning has been completed.</p>
+<h1 id="Change_Directory">Change Directory</h1>
+<p>Change directory to the <code>derivative-maker</code> source code
+folder because later on, package build commands using
+<code>./derivative-maker</code> are expected to be run from the root of
+the source folder.</p>
+<p><span class="code-select" data-code="cd derivative-maker">cd
+derivative-maker</span></p>
+<h1 id="OpenPGP_Verify_the_Source_Code">OpenPGP Verify the Source
+Code</h1>
+<p><strong>This chapter is recommended for better security, but is not
+strictly required.</strong> (See <a href="../../Trust">Trust</a>.)</p>
+<p><ul class="icon-bullet-list ibl-fs-17"><li><i class="fa-solid fa-key cs-green"></i><span><b>Digital signatures</b> are a tool enhancing download security.
+They are commonly used across the internet and nothing special to worry
+about.</span></li><li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional, not required:</b> Digital signatures are optional and
+not mandatory for using Whonix, but an extra security measure for <a href="../../Advanced_Users">advanced users</a>. If you've
+never used them before, it might be overwhelming to look into them at
+this stage. Just ignore them for now.</span></li><li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b> Curious? If you are interested in becoming more
+familiar with advanced computer security concepts, you can learn more
+about digital signatures here: <a href="https://www.kicksecure.com/wiki/Verifying_Software_Signatures/">Verifying Software Signatures</a></span></li></ul></p>
+<p><strong>1.</strong> Verify the chosen tag to build.</p>
+<p>Note: Replace with the tag you want to build.</p>
+<p><span class="code-select" data-code="git verify-tag 18.2.1.9-stable">git
+verify-tag 18.2.1.9-stable</span></p>
+<p><strong>2.</strong> Check the output of the verification step.</p>
+<p><u>If the file is verified successfully</u>, the output will include
+<code>Good signature</code>, which is the most important thing to
+check.</p>
+<pre><code>gpg: Good signature</code></pre>
+<p>This output might be followed by a warning as follows.</p>
+<pre><code>gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.</code></pre>
+<p>This message does not alter the validity of the signature related to
+the downloaded key. Rather, this warning refers to the level of trust
+placed in the Whonix signing key and the <a href="https://www.kicksecure.com/wiki/OpenPGP/#The_OpenPGP_Web_of_Trust">web of
+trust</a>. To remove this warning, the Whonix signing key must be
+personally signed with your own key.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="warning" /></span>
+Remember to check the GPG signature timestamp. For instance, if you
+previously saw a signature from 2023 and now see one from 2022, this
+could indicate a potential rollback (downgrade) or indefinite freeze
+attack.<sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span class="cite-bracket">[</span>6<span class="cite-bracket">]</span></a></sup></p>
+</div>
+<p><strong>3.</strong> Verify the git commit to build.
+<sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span class="cite-bracket">[</span>7<span class="cite-bracket">]</span></a></sup></p>
+<p>Note: Replace <code>18.2.1.9</code> with the actual git tag being
+verified.</p>
+<p><span class="code-select" data-code="git verify-commit 18.2.1.9-stable^{commit}">git
+verify-commit 18.2.1.9-stable^{commit}</span></p>
+<p><strong>4.</strong> Check the output of the verification step.</p>
+<p><strong>5.</strong> Done.</p>
+<h1 id="Checkout_Version">Checkout Version</h1>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Retrieve a list of available git tags.</p>
+<p><span class="code-select" data-code="git --no-pager tag">git
+--no-pager tag</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Use <i>git checkout</i> to select the preferred version to build.</p>
+<p><u>Note:</u> Replace <code>18.2.1.9-stable</code> with the actual
+version chosen for the build. Common sense is required when choosing the
+right version number. For example, the latest available version number
+is not necessarily the most stable or suitable. Follow the <a href="../../Stay_Tuned">Whonix News Blog</a> as it might
+contain information.</p>
+<p><span class="code-select" data-code="git checkout --recurse-submodules 18.2.1.9-stable">git
+checkout --recurse-submodules 18.2.1.9-stable</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Digital signature verification.</p>
+<p><u>Optional.</u> If you choose to perform digital signature
+verification above, you can verify the currently chosen commit
+(<code>HEAD</code>) again for additional assurance.</p>
+<p><span class="code-select" data-code="git verify-commit HEAD">git
+verify-commit HEAD</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Done.</p>
+<p>Version selection has been completed.</p>
+<h1 id="Check_Git">Check Git</h1>
+<p><strong>1.</strong> Check if you really got the version you want.</p>
+<p><span class="code-select" data-code="git describe">git
+describe</span></p>
+<p>The output should show.</p>
+<pre><code>18.2.1.9-stable</code></pre>
+<p><strong>2.</strong> Check if source folder is pristine.</p>
+<p><span class="code-select" data-code="git status">git
+status</span></p>
+<p>Output should be the following.</p>
+<ul>
+<li><strong>A)</strong></li>
+</ul>
+<p><code>HEAD detached at 18.2.1.9-stable</code><br />
+<code>nothing to commit, working tree clean</code><br />
+<u>or,</u></p>
+<ul>
+<li><strong>B)</strong></li>
+</ul>
+<pre><code>Not currently on any branch.
+nothing to commit, working tree clean</code></pre>
+<p>If it shows something else, do not continue.</p>
+<p><strong>3.</strong> Done.</p>
+<h1 id="Build">Build</h1>
+<p><strong>1.</strong> Build target selection.</p>
+<p><u>Mandatory</u> The following build targets are available.</p>
+<p>Choose a <code>--target</code>. Either option <strong>A)</strong>,
+<strong>B)</strong>, <strong>C)</strong>, <strong>D)</strong> <u>or</u>
+<strong>E)</strong>. <sup id="cite_ref-8" class="reference"><a href="#cite_note-8"><span class="cite-bracket">[</span>8<span class="cite-bracket">]</span></a></sup> <sup id="cite_ref-9" class="reference"><a href="#cite_note-9"><span class="cite-bracket">[</span>9<span class="cite-bracket">]</span></a></sup></p>
+<table>
+<caption>Build Target Options</caption>
+<thead>
+<tr class="header">
+<th><p><b>Option</b></p></th>
+<th><p><b>Build Target</b></p></th>
+<th><p><b>Comment</b></p></th>
+<th><p><b>Image Type</b></p></th>
+<th><p><b>Target Parameter</b></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p><strong>A)</strong></p></td>
+<td><p><a href="../../VirtualBox">VirtualBox</a> VMs</p></td>
+<td><p>Stable.</p></td>
+<td><p><span class="nowrap"><code>.vdi</code></span></p></td>
+<td><p><span class="code-select" data-code="--target virtualbox">--target
+virtualbox</span></p></td>
+</tr>
+<tr class="even">
+<td><p><strong>B)</strong></p></td>
+<td><p><a href="../../KVM">KVM</a> (and <a href="../../QEMU">QEMU</a>)</p></td>
+<td><p>KVM: Stable. QEMU: <a href="../../Unsupported">unsupported</a></p></td>
+<td><p><span class="nowrap"><code>.qcow2</code></span></p></td>
+<td><p><span class="code-select" data-code="--target qcow2">--target
+qcow2</span></p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>C)</strong></p></td>
+<td><p>raw images</p></td>
+<td><p>Mostly relevant for developers /
+porters.</p></td>
+<td><p><code>.raw</code></p></td>
+<td><p><span class="code-select" data-code="--target raw">--target
+raw</span></p></td>
+</tr>
+<tr class="even">
+<td><p><strong>D)</strong></p></td>
+<td><p>UTM with QEMU
+<sup id="cite_ref-10" class="reference"><a href="#cite_note-10"><span class="cite-bracket">[</span>10<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p>Developers only,
+<code>--arch </code><u><code>arm64</code></u>.</p></td>
+<td><p><code>.raw</code></p></td>
+<td><p><span class="code-select" data-code="--target utm">--target
+utm</span></p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>E)</strong></p></td>
+<td><p><a href="../../Whonix-Host">ISO</a></p></td>
+<td><p>Developers only.</p></td>
+<td><p><code>.iso</code></p></td>
+<td><p><span class="code-select" data-code="--target iso">--target
+iso</span></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>2.</strong> Flavor selection.</p>
+<p><u>Mandatory</u>. Choose a flavor.</p>
+<table>
+<thead>
+<tr class="header">
+<th><p><b>Option</b></p></th>
+<th><p><b>Flavor Name</b></p></th>
+<th><p><b>Flavor Parameter</b></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p><strong>A)</strong></p></td>
+<td><p>Whonix-Gateway CLI</p></td>
+<td><p><code>--flavor whonix-</code><u><code>gateway</code></u><code>-</code><u><code>cli</code></u></p></td>
+</tr>
+<tr class="even">
+<td><p><strong>B)</strong></p></td>
+<td><p>Whonix-Gateway LXQt</p></td>
+<td><p><code>--flavor whonix-</code><u><code>gateway</code></u><code>-</code><u><code>lxqt</code></u></p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>C)</strong></p></td>
+<td><p>Whonix-Workstation CLI</p></td>
+<td><p><code>--flavor whonix-</code><u><code>workstation</code></u><code>-</code><u><code>cli</code></u></p></td>
+</tr>
+<tr class="even">
+<td><p><strong>D)</strong></p></td>
+<td><p>Whonix-Workstation LXQt</p></td>
+<td><p><code>--flavor whonix-</code><u><code>workstation</code></u><code>-</code><u><code>lxqt</code></u></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>3.</strong> CPU target architecture selection.</p>
+<p><u>Mandatory</u>. Choose a target CPU architecture.</p>
+<table>
+<thead>
+<tr class="header">
+<th><p><b>Option</b></p></th>
+<th><p><b>CPU Architecture Name</b></p></th>
+<th><p><b>Comment</b></p></th>
+<th><p><b>CPU Architecture Parameter</b></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p><strong>A)</strong></p></td>
+<td><p>Intel <u>and</u> AMD64 <sup id="cite_ref-11" class="reference"><a href="#cite_note-11"><span class="cite-bracket">[</span>11<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p>Default, best tested.</p></td>
+<td><p><code>--arch </code><u><code>amd64</code></u></p></td>
+</tr>
+<tr class="even">
+<td><p><strong>B)</strong></p></td>
+<td><p>i386</p></td>
+<td><p><a href="../../Unsupported">Unsupported</a>.
+<sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span class="cite-bracket">[</span>12<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p><code>--arch </code><u><code>i386</code></u></p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>C)</strong></p></td>
+<td><p>ARM64</p></td>
+<td><p>Unsupported.</p></td>
+<td><p><code>--arch </code><u><code>arm64</code></u></p></td>
+</tr>
+<tr class="even">
+<td><p><strong>D)</strong></p></td>
+<td><p>Others.</p></td>
+<td><p>Potentially.</p></td>
+<td><p><sup id="cite_ref-13" class="reference"><a href="#cite_note-13"><span class="cite-bracket">[</span>13<span class="cite-bracket">]</span></a></sup></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>4.</strong> Whonix APT repository choice.</p>
+<p><u>Optional</u>. Enable <a href="../../Project-APT-Repository">Whonix APT repository</a> inside the images.
+<sup id="cite_ref-14" class="reference"><a href="#cite_note-14"><span class="cite-bracket">[</span>14<span class="cite-bracket">]</span></a></sup> See <a href="../../Trust">Trust</a>. This
+is done for official Whonix <a href="../Redistribution">redistributable</a> builds.</p>
+<p><span class="code-select" data-code="--repo true">--repo
+true</span></p>
+<p><strong>5.</strong> Optional configurations.</p>
+<p><u>Optional</u>. See also <a href="../../Build_Configuration">Optional Build Configuration</a>.</p>
+<p><strong>6.</strong> Notices.</p>
+<ul>
+<li>These instructions assume you have the Whonix source code in your
+home folder (<code>~/derivative-maker</code>).</li>
+<li>These instructions use VirtualBox as an example.</li>
+</ul>
+<p><strong>7.</strong> Build a Whonix-Gateway virtual machine image.
+<em><span>build
+command</span></em>:</p>
+<table>
+<thead>
+<tr class="header">
+<th><p><b>Platform</b></p></th>
+<th><p><b>Architecture</b></p></th>
+<th><p><b>Command</b></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>VirtualBox</p></td>
+<td><p>Intel / AMD64 (stable)</p></td>
+<td><p><span class="code-select" data-code="~/derivative-maker/derivative-maker --arch amd64 --flavor whonix-gateway-lxqt --target virtualbox --repo true">~/derivative-maker/derivative-maker
+--arch amd64 --flavor whonix-gateway-lxqt --target virtualbox --repo
+true</span></p></td>
+</tr>
+<tr class="even">
+<td><p>VirtualBox</p></td>
+<td><p>ARM64 (Mac <code>M#</code>, testers-only)</p></td>
+<td><p><span class="code-select" data-code="~/derivative-maker/derivative-maker --arch arm64 --flavor whonix-gateway-lxqt --target virtualbox --repo true">~/derivative-maker/derivative-maker
+--arch arm64 --flavor whonix-gateway-lxqt --target virtualbox --repo
+true</span></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>8.</strong> Build a Whonix-Workstation virtual machine image.
+<em><span>build
+command</span></em>:</p>
+<table>
+<thead>
+<tr class="header">
+<th><p><b>Platform</b></p></th>
+<th><p><b>Architecture</b></p></th>
+<th><p><b>Command</b></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>VirtualBox</p></td>
+<td><p>Intel / AMD64 (stable)</p></td>
+<td><p><span class="code-select" data-code="~/derivative-maker/derivative-maker --arch amd64 --flavor whonix-workstation-lxqt --target virtualbox --repo true">~/derivative-maker/derivative-maker
+--arch amd64 --flavor whonix-workstation-lxqt --target virtualbox --repo
+true</span></p></td>
+</tr>
+<tr class="even">
+<td><p>VirtualBox</p></td>
+<td><p>ARM64 (Mac <code>M#</code>, testers-only)</p></td>
+<td><p><span class="code-select" data-code="~/derivative-maker/derivative-maker --arch arm64 --flavor whonix-workstation-lxqt --target virtualbox --repo true">~/derivative-maker/derivative-maker
+--arch arm64 --flavor whonix-workstation-lxqt --target virtualbox --repo
+true</span></p></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>While building, you might see a few <a href="https://www.kicksecure.com/wiki/Dev/Expected_Build_Warnings/">Expected Build
+Warnings</a>.</p>
+<h1 id="Build_Logs">Build Logs</h1>
+<p><strong>Optional.</strong></p>
+<p>Mostly useful in case of build issues where sharing the build log is
+necessary for support.</p>
+<p>If using:</p>
+<ul>
+<li><strong>A)</strong> <u>GUI (graphical user interface):</u> It is
+recommended to set your terminal (for example qterminal) to unlimited
+scrollback, so you can watch the full build log and share it for support
+in case there are issues.</li>
+<li><strong>B)</strong> <u>CLI (command line user interface):</u> In
+case there are build issues, it is recommended to redirect the build log
+to a text file. To do that, for example
+<span class="code-select" data-code="&gt;&gt; ~/build-log 2&gt;&amp;1">&gt;&gt;
+~/build-log 2&gt;&amp;1</span> could be appended to the very end of the
+<em><span>build command</span></em> to
+redirect the build output to
+<em><span>build log file</span></em>
+<code>~/build-log</code>.
+<ul>
+<li>Note: When using that command there will be no output in the
+terminal until the build is completed. This is as per Linux default and
+<a href="../../Unspecific">unspecific to Whonix</a>. The
+build might not complete. In that case, that command would hang forever.
+To see if the build is stuck, it would be possible to open the
+<em><span>build log file</span></em>
+with a text editor. In that case, the file would have to be re-opened or
+refreshed with the F5 key to see new build output appended to the build
+log file. Or by using for example
+<span class="code-select" data-code="tail -n 100 -f ~/build-log 2&gt;&amp;1">tail
+-n 100 -f ~/build-log 2&gt;&amp;1</span></li>
+</ul></li>
+</ul>
+<h1 id="VM_Build_Result">VM Build Result</h1>
+<ul>
+<li><u>VirtualBox</u>: The resulting <code>.ova</code> images can be
+found in <code>~/derivative-binary</code> folder.</li>
+<li><u>KVM, QEMU, raw images</u>: The resulting <code>.qcow2</code>
+and/or <code>.raw</code> images can be found in
+<code>~/derivative-binary</code> folder.</li>
+</ul>
+<p>Most users have completed the build process at this point, and can
+start using Whonix and skip the rest of this page.</p>
+<h1 id="Prepare_Release">Prepare Release</h1>
+<p><a href="https://github.com/Whonix/developer-meta-files/blob/master/usr/bin/dm-prepare-release">dm-prepare-release</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/developer-meta-files/blob/master/usr/bin/dm-prepare-release" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+is useful for:</p>
+<ul>
+<li>Creation of a <a href="https://forums.whonix.org/t/whonix-virtualbox-14-0-1-4-4-unified-ova-downloads-point-release/6996">unified</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-virtualbox-14-0-1-4-4-unified-ova-downloads-point-release/6996" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<code>.ova</code> image or <code>libvirt.xz</code> archive</li>
+<li>Creation of torrent files.</li>
+<li>Creation of hash sum files.</li>
+<li>Creation of digital software signatures.
+<ul>
+<li><a href="https://www.kicksecure.com/wiki/OpenPGP/">OpenPGP</a> (<code>gpg</code>)
+signatures</li>
+<li><a href="https://www.kicksecure.com/wiki/Signify/">signify</a> signatures</li>
+<li><a href="https://forums.whonix.org/t/use-codecrypt-to-sign-whonix-releases/7844">soon</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/use-codecrypt-to-sign-whonix-releases/7844" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<img src="../../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Codecrypt signatures</li>
+</ul></li>
+<li>Adding the license agreement.</li>
+<li>Adding the disclaimer.</li>
+<li><a href="../Redistribution">Redistribution</a>.</li>
+<li>Example:
+<span class="code-select" data-code="dm-prepare-release --build --target virtualbox --flavor kicksecure-lxqt">dm-prepare-release
+--build --target virtualbox --flavor kicksecure-lxqt</span></li>
+</ul>
+<p>For private builds, i.e. for builds which are not supposed to be
+redistributed to others, none of this is important. If any of this is
+important, it can also be done manually.</p>
+<h1 id="Troubleshooting">Troubleshooting</h1>
+<h2 id="Build_repeatedly_errors_out_with_hash_sum_mismatch">Build
+repeatedly errors out with hash sum mismatch</h2><span class="share-tooltip" data-anchor="Build_repeatedly_errors_out_with_hash_sum_mismatch"><a class="headline-anchor" href="#Build_repeatedly_errors_out_with_hash_sum_mismatch" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Build_Documentation/images#Build_repeatedly_errors_out_with_hash_sum_mismatch">https://www.whonix.org/wiki/Dev/Build_Documentation/images#Build_repeatedly_errors_out_with_hash_sum_mismatch</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Build_repeatedly_errors_out_with_hash_sum_mismatch&amp;text=Build%0Arepeatedly%20errors%20out%20with%20hash%20sum%20mismatch" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Build_repeatedly_errors_out_with_hash_sum_mismatch&amp;text=Build%0Arepeatedly%20errors%20out%20with%20hash%20sum%20mismatch" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Build_repeatedly_errors_out_with_hash_sum_mismatch&amp;title=Build%0Arepeatedly%20errors%20out%20with%20hash%20sum%20mismatch" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Build%0Arepeatedly%20errors%20out%20with%20hash%20sum%20mismatch&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FBuild_Documentation%2Fimages%23Build_repeatedly_errors_out_with_hash_sum_mismatch" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Build_repeatedly_errors_out_with_hash_sum_mismatch]Build
+repeatedly errors out with hash sum mismatch[/url]">[url=https://www.whonix.org/wiki/Dev/Build_Documentation/images#Build_repeatedly_errors_out_with_hash_sum_mismatch]Build
+repeatedly errors out with hash sum mismatch[/url]</span></span></span></span>
+<p>If corrupted data is present on a Debian mirror during a build, apt
+will generate a hash sum mismatch error which will cause the build to
+fail. approx may also have cached the corrupted file, meaning all
+subsequent builds will fail until apt-cacher-ng's cache is purged.</p>
+<p>To purge the cache, run:</p>
+<p><span class="code-select" data-code="sudo safe-rm -rf /var/cache/approx-derivative-maker">sudo
+safe-rm -rf /var/cache/approx-derivative-maker</span></p>
+<p>The cache has now been purged.</p>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">For example, these instructions fetch only a specific git tag. If
+you know how to use git, you are of course free to
+<code>git clone</code> the whole repository and then use
+<code>git verify-tag</code>, <code>git verify-commit</code>,
+<code>git checkout --quiet</code> and <code>git</code> generally as per
+usual. The reason why more specific commands are being used on this page
+is to simplify the process for laymen, to make these instructions as
+fail-safe as possible.</span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Due to technical challenges, see <a href="../VirtualBox#VirtualBox_Installation_Challenges">VirtualBox Installation Challenges</a>.</span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Optional <code>git</code> parameters: *
+<u><code>--depth=1</code>:</u> Speeds up the download by fetching only
+the latest commit. *
+<u><code>--branch 18.2.1.9-developers-only</code>:</u> Convenience.
+Checks out the specified tag or branch directly. *
+<u><code>--jobs=4</code>:</u> Speeds up fetching submodules. *
+<u><code>--recurse-submodules --shallow-submodules</code>:</u> Ensures
+all required submodules are fetched efficiently. Experienced
+<code>git</code> users may omit any of these optional parameters.</span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Alternatively, this can be achieved in several steps. This may be
+useful if network issues arise. * <u>Over HTTPS:</u> **
+<span class="code-select" data-code="git clone --depth=1 --branch 18.2.1.9-developers-only --jobs=4 --recurse-submodules --shallow-submodules https://github.com/Whonix/derivative-maker.git">git
+clone --depth=1 --branch 18.2.1.9-developers-only --jobs=4
+--recurse-submodules --shallow-submodules <a href="https://github.com/Whonix/derivative-maker.git">https://github.com/Whonix/derivative-maker.git</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/derivative-maker.git" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span>
+* <u>Over SSH:</u> ** Might work better over slow or unstable networks
+but requires a GitHub account and a configured SSH public key at GitHub.
+See footnote [A] below. **
+<span class="code-select" data-code="git clone --depth=1 --branch 18.2.1.9-developers-only git@github.com:Whonix/derivative-maker.git">git
+clone --depth=1 --branch 18.2.1.9-developers-only
+git@github.com:Whonix/derivative-maker.git</span>
+<span class="code-select" data-code="cd derivative-maker">cd
+derivative-maker</span>
+<span class="code-select" data-code="git submodule update --init --recursive --progress --jobs=4">git
+submodule update --init --recursive --progress --jobs=4</span> ---- [A]
+GitHub SSH public key setup.
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Create an SSH public key. See <a href="../../SSH">SSH</a>.
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+View your SSH public key.
+<span class="code-select" data-code="cat ~/.ssh/id_ed25519.pub">cat
+~/.ssh/id_ed25519.pub</span>
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Copy the SSH public key.
+<i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Paste the SSH public key into your GitHub account. <a href="https://github.com/settings/keys">GitHub SSH keys
+settings</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/settings/keys" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink">&#8593; <sup><a href="#cite_ref-5">1</a></sup> <sup><a href="#cite_ref-5-2">2</a></sup></span> <span class="reference-text">Delete the <code>derivative-maker</code> source code folder and
+retry.
+<pre><code> sudo rm -r derivative-maker </code></pre></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">As defined by TUF: Attacks and Weaknesses: * <a href="https://theupdateframework.io/security/">https://theupdateframework.io/security/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://theupdateframework.io/security/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><a href="#cite_ref-7" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">It is advisable to verify the signature of the git commit as well.
+By convention, git tags should point to signed git commits. Beginning
+from git tag 9.6 and above. (<a href="https://forums.whonix.org/t/security-git-general-verification-verifying-whonix-submodules/513">forum
+discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/security-git-general-verification-verifying-whonix-submodules/513" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><a href="#cite_ref-8" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Multiple build targets can also be selected simultaneously.
+<span class="code-select" data-code="--target virtualbox --target qcow2 --target raw">--target
+virtualbox --target qcow2 --target raw</span></span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><a href="#cite_ref-9" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="Physical_Isolation">Physical Isolation Build Documentation</a>
+<span class="code-select" data-code="--target root">--target
+root</span></span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><a href="#cite_ref-10" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">* <a href="../../MacOS#M1">MacOS#M1</a> * <a href="https://forums.whonix.org/t/whonix-on-mac-m1-arm/11310">https://forums.whonix.org/t/whonix-on-mac-m1-arm/11310</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-on-mac-m1-arm/11310" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-11"><span class="mw-cite-backlink"><a href="#cite_ref-11" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../../media/Ambox_notice.png.webp" width="40" height="40" alt="info" /></span>
+<code>amd64</code> might imply AMD only. This is wrong.
+<code>amd64</code> means <strong><u>Intel</u> and <u>AMD</u></strong>.
+For technical reasons, in Debian (and in many other Linux / Freedom
+Software related places) both, Intel and AMD, is called
+<code>amd64</code>. This is common knowledge without controversy among
+technical people, in doubt see <a href="https://en.wikipedia.org/wiki/X86-64">Wikipedia X86-64</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/X86-64" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+</div></span></li>
+<li id="cite_note-12"><span class="mw-cite-backlink"><a href="#cite_ref-12" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="../64bit">32-bit or 64-bit?</a></span></li>
+<li id="cite_note-13"><span class="mw-cite-backlink"><a href="#cite_ref-13" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">* Build script parameter <code>--arch</code> results in setting the
+<code>dist_build_target_arch</code> build environment variable. If you
+inspect (<a href="https://www.kicksecure.com/wiki/Dev/git/#grep"><code>grep</code>
+tip</a>) the build scripts for the variable name, you can see other
+architectures might work but are untested. * <a href="../Porting">porting Whonix to other platforms</a></span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><a href="#cite_ref-14" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><code>--repo true</code> will set
+<code>export build_remote_repo_enable="true"</code>, which results in
+setting:
+<pre><code> DERIVATIVE_APT_REPOSITORY_OPTS=&quot;--enable --codename $derivative-maker_apt_stable_release&quot; export DERIVATIVE_APT_REPOSITORY_OPTS </code></pre>
+<p><code>derivative-maker_apt_stable_release</code> defaults to
+<code>trixie</code> and can optionally be set via <a href="../Source_Code_Intro#Build_Configuration">build
+configuration</a> to <code>trixie-proposed-updates</code>,
+<code>trixie-testers</code>, or <code>trixie-developers</code>.</p></span></li>
+</ol>
+
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../../Category:Development">Development</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="../../Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="../../Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../../../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="../../Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../../../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="../../Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="../../Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="../../Terms_of_Service">Terms of Service</a></li><li><a href="../../Privacy_Policy">Privacy Policy</a></li><li><a href="../../Cookie_Policy">Cookie Policy</a></li><li><a href="../../E-Sign_Consent">E-Sign Consent</a></li><li><a href="../../Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="../../Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../../Privacy_Policy">Privacy Policy</a>, <a href="../../Cookie_Policy">Cookie Policy</a>, <a href="../../Terms_of_Service">Terms of Service</a>, and <a href="../../E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../../Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../../Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../../search-index.js" defer></script>
+<script src="../../../page-previews.js" defer></script>
+<script src="../../../app.js" defer></script>
+</body>
+</html>

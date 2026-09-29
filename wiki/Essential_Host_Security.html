@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Essential Host Security</title>
+<meta name="description" content="Host Security Guide, Hardware Considerations and Risks. This page is targeted at advanced users who wish to improve the general security of their host operating system to become even more secure.">
+<meta property="og:description" content="Host Security Guide, Hardware Considerations and Risks. This page is targeted at advanced users who wish to improve the general security of their host operating system to become even more secure.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Essential_Host_Security">
+<meta property="og:url" content="https://www.whonix.org/wiki/Essential_Host_Security">
+<meta property="og:title" content="Essential Host Security">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Hostsecurity23342.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="Download">Download</a><ul class="nav-submenu"><li><a href="VirtualBox"><span>Windows</span></a></li><li><a href="Linux"><span>Linux</span></a></li><li><a href="MacOS"><span>Mac</span></a></li><li><a href="VirtualBox"><span>VirtualBox</span></a></li><li><a href="KVM"><span>KVM</span></a></li><li><a href="Qubes"><span>Qubes</span></a></li><li><a href="Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="ARM64"><span>ARM64</span></a></li><li><a href="USB_Installation"><span>USB</span></a></li><li><a href="Whonix-Host"><span>ISO</span></a></li><li><a href="Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="About">About</a><ul class="nav-submenu"><li><a href="About"><span>Overview</span></a></li><li><a href="Features"><span>Features</span></a></li><li><a href="Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="What_we_do"><span>Project Activities</span></a></li><li><a href="Contributors"><span>Contributors</span></a></li><li><a href="Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Documentation">Docs</a><ul class="nav-submenu"><li><a href="Documentation"><span>Documentation</span></a></li><li><a href="FAQ"><span>FAQ</span></a></li><li><a href="Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Support">Support</a><ul class="nav-submenu"><li><a href="Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="Support"><span>Support (Limited)</span></a></li><li><a href="Plus_Support"><span>Plus</span></a></li><li><a href="Premium_Support"><span>Premium</span></a></li><li><a href="Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/Essential_Host_Security" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[Essential Host Security|Essential Host Security]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[Essential Host Security](https://www.whonix.org/wiki/Essential_Host_Security)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/Essential_Host_Security]Essential Host Security[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security&amp;text=Essential%20Host%20Security" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security&amp;text=Essential%20Host%20Security" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security&amp;title=Essential%20Host%20Security" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security&amp;summary=Essential%20Host%20Security" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security&amp;t=Essential%20Host%20Security" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=Essential%20Host%20Security%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=Essential%20Host%20Security&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading"><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="VM_Fingerprinting" title="VM Fingerprinting"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">VM
+Fingerprinting</span></a><a class="index internal" href="Documentation" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Host_Firewall" title="Host Firewall"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Host
+Firewall</span></a><span class="info"><span class="prev">Previous page:
+VM Fingerprinting</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Host
+Firewall</span></span></span><h1 id="firstHeading">Essential Host Security</h1></div>
+<p><img src="../media/Hostsecurity23342.jpg.webp" alt="Hostsecurity23342.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p><img src="../media/Kicksecure-badge.svg" width="150" alt="Kicksecure-badge.svg" />
+<a href="About">Whonix</a> comes with many security
+features. Whonix is Kicksecure hardened by default and also provides
+extensive <a href="Documentation">Documentation</a>
+including a <a href="System_Hardening_Checklist">System
+Hardening Checklist</a>. The more you know, the safer you can be.</p>
+<p>This page is targeted at advanced users who wish to improve the
+general security of their host <u>o</u>perating <u>s</u>ystem (OS)
+(outside any <u>v</u>irtual <u>m</u>achine (VM)) to become even more
+secure.</p>
+<div class="post-intro-p">
+</div>
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Upstream"><span class="tocnumber">1</span> <span class="toctext">Upstream</span></a></li><li class="toc-l1"><a href="#Host_Security_Essentials"><span class="tocnumber">2</span> <span class="toctext">Host Security Essentials</span></a></li><li class="toc-l1"><a href="#Anonymous_Mobile_Modems"><span class="tocnumber">3</span> <span class="toctext">Anonymous Mobile Modems</span></a></li><li class="toc-l2"><a href="#Introduction"><span class="tocnumber">3.1</span> <span class="toctext">Introduction</span></a></li><li class="toc-l2"><a href="#Warnings"><span class="tocnumber">3.2</span> <span class="toctext">Warnings</span></a></li><li class="toc-l2"><a href="#Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card"><span class="tocnumber">3.3</span> <span class="toctext">Safe Purchase of a Mobile Modem and SIM Card</span></a></li><li class="toc-l2"><a href="#Configuration"><span class="tocnumber">3.4</span> <span class="toctext">Configuration</span></a></li><li class="toc-l2"><a href="#Mobile_Modem_Operation"><span class="tocnumber">3.5</span> <span class="toctext">Mobile Modem Operation</span></a></li><li class="toc-l1"><a href="#Anonymous_Internet_Connection"><span class="tocnumber">4</span> <span class="toctext">Anonymous Internet Connection</span></a></li><li class="toc-l1"><a href="#Anonymous_WiFi_Adapters"><span class="tocnumber">5</span> <span class="toctext">Anonymous WiFi Adapters</span></a></li><li class="toc-l1"><a href="#Hardening"><span class="tocnumber">6</span> <span class="toctext">Hardening</span></a></li><li class="toc-l1"><a href="#Hardware_Component_Risks"><span class="tocnumber">7</span> <span class="toctext">Hardware Component Risks</span></a></li><li class="toc-l1"><a href="#Hostnames"><span class="tocnumber">8</span> <span class="toctext">Hostnames</span></a></li><li class="toc-l1"><a href="#See_Also"><span class="tocnumber">9</span> <span class="toctext">See Also</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">10</span> <span class="toctext">Footnotes</span></a></li></ul></nav><h1 id="Upstream">Upstream</h1>
+<p><img src="../media/Kicksecure-seal.png.webp" width="130" height="130" alt="Kicksecure Hardened" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-info cs-red"></i></span>
+<span class="template-styled-text ">Redirection
+to Kicksecure Documentation </span></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><i class="fa-solid fa-exclamation-triangle cs-yellow"></i></span>
+<span class="template-styled-text "><u>NOT-SELFCONTAINED:</u>
+This wiki page is not self-contained by design. This It only includes
+details specific to Whonix. For full understanding, please follow the
+link below to the Kicksecure wiki, which provides more complete
+background and instructions. </span></p>
+</div>
+<p><ul class="icon-bullet-list minimal ibl-fs-17"><li><i class="fa-solid fa-circle-info cs-blue"></i><span><u>Introduction</u>: <a href="Introduction">Whonix
+Documentation Introduction, User Expectations, Footnotes and References,
+User Expectations - What Documentation Is and What It Is Not</a></span></li><li><i class="fa-solid fa-link cs-green"></i><span><u><a href="About#Based_on_Kicksecure">Whonix is based on
+Kicksecure<sup>&#8482;</sup></a></u>: Whonix is built on top of Kicksecure.
+This means it uses many of the same security tools, design concepts, and
+configurations.</span></li><li><i class="fa-solid fa-server cs-gray"></i><span><u><a href="https://www.kicksecure.com/wiki/Based_on_Debian">Kicksecure
+is based on Debian</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.kicksecure.com/wiki/Based_on_Debian" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>:</u> Kicksecure is developed using Debian as its
+base. Debian is a widely used, stable, and free Linux operating
+system.</span></li><li><i class="fa-solid fa-arrow-down cs-blue"></i><span><u>Inheritance:</u> As a result, Whonix is also
+<a href="Based_on_Debian">based on Debian</a>.</span></li><li><i class="fa-brands fa-linux cs-black"></i><span><u>Debian is GNU/Linux-based:</u> Debian is built using the GNU/Linux
+operating system. GNU provides essential tools and Linux is the system's
+kernel (core).</span></li><li><i class="fa-solid fa-users cs-green"></i><span><u>Shared documentation benefits:</u> Since each system is based on
+the one below it, a lot of documentation and guides are shared. This
+reduces the need to duplicate information.</span></li><li><i class="fa-solid fa-file-alt cs-gray"></i><span><u>Inherited documentation:</u> Most instructions and explanations
+are inherited from Kicksecure or Debian, unless otherwise specified.</span></li><li><i class="fa-solid fa-check cs-green"></i><span><u>Shared principles:</u> The systems share similar security goals
+and setup instructions. In most cases, users can follow Kicksecure
+documentation when using Whonix.</span></li><li><i class="fa-solid fa-thumbs-up cs-blue"></i><span><u>Keep using Whonix:</u> This does <u>not</u> mean users should
+switch to Kicksecure. This page only points to related, helpful
+information.</span></li><li><i class="fa-solid fa-keyboard cs-gray"></i><span><u>Where to apply the instructions:</u> Follow the instructions
+inside Whonix unless specifically stated otherwise.</span></li><li><i class="fa-solid fa-pencil cs-orange"></i><span><u>Wiki editors notice:</u> This information is pulled from a
+reusable wiki template:
+<a href="Template:Upstream_wiki">upstream_wiki</a>.
+(<a href="Special:WhatLinksHere/Template:Upstream_wiki">See which
+pages use this</a>.)</span></li><li><i class="fa-solid fa-balance-scale cs-blue"></i><span><u>Comparison:</u> <a href="Comparison_with_Kicksecure">Whonix
+versus Kicksecure</a></span></li><li><i class="fa-solid fa-sync-alt cs-gray"></i><span><u>Documentation compatibility:</u> Because Whonix is based on
+Kicksecure, you can often follow Kicksecure's instructions as long as
+you apply them in the right place.</span></li><li><i class="fa-solid fa-layer-group cs-gray"></i><span><u>Summary:</u> Whonix is built on top of <b>Kicksecure</b>, which
+itself is based on <b>Debian</b>. Debian is a GNU/Linux operating
+system. This layered design means Whonix inherits many features, tools,
+and documentation from both Kicksecure and Debian.</span></li><li><i class="fa-solid fa-mouse-pointer cs-blue"></i><span><u>Click here:</u> Visit the related page in the Kicksecure wiki for
+full documentation and background:</span></li></ul></p>
+<p><span class="template-styled-text "><img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Essential Host Security </span></p>
+<p><ul class="icon-bullet-list minimal ibl-fs-17"><li><i class="fa-solid fa-sticky-note cs-yellow"></i><span><u>Note:</u> Re-interpretation...</span></li></ul></p>
+<div class="info-box ib-dark">
+<p>Apply the instructions inside Whonix, <u>not</u> inside
+Kicksecure.</p>
+<p><blockquote><p>Kicksecure: Perform these steps inside Kicksecure.</p></blockquote></p>
+<p>Instead, apply the steps inside Whonix-Workstation.</p>
+<p><blockquote><p>Kicksecure for Qubes: Perform these steps inside Qubes
+<code>kicksecure-18</code> Template.</p></blockquote></p>
+<p>Instead, use the <code>whonix-workstation-18</code> Template for
+these steps.</p>
+</div>
+</div>
+<h1 id="Host_Security_Essentials">Host Security Essentials</h1>
+<p>It is recommended to first read relevant Computer Security Education
+entries concerning host security, such as:</p>
+<div>
+<ul>
+<li><a href="https://www.kicksecure.com/wiki/Core_Dumps/">Core Dumps</a></li>
+<li><a href="https://www.kicksecure.com/wiki/Firmware_Security_and_Updates/">Firmware
+Security and Updates</a></li>
+<li><a href="https://www.kicksecure.com/wiki/Hardware_Threat_Minimization/">Hardware
+Threat Minimization</a></li>
+<li><a href="Hostnames">Hostnames</a></li>
+<li><a href="Moved:Host_Firewall_Basics">Host Firewall
+Essentials</a></li>
+<li><a href="Host_Operating_System_Selection">Host
+<u>o</u>perating <u>s</u>ystem (OS) Selection</a></li>
+<li><a href="MAC_Address">MAC Address</a></li>
+<li><a href="https://www.kicksecure.com/wiki/Malware_and_Firmware_Trojans/">Malware and
+Firmware Trojans</a></li>
+<li><a href="Moved:Open-source_Hardware">Open-source
+Hardware</a></li>
+<li><a href="https://www.kicksecure.com/wiki/Out-of-band_Management_Technology/">Out-of-band Management Technology</a></li>
+<li><a href="https://www.kicksecure.com/wiki/Router_and_Local_Area_Network_Security/">Router and Local Area Network Security</a></li>
+<li><a href="https://www.kicksecure.com/wiki/System_Configuration_and_Access/">System
+Configuration and Access</a></li>
+<li><a href="https://www.kicksecure.com/wiki/Disable_TCP_and_ICMP_Timestamps/">TCP and
+ICMP Timestamps</a></li>
+</ul>
+</div>
+<h1 id="Anonymous_Mobile_Modems">Anonymous Mobile Modems</h1>
+<h2 id="Introduction">Introduction</h2><span class="share-tooltip" data-anchor="Introduction"><a class="headline-anchor" href="#Introduction" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Essential_Host_Security#Introduction">https://www.whonix.org/wiki/Essential_Host_Security#Introduction</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Introduction&amp;text=Introduction" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Introduction&amp;text=Introduction" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Introduction&amp;title=Introduction" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Introduction&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Introduction" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Essential_Host_Security#Introduction]Introduction[/url]">[url=https://www.whonix.org/wiki/Essential_Host_Security#Introduction]Introduction[/url]</span></span></span></span>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong> The technique outlined in this section may be
+ineffective against advanced adversaries who can:</p>
+<ul>
+<li><a href="https://theintercept.com/2014/12/04/nsa-auroragold-hack-cellphones/">Subvert
+cellular networks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://theintercept.com/2014/12/04/nsa-auroragold-hack-cellphones/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
+<li>Conduct downgrade attacks on <a href="https://www.schneier.com/blog/archives/2015/04/the_further_dem_1.html">network
+functioning</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.schneier.com/blog/archives/2015/04/the_further_dem_1.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> from 4G to 3G, from 3G to 2G and so on.</li>
+<li><a href="https://www.schneier.com/blog/archives/2014/12/nsa_hacking_of_.html">Attack
+all ciphers</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.schneier.com/blog/archives/2014/12/nsa_hacking_of_.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> used in cellular networks, including A5/1, A5/2 and
+A5/3.</li>
+</ul>
+</div>
+<p>"Mobile modems" refers to portable broadband modems which allow a
+computer to connect to the Internet via the cellular network. These
+devices support use of the 2G, 3G and 4G networks.</p>
+<p>For activities necessitating the best possible anonymity, it is
+theoretically safer to use an anonymous mobile modem far away from one's
+normal location, rather than use a local Internet connection. The reason
+is the dial-up or broadband provider normally knows your name, postal
+address and non-anonymous payment method. This is problematic if Tor or
+Whonix is compromised, since an adversary could pressure the service
+provider and very easily confirm your identity. However, if a mobile
+modem user is successfully attacked, the IP address leaked will not
+immediately lead back to the postal address of the user.</p>
+<p>It is safest to assume that identification and location information
+can be discovered if specifically targeted, alongside potential
+eavesdropping of activities and communications. Always conduct a threat
+assessment of planned activities before following any course of
+action!</p>
+<p>This would ideally be combined with a <a href="System_Hardening_Checklist#Dedicated_Computer">Dedicated Computer</a>, a physically different computer
+with a separate Internet connection.
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Use a Dedicated Host Operating System and Computer</p>
+<h2 id="Warnings">Warnings</h2><span class="share-tooltip" data-anchor="Warnings"><a class="headline-anchor" href="#Warnings" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Essential_Host_Security#Warnings">https://www.whonix.org/wiki/Essential_Host_Security#Warnings</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Warnings&amp;text=Warnings" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Warnings&amp;text=Warnings" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Warnings&amp;title=Warnings" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Warnings&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Warnings" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Essential_Host_Security#Warnings]Warnings[/url]">[url=https://www.whonix.org/wiki/Essential_Host_Security#Warnings]Warnings[/url]</span></span></span></span>
+<p>Many mobile modem devices are manufactured by a handful of companies
+like Huawei, Gemtek, Quanta and ZTE, with insecure software/firmware
+being the norm. Devices have often shown critical <a href="https://www.helpnetsecurity.com/2015/12/03/3g4g-cellular-usb-modems-are-full-of-critical-security-flaws-many-0-days/">zero
+days</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.helpnetsecurity.com/2015/12/03/3g4g-cellular-usb-modems-are-full-of-critical-security-flaws-many-0-days/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>: <sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup></p>
+<p><blockquote><p>The findings include Remote Code Execution (RCE) in web scripts,
+integrity attacks, Cross-Site Request Forgery (CSRF), and Cross-Site
+Scripting (XSS).<br />
+The research covers a full range of attacks against carrier customers
+using these types of modems -- device identification, code injection, PC
+infection, SIM card cloning, data interception, determining subscriber
+location, getting access to user accounts on the operator's website, and
+APT attacks.<br />
+... All in all, we have a full infection cycle of devices and related
+PCs. Using the infected devices, we can determine location, intercept
+and send SMS messages and USSD requests, read HTTP and HTTPS traffic (by
+replacing SSL certificates), attack SIM cards via binary SMS messages,
+and intercept 2G traffic. Further infection can continue through the
+operator's networks, popular websites or equipment infected by worms
+(when connecting a new device).</p></blockquote></p>
+<p>Key points from this research: <sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup>
+<sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup></p>
+<ul>
+<li>Virtually all the exploits could be conducted remotely.</li>
+<li>60% of the mobile modems studied were vulnerable to RCE.</li>
+<li>Only a minority of mobile modems protected against arbitrary
+firmware modifications.</li>
+<li>In some cases, CSRF attacks could be used to remotely upload
+modified firmware and perform arbitrary code injection.</li>
+<li>XSS often allowed for everything from host infection to SMS
+interception, as well as modified firmware installation.</li>
+</ul>
+<p>The take-home message is always choose hardware carefully and conduct
+meticulous manufacturer research beforehand!</p>
+<h2 id="Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card">Safe Purchase of a
+Mobile Modem and SIM Card</h2><span class="share-tooltip" data-anchor="Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card"><a class="headline-anchor" href="#Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Essential_Host_Security#Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card">https://www.whonix.org/wiki/Essential_Host_Security#Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card&amp;text=Safe%20Purchase%20of%20a%0AMobile%20Modem%20and%20SIM%20Card" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card&amp;text=Safe%20Purchase%20of%20a%0AMobile%20Modem%20and%20SIM%20Card" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card&amp;title=Safe%20Purchase%20of%20a%0AMobile%20Modem%20and%20SIM%20Card" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Safe%20Purchase%20of%20a%0AMobile%20Modem%20and%20SIM%20Card&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Essential_Host_Security#Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card]Safe Purchase of a
+Mobile Modem and SIM Card[/url]">[url=https://www.whonix.org/wiki/Essential_Host_Security#Safe_Purchase_of_a_Mobile_Modem_and_SIM_Card]Safe Purchase of a
+Mobile Modem and SIM Card[/url]</span></span></span></span>
+<p>Recommendations:</p>
+<ul>
+<li>Buy the mobile modem anonymously. This may be in a store,
+second-hand, or on the street. Be sure to leave no personal data during
+the purchase.</li>
+<li>Be aware of cameras and potential witnesses to purchases.</li>
+<li>Do not use the modem for any non-anonymous activity prior to using
+it for Whonix purposes.</li>
+<li>Telecommunication companies routinely log the serial numbers of
+phones (IMEI) and SIM cards, as well as the phone number for network
+logins. Therefore it is also necessary to:
+<ul>
+<li>Buy the SIM card anonymously (prepaid is better).</li>
+<li>Buy cash codes in different stores anonymously.</li>
+<li>Never use the anonymous SIM card with a non-anonymous phone or
+mobile modem beforehand.</li>
+</ul></li>
+</ul>
+<h2 id="Configuration">Configuration</h2><span class="share-tooltip" data-anchor="Configuration"><a class="headline-anchor" href="#Configuration" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Essential_Host_Security#Configuration">https://www.whonix.org/wiki/Essential_Host_Security#Configuration</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Configuration&amp;text=Configuration" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Configuration&amp;text=Configuration" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Configuration&amp;title=Configuration" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Configuration&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Configuration" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Essential_Host_Security#Configuration]Configuration[/url]">[url=https://www.whonix.org/wiki/Essential_Host_Security#Configuration]Configuration[/url]</span></span></span></span>
+<table>
+<caption><em>Whonix Mobile Modem Configuration</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Whonix Platform</strong></p></th>
+<th><p><strong>Recommendation</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Default Configuration Whonix</p></td>
+<td><ul>
+<li>Easy: Plug or integrate the mobile modem into the host
+<u>o</u>perating <u>s</u>ystem (OS) (outside any <u>v</u>irtual
+<u>m</u>achine (VM)) as its internet connection replacement.</li>
+<li>Difficult: Plug the mobile modem into the Whonix-Gateway<sup>&#8482;</sup>
+(<code>sys-whonix</code>) and only route Whonix-Gateway<sup>&#8482;</sup>
+traffic through it, not the host traffic. <sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span class="cite-bracket">[</span>4<span class="cite-bracket">]</span></a></sup></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Physically-isolated Whonix</p></td>
+<td><p>It is necessary to use the second method outlined above. There is
+no host in the sense that the Whonix-Gateway is running bare-metal on a
+second computer.</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Mobile_Modem_Operation">Mobile Modem Operation</h2><span class="share-tooltip" data-anchor="Mobile_Modem_Operation"><a class="headline-anchor" href="#Mobile_Modem_Operation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Essential_Host_Security#Mobile_Modem_Operation">https://www.whonix.org/wiki/Essential_Host_Security#Mobile_Modem_Operation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Mobile_Modem_Operation&amp;text=Mobile%20Modem%20Operation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Mobile_Modem_Operation&amp;text=Mobile%20Modem%20Operation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Mobile_Modem_Operation&amp;title=Mobile%20Modem%20Operation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Mobile%20Modem%20Operation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FEssential_Host_Security%23Mobile_Modem_Operation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Essential_Host_Security#Mobile_Modem_Operation]Mobile Modem Operation[/url]">[url=https://www.whonix.org/wiki/Essential_Host_Security#Mobile_Modem_Operation]Mobile Modem Operation[/url]</span></span></span></span>
+<p>When using cellular networks, it is common to receive a shared
+external IP address due to the scarcity of IPv4 IPs. This can lead to
+thousands of people sharing one IPv4 address at the same time. Also,
+some providers do not yet log the users' (NAT) ports; this means
+providers cannot pinpoint individuals when they are given an IP address
+and time stamp. This is a nice feature, but do not rely on it for strong
+anonymity!</p>
+<p>Some providers assign additional and unique IPv6 IP addresses to
+their users. This does not prohibit safe use of the Tor network, because
+IPv6 is not (yet) configured by default, see: <a href="https://gitlab.torproject.org/legacy/trac/-/wikis/org/roadmaps/Tor/IPv6">The
+Tor IPv6 Roadmap</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/org/roadmaps/Tor/IPv6" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. For greater security, on-line activities should be
+conducted in locations that are new, distant, random, and
+non-circular.</p>
+<h1 id="Anonymous_Internet_Connection">Anonymous Internet
+Connection</h1>
+<p>Normally, your dial-up or broadband internet provider knows your
+name, postal address, and how you paid. If Tor or Whonix ever gets
+compromised, an attacker could find out who you are by contacting or
+hacking your internet provider.</p>
+<p>This risk is lower when using a public WiFi hotspot, such as one in a
+caf&#233; or library, where the internet provider doesn't know your real
+identity.</p>
+<p>For the best protection, combine this with an anonymous WiFi
+adapter.</p>
+<h1 id="Anonymous_WiFi_Adapters">Anonymous WiFi Adapters</h1>
+<p>To stay safer, it's recommended to:</p>
+<ul>
+<li>Buy the WiFi adapter anonymously, without giving your name,
+preferably in person, second-hand, or on the street.</li>
+<li>Never share personal details during the purchase.</li>
+<li>Pay cash. (See also <a href="Money">Anonymous
+Money</a>.)</li>
+<li>Don't use the adapter for anything linked to your identity. Some
+hotspots record device IDs (called MAC addresses) or usernames (if
+payment is required). In theory, even the unique electronic signals your
+device gives off could be tracked. <sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span class="cite-bracket">[</span>5<span class="cite-bracket">]</span></a></sup></li>
+<li>Use free WiFi hotspots or pay anonymously (such as with cash or
+prepaid cards). Avoid ones that require non-anonymous payment.</li>
+<li>For better anonymity, connect from different, far-apart locations
+each time, avoid going in circles.</li>
+<li>Be aware of nearby cameras or people who might see what you're doing
+online.</li>
+<li>See also <a href="MAC_Address">MAC
+Address</a>.</li>
+</ul>
+<h1 id="Hardening">Hardening</h1>
+<p>Whonix does not yet improve host security. It is recommended to use a
+<a href="Host_Operating_System_Selection">recommended
+host operating system</a> and manually <a href="https://www.kicksecure.com/wiki/Operating_System_Hardening/#Harden_Debian">harden</a> it. Also follow relevant steps in the <a href="System_Hardening_Checklist">System Hardening
+Checklist</a> for better security.</p>
+<h1 id="Hardware_Component_Risks">Hardware Component Risks</h1>
+<p>In the default configuration, Whonix provides significant protection
+against <a href="Comparison_with_Others#Circumventing_Proxy_Obedience_Design">circumvention of the proxy obedience design</a>. This
+includes:</p>
+<ul>
+<li>Applications not honoring proxy settings (proxy bypass IP
+leaks).</li>
+<li>Applications disclosing the user's real IP address (protocol IP
+leaks).</li>
+<li>Remote code execution exploits with user-only rights (exploit +
+unsafe browser).</li>
+<li>Remote code execution exploits with root rights (exploit + root
+exploit + unsafe browser).</li>
+</ul>
+<p>However, if a second exploit is used to break out of the VM, the
+default Whonix installation is broken and the real IP address will be
+revealed. Only Whonix run with <a href="Dev/Build_Documentation/Physical_Isolation">physical isolation</a> will defeat this attack. This is
+because the Whonix-Workstation<sup>&#8482;</sup> host does not know the real
+IP address, only the Whonix-Gateway which is running on another machine.
+This means deanonymization requires the attacker to either: exploit the
+physically isolated Whonix-Gateway, subvert the Tor process, or
+successfully attack the Tor network at large.</p>
+<p>Nevertheless, physically-isolated users should be aware that if an
+adversary manages to break out of the Whonix-Workstation VM using an
+exploit, then additional risks are posed by the hardware components that
+are built-in or have been additionally installed. This includes CPU and
+HDD / SSD temperature sensors, microphones and cameras.</p>
+<p>In the case of Whonix with physical isolation:</p>
+<ul>
+<li>The real IP address is still safe, but the temperature sensors can
+be used for anonymity set reduction.</li>
+<li>Different CPU, HDD and SSD models will report different sensor
+information, depending on climate and weather. If possible, it is
+advised to remove or to obfuscate the sensor results.</li>
+<li><a href="https://www.kicksecure.com/wiki/Hardware_Threat_Minimization/#Webcams">Webcams</a>, <a href="https://www.kicksecure.com/wiki/Hardware_Threat_Minimization/#Microphones">microphones</a> and <a href="https://www.kicksecure.com/wiki/Hardware_Threat_Minimization/#Speakers">speakers</a> can be covertly activated by the
+adversary. Remove external hardware and/or disable them in BIOS if
+possible. At a minimum, cover them or ideally remove them.</li>
+</ul>
+<p>In the case of a default Whonix installation, the same general
+recommendations apply, although it does not really matter since the user
+will have been deanonymized successfully.</p>
+<h1 id="Hostnames">Hostnames</h1>
+<p>The hostname given to a home computer or device can be leaked via a
+number of protocols, posing a privacy risk depending on the specificity
+of the naming convention. For further information, <a href="Hostnames">see here</a>.</p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Host_Operating_System_Selection">Host
+Operating System Selection</a></li>
+<li><a href="https://www.kicksecure.com/wiki/Advanced_Host_Security/">Advanced Host
+Security</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://web.archive.org/web/20160331090747/http://blog.ptsecurity.com/2015/12/critical-vulnerabilities-in-3g4g-modems.html">https://web.archive.org/web/20160331090747/http://blog.ptsecurity.com/2015/12/critical-vulnerabilities-in-3g4g-modems.html</a></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">For a detailed description of how these vulnerabilities are
+exploited, refer to the source document and additional reference.</span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://www.computerworld.com/article/2495389/3g-and-4g-usb-modems-are-a-security-threat--researcher-says.html">3G
+and 4G USB modems are a security threat</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.computerworld.com/article/2495389/3g-and-4g-usb-modems-are-a-security-threat--researcher-says.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">This is undocumented and therefore unrecommended.</span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://nweb.eng.fiu.edu/selcuk/papers/uluagac-gtid-cns-13.pdf">https://nweb.eng.fiu.edu/selcuk/papers/uluagac-gtid-cns-13.pdf</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://nweb.eng.fiu.edu/selcuk/papers/uluagac-gtid-cns-13.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+</ol>
+
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="VM_Fingerprinting" title="VM Fingerprinting"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">VM
+Fingerprinting</span></a><a class="index internal" href="Documentation" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Host_Firewall" title="Host Firewall"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Host
+Firewall</span></a><span class="info"><span class="prev">Previous page:
+VM Fingerprinting</span><span class="index">Index page:
+Documentation</span><span class="next">Next page: Host
+Firewall</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation">Documentation</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="Terms_of_Service">Terms of Service</a></li><li><a href="Privacy_Policy">Privacy Policy</a></li><li><a href="Cookie_Policy">Cookie Policy</a></li><li><a href="E-Sign_Consent">E-Sign Consent</a></li><li><a href="Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy">Privacy Policy</a>, <a href="Cookie_Policy">Cookie Policy</a>, <a href="Terms_of_Service">Terms of Service</a>, and <a href="E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../search-index.js" defer></script>
+<script src="../page-previews.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

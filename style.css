@@ -731,11 +731,13 @@ blockquote p:last-child { margin-bottom: 0; }
 .payitem .qr-button { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; }
 .payitem .qr-button .icon { width: 1.4rem; height: 1.4rem; object-fit: contain; }
 .payitem .code-select { flex: 1 1 7rem; font-size: 0.78rem; }
-/* QR collapsed by default -- matches prod's default (collapsed) view; the address stays
-   copyable. The interactive expand is intentionally NOT wired: it would need content
-   checkboxes/labels, whose sanitizer allowance was reverted for security (phishing-input
-   forgery + chrome-checkbox toggling). The sanitizer drops the stripped label/checkbox. */
-.payitem .expand { display: none; }
+/* QR reveal is wired by app.js (initCryptoExpanders): it marks each .crypto .qr-ready and
+   toggles .payitem.expanded on the coin's .qr-button (click/Enter/Space). Progressive --
+   without JS the .expand stays visible so the panel is fully usable; with JS it collapses
+   to prod's default (address copyable) and the QR opens on demand. */
+.payitem > .expand { flex-basis: 100%; margin-top: 0.4rem; }
+.crypto.qr-ready .payitem:not(.expanded) > .expand { display: none; }
+.crypto.qr-ready .qr-button { cursor: pointer; }
 .donation-panel .info, .donate-legal-disclaimer {
   font-size: 0.78rem; color: var(--muted); padding: 0.55rem 0.85rem;
 }

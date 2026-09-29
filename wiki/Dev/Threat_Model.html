@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix Threat Model</title>
+<meta name="description" content="Technical Design Documentation about Whonix Threat Model. This document covers aspects such as attacker capabilities, goals, and attack surface.">
+<meta property="og:description" content="Technical Design Documentation about Whonix Threat Model. This document covers aspects such as attacker capabilities, goals, and attack surface.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Dev/Threat_Model">
+<meta property="og:url" content="https://www.whonix.org/wiki/Dev/Threat_Model">
+<meta property="og:title" content="Whonix Threat Model">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../Download">Download</a><ul class="nav-submenu"><li><a href="../VirtualBox"><span>Windows</span></a></li><li><a href="../Linux"><span>Linux</span></a></li><li><a href="../MacOS"><span>Mac</span></a></li><li><a href="../VirtualBox"><span>VirtualBox</span></a></li><li><a href="../KVM"><span>KVM</span></a></li><li><a href="../Qubes"><span>Qubes</span></a></li><li><a href="../Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="../ARM64"><span>ARM64</span></a></li><li><a href="../USB_Installation"><span>USB</span></a></li><li><a href="../Whonix-Host"><span>ISO</span></a></li><li><a href="../Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../About">About</a><ul class="nav-submenu"><li><a href="../About"><span>Overview</span></a></li><li><a href="../Features"><span>Features</span></a></li><li><a href="../Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="../Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="../What_we_do"><span>Project Activities</span></a></li><li><a href="../Contributors"><span>Contributors</span></a></li><li><a href="../Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Documentation">Docs</a><ul class="nav-submenu"><li><a href="../Documentation"><span>Documentation</span></a></li><li><a href="../FAQ"><span>FAQ</span></a></li><li><a href="../Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="../Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Support">Support</a><ul class="nav-submenu"><li><a href="../Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="../Support"><span>Support (Limited)</span></a></li><li><a href="../Plus_Support"><span>Plus</span></a></li><li><a href="../Premium_Support"><span>Premium</span></a></li><li><a href="../Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="../Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/Dev/Threat_Model" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[Dev/Threat Model|Whonix Threat Model]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[Whonix Threat Model](https://www.whonix.org/wiki/Dev/Threat_Model)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/Dev/Threat_Model]Whonix Threat Model[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model&amp;text=Whonix%20Threat%20Model" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model&amp;text=Whonix%20Threat%20Model" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model&amp;title=Whonix%20Threat%20Model" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model&amp;summary=Whonix%20Threat%20Model" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model&amp;t=Whonix%20Threat%20Model" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=Whonix%20Threat%20Model%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=Whonix%20Threat%20Model&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="../Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div><span class="dev-zone-badge">Developer Zone</span></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading"><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="../Moved:About_Computer_(In)Security" title="Dev/About Computer (In)Security"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/About
+Computer
+(In)Security</span></a><a class="index internal" href="../Design" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="Operating_System" title="Dev/Operating System"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Operating
+System</span></a><span class="info"><span class="prev">Previous page:
+Dev/About Computer (In)Security</span><span class="index">Index page:
+Design</span><span class="next">Next page: Dev/Operating
+System</span></span></span><h1 id="firstHeading">Whonix Threat Model</h1></div>
+<div class="mininav">
+<ul>
+<li><a href="../Design">Design Documentation</a></li>
+<li><a href="Technical_Introduction">Technical
+Introduction</a></li>
+<li><a class="mw-selflink selflink" aria-current="page">Threat Model</a></li>
+<li><a href="../Comparison_with_Others">Comparison with
+Others</a></li>
+<li><a href="../Comparison_with_Kicksecure">Comparison
+with Kicksecure</a></li>
+</ul>
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Technical Design Documentation about Whonix Threat Model. This
+document covers aspects such as attacker capabilities, goals, and attack
+surface.</p>
+<div class="post-intro-p">
+</div>
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Classification_of_Threats"><span class="tocnumber">1</span> <span class="toctext">Classification of Threats</span></a></li><li class="toc-l1"><a href="#Note"><span class="tocnumber">2</span> <span class="toctext">Note</span></a></li><li class="toc-l1"><a href="#The_Threats"><span class="tocnumber">3</span> <span class="toctext">The Threats</span></a></li><li class="toc-l1"><a href="#Attacker_capabilities"><span class="tocnumber">4</span> <span class="toctext">Attacker capabilities</span></a></li><li class="toc-l2"><a href="#Legal/Non-technical_attacks_and_physical_access"><span class="tocnumber">4.1</span> <span class="toctext">Legal/Non-technical &quot;attacks&quot; and physical access</span></a></li><li class="toc-l2"><a href="#Backdoors"><span class="tocnumber">4.2</span> <span class="toctext">Backdoors</span></a></li><li class="toc-l2"><a href="#Software_attacks"><span class="tocnumber">4.3</span> <span class="toctext">Software attacks</span></a></li><li class="toc-l2"><a href="#Crypto-attacks"><span class="tocnumber">4.4</span> <span class="toctext">Crypto-attacks</span></a></li><li class="toc-l2"><a href="#Attacking_design_flaws"><span class="tocnumber">4.5</span> <span class="toctext">Attacking design flaws</span></a></li><li class="toc-l1"><a href="#Our_Goals"><span class="tocnumber">5</span> <span class="toctext">Our Goals</span></a></li><li class="toc-l1"><a href="#Our_Attack_Surface"><span class="tocnumber">6</span> <span class="toctext">Our Attack Surface</span></a></li><li class="toc-l1"><a href="#Applying_the_threat_model_to_Whonix"><span class="tocnumber">7</span> <span class="toctext">Applying the threat model to Whonix</span></a></li><li class="toc-l2"><a href="#High_Profile_Target_Considerations"><span class="tocnumber">7.1</span> <span class="toctext">High Profile Target Considerations</span></a></li><li class="toc-l2"><a href="#Hardware_Scope_and_Limitations"><span class="tocnumber">7.2</span> <span class="toctext">Hardware Scope and Limitations</span></a></li><li class="toc-l2"><a href="#Trustworthy_Hardware_and_Recommendations"><span class="tocnumber">7.3</span> <span class="toctext">Trustworthy Hardware and Recommendations</span></a></li><li class="toc-l2"><a href="#Hardware_Best_Practices"><span class="tocnumber">7.4</span> <span class="toctext">Hardware Best Practices</span></a></li><li class="toc-l2"><a href="#Cryptographic_Considerations"><span class="tocnumber">7.5</span> <span class="toctext">Cryptographic Considerations</span></a></li><li class="toc-l2"><a href="#Focus_on_Software_Attacks"><span class="tocnumber">7.6</span> <span class="toctext">Focus on Software Attacks</span></a></li><li class="toc-l2"><a href="#Software_Defense_Mechanisms"><span class="tocnumber">7.7</span> <span class="toctext">Software Defense Mechanisms</span></a></li><li class="toc-l2"><a href="#Protecting_against_Software_Vulnerabilities"><span class="tocnumber">7.8</span> <span class="toctext">Protecting against Software Vulnerabilities</span></a></li><li class="toc-l2"><a href="#Design_Flaws_and_Single_Points_of_Failure"><span class="tocnumber">7.9</span> <span class="toctext">Design Flaws and Single Points of Failure</span></a></li><li class="toc-l1"><a href="#Notes_about_securing_Confidentiality,_Integrity_and_Authenticity"><span class="tocnumber">8</span> <span class="toctext">Notes about securing Confidentiality, Integrity and Authenticity</span></a></li><li class="toc-l1"><a href="#Notes_about_End-to-end_security_of_Onion_Services"><span class="tocnumber">9</span> <span class="toctext">Notes about End-to-end security of Onion Services</span></a></li><li class="toc-l1"><a href="#Attack_on_Whonix"><span class="tocnumber">10</span> <span class="toctext">Attack on Whonix</span></a></li><li class="toc-l1"><a href="#Design_Document,_Innovations,_and_Research"><span class="tocnumber">11</span> <span class="toctext">Design Document, Innovations, and Research</span></a></li><li class="toc-l1"><a href="#Whonix_Threat_Model_not_available_as_PDF_or_paper_version"><span class="tocnumber">12</span> <span class="toctext">Whonix Threat Model not available as PDF or paper version</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">13</span> <span class="toctext">Footnotes</span></a></li></ul></nav><h2 id="Classification_of_Threats">Classification of Threats</h2><span class="share-tooltip" data-anchor="Classification_of_Threats"><a class="headline-anchor" href="#Classification_of_Threats" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Classification_of_Threats">https://www.whonix.org/wiki/Dev/Threat_Model#Classification_of_Threats</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Classification_of_Threats&amp;text=Classification%20of%20Threats" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Classification_of_Threats&amp;text=Classification%20of%20Threats" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Classification_of_Threats&amp;title=Classification%20of%20Threats" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Classification%20of%20Threats&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Classification_of_Threats" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Classification_of_Threats]Classification of Threats[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Classification_of_Threats]Classification of Threats[/url]</span></span></span></span>
+<h2 id="Note">Note</h2><span class="share-tooltip" data-anchor="Note"><a class="headline-anchor" href="#Note" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Note">https://www.whonix.org/wiki/Dev/Threat_Model#Note</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Note&amp;text=Note" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Note&amp;text=Note" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Note&amp;title=Note" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Note&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Note" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Note]Note[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Note]Note[/url]</span></span></span></span>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.ietf.org/rfc/rfc2119.txt" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h2 id="The_Threats">The Threats</h2><span class="share-tooltip" data-anchor="The_Threats"><a class="headline-anchor" href="#The_Threats" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#The_Threats">https://www.whonix.org/wiki/Dev/Threat_Model#The_Threats</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23The_Threats&amp;text=The%20Threats" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23The_Threats&amp;text=The%20Threats" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23The_Threats&amp;title=The%20Threats" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=The%20Threats&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23The_Threats" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#The_Threats]The Threats[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#The_Threats]The Threats[/url]</span></span></span></span>
+<p>First, let us quickly consider all the possible threats we could
+face. We can categorize threats against computer systems into five
+categories:</p>
+<dl>
+<dt>1. <strong>Non-technical/non-computer-based and legal
+attacks</strong></dt>
+
+</dl>
+<p>:* Examples include:</p>
+<p>::* "Rubber hose cryptanalysis"</p>
+<p>::* Mandatory key disclosure</p>
+<p>::* Subpoenas</p>
+<p>::* Real detective work/espionage (done by real humans, not bots)</p>
+<p>::* Bugs</p>
+<p>::* Surveillance cameras</p>
+<dl>
+<dt>2. <strong>Hardware attacks through physical access</strong></dt>
+
+</dl>
+<p>:* Examples include:</p>
+<p>::* RAM and hard disk forensics</p>
+<p>::* Keyloggers</p>
+<p>::* TEMPEST</p>
+<p>::* Evil Maid attacks</p>
+<dl>
+<dt>3. <strong>Backdoors</strong></dt>
+
+</dl>
+<p>:* Intentional weaknesses or additional hidden "functionality"
+inserted into your system by a manufacturer, vendor, or distributor
+(hardware or software), allowing remote access<sup>1</sup>.</p>
+<p>:* These can be introduced anywhere from:</p>
+<p>::* Design/source code</p>
+<p>::* Manufacturing/compilation</p>
+<p>::* Distribution</p>
+<dl>
+<dt>;* Learn more about
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Backdoors.</dt>
+
+</dl>
+<dl>
+<dt>4. <strong>Vulnerabilities</strong></dt>
+
+</dl>
+<p>:* Coding or hardware design errors that can be exploited to gain
+remote access.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup></p>
+<p>:* In practice, vulnerabilities and backdoors can appear identical;
+only their methods of creation differ.</p>
+<dl>
+<dt>5. <strong>Design flaws</strong></dt>
+
+</dl>
+<p>:* Even in a system free of backdoors and errors, with perfect
+physical and legal protection (which does not exist in reality),
+achieving perfect security may still be elusive.</p>
+<p>:* This is particularly true for anonymity systems.</p>
+<p>::* While perfect cryptographic design exists (the one-time pad),
+anonymity is not binary.</p>
+<p>::* You are not simply anonymous or not; you possess some non-zero
+but imperfect degree of anonymity.</p>
+<p>::* Your anonymity hinges on blending in with others.</p>
+<p>::* Anonymity networks necessitate trust and a sizable, diverse user
+base.</p>
+<p>::* A perfectly secure system would not rely on trust in others or on
+such external factors.</p>
+<p>::* Every complex (yet still usable) system design (all computer
+systems are complex) involves trade-offs. That is why the majority
+employ imperfect cryptography instead of the one-time pad...</p>
+<p>Lastly, it is worth noting that the bug mentioned in <a href="https://gitlab.torproject.org/legacy/trac/-/issues/5928">Research:
+IP discovery through Tor behind isolated network</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/5928" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> seems to primarily
+concern determining the IP address a Tor client uses to connect to the
+Internet. It does not touch upon other types of information leakage.</p>
+<h2 id="Attacker_capabilities">Attacker capabilities</h2><span class="share-tooltip" data-anchor="Attacker_capabilities"><a class="headline-anchor" href="#Attacker_capabilities" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Attacker_capabilities">https://www.whonix.org/wiki/Dev/Threat_Model#Attacker_capabilities</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attacker_capabilities&amp;text=Attacker%20capabilities" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attacker_capabilities&amp;text=Attacker%20capabilities" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attacker_capabilities&amp;title=Attacker%20capabilities" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Attacker%20capabilities&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attacker_capabilities" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Attacker_capabilities]Attacker capabilities[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Attacker_capabilities]Attacker capabilities[/url]</span></span></span></span>
+<h3 id="Legal/Non-technical_attacks_and_physical_access"><span id="Legal.2FNon-technical_attacks_and_physical_access"></span>Legal/Non-technical
+"attacks" and physical access</h3><span class="share-tooltip" data-anchor="Legal/Non-technical_attacks_and_physical_access"><a class="headline-anchor" href="#Legal/Non-technical_attacks_and_physical_access" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Legal/Non-technical_attacks_and_physical_access">https://www.whonix.org/wiki/Dev/Threat_Model#Legal/Non-technical_attacks_and_physical_access</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Legal%2FNon-technical_attacks_and_physical_access&amp;text=Legal%2FNon-technical%0A%22attacks%22%20and%20physical%20access" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Legal%2FNon-technical_attacks_and_physical_access&amp;text=Legal%2FNon-technical%0A%22attacks%22%20and%20physical%20access" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Legal%2FNon-technical_attacks_and_physical_access&amp;title=Legal%2FNon-technical%0A%22attacks%22%20and%20physical%20access" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Legal%2FNon-technical%0A%22attacks%22%20and%20physical%20access&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Legal%2FNon-technical_attacks_and_physical_access" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Legal/Non-technical_attacks_and_physical_access]Legal/Non-technical
+&quot;attacks&quot; and physical access[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Legal/Non-technical_attacks_and_physical_access]Legal/Non-technical
+&quot;attacks&quot; and physical access[/url]</span></span></span></span>
+<ul>
+<li>Legal/Non-technical "attacks" and physical access are expensive.
+Anything that requires real humans to work, rather than relying on
+computers and algorithms, is prohibitively expensive for more than a
+small target group.</li>
+</ul>
+<h3 id="Backdoors">Backdoors</h3><span class="share-tooltip" data-anchor="Backdoors"><a class="headline-anchor" href="#Backdoors" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Backdoors">https://www.whonix.org/wiki/Dev/Threat_Model#Backdoors</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Backdoors&amp;text=Backdoors" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Backdoors&amp;text=Backdoors" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Backdoors&amp;title=Backdoors" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Backdoors&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Backdoors" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Backdoors]Backdoors[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Backdoors]Backdoors[/url]</span></span></span></span>
+<ul>
+<li>Both hardware and software backdoors are costly to implement.
+Creating one is difficult and comes with risks.</li>
+<li>The more frequently a backdoor is used, the more likely it is to be
+detected and closed. Adversaries are unlikely to waste such tools on
+anything but high-profile targets.</li>
+<li>Well-hidden passive "backdoors" are concerning, as they can be
+nearly impossible to detect and may remain functional for years.</li>
+<li>Consider a backdoor in a compiler affecting the PRNG. The cost of
+implementing such a backdoor is high, requiring patience, sophisticated
+coding, social engineering, and cryptography skills. However, the
+potential return on investment could be significant.</li>
+</ul>
+<h3 id="Software_attacks">Software attacks</h3><span class="share-tooltip" data-anchor="Software_attacks"><a class="headline-anchor" href="#Software_attacks" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Software_attacks">https://www.whonix.org/wiki/Dev/Threat_Model#Software_attacks</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Software_attacks&amp;text=Software%20attacks" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Software_attacks&amp;text=Software%20attacks" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Software_attacks&amp;title=Software%20attacks" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Software%20attacks&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Software_attacks" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Software_attacks]Software attacks[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Software_attacks]Software attacks[/url]</span></span></span></span>
+<ul>
+<li>Software attacks are economical. While a good 0-day exploit can be
+expensive and loses its usefulness once deployed, new vulnerabilities
+emerge regularly, and new exploits can be developed.</li>
+<li>Compared to physical access and backdoors, software attacks are more
+cost-effective and can be automated for a broad target set.</li>
+<li>If you question the significance or realism of the threat from
+client application 0-days, consider pwn2own 2012. A semi-legal, albeit
+questionable, company demonstrated its ability to exploit every web
+browser, bypassing all advanced security features (MAC, Sandbox, ASLR,
+NX, etc.).</li>
+<li>Such findings are not shocking, given that large codebases will
+always contain bugs, some of which are exploitable. What stands out is
+that this company does not disclose its findings to the software
+developers; instead, it sells this information to governments (or the
+highest bidder) as offensive "cyber weapons" (though it would not term
+it as such).</li>
+<li>It is plausible that vulnerabilities in Tor are also being sold
+discreetly. Therefore, one should never rely solely on Tor, especially
+when requiring robust anonymity from well-funded adversaries.</li>
+</ul>
+<h3 id="Crypto-attacks">Crypto-attacks</h3><span class="share-tooltip" data-anchor="Crypto-attacks"><a class="headline-anchor" href="#Crypto-attacks" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Crypto-attacks">https://www.whonix.org/wiki/Dev/Threat_Model#Crypto-attacks</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Crypto-attacks&amp;text=Crypto-attacks" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Crypto-attacks&amp;text=Crypto-attacks" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Crypto-attacks&amp;title=Crypto-attacks" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Crypto-attacks&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Crypto-attacks" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Crypto-attacks]Crypto-attacks[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Crypto-attacks]Crypto-attacks[/url]</span></span></span></span>
+<ul>
+<li>Crypto-attacks are extremely expensive. If one discovers a method to
+break the currently used encryption, it will likely be kept secret.</li>
+<li>Most cryptographic attacks probably necessitate vast computing
+resources.</li>
+</ul>
+<h3 id="Attacking_design_flaws">Attacking design flaws</h3><span class="share-tooltip" data-anchor="Attacking_design_flaws"><a class="headline-anchor" href="#Attacking_design_flaws" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Attacking_design_flaws">https://www.whonix.org/wiki/Dev/Threat_Model#Attacking_design_flaws</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attacking_design_flaws&amp;text=Attacking%20design%20flaws" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attacking_design_flaws&amp;text=Attacking%20design%20flaws" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attacking_design_flaws&amp;title=Attacking%20design%20flaws" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Attacking%20design%20flaws&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attacking_design_flaws" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Attacking_design_flaws]Attacking design flaws[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Attacking_design_flaws]Attacking design flaws[/url]</span></span></span></span>
+<ul>
+<li>Attacking design flaws varies in cost. The expenses can differ
+significantly, but in every instance, once a design flaw is attacked and
+it becomes public knowledge, the target will rectify the flaw, making it
+tougher to exploit in the future.</li>
+<li>This dynamic could lead to an arms race, which neither party may
+desire.</li>
+<li>A significant issue for the defending party is that some systems
+have become so ubiquitous that transitioning to a more secure design is
+nearly impossible.</li>
+<li>A prime example is the certificate authority system. Its design has
+numerous flaws, but nearly every computer user relies on it for
+authentication and confidentiality.</li>
+<li>Similarly, the lack of crypto and hash agility in many applications
+results in dependence on fragile and compromised algorithms. This is not
+due to ignorance but because of the demands of backward compatibility
+and the problems a few malicious actors can cause.</li>
+<li>There is a threshold where, if an attacker remains discreet, they
+can operate undetected for an extended period, giving everyone the
+impression that the situation is not "that bad yet."</li>
+<li>For instance, a <a href="https://en.wikipedia.org/wiki/Collision_attack#Attack_scenarios">collision
+attack</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Collision_attack#Attack_scenarios" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> against SHA-1, affecting various applications, including Tor,
+GPG, and TLS, has been deemed feasible for a potent adversary since
+2005. With advances in technology and attack methods, the number of
+potential adversaries has only grown. SHA-1 will likely remain in
+widespread use until a collision is publicly demonstrated, not because
+we lack alternatives, but because the costs of transitioning are so
+steep.</li>
+</ul>
+<h2 id="Our_Goals">Our Goals</h2><span class="share-tooltip" data-anchor="Our_Goals"><a class="headline-anchor" href="#Our_Goals" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Our_Goals">https://www.whonix.org/wiki/Dev/Threat_Model#Our_Goals</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Our_Goals&amp;text=Our%20Goals" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Our_Goals&amp;text=Our%20Goals" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Our_Goals&amp;title=Our%20Goals" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Our%20Goals&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Our_Goals" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Our_Goals]Our Goals[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Our_Goals]Our Goals[/url]</span></span></span></span>
+<ul>
+<li><strong>Hiding our Location and Identity when transmitting
+information</strong>: Ensuring that our physical location and personal
+or organizational identity remain anonymous when sending or receiving
+information.</li>
+</ul>
+<ul>
+<li><strong>Confidentiality, Integrity, Authenticity, and Availability
+of transmitted data</strong>:
+<ul>
+<li><strong>Confidentiality</strong>: Ensuring that the data remains
+private and is accessible only to those intended to have access.</li>
+<li><strong>Integrity</strong>: Guaranteeing that the data remains
+unchanged during transmission and that no unauthorized alterations
+occur.</li>
+<li><strong>Authenticity</strong>: Verifying the source and destination
+of the data, confirming that it is coming from and going to legitimate
+entities.</li>
+<li><strong>Availability</strong>: Making sure that data remains
+accessible and retrievable when needed, especially during crucial
+moments.</li>
+</ul></li>
+</ul>
+<h2 id="Our_Attack_Surface">Our Attack Surface</h2><span class="share-tooltip" data-anchor="Our_Attack_Surface"><a class="headline-anchor" href="#Our_Attack_Surface" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Our_Attack_Surface">https://www.whonix.org/wiki/Dev/Threat_Model#Our_Attack_Surface</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Our_Attack_Surface&amp;text=Our%20Attack%20Surface" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Our_Attack_Surface&amp;text=Our%20Attack%20Surface" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Our_Attack_Surface&amp;title=Our%20Attack%20Surface" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Our%20Attack%20Surface&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Our_Attack_Surface" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Our_Attack_Surface]Our Attack Surface[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Our_Attack_Surface]Our Attack Surface[/url]</span></span></span></span>
+<p>Every component we utilize to achieve our goals presents a potential
+attack vector:</p>
+<dl>
+<dt><strong>Physical Security and Privacy</strong>:</dt>
+<dd>
+Physical security and privacy are IMPERATIVE. Without them, achieving
+anonymity and confidentiality becomes challenging, if not impossible.
+</dd>
+</dl>
+<dl>
+<dt><strong>Tor &amp; Its Components</strong>:</dt>
+<dd>
+When considering Tor, its code, design, and the entire network (refer to
+<a href="Anonymity_Network">Dev/Anonymity
+Network</a> for details), it is essential not to view Tor in isolation.
+We MUST consider its entire TCB (<a href="https://en.wikipedia.org/wiki/Trusted_computing_base">Trusted
+Computing Base</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Trusted_computing_base" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>). If any component of the TCB is compromised, the Tor
+process can be undermined. For backdoor threats, the entire TCB is the
+attack surface, while for vulnerabilities, only the network-facing
+components of the TCB are.
+<ul>
+<li><strong>Whonix-Gateway<sup>&#8482;</sup> Hardware</strong></li>
+<li><strong>GNU/Linux/OS</strong>: The kernel, essential userland, APT,
+and all software update packages provided by the <u>o</u>perating
+<u>s</u>ystem (OS) distributor/vendor.</li>
+<li><strong>Tor itself</strong></li>
+<li><strong>Build System &amp; Virtualization</strong>: The build system
+(e.g., gcc). Using virtualization (as opposed to physical isolation)
+enlarges the TCB significantly. This includes:</li>
+</ul>
+<dl>
+<dt></dt>
+<dd>
+Host Kernel
+</dd>
+<dd>
+Host applications
+</dd>
+<dd>
+Host software updater
+</dd>
+<dd>
+Virtualization software
+</dd>
+</dl>
+</dd>
+</dl>
+<dl>
+<dt><strong>Software Dependencies &amp; Functions</strong>:</dt>
+<dd>
+It is CRUCIAL that the software we employ does not exceed its necessary
+functions, as this might compromise our anonymity through protocol
+leaks, identity correlation via Tor circuit sharing, and fingerprinting.
+To ensure this, we also depend on the Whonix-Workstation<sup>&#8482;</sup> and
+the TCB of the applications we utilize. (For more details, see [Whonix
+Protocol-Leak-Protection and Fingerprinting-Protection]).
+</dd>
+</dl>
+<dl>
+<dt><strong>Confidentiality, Integrity, and Authenticity</strong>:</dt>
+<dd>
+To guarantee these, we (and this includes everyone, not just Whonix)
+rely far too heavily on TLS (Transport Layer Security, the "s" in
+https). We also depend on:
+<ul>
+<li>The entire host (both hardware and software)</li>
+<li>All software within Whonix-Workstation</li>
+<li>TLS/PKI infrastructure</li>
+<li>For onion services: The full location/identity TCB.</li>
+<li>The security of the entity you are communicating with, unless
+employing symmetric key cryptography where you possess the exclusive
+key.</li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt><strong>Availability of Information</strong>:</dt>
+<dd>
+Our dependencies include:
+<ul>
+<li>The reliability and connectivity of the upstream Internet
+provider</li>
+<li>The Tor network's ability to withstand DoS attacks</li>
+<li>The resistance of the web servers you access to DoS attacks</li>
+<li>Your system's capability to resist DoS attacks</li>
+</ul>
+</dd>
+</dl>
+<h2 id="Applying_the_threat_model_to_Whonix">Applying the threat model
+to Whonix</h2><span class="share-tooltip" data-anchor="Applying_the_threat_model_to_Whonix"><a class="headline-anchor" href="#Applying_the_threat_model_to_Whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Applying_the_threat_model_to_Whonix">https://www.whonix.org/wiki/Dev/Threat_Model#Applying_the_threat_model_to_Whonix</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Applying_the_threat_model_to_Whonix&amp;text=Applying%20the%20threat%20model%0Ato%20Whonix" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Applying_the_threat_model_to_Whonix&amp;text=Applying%20the%20threat%20model%0Ato%20Whonix" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Applying_the_threat_model_to_Whonix&amp;title=Applying%20the%20threat%20model%0Ato%20Whonix" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Applying%20the%20threat%20model%0Ato%20Whonix&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Applying_the_threat_model_to_Whonix" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Applying_the_threat_model_to_Whonix]Applying the threat model
+to Whonix[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Applying_the_threat_model_to_Whonix]Applying the threat model
+to Whonix[/url]</span></span></span></span>
+<h3 id="High_Profile_Target_Considerations">High Profile Target
+Considerations</h3><span class="share-tooltip" data-anchor="High_Profile_Target_Considerations"><a class="headline-anchor" href="#High_Profile_Target_Considerations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#High_Profile_Target_Considerations">https://www.whonix.org/wiki/Dev/Threat_Model#High_Profile_Target_Considerations</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23High_Profile_Target_Considerations&amp;text=High%20Profile%20Target%0AConsiderations" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23High_Profile_Target_Considerations&amp;text=High%20Profile%20Target%0AConsiderations" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23High_Profile_Target_Considerations&amp;title=High%20Profile%20Target%0AConsiderations" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=High%20Profile%20Target%0AConsiderations&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23High_Profile_Target_Considerations" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#High_Profile_Target_Considerations]High Profile Target
+Considerations[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#High_Profile_Target_Considerations]High Profile Target
+Considerations[/url]</span></span></span></span>
+<p>First, you do not want to be on the "high profile target" list of any
+resourceful adversary. If you are, neither Whonix nor any other
+computer-based system can protect you.</p>
+<h3 id="Hardware_Scope_and_Limitations">Hardware Scope and
+Limitations</h3><span class="share-tooltip" data-anchor="Hardware_Scope_and_Limitations"><a class="headline-anchor" href="#Hardware_Scope_and_Limitations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Hardware_Scope_and_Limitations">https://www.whonix.org/wiki/Dev/Threat_Model#Hardware_Scope_and_Limitations</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Hardware_Scope_and_Limitations&amp;text=Hardware%20Scope%20and%0ALimitations" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Hardware_Scope_and_Limitations&amp;text=Hardware%20Scope%20and%0ALimitations" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Hardware_Scope_and_Limitations&amp;title=Hardware%20Scope%20and%0ALimitations" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Hardware%20Scope%20and%0ALimitations&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Hardware_Scope_and_Limitations" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Hardware_Scope_and_Limitations]Hardware Scope and
+Limitations[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Hardware_Scope_and_Limitations]Hardware Scope and
+Limitations[/url]</span></span></span></span>
+<p>Whonix is primarily a software project. Our scope for hardware and
+physical aspects is limited. Hardware security would not be as
+significant an issue if we were not dealing with monolithic systems
+where multiple parts have full system access through DRM or indirectly
+via hardware drivers that run in kernel space. Consider examining Qubes
+OS for cutting-edge hardware deprivileging. While it requires modern
+hardware and a larger user base, integrating Whonix with Qubes OS was
+done in the form of <a href="../Qubes">Qubes-Whonix</a>.</p>
+<h3 id="Trustworthy_Hardware_and_Recommendations">Trustworthy Hardware
+and Recommendations</h3><span class="share-tooltip" data-anchor="Trustworthy_Hardware_and_Recommendations"><a class="headline-anchor" href="#Trustworthy_Hardware_and_Recommendations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Trustworthy_Hardware_and_Recommendations">https://www.whonix.org/wiki/Dev/Threat_Model#Trustworthy_Hardware_and_Recommendations</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Trustworthy_Hardware_and_Recommendations&amp;text=Trustworthy%20Hardware%0Aand%20Recommendations" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Trustworthy_Hardware_and_Recommendations&amp;text=Trustworthy%20Hardware%0Aand%20Recommendations" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Trustworthy_Hardware_and_Recommendations&amp;title=Trustworthy%20Hardware%0Aand%20Recommendations" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Trustworthy%20Hardware%0Aand%20Recommendations&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Trustworthy_Hardware_and_Recommendations" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Trustworthy_Hardware_and_Recommendations]Trustworthy Hardware
+and Recommendations[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Trustworthy_Hardware_and_Recommendations]Trustworthy Hardware
+and Recommendations[/url]</span></span></span></span>
+<p>Assuming the hardware is trustworthy and the physical location
+uncompromised, it is RECOMMENDED to use "clean" computers with parts
+from reputable manufacturers and to make purchases in cash to prevent
+hardware IDs from revealing our identity.</p>
+<p>For protection against forensic analysis, full disk encryption SHOULD
+be used on the host, and RAM should be wiped upon shutdown.</p>
+<p>Implementation status: Since Whonix does not yet include a host
+operating system, we RECOMMEND users follow the guidelines provided in
+the Whonix documentation.</p>
+<h3 id="Hardware_Best_Practices">Hardware Best Practices</h3><span class="share-tooltip" data-anchor="Hardware_Best_Practices"><a class="headline-anchor" href="#Hardware_Best_Practices" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Hardware_Best_Practices">https://www.whonix.org/wiki/Dev/Threat_Model#Hardware_Best_Practices</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Hardware_Best_Practices&amp;text=Hardware%20Best%20Practices" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Hardware_Best_Practices&amp;text=Hardware%20Best%20Practices" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Hardware_Best_Practices&amp;title=Hardware%20Best%20Practices" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Hardware%20Best%20Practices&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Hardware_Best_Practices" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Hardware_Best_Practices]Hardware Best Practices[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Hardware_Best_Practices]Hardware Best Practices[/url]</span></span></span></span>
+<p>Some additional pointers:</p>
+<ul>
+<li>Favor IOMMU over DMA, and avoid attaching untrusted devices to
+FireWire and PCI* interfaces.</li>
+<li>Opt for open source hardware or at least hardware that is open
+source friendly, meaning the specifications are public. With open
+source, multiple companies can produce the hardware, making backdoors
+more challenging to introduce.</li>
+<li>Embrace simplicity. Complexity is security's primary adversary.
+Whonix-Gateway could operate on straightforward hardware like the
+Raspberry Pi.</li>
+</ul>
+<h3 id="Cryptographic_Considerations">Cryptographic Considerations</h3><span class="share-tooltip" data-anchor="Cryptographic_Considerations"><a class="headline-anchor" href="#Cryptographic_Considerations" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Cryptographic_Considerations">https://www.whonix.org/wiki/Dev/Threat_Model#Cryptographic_Considerations</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Cryptographic_Considerations&amp;text=Cryptographic%20Considerations" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Cryptographic_Considerations&amp;text=Cryptographic%20Considerations" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Cryptographic_Considerations&amp;title=Cryptographic%20Considerations" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Cryptographic%20Considerations&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Cryptographic_Considerations" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Cryptographic_Considerations]Cryptographic Considerations[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Cryptographic_Considerations]Cryptographic Considerations[/url]</span></span></span></span>
+<p>Regarding cryptography, the approach we can take is to use <a href="https://en.wikipedia.org/wiki/Multiple_encryption">cascades</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Multiple_encryption" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> of
+varying cipher and hash families. However, it is more intricate than it
+seems, and no known software achieves this correctly.</p>
+<h3 id="Focus_on_Software_Attacks">Focus on Software Attacks</h3><span class="share-tooltip" data-anchor="Focus_on_Software_Attacks"><a class="headline-anchor" href="#Focus_on_Software_Attacks" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Focus_on_Software_Attacks">https://www.whonix.org/wiki/Dev/Threat_Model#Focus_on_Software_Attacks</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Focus_on_Software_Attacks&amp;text=Focus%20on%20Software%20Attacks" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Focus_on_Software_Attacks&amp;text=Focus%20on%20Software%20Attacks" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Focus_on_Software_Attacks&amp;title=Focus%20on%20Software%20Attacks" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Focus%20on%20Software%20Attacks&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Focus_on_Software_Attacks" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Focus_on_Software_Attacks]Focus on Software Attacks[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Focus_on_Software_Attacks]Focus on Software Attacks[/url]</span></span></span></span>
+<p>As mentioned in the "Attacker capabilities" section, our main area of
+focus should be software attacks.</p>
+<h3 id="Software_Defense_Mechanisms">Software Defense Mechanisms</h3><span class="share-tooltip" data-anchor="Software_Defense_Mechanisms"><a class="headline-anchor" href="#Software_Defense_Mechanisms" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Software_Defense_Mechanisms">https://www.whonix.org/wiki/Dev/Threat_Model#Software_Defense_Mechanisms</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Software_Defense_Mechanisms&amp;text=Software%20Defense%20Mechanisms" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Software_Defense_Mechanisms&amp;text=Software%20Defense%20Mechanisms" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Software_Defense_Mechanisms&amp;title=Software%20Defense%20Mechanisms" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Software%20Defense%20Mechanisms&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Software_Defense_Mechanisms" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Software_Defense_Mechanisms]Software Defense Mechanisms[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Software_Defense_Mechanisms]Software Defense Mechanisms[/url]</span></span></span></span>
+<p>To defend against software backdoors and vulnerabilities:</p>
+<ul>
+<li>The source should be audited, preferably both by you and numerous
+others, and should ideally be free of bugs. Popular open source projects
+are your best bet. As Whonix is fully open source, anyone can audit and
+submit patches. -&gt; <a href="../Reasons_for_Freedom_Software">Reasons for Freedom Software</a></li>
+<li>If you depend on others (and you do), ensure that you receive the
+same code as everyone else. Hash sums and signatures, especially when
+made public, can help verify this. If transparent signing (common in
+proprietary systems) is used, it becomes harder to confirm that you are
+receiving the same files as everyone else. By default, signing ensures
+you are receiving code from someone with access to the signing key,
+which protects against third parties, but not potential insiders. The
+checksums and signatures for Whonix and its updates are made publicly
+available.</li>
+<li>The code you utilize should have a strong track record. -&gt; <a href="../Whonix_against_Real_Attacks">Whonix Track Record
+against Real Cyber Attacks</a>
+<ul>
+<li>Any known issues must be promptly addressed. Code that is not
+regularly scrutinized but has no known issues is more concerning than
+code with many known (but patched) security vulnerabilities that is
+under continuous review. However, truly trustworthy code should have
+minimal, if any, security issues despite rigorous audits. It is worth
+noting that projects requiring frequent security patches are inherently
+insecure. But it is not just about the quantity of issues; the severity
+of bugs is also crucial. For instance, while Linux receives many
+security patches, critical vulnerabilities that could impact Whonix
+(like remote code execution with root privileges) are rare. However,
+critical flaws in user-facing applications, such as browsers, PDF
+readers, media players, and IRC, are more common, and such software
+should not be a part of the TCB (referenced below).</li>
+</ul></li>
+<li>Merely reviewing the source is not sufficient; trustworthy binaries
+are essential. Analyzing binaries is considerably more challenging than
+scrutinizing source code. If you are dependent on source code auditing,
+you must have a trustworthy compiler (along with a fully trusted system
+on which to run it) and utilize <a href="https://dwheeler.com/trusting-trust/">DCC</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://dwheeler.com/trusting-trust/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. In the same vein, a
+trusted system is imperative for verifying signatures and hashes. This
+introduces the bootstrapping dilemma often likened to the "chicken and
+egg" problem. Generally, to circumvent this, you should employ at least
+two distinct, unrelated systems (including their foundational build
+systems and compilers). The systems should be configured in a manner
+such that both would need to be compromised simultaneously by the same
+adversary, in a compatible manner, to result in a significant security
+breach.</li>
+</ul>
+<h3 id="Protecting_against_Software_Vulnerabilities">Protecting against
+Software Vulnerabilities</h3><span class="share-tooltip" data-anchor="Protecting_against_Software_Vulnerabilities"><a class="headline-anchor" href="#Protecting_against_Software_Vulnerabilities" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Protecting_against_Software_Vulnerabilities">https://www.whonix.org/wiki/Dev/Threat_Model#Protecting_against_Software_Vulnerabilities</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Protecting_against_Software_Vulnerabilities&amp;text=Protecting%20against%0ASoftware%20Vulnerabilities" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Protecting_against_Software_Vulnerabilities&amp;text=Protecting%20against%0ASoftware%20Vulnerabilities" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Protecting_against_Software_Vulnerabilities&amp;title=Protecting%20against%0ASoftware%20Vulnerabilities" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Protecting%20against%0ASoftware%20Vulnerabilities&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Protecting_against_Software_Vulnerabilities" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Protecting_against_Software_Vulnerabilities]Protecting against
+Software Vulnerabilities[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Protecting_against_Software_Vulnerabilities]Protecting against
+Software Vulnerabilities[/url]</span></span></span></span>
+<p>If the code base is large and complex, code auditing is not a
+realistic strategy. Therefore, we need to reduce complexity and the
+attack surface by:</p>
+<ul>
+<li>Making the TCB small, and</li>
+<li>Using privilege separation: The TCB for identity/anonymity is as
+small as it can be on a monolithic general-purpose OS. It could be
+smaller (e.g., a custom kernel, busybox, uclibc instead of libc, and
+gnu-utils), but that would increase the cost in terms of
+maintainability, security updates, and ease of use. (And this still
+leaves us with a comparably large monolithic kernel and a vast gcc
+infrastructure.) Linux/Xorg (with DAC or even MAC) does not excel at
+privilege separation (e.g., no trusted path). The most robust privilege
+separation is achieved by using multiple physical computers, which we
+RECOMMEND, as seen in <a href="Build_Documentation/Physical_Isolation">Physical Isolation</a> and <a href="../Multiple_Whonix-Workstation">multiple
+Whonix-Workstation</a>. A more practical, but less secure, alternative
+is virtualization. For details about privilege separation between
+IRC/Browser/Clients and Tor, see <a href="Technical_Introduction">Dev/Technical Introduction</a>.</li>
+</ul>
+<p>We have spent considerable time considering ways to make Whonix even
+more secure, but with the (free and open source) tools available today,
+it does not seem feasible. We would require an isolation kernel that
+offers robust guarantees of isolation between different subsystems and
+would ideally be verified. This way, concerns about sophisticated
+backdoors (barring those from the compiler, as discussed in "Trusting
+trust"/chicken and egg), software vulnerabilities, and even some
+hardware backdoors and vulnerabilities (through IOMMU and microkernel
+design one can move hardware and firmware components, aside from the
+CPU, out of the TCB) would be alleviated. For Fingerprint/Protocol leaks
+and the <a href="https://en.wikipedia.org/wiki/CIA_triad#Key_concepts">CIA
+Triad</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/CIA_triad#Key_concepts" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, we rely on the Whonix-Workstation TCB. This presents a
+dauntingly large TCB/attack surface. Therefore, we employ another
+strategy, "security through non-persistence". Specifically, you should
+frequently utilize the clone feature and rollback capabilities of the
+virtual machine. Instead of enforcing privilege separation within a
+Tor-Workstation (e.g., by using a Mandatory Access Control framework),
+which would result in significant usability compromises, we recommend
+the coarse-grained isolation provided through multiple VMs.</p>
+<p>To protect specifically against software attacks
+(vulnerabilities):</p>
+<ul>
+<li>Make the software challenging to attack with tools like ASLR,
+canaries, NX, and kernel hardening. (See the Debian section <a href="Operating_System#Debian">About Debian</a>.)
+It is essential to understand that this makes attacks "harder" but not
+impossible. Hardening is not a substitute for fixing bugs. In a
+genuinely trustworthy system, hardening would not be necessary.</li>
+</ul>
+<h3 id="Design_Flaws_and_Single_Points_of_Failure">Design Flaws and
+Single Points of Failure</h3><span class="share-tooltip" data-anchor="Design_Flaws_and_Single_Points_of_Failure"><a class="headline-anchor" href="#Design_Flaws_and_Single_Points_of_Failure" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Design_Flaws_and_Single_Points_of_Failure">https://www.whonix.org/wiki/Dev/Threat_Model#Design_Flaws_and_Single_Points_of_Failure</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Design_Flaws_and_Single_Points_of_Failure&amp;text=Design%20Flaws%20and%0ASingle%20Points%20of%20Failure" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Design_Flaws_and_Single_Points_of_Failure&amp;text=Design%20Flaws%20and%0ASingle%20Points%20of%20Failure" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Design_Flaws_and_Single_Points_of_Failure&amp;title=Design%20Flaws%20and%0ASingle%20Points%20of%20Failure" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Design%20Flaws%20and%0ASingle%20Points%20of%20Failure&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Design_Flaws_and_Single_Points_of_Failure" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Design_Flaws_and_Single_Points_of_Failure]Design Flaws and
+Single Points of Failure[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Design_Flaws_and_Single_Points_of_Failure]Design Flaws and
+Single Points of Failure[/url]</span></span></span></span>
+<p>To mitigate design flaws, the primary strategy is to eliminate single
+points of failure:</p>
+<ul>
+<li>You SHOULD NOT rely solely on Tor; use WiFi or tunnel through <a href="Anonymity_Network">an anonymity network</a>
+if available. (Not really.) <a href="../Why_does_Whonix_use_Tor">Why does Whonix use Tor</a></li>
+<li>You SHOULD NOT rely solely on TLS; also use GPG (and vice
+versa).</li>
+<li>You SHOULD NOT rely on a software monoculture.</li>
+<li>You SHOULD NOT expect the Debian infrastructure to remain
+uncompromised forever. We currently do not adhere to this advice.</li>
+<li>To lessen the impact of a potential compromise of the update
+infrastructure, which includes developer machines, build systems, and
+key security and cryptographic primitives like PRNG (remember OpenSSL or
+Flame?), we do not enable automatic software updates. After all, these
+are essentially remote root-level backdoors, albeit with some checks in
+place.</li>
+</ul>
+<h2 id="Notes_about_securing_Confidentiality,_Integrity_and_Authenticity"><span id="Notes_about_securing_Confidentiality.2C_Integrity_and_Authenticity"></span>Notes
+about securing Confidentiality, Integrity and Authenticity</h2><span class="share-tooltip" data-anchor="Notes_about_securing_Confidentiality,_Integrity_and_Authenticity"><a class="headline-anchor" href="#Notes_about_securing_Confidentiality,_Integrity_and_Authenticity" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Notes_about_securing_Confidentiality,_Integrity_and_Authenticity">https://www.whonix.org/wiki/Dev/Threat_Model#Notes_about_securing_Confidentiality,_Integrity_and_Authenticity</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Notes_about_securing_Confidentiality%2C_Integrity_and_Authenticity&amp;text=Notes%0Aabout%20securing%20Confidentiality%2C%20Integrity%20and%20Authenticity" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Notes_about_securing_Confidentiality%2C_Integrity_and_Authenticity&amp;text=Notes%0Aabout%20securing%20Confidentiality%2C%20Integrity%20and%20Authenticity" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Notes_about_securing_Confidentiality%2C_Integrity_and_Authenticity&amp;title=Notes%0Aabout%20securing%20Confidentiality%2C%20Integrity%20and%20Authenticity" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Notes%0Aabout%20securing%20Confidentiality%2C%20Integrity%20and%20Authenticity&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Notes_about_securing_Confidentiality%2C_Integrity_and_Authenticity" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Notes_about_securing_Confidentiality,_Integrity_and_Authenticity]Notes
+about securing Confidentiality, Integrity and Authenticity[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Notes_about_securing_Confidentiality,_Integrity_and_Authenticity]Notes
+about securing Confidentiality, Integrity and Authenticity[/url]</span></span></span></span>
+<p>This is no different from any other computer system without Tor. You
+MUST use end-to-end public key encryption; there is not really an
+alternative to that. But there are alternative implementations: TLS,
+SSH, GPG... End-to-End means both ends need to be secure. One end is the
+Whonix-Workstation, which you can control and secure. In the case of
+onion services, the Whonix-Gateway is ALSO part of the TCB!</p>
+<p>Whonix-Workstation is not specifically hardened because hardening a
+desktop system to a degree that makes it actually secure against a
+serious adversary makes the system unusable. Instead, we follow the nuke
+and restore approach, see <a href="../Multiple_Whonix-Workstation">Multiple Whonix-Workstation</a> and <a href="../Security_Guide#Recommendation_to_use_multiple_VM_Snapshots">Recommendation to use multiple Snapshots</a>.</p>
+<p>About availability: The most resilient approach is probably a
+distributed data store, like Tahoe-LAFS or Freenet. I2P offers
+multi-homing built in. For Tor, we do not know of any solutions ready
+for general usage.</p>
+<h2 id="Notes_about_End-to-end_security_of_Onion_Services">Notes about
+End-to-end security of Onion Services</h2><span class="share-tooltip" data-anchor="Notes_about_End-to-end_security_of_Onion_Services"><a class="headline-anchor" href="#Notes_about_End-to-end_security_of_Onion_Services" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Notes_about_End-to-end_security_of_Onion_Services">https://www.whonix.org/wiki/Dev/Threat_Model#Notes_about_End-to-end_security_of_Onion_Services</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Notes_about_End-to-end_security_of_Onion_Services&amp;text=Notes%20about%0AEnd-to-end%20security%20of%20Onion%20Services" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Notes_about_End-to-end_security_of_Onion_Services&amp;text=Notes%20about%0AEnd-to-end%20security%20of%20Onion%20Services" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Notes_about_End-to-end_security_of_Onion_Services&amp;title=Notes%20about%0AEnd-to-end%20security%20of%20Onion%20Services" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Notes%20about%0AEnd-to-end%20security%20of%20Onion%20Services&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Notes_about_End-to-end_security_of_Onion_Services" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Notes_about_End-to-end_security_of_Onion_Services]Notes about
+End-to-end security of Onion Services[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Notes_about_End-to-end_security_of_Onion_Services]Notes about
+End-to-end security of Onion Services[/url]</span></span></span></span>
+<p>Moved to <a href="../Onion_Services#Notes_about_End-to-end_Security_of_Onion_Services">Notes about End to end Security of Onion
+Services</a></p>
+<h2 id="Attack_on_Whonix">Attack on Whonix</h2><span class="share-tooltip" data-anchor="Attack_on_Whonix"><a class="headline-anchor" href="#Attack_on_Whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Attack_on_Whonix">https://www.whonix.org/wiki/Dev/Threat_Model#Attack_on_Whonix</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attack_on_Whonix&amp;text=Attack%20on%20Whonix" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attack_on_Whonix&amp;text=Attack%20on%20Whonix" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attack_on_Whonix&amp;title=Attack%20on%20Whonix" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Attack%20on%20Whonix&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Attack_on_Whonix" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Attack_on_Whonix]Attack on Whonix[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Attack_on_Whonix]Attack on Whonix[/url]</span></span></span></span>
+<p>There is a comparison of Tor Browser, Tails, Whonix Standard/Download
+version (host+VM+VM), and Whonix with Physical Isolation in chapter <a href="../Comparison_with_Others#Attacks">Attacks against
+Whonix</a>.</p>
+<h2 id="Design_Document,_Innovations,_and_Research"><span id="Design_Document.2C_Innovations.2C_and_Research"></span>Design Document,
+Innovations, and Research</h2><span class="share-tooltip" data-anchor="Design_Document,_Innovations,_and_Research"><a class="headline-anchor" href="#Design_Document,_Innovations,_and_Research" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Design_Document,_Innovations,_and_Research">https://www.whonix.org/wiki/Dev/Threat_Model#Design_Document,_Innovations,_and_Research</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Design_Document%2C_Innovations%2C_and_Research&amp;text=Design%20Document%2C%0AInnovations%2C%20and%20Research" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Design_Document%2C_Innovations%2C_and_Research&amp;text=Design%20Document%2C%0AInnovations%2C%20and%20Research" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Design_Document%2C_Innovations%2C_and_Research&amp;title=Design%20Document%2C%0AInnovations%2C%20and%20Research" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Design%20Document%2C%0AInnovations%2C%20and%20Research&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Design_Document%2C_Innovations%2C_and_Research" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Design_Document,_Innovations,_and_Research]Design Document,
+Innovations, and Research[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Design_Document,_Innovations,_and_Research]Design Document,
+Innovations, and Research[/url]</span></span></span></span>
+<p>The Whonix developer, Adrelanos, has a keen interest in serious
+design documents. Currently, there exists only one design document
+pertaining to Tor, transparent/isolated proxying, isolation, and virtual
+machines. Adrelanos has reviewed the old design paper titled "A Tor
+Virtual Machine Design and Implementation" from 2009. After reviewing
+it, Adrelanos refined that paper by removing non-essential,
+non-security-relevant content, ensuring all considerations from the old
+design paper were incorporated into Whonix.</p>
+<p>The entirety of Whonix <a href="../Documentation">Documentation</a> and <a href="../Design">Design</a> supersedes the old design document.</p>
+<p>Adrelanos also monitors the following documents:</p>
+<ul>
+<li><a href="https://tails.boum.org/contribute/index.en.html">Tails
+Design</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/index.en.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://tails.boum.org/contribute/design/">Tails Design:
+Specification and Implementation</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://tails.boum.org/contribute/design/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://dee.su/liberte-security">Security and Anonymity in
+Libert&#233; Linux</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://dee.su/liberte-security" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (<a href="https://archive.ph/srdCd">archive.ph</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://archive.ph/srdCd" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</li>
+<li><a href="https://dee.su/liberte-motivation">Libert&#233; Linux Motivation
+and Philosophy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://dee.su/liberte-motivation" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> (<a href="https://archive.ph/https://dee.su/liberte-motivation">archive.ph</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://archive.ph/https://dee.su/liberte-motivation" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)</li>
+</ul>
+<p>Any security/privacy/anonymity updates will be considered for
+inclusion in Whonix.</p>
+<p>The Whonix project is committed to asking pertinent questions,
+offering valuable suggestions, and creating useful tools. -&gt; <a href="../What_we_do">What we do</a></p>
+<p>The following list helps track all discussions and periodically
+review them to discern any changes:</p>
+<ul>
+<li>Smarm initiated a serious discussion on <a href="Leak_Tests_Old">Dev/Leak Tests Old</a>, which was subsequently scripted
+by Adrelanos (see <a href="Leak_Tests">Dev/Leak
+Tests</a>). This discussion may be of value to other projects as
+well.</li>
+<li><a href="https://web.archive.org/web/20170222032855/https://mailman.boum.org/pipermail/tails-dev/2012-June/001245.html">Tails-dev
+Removing SSL CA Dependency for HTP</a></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/wikis/doc/torsocks">Modified
+usewithtor to Support Setting IP and Port by Command Line Parameter by
+Adrelanos</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/wikis/doc/torsocks" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/5928">Research:
+IP Discovery through Tor behind Isolated Network</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/5928" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://gitlab.torproject.org/legacy/trac/-/issues/5611">Enhance
+"Transparent Torification (Requires Custom transproxy or Tor Router)" in
+Tor Button.</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/5611" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li>For further discussions, consult <a href="Archived_Discussions">Dev/Archived Discussions</a> and the associated
+archives. Our approach is always considered; everyone is welcome to
+contribute, and we strive to make informed decisions.</li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-May/024227.html">tor-talk
+Tor Browser Disabling Javascript Anonymity Set Reduction</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-May/024227.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023535.html">tor-talk
+Awareness for Identity Correlation through Circuit Sharing is Almost
+Zero.</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-March/023535.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>; <a href="https://gitlab.torproject.org/legacy/trac/-/issues/6102">Add
+Warning Related to Identity Correlation through Circuit Sharing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://gitlab.torproject.org/legacy/trac/-/issues/6102" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-March/023486.html">tor-talk
+Operating System Updates / Software Installation behind Tor Transparent
+Proxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-March/023486.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://lists.torproject.org/pipermail/tor-talk/2012-August/025128.html">tor-talk
+Attack against Tor: Statistic Manipulation Attack</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-August/025128.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://web.archive.org/web/20170222032804/https://mailman.boum.org/pipermail/tails-dev/2012-July/001394.html">Tails-dev
+tails_htp: Exit Relay can Fingerprint Tails Users until Exit Relay is
+Changed</a>; <a href="https://web.archive.org/web/20170222032556/https://mailman.boum.org/pipermail/tails-dev/2012-August/001421.html">2</a></li>
+<li><a href="https://web.archive.org/web/20170222032726/https://mailman.boum.org/pipermail/tails-dev/2012-August/001436.html">Tails-dev
+Better IRC Client, Include HexChat</a></li>
+<li><a href="https://web.archive.org/web/20141005211329/https://mailman.boum.org/pipermail/tails-dev/2012-August/001422.html">Tails-dev
+Separate Tor Streams</a></li>
+<li>...</li>
+</ul>
+<p>This list is not exhaustive...</p>
+<h2 id="Whonix_Threat_Model_not_available_as_PDF_or_paper_version">Whonix
+Threat Model not available as PDF or paper version</h2><span class="share-tooltip" data-anchor="Whonix_Threat_Model_not_available_as_PDF_or_paper_version"><a class="headline-anchor" href="#Whonix_Threat_Model_not_available_as_PDF_or_paper_version" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Dev/Threat_Model#Whonix_Threat_Model_not_available_as_PDF_or_paper_version">https://www.whonix.org/wiki/Dev/Threat_Model#Whonix_Threat_Model_not_available_as_PDF_or_paper_version</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Whonix_Threat_Model_not_available_as_PDF_or_paper_version&amp;text=Whonix%0AThreat%20Model%20not%20available%20as%20PDF%20or%20paper%20version" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Whonix_Threat_Model_not_available_as_PDF_or_paper_version&amp;text=Whonix%0AThreat%20Model%20not%20available%20as%20PDF%20or%20paper%20version" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Whonix_Threat_Model_not_available_as_PDF_or_paper_version&amp;title=Whonix%0AThreat%20Model%20not%20available%20as%20PDF%20or%20paper%20version" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Whonix%0AThreat%20Model%20not%20available%20as%20PDF%20or%20paper%20version&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDev%2FThreat_Model%23Whonix_Threat_Model_not_available_as_PDF_or_paper_version" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Dev/Threat_Model#Whonix_Threat_Model_not_available_as_PDF_or_paper_version]Whonix
+Threat Model not available as PDF or paper version[/url]">[url=https://www.whonix.org/wiki/Dev/Threat_Model#Whonix_Threat_Model_not_available_as_PDF_or_paper_version]Whonix
+Threat Model not available as PDF or paper version[/url]</span></span></span></span>
+<p>You may skip this optional chapter.</p>
+<p>While we read actual papers, such as the <a href="https://svn.torproject.org/svn/projects/design-paper/tor-design.pdf">Onion
+routing design paper</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://svn.torproject.org/svn/projects/design-paper/tor-design.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and many others, we cannot be compelled to
+create a paper titled "Designing an anonymous operating system" using
+LaTeX for PDF output.</p>
+<p>As Mike Perry, a developer of the Tor Browser, <a href="https://lists.torproject.org/pipermail/tor-talk/2012-May/024405.html">stated</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2012-May/024405.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>,
+"<em>I find the PDF format heavy and unnerving from a security
+perspective.</em>" We share this sentiment and also find the PDF format
+inconvenient. Learning LaTeX, mastering PDF creation, and understanding
+formatting etiquette would consume considerable time. Time we would
+prefer to allocate to design enhancements, development, and other
+endeavors. The "Onion routing design paper" is now outdated, and we
+prefer an editable, frequently updated, and revised website over a
+static paper or PDF.</p>
+<p>Tails does not offer a design paper in PDF format either, yet it has
+garnered significant attention from both users and developers.
+Similarly, TrueCrypt did not have a design paper on plausible
+deniability, but it still underwent a review by Bruce Schneier and
+others. Hence, we do not see the inherent benefits of making our threat
+model available in PDF. However, if we have missed any advantages,
+please do not hesitate to inform us.</p>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Used in the broadest sense, vulnerabilities can manifest as remote
+code execution, privilege escalation, DoS, etc. Essentially, they all
+allow remote parties to send your system instructions that diverge from
+the established security policy.</span></li>
+</ol>
+
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="../Moved:About_Computer_(In)Security" title="Dev/About Computer (In)Security"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Dev/About
+Computer
+(In)Security</span></a><a class="index internal" href="../Design" title="Design"><i class="fa-solid fa-list fa-fw"></i><span class="text">Design</span></a><a class="next internal" href="Operating_System" title="Dev/Operating System"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Dev/Operating
+System</span></a><span class="info"><span class="prev">Previous page:
+Dev/About Computer (In)Security</span><span class="index">Index page:
+Design</span><span class="next">Next page: Dev/Operating
+System</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Design">Design</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="../Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="../Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="../Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="../Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="../Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="../Terms_of_Service">Terms of Service</a></li><li><a href="../Privacy_Policy">Privacy Policy</a></li><li><a href="../Cookie_Policy">Cookie Policy</a></li><li><a href="../E-Sign_Consent">E-Sign Consent</a></li><li><a href="../Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="../Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy">Privacy Policy</a>, <a href="../Cookie_Policy">Cookie Policy</a>, <a href="../Terms_of_Service">Terms of Service</a>, and <a href="../E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

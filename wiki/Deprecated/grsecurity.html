@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Deprecated/grsecurity</title>
+<meta name="description" content="grsecurity installation instructions">
+<meta property="og:description" content="grsecurity installation instructions">
+<link rel="canonical" href="https://www.whonix.org/wiki/Deprecated/grsecurity">
+<meta property="og:url" content="https://www.whonix.org/wiki/Deprecated/grsecurity">
+<meta property="og:title" content="Deprecated/grsecurity">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Padlocks-597815640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../Download">Download</a><ul class="nav-submenu"><li><a href="../VirtualBox"><span>Windows</span></a></li><li><a href="../Linux"><span>Linux</span></a></li><li><a href="../MacOS"><span>Mac</span></a></li><li><a href="../VirtualBox"><span>VirtualBox</span></a></li><li><a href="../KVM"><span>KVM</span></a></li><li><a href="../Qubes"><span>Qubes</span></a></li><li><a href="../Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="../ARM64"><span>ARM64</span></a></li><li><a href="../USB_Installation"><span>USB</span></a></li><li><a href="../Whonix-Host"><span>ISO</span></a></li><li><a href="../Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../About">About</a><ul class="nav-submenu"><li><a href="../About"><span>Overview</span></a></li><li><a href="../Features"><span>Features</span></a></li><li><a href="../Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="../Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="../What_we_do"><span>Project Activities</span></a></li><li><a href="../Contributors"><span>Contributors</span></a></li><li><a href="../Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Documentation">Docs</a><ul class="nav-submenu"><li><a href="../Documentation"><span>Documentation</span></a></li><li><a href="../FAQ"><span>FAQ</span></a></li><li><a href="../Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="../Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Support">Support</a><ul class="nav-submenu"><li><a href="../Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="../Support"><span>Support (Limited)</span></a></li><li><a href="../Plus_Support"><span>Plus</span></a></li><li><a href="../Premium_Support"><span>Premium</span></a></li><li><a href="../Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="../Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/Deprecated/grsecurity" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[Deprecated/grsecurity|Deprecated/grsecurity]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[Deprecated/grsecurity](https://www.whonix.org/wiki/Deprecated/grsecurity)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/Deprecated/grsecurity]Deprecated/grsecurity[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity&amp;text=Deprecated%2Fgrsecurity" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity&amp;text=Deprecated%2Fgrsecurity" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity&amp;title=Deprecated%2Fgrsecurity" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity&amp;summary=Deprecated%2Fgrsecurity" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity&amp;t=Deprecated%2Fgrsecurity" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=Deprecated%2Fgrsecurity%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=Deprecated%2Fgrsecurity&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="../Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<h1 id="firstHeading" class="first-heading">Deprecated/grsecurity</h1><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../../media/Padlocks-597815640.jpg.webp" alt="Padlocks-597815640.jpg" /></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Internet_Archive_logo.png.webp" width="40" height="46" alt="Info" /></span>
+This page is archived.</p>
+</div>
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Grsecurity_+_Pax"><span class="tocnumber">1</span> <span class="toctext">Grsecurity + Pax</span></a></li><li class="toc-l2"><a href="#Introduction"><span class="tocnumber">1.1</span> <span class="toctext">Introduction</span></a></li><li class="toc-l2"><a href="#How-To:_Non-Qubes-Whonix"><span class="tocnumber">1.2</span> <span class="toctext">How-To: Non-Qubes-Whonix</span></a></li><li class="toc-l3"><a href="#Grsecurity_Kernel_Setup"><span class="tocnumber">1.2.1</span> <span class="toctext">Grsecurity Kernel Setup</span></a></li><li class="toc-l4"><a href="#Upgraded_Kernel_Builds"><span class="tocnumber">1.2.1.1</span> <span class="toctext">Upgraded Kernel Builds</span></a></li><li class="toc-l3"><a href="#Gradm"><span class="tocnumber">1.2.2</span> <span class="toctext">Gradm</span></a></li><li class="toc-l4"><a href="#Compilation_and_Installation"><span class="tocnumber">1.2.2.1</span> <span class="toctext">Compilation and Installation</span></a></li><li class="toc-l4"><a href="#Usage"><span class="tocnumber">1.2.2.2</span> <span class="toctext">Usage</span></a></li><li class="toc-l2"><a href="#How-To:_Qubes-Whonix&#8482;"><span class="tocnumber">1.3</span> <span class="toctext">How-To: Qubes-Whonix&#8482;</span></a></li><li class="toc-l3"><a href="#Debian_Template"><span class="tocnumber">1.3.1</span> <span class="toctext">Debian Template</span></a></li><li class="toc-l4"><a href="#Configuring_the_Debian_Template"><span class="tocnumber">1.3.1.1</span> <span class="toctext">Configuring the Debian Template</span></a></li><li class="toc-l4"><a href="#Building_the_grsec_Coldkernel"><span class="tocnumber">1.3.1.2</span> <span class="toctext">Building the grsec Coldkernel</span></a></li><li class="toc-l4"><a href="#Installing_the_grsec_Coldkernel"><span class="tocnumber">1.3.1.3</span> <span class="toctext">Installing the grsec Coldkernel</span></a></li><li class="toc-l4"><a href="#Post-install_Template_Configuration"><span class="tocnumber">1.3.1.4</span> <span class="toctext">Post-install Template Configuration</span></a></li><li class="toc-l4"><a href="#Post-install_Debian_AppVM_Configuration"><span class="tocnumber">1.3.1.5</span> <span class="toctext">Post-install Debian AppVM Configuration</span></a></li><li class="toc-l4"><a href="#Upgraded_Kernel_Builds_2"><span class="tocnumber">1.3.1.6</span> <span class="toctext">Upgraded Kernel Builds</span></a></li><li class="toc-l3"><a href="#Fedora_Template"><span class="tocnumber">1.3.2</span> <span class="toctext">Fedora Template</span></a></li><li class="toc-l3"><a href="#Whonix_Templates"><span class="tocnumber">1.3.3</span> <span class="toctext">Whonix Templates</span></a></li><li class="toc-l3"><a href="#Qubes_Disposable"><span class="tocnumber">1.3.4</span> <span class="toctext">Qubes Disposable</span></a></li><li class="toc-l3"><a href="#Qubes_dom0"><span class="tocnumber">1.3.5</span> <span class="toctext">Qubes dom0</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">2</span> <span class="toctext">Footnotes</span></a></li></ul></nav><h1 id="Grsecurity_+_Pax"><span id="Grsecurity_.2B_Pax"></span>Grsecurity + Pax</h1>
+<h2 id="Introduction">Introduction</h2><span class="share-tooltip" data-anchor="Introduction"><a class="headline-anchor" href="#Introduction" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#Introduction">https://www.whonix.org/wiki/Deprecated/grsecurity#Introduction</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Introduction&amp;text=Introduction" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Introduction&amp;text=Introduction" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Introduction&amp;title=Introduction" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Introduction&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Introduction" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Introduction]Introduction[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Introduction]Introduction[/url]</span></span></span></span>
+<p>Grsecurity is a GPL licensed, extensive security enhancement to the
+Linux kernel that defends against a wide range of security threats
+through intelligent access control, memory corruption-based exploit
+prevention, and a host of other system hardening that generally require
+no configuration. It has been actively developed and maintained for the
+past 14 years. Commercial support for Grsecurity is available through
+Open Source Security, Inc.</p>
+<p>Instead of chasing and fixing individual bugs, Grsecurity and PaX end
+exploitation of entire bug classes and provide kernel self-protection
+against zero-days.</p>
+<h2 id="How-To:_Non-Qubes-Whonix">How-To: Non-Qubes-Whonix</h2><span class="share-tooltip" data-anchor="How-To:_Non-Qubes-Whonix"><a class="headline-anchor" href="#How-To:_Non-Qubes-Whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#How-To:_Non-Qubes-Whonix">https://www.whonix.org/wiki/Deprecated/grsecurity#How-To:_Non-Qubes-Whonix</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23How-To%3A_Non-Qubes-Whonix&amp;text=How-To%3A%20Non-Qubes-Whonix" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23How-To%3A_Non-Qubes-Whonix&amp;text=How-To%3A%20Non-Qubes-Whonix" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23How-To%3A_Non-Qubes-Whonix&amp;title=How-To%3A%20Non-Qubes-Whonix" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=How-To%3A%20Non-Qubes-Whonix&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23How-To%3A_Non-Qubes-Whonix" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#How-To:_Non-Qubes-Whonix]How-To: Non-Qubes-Whonix[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#How-To:_Non-Qubes-Whonix]How-To: Non-Qubes-Whonix[/url]</span></span></span></span>
+<h3 id="Grsecurity_Kernel_Setup">Grsecurity Kernel Setup</h3><span class="share-tooltip" data-anchor="Grsecurity_Kernel_Setup"><a class="headline-anchor" href="#Grsecurity_Kernel_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#Grsecurity_Kernel_Setup">https://www.whonix.org/wiki/Deprecated/grsecurity#Grsecurity_Kernel_Setup</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Grsecurity_Kernel_Setup&amp;text=Grsecurity%20Kernel%20Setup" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Grsecurity_Kernel_Setup&amp;text=Grsecurity%20Kernel%20Setup" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Grsecurity_Kernel_Setup&amp;title=Grsecurity%20Kernel%20Setup" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Grsecurity%20Kernel%20Setup&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Grsecurity_Kernel_Setup" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Grsecurity_Kernel_Setup]Grsecurity Kernel Setup[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Grsecurity_Kernel_Setup]Grsecurity Kernel Setup[/url]</span></span></span></span>
+<p>This guide is to get you up and running with the latest Grsecurity
+kernel inside a KVM Whonix guest or Host. VirtualBox is incompatible
+with many important defenses provided in <a class="mw-selflink selflink" aria-current="page">Grsecurity</a> hardened kernels including KERNEXEC,
+UDEREF, and RANDKSTACK. <sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup> The instructions here are
+inspired by the <a href="https://en.wikibooks.org/wiki/Grsecurity">official Grsecurity
+guide</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikibooks.org/wiki/Grsecurity" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> but adapted for the command line and includes helpful
+information not mentioned in the original. It will cover downloading,
+verifying, configuring, compiling and installing the hardened kernel and
+how to install and use its admin tools. With minimal changes you can
+compile another architecture. There are many attempts to automate this
+and get them in upstream Debian but a solution is yet to exist.</p>
+<p>The kernel should be anonymously compiled in
+Whonix-Workstation<sup>&#8482;</sup>. Be sure to add more CPUs to speed up the
+compilation process before starting.</p>
+<p>Import and verify developer keys. Always check the fingerprint for
+yourself:</p>
+<pre><code>pub  4096R/0x44D1C0F82525FE49 2013-11-10 Bradley Spengler (spender) &lt;spender@grsecurity.net&gt;
+      Key fingerprint = DE94 52CE 46F4 2094 907F  108B 44D1 C0F8 2525 FE49</code></pre>
+<pre><code>pub   4096R/0x38DBBDC86092693E 2011-09-23
+      Key fingerprint = 647F 2865 4894 E3BD 4571  99BE 38DB BDC8 6092 693E</code></pre>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Whonix first time users warning" /></span>
+<strong>Warning:</strong></p>
+<p>The following command using <code>gpg</code> with
+<code>--recv-keys</code> is not recommended for security reasons and is
+often non-functional. <sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup> This is not a Whonix-specific
+issue. The OpenPGP public key should be downloaded from the web instead;
+see also <a href="https://www.kicksecure.com/wiki/Secure_Downloads/">Secure
+Downloads</a>. This procedure is currently <a href="../Unsupported">undocumented</a> and can be resolved as per the <a href="../Self_Support_First_Policy">Self Support First
+Policy</a>. Documentation contributions will be happily considered.</p>
+</div>
+<p><span class="code-select" data-code="gpg --recv-keys &quot;DE94 52CE 46F4 2094 907F  108B 44D1 C0F8 2525 FE49&quot;">gpg
+--recv-keys "DE94 52CE 46F4 2094 907F 108B 44D1 C0F8 2525
+FE49"</span></p>
+<p><span class="code-select" data-code="gpg --recv-keys &quot;647F 2865 4894 E3BD 4571  99BE 38DB BDC8 6092 693E&quot;">gpg
+--recv-keys "647F 2865 4894 E3BD 4571 99BE 38DB BDC8 6092
+693E"</span></p>
+<p><span class="code-select" data-code="gpg --list-keys --fingerprint &quot;DE94 52CE 46F4 2094 907F  108B 44D1 C0F8 2525 FE49&quot;">gpg
+--list-keys --fingerprint "DE94 52CE 46F4 2094 907F 108B 44D1 C0F8 2525
+FE49"</span></p>
+<p><span class="code-select" data-code="gpg --list-keys --fingerprint &quot;647F 2865 4894 E3BD 4571  99BE 38DB BDC8 6092 693E&quot;">gpg
+--list-keys --fingerprint "647F 2865 4894 E3BD 4571 99BE 38DB BDC8 6092
+693E"</span></p>
+<p>By the time you read this the file names may be outdated despite best
+efforts to keep this guide current so you may have to adjust file names
+accordingly.</p>
+<p>Download the latest components for your chosen hardware architecture
+(Only the Testing branch is freely available) and their matching
+signatures: <sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup> <sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span class="cite-bracket">[</span>4<span class="cite-bracket">]</span></a></sup></p>
+<p><span class="code-select" data-code="scurl -J -O https://grsecurity.net/test/grsecurity-3.1-4.3.3-201512282134.patch
+scurl -J -O https://grsecurity.net/test/grsecurity-3.1-4.3.3-201512282134.patch.sig
+scurl -J -O https://grsecurity.net/stable/gradm-3.1-201507191652.tar.gz
+scurl -J -O https://grsecurity.net/stable/gradm-3.1-201507191652.tar.gz.sig
+scurl -J -O https://grsecurity.net/stable/grsecurity-2.2.0-iptables.patch
+scurl -J -O https://grsecurity.net/stable/grsecurity-2.2.0-iptables.patch.sig
+scurl -J -O https://grsecurity.net/paxctld/paxctld_1.0-4_i386.deb
+scurl -J -O https://grsecurity.net/paxctld/paxctld_1.0-4_i386.deb.sig">scurl
+-J -O <a href="https://grsecurity.net/test/grsecurity-3.1-4.3.3-201512282134.patch">https://grsecurity.net/test/grsecurity-3.1-4.3.3-201512282134.patch</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://grsecurity.net/test/grsecurity-3.1-4.3.3-201512282134.patch" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+scurl -J -O <a href="https://grsecurity.net/test/grsecurity-3.1-4.3.3-201512282134.patch.sig">https://grsecurity.net/test/grsecurity-3.1-4.3.3-201512282134.patch.sig</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://grsecurity.net/test/grsecurity-3.1-4.3.3-201512282134.patch.sig" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+scurl -J -O <a href="https://grsecurity.net/stable/gradm-3.1-201507191652.tar.gz">https://grsecurity.net/stable/gradm-3.1-201507191652.tar.gz</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://grsecurity.net/stable/gradm-3.1-201507191652.tar.gz" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+scurl -J -O <a href="https://grsecurity.net/stable/gradm-3.1-201507191652.tar.gz.sig">https://grsecurity.net/stable/gradm-3.1-201507191652.tar.gz.sig</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://grsecurity.net/stable/gradm-3.1-201507191652.tar.gz.sig" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+scurl -J -O <a href="https://grsecurity.net/stable/grsecurity-2.2.0-iptables.patch">https://grsecurity.net/stable/grsecurity-2.2.0-iptables.patch</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://grsecurity.net/stable/grsecurity-2.2.0-iptables.patch" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+scurl -J -O <a href="https://grsecurity.net/stable/grsecurity-2.2.0-iptables.patch.sig">https://grsecurity.net/stable/grsecurity-2.2.0-iptables.patch.sig</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://grsecurity.net/stable/grsecurity-2.2.0-iptables.patch.sig" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+scurl -J -O <a href="https://grsecurity.net/paxctld/paxctld_1.0-4_i386.deb">https://grsecurity.net/paxctld/paxctld_1.0-4_i386.deb</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://grsecurity.net/paxctld/paxctld_1.0-4_i386.deb" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+scurl -J -O <a href="https://grsecurity.net/paxctld/paxctld_1.0-4_i386.deb.sig">https://grsecurity.net/paxctld/paxctld_1.0-4_i386.deb.sig</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://grsecurity.net/paxctld/paxctld_1.0-4_i386.deb.sig" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p>Look at the matching kernel version number in the patch name
+grsecurity-3.1-<strong>4.2.7</strong>-201512092320.patch and fetch the
+tarball from kernel.org:</p>
+<p><span class="code-select" data-code="scurl -J -O https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.3.3.tar.xz
+scurl -J -O https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.3.3.tar.sign">scurl
+-J -O <a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.3.3.tar.xz">https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.3.3.tar.xz</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.3.3.tar.xz" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+scurl -J -O <a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.3.3.tar.sign">https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.3.3.tar.sign</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.3.3.tar.sign" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p>The command will verify everything just downloaded in the home
+directory. Look for file names that passed the check in this part of the
+output: assuming signed data in `paxctld_1.0-3_i386.deb'. You should see
+<strong>Good signature from "Bradley Spengler (spender)
+&lt;spender@grsecurity.net&gt;</strong> for each component.</p>
+<p><span class="code-select" data-code="gpg --verify --multifile grsecurity* gradm* paxctld*">gpg
+--verify --multifile grsecurity* gradm* paxctld*</span></p>
+<p>The signature is made against the uncompressed version of the
+archive. This is done so there is only one signature required for .gz,
+.bz2 and .xz compressed versions of the release. Start by uncompressing
+the archive, using unxz. You should see <strong>Good signature from
+"Greg Kroah-Hartman</strong>:</p>
+<p><span class="code-select" data-code="sudo apt install xz-utils
+unxz linux*.tar.xz
+gpg --verify linux*.tar.sign">sudo apt install xz-utils unxz
+linux*.tar.xz gpg --verify linux*.tar.sign</span></p>
+<p>In this document the kernel source archive linux*.tar and the
+matching grsecurity patch grsecurity*.patch are both files are in the
+same directory.</p>
+<p><span class="code-select" data-code="tar -xf linux*.tar
+cd linux*
+sudo patch -p1 &lt; ../grsecurity-*-*-*.patch">tar -xf linux*.tar cd
+linux* sudo patch -p1 &lt; ../grsecurity-*-*-*.patch</span></p>
+<p>Install the build tools:</p>
+<p><span class="code-select" data-code="sudo apt install flex bison libncurses5-dev fakeroot gcc-4.9-plugin-dev libgmp-dev libmpfr-dev libmpc-dev libssl-dev build-essential">sudo
+apt install flex bison libncurses5-dev fakeroot gcc-4.9-plugin-dev
+libgmp-dev libmpfr-dev libmpc-dev libssl-dev build-essential</span></p>
+<p>See what version of GCC you have installed and install the matching
+plugin-dev packages for it. <sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span class="cite-bracket">[</span>5<span class="cite-bracket">]</span></a></sup></p>
+<p><span class="code-select" data-code="gcc -v">gcc -v</span></p>
+<p>To open the kernel configuration menu run:</p>
+<p><span class="code-select" data-code="sudo make menuconfig">sudo make
+menuconfig</span></p>
+<p>Grsecurity is endlessly customizable and if you have different
+security requirements feel free to dive in the documentation
+<sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span class="cite-bracket">[</span>6<span class="cite-bracket">]</span></a></sup> <sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span class="cite-bracket">[</span>7<span class="cite-bracket">]</span></a></sup> but be advised very high security
+settings usually break Xorg server and common packages like Iceweasel
+and OpenJDK. However for the purposes of compiling a kernel suitable for
+normal desktop use the Automatic configuration comes with sane defaults.
+Same for the other usage profiles provided. To have a bootable desktop
+you will need to disable PaX mprotect at first<sup id="cite_ref-8" class="reference"><a href="#cite_note-8"><span class="cite-bracket">[</span>8<span class="cite-bracket">]</span></a></sup> It can
+be re-enabled later when an exception list is loaded.</p>
+<p>The configuration should look like this. A lack of mention means
+leave as default:</p>
+<pre><code>
+Networking Support &amp;rarr; Networking options &amp;rarr; Network packet filtering framework (Netfilter) &amp;rarr; IP:Netfilter Configuration &amp;rarr; Enable: IPv4 masquerade support + iptables NAT support
+
+Security options &amp;rarr; Grsecurity &amp;rarr; Configuration Method &amp;rarr; Automatic
+                   &amp;rarr; Usage Type &amp;rarr; Desktop
+                   &amp;rarr; Virtualization Type &amp;rarr; Guest
+                   &amp;rarr; Virtualization Software &amp;rarr; KVM
+                               &amp;rarr; Required Priorities &amp;rarr; Security
+                   &amp;rarr; Customize Configuration &amp;rarr; PaX &amp;rarr; Non-executable pages &amp;rarr; Deselect: Restrict mprotect
+                               &amp;rarr; Customize Configuration &amp;rarr; Memory Protections &amp;rarr; Disable privileged I/O
+                               &amp;rarr; Customize Configuration &amp;rarr; Role Based Access Control Options &amp;rarr; Hide kernel processes
+                               &amp;rarr; Customize Configuration &amp;rarr; Sysctl Support &amp;rarr; Deselect: Sysctl support</code></pre>
+<p>To save time you can compile one kernel for both the guest and host .
+NB This only works if you compiled a custom Whonix x64. A x64 Linux
+Host/Guest configuration would look like:</p>
+<pre><code>64-bit kernel
+
+Networking Support &amp;rarr; Networking options &amp;rarr; Network packet filtering framework (Netfilter) &amp;rarr; IP:Netfilter Configuration &amp;rarr; Enable: IPv4 masquerade support + iptables NAT support
+
+Security options &amp;rarr; Grsecurity &amp;rarr; Configuration Method &amp;rarr; Automatic
+                   &amp;rarr; Usage Type &amp;rarr; Desktop
+                   &amp;rarr; Virtualization Type &amp;rarr; Host
+                   &amp;rarr; Virtualization Software &amp;rarr; KVM
+                               &amp;rarr; Required Priorities &amp;rarr; Security
+                   &amp;rarr; Customize Configuration &amp;rarr; PaX &amp;rarr; Non-executable pages &amp;rarr; Deselect: Restrict mprotect
+                               &amp;rarr; Customize Configuration &amp;rarr; Memory Protections &amp;rarr; Disable privileged I/O
+                               &amp;rarr; Customize Configuration &amp;rarr; Role Based Access Control Options &amp;rarr; Hide kernel processes
+                               &amp;rarr; Customize Configuration &amp;rarr; Sysctl Support &amp;rarr; Deselect: Sysctl support</code></pre>
+<p>Once you are done select save and keep the .config name then exit out
+of all menus.</p>
+<p>Compile while specifying the number of cores after the
+<strong>-j</strong> option. The number should be the number of cores
+assigned to the VM + 1. This will result in a huge speed up during
+compilation and reduce compilation time drastically.</p>
+<p><span class="code-select" data-code="sudo fakeroot make -j 5 deb-pkg">sudo
+fakeroot make -j 5 deb-pkg</span></p>
+<p>Now sit tight. Go make yourself a cup of coffee or read a book until
+its finished.</p>
+<p>To install your new packages including Pax's configuration utility in
+the guest run:</p>
+<p><span class="code-select" data-code="cd ..
+sudo dpkg -i linux-image-*-grsec_*-*_*.deb
+sudo dpkg -i linux-firmware*.deb
+sudo dpkg -i linux-headers*.deb
+sudo dpkg -i linux-libc*.deb
+sudo dpkg -i paxctld*.deb">cd .. sudo dpkg -i
+linux-image-*-grsec_*-*_*.deb sudo dpkg -i linux-firmware*.deb sudo dpkg
+-i linux-headers*.deb sudo dpkg -i linux-libc*.deb sudo dpkg -i
+paxctld*.deb</span></p>
+<p>Move the package to the host via a shared folder and install with
+dpkg from there.</p>
+<p><span class="code-select" data-code="mv linux-image-*-grsec_*-*_*.deb /mnt/shared
+mv linux-firmware*.deb /mnt/shared
+mv linux-headers*.deb /mnt/shared
+mv linux-libc*.deb /mnt/shared">mv linux-image-*-grsec_*-*_*.deb
+/mnt/shared mv linux-firmware*.deb /mnt/shared mv linux-headers*.deb
+/mnt/shared mv linux-libc*.deb /mnt/shared</span></p>
+<p>Done. After installation the system should automatically boot up with
+the Grsecurity kernel. To inspect the kernel version type:</p>
+<p><span class="code-select" data-code="uname -r">uname -r</span></p>
+<h4 id="Upgraded_Kernel_Builds">Upgraded Kernel Builds</h4>
+<p>Backup your customized kernel configuration file [named .config]. Its
+available in the root of the kernel source code folder. You may need to
+enable viewing of hidden files to see it.</p>
+<p>To build with newer kernel releases, restore the .config file to the
+source folder and run:</p>
+<p><span class="code-select" data-code="sudo make oldconfig">sudo make
+oldconfig</span></p>
+<p>Hold 'Enter' to answer questions about new kernel features.</p>
+<h3 id="Gradm">Gradm</h3><span class="share-tooltip" data-anchor="Gradm"><a class="headline-anchor" href="#Gradm" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#Gradm">https://www.whonix.org/wiki/Deprecated/grsecurity#Gradm</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Gradm&amp;text=Gradm" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Gradm&amp;text=Gradm" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Gradm&amp;title=Gradm" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Gradm&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Gradm" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Gradm]Gradm[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Gradm]Gradm[/url]</span></span></span></span>
+<p>Gradm is the administration tool for RBAC, Grsecurity's intelligent
+Mandatory Access Control system. Unlike other MACs that require
+painstaking attention to configuration, RBAC is capable of automatic
+behavior learning and auto-generating safe program acess policies.</p>
+<h4 id="Compilation_and_Installation">Compilation and Installation</h4>
+<p>To prepare and compile:</p>
+<p><span class="code-select" data-code="tar xzf gradm*.tar.gz
+cd gradm">tar xzf gradm*.tar.gz cd gradm</span></p>
+<p>Add the iptables patch:</p>
+<p><span class="code-select" data-code="sudo patch -p1 &lt; ../grsecurity-*-iptables.patch">sudo
+patch -p1 &lt; ../grsecurity-*-iptables.patch</span></p>
+<p>Compile and install:</p>
+<p><span class="code-select" data-code="sudo make install">sudo make
+install</span></p>
+<p>For the Host install the required build dependencies (make sure
+<strong>apt-transport-tor</strong> is installed on host first) then move
+the patched extracted and patched gradm directory via the shared folder
+into your home directory. Then run the same commands as above.</p>
+<p><span class="code-select" data-code="sudo apt install bison flex">sudo
+apt install bison flex</span></p>
+<p>Its very important you choose a long password that's different from
+your root account's.</p>
+<p>To upgrade to a newer gradm release, re-run the same build commands
+above.</p>
+<h4 id="Usage">Usage</h4>
+<p>A detailed <a href="https://wiki.archlinux.org/title/Grsecurity#RBAC">guide</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://wiki.archlinux.org/title/Grsecurity#RBAC" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> on
+generating and enforcing RBAC policy is available on the Arch Linux
+wiki. Note these instructions apply to all distros.</p>
+<h2 id="How-To:_Qubes-Whonix&#8482;"><span id="How-To:_Qubes-Whonix.E2.84.A2"></span>How-To: Qubes-Whonix<sup>&#8482;</sup></h2><span class="share-tooltip" data-anchor="How-To:_Qubes-Whonix&#8482;"><a class="headline-anchor" href="#How-To:_Qubes-Whonix&#8482;" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#How-To:_Qubes-Whonix&#8482;">https://www.whonix.org/wiki/Deprecated/grsecurity#How-To:_Qubes-Whonix&#8482;</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23How-To%3A_Qubes-Whonix%E2%84%A2&amp;text=How-To%3A%20Qubes-Whonix%E2%84%A2" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23How-To%3A_Qubes-Whonix%E2%84%A2&amp;text=How-To%3A%20Qubes-Whonix%E2%84%A2" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23How-To%3A_Qubes-Whonix%E2%84%A2&amp;title=How-To%3A%20Qubes-Whonix%E2%84%A2" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=How-To%3A%20Qubes-Whonix%E2%84%A2&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23How-To%3A_Qubes-Whonix%E2%84%A2" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#How-To:_Qubes-Whonix&#8482;]How-To: Qubes-Whonix&#8482;[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#How-To:_Qubes-Whonix&#8482;]How-To: Qubes-Whonix&#8482;[/url]</span></span></span></span>
+<p>This work is being undertaken by Coldhak and the instructions are
+drawn almost exclusively from their blog and github account.
+<sup id="cite_ref-9" class="reference"><a href="#cite_note-9"><span class="cite-bracket">[</span>9<span class="cite-bracket">]</span></a></sup> <sup id="cite_ref-10" class="reference"><a href="#cite_note-10"><span class="cite-bracket">[</span>10<span class="cite-bracket">]</span></a></sup> The Debian-8 Template is
+currently supported. Work is ongoing to support the Fedora and Whonix
+Templates, as well as the Qubes Disposable and dom0.
+<sup id="cite_ref-11" class="reference"><a href="#cite_note-11"><span class="cite-bracket">[</span>11<span class="cite-bracket">]</span></a></sup></p>
+<p>Note: These instructions have been tested to work with the 4.8 Linux
+"coldkernel" in a Debian-8 Template. At the time of writing, Qubes users
+report post-build Template problems when using the 4.9 Linux kernel with
+pvgrub2 in a Debian-8 template. <sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span class="cite-bracket">[</span>12<span class="cite-bracket">]</span></a></sup> It is advisable to
+use the 4.8 Linux coldkernel series until this bug is fixed or
+alternatively attempt to build the 4.9 Linux coldkernel in a Debian-9
+Template (untested).</p>
+<p><strong>Warning:</strong> These instructions are extremely alpha and
+may potentially break the template. Always clone default templates
+before proceeding!</p>
+<h3 id="Debian_Template">Debian Template</h3><span class="share-tooltip" data-anchor="Debian_Template"><a class="headline-anchor" href="#Debian_Template" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#Debian_Template">https://www.whonix.org/wiki/Deprecated/grsecurity#Debian_Template</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Debian_Template&amp;text=Debian%20Template" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Debian_Template&amp;text=Debian%20Template" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Debian_Template&amp;title=Debian%20Template" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Debian%20Template&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Debian_Template" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Debian_Template]Debian Template[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Debian_Template]Debian Template[/url]</span></span></span></span>
+<h4 id="Configuring_the_Debian_Template">Configuring the Debian
+Template</h4>
+<p><strong>1. Clone the Debian Template</strong></p>
+<p><strong>2. Increase the Maximum Storage Size of the Debian
+Template</strong></p>
+<p><a href="https://coldhak.ca/assets/img/blog/coldkernel_pt1/size.png">https://coldhak.ca/assets/img/blog/coldkernel_pt1/size.png</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://coldhak.ca/assets/img/blog/coldkernel_pt1/size.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p>Note: A minimum of 4GB is recommended. 10GB is a safe value so you
+don't run out of disk space at the end of the build.</p>
+<p><strong>3. Edit sources.list</strong></p>
+<p>In the Debian Template, run.</p>
+<pre><code>sudoedit /etc/apt/sources.list</code></pre>
+<p>Uncomment the lines starting with deb-src. It should look something
+like this.</p>
+<pre><code>deb https://deb.debian.net/debian jessie main contrib non-free
+deb-src https://deb.debian.net/debian jessie main contrib non-free
+
+deb https://security.debian.org jessie/updates main contrib non-free
+deb-src https://security.debian.org jessie/updates main contrib non-free</code></pre>
+<p>Save and exit.</p>
+<p><strong>4. Install dom0 Dependencies</strong></p>
+<p>In dom0, run.</p>
+<pre><code>sudo qubes-dom0-update grub2-xen</code></pre>
+<p><strong>5. Install Debian Dependencies</strong></p>
+<p>In the Debian Template, run.</p>
+<pre><code>sudo apt install qubes-kernel-vm-support grub2-common
+sudo apt install paxctl bc wget gnupg fakeroot build-essential devscripts libfile-fcntllock-perl git gcc-4.9-plugin-dev
+sudo apt build-dep linux</code></pre>
+<h4 id="Building_the_grsec_Coldkernel">Building the grsec
+Coldkernel</h4>
+<p><strong>1. Clone and Verify the Coldkernel Build Scripts</strong></p>
+<p>Note: Always verify and checkout the latest kernel available from
+coldhak. For the 4.8 Linux kernel branch, this is version 4.8.17. For
+the 4.9 Linux kernel branch, as at April 2017 this was version 4.9.20.
+The 4.8.17 (stable) coldkernel is referenced in instructions below.</p>
+<p>In the Debian Template, run.</p>
+<pre><code>wget &quot;https://coldhak.ca/coldhak/keys/coldhak.asc&quot; -O coldhak.asc
+gpg --import coldhak.asc
+git clone https://github.com/coldhakca/coldkernel
+cd coldkernel
+git verify-tag coldkernel-0.9a-4.8.17
+git checkout --quiet tags/coldkernel-0.9a-4.8.17</code></pre>
+<p>The verfication step (git verify-tag) should produce a good signature
+from the Coldhak developers, similar to this.</p>
+<pre><code>gpg: Signature made Mon 03 Apr 2017 11:50:21 AM EDT using RSA key ID DE32FEBB
+gpg: Good signature from &quot;Coldhak developers (signing key) &lt;contact@coldhak.ca&gt;&quot;
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg: There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 1073 B61B 69CB 0444 33B6  4F7B 0B1F 9321 DE32 FEBB</code></pre>
+<p>The fingerprint should match that found on the coldhak website. <a href="https://coldhak.ca/assets/img/blog/coldkernel_pt1/verify.png">https://coldhak.ca/assets/img/blog/coldkernel_pt1/verify.png</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://coldhak.ca/assets/img/blog/coldkernel_pt1/verify.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p><strong>2. Build the grsec Coldkernel</strong></p>
+<p>Note: This step can take several hours depending on your computer
+hardware; later architectures can finish this step in less than one
+hour. This process is CPU intensive, and the system may crash if other
+programs are used simultaneously.</p>
+<p>To make the build with hypervisor support, in the Debian Template
+run.</p>
+<pre><code>make qubes-guest</code></pre>
+<p>The output should look as follows.</p>
+<pre><code>patching file coldkernel.config
+Importing signing keys...                                                                                                       [DONE]
+Removing previous working directory (if one exists)...                                                          [DONE]
+Fetching kernel sources and signatures...                                                                            [DONE]
+Fetching grsecurity patch and signatures...                                                                          [DONE]
+Unpacking Linux Kernel sources...                                                                                        [DONE]
+Verifying the Linux Kernel sources...                                                                                     [DONE]
+Verifying Kernel patches...                                                                                                    [DONE]
+Extracting Linux Kernel sources...                                                                                         [DONE]
+Applying grsecurity patch, and moving coldkernel.config into place...                                   [DONE]
+Building coldkernel...                                                                                                             [DONE]</code></pre>
+<h4 id="Installing_the_grsec_Coldkernel">Installing the grsec
+Coldkernel</h4>
+<p>Note: During the <i>sudo update-grub2</i> step below, this error
+message can be safely ignored if it appears. <sup id="cite_ref-13" class="reference"><a href="#cite_note-13"><span class="cite-bracket">[</span>13<span class="cite-bracket">]</span></a></sup></p>
+<pre><code> grub2-probe: error: cannot find a GRUB drive for /dev/mapper/dmroot. Check your device.map</code></pre>
+<p>Post-build, in the Debian Template VM run.</p>
+<pre><code>wget https://grsecurity.net/paxctld/paxctld_1.2.1-1_amd64.{deb,deb.sig}
+gpg --homedir=.gnupg --verify paxctld_1.2.1-1_amd64.{deb.sig,deb}
+sudo dpkg -i paxctld_1.2.1-1_amd64.deb
+sudo make install-deb
+sudo cp paxctld.conf /etc/paxctld.conf
+sudo paxctld -d
+sudo systemctl enable paxctld
+sudo mkdir /boot/grub
+sudo update-grub2
+sudo shutdown -h now</code></pre>
+<h4 id="Post-install_Template_Configuration">Post-install Template
+Configuration</h4>
+<p><strong>1. Change the Debian Template Kernel</strong></p>
+<p>After the Template has been shutdown, change the kernel in the Qubes
+VM Manager to use pvgrub2.</p>
+<p><a href="https://coldhak.ca/assets/img/blog/coldkernel_pt1/pvgrub.png">https://coldhak.ca/assets/img/blog/coldkernel_pt1/pvgrub.png</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://coldhak.ca/assets/img/blog/coldkernel_pt1/pvgrub.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p><strong>2. Check the Debian Template is Functional</strong></p>
+<p>Start the Debian Template. If successful, the VM state should be
+green in Qubes VM Manager and the VM log should contain output similar
+to this.</p>
+<pre><code>Linux Version 4.8.17-coldkernel-grsec-2</code></pre>
+<p><strong>3. Set Default Grsec Special Groups</strong></p>
+<p>In the Debian Template, run.</p>
+<pre><code>sudo groupadd -g 9001 grsecproc
+sudo groupadd -g 9002 tpeuntrusted
+sudo groupadd -g 9003 denysockets</code></pre>
+<p>Note: Respectively, users in these groups are:</p>
+<ul>
+<li>Exempted from grsecurity's /proc restrictions.</li>
+<li>Unable to execute any files that are not in root-owned directories
+writable only by root.</li>
+<li>Unable to connect to other hosts from your machine or run server
+applications.</li>
+</ul>
+<p><strong>4. Install paxtest and Check that Grsecurity is
+Running</strong></p>
+<p>In the Debian Template, run.</p>
+<pre><code>sudo apt install paxtest
+paxtest blackhat</code></pre>
+<p>You should see output similar to this.</p>
+<pre><code>Executable anonymous mapping: Killed
+Executable bss: Killed
+Executable data: Killed
+Executable heap: Killed
+Executable stack: Killed
+Executable shared library bss: Killed
+Executable shared library data: Killed
+Executable anonymous mapping (mprotect): Killed
+Executable bss (mprotect): Killed
+Executable data (mprotect): Killed
+Executable heap (mprotect): Killed
+Executable stack (mprotect): Killed
+Executable shared library bss (mprotect): Killed
+Executable shared library data (mprotect): Killed
+Writable text segments: Killed
+Anonymous mapping randomisation test: 28 bits (guessed)
+Heap randomisation test (ET_EXEC): 23 bits (guessed)
+Heap randomisation test (PIE): 35 bits (guessed)
+Main executable randomisation (ET_EXEC): 28 bits (guessed)
+Main executable randomisation (PIE): 28 bits (guessed)
+Shared library randomisation test: 28 bits (guessed)
+Stack randomisation test (SEGMEXEC): 35 bits (guessed)
+Stack randomisation test (PAGEEXEC): 35 bits (guessed)
+Arg/env randomisation test (SEGMEXEC): 39 bits (guessed)
+Arg/env randomisation test (PAGEEXEC): 39 bits (guessed)
+Randomization under memory exhaustion @~0: 29 bits (guessed)
+Randomization under memory exhaustion @0: 28 bits (guessed)
+Return to function (strcpy): paxtest: return address contains a NULL byte.
+Return to function (memcpy): Killed
+Return to function (strcpy, PIE): paxtest: return address contains a NULL byte.
+Return to function (memcpy, PIE): Killed</code></pre>
+<p><strong>5. <em>Advanced (Untested)</em> - Secure the AppVM Further by
+Using gradm2 in Learning Mode</strong></p>
+<p>Follow the steps <a href="https://en.wikibooks.org/wiki/Grsecurity/The_Administration_Utility#Full_System_Learning">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikibooks.org/wiki/Grsecurity/The_Administration_Utility#Full_System_Learning" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h4 id="Post-install_Debian_AppVM_Configuration">Post-install Debian
+AppVM Configuration</h4>
+<p><strong>1. Create an AppVM Based on the Debian Coldkernel
+Template</strong></p>
+<p><strong>2. Change the AppVM Kernel Selection</strong></p>
+<p>Use Qubes VM Manager to set "pvgrub2" for the AppVM's kernel
+selection. Otherwise, it defaults to the standard Qubes kernel.</p>
+<h4 id="Upgraded_Kernel_Builds_2">Upgraded Kernel Builds</h4>
+<p>When an upgraded grsec Linux kernel is released by Coldhak,
+<sup id="cite_ref-14" class="reference"><a href="#cite_note-14"><span class="cite-bracket">[</span>14<span class="cite-bracket">]</span></a></sup> the kernel version of the existing grsec Template
+can be bumped via the following steps.</p>
+<p><strong>1. Fetch and Verify the Upgraded Kernel Branch</strong></p>
+<p>Note: Do not perform the cloning step again. The signing key is not
+imported again, unless it has changed.</p>
+<p><em>If the signing key has changed,</em> in the Template run.</p>
+<pre><code>wget &quot;https://coldhak.ca/coldhak/keys/coldhak.asc&quot; -O coldhak.asc
+gpg --import coldhak.asc</code></pre>
+<p>In all cases, verify and checkout the upgraded kernel branch (change
+the kernel reference below to match the updated release) in the
+Template.</p>
+<pre><code>cd coldkernel
+git fetch
+git verify-tag coldkernel-0.9a-4.9.20
+git checkout --quiet tags/coldkernel-0.9a-4.9.20</code></pre>
+<p>The verfication step (git verify-tag) should produce a good signature
+from the Coldhak developers.</p>
+<pre><code>gpg: Signature made Mon 03 Apr 2017 11:50:21 AM EDT using RSA key ID DE32FEBB
+gpg: Good signature from &quot;Coldhak developers (signing key) &lt;contact@coldhak.ca&gt;&quot;
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg: There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 1073 B61B 69CB 0444 33B6  4F7B 0B1F 9321 DE32 FEBB</code></pre>
+<p>The fingerprint should match that found on the coldhak website. <a href="https://coldhak.ca/assets/img/blog/coldkernel_pt1/verify.png">https://coldhak.ca/assets/img/blog/coldkernel_pt1/verify.png</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://coldhak.ca/assets/img/blog/coldkernel_pt1/verify.png" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p><strong>2. Build the Upgraded Kernel</strong></p>
+<p>To make the build with hypervisor support, in the Template run.</p>
+<pre><code>make qubes-guest</code></pre>
+<p>The output should look as follows.</p>
+<pre><code>patching file coldkernel.config
+Importing signing keys...                                                                                                       [DONE]
+Removing previous working directory (if one exists)...                                                          [DONE]
+Fetching kernel sources and signatures...                                                                            [DONE]
+Fetching grsecurity patch and signatures...                                                                          [DONE]
+Unpacking Linux Kernel sources...                                                                                        [DONE]
+Verifying the Linux Kernel sources...                                                                                     [DONE]
+Verifying Kernel patches...                                                                                                    [DONE]
+Extracting Linux Kernel sources...                                                                                         [DONE]
+Applying grsecurity patch, and moving coldkernel.config into place...                                   [DONE]
+Building coldkernel...                                                                                                             [DONE]</code></pre>
+<p><strong>3. Installing the Upgraded grsec Coldkernel</strong></p>
+<p>paxctld is not downloaded again, unless there was an update. First
+check: <a href="https://github.com/coldhakca/coldkernel">https://github.com/coldhakca/coldkernel</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/coldhakca/coldkernel" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+to see if this is required.</p>
+<p><i>If paxctld has changed,</i> change the paxctld reference below to
+match the updated release and run in the Template.</p>
+<pre><code>wget https://grsecurity.net/paxctld/paxctld_1.2.1-1_amd64.{deb,deb.sig}
+gpg --homedir=.gnupg --verify paxctld_1.2.1-1_amd64.{deb.sig,deb}
+sudo dpkg -i paxctld_1.2.1-1_amd64.deb</code></pre>
+<p>In all cases, repeat these installation steps.</p>
+<pre><code>sudo make install-deb
+sudo cp paxctld.conf /etc/paxctld.conf
+sudo paxctld -d
+sudo update-grub2
+sudo shutdown -h now</code></pre>
+<p><strong>4. Post-install Template Configuration</strong></p>
+<p>Follow steps 2-4 <a href="grsecurity#Post-install_Template_Configuration">here</a>, except:</p>
+<ul>
+<li>Do not set default grsec special groups again, unless they have
+changed.</li>
+<li>Do not install paxtest again, only run <i>paxtest blackhat</i> to
+check grsecurity is running correctly.</li>
+</ul>
+<p><strong>5. Post-install AppVM Configuration</strong></p>
+<p>Follow <a href="grsecurity#Post-install_Debian_AppVM_Configuration">these steps</a> to create a new AppVM based on the
+upgraded kernel branch.</p>
+<h3 id="Fedora_Template">Fedora Template</h3><span class="share-tooltip" data-anchor="Fedora_Template"><a class="headline-anchor" href="#Fedora_Template" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#Fedora_Template">https://www.whonix.org/wiki/Deprecated/grsecurity#Fedora_Template</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Fedora_Template&amp;text=Fedora%20Template" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Fedora_Template&amp;text=Fedora%20Template" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Fedora_Template&amp;title=Fedora%20Template" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Fedora%20Template&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Fedora_Template" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Fedora_Template]Fedora Template[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Fedora_Template]Fedora Template[/url]</span></span></span></span>
+<p><em>To do following Coldhak release.</em></p>
+<h3 id="Whonix_Templates">Whonix Templates</h3><span class="share-tooltip" data-anchor="Whonix_Templates"><a class="headline-anchor" href="#Whonix_Templates" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#Whonix_Templates">https://www.whonix.org/wiki/Deprecated/grsecurity#Whonix_Templates</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Whonix_Templates&amp;text=Whonix%20Templates" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Whonix_Templates&amp;text=Whonix%20Templates" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Whonix_Templates&amp;title=Whonix%20Templates" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Whonix%20Templates&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Whonix_Templates" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Whonix_Templates]Whonix Templates[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Whonix_Templates]Whonix Templates[/url]</span></span></span></span>
+<p><em>To do following Coldhak release.</em></p>
+<h3 id="Qubes_Disposable">Qubes Disposable</h3><span class="share-tooltip" data-anchor="Qubes_Disposable"><a class="headline-anchor" href="#Qubes_Disposable" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#Qubes_Disposable">https://www.whonix.org/wiki/Deprecated/grsecurity#Qubes_Disposable</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Qubes_Disposable&amp;text=Qubes%20Disposable" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Qubes_Disposable&amp;text=Qubes%20Disposable" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Qubes_Disposable&amp;title=Qubes%20Disposable" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Qubes%20Disposable&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Qubes_Disposable" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Qubes_Disposable]Qubes Disposable[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Qubes_Disposable]Qubes Disposable[/url]</span></span></span></span>
+<p><em>To do following Coldhak release.</em></p>
+<h3 id="Qubes_dom0">Qubes dom0</h3><span class="share-tooltip" data-anchor="Qubes_dom0"><a class="headline-anchor" href="#Qubes_dom0" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Deprecated/grsecurity#Qubes_dom0">https://www.whonix.org/wiki/Deprecated/grsecurity#Qubes_dom0</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Qubes_dom0&amp;text=Qubes%20dom0" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Qubes_dom0&amp;text=Qubes%20dom0" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Qubes_dom0&amp;title=Qubes%20dom0" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Qubes%20dom0&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FDeprecated%2Fgrsecurity%23Qubes_dom0" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Qubes_dom0]Qubes dom0[/url]">[url=https://www.whonix.org/wiki/Deprecated/grsecurity#Qubes_dom0]Qubes dom0[/url]</span></span></span></span>
+<p><em>To do following Coldhak release.</em></p>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/linux-scraping/linux-grsecurity/commit/31e606aa9da683109cee72d45c9cda60992f01dc">https://github.com/linux-scraping/linux-grsecurity/commit/31e606aa9da683109cee72d45c9cda60992f01dc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/linux-scraping/linux-grsecurity/commit/31e606aa9da683109cee72d45c9cda60992f01dc" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://forums.whonix.org/t/gpg-recv-keys-fails-no-longer-use-keyservers-for-anything/5607">https://forums.whonix.org/t/gpg-recv-keys-fails-no-longer-use-keyservers-for-anything/5607</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/gpg-recv-keys-fails-no-longer-use-keyservers-for-anything/5607" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://grsecurity.net/download.php">https://grsecurity.net/download.php</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://grsecurity.net/download.php" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://superuser.com/questions/301044/how-to-wget-a-file-with-correct-name-when-redirected">https://superuser.com/questions/301044/how-to-wget-a-file-with-correct-name-when-redirected</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://superuser.com/questions/301044/how-to-wget-a-file-with-correct-name-when-redirected" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://forums.grsecurity.net/viewtopic.php?f=3&amp;t=3484">https://forums.grsecurity.net/viewtopic.php?f=3&amp;t=3484</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.grsecurity.net/viewtopic.php?f=3&amp;t=3484" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://en.wikibooks.org/wiki/Grsecurity/Appendix/Grsecurity_and_PaX_Configuration_Options">https://en.wikibooks.org/wiki/Grsecurity/Appendix/Grsecurity_and_PaX_Configuration_Options</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikibooks.org/wiki/Grsecurity/Appendix/Grsecurity_and_PaX_Configuration_Options" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><a href="#cite_ref-7" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://en.wikibooks.org/wiki/Grsecurity/Runtime_Configuration">https://en.wikibooks.org/wiki/Grsecurity/Runtime_Configuration</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikibooks.org/wiki/Grsecurity/Runtime_Configuration" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><a href="#cite_ref-8" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://web.archive.org/web/20190211085205/http://www.insanitybit.com/2012/05/31/compile-and-patch-your-own-secure-linux-kernel-with-pax-and-grsecurity/">https://web.archive.org/web/20190211085205/http://www.insanitybit.com/2012/05/31/compile-and-patch-your-own-secure-linux-kernel-with-pax-and-grsecurity/</a></span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><a href="#cite_ref-9" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://coldhak.ca/blog/2016/12/12/coldkernel-qubes-1.html">https://coldhak.ca/blog/2016/12/12/coldkernel-qubes-1.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://coldhak.ca/blog/2016/12/12/coldkernel-qubes-1.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><a href="#cite_ref-10" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/coldhakca/coldkernel">https://github.com/coldhakca/coldkernel</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/coldhakca/coldkernel" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-11"><span class="mw-cite-backlink"><a href="#cite_ref-11" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/coldhakca/coldkernel/issues">https://github.com/coldhakca/coldkernel/issues</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/coldhakca/coldkernel/issues" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-12"><span class="mw-cite-backlink"><a href="#cite_ref-12" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/QubesOS/qubes-issues/issues/2762">https://github.com/QubesOS/qubes-issues/issues/2762</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-issues/issues/2762" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-13"><span class="mw-cite-backlink"><a href="#cite_ref-13" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/QubesOS/qubes-doc/blob/master/configuration/managing-vm-kernel.md">https://github.com/QubesOS/qubes-doc/blob/master/configuration/managing-vm-kernel.md</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/QubesOS/qubes-doc/blob/master/configuration/managing-vm-kernel.md" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><a href="#cite_ref-14" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/coldhakca/coldkernel">https://github.com/coldhakca/coldkernel</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/coldhakca/coldkernel" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+</ol>
+
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation">Documentation</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="../Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="../Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="../Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="../Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="../Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="../Terms_of_Service">Terms of Service</a></li><li><a href="../Privacy_Policy">Privacy Policy</a></li><li><a href="../Cookie_Policy">Cookie Policy</a></li><li><a href="../E-Sign_Consent">E-Sign Consent</a></li><li><a href="../Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="../Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy">Privacy Policy</a>, <a href="../Cookie_Policy">Cookie Policy</a>, <a href="../Terms_of_Service">Terms of Service</a>, and <a href="../E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

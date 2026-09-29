@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Whonix Linux Installer for VirtualBox</title>
+<meta name="description" content="Whonix for Linux - Stable Version">
+<meta property="og:description" content="Whonix for Linux - Stable Version">
+<link rel="canonical" href="https://www.whonix.org/wiki/Linux">
+<meta property="og:url" content="https://www.whonix.org/wiki/Linux">
+<meta property="og:title" content="Whonix Linux Installer for VirtualBox">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Gui-preview.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="Download">Download</a><ul class="nav-submenu"><li><a href="VirtualBox"><span>Windows</span></a></li><li><a href="Linux"><span>Linux</span></a></li><li><a href="MacOS"><span>Mac</span></a></li><li><a href="VirtualBox"><span>VirtualBox</span></a></li><li><a href="KVM"><span>KVM</span></a></li><li><a href="Qubes"><span>Qubes</span></a></li><li><a href="Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="ARM64"><span>ARM64</span></a></li><li><a href="USB_Installation"><span>USB</span></a></li><li><a href="Whonix-Host"><span>ISO</span></a></li><li><a href="Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="About">About</a><ul class="nav-submenu"><li><a href="About"><span>Overview</span></a></li><li><a href="Features"><span>Features</span></a></li><li><a href="Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="What_we_do"><span>Project Activities</span></a></li><li><a href="Contributors"><span>Contributors</span></a></li><li><a href="Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Documentation">Docs</a><ul class="nav-submenu"><li><a href="Documentation"><span>Documentation</span></a></li><li><a href="FAQ"><span>FAQ</span></a></li><li><a href="Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Support">Support</a><ul class="nav-submenu"><li><a href="Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="Support"><span>Support (Limited)</span></a></li><li><a href="Plus_Support"><span>Plus</span></a></li><li><a href="Premium_Support"><span>Premium</span></a></li><li><a href="Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/Linux" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[Linux|Whonix Linux Installer for VirtualBox]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[Whonix Linux Installer for VirtualBox](https://www.whonix.org/wiki/Linux)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/Linux]Whonix Linux Installer for VirtualBox[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux&amp;text=Whonix%20Linux%20Installer%20for%20VirtualBox" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux&amp;text=Whonix%20Linux%20Installer%20for%20VirtualBox" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux&amp;title=Whonix%20Linux%20Installer%20for%20VirtualBox" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux&amp;summary=Whonix%20Linux%20Installer%20for%20VirtualBox" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux&amp;t=Whonix%20Linux%20Installer%20for%20VirtualBox" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=Whonix%20Linux%20Installer%20for%20VirtualBox%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=Whonix%20Linux%20Installer%20for%20VirtualBox&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<h1 id="firstHeading" class="first-heading">Whonix Linux Installer for VirtualBox</h1><div class="robots-nocontent" data-nosnippet="">
+</div>
+<div data-pagemeta-preventenhanceheadlines="">
+</div>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+<p><img src="../media/Gui-preview.jpg.webp" alt="Gui-preview.jpg" /></p>
+</div>
+<p>Whonix can be easily installed using <strong>Whonix Linux
+Installer</strong>. Select your Linux distribution to get started.</p>
+<div class="post-intro-p">
+</div>
+<div class="show-for-nojs-only">
+<div class="robots-nocontent" data-nosnippet="">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Noscript-logo-full.svg" width="40" alt="NoScript Logo" /></span>
+This page is fully functional without JavaScript, but enabling
+JavaScript significantly enhances the user experience.</p>
+</div>
+</div>
+</div>
+<div class="show-for-nojs-only">
+</div>
+<p><div class="tab-content-controller "><div class="mininav mn-2-lines"></div><div class="tcc-content"><div class="tcc-section  margin-top-20"><div class="tcc-image"><img src="../media/Logo-linux-variety-500x500.png.webp" width="60" height="60" alt="Logo-linux-variety-500x500.png" /></div><div class="tcc-title"><nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Debian,_Fedora_and_Derivatives"><span class="tocnumber">1</span> <span class="toctext">Debian, Fedora and Derivatives</span></a></li><li class="toc-l2"><a href="#GUI"><span class="tocnumber">1.1</span> <span class="toctext">GUI</span></a></li><li class="toc-l2"><a href="#1_Whonix_Linux_Installer"><span class="tocnumber">1.2</span> <span class="toctext">1 Whonix Linux Installer</span></a></li><li class="toc-l3"><a href="#TLS"><span class="tocnumber">1.2.1</span> <span class="toctext">TLS</span></a></li><li class="toc-l3"><a href="#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository"><span class="tocnumber">1.2.2</span> <span class="toctext">Option A) Install the installer from the Kicksecure APT repository</span></a></li><li class="toc-l3"><a href="#Option_B)_Verify_the_Installer"><span class="tocnumber">1.2.3</span> <span class="toctext">Option B) Verify the Installer</span></a></li><li class="toc-l3"><a href="#Option_C)_Manual_Installation_without_the_Installer"><span class="tocnumber">1.2.4</span> <span class="toctext">Option C) Manual Installation without the Installer</span></a></li><li class="toc-l3"><a href="#onion"><span class="tocnumber">1.2.5</span> <span class="toctext">onion</span></a></li><li class="toc-l2"><a href="#2_Start_Whonix"><span class="tocnumber">1.3</span> <span class="toctext">2 Start Whonix</span></a></li><li class="toc-l2"><a href="#3_Done"><span class="tocnumber">1.4</span> <span class="toctext">3 Done</span></a></li><li class="toc-l2"><a href="#4_Support_the_Future_of_Whonix"><span class="tocnumber">1.5</span> <span class="toctext">4 Support the Future of Whonix</span></a></li><li class="toc-l2"><a href="#CLI"><span class="tocnumber">1.6</span> <span class="toctext">CLI</span></a></li><li class="toc-l3"><a href="#TLS_2"><span class="tocnumber">1.6.1</span> <span class="toctext">TLS</span></a></li><li class="toc-l3"><a href="#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository_2"><span class="tocnumber">1.6.2</span> <span class="toctext">Option A) Install the installer from the Kicksecure APT repository</span></a></li><li class="toc-l3"><a href="#Option_B)_Verify_the_Installer_2"><span class="tocnumber">1.6.3</span> <span class="toctext">Option B) Verify the Installer</span></a></li><li class="toc-l3"><a href="#Option_C)_Manual_Installation_without_the_Installer_2"><span class="tocnumber">1.6.4</span> <span class="toctext">Option C) Manual Installation without the Installer</span></a></li><li class="toc-l3"><a href="#onion_2"><span class="tocnumber">1.6.5</span> <span class="toctext">onion</span></a></li><li class="toc-l2"><a href="#Whonix_Linux_Installer"><span class="tocnumber">1.7</span> <span class="toctext">Whonix Linux Installer</span></a></li><li class="toc-l2"><a href="#Questions_and_Answers"><span class="tocnumber">1.8</span> <span class="toctext">Questions and Answers</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">2</span> <span class="toctext">Footnotes</span></a></li><li class="toc-l1"><a href="#Kicksecure"><span class="tocnumber">3</span> <span class="toctext">Kicksecure</span></a></li><li class="toc-l1"><a href="#Ubuntu"><span class="tocnumber">4</span> <span class="toctext">Ubuntu</span></a></li><li class="toc-l1"><a href="#Other_Linux_Distributions"><span class="tocnumber">5</span> <span class="toctext">Other Linux Distributions</span></a></li><li class="toc-l1"><a href="#Windows"><span class="tocnumber">6</span> <span class="toctext">Windows</span></a></li><li class="toc-l1"><a href="#Mac"><span class="tocnumber">7</span> <span class="toctext">Mac</span></a></li></ul></nav><h1 id="Debian,_Fedora_and_Derivatives"><span id="Debian.2C_Fedora_and_Derivatives"></span>Debian, Fedora and
+Derivatives</h1></div><div class="tcc-content"><p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active "><div class="tcc-image"><img src="../media/Clipart-gui.svg" alt="Clipart-gui.svg" /></div><div class="tcc-title"><h2 id="GUI">GUI</h2><span class="share-tooltip" data-anchor="GUI"><a class="headline-anchor" href="#GUI" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#GUI">https://www.whonix.org/wiki/Linux#GUI</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23GUI&amp;text=GUI" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23GUI&amp;text=GUI" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23GUI&amp;title=GUI" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=GUI&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23GUI" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#GUI]GUI[/url]">[url=https://www.whonix.org/wiki/Linux#GUI]GUI[/url]</span></span></span></span></div><div class="tcc-content"><p><img src="../media/Gui-preview.jpg.webp" alt="Whonix LXQt in VirtualBox" />
+<ul class="icon-bullet-list minimal ibl-fs-18"><li><i class="fa-solid fa-info cs-blue"></i><span>Whonix with LXQt <u>g</u>raphical <u>u</u>ser <u>i</u>nterface
+(GUI).</span></li><li><i class="fa-solid fa-info cs-blue"></i><span>This version of Whonix is designed to run inside VirtualBox.</span></li><li><i class="fa-solid fa-check cs-green"></i><span>Beginner-friendly and easy to use.</span></li><li><i class="fa-solid fa-check cs-green"></i><span>It is the right choice for most users.</span></li></ul></p>
+<div class="intro-like">
+<p>Please follow these steps to install Whonix.</p>
+</div>
+<div class="info-box ">
+<h2 id="1_Whonix_Linux_Installer"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Whonix Linux Installer</h2><span class="share-tooltip" data-anchor="1_Whonix_Linux_Installer"><a class="headline-anchor" href="#1_Whonix_Linux_Installer" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#1_Whonix_Linux_Installer">https://www.whonix.org/wiki/Linux#1_Whonix_Linux_Installer</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%231_Whonix_Linux_Installer&amp;text=1%0AWhonix%20Linux%20Installer" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%231_Whonix_Linux_Installer&amp;text=1%0AWhonix%20Linux%20Installer" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%231_Whonix_Linux_Installer&amp;title=1%0AWhonix%20Linux%20Installer" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=1%0AWhonix%20Linux%20Installer&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%231_Whonix_Linux_Installer" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#1_Whonix_Linux_Installer]1
+Whonix Linux Installer[/url]">[url=https://www.whonix.org/wiki/Linux#1_Whonix_Linux_Installer]1
+Whonix Linux Installer[/url]</span></span></span></span>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section active "><div class="tcc-image"><img src="../media/Icon-lock.png.webp" width="50" height="57" alt="Icon-lock.png" /></div><div class="tcc-title"><h3 id="TLS">TLS</h3><span class="share-tooltip" data-anchor="TLS"><a class="headline-anchor" href="#TLS" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#TLS">https://www.whonix.org/wiki/Linux#TLS</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23TLS&amp;text=TLS" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23TLS&amp;text=TLS" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23TLS&amp;title=TLS" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=TLS&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23TLS" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#TLS]TLS[/url]">[url=https://www.whonix.org/wiki/Linux#TLS]TLS[/url]</span></span></span></span></div><div class="tcc-content"><p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Download.</p>
+<p><span class="code-select" data-code="curl --tlsv1.3 --output whonix-lxqt-installer-cli --url https://www.whonix.org/dist-installer-cli">curl
+--tlsv1.3 --output whonix-lxqt-installer-cli --url <a href="https://www.whonix.org/dist-installer-cli">https://www.whonix.org/dist-installer-cli</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/dist-installer-cli" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>Optional: Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><ul class="icon-bullet-list ibl-fs-17"><li><i class="fa-solid fa-key cs-green"></i><span><b>Digital signatures</b> are a tool enhancing download security.
+They are commonly used across the internet and nothing special to worry
+about.</span></li><li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional, not required:</b> Digital signatures are optional and
+not mandatory for using Whonix, but an extra security measure for <a href="Advanced_Users">advanced users</a>. If you've
+never used them before, it might be overwhelming to look into them at
+this stage. Just ignore them for now.</span></li><li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b> Curious? If you are interested in becoming more
+familiar with advanced computer security concepts, you can learn more
+about digital signatures here: <a href="https://www.kicksecure.com/wiki/Verifying_Software_Signatures/">Verifying Software Signatures</a></span></li></ul></p>
+<p>Choose <u>either</u> Option
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">A</i>,
+Option
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">B</i>
+<u>or</u> Option
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">C</i>.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active "><div class="tcc-image"></div><div class="tcc-title"><h3 id="Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository"><span id="Option_A.29_Install_the_installer_from_the_Kicksecure_APT_repository"></span>Option
+A) Install the installer from the Kicksecure APT repository</h3><span class="share-tooltip" data-anchor="Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository"><a class="headline-anchor" href="#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository">https://www.whonix.org/wiki/Linux#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_A%29_Install_the_installer_from_the_Kicksecure_APT_repository&amp;text=Option%0AA%29%20Install%20the%20installer%20from%20the%20Kicksecure%20APT%20repository" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_A%29_Install_the_installer_from_the_Kicksecure_APT_repository&amp;text=Option%0AA%29%20Install%20the%20installer%20from%20the%20Kicksecure%20APT%20repository" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_A%29_Install_the_installer_from_the_Kicksecure_APT_repository&amp;title=Option%0AA%29%20Install%20the%20installer%20from%20the%20Kicksecure%20APT%20repository" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Option%0AA%29%20Install%20the%20installer%20from%20the%20Kicksecure%20APT%20repository&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_A%29_Install_the_installer_from_the_Kicksecure_APT_repository" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository]Option
+A) Install the installer from the Kicksecure APT repository[/url]">[url=https://www.whonix.org/wiki/Linux#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository]Option
+A) Install the installer from the Kicksecure APT repository[/url]</span></span></span></span></div><div class="tcc-content"><p>By installing from the Kicksecure APT repository, no additional
+verification of the installer is required because APT automatically does
+that.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Add the Kicksecure APT repository.</p>
+<p>See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Kicksecure Packages for Debian Hosts.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Install package <code>usability-misc</code>.</p>
+<p>Because it contains the Whonix Linux Installer.</p>
+<div class="info-box ">
+<p>Install package(s) <code>usability-misc</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="Qubes">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Update the package lists and upgrade the system.</p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt full-upgrade">sudo
+apt update &amp;&amp; sudo apt full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>usability-misc</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
+<p><span class="code-select" data-code="sudo apt install --no-install-recommends usability-misc">sudo
+apt install --no-install-recommends usability-misc</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Qubes Template Modification.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>usability-misc</code> is
+complete.</p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Run the Whonix Linux Installer.</p>
+<p><span class="code-select" data-code="whonix-lxqt-installer-cli">whonix-lxqt-installer-cli</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Done.</p></div></div> <div class="tcc-section  "><div class="tcc-image"></div><div class="tcc-title"><h3 id="Option_B)_Verify_the_Installer"><span id="Option_B.29_Verify_the_Installer"></span>Option B) Verify the
+Installer</h3><span class="share-tooltip" data-anchor="Option_B)_Verify_the_Installer"><a class="headline-anchor" href="#Option_B)_Verify_the_Installer" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#Option_B)_Verify_the_Installer">https://www.whonix.org/wiki/Linux#Option_B)_Verify_the_Installer</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_B%29_Verify_the_Installer&amp;text=Option%20B%29%20Verify%20the%0AInstaller" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_B%29_Verify_the_Installer&amp;text=Option%20B%29%20Verify%20the%0AInstaller" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_B%29_Verify_the_Installer&amp;title=Option%20B%29%20Verify%20the%0AInstaller" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Option%20B%29%20Verify%20the%0AInstaller&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_B%29_Verify_the_Installer" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#Option_B)_Verify_the_Installer]Option B) Verify the
+Installer[/url]">[url=https://www.whonix.org/wiki/Linux#Option_B)_Verify_the_Installer]Option B) Verify the
+Installer[/url]</span></span></span></span></div><div class="tcc-content"><p>The Linux Installer is signed by Whonix developer Patrick Schleizer
+using OpenPGP and signify.</p>
+<p>Do you already know how to perform digital software verification
+using an OpenPGP and/or signify key?</p>
+<ul>
+<li><u>Yes:</u> Acquire the <a href="Signing_Key">Signing Key</a> and the <a href="#signature">signatures</a> straight away and proceed.</li>
+<li><u>No:</u> Consider the following instructions: <a href="Unsupported">Undocumented</a>. <a href="Unspecific">Unspecific to Whonix</a>.</li>
+</ul>
+<p><span class="manually-placed-anchor " id="signature"></span></p>
+<ul>
+<li>Installer</li>
+<li>OpenPGP signature</li>
+<li>Signify signature</li>
+</ul>
+<p>signify:</p>
+<p><span class="code-select" data-code="signify-openbsd -Vp keyname.pub -m dist-installer-cli">signify-openbsd
+-Vp keyname.pub -m dist-installer-cli</span></p></div></div> <div class="tcc-section  "><div class="tcc-image"></div><div class="tcc-title"><h3 id="Option_C)_Manual_Installation_without_the_Installer"><span id="Option_C.29_Manual_Installation_without_the_Installer"></span>Option C)
+Manual Installation without the Installer</h3><span class="share-tooltip" data-anchor="Option_C)_Manual_Installation_without_the_Installer"><a class="headline-anchor" href="#Option_C)_Manual_Installation_without_the_Installer" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#Option_C)_Manual_Installation_without_the_Installer">https://www.whonix.org/wiki/Linux#Option_C)_Manual_Installation_without_the_Installer</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_C%29_Manual_Installation_without_the_Installer&amp;text=Option%20C%29%0AManual%20Installation%20without%20the%20Installer" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_C%29_Manual_Installation_without_the_Installer&amp;text=Option%20C%29%0AManual%20Installation%20without%20the%20Installer" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_C%29_Manual_Installation_without_the_Installer&amp;title=Option%20C%29%0AManual%20Installation%20without%20the%20Installer" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Option%20C%29%0AManual%20Installation%20without%20the%20Installer&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_C%29_Manual_Installation_without_the_Installer" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#Option_C)_Manual_Installation_without_the_Installer]Option C)
+Manual Installation without the Installer[/url]">[url=https://www.whonix.org/wiki/Linux#Option_C)_Manual_Installation_without_the_Installer]Option C)
+Manual Installation without the Installer[/url]</span></span></span></span></div><div class="tcc-content"><p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+There is no need to use the Whonix Linux Installer.</p>
+<p>The user is <u>not</u> forced to use the Whonix Linux Installer.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Manually install Whonix for VirtualBox.</p>
+<p>Use the manual <a href="VirtualBox">Whonix for
+VirtualBox</a> instructions instead of the Whonix Linux Installer.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Done.</p></div></div></div></div></p>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Run the installer.</p>
+<p><span class="code-select" data-code="bash ./whonix-lxqt-installer-cli">bash
+./whonix-lxqt-installer-cli</span></p></div></div></p>
+<p><div class="tcc-section  "><div class="tcc-image"><img src="../media/Iconfinder_tor_386502.png.webp" width="50" height="50" alt="Iconfinder_tor_386502.png" /></div><div class="tcc-title"><h3 id="onion">onion</h3><span class="share-tooltip" data-anchor="onion"><a class="headline-anchor" href="#onion" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#onion">https://www.whonix.org/wiki/Linux#onion</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23onion&amp;text=onion" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23onion&amp;text=onion" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23onion&amp;title=onion" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=onion&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23onion" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#onion]onion[/url]">[url=https://www.whonix.org/wiki/Linux#onion]onion[/url]</span></span></span></span></div><div class="tcc-content"><p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+System Tor setup.</p>
+<p>Downloading via an onion service requires a functional system Tor.
+This aspect is <a href="Unspecific">not specific to
+Whonix</a> and is <a href="Unsupported">undocumented</a>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Download.</p>
+<p><span class="code-select" data-code="torsocks curl --output whonix-lxqt-installer-cli --url http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/dist-installer-cli">torsocks
+curl --output whonix-lxqt-installer-cli --url <a href="http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/dist-installer-cli">http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/dist-installer-cli</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/dist-installer-cli" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Run the installer.</p>
+<p><span class="code-select" data-code="bash ./whonix-lxqt-installer-cli --onion">bash
+./whonix-lxqt-installer-cli --onion</span></p></div></div></p></div></div></p>
+</div>
+<div class="info-box ">
+<h2 id="2_Start_Whonix"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Start Whonix</h2><span class="share-tooltip" data-anchor="2_Start_Whonix"><a class="headline-anchor" href="#2_Start_Whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#2_Start_Whonix">https://www.whonix.org/wiki/Linux#2_Start_Whonix</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%232_Start_Whonix&amp;text=2%0AStart%20Whonix" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%232_Start_Whonix&amp;text=2%0AStart%20Whonix" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%232_Start_Whonix&amp;title=2%0AStart%20Whonix" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=2%0AStart%20Whonix&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%232_Start_Whonix" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#2_Start_Whonix]2
+Start Whonix[/url]">[url=https://www.whonix.org/wiki/Linux#2_Start_Whonix]2
+Start Whonix[/url]</span></span></span></span>
+<p>Starting Whonix is simple:</p>
+<ol>
+<li>Start VirtualBox.</li>
+<li>Double-click the <a href="Whonix-Gateway">Whonix-Gateway<sup>&#8482;</sup></a> and <a href="Whonix-Workstation">Whonix-Workstation<sup>&#8482;</sup></a>.</li>
+</ol>
+</div>
+<div class="info-box ">
+<h2 id="3_Done"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Done</h2><span class="share-tooltip" data-anchor="3_Done"><a class="headline-anchor" href="#3_Done" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#3_Done">https://www.whonix.org/wiki/Linux#3_Done</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%233_Done&amp;text=3%0ADone" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%233_Done&amp;text=3%0ADone" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%233_Done&amp;title=3%0ADone" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=3%0ADone&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%233_Done" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#3_Done]3
+Done[/url]">[url=https://www.whonix.org/wiki/Linux#3_Done]3
+Done[/url]</span></span></span></span>
+<p>The process of installing Whonix is complete.</p>
+</div>
+<div class="info-box ">
+<h2 id="4_Support_the_Future_of_Whonix"><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Support the Future of Whonix</h2><span class="share-tooltip" data-anchor="4_Support_the_Future_of_Whonix"><a class="headline-anchor" href="#4_Support_the_Future_of_Whonix" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#4_Support_the_Future_of_Whonix">https://www.whonix.org/wiki/Linux#4_Support_the_Future_of_Whonix</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%234_Support_the_Future_of_Whonix&amp;text=4%0ASupport%20the%20Future%20of%20Whonix" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%234_Support_the_Future_of_Whonix&amp;text=4%0ASupport%20the%20Future%20of%20Whonix" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%234_Support_the_Future_of_Whonix&amp;title=4%0ASupport%20the%20Future%20of%20Whonix" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=4%0ASupport%20the%20Future%20of%20Whonix&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%234_Support_the_Future_of_Whonix" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#4_Support_the_Future_of_Whonix]4
+Support the Future of Whonix[/url]">[url=https://www.whonix.org/wiki/Linux#4_Support_the_Future_of_Whonix]4
+Support the Future of Whonix[/url]</span></span></span></span>
+<p>Whonix is made possible thanks to the donation of people like you.
+<i class="padded-content-icon     fa-solid fa-heart cs-red-font"></i></p>
+<p><strong>Please support the Whonix development with a
+donation.</strong></p>
+<p><a href="Donate"><span class="mw-ui-button mw-ui-progressive" role="button" aria-disabled="false">Donate
+to Whonix</span></a></p>
+</div></div></div> <div class="tcc-section  "><div class="tcc-image"><img src="../media/Utilities-terminal.png.webp" width="50" height="50" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h2 id="CLI">CLI</h2><span class="share-tooltip" data-anchor="CLI"><a class="headline-anchor" href="#CLI" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#CLI">https://www.whonix.org/wiki/Linux#CLI</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23CLI&amp;text=CLI" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23CLI&amp;text=CLI" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23CLI&amp;title=CLI" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=CLI&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23CLI" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#CLI]CLI[/url]">[url=https://www.whonix.org/wiki/Linux#CLI]CLI[/url]</span></span></span></span></div><div class="tcc-content"><div class="robots-nocontent" data-nosnippet="">
+<p><img src="../media/Cli-preview.jpg.webp" width="240" height="167" alt="Whonix CLI in VirtualBox" />
+<ul class="icon-bullet-list minimal ibl-fs-18"><li><i class="fa-solid fa-info cs-blue"></i><span>Whonix with <u>c</u>ommand <u>l</u>ine <u>i</u>nterface (CLI).</span></li><li><i class="fa-solid fa-info cs-blue"></i><span>This version of Whonix is designed to run inside VirtualBox.</span></li><li><i class="fa-solid fa-exclamation-circle cs-red"></i><span>Whonix with CLI is suited for advanced users -- those who want Whonix
+without a <u>g</u>raphical <u>u</u>ser <u>i</u>nterface (GUI). Everyone
+else should install the user-friendly Whonix VirtualBox with GUI
+LXQt.</span></li></ul></p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section active "><div class="tcc-image"><img src="../media/Icon-lock.png.webp" width="50" height="57" alt="Icon-lock.png" /></div><div class="tcc-title"><h3 id="TLS_2">TLS</h3><span class="share-tooltip" data-anchor="TLS_2"><a class="headline-anchor" href="#TLS_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#TLS_2">https://www.whonix.org/wiki/Linux#TLS_2</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23TLS_2&amp;text=TLS" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23TLS_2&amp;text=TLS" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23TLS_2&amp;title=TLS" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=TLS&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23TLS_2" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#TLS_2]TLS[/url]">[url=https://www.whonix.org/wiki/Linux#TLS_2]TLS[/url]</span></span></span></span></div><div class="tcc-content"><p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Download.</p>
+<p><span class="code-select" data-code="curl --tlsv1.3 --output whonix-cli-installer-cli --url https://www.whonix.org/dist-installer-cli">curl
+--tlsv1.3 --output whonix-cli-installer-cli --url <a href="https://www.whonix.org/dist-installer-cli">https://www.whonix.org/dist-installer-cli</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.whonix.org/dist-installer-cli" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p>Optional: Digital signature verification.</p>
+<div class="mw-collapsible-content">
+<p><ul class="icon-bullet-list ibl-fs-17"><li><i class="fa-solid fa-key cs-green"></i><span><b>Digital signatures</b> are a tool enhancing download security.
+They are commonly used across the internet and nothing special to worry
+about.</span></li><li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional, not required:</b> Digital signatures are optional and
+not mandatory for using Whonix, but an extra security measure for <a href="Advanced_Users">advanced users</a>. If you've
+never used them before, it might be overwhelming to look into them at
+this stage. Just ignore them for now.</span></li><li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b> Curious? If you are interested in becoming more
+familiar with advanced computer security concepts, you can learn more
+about digital signatures here: <a href="https://www.kicksecure.com/wiki/Verifying_Software_Signatures/">Verifying Software Signatures</a></span></li></ul></p>
+<p>Choose <u>either</u> Option
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">A</i>,
+Option
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">B</i>
+<u>or</u> Option
+<i class="padded-content-icon    pci-text fa-solid cs-gray iconset-h4">C</i>.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><div class="tcc-section active "><div class="tcc-image"></div><div class="tcc-title"><h3 id="Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository_2"><span id="Option_A.29_Install_the_installer_from_the_Kicksecure_APT_repository_2"></span>Option
+A) Install the installer from the Kicksecure APT repository</h3><span class="share-tooltip" data-anchor="Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository_2"><a class="headline-anchor" href="#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository_2">https://www.whonix.org/wiki/Linux#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository_2</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_A%29_Install_the_installer_from_the_Kicksecure_APT_repository_2&amp;text=Option%0AA%29%20Install%20the%20installer%20from%20the%20Kicksecure%20APT%20repository" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_A%29_Install_the_installer_from_the_Kicksecure_APT_repository_2&amp;text=Option%0AA%29%20Install%20the%20installer%20from%20the%20Kicksecure%20APT%20repository" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_A%29_Install_the_installer_from_the_Kicksecure_APT_repository_2&amp;title=Option%0AA%29%20Install%20the%20installer%20from%20the%20Kicksecure%20APT%20repository" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Option%0AA%29%20Install%20the%20installer%20from%20the%20Kicksecure%20APT%20repository&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_A%29_Install_the_installer_from_the_Kicksecure_APT_repository_2" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository_2]Option
+A) Install the installer from the Kicksecure APT repository[/url]">[url=https://www.whonix.org/wiki/Linux#Option_A)_Install_the_installer_from_the_Kicksecure_APT_repository_2]Option
+A) Install the installer from the Kicksecure APT repository[/url]</span></span></span></span></div><div class="tcc-content"><p>By installing from the Kicksecure APT repository, no additional
+verification of the installer is required because APT automatically does
+that.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+Add the Kicksecure APT repository.</p>
+<p>See
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Kicksecure Packages for Debian Hosts.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Install package <code>usability-misc</code>.</p>
+<p>Because it contains the Whonix Linux Installer.</p>
+<div class="info-box ">
+<p>Install package(s) <code>usability-misc</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="Qubes">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Update the package lists and upgrade the system.</p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt full-upgrade">sudo
+apt update &amp;&amp; sudo apt full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>usability-misc</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
+<p><span class="code-select" data-code="sudo apt install --no-install-recommends usability-misc">sudo
+apt install --no-install-recommends usability-misc</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Qubes Template Modification.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>usability-misc</code> is
+complete.</p>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Run the Whonix Linux Installer.</p>
+<p><span class="code-select" data-code="whonix-cli-installer-cli">whonix-cli-installer-cli</span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">4</i>
+Done.</p></div></div> <div class="tcc-section  "><div class="tcc-image"></div><div class="tcc-title"><h3 id="Option_B)_Verify_the_Installer_2"><span id="Option_B.29_Verify_the_Installer_2"></span>Option B) Verify the
+Installer</h3><span class="share-tooltip" data-anchor="Option_B)_Verify_the_Installer_2"><a class="headline-anchor" href="#Option_B)_Verify_the_Installer_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#Option_B)_Verify_the_Installer_2">https://www.whonix.org/wiki/Linux#Option_B)_Verify_the_Installer_2</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_B%29_Verify_the_Installer_2&amp;text=Option%20B%29%20Verify%20the%0AInstaller" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_B%29_Verify_the_Installer_2&amp;text=Option%20B%29%20Verify%20the%0AInstaller" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_B%29_Verify_the_Installer_2&amp;title=Option%20B%29%20Verify%20the%0AInstaller" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Option%20B%29%20Verify%20the%0AInstaller&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_B%29_Verify_the_Installer_2" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#Option_B)_Verify_the_Installer_2]Option B) Verify the
+Installer[/url]">[url=https://www.whonix.org/wiki/Linux#Option_B)_Verify_the_Installer_2]Option B) Verify the
+Installer[/url]</span></span></span></span></div><div class="tcc-content"><p>The Linux Installer is signed by Whonix developer Patrick Schleizer
+using OpenPGP and signify.</p>
+<p>Do you already know how to perform digital software verification
+using an OpenPGP and/or signify key?</p>
+<ul>
+<li><u>Yes:</u> Acquire the <a href="Signing_Key">Signing Key</a> and the <a href="#signature">signatures</a> straight away and proceed.</li>
+<li><u>No:</u> Consider the following instructions: <a href="Unsupported">Undocumented</a>. <a href="Unspecific">Unspecific to Whonix</a>.</li>
+</ul>
+<p><span class="manually-placed-anchor " id="signature"></span></p>
+<ul>
+<li>Installer</li>
+<li>OpenPGP signature</li>
+<li>Signify signature</li>
+</ul>
+<p>signify:</p>
+<p><span class="code-select" data-code="signify-openbsd -Vp keyname.pub -m dist-installer-cli">signify-openbsd
+-Vp keyname.pub -m dist-installer-cli</span></p></div></div> <div class="tcc-section  "><div class="tcc-image"></div><div class="tcc-title"><h3 id="Option_C)_Manual_Installation_without_the_Installer_2"><span id="Option_C.29_Manual_Installation_without_the_Installer_2"></span>Option C)
+Manual Installation without the Installer</h3><span class="share-tooltip" data-anchor="Option_C)_Manual_Installation_without_the_Installer_2"><a class="headline-anchor" href="#Option_C)_Manual_Installation_without_the_Installer_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#Option_C)_Manual_Installation_without_the_Installer_2">https://www.whonix.org/wiki/Linux#Option_C)_Manual_Installation_without_the_Installer_2</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_C%29_Manual_Installation_without_the_Installer_2&amp;text=Option%20C%29%0AManual%20Installation%20without%20the%20Installer" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_C%29_Manual_Installation_without_the_Installer_2&amp;text=Option%20C%29%0AManual%20Installation%20without%20the%20Installer" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_C%29_Manual_Installation_without_the_Installer_2&amp;title=Option%20C%29%0AManual%20Installation%20without%20the%20Installer" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Option%20C%29%0AManual%20Installation%20without%20the%20Installer&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Option_C%29_Manual_Installation_without_the_Installer_2" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#Option_C)_Manual_Installation_without_the_Installer_2]Option C)
+Manual Installation without the Installer[/url]">[url=https://www.whonix.org/wiki/Linux#Option_C)_Manual_Installation_without_the_Installer_2]Option C)
+Manual Installation without the Installer[/url]</span></span></span></span></div><div class="tcc-content"><p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+There is no need to use the Whonix Linux Installer.</p>
+<p>The user is <u>not</u> forced to use the Whonix Linux Installer.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Manually install Whonix for VirtualBox.</p>
+<p>Use the manual <a href="VirtualBox">Whonix for
+VirtualBox</a> instructions instead of the Whonix Linux Installer.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Done.</p></div></div></div></div></p>
+</div>
+</div>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Run the installer.</p>
+<p><span class="code-select" data-code="bash ./whonix-cli-installer-cli">bash
+./whonix-cli-installer-cli</span></p></div></div></p>
+<p><div class="tcc-section  "><div class="tcc-image"><img src="../media/Iconfinder_tor_386502.png.webp" width="50" height="50" alt="Iconfinder_tor_386502.png" /></div><div class="tcc-title"><h3 id="onion_2">onion</h3><span class="share-tooltip" data-anchor="onion_2"><a class="headline-anchor" href="#onion_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#onion_2">https://www.whonix.org/wiki/Linux#onion_2</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23onion_2&amp;text=onion" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23onion_2&amp;text=onion" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23onion_2&amp;title=onion" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=onion&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23onion_2" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#onion_2]onion[/url]">[url=https://www.whonix.org/wiki/Linux#onion_2]onion[/url]</span></span></span></span></div><div class="tcc-content"><p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">1</i>
+System Tor setup.</p>
+<p>Downloading via an onion service requires a functional system Tor.
+This aspect is <a href="Unspecific">not specific to
+Whonix</a> and is <a href="Unsupported">undocumented</a>.</p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">2</i>
+Download.</p>
+<p><span class="code-select" data-code="torsocks curl --output whonix-cli-installer-cli --url http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/dist-installer-cli">torsocks
+curl --output whonix-cli-installer-cli --url <a href="http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/dist-installer-cli">http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/dist-installer-cli</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/dist-installer-cli" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><i class="padded-content-icon pci-style-circle pci-border-thick pci-shadow pci-text fa-solid cs-green iconset-h1">3</i>
+Run the installer.</p>
+<p><span class="code-select" data-code="bash ./whonix-cli-installer-cli --onion">bash
+./whonix-cli-installer-cli --onion</span></p></div></div></p></div></div></p>
+</div></div></div></div></div></p>
+<div class="toccolours mw-collapsible mw-collapsed" data-expandtext="Learn More" data-collapsetext="Show Less">
+<p><strong>Additional information about the Whonix Linux
+Installer.</strong></p>
+<div class="mw-collapsible-content">
+<h2 id="Whonix_Linux_Installer">Whonix Linux Installer</h2><span class="share-tooltip" data-anchor="Whonix_Linux_Installer"><a class="headline-anchor" href="#Whonix_Linux_Installer" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#Whonix_Linux_Installer">https://www.whonix.org/wiki/Linux#Whonix_Linux_Installer</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Whonix_Linux_Installer&amp;text=Whonix%20Linux%20Installer" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Whonix_Linux_Installer&amp;text=Whonix%20Linux%20Installer" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Whonix_Linux_Installer&amp;title=Whonix%20Linux%20Installer" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Whonix%20Linux%20Installer&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Whonix_Linux_Installer" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#Whonix_Linux_Installer]Whonix Linux Installer[/url]">[url=https://www.whonix.org/wiki/Linux#Whonix_Linux_Installer]Whonix Linux Installer[/url]</span></span></span></span>
+<div class="intro-like">
+<p>The Whonix Linux Installer streamlines the process of installing
+VirtualBox and setting up Whonix on VirtualBox.</p>
+<p>While the earlier method required users to follow instructions on the
+<a href="VirtualBox">Whonix for VirtualBox</a> wiki
+page, which included the installation of VirtualBox, downloading, and
+importing of Whonix VirtualBox images, this installer makes the entire
+process more intuitive. Here's an in-depth look at what it does:</p>
+</div>
+<ul>
+<li><u>Script name verification:</u> The installer checks for valid
+script names, such as <code>dist-installer-cli</code>,
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+&lt;code&gt;virtualbox-installer-cli&lt;/code&gt;,
+<code>whonix-cli-installer-cli</code>,
+<code>whonix-lxqt-installer-cli</code>.</li>
+<li><u>Command-line parsing:</u> The installer parses any command-line
+options provided.</li>
+<li><u>System requirements check:</u> The installer assesses if the
+system meets prerequisites like adequate disk space, RAM, and
+virtualization support. Users are informed if any of these criteria are
+not met.</li>
+<li><u>Package installation:</u> Necessary packages for the script's
+operation, like <code>signify</code>, <code>curl</code>,
+<code>rsync</code>, and <code>vboxmanage</code> (for VirtualBox users)
+are installed using the distribution's package manager (APT or
+DNF).</li>
+<li><u>Repository settings:</u> Repository selection and configuration
+depends on platform and distribution release.
+<ul>
+<li><u>Debian and derivatives:</u> Repository logic depends on the
+Debian release in use.
+<ul>
+<li><u><code>bookworm</code> (<code>oldstable</code>):</u> Enables the
+Debian <code>backports</code> and <code>fasttrack</code>
+repositories.</li>
+<li><u><code>trixie</code> (<code>stable</code>):</u> Enables the
+<code>virtualbox.org</code> (Oracle) repository.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup></li>
+<li><u><code>sid</code> (<code>unstable</code>):</u> Installs from
+Debian <code>unstable</code> repository.</li>
+</ul></li>
+<li><u>Ubuntu:</u> Installs from the Ubuntu repository.
+<sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup></li>
+<li><u>Fedora and derivatives:</u> Enables the
+<code>virtualbox.org</code> (Oracle) repository.</li>
+<li><u>Updates:</u> The preferred repository for VirtualBox installation
+may vary in the future based on availability. Updated installers might
+fetch VirtualBox from the Debian <code>fasttrack</code> repository,
+<code>virtualbox.org</code> (Oracle) repository, or the
+Kicksecure<sup>&#8482;</sup> repository. Development discussion: <a href="https://forums.whonix.org/t/whonix-virtualbox-integration-and-upgrades/11705">VirtualBox
+Integration and Upgrades</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-virtualbox-integration-and-upgrades/11705" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+</ul></li>
+<li><u>Version querying:</u> If no version is specified via command
+line, the Whonix version number is fetched using the <a href="API">API</a>. (Only if installing Whonix.) (Not for
+<code>virtualbox-installer-cli</code>. <sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup>)</li>
+<li><u>VirtualBox configuration:</u> System configuration is
+automatically added to prevent VirtualBox from conflicting with KVM,
+without breaking functionality for either VirtualBox or KVM.</li>
+<li><u>Virtual machine handling:</u> VM-related steps depend on whether
+VMs are already present and on installer mode.
+<ul>
+<li><u>Previously imported VMs:</u> Users are prompted to boot the
+virtual system(s). (Not for <code>virtualbox-installer-cli</code>.
+<sup id="cite_ref-3-2" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup>.)</li>
+<li><u>Previously downloaded VM files:</u> Authenticity and integrity
+checks are run. (Not for <code>virtualbox-installer-cli</code>.
+<sup id="cite_ref-3-3" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup>.)</li>
+<li><u>First-time users:</u> The installer downloads the required files,
+conducts authenticity and integrity checks, imports the system(s), and
+then attempts to start the Virtual Machine(s). (Not for
+<code>virtualbox-installer-cli</code>. <sup id="cite_ref-3-4" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup>.)</li>
+</ul></li>
+<li><u>Running VM detection:</u> Inform user if VMs are already running
+and abort installation. (Not for <code>virtualbox-installer-cli</code>.
+<sup id="cite_ref-3-5" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup>.)</li>
+</ul>
+<p><strong>Additional Features:</strong></p>
+<ul>
+<li><u>Download resumption:</u> Utilizes <code>rsync</code> internally
+to enable download resumption capabilities.</li>
+<li><u>Oracle repository downloads:</u> When using
+<code>--oracle-repo</code> command line option, downloads VirtualBox
+from Oracle repository. This is the default for Fedora-based
+distributions. It is optional for Debian-based ones (including Ubuntu)
+but may be set by developers in the future if the Debian repository
+discontinues the VirtualBox package. The Oracle repository might at
+times provide a newer VirtualBox version.</li>
+<li><u>Digital signature verification:</u> Uses APT (which verifies
+digital software signatures). When using the <code>--oracle-repo</code>,
+installs Oracle's repository and signing key.</li>
+<li><u>Integrity checking:</u> Offers a streamlined integrity
+verification process, facilitated by <code>rsync</code>.</li>
+<li><u>Onion support:</u> Allows for downloads from onion sources with
+the <code>--onion</code> command line option whenever possible. (For
+example, Oracle does not provide an onion repository.)</li>
+<li><u>Default download directory:</u> Files are saved in the
+<code>~/dist-installer-cli-download</code> folder.</li>
+<li><u>Logging mechanics:</u> For transparency, every command executed
+is logged in the download directory, accompanied by the specific script
+version used at the time.</li>
+<li><u>Transparent system modifications:</u> The installer's operations
+are evident to the user. All persistent system alterations, especially
+those executed with administrative ("root") privileges, are prominently
+detailed in the installer's output.</li>
+<li><u>Documentation:</u> Comprehensive details can be found in the
+<span class="github-link-widget"><img src="../github-mark.svg" width="14" height="16" alt="GitHub Logo" /><a href="https://github.com/Kicksecure/usability-misc/blob/master/man/dist-installer-cli.1.ronn">Kicksecure/usability-misc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/usability-misc/blob/master/man/dist-installer-cli.1.ronn" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span>.</li>
+<li><u>Checks:</u> <a href="https://www.kicksecure.com/wiki/Nested_Virtualization/">Nested Virtualization</a>, secure boot enabled
+check.</li>
+</ul>
+<p><strong>Developer Information:</strong></p>
+<ul>
+<li><u>Source code:</u>
+<span class="github-link-widget"><img src="../github-mark.svg" width="14" height="16" alt="GitHub Logo" /><a href="https://github.com/Kicksecure/usability-misc/blob/master/usr/bin/dist-installer-cli">Kicksecure/usability-misc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/usability-misc/blob/master/usr/bin/dist-installer-cli" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span>,
+<span class="github-link-widget"><img src="../github-mark.svg" width="14" height="16" alt="GitHub Logo" /><a href="https://github.com/Kicksecure/usability-misc/blob/master/.github/workflows/builds.yml">Kicksecure/usability-misc</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Kicksecure/usability-misc/blob/master/.github/workflows/builds.yml" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li><u>Development wiki page:</u> <a href="https://www.kicksecure.com/wiki/Dev/Linux_Installer/">Dev/Linux Installer</a></li>
+<li><u>Development discussion:</u> <a href="https://forums.whonix.org/t/whonix-linux-installer-development-discussion/15917">forums
+discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-linux-installer-development-discussion/15917" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><u>Security:</u> The <code>dist-installer-cli</code> script is not
+intended for curl bash piping. However, for a comprehensive discussion
+on security concerns related to this topic, see <a href="https://www.kicksecure.com/wiki/Dev/curl_bash_pipe/">here</a>.</li>
+</ul>
+<h2 id="Questions_and_Answers">Questions and Answers</h2><span class="share-tooltip" data-anchor="Questions_and_Answers"><a class="headline-anchor" href="#Questions_and_Answers" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Linux#Questions_and_Answers">https://www.whonix.org/wiki/Linux#Questions_and_Answers</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Questions_and_Answers&amp;text=Questions%20and%20Answers" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Questions_and_Answers&amp;text=Questions%20and%20Answers" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Questions_and_Answers&amp;title=Questions%20and%20Answers" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Questions%20and%20Answers&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FLinux%23Questions_and_Answers" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Linux#Questions_and_Answers]Questions and Answers[/url]">[url=https://www.whonix.org/wiki/Linux#Questions_and_Answers]Questions and Answers[/url]</span></span></span></span>
+<table>
+<thead>
+<tr class="header">
+<th><p><strong>Question</strong></p></th>
+<th><p><strong>Answer</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Do I have to use the new Whonix Linux Installer?</p></td>
+<td><p>No. You can still manually install VirtualBox and import Whonix
+by following the instructions on the <a href="VirtualBox">Whonix for VirtualBox</a> wiki page.</p></td>
+</tr>
+<tr class="even">
+<td><p>Is the manual method for VirtualBox installation going to be
+deprecated?</p></td>
+<td><p>There's no such plan as of now. The manual method remains crucial
+as it offers compatibility with certain Linux distributions not
+supported by the Whonix Linux Installer.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Can I use Whonix-Gateway<sup>&#8482;</sup> CLI in conjunction with
+Whonix-Workstation<sup>&#8482;</sup> LXQt?</p></td>
+<td><p><a href="https://forums.whonix.org/t/can-i-combine-whonix-gateway-cli-with-whonix-workstation-lxqt-yes/6308">Absolutely,
+find out more here.</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/can-i-combine-whonix-gateway-cli-with-whonix-workstation-lxqt-yes/6308" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p>Why should I prefer VirtualBox over KVM?</p></td>
+<td><p>For insights, visit <a href="Dev/VirtualBox#Why_use_VirtualBox_over_KVM?">Here</a>.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Why choose VirtualBox instead of Qubes?</p></td>
+<td><p>The reasons are elaborated <a href="Dev/VirtualBox#Why_use_VirtualBox_over_Qubes?">here</a>.</p></td>
+</tr>
+<tr class="even">
+<td><p>Where can I find the main FAQ?</p></td>
+<td><p>Check out the <a href="FAQ">Whonix
+FAQ</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">This is because Debian Trixie's <code>fasttrack</code> repository
+does not have VirtualBox yet, and Debian Sid's build of VirtualBox is
+not compatible with Trixie any longer.</span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Might sound complicated but it is actually quite simple in case of
+Ubuntu. Install from the usual, "normal", official
+<code>packages.ubuntu.com</code>. From the usual <code>suite</code>. For
+example, if using suite <code>jammy</code>, it installs from
+<code>jammy</code>. This is because <a href="https://packages.ubuntu.com/search?keywords=virtualbox">Ubuntu is
+packaging VirtualBox</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://packages.ubuntu.com/search?keywords=virtualbox" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> for their usual stable suites. Debian does not.
+That is why Ubuntu does not require any special repository. (Debian
+required <code>backports</code> and <code>fasttrack</code> repositories
+at time of writing.)</span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink">&#8593; <sup><a href="#cite_ref-3">1</a></sup> <sup><a href="#cite_ref-3-2">2</a></sup> <sup><a href="#cite_ref-3-3">3</a></sup> <sup><a href="#cite_ref-3-4">4</a></sup> <sup><a href="#cite_ref-3-5">5</a></sup></span> <span class="reference-text">Because that is not required if only installing VirtualBox using
+<code>virtualbox-installer-cli</code>.)</span></li>
+</ol>
+
+</div>
+</div></div></div> <div class="tcc-section  "><div class="tcc-image"><img src="../media/Kicksecure-logo-icon.svg" width="25" alt="Kicksecure-logo-icon.svg" /></div><div class="tcc-title"><h1 id="Kicksecure">Kicksecure</h1></div><div class="tcc-content"><div class="info-box ">
+<p><ul class="icon-bullet-list inverse minimal ibl-fs-17"><li><i class="fa-solid fa-info cs-blue"></i><span>For users already using Kicksecure as their host operating system,
+installation of Whonix for VirtualBox is even simpler.</span></li><li><i class="fa-solid fa-shield cs-black"></i><span>No need to manually download or verify the Whonix Linux Installer on
+Kicksecure hosts.</span></li><li><i class="fa-solid fa-check cs-green"></i><span>Whonix Linux Installer for VirtualBox is installed by default in
+Kicksecure.</span></li></ul></p>
+<p>Simply run one of the following commands.</p>
+<p>For Whonix with LXQt (recommended):</p>
+<ul>
+<li><span class="code-select" data-code="whonix-lxqt-installer-cli">whonix-lxqt-installer-cli</span></li>
+<li><span class="code-select" data-code="whonix-lxqt-installer-cli --onion">whonix-lxqt-installer-cli
+--onion</span></li>
+</ul>
+<p>For Whonix with CLI (for advanced users only):</p>
+<ul>
+<li><span class="code-select" data-code="whonix-cli-installer-cli">whonix-cli-installer-cli</span></li>
+<li><span class="code-select" data-code="whonix-cli-installer-cli --onion">whonix-cli-installer-cli
+--onion</span></li>
+</ul>
+<p><ul class="icon-bullet-list inverse minimal ibl-fs-17"><li><i class="fa-solid fa-mouse-pointer"></i><span>Follow the same instructions as for tab 'Debian, Fedora and
+Derivatives'.</span></li></ul></p>
+</div></div></div> <div class="tcc-section  "><div class="tcc-image"><img src="../media/Logo-ubuntusvg.png.webp" width="25" height="25" alt="Logo-ubuntusvg.png" /></div><div class="tcc-title"><h1 id="Ubuntu">Ubuntu</h1></div><div class="tcc-content"><div class="info-box ">
+<p><ul class="icon-bullet-list inverse minimal ibl-fs-17"><li><i class="fa-solid fa-info cs-blue"></i><span>Minimum required version: Only Ubuntu Jammy (22.04) (LTS) has been
+tested.</span></li><li><i class="fa-solid fa-info cs-blue"></i><span>Lower versions will not work. Please release upgrade your Ubuntu
+version first.</span></li><li><i class="fa-solid fa-info cs-blue"></i><span>Higher stable Ubuntu versions will probably work.</span></li><li><i class="fa-solid fa-mouse-pointer"></i><span>See tab 'Debian, Fedora and Derivatives'.</span></li></ul></p>
+</div></div></div>
+<div class="tcc-section  margin-top-20"><div class="tcc-image"><img src="../media/Logo-linux-500x500.png.webp" width="25" height="25" alt="Logo-linux-500x500.png" /></div><div class="tcc-title"><h1 id="Other_Linux_Distributions">Other Linux Distributions</h1></div><div class="tcc-content"><ul class="icon-bullet-list minimal ibl-fs-17"><li><i class="fa-solid fa-info cs-blue"></i><span>The Whonix Linux Installer for VirtualBox is only supported for
+Debian, Fedora and their derivatives (such as Ubuntu, CentOS, RedHat, or
+Kicksecure).</span></li><li><i class="fa-solid fa-mouse-pointer"></i><span>See <a href="VirtualBox">
+<span class="mw-ui-button mw-ui-progressive" role="button" aria-disabled="false">manually
+install Whonix for VirtualBox (FREE!)</span></a> to learn more and get
+started with Whonix.</span></li><li><i class="fa-solid fa-toolbox cs-blue"></i><span>Are you a developer? If your host operating system is unsupported,
+contributions to add support for other Linux distributions are <a href="Reporting_Bugs#Contributions">welcome</a>.</span></li></ul></div></div> <div class="tcc-section  margin-top-20"><div class="tcc-image"><img src="../media/Logo-windows-500x500.png.webp" width="25" height="25" alt="Logo-windows-500x500.png" /></div><div class="tcc-title"><h1 id="Windows">Windows</h1></div><div class="tcc-content"><a href="VirtualBox">VirtualBox</a></div></div> <div class="tcc-section  margin-top-20"><div class="tcc-image"><img src="../media/Logo-apple-500x500.png.webp" width="25" height="25" alt="Logo-apple-500x500.png" /></div><div class="tcc-title"><h1 id="Mac">Mac</h1></div><div class="tcc-content"><a href="MacOS">MacOS</a></div></div></div></div></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation">Documentation</a> <a href="Category:MultiWiki">MultiWiki</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="Terms_of_Service">Terms of Service</a></li><li><a href="Privacy_Policy">Privacy Policy</a></li><li><a href="Cookie_Policy">Cookie Policy</a></li><li><a href="E-Sign_Consent">E-Sign Consent</a></li><li><a href="Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy">Privacy Policy</a>, <a href="Cookie_Policy">Cookie Policy</a>, <a href="Terms_of_Service">Terms of Service</a>, and <a href="E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../search-index.js" defer></script>
+<script src="../page-previews.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

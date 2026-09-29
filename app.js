@@ -214,6 +214,32 @@
     }
   }
 
+  // Crypto donation panel: reveal a coin's QR/expand block on its .qr-button. Progressive
+  // -- without JS the .expand stays visible (panel still usable); here we mark each .crypto
+  // .qr-ready (CSS then collapses) and toggle .payitem.expanded per row. TT-safe (no HTML
+  // sinks); replaces the sanitizer-stripped content checkbox that never worked.
+  function initCryptoExpanders() {
+    var panels = document.querySelectorAll(".crypto");
+    for (var p = 0; p < panels.length; p++) { panels[p].classList.add("qr-ready"); }
+    var items = document.querySelectorAll(".crypto .payitem");
+    for (var i = 0; i < items.length; i++) {
+      (function (item) {
+        var btn = item.querySelector(".qr-button");
+        if (!btn || !item.querySelector(".expand")) return;
+        btn.setAttribute("role", "button");
+        btn.setAttribute("tabindex", "0");
+        btn.setAttribute("aria-expanded", "false");
+        function toggle() {
+          btn.setAttribute("aria-expanded", item.classList.toggle("expanded") ? "true" : "false");
+        }
+        btn.addEventListener("click", toggle);
+        btn.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+        });
+      })(items[i]);
+    }
+  }
+
   // A controller's DIRECT sections (nested controllers are handled by their own pass).
   function tabSections(ctrl) { return ctrl.querySelectorAll(":scope > .tcc-content > .tcc-section"); }
   // Activate section idx of ctrl (toggle both the section and its pill).
@@ -839,6 +865,7 @@
     initPagePrint();
     initCollapsibles();
     initExpandCollapseAll();
+    initCryptoExpanders();
     initTabs();
     window.addEventListener("hashchange", syncTabsFromHash);
     initNavToggle();

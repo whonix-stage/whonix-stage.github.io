@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Invisible Internet Project (I2P)</title>
+<meta name="description" content="I2P over Tor. Tunneling the I2P Anonymizing Network over the Tor Anonymizing Network. Connection Schema: Tor &amp;rarr; I2P &amp;rarr; Destination.">
+<meta property="og:description" content="I2P over Tor. Tunneling the I2P Anonymizing Network over the Tor Anonymizing Network. Connection Schema: Tor &amp;rarr; I2P &amp;rarr; Destination.">
+<link rel="canonical" href="https://www.whonix.org/wiki/I2P">
+<meta property="og:url" content="https://www.whonix.org/wiki/I2P">
+<meta property="og:title" content="Invisible Internet Project (I2P)">
+<meta property="og:image" content="https://www.whonix.org/media/orig/I2Pmainlogo.svg.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="Download">Download</a><ul class="nav-submenu"><li><a href="VirtualBox"><span>Windows</span></a></li><li><a href="Linux"><span>Linux</span></a></li><li><a href="MacOS"><span>Mac</span></a></li><li><a href="VirtualBox"><span>VirtualBox</span></a></li><li><a href="KVM"><span>KVM</span></a></li><li><a href="Qubes"><span>Qubes</span></a></li><li><a href="Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="ARM64"><span>ARM64</span></a></li><li><a href="USB_Installation"><span>USB</span></a></li><li><a href="Whonix-Host"><span>ISO</span></a></li><li><a href="Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="About">About</a><ul class="nav-submenu"><li><a href="About"><span>Overview</span></a></li><li><a href="Features"><span>Features</span></a></li><li><a href="Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="What_we_do"><span>Project Activities</span></a></li><li><a href="Contributors"><span>Contributors</span></a></li><li><a href="Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Documentation">Docs</a><ul class="nav-submenu"><li><a href="Documentation"><span>Documentation</span></a></li><li><a href="FAQ"><span>FAQ</span></a></li><li><a href="Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Support">Support</a><ul class="nav-submenu"><li><a href="Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="Support"><span>Support (Limited)</span></a></li><li><a href="Plus_Support"><span>Plus</span></a></li><li><a href="Premium_Support"><span>Premium</span></a></li><li><a href="Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/I2P" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[I2P|Invisible Internet Project (I2P)]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[Invisible Internet Project (I2P)](https://www.whonix.org/wiki/I2P)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/I2P]Invisible Internet Project (I2P)[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P&amp;text=Invisible%20Internet%20Project%20%28I2P%29" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P&amp;text=Invisible%20Internet%20Project%20%28I2P%29" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P&amp;title=Invisible%20Internet%20Project%20%28I2P%29" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P&amp;summary=Invisible%20Internet%20Project%20%28I2P%29" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P&amp;t=Invisible%20Internet%20Project%20%28I2P%29" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=Invisible%20Internet%20Project%20%28I2P%29%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=Invisible%20Internet%20Project%20%28I2P%29&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading"><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="Freenet" title="Freenet"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Freenet</span></a><a class="index internal" href="Documentation" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="ZeroNet" title="ZeroNet"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">ZeroNet</span></a><span class="info"><span class="prev">Previous
+page: Freenet</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+ZeroNet</span></span></span><h1 id="firstHeading">Invisible Internet Project (I2P)</h1></div>
+<p><img src="../media/I2Pmainlogo.svg.png.webp" alt="I2P Logo" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>I2P over Tor. Tunneling the I2P Anonymizing Network over the Tor
+Anonymizing Network. Connection Schema:<br />
+<code>Tor</code> &#8594; <code>I2P</code> &#8594; <code>Destination</code></p>
+<div class="post-intro-p">
+</div>
+<p><span class="manually-placed-anchor " id="I2P_anonymizing_network_-_Introduction"></span></p>
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li><li class="toc-l2"><a href="#Network"><span class="tocnumber">1.1</span> <span class="toctext">Network</span></a></li><li class="toc-l2"><a href="#Tor_vs_I2P"><span class="tocnumber">1.2</span> <span class="toctext">Tor vs I2P</span></a></li><li class="toc-l1"><a href="#How-to:_Use_I2P_in_Whonix"><span class="tocnumber">2</span> <span class="toctext">How-to: Use I2P in Whonix</span></a></li><li class="toc-l2"><a href="#Inproxies_inside_Whonix-Workstation"><span class="tocnumber">2.1</span> <span class="toctext">Inproxies inside Whonix-Workstation</span></a></li><li class="toc-l2"><a href="#I2P_Client_inside_Whonix-Workstation"><span class="tocnumber">2.2</span> <span class="toctext">I2P Client inside Whonix-Workstation</span></a></li><li class="toc-l3"><a href="#Introduction_2"><span class="tocnumber">2.2.1</span> <span class="toctext">Introduction</span></a></li><li class="toc-l3"><a href="#Post-Tor_I2P_Tunnel_Effects"><span class="tocnumber">2.2.2</span> <span class="toctext">Post-Tor I2P Tunnel Effects</span></a></li><li class="toc-l3"><a href="#Installation_and_Setup"><span class="tocnumber">2.2.3</span> <span class="toctext">Installation and Setup</span></a></li><li class="toc-l3"><a href="#Steps_for_I2P_Configuration_and_Usage_After_Installation"><span class="tocnumber">2.2.4</span> <span class="toctext">Steps for I2P Configuration and Usage After Installation</span></a></li><li class="toc-l3"><a href="#Notes"><span class="tocnumber">2.2.5</span> <span class="toctext">Notes</span></a></li><li class="toc-l2"><a href="#I2P_Eepsites_(I2P_websites)"><span class="tocnumber">2.3</span> <span class="toctext">I2P Eepsites (I2P websites)</span></a></li><li class="toc-l1"><a href="#Services"><span class="tocnumber">3</span> <span class="toctext">Services</span></a></li><li class="toc-l2"><a href="#IRC"><span class="tocnumber">3.1</span> <span class="toctext">IRC</span></a></li><li class="toc-l2"><a href="#I2P-Bote"><span class="tocnumber">3.2</span> <span class="toctext">I2P-Bote</span></a></li><li class="toc-l3"><a href="#Features"><span class="tocnumber">3.2.1</span> <span class="toctext">Features</span></a></li><li class="toc-l2"><a href="#RetroShare"><span class="tocnumber">3.3</span> <span class="toctext">RetroShare</span></a></li><li class="toc-l2"><a href="#Syncthing"><span class="tocnumber">3.4</span> <span class="toctext">Syncthing</span></a></li><li class="toc-l2"><a href="#Syndie"><span class="tocnumber">3.5</span> <span class="toctext">Syndie</span></a></li><li class="toc-l2"><a href="#Torrent"><span class="tocnumber">3.6</span> <span class="toctext">Torrent</span></a></li><li class="toc-l2"><a href="#ZeroNet"><span class="tocnumber">3.7</span> <span class="toctext">ZeroNet</span></a></li><li class="toc-l1"><a href="#Installing_I2P_on_Whonix-Gateway"><span class="tocnumber">4</span> <span class="toctext">Installing I2P on Whonix-Gateway</span></a></li><li class="toc-l1"><a href="#Development"><span class="tocnumber">5</span> <span class="toctext">Development</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">6</span> <span class="toctext">Footnotes</span></a></li></ul></nav><h1 id="Introduction">Introduction</h1>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="80" height="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="Community_Support">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<h2 id="Network">Network</h2><span class="share-tooltip" data-anchor="Network"><a class="headline-anchor" href="#Network" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Network">https://www.whonix.org/wiki/I2P#Network</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Network&amp;text=Network" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Network&amp;text=Network" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Network&amp;title=Network" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Network&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Network" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Network]Network[/url]">[url=https://www.whonix.org/wiki/I2P#Network]Network[/url]</span></span></span></span>
+<p>The <a href="https://geti2p.net/en/about/intro">Invisible Internet
+Project (I2P) homepage</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/about/intro" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> provides a simple overview of the
+protocol:</p>
+<p><blockquote><p>I2P is an anonymous network built on top of the internet. It allows
+users to create and access content and build online communities on a
+network that is both distributed and dynamic. It is intended to protect
+communication and resist monitoring by third parties such as ISPs.</p>
+<p>Aside from anonymizing traffic within the network, I2P functions with
+the same capabilities as the Internet, however its design and
+decentralization create a censorship resistant environment for the
+free-flow of information.</p>
+<p>Mirrored sites hosted on the network allow access to news outlets and
+other resources in areas where information is being filtered or denied.
+Online communities wishing to organize in restrictive environments can
+do so anonymously to mitigate political threat and protect each
+other.</p></blockquote></p>
+<p>The I2P anonymous network exposes a simple layer that applications
+can use to anonymously and securely send messages to each other through
+"tunnels". The network itself is strictly message-based (IP), but there
+is a library available to allow reliable streaming communication on top
+of it (TCP). All communication is encrypted end-to-end -- in total there
+are four layers of encryption used when sending a message -- and even
+the end points ("destinations") are cryptographic identifiers
+(essentially a pair of public keys). <sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup></p>
+<p>This design is known as <a href="https://en.wikipedia.org/wiki/Garlic_routing">garlic routing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Garlic_routing" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+which is a variant of <a href="https://en.wikipedia.org/wiki/Onion_routing">onion routing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Onion_routing" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+(used in the Tor network) and benefits from the research on the latter
+but makes some different tradeoffs. <sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup> Each client
+application has their own I2P 'router' that finds other clients by
+querying against the fully distributed 'network database' - a custom
+structured distributed hash table (DHT) based on the <a href="https://en.wikipedia.org/wiki/Kademlia">Kademlia algorithm</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Kademlia" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
+Every router transports traffic for its peers which it uses as cover
+traffic for its own. To learn more about I2P technical details, see <a href="https://geti2p.net/en/docs">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/docs" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<p>In contrast to the Tor network, I2P is focused on creating a
+community around P2P darknet services rather than providing
+"outproxies"(exits) to the clearnet. The I2P development <a href="https://geti2p.net/en/about/team">team</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/about/team" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is an open group that
+welcomes all parties who are interested in <a href="https://geti2p.net/en/get-involved">getting involved</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/get-involved" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. All the
+code is <a href="https://geti2p.net/en/get-involved/develop/licenses">open
+source</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/get-involved/develop/licenses" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. The core I2P Software Development Kit (SDK) and the current
+router implementation is accomplished in Java, <sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup> and
+there is a <a href="https://geti2p.net/en/docs/api/sam">simple socket
+based API</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/docs/api/sam" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> for accessing the network from other languages (with a C
+library available, and both Python and Perl in development). The network
+is actively being developed and has not yet reached the 1.0 release, but
+the current <a href="https://geti2p.net/en/get-involved/roadmap">roadmap</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/get-involved/roadmap" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> describes
+their active schedule.</p>
+<h2 id="Tor_vs_I2P">Tor vs I2P</h2><span class="share-tooltip" data-anchor="Tor_vs_I2P"><a class="headline-anchor" href="#Tor_vs_I2P" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Tor_vs_I2P">https://www.whonix.org/wiki/I2P#Tor_vs_I2P</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Tor_vs_I2P&amp;text=Tor%20vs%20I2P" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Tor_vs_I2P&amp;text=Tor%20vs%20I2P" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Tor_vs_I2P&amp;title=Tor%20vs%20I2P" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Tor%20vs%20I2P&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Tor_vs_I2P" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Tor_vs_I2P]Tor vs I2P[/url]">[url=https://www.whonix.org/wiki/I2P#Tor_vs_I2P]Tor vs I2P[/url]</span></span></span></span>
+<p>Many of Tor's concepts have (virtual) equivalents in I2P, despite the
+<a href="https://geti2p.net/en/comparison/tor">terminology</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/comparison/tor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> being
+somewhat different.</p>
+<table>
+<caption><em>Tor vs. I2P Terminology</em> <sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span class="cite-bracket">[</span>4<span class="cite-bracket">]</span></a></sup></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Tor Terminology</strong></p></th>
+<th><p><strong>I2P Equivalent</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Cell</p></td>
+<td><p>Message</p></td>
+</tr>
+<tr class="even">
+<td><p>Circuit</p></td>
+<td><p>Tunnel</p></td>
+</tr>
+<tr class="odd">
+<td><p>Client</p></td>
+<td><p>Router or Client</p></td>
+</tr>
+<tr class="even">
+<td><p>Directory</p></td>
+<td><p>NetDb</p></td>
+</tr>
+<tr class="odd">
+<td><p>Directory Server</p></td>
+<td><p>Floodfill Router</p></td>
+</tr>
+<tr class="even">
+<td><p><a href="Tor_Entry_Guards">Entry
+Guards</a></p></td>
+<td><p>Fast Peers</p></td>
+</tr>
+<tr class="odd">
+<td><p>Entry Node</p></td>
+<td><p>Inproxy</p></td>
+</tr>
+<tr class="even">
+<td><p>Exit Node</p></td>
+<td><p>Outproxy</p></td>
+</tr>
+<tr class="odd">
+<td><p><a href="Onion_Services">Hidden (Onion)
+Service</a></p></td>
+<td><p>Hidden Service, Eepsite or Destination</p></td>
+</tr>
+<tr class="even">
+<td><p>Hidden Service Descriptor</p></td>
+<td><p>LeaseSet</p></td>
+</tr>
+<tr class="odd">
+<td><p><a href="Onion_Services#Onion_Service_Authentication">Hidden Service 'Stealth Mode'</a></p></td>
+<td><p>I2P Client Whitelist <sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span class="cite-bracket">[</span>5<span class="cite-bracket">]</span></a></sup> or Encrypted LeaseSets
+<sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span class="cite-bracket">[</span>6<span class="cite-bracket">]</span></a></sup> <sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span class="cite-bracket">[</span>7<span class="cite-bracket">]</span></a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p>Introduction Point</p></td>
+<td><p>Inbound Gateway</p></td>
+</tr>
+<tr class="odd">
+<td><p>Node</p></td>
+<td><p>Router</p></td>
+</tr>
+<tr class="even">
+<td><p>Onion Proxy</p></td>
+<td><p>I2PTunnel Client (more or less)</p></td>
+</tr>
+<tr class="odd">
+<td><p>Relay</p></td>
+<td><p>Router</p></td>
+</tr>
+<tr class="even">
+<td><p>Rendezvous Point</p></td>
+<td><p>Similar to Inbound Gateway + Outbound Endpoint</p></td>
+</tr>
+<tr class="odd">
+<td><p>Router Descriptor</p></td>
+<td><p>RouterInfo</p></td>
+</tr>
+<tr class="even">
+<td><p>Server</p></td>
+<td><p>Router</p></td>
+</tr>
+<tr class="odd">
+<td><p>Single Onion Service</p></td>
+<td><p>I2P 0-hop Tunnel <sup id="cite_ref-8" class="reference"><a href="#cite_note-8"><span class="cite-bracket">[</span>8<span class="cite-bracket">]</span></a></sup></p></td>
+</tr>
+</tbody>
+</table>
+<p>The I2P comparison page notes the relative strengths of Tor and I2P;
+those are summarized below.</p>
+<p>Tor's primary strengths are: a larger user base; greater academic
+interest and research; significant funding; a large development team;
+greater resistance to state-level censorship (TLS transport and
+bridges); large number of exit nodes; better memory usage; thorough
+documentation; low client bandwidth overhead; higher throughput and
+lower latency. <sup id="cite_ref-4-2" class="reference"><a href="#cite_note-4"><span class="cite-bracket">[</span>4<span class="cite-bracket">]</span></a></sup></p>
+<p>In comparison, I2P's primary strengths are: optimization for hidden
+services; a fully distributed design; better peer selection; varied and
+untrusted directory servers; peer-to-peer friendly nature; improved load
+balancing and resilience; unidirectional tunnels; <sup id="cite_ref-9" class="reference"><a href="#cite_note-9"><span class="cite-bracket">[</span>9<span class="cite-bracket">]</span></a></sup>
+protection against client activity detection; short-lived tunnels;
+<sup id="cite_ref-10" class="reference"><a href="#cite_note-10"><span class="cite-bracket">[</span>10<span class="cite-bracket">]</span></a></sup> low bandwidth overhead for full peers; TCP and UDP
+transports; and being based on the Java programming language.
+<sup id="cite_ref-4-3" class="reference"><a href="#cite_note-4"><span class="cite-bracket">[</span>4<span class="cite-bracket">]</span></a></sup></p>
+<h1 id="How-to:_Use_I2P_in_Whonix">How-to: Use I2P in Whonix</h1>
+<p>There are two methods of using I2P in Whonix:</p>
+<ol>
+<li><a href="#Inproxies_inside_Whonix-Workstation">Inproxies inside Whonix-Workstation</a>; or</li>
+<li><a href="#I2P_Client_inside_Whonix-Workstation">I2P
+Client inside Whonix-Workstation</a> (recommended)</li>
+</ol>
+<p>The inproxy method is better suited for causal use of I2P. In this
+instance, users just want to anonymously view an Eepsite and are not
+concerned about eavesdroppers so long as anonymity is assured.</p>
+<p>It is safer to use the I2P client inside Whonix, since all I2P
+traffic is tunneled through Tor and access is fully featured. This is a
+little more difficult than installing I2P the ordinary way, that is
+using I2P in the clear, not over Tor.</p>
+<p>Readers who are considering using I2P in Whonix are suggested to
+review the related <a href="https://forums.whonix.org/t/whonix-i2p-documentation/1729">forum
+thread</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/whonix-i2p-documentation/1729" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h2 id="Inproxies_inside_Whonix-Workstation">Inproxies inside
+Whonix-Workstation</h2><span class="share-tooltip" data-anchor="Inproxies_inside_Whonix-Workstation"><a class="headline-anchor" href="#Inproxies_inside_Whonix-Workstation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Inproxies_inside_Whonix-Workstation">https://www.whonix.org/wiki/I2P#Inproxies_inside_Whonix-Workstation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Inproxies_inside_Whonix-Workstation&amp;text=Inproxies%20inside%0AWhonix-Workstation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Inproxies_inside_Whonix-Workstation&amp;text=Inproxies%20inside%0AWhonix-Workstation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Inproxies_inside_Whonix-Workstation&amp;title=Inproxies%20inside%0AWhonix-Workstation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Inproxies%20inside%0AWhonix-Workstation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Inproxies_inside_Whonix-Workstation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Inproxies_inside_Whonix-Workstation]Inproxies inside
+Whonix-Workstation[/url]">[url=https://www.whonix.org/wiki/I2P#Inproxies_inside_Whonix-Workstation]Inproxies inside
+Whonix-Workstation[/url]</span></span></span></span>
+<p>There are several I2P inproxies and they have similar functionality
+to <a href="https://www.tor2web.org/">Tor2web</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.tor2web.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. <sup id="cite_ref-11" class="reference"><a href="#cite_note-11"><span class="cite-bracket">[</span>11<span class="cite-bracket">]</span></a></sup>
+Simply use <a href="Tor_Browser">Tor Browser</a> which
+is installed in Whonix by default to directly access the I2P proxies
+listed.</p>
+<p>Although this is the easiest method, on the downside end-to-end
+encryption is lost when connecting to the eepsites. This is not the case
+when I2P is installed directly inside Whonix-Workstation<sup>&#8482;</sup> or
+if I2P is used in the ordinary way. Further, potentially <a href="Warning#Exit_Relays_can_Eavesdrop_on_Communications">Tor Exit Nodes can Eavesdrop on Communications</a> if
+an inproxy uses plain http, since it is an unencrypted connection. This
+risk is averted if the inproxy uses http<strong>s</strong> or is
+reachable via an onion service. In any case, the I2P inproxy
+administrator <u>can</u> see all of your traffic in the I2P network and
+it is impossible to prevent that.</p>
+<p>Example of I2P inproxy domains might be found in (or might be not if
+removed or down):</p>
+<ul>
+<li><a href="https://mk16.de/">https://mk16.de/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://mk16.de/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://www.awxcnx.de/">https://www.awxcnx.de/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.awxcnx.de/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://web.archive.org/web/20170411140534/https://www.hiddenservice.net/">https://web.archive.org/web/20170411140534/https://www.hiddenservice.net/</a></li>
+</ul>
+<p><span class="manually-placed-anchor " id="I2P_Client_inside_Whonix-Workstation"></span></p>
+<h2 id="I2P_Client_inside_Whonix-Workstation">I2P Client inside
+Whonix-Workstation</h2><span class="share-tooltip" data-anchor="I2P_Client_inside_Whonix-Workstation"><a class="headline-anchor" href="#I2P_Client_inside_Whonix-Workstation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#I2P_Client_inside_Whonix-Workstation">https://www.whonix.org/wiki/I2P#I2P_Client_inside_Whonix-Workstation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P_Client_inside_Whonix-Workstation&amp;text=I2P%20Client%20inside%0AWhonix-Workstation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P_Client_inside_Whonix-Workstation&amp;text=I2P%20Client%20inside%0AWhonix-Workstation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P_Client_inside_Whonix-Workstation&amp;title=I2P%20Client%20inside%0AWhonix-Workstation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=I2P%20Client%20inside%0AWhonix-Workstation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P_Client_inside_Whonix-Workstation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#I2P_Client_inside_Whonix-Workstation]I2P Client inside
+Whonix-Workstation[/url]">[url=https://www.whonix.org/wiki/I2P#I2P_Client_inside_Whonix-Workstation]I2P Client inside
+Whonix-Workstation[/url]</span></span></span></span>
+<p><span class="manually-placed-anchor " id="Connecting_to_Tor_before_I2P"></span></p>
+<h3 id="Introduction_2">Introduction</h3><span class="share-tooltip" data-anchor="Introduction_2"><a class="headline-anchor" href="#Introduction_2" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Introduction_2">https://www.whonix.org/wiki/I2P#Introduction_2</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Introduction_2&amp;text=Introduction" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Introduction_2&amp;text=Introduction" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Introduction_2&amp;title=Introduction" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Introduction&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Introduction_2" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Introduction_2]Introduction[/url]">[url=https://www.whonix.org/wiki/I2P#Introduction_2]Introduction[/url]</span></span></span></span>
+<p>The preferred configuration is to connect to Tor before I2P inside
+Whonix-Workstation: <code>user</code> &#8594; <code>Tor</code> &#8594;
+<code>I2P</code> &#8594; <code>Internet</code></p>
+<p>Before configuring this tunnel link, it is recommended to read the
+following related wiki entries for general educational purposes on
+tunnel links. There is no need to apply any instructions from these wiki
+entries.</p>
+<ul>
+<li><a href="Tunnels/Introduction">Combining Tunnels
+with Tor</a></li>
+<li><a href="Tunnels/Connecting_to_Tor_before_a_proxy">Connecting to Tor before a Proxy</a></li>
+</ul>
+<h3 id="Post-Tor_I2P_Tunnel_Effects">Post-Tor I2P Tunnel Effects</h3><span class="share-tooltip" data-anchor="Post-Tor_I2P_Tunnel_Effects"><a class="headline-anchor" href="#Post-Tor_I2P_Tunnel_Effects" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Post-Tor_I2P_Tunnel_Effects">https://www.whonix.org/wiki/I2P#Post-Tor_I2P_Tunnel_Effects</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Post-Tor_I2P_Tunnel_Effects&amp;text=Post-Tor%20I2P%20Tunnel%20Effects" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Post-Tor_I2P_Tunnel_Effects&amp;text=Post-Tor%20I2P%20Tunnel%20Effects" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Post-Tor_I2P_Tunnel_Effects&amp;title=Post-Tor%20I2P%20Tunnel%20Effects" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Post-Tor%20I2P%20Tunnel%20Effects&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Post-Tor_I2P_Tunnel_Effects" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Post-Tor_I2P_Tunnel_Effects]Post-Tor I2P Tunnel Effects[/url]">[url=https://www.whonix.org/wiki/I2P#Post-Tor_I2P_Tunnel_Effects]Post-Tor I2P Tunnel Effects[/url]</span></span></span></span>
+<table>
+<caption><em>Post-Tor I2P Connections</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Domain</strong></p></th>
+<th><p><strong>Information</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Advantages</p></td>
+<td><ul>
+<li>Anonymity is provided by Tor.<br />
+</li>
+<li>The <a href="http://127.0.0.1:7657/confignet">I2P router console</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:7657/confignet" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+works normally inside Tor Browser. There is no need to install a
+graphical user interface on Whonix-Gateway<sup>&#8482;</sup>.<br />
+</li>
+<li>Eepsites (.i2p) can be reached directly from Tor Browser.<br />
+</li>
+<li>I2P's end-to-end encryption will be used as usual.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Disadvantages</p></td>
+<td><ul>
+<li>Adds load to Tor.<br />
+</li>
+<li>Adds load to I2P.<br />
+</li>
+<li>This is slower than using I2P directly on Whonix-Gateway or the
+ordinary configuration.<br />
+</li>
+<li>No contributions are provided to the I2P network ('leeching').
+<sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span class="cite-bracket">[</span>12<span class="cite-bracket">]</span></a></sup></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Warning: No Stream-isolation Support</p></td>
+<td><ul>
+<li>I2P does not have stream isolation support which means that visits
+to Eepsites are linkable and fingerprintable -- each request includes
+the same X-I2P-Dest* headers, which are unique to each user. This might
+be true for outproxy requests as well.<br />
+</li>
+<li>If you access <code>site1.i2p</code> followed by
+<code>site2.i2p</code>, <code>site3.i2p</code> and so on, each one of
+those operators will see the exact same X-I2P-Dest* values. This means
+if they are colluding, they will know that the same person accessed all
+of them.<br />
+</li>
+<li>I2P operators can build a more detailed profile the longer I2P is
+left running. The X-I2P-Dest* values only change upon restart of the I2P
+instance or when the HTTP Proxy tunnel is stopped/started. I2P does not
+have a fix for this at present, <sup id="cite_ref-13" class="reference"><a href="#cite_note-13"><span class="cite-bracket">[</span>13<span class="cite-bracket">]</span></a></sup> however an
+experimental plugin is being written to provide a stream-isolating
+mechanism for http-over-I2P, see: <a href="https://github.com/eyedeekay/eeProxy">eeProxy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/eyedeekay/eeProxy" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Installation_and_Setup">Installation and Setup</h3><span class="share-tooltip" data-anchor="Installation_and_Setup"><a class="headline-anchor" href="#Installation_and_Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Installation_and_Setup">https://www.whonix.org/wiki/I2P#Installation_and_Setup</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Installation_and_Setup&amp;text=Installation%20and%20Setup" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Installation_and_Setup&amp;text=Installation%20and%20Setup" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Installation_and_Setup&amp;title=Installation%20and%20Setup" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Installation%20and%20Setup&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Installation_and_Setup" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Installation_and_Setup]Installation and Setup[/url]">[url=https://www.whonix.org/wiki/I2P#Installation_and_Setup]Installation and Setup[/url]</span></span></span></span>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" height="40" alt="Info" /></span>
+<u>Note</u>:</p>
+<ul>
+<li>When following these instructions, the <a href="about:config"><code>about:config</code></a> changes in Tor Browser
+worsen the <a href="Data_Collection_Techniques#Browser_Fingerprinting">browser fingerprint</a>. This is unavoidable if the
+user intents to use I2P. The modified Tor Browser should only be used
+for I2P purposes.
+<ul>
+<li>In <a href="Qubes">Qubes-Whonix<sup>&#8482;</sup></a>, a
+separate <code>anon-whonix-I2P</code> App Qubes is recommended.</li>
+</ul></li>
+</ul>
+</div>
+<div class="robots-nocontent" data-nosnippet="">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="warning" /></span>
+<strong>Security Warning</strong>: Adding a third-party repository
+and/or installing third-party software allows the vendor to replace any
+software on your system, including but not limited to the installation
+of <a href="Moved:Malware_and_Firmware_Trojans">malware</a>, file deletion, and
+data harvesting. Proceed at your own risk! See also <a href="Install_Software#Foreign_Sources">Foreign
+Sources</a> for further information. For greater safety, users adding
+third-party repositories should always use <a href="Multiple_Whonix-Workstation">Multiple
+Whonix-Workstation<sup>&#8482;</sup></a> to compartmentalize VMs with
+additional software.</p>
+</div>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" height="40" alt="Whonix default admin password is: changeme" /></span>
+Documentation in the Whonix wiki provides guidance on adding third-party
+software from various upstream repositories. This is especially useful
+since upstream often includes generic instructions for different Linux
+distributions, which may be complex for users to follow. Additionally,
+documentation in Whonix usually places a higher emphasis on security and
+verifying digital software signatures.</p>
+<p>The instructions provided here serve as a "translation layer" from
+upstream documentation to Whonix, offering assistance in most scenarios.
+Nevertheless, it's important to recognize that upstream repositories and
+software may change over time. Consequently, the documentation on this
+wiki might require occasional updates, such as revised signing key
+fingerprints, to remain current and accurate.</p>
+<p>Please note, this is a general wiki template and may not apply to all
+upstream documentation scenarios.</p>
+<p>Users encountering issues, such as signing key problems, are advised
+to follow the <a href="Self_Support_First_Policy">Self
+Support First Policy</a> and engage in <a href="Reporting_Bugs#Generic_Bug_Reproduction">Generic
+Bug Reproduction</a>. This involves attempting to replicate the issue on
+Debian <code>trixie</code>, and contacting upstream directly if the
+issue can be reproduced, as such problems are likely <a href="Unspecific">unspecific to Whonix</a>. In most
+cases, Whonix is not responsible for, nor capable of resolving, issues
+stemming from third-party software.</p>
+<p>For further information, refer to <a href="Introduction#User_Expectations_-_What_Documentation_Is_and_What_It_Is_Not">Introduction, User Expectations - What Documentation Is
+and What It Is Not</a>.</p>
+<p>Should the user encounter bugs related to third-party software, it is
+advisable to report these issues to the respective upstream projects.
+Additionally, users are encouraged to share links to upstream bug
+reports in the Whonix forums and/or make edits to this wiki page. For
+example, if there are outdated links or key fingerprints that need
+updating, please feel free to make the necessary changes. Contributions
+aimed at maintaining the accuracy and currency of information are highly
+valued. These updates not only improve the quality of the wiki but also
+serve as a useful resource for other users.</p>
+<p><a href="Contribute#Documentation">The Whonix wiki
+is an open platform where everyone is welcome to contribute improvements
+and edits, with or without an account.</a> Edits to this wiki are
+subject to moderation, so contributors should not worry about making
+mistakes. Your edits will be reviewed before being made public, ensuring
+the integrity and accuracy of the information provided.</p>
+</div>
+</div>
+<p><strong>1.</strong> Add the I2P signing key.</p>
+<p>(<a href="Qubes">Qubes-Whonix</a>:
+<code>whonix-workstation-18-clone-1</code> Template).</p>
+<div class="info-box ">
+<p><a href="https://www.kicksecure.com/wiki/Secure_Downloads/">Securely download</a> the
+key.</p>
+<div class="info-box ">
+<p><u><strong>If</strong> you are using
+Whonix-Workstation<sup>&#8482;</sup></u> (<code>anon-whonix</code>), run.</p>
+<p><span class="code-select" data-code="scurl-download --tlsv1.2 https://geti2p.net/_static/i2p-archive-keyring.gpg">scurl-download
+--tlsv1.2 <a href="https://geti2p.net/_static/i2p-archive-keyring.gpg">https://geti2p.net/_static/i2p-archive-keyring.gpg</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/_static/i2p-archive-keyring.gpg" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><u><strong>If</strong> you are using a Qubes Template</u>
+(<code>whonix-workstation-18</code>), run. <sup id="cite_ref-14" class="reference"><a href="#cite_note-14"><span class="cite-bracket">[</span>14<span class="cite-bracket">]</span></a></sup>
+<sup id="cite_ref-15" class="reference"><a href="#cite_note-15"><span class="cite-bracket">[</span>15<span class="cite-bracket">]</span></a></sup></p>
+<p><span class="code-select" data-code="http_proxy=http://127.0.0.1:8082 https_proxy=http://127.0.0.1:8082 scurl-download --tlsv1.2 https://geti2p.net/_static/i2p-archive-keyring.gpg">http_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> https_proxy=<a href="http://127.0.0.1:8082">http://127.0.0.1:8082</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> scurl-download
+--tlsv1.2 <a href="https://geti2p.net/_static/i2p-archive-keyring.gpg">https://geti2p.net/_static/i2p-archive-keyring.gpg</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/_static/i2p-archive-keyring.gpg" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+</div>
+<p>Display the key's fingerprint. <sup id="cite_ref-16" class="reference"><a href="#cite_note-16"><span class="cite-bracket">[</span>16<span class="cite-bracket">]</span></a></sup></p>
+<p><span class="code-select" data-code="gpg --keyid-format long --import --import-options show-only --with-fingerprint i2p-archive-keyring.gpg">gpg
+--keyid-format long --import --import-options show-only
+--with-fingerprint i2p-archive-keyring.gpg</span></p>
+<p>Verify the output.</p>
+<p><ul class="icon-bullet-list ibl-fs-17"><li><i class="fa-solid fa-key cs-green"></i><span><b>Digital signatures</b> are a tool enhancing download security.
+They are commonly used across the internet and nothing special to worry
+about.</span></li><li><i class="fa-solid fa-toggle-off cs-green"></i><span><b>Optional, not required:</b> Digital signatures are optional and
+not mandatory for using Whonix, but an extra security measure for <a href="Advanced_Users">advanced users</a>. If you've
+never used them before, it might be overwhelming to look into them at
+this stage. Just ignore them for now.</span></li><li><i class="fa-solid fa-lightbulb"></i><span><b>Learn more:</b> Curious? If you are interested in becoming more
+familiar with advanced computer security concepts, you can learn more
+about digital signatures here: <a href="https://www.kicksecure.com/wiki/Verifying_Software_Signatures/">Verifying Software Signatures</a></span></li></ul></p>
+<p>The most important check is confirming the key fingerprint
+<u>exactly</u> matches the output below. <sup id="cite_ref-17" class="reference"><a href="#cite_note-17"><span class="cite-bracket">[</span>17<span class="cite-bracket">]</span></a></sup></p>
+<p><blockquote><p>7840 E761 0F28 B904 7535 49D7 67EC E560 5BCF 1346</p></blockquote></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong></p>
+<p>Do not continue if the fingerprint does not match -- this risks using
+infected or erroneous files! The whole point of verification is to
+confirm file integrity.</p>
+</div>
+<p>Copy the signing key to the APT keyring folder.
+<sup id="cite_ref-18" class="reference"><a href="#cite_note-18"><span class="cite-bracket">[</span>18<span class="cite-bracket">]</span></a></sup></p>
+<p><span class="code-select" data-code="sudo cp i2p-archive-keyring.gpg /usr/share/keyrings/i2p-archive-keyring.gpg">sudo
+cp i2p-archive-keyring.gpg
+/usr/share/keyrings/i2p-archive-keyring.gpg</span></p>
+</div>
+<p><strong>2.</strong> Add the I2P APT repository.</p>
+<p>(<a href="Qubes">Qubes-Whonix</a>:
+<code>whonix-workstation-18-clone-1</code> Template).</p>
+<p><span class="code-select" data-code="echo &quot;Types: deb
+URIs: tor+https://deb.i2p.net/
+Suites: $(lsb_release -sc)
+Components: main
+Enabled: yes
+Signed-By: /usr/share/keyrings/i2p-archive-keyring.gpg&quot; | sudo tee /etc/apt/sources.list.d/i2p.sources">echo
+"Types: deb URIs: tor+https://deb.i2p.net/ Suites: $(lsb_release -sc)
+Components: main Enabled: yes Signed-By:
+/usr/share/keyrings/i2p-archive-keyring.gpg" | sudo tee
+/etc/apt/sources.list.d/i2p.sources</span></p>
+<p><strong>3.</strong> I2P installation.</p>
+<p>(<a href="Qubes">Qubes-Whonix</a>:
+<code>whonix-workstation-18-clone-1</code> Template).</p>
+<div class="info-box ">
+<p>Install package(s) <code>i2p i2p-keyring</code> following these
+instructions:</p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Platform specific notice.</p>
+<ul>
+<li><a href="Non-Qubes-Whonix">Non-Qubes-Whonix</a>: No
+special notice.</li>
+<li><a href="Qubes">Qubes-Whonix</a>: In
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Update the package lists and upgrade the system.</p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt full-upgrade">sudo
+apt update &amp;&amp; sudo apt full-upgrade</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Install the <code>i2p i2p-keyring</code> package(s).</p>
+<p>Using <code>apt</code> command line
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+&lt;code&gt;--no-install-recommends&lt;/code&gt; option is in most cases
+optional.</p>
+<p><span class="code-select" data-code="sudo apt install --no-install-recommends i2p i2p-keyring">sudo
+apt install --no-install-recommends i2p i2p-keyring</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Platform specific notice.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notice.</li>
+<li>Qubes-Whonix: Shut down Template and restart App Qubes based on it
+as per
+<img src="../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Qubes Template Modification.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">5</i>
+Done.</p>
+<p>The procedure of installing package(s) <code>i2p i2p-keyring</code>
+is complete.</p>
+</div>
+<p><strong>4.</strong> Platform specific notices.</p>
+<ul>
+<li>Non-Qubes-Whonix: No special notices.</li>
+<li>Qubes-Whonix: Shutdown <code>whonix-workstation-18-clone-1</code>
+Template.</li>
+</ul>
+<p><strong>5.</strong> Create <code>anon-whonix-I2P</code> based on
+<code>whonix-workstation-18-clone-1</code> Template and Configure <a href="Tor_Browser">Tor Browser</a> in
+<code>anon-whonix-I2P</code> App Qube to allow connections to I2P by
+following the instructions below.</p>
+<div class="info-box ">
+<p><u>Note</u>: The following steps will no longer be required once
+Whonix releases a custom Tor Browser for connecting to alternative
+networks. <sup id="cite_ref-19" class="reference"><a href="#cite_note-19"><span class="cite-bracket">[</span>19<span class="cite-bracket">]</span></a></sup></p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong></p>
+<ul>
+<li>This step changes the <a href="Fingerprint#web_fingerprint">web fingerprint</a> of Tor Browser!</li>
+<li>Onion services <a href="https://forums.whonix.org/t/i2p-integration/4981/369">wont connect
+to Tor within Whonix</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/i2p-integration/4981/369" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li>Leave all other settings as is!</li>
+</ul>
+</div>
+<p><strong>A.</strong> Tor Browser &#8594; URL bar &#8594; Type:
+<span class="code-select" data-code="about:config"><a href="about:config">about:config</a></span> &#8594; Press
+<code>Enter</code></p>
+<p><strong>B.</strong> Search for and modify:
+<span class="code-select" data-code="extensions.torbutton.use_nontor_proxy">extensions.torbutton.use_nontor_proxy</span>
+&#8594; set to <code>true</code></p>
+<p><strong>C.</strong> Search for and modify:
+<span class="code-select" data-code="network.proxy.http">network.proxy.http</span>
+&#8594; set to
+<span class="code-select" data-code="127.0.0.1">127.0.0.1</span></p>
+<p><strong>D.</strong> Search for and modify:
+<span class="code-select" data-code="network.proxy.http_port">network.proxy.http_port</span>
+&#8594; set to <span class="code-select" data-code="4444">4444</span></p>
+<p><strong>E.</strong> Search for and modify:
+<span class="code-select" data-code="network.proxy.no_proxies_on">network.proxy.no_proxies_on</span>
+&#8594; set to
+<span class="code-select" data-code="127.0.0.1">127.0.0.1</span></p>
+<p><strong>F.</strong> Search for and modify:
+<span class="code-select" data-code="dom.security.https_first_pbm">dom.security.https_first_pbm</span>
+&#8594; set to <code>false</code></p>
+<p><strong>G.</strong> Search for and modify:
+<span class="code-select" data-code="dom.security.https_only_mode">dom.security.https_only_mode</span>
+&#8594; set to <code>false</code></p>
+<p><strong>H.</strong> Search for and modify:
+<span class="code-select" data-code="dom.security.https_only_mode_pbm">dom.security.https_only_mode_pbm</span>
+&#8594; set to <code>false</code></p>
+</div>
+<p><strong>6.</strong> Done.</p>
+<p>The process of installing I2P has been completed.</p>
+<h3 id="Steps_for_I2P_Configuration_and_Usage_After_Installation">Steps
+for I2P Configuration and Usage After Installation</h3><span class="share-tooltip" data-anchor="Steps_for_I2P_Configuration_and_Usage_After_Installation"><a class="headline-anchor" href="#Steps_for_I2P_Configuration_and_Usage_After_Installation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Steps_for_I2P_Configuration_and_Usage_After_Installation">https://www.whonix.org/wiki/I2P#Steps_for_I2P_Configuration_and_Usage_After_Installation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Steps_for_I2P_Configuration_and_Usage_After_Installation&amp;text=Steps%0Afor%20I2P%20Configuration%20and%20Usage%20After%20Installation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Steps_for_I2P_Configuration_and_Usage_After_Installation&amp;text=Steps%0Afor%20I2P%20Configuration%20and%20Usage%20After%20Installation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Steps_for_I2P_Configuration_and_Usage_After_Installation&amp;title=Steps%0Afor%20I2P%20Configuration%20and%20Usage%20After%20Installation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Steps%0Afor%20I2P%20Configuration%20and%20Usage%20After%20Installation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Steps_for_I2P_Configuration_and_Usage_After_Installation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Steps_for_I2P_Configuration_and_Usage_After_Installation]Steps
+for I2P Configuration and Usage After Installation[/url]">[url=https://www.whonix.org/wiki/I2P#Steps_for_I2P_Configuration_and_Usage_After_Installation]Steps
+for I2P Configuration and Usage After Installation[/url]</span></span></span></span>
+<p>1. Open QTerminal in <code>anon-whonix-I2P</code> App Qube</p>
+<p>2. Start I2P</p>
+<p><span class="code-select" data-code="i2prouter start">i2prouter
+start</span></p>
+<p><img src="../media/I2p.png.webp" width="400" height="134" alt="i2p.png" /></p>
+<p>3. A popup going to ask you to open <a href="http://127.0.0.1:7657">I2P Console</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:7657" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> in Tor Browser, Press on
+Yes</p>
+<p><img src="../media/I2p1.png.webp" width="400" height="170" alt="i2p1.png" /></p>
+<p>4. A setup wizard will show up. Complete it and then proceed to the
+I2P Console.</p>
+<p>5. Go to Settings by either going to <a href="http://127.0.0.1:7657/config">I2P Console config</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:7657/config" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p><img src="../media/I2p2.png.webp" width="480" height="130" alt="i2p2.png" /></p>
+<p><strong>OR</strong></p>
+<p>Press on <code>Settings</code></p>
+<p><img src="../media/I2p2s.png.webp" width="400" height="340" alt="i2p2s.png" /></p>
+<p>6. Press on <code>Network</code></p>
+<p><img src="../media/I2p3.png.webp" width="480" height="112" alt="i2p3.png" /></p>
+<p>7. Change the network settings according to the images below (click
+on <code>Save Changes</code> once you finished)</p>
+<p><img src="../media/I2p4.png.webp" width="450" height="349" alt="i2p4.png" /></p>
+<p><img src="../media/I2p5.png.webp" width="450" height="342" alt="i2p5.png" /></p>
+<p>8. Go to <code>Reseeding</code></p>
+<p><img src="../media/I2p6.png.webp" width="480" height="115" alt="i2p6.png" /></p>
+<p>9. Change the reseeding settings according to the image below (click
+on <code>Save Changes</code> once you have finished)</p>
+<p><img src="../media/I2p7.png.webp" width="450" height="286" alt="i2p7.png" /></p>
+<p>10. It is preferable to restart I2P from the Qterminal using the
+following command</p>
+<p><span class="code-select" data-code="i2prouter restart">i2prouter
+restart</span></p>
+<p>11. Done! Now you can browse eepsites with I2P and access clearnet
+websites connected directly to Tor separately.</p>
+<h3 id="Notes">Notes</h3><span class="share-tooltip" data-anchor="Notes"><a class="headline-anchor" href="#Notes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Notes">https://www.whonix.org/wiki/I2P#Notes</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Notes&amp;text=Notes" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Notes&amp;text=Notes" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Notes&amp;title=Notes" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Notes&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Notes" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Notes]Notes[/url]">[url=https://www.whonix.org/wiki/I2P#Notes]Notes[/url]</span></span></span></span>
+<ul>
+<li><u>Known Error Messages:</u> If errors appear like: "Network:
+ERR-UDP Disabled and Inbound TCP host/port not set" or "ERR-Clock Skew
+of X min" or "WARN [Timestamper] .router.time.RouterTimestamper: Unable
+to reach any of the NTP servers ...", they can be safely ignored.</li>
+<li><u>Network Bootstrap Waiting Time:</u> Once the Local Tunnels
+(shared clients) section shows a green connection, I2P should be fully
+functional and it is possible to browse eepsites like <a href="http://idk.i2p"><code>http://idk.i2p</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://idk.i2p" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Some users report
+this process can be sorta lengthy and can take more than 10 minutes
+before the tunnels are stable/available.</li>
+<li><u>I2P over Tor viewpoint by I2P upstream developers:</u> I2P is
+functional over Tor but user should be aware that I2P developers do not
+really support it nor recommending it to be used over Tor. Just because
+it is functional does not mean it is supported. In other words I2P
+upstream developers will not change any I2P behavior just for the sake
+of connectivity issues of I2P over Tor because I2P is not designed to be
+running over Tor.</li>
+<li><u>Whonix pre-configuration:</u> settings for I2P (because its over
+Tor) can be viewed here: <a href="https://github.com/Whonix/anon-apps-config/tree/master/var/lib/i2p/i2p-config">https://github.com/Whonix/anon-apps-config/tree/master/var/lib/i2p/i2p-config</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-apps-config/tree/master/var/lib/i2p/i2p-config" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><u>Broken Onion Services:</u> Setting
+<code>network.proxy.http</code> &#8594; set to <code>127.0.0.1</code> will
+break the connection to onion. services. Read more <a href="https://forums.whonix.org/t/i2p-integration/4981/347">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/i2p-integration/4981/347" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
+There is no known way to avoid this issue.</li>
+</ul>
+<h2 id="I2P_Eepsites_(I2P_websites)"><span id="I2P_Eepsites_.28I2P_websites.29"></span>I2P Eepsites (I2P websites)</h2><span class="share-tooltip" data-anchor="I2P_Eepsites_(I2P_websites)"><a class="headline-anchor" href="#I2P_Eepsites_(I2P_websites)" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#I2P_Eepsites_(I2P_websites)">https://www.whonix.org/wiki/I2P#I2P_Eepsites_(I2P_websites)</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P_Eepsites_%28I2P_websites%29&amp;text=I2P%20Eepsites%20%28I2P%20websites%29" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P_Eepsites_%28I2P_websites%29&amp;text=I2P%20Eepsites%20%28I2P%20websites%29" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P_Eepsites_%28I2P_websites%29&amp;title=I2P%20Eepsites%20%28I2P%20websites%29" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=I2P%20Eepsites%20%28I2P%20websites%29&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P_Eepsites_%28I2P_websites%29" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#I2P_Eepsites_(I2P_websites)]I2P Eepsites (I2P websites)[/url]">[url=https://www.whonix.org/wiki/I2P#I2P_Eepsites_(I2P_websites)]I2P Eepsites (I2P websites)[/url]</span></span></span></span>
+<ul>
+<li>Eepsites (I2P services) lists:
+<ul>
+<li><a href="http://stormycloud.i2p">http://stormycloud.i2p</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://stormycloud.i2p" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="http://notbob.i2p">http://notbob.i2p</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://notbob.i2p" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="http://bote.i2p">http://bote.i2p</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://bote.i2p" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="http://inr.i2p">http://inr.i2p</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://inr.i2p" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="http://planet.i2p">http://planet.i2p</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://planet.i2p" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="http://natter.i2p">http://natter.i2p</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://natter.i2p" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+</ul></li>
+</ul>
+<p><strong>Figure:</strong> <em>I2P Browsing in Whonix</em></p>
+<p><img src="../media/I2Pbrowsing.png.webp" alt="I2Pbrowsing.png" /></p>
+<h1 id="Services">Services</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Ambox_warning_pn.svg.png" /></span>
+The <a href="https://geti2p.net/en/about/software">I2P supported
+applications webpage</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/about/software" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> warns that no guarantee can be provided about
+the safety of compatible applications, plugins and services -- they must
+be properly configured and might jeopardize anonymity due to design
+faults or carelessness. Carefully vet these tools and research them
+diligently beforehand.</p>
+</div>
+<p>Many interesting features and functionality are implemented for I2P
+in the form of stand-alone packages or plugins that can be optionally
+installed from their <a href="http://echelon.i2p">official plugin
+eepsite</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://echelon.i2p" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. Various tools are available for:</p>
+<div>
+<ul>
+<li>blogging, forums and wikis</li>
+<li>decentralized file storage</li>
+<li>development tools</li>
+<li>domain naming</li>
+<li>email</li>
+<li>file sharing</li>
+<li>network administration</li>
+<li>real-time chat</li>
+<li>web browsing</li>
+<li>website hosting</li>
+</ul>
+</div>
+<p>The instructions are simple to follow. The signing keys for these
+plugins are already built into the official I2P package and so are
+already white-listed. This is not a complete list.</p>
+<p>For documentation about default port numbers of I2P plugins, see <a href="https://geti2p.net/en/docs/ports">this page</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/docs/ports" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h2 id="IRC">IRC</h2><span class="share-tooltip" data-anchor="IRC"><a class="headline-anchor" href="#IRC" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#IRC">https://www.whonix.org/wiki/I2P#IRC</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23IRC&amp;text=IRC" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23IRC&amp;text=IRC" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23IRC&amp;title=IRC" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=IRC&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23IRC" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#IRC]IRC[/url]">[url=https://www.whonix.org/wiki/I2P#IRC]IRC[/url]</span></span></span></span>
+<p>I2P has ready irc tunnel to be used and connect to their official irc
+servers go to:</p>
+<p><a href="http://127.0.0.1:7657/help#faq">http://127.0.0.1:7657/help#faq</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:7657/help#faq" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<p>If you scroll down you will find:</p>
+<p><blockquote><p>How do I connect to IRC within I2P?</p>
+<p>A tunnel to the main IRC server network within I2P, Irc2P, is
+automatically started when the I2P router starts. To connect to it, tell
+your IRC client to connect to server: 127.0.0.1 port: 6668.</p>
+<p>HexChat-like client users can create a new network with the server
+127.0.0.1/6668, or you can connect with the command /server 127.0.0.1
+6668. Different IRC clients may require a different command, consult the
+client documentation.</p></blockquote></p>
+<p><strong>Practical practice:</strong></p>
+<ul>
+<li>Hexchat inside whonix need specific small tweak:
+<ul>
+<li>Go to Settings &#8594; Preferences</li>
+<li>Then Network setup &#8594; Proxy Server then follow the image instruction
+then press ok</li>
+</ul></li>
+</ul>
+<p><img src="../media/HexchatI2P1.png.webp" width="400" height="250" alt="HexchatI2P1.png" /></p>
+<p><img src="../media/HexchatI2P2.png.webp" width="400" height="311" alt="HexchatI2P2.png" /></p>
+<ul>
+<li>Back to hexchat press on Hexchat &#8594; Network list</li>
+</ul>
+<p><img src="../media/HexchatI2P3.png.webp" width="400" height="250" alt="HexchatI2P3.png" /></p>
+<ul>
+<li>Press on Add button and name it anything you like e.g I2P then hit
+Enter</li>
+</ul>
+<p><img src="../media/HexchatI2P4.png.webp" width="400" height="457" alt="HexchatI2P4.png" /></p>
+<ul>
+<li>Press on I2P then press on Edit... button</li>
+</ul>
+<p><img src="../media/HexchatI2P5.png.webp" width="400" height="460" alt="HexchatI2P5.png" /></p>
+<ul>
+<li>Double click the top field to change it or press on it then press on
+Edit button then change the value to <code>127.0.0.1/6668</code> then
+hit Enter and press on close</li>
+</ul>
+<p><img src="../media/HexchatI2P6.png.webp" width="400" height="463" alt="HexchatI2P6.png" /></p>
+<ul>
+<li>Make sure I2P is the one highlighted then press on Connect
+button</li>
+</ul>
+<p><img src="../media/HexchatI2P7.png.webp" width="400" height="457" alt="HexchatI2P7.png" /></p>
+<ul>
+<li>Wait for couple of minutes then here you go</li>
+</ul>
+<p><img src="../media/HexchatI2P8.png.webp" width="400" height="249" alt="HexchatI2P8.png" /></p>
+<h2 id="I2P-Bote">I2P-Bote</h2><span class="share-tooltip" data-anchor="I2P-Bote"><a class="headline-anchor" href="#I2P-Bote" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#I2P-Bote">https://www.whonix.org/wiki/I2P#I2P-Bote</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P-Bote&amp;text=I2P-Bote" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P-Bote&amp;text=I2P-Bote" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P-Bote&amp;title=I2P-Bote" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=I2P-Bote&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23I2P-Bote" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#I2P-Bote]I2P-Bote[/url]">[url=https://www.whonix.org/wiki/I2P#I2P-Bote]I2P-Bote[/url]</span></span></span></span>
+<p><a href="https://github.com/i2p/i2p.i2p-bote">I2P-Bote</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/i2p/i2p.i2p-bote" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is a
+serverless, encrypted email plugin that uses <a class="mw-selflink selflink" aria-current="page">I2P</a> for anonymity. Messages are stored in the <a href="https://en.wikipedia.org/wiki/Distributed_hash_table">distributed
+hash table (DHT)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Distributed_hash_table" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> for 100 days, during which the recipient is able to
+download them.</p>
+<p>To back up I2P-Bote data, copy the i2pbote folder inside the I2P
+config directory. On Unix systems the relevant directory is
+<em>~/.i2p/i2pbote</em>, or <em>/var/lib/i2p/i2p-config</em> if running
+it as a daemon.</p>
+<p>Compartmentalize activities and only use the I2P-Bote/Susimail VM
+snapshot for this purpose. Generally speaking, applications that run
+with a browser interface are vulnerable to a whole class of bugs,
+including <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">cross-site
+request forgery (CSRF)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Cross-site_request_forgery" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. <sup id="cite_ref-20" class="reference"><a href="#cite_note-20"><span class="cite-bracket">[</span>20<span class="cite-bracket">]</span></a></sup></p>
+<h3 id="Features">Features</h3><span class="share-tooltip" data-anchor="Features"><a class="headline-anchor" href="#Features" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Features">https://www.whonix.org/wiki/I2P#Features</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Features&amp;text=Features" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Features&amp;text=Features" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Features&amp;title=Features" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Features&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Features" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Features]Features[/url]">[url=https://www.whonix.org/wiki/I2P#Features]Features[/url]</span></span></span></span>
+<div>
+<ul>
+<li>themeable webmail interface</li>
+<li>user interface translated into many languages</li>
+<li>one-click creation of email accounts (called email identities)</li>
+<li>emails can be sent under a sender identity, or anonymously</li>
+<li>ElGamal, Elliptic Curve, and NTRU encryption</li>
+<li>encryption and signing is transparent, without the need to know
+about PGP</li>
+<li>delivery confirmation</li>
+<li>basic support for short recipient names</li>
+<li>IMAP / SMTP</li>
+</ul>
+</div>
+<p><span class="manually-placed-anchor " id="I2PBOX"></span></p>
+<h2 id="RetroShare">RetroShare</h2><span class="share-tooltip" data-anchor="RetroShare"><a class="headline-anchor" href="#RetroShare" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#RetroShare">https://www.whonix.org/wiki/I2P#RetroShare</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23RetroShare&amp;text=RetroShare" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23RetroShare&amp;text=RetroShare" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23RetroShare&amp;title=RetroShare" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=RetroShare&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23RetroShare" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#RetroShare]RetroShare[/url]">[url=https://www.whonix.org/wiki/I2P#RetroShare]RetroShare[/url]</span></span></span></span>
+<p><a href="RetroShare">RetroShare</a> is a <a href="https://en.wikipedia.org/wiki/Friend-to-friend">friend-to-friend</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Friend-to-friend" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+(F2F) network that enables end-to-end encrypted communications,
+including general messaging, mail, forums, publish-subscribe messaging
+('pubsub'), file exchange and even telephony. It can be used as an
+alternative to <a href="#Syndie">Syndie</a> (see
+further below) and can be tunneled through I2P for enhanced
+anonymity.</p>
+<p>Follow the steps in this <a href="https://blog.kalrong.net/en/2016/09/23/retroshare-over-i2p/">guide</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://blog.kalrong.net/en/2016/09/23/retroshare-over-i2p/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+to connect to others over I2P. Also see: <a href="https://retroshare.readthedocs.io/en/latest/tutorial/i2p-hidden-rs-node/">I2P
+Hidden RetroShare Nodes</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://retroshare.readthedocs.io/en/latest/tutorial/i2p-hidden-rs-node/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<p><span class="manually-placed-anchor " id="Installing_I2P_on_Whonix-Gateway_(I2PBOX)"></span></p>
+<p>To install RetroShare, see: <a href="RetroShare#Installation">Installation</a>.</p>
+<h2 id="Syncthing">Syncthing</h2><span class="share-tooltip" data-anchor="Syncthing"><a class="headline-anchor" href="#Syncthing" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Syncthing">https://www.whonix.org/wiki/I2P#Syncthing</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Syncthing&amp;text=Syncthing" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Syncthing&amp;text=Syncthing" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Syncthing&amp;title=Syncthing" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Syncthing&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Syncthing" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Syncthing]Syncthing[/url]">[url=https://www.whonix.org/wiki/I2P#Syncthing]Syncthing[/url]</span></span></span></span>
+<p><a href="https://syncthing.net/">Syncthing</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://syncthing.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is a popular libre
+software for file syncing based on the bittorrent protocol.
+<sup id="cite_ref-21" class="reference"><a href="#cite_note-21"><span class="cite-bracket">[</span>21<span class="cite-bracket">]</span></a></sup> Syncthing provides several benefits:
+<sup id="cite_ref-22" class="reference"><a href="#cite_note-22"><span class="cite-bracket">[</span>22<span class="cite-bracket">]</span></a></sup></p>
+<ul>
+<li>cross-platform availability</li>
+<li>data is not stored on a central server, but only on your
+computer(s)</li>
+<li>all communication is secured with TLS and <a href="https://www.perfectforwardsecrecy.com/">perfect forward
+secrecy</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.perfectforwardsecrecy.com/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li>every node is identified by a strong cryptographic certificate</li>
+<li>a completely open protocol -- open source, open development and open
+discourse</li>
+<li>portable and simple to use Web GUI</li>
+</ul>
+<p>It is possible to tunnel Syncthing traffic over I2P as shown in <a href="https://web.archive.org/web/20171008035012/https://barry.im/post/2017/10/6/syncthing-over-i2p/">this
+guide</a>. <sup id="cite_ref-23" class="reference"><a href="#cite_note-23"><span class="cite-bracket">[</span>23<span class="cite-bracket">]</span></a></sup></p>
+<p>To install Syncthing, run.</p>
+<p><span class="code-select" data-code="sudo apt install syncthing">sudo
+apt install syncthing</span></p>
+<h2 id="Syndie">Syndie</h2><span class="share-tooltip" data-anchor="Syndie"><a class="headline-anchor" href="#Syndie" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Syndie">https://www.whonix.org/wiki/I2P#Syndie</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Syndie&amp;text=Syndie" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Syndie&amp;text=Syndie" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Syndie&amp;title=Syndie" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Syndie&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Syndie" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Syndie]Syndie[/url]">[url=https://www.whonix.org/wiki/I2P#Syndie]Syndie[/url]</span></span></span></span>
+<p><a href="https://syndie.de/">Syndie</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://syndie.de/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is I2P's distributed
+(decentralized) forum software, allowing asynchronous conversations
+between anonymous participants. It was the focus of I2P's creator
+shortly before he ceased public activity. It supports single and
+multiple author modes, adjustable visibility of posts and post
+moderation. Syndie features its own minimalist and secure reader to
+protect against browser exploitation. In 2018, Syndie was being
+rewritten in another programming language to provide a more modern and
+simple interface, along with basic image rendering.
+<sup id="cite_ref-24" class="reference"><a href="#cite_note-24"><span class="cite-bracket">[</span>24<span class="cite-bracket">]</span></a></sup></p>
+<p>A key benefit of Syndie is that unlike centralized forums, it cannot
+be easily taken offline via denial of service attacks or administrative
+action, and there is no single point to monitor group activity. Offline
+forum participation is possible, by 'syncing up' any accumulated changes
+when it is convenient (days, weeks or even months later). In addition to
+simple text messages, entire webpages or the full content of sites can
+be packaged into a single post, which can even be browsed offline.</p>
+<p>The Syndie Technical Features section notes: <sup id="cite_ref-25" class="reference"><a href="#cite_note-25"><span class="cite-bracket">[</span>25<span class="cite-bracket">]</span></a></sup></p>
+<p><blockquote><p>On the whole, Syndie works at the *content layer* - individual posts
+are contained in encrypted zip files, and participating in the forum
+means simply sharing these files. There are no dependencies upon how the
+files are transferred (over <a href="https://geti2p.net/">I2P</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="https://www.torproject.org/">Tor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.torproject.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="https://www.freenetproject.org/">Freenet</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.freenetproject.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="https://en.wikipedia.org/wiki/Gnutella">gnutella</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Gnutella" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="https://www.bittorrent.com/">bittorrent</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.bittorrent.com/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="https://en.wikipedia.com/wiki/RSS">RSS</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.com/wiki/RSS" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="https://en.wikipedia.com/wiki/Usenet">usenet</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.com/wiki/Usenet" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>, <a href="https://en.wikipedia.com/wiki/Email">email</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.com/wiki/Email" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>), but simple
+aggregation and distribution tools will be bundled with the standard
+Syndie release.</p></blockquote></p>
+<p>To install Syndie, run.</p>
+<p><span class="code-select" data-code="sudo apt install syndie">sudo
+apt install syndie</span></p>
+<h2 id="Torrent">Torrent</h2><span class="share-tooltip" data-anchor="Torrent"><a class="headline-anchor" href="#Torrent" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#Torrent">https://www.whonix.org/wiki/I2P#Torrent</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Torrent&amp;text=Torrent" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Torrent&amp;text=Torrent" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Torrent&amp;title=Torrent" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Torrent&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23Torrent" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#Torrent]Torrent[/url]">[url=https://www.whonix.org/wiki/I2P#Torrent]Torrent[/url]</span></span></span></span>
+<p><a href="Unsupported">Undocumented</a> due to Tor
+network capacity concerns, see <a href="File_Sharing#The_Tor_Project_Opinion">File_Sharing#The_Tor_Project_Opinion</a> and forum
+discussion <a href="https://forums.whonix.org/t/i2p-in-workstation-torrenting-and-the-whonix-i2p-guide/17137">i2p
+in Workstation - torrenting and the Whonix i2p guide</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/i2p-in-workstation-torrenting-and-the-whonix-i2p-guide/17137" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h2 id="ZeroNet">ZeroNet</h2><span class="share-tooltip" data-anchor="ZeroNet"><a class="headline-anchor" href="#ZeroNet" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/I2P#ZeroNet">https://www.whonix.org/wiki/I2P#ZeroNet</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23ZeroNet&amp;text=ZeroNet" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23ZeroNet&amp;text=ZeroNet" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23ZeroNet&amp;title=ZeroNet" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=ZeroNet&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FI2P%23ZeroNet" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/I2P#ZeroNet]ZeroNet[/url]">[url=https://www.whonix.org/wiki/I2P#ZeroNet]ZeroNet[/url]</span></span></span></span>
+<p>Unfortunately, I2P is not yet natively supported as a tunneling
+option in <a href="ZeroNet">ZeroNet</a>. No real
+progress has been made towards this goal for years; see footnotes to
+follow developments. <sup id="cite_ref-26" class="reference"><a href="#cite_note-26"><span class="cite-bracket">[</span>26<span class="cite-bracket">]</span></a></sup> <sup id="cite_ref-27" class="reference"><a href="#cite_note-27"><span class="cite-bracket">[</span>27<span class="cite-bracket">]</span></a></sup></p>
+<h1 id="Installing_I2P_on_Whonix-Gateway">Installing I2P on
+Whonix-Gateway</h1>
+<p>It is possible to run I2P and Tor simultaneously on
+Whonix-Gateway:</p>
+<ul>
+<li><code>user</code> &#8594; <code>Tor</code> &#8594; <code>Internet</code>;
+<u>and</u></li>
+<li><code>user</code> &#8594; <code>I2P</code> &#8594; <code>Internet</code></li>
+</ul>
+<p>Users who are interested in this configuration should follow the
+detailed instructions found <a href="https://web.archive.org/web/20180802221447/https://github.com/mutedstorm/Whonix-I2P">here</a>.</p>
+<p>This configuration is untested by Whonix developers and it is
+considered experimental. Also, Whonix developer HulaHoop has noted it is
+difficult to have a preconfigured Tor Browser for accessing
+<code>.i2p</code> domains and other non-clearnet top-level domains, as
+well as optimizing I2P operations when tunneled over Tor.</p>
+<p>For further information and to report successes/failures of this
+approach, refer to the <a href="https://forums.whonix.org/t/i2p-integration/4981">development
+discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/i2p-integration/4981" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and <a href="https://forums.whonix.org/t/i2p-running-on-whonix-gateway">old
+development discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/i2p-running-on-whonix-gateway" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h1 id="Development">Development</h1>
+<p>This chapter is for developers for informational purposes only. Users
+can skip it.</p>
+<p>Whonix integration:</p>
+<ul>
+<li><a href="https://github.com/Whonix/anon-apps-config/blob/master/var/lib/i2p/i2p-config/router.config">https://github.com/Whonix/anon-apps-config/blob/master/var/lib/i2p/i2p-config/router.config</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/anon-apps-config/blob/master/var/lib/i2p/i2p-config/router.config" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://forums.whonix.org/t/tor-browser-customization-using-user-js-for-example-for-i2pbrowser/13719">Tor
+Browser Customization using user.js (for example for
+i2pbrowser)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tor-browser-customization-using-user-js-for-example-for-i2pbrowser/13719" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://forums.whonix.org/t/i2p-integration/4981">development
+discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/i2p-integration/4981" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://forums.whonix.org/t/i2p-running-on-whonix-gateway">old
+development discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/i2p-running-on-whonix-gateway" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://geti2p.net/en/about/intro">https://geti2p.net/en/about/intro</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/about/intro" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://geti2p.net/en/research">https://geti2p.net/en/research</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/research" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Currently working with both sun and kaffe; gcj support is planned
+for later.</span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink">&#8593; <sup><a href="#cite_ref-4">1</a></sup> <sup><a href="#cite_ref-4-2">2</a></sup> <sup><a href="#cite_ref-4-3">3</a></sup></span> <span class="reference-text"><a href="https://geti2p.net/en/comparison/tor">https://geti2p.net/en/comparison/tor</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/en/comparison/tor" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://twitter.com/i2p/status/756952247662239744">https://twitter.com/i2p/status/756952247662239744</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://twitter.com/i2p/status/756952247662239744" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://geti2p.net/sv/docs/how/network-database">https://geti2p.net/sv/docs/how/network-database</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://geti2p.net/sv/docs/how/network-database" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><a href="#cite_ref-7" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">I2P documentation is lacking in describing these features, but there
+are plans to improve the situation.</span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><a href="#cite_ref-8" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://twitter.com/i2p/status/756948810790821888">https://twitter.com/i2p/status/756948810790821888</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://twitter.com/i2p/status/756948810790821888" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><a href="#cite_ref-9" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">This should make it more difficult for adversaries to compromise the
+relevant information.</span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><a href="#cite_ref-10" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Making it harder for adversaries to sample for attack purposes.</span></li>
+<li id="cite_note-11"><span class="mw-cite-backlink"><a href="#cite_ref-11" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Tor2web is a project which allows Internet users access to Tor Onion
+Services without Tor Browser.</span></li>
+<li id="cite_note-12"><span class="mw-cite-backlink"><a href="#cite_ref-12" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">This sounds worse than it really is because very few people are
+expected to use I2P over Tor. Further, I2P itself offers this option. It
+is not like a leeching mod.</span></li>
+<li id="cite_note-13"><span class="mw-cite-backlink"><a href="#cite_ref-13" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://www.reddit.com/r/i2p/comments/579idi/warning_i2p_is_linkablefingerprintable/">https://www.reddit.com/r/i2p/comments/579idi/warning_i2p_is_linkablefingerprintable/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.reddit.com/r/i2p/comments/579idi/warning_i2p_is_linkablefingerprintable/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><a href="#cite_ref-14" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Using Qubes UpdatesProxy (<a href="http://127.0.0.1:8082/"><code>http://127.0.0.1:8082/</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8082/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>)
+because Qubes Templates are non-networked by Qubes default and therefore
+require UpdatesProxy for connectivity. (APT in Qubes Templates is
+configured to use UpdatesProxy by Qubes default.)</span></li>
+<li id="cite_note-15"><span class="mw-cite-backlink"><a href="#cite_ref-15" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Even more secure would be to download the key <a href="Qubes/Disposables">Disposable</a> and then <a href="https://www.qubes-os.org/doc/how-to-copy-and-move-files/"><code>qvm-copy</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.qubes-os.org/doc/how-to-copy-and-move-files/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+it to the Qubes Template because this would avoid <code>curl</code>'s
+attack surface but this would also result in even more complicated
+instructions.</span></li>
+<li id="cite_note-16"><span class="mw-cite-backlink"><a href="#cite_ref-16" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Even more secure would be to display the key in another Disposable
+because this would protect the Template from <code>curl</code>'s and
+<code>gpg</code>'s attack surface but this would also result in even
+more complicated instructions.</span></li>
+<li id="cite_note-17"><span class="mw-cite-backlink"><a href="#cite_ref-17" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Minor changes in the output such as new uids (email addresses) or
+newer expiration dates are inconsequential.</span></li>
+<li id="cite_note-18"><span class="mw-cite-backlink"><a href="#cite_ref-18" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://forums.whonix.org/t/apt-repository-signing-keys-per-apt-sources-list-signed-by/12302">https://forums.whonix.org/t/apt-repository-signing-keys-per-apt-sources-list-signed-by/12302</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/apt-repository-signing-keys-per-apt-sources-list-signed-by/12302" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-19"><span class="mw-cite-backlink"><a href="#cite_ref-19" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Except in the case of <a href="YaCy">YaCy</a>,
+which needs internet access.</span></li>
+<li id="cite_note-20"><span class="mw-cite-backlink"><a href="#cite_ref-20" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">* broken link:
+https://chaoswebs.net/blog/2016/12/01/Exploiting-I2P-Bote/ * broken
+link:
+https://chaoswebs.net/blog/2016/10/15/Stealing-Your-I2P-Email/</span></li>
+<li id="cite_note-21"><span class="mw-cite-backlink"><a href="#cite_ref-21" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><blockquote><p>Syncthing is a continuous file synchronization program. It
+synchronizes files between two or more computers and replaces
+proprietary sync and cloud services with something open, trustworthy and
+decentralized. Your data is your data alone and you deserve to choose
+where it is stored, if it is shared with some third party and how it's
+transmitted over the internet.</p></blockquote></span></li>
+<li id="cite_note-22"><span class="mw-cite-backlink"><a href="#cite_ref-22" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://syncthing.net/">https://syncthing.net/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://syncthing.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-23"><span class="mw-cite-backlink"><a href="#cite_ref-23" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">This guide is also reposted <a href="https://web.archive.org/web/20220630104537/https://i2p.rocks/blog/syncthing-over-i2p.html">here</a>.</span></li>
+<li id="cite_note-24"><span class="mw-cite-backlink"><a href="#cite_ref-24" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://i2pforum.net/viewtopic.php?f=25&amp;t=9">https://i2pforum.net/viewtopic.php?f=25&amp;t=9</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://i2pforum.net/viewtopic.php?f=25&amp;t=9" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-25"><span class="mw-cite-backlink"><a href="#cite_ref-25" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://syndie.de/features.html">https://syndie.de/features.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://syndie.de/features.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-26"><span class="mw-cite-backlink"><a href="#cite_ref-26" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/HelloZeroNet/ZeroNet/issues/57">https://github.com/HelloZeroNet/ZeroNet/issues/57</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/HelloZeroNet/ZeroNet/issues/57" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-27"><span class="mw-cite-backlink"><a href="#cite_ref-27" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/HelloZeroNet/ZeroNet/issues/45">https://github.com/HelloZeroNet/ZeroNet/issues/45</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/HelloZeroNet/ZeroNet/issues/45" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+</ol>
+
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Freenet" title="Freenet"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Freenet</span></a><a class="index internal" href="Documentation" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="ZeroNet" title="ZeroNet"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">ZeroNet</span></a><span class="info"><span class="prev">Previous
+page: Freenet</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+ZeroNet</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation">Documentation</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="Terms_of_Service">Terms of Service</a></li><li><a href="Privacy_Policy">Privacy Policy</a></li><li><a href="Cookie_Policy">Cookie Policy</a></li><li><a href="E-Sign_Consent">E-Sign Consent</a></li><li><a href="Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy">Privacy Policy</a>, <a href="Cookie_Policy">Cookie Policy</a>, <a href="Terms_of_Service">Terms of Service</a>, and <a href="E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../search-index.js" defer></script>
+<script src="../page-previews.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

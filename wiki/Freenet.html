@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Freenet</title>
+<meta name="description" content="Freenet over Tor. Tunneling Freenet through Tor. Connection Schema: User &amp;rarr; Tor &amp;rarr; Freenet &amp;rarr; Destination">
+<meta property="og:description" content="Freenet over Tor. Tunneling Freenet through Tor. Connection Schema: User &amp;rarr; Tor &amp;rarr; Freenet &amp;rarr; Destination">
+<link rel="canonical" href="https://www.whonix.org/wiki/Freenet">
+<meta property="og:url" content="https://www.whonix.org/wiki/Freenet">
+<meta property="og:title" content="Freenet">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Freenet-bunny-with-name-flying.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="Download">Download</a><ul class="nav-submenu"><li><a href="VirtualBox"><span>Windows</span></a></li><li><a href="Linux"><span>Linux</span></a></li><li><a href="MacOS"><span>Mac</span></a></li><li><a href="VirtualBox"><span>VirtualBox</span></a></li><li><a href="KVM"><span>KVM</span></a></li><li><a href="Qubes"><span>Qubes</span></a></li><li><a href="Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="ARM64"><span>ARM64</span></a></li><li><a href="USB_Installation"><span>USB</span></a></li><li><a href="Whonix-Host"><span>ISO</span></a></li><li><a href="Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="About">About</a><ul class="nav-submenu"><li><a href="About"><span>Overview</span></a></li><li><a href="Features"><span>Features</span></a></li><li><a href="Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="What_we_do"><span>Project Activities</span></a></li><li><a href="Contributors"><span>Contributors</span></a></li><li><a href="Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Documentation">Docs</a><ul class="nav-submenu"><li><a href="Documentation"><span>Documentation</span></a></li><li><a href="FAQ"><span>FAQ</span></a></li><li><a href="Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Support">Support</a><ul class="nav-submenu"><li><a href="Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="Support"><span>Support (Limited)</span></a></li><li><a href="Plus_Support"><span>Plus</span></a></li><li><a href="Premium_Support"><span>Premium</span></a></li><li><a href="Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/Freenet" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[Freenet|Freenet]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[Freenet](https://www.whonix.org/wiki/Freenet)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/Freenet]Freenet[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet&amp;text=Freenet" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet&amp;text=Freenet" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet&amp;title=Freenet" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet&amp;summary=Freenet" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet&amp;t=Freenet" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=Freenet%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=Freenet&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<h1 id="firstHeading" class="first-heading">Freenet</h1><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Freenet-bunny-with-name-flying.png.webp" width="256" height="138" alt="Freenet Icon" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Freenet over Tor. Tunneling Freenet through Tor. Connection
+Schema:<br />
+<code>User</code> &#8594; <code>Tor</code> &#8594; <code>Freenet</code> &#8594;
+<code>Destination</code></p>
+<div class="post-intro-p">
+</div>
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li><li class="toc-l2"><a href="#Overview"><span class="tocnumber">1.1</span> <span class="toctext">Overview</span></a></li><li class="toc-l2"><a href="#Technical_Properties"><span class="tocnumber">1.2</span> <span class="toctext">Technical Properties</span></a></li><li class="toc-l2"><a href="#Liability"><span class="tocnumber">1.3</span> <span class="toctext">Liability</span></a></li><li class="toc-l1"><a href="#How-to:_Use_Freenet_in_Whonix"><span class="tocnumber">2</span> <span class="toctext">How-to: Use Freenet in Whonix</span></a></li><li class="toc-l2"><a href="#Freenet_inside_Whonix-Workstation"><span class="tocnumber">2.1</span> <span class="toctext">Freenet inside Whonix-Workstation</span></a></li><li class="toc-l3"><a href="#Configure_Connection_Workaround"><span class="tocnumber">2.1.1</span> <span class="toctext">Configure Connection Workaround</span></a></li><li class="toc-l3"><a href="#Freenet_Installation"><span class="tocnumber">2.1.2</span> <span class="toctext">Freenet Installation</span></a></li><li class="toc-l3"><a href="#Tor_Browser_Configuration_Changes"><span class="tocnumber">2.1.3</span> <span class="toctext">Tor Browser Configuration Changes</span></a></li><li class="toc-l3"><a href="#Usage"><span class="tocnumber">2.1.4</span> <span class="toctext">Usage</span></a></li><li class="toc-l3"><a href="#Plugins"><span class="tocnumber">2.1.5</span> <span class="toctext">Plugins</span></a></li><li class="toc-l3"><a href="#Tips"><span class="tocnumber">2.1.6</span> <span class="toctext">Tips</span></a></li><li class="toc-l2"><a href="#Inproxies_inside_Whonix-Workstation"><span class="tocnumber">2.2</span> <span class="toctext">Inproxies inside Whonix-Workstation</span></a></li><li class="toc-l2"><a href="#Freenet_SSH_Workaround"><span class="tocnumber">2.3</span> <span class="toctext">Freenet SSH Workaround</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">3</span> <span class="toctext">Footnotes</span></a></li></ul></nav><h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_notice.png.webp" width="40" height="40" alt="Info" /></span>
+Freenet is recommended for advanced users.</p>
+</div>
+<h2 id="Overview">Overview</h2><span class="share-tooltip" data-anchor="Overview"><a class="headline-anchor" href="#Overview" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Overview">https://www.whonix.org/wiki/Freenet#Overview</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Overview&amp;text=Overview" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Overview&amp;text=Overview" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Overview&amp;title=Overview" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Overview&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Overview" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Overview]Overview[/url]">[url=https://www.whonix.org/wiki/Freenet#Overview]Overview[/url]</span></span></span></span>
+<p>The Freenet 'About' page provides a simple overview of the protocol:
+<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup></p>
+<p><blockquote><p>Freenet is free software which lets you anonymously share files,
+browse and publish "freesites" (web sites accessible only through
+Freenet) and chat on forums, without fear of censorship. Freenet is
+decentralised to make it less vulnerable to attack, and if used in
+"darknet" mode, where users only connect to their friends, is very
+difficult to detect.</p>
+<p>Communications by Freenet nodes are encrypted and are routed through
+other nodes to make it extremely difficult to determine who is
+requesting the information and what its content is.</p>
+<p>Users contribute to the network by giving bandwidth and a portion of
+their hard drive (called the "data store") for storing files. Files are
+automatically kept or deleted depending on how popular they are, with
+the least popular being discarded to make way for newer or more popular
+content. Files are encrypted, so generally the user cannot easily
+discover what is in his datastore, and hopefully can't be held
+accountable for it. Chat forums, websites, and search functionality, are
+all built on top of this distributed data store.</p></blockquote></p>
+<p>In simple terms, Freenet <sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup> <sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup> is a
+peer-based, encrypted datastore with version control that aims to give
+anonymity to both publishers and readers. Launched in 1999, it is the
+oldest of the 'big four' anonymity networks <sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span class="cite-bracket">[</span>4<span class="cite-bracket">]</span></a></sup> alongside
+Tor, I2P and GNUnet (GNUnet is based on similar concepts). Its
+robustness has brought it into the cross-hairs of advanced adversaries.
+<sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span class="cite-bracket">[</span>5<span class="cite-bracket">]</span></a></sup> <sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span class="cite-bracket">[</span>6<span class="cite-bracket">]</span></a></sup> Though it has less users compared
+to Tor and I2P, it is still the largest network of its kind. Joining the
+ranks of these other anonymity networks, Freenet has <a href="https://old.reddit.com/r/Freenet/comments/i21dca/freenet_mobile_01_beta/">released
+a beta version</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://old.reddit.com/r/Freenet/comments/i21dca/freenet_mobile_01_beta/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> of an Android app for mobile platforms as of August
+2020. The app is designed to be highly battery efficient by limiting
+writes to RAM by default and limiting network activity when not in use.
+It is also available in the <a href="https://f-droid.org/en/packages/org.freenetproject.mobile/">F-Droid
+repository</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://f-droid.org/en/packages/org.freenetproject.mobile/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<h2 id="Technical_Properties">Technical Properties</h2><span class="share-tooltip" data-anchor="Technical_Properties"><a class="headline-anchor" href="#Technical_Properties" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Technical_Properties">https://www.whonix.org/wiki/Freenet#Technical_Properties</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Technical_Properties&amp;text=Technical%20Properties" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Technical_Properties&amp;text=Technical%20Properties" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Technical_Properties&amp;title=Technical%20Properties" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Technical%20Properties&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Technical_Properties" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Technical_Properties]Technical Properties[/url]">[url=https://www.whonix.org/wiki/Freenet#Technical_Properties]Technical Properties[/url]</span></span></span></span>
+<p>This section provides a brief introduction to Freenet's technical
+properties. For more in-depth reading on this subject, refer to the <a href="https://freenetproject.org/pages/documentation.html#understand">official
+documentation</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://freenetproject.org/pages/documentation.html#understand" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<p>Freenet's design is very different from other anonymity networks.
+Instead of obfuscating traffic streams between endpoints, the data
+itself is sliced up into encrypted blocks and distributed across other
+peers' datastores -- hard drive space contributed by Freenet nodes to
+store encrypted pieces of files -- for redundancy and plausible
+deniability. <sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span class="cite-bracket">[</span>7<span class="cite-bracket">]</span></a></sup> Users have virtually no control over
+what ends up in the datastore, since the popularity of files dictates if
+they are kept or deleted. This also increases resistance to censorship.
+<sup id="cite_ref-8" class="reference"><a href="#cite_note-8"><span class="cite-bracket">[</span>8<span class="cite-bracket">]</span></a></sup></p>
+<p>After uploading, the publisher obtains a key which acts as the
+content's <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">Uniform
+Resource Identifier (URI)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Uniform_Resource_Identifier" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> <sup id="cite_ref-9" class="reference"><a href="#cite_note-9"><span class="cite-bracket">[</span>9<span class="cite-bracket">]</span></a></sup> that can be optionally
+shared to allow others access. These are known as Freesites and host
+only static content on the Freenet network; active content like
+databases or server-side scripts are not possible. <sup id="cite_ref-10" class="reference"><a href="#cite_note-10"><span class="cite-bracket">[</span>10<span class="cite-bracket">]</span></a></sup>
+The data remains available even after the uploader goes offline, meaning
+it is asynchronous. Freenet is a self-contained network with no access
+to the wider web.</p>
+<p>Reader requests are routed through multiple hops. Each hop acts as a
+caching proxy for some of the requested data blocks, propagating the
+material and providing scalability and availability when demand grows.
+Understand that Freenet's data storage is not permanent and cannot be,
+otherwise an attacker could flood it with garbage data and render it
+useless for users. Unpopular content that is rarely accessed tends to be
+'forgotten' and lost over time. Censors cannot rely on <a href="https://en.wikipedia.org/wiki/Denial-of-service_attack">Denial-of-service
+(DoS) attacks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Denial-of-service_attack" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> to block content because it actually spreads the
+information further. You can think of it as a digital embodiment of the
+<a href="https://en.wikipedia.org/wiki/Streisand_effect">Streisand
+Effect</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Streisand_effect" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>. <sup id="cite_ref-11" class="reference"><a href="#cite_note-11"><span class="cite-bracket">[</span>11<span class="cite-bracket">]</span></a></sup></p>
+<p>Freenet's FProxy is the component that allows browsers to interact
+and view pages in the datastore (to access a particular piece of data).
+<sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span class="cite-bracket">[</span>12<span class="cite-bracket">]</span></a></sup> Many precautions are taken to protect users from
+malicious pages, including:</p>
+<ul>
+<li>JavaScript is completely unavailable on Freenet;</li>
+<li>only a safe subset of HTML standard is whitelisted; and</li>
+<li>users are prompted before downloading files or when being redirected
+to a clearnet site.</li>
+</ul>
+<p>Freenet does not utilize telescopic tunnels like Tor, but instead
+bundles requests together for cover traffic and routes them through a
+varying number of hops to confuse adversaries as to who is forwarding
+versus requesting the data. Freenet can also operate in several modes: a
+'Darknet' mode that turns it into a private friend-only network;
+'Opennet' mode which connects to a public network; and a hybrid mode
+that includes both.</p>
+<p>Freenet's properties make it an excellent and safer choice for
+disseminating data because it tackles "The Hosting Problem", while
+providing strong cryptography to guarantee the integrity of files
+fetched. In short, centralized hosting remains an Achilles Heel for
+onionspace <sup id="cite_ref-13" class="reference"><a href="#cite_note-13"><span class="cite-bracket">[</span>13<span class="cite-bracket">]</span></a></sup> because traditional anonymous publishing
+mechanisms like onion services or eepsites require a user resource
+commitment (an always online server), which places them out of reach for
+most people. Securing a server is no easy task, particularly in the
+hostile environment of the dark web. Extensive hardening, auditing and
+system administrator skills are necessary, but this is no guarantee
+against a certain class of adversaries; see footnote.
+<sup id="cite_ref-14" class="reference"><a href="#cite_note-14"><span class="cite-bracket">[</span>14<span class="cite-bracket">]</span></a></sup></p>
+<h2 id="Liability">Liability</h2><span class="share-tooltip" data-anchor="Liability"><a class="headline-anchor" href="#Liability" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Liability">https://www.whonix.org/wiki/Freenet#Liability</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Liability&amp;text=Liability" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Liability&amp;text=Liability" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Liability&amp;title=Liability" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Liability&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Liability" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Liability]Liability[/url]">[url=https://www.whonix.org/wiki/Freenet#Liability]Liability[/url]</span></span></span></span>
+<p>Freenet was designed to protect users from liability.
+<sup id="cite_ref-15" class="reference"><a href="#cite_note-15"><span class="cite-bracket">[</span>15<span class="cite-bracket">]</span></a></sup> The software can also take steps to increase
+protection from network threats and physical seizure.
+<sup id="cite_ref-16" class="reference"><a href="#cite_note-16"><span class="cite-bracket">[</span>16<span class="cite-bracket">]</span></a></sup> These settings are selected by the user at first
+start and can be changed at any time. Even though Freenet helps to
+protect user data on the computer, it is not perfect and traces (like
+browser history) may remain. Full-disk encryption is recommended.</p>
+<p>According to a Freenet developer in Germany, EU users have strong
+liability protections when caching content as a side-effect of
+participating in a network; see footnote. <sup id="cite_ref-17" class="reference"><a href="#cite_note-17"><span class="cite-bracket">[</span>17<span class="cite-bracket">]</span></a></sup></p>
+<p>Uploaders of original content benefit the most from Freenet's threat
+model. <sup id="cite_ref-18" class="reference"><a href="#cite_note-18"><span class="cite-bracket">[</span>18<span class="cite-bracket">]</span></a></sup> There is also an emphasis on data
+survivability. The network is somewhat able to cope with network churn
+and node loss.</p>
+<p>Darknet mode was created for situations where connecting to public
+nodes is unwanted or dangerous. <sup id="cite_ref-19" class="reference"><a href="#cite_note-19"><span class="cite-bracket">[</span>19<span class="cite-bracket">]</span></a></sup> This design feature
+protects against many attacks, and would be critical for bypassing
+state-level network blocks. The disadvantage to Darknet is that a user
+either needs to know others who use the network or be able to self-host
+other nodes.</p>
+<h1 id="How-to:_Use_Freenet_in_Whonix">How-to: Use Freenet in Whonix</h1>
+<p>There are three methods of using Freenet in Whonix:</p>
+<ol>
+<li><a href="#Freenet_inside_Whonix-Workstation">Freenet inside Whonix-Workstation</a> (recommended);
+or</li>
+<li><a href="#Inproxies_inside_Whonix-Workstation">Inproxies inside Whonix-Workstation</a>; or</li>
+<li><a href="#Freenet_SSH_Workaround">Freenet SSH
+Workaround</a></li>
+</ol>
+<p><span class="manually-placed-anchor " id="Freenet_inside_Whonix-Workstation"></span></p>
+<h2 id="Freenet_inside_Whonix-Workstation">Freenet inside
+Whonix-Workstation</h2><span class="share-tooltip" data-anchor="Freenet_inside_Whonix-Workstation"><a class="headline-anchor" href="#Freenet_inside_Whonix-Workstation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Freenet_inside_Whonix-Workstation">https://www.whonix.org/wiki/Freenet#Freenet_inside_Whonix-Workstation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_inside_Whonix-Workstation&amp;text=Freenet%20inside%0AWhonix-Workstation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_inside_Whonix-Workstation&amp;text=Freenet%20inside%0AWhonix-Workstation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_inside_Whonix-Workstation&amp;title=Freenet%20inside%0AWhonix-Workstation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Freenet%20inside%0AWhonix-Workstation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_inside_Whonix-Workstation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Freenet_inside_Whonix-Workstation]Freenet inside
+Whonix-Workstation[/url]">[url=https://www.whonix.org/wiki/Freenet#Freenet_inside_Whonix-Workstation]Freenet inside
+Whonix-Workstation[/url]</span></span></span></span>
+<p>The preferred configuration is to connect to Tor, then a VPN before
+Freenet inside Whonix-Workstation<sup>&#8482;</sup>: <code>user</code> &#8594;
+<code>Tor</code> &#8594; <code>VPN</code> &#8594; <code>Freenet</code> &#8594;
+<code>Destination</code> <sup id="cite_ref-20" class="reference"><a href="#cite_note-20"><span class="cite-bracket">[</span>20<span class="cite-bracket">]</span></a></sup></p>
+<h3 id="Configure_Connection_Workaround">Configure Connection
+Workaround</h3><span class="share-tooltip" data-anchor="Configure_Connection_Workaround"><a class="headline-anchor" href="#Configure_Connection_Workaround" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Configure_Connection_Workaround">https://www.whonix.org/wiki/Freenet#Configure_Connection_Workaround</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Configure_Connection_Workaround&amp;text=Configure%20Connection%0AWorkaround" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Configure_Connection_Workaround&amp;text=Configure%20Connection%0AWorkaround" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Configure_Connection_Workaround&amp;title=Configure%20Connection%0AWorkaround" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Configure%20Connection%0AWorkaround&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Configure_Connection_Workaround" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Configure_Connection_Workaround]Configure Connection
+Workaround[/url]">[url=https://www.whonix.org/wiki/Freenet#Configure_Connection_Workaround]Configure Connection
+Workaround[/url]</span></span></span></span>
+<p>In the "classical sense" a direct connection only over Tor is
+impossible because Freenet is a UDP-only network. <sup id="cite_ref-21" class="reference"><a href="#cite_note-21"><span class="cite-bracket">[</span>21<span class="cite-bracket">]</span></a></sup> As
+a workaround it is possible to <a href="Tunnel_UDP_over_Tor">Tunnel UDP over Tor</a>. Probably the easiest solution
+is to utilize a VPN, see: <a href="Tunnels/Connecting_to_Tor_before_a_VPN">Connecting to Tor before a VPN (User &#8594; Tor &#8594; VPN &#8594;
+Internet)</a></p>
+<h3 id="Freenet_Installation">Freenet Installation</h3><span class="share-tooltip" data-anchor="Freenet_Installation"><a class="headline-anchor" href="#Freenet_Installation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Freenet_Installation">https://www.whonix.org/wiki/Freenet#Freenet_Installation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_Installation&amp;text=Freenet%20Installation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_Installation&amp;text=Freenet%20Installation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_Installation&amp;title=Freenet%20Installation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Freenet%20Installation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_Installation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Freenet_Installation]Freenet Installation[/url]">[url=https://www.whonix.org/wiki/Freenet#Freenet_Installation]Freenet Installation[/url]</span></span></span></span>
+<p>Unfortunately Freenet is unlikely to be available from Debian
+repositories in the foreseeable future. The fast development cycle is
+incompatible with Debian stable's policies. <sup id="cite_ref-22" class="reference"><a href="#cite_note-22"><span class="cite-bracket">[</span>22<span class="cite-bracket">]</span></a></sup> This
+means it must be manually installed instead.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Download the Freenet signing key.</p>
+<p><span class="code-select" data-code="scurl-download https://freenetproject.org/assets/keyring.gpg">scurl-download
+<a href="https://freenetproject.org/assets/keyring.gpg">https://freenetproject.org/assets/keyring.gpg</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://freenetproject.org/assets/keyring.gpg" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+<p><strong>2.</strong> Check fingerprints/owners without importing
+anything.</p>
+<p><span class="code-select" data-code="gpg --keyid-format long --with-fingerprint keyring.gpg">gpg
+--keyid-format long --with-fingerprint keyring.gpg</span></p>
+<p>Before adding the keyring <sup id="cite_ref-23" class="reference"><a href="#cite_note-23"><span class="cite-bracket">[</span>23<span class="cite-bracket">]</span></a></sup>, verify the
+fingerprints. Always check the fingerprint for yourself. The output at
+the moment is:</p>
+<pre><code>pub   rsa4096/FF24CA421946AA94 2013-09-24 [SC] [expired: 2018-09-23]
+      Key fingerprint = B76D 4AA7 96D8 403E ED78  C9F9 FF24 CA42 1946 AA94
+uid                           Matthew Toseland (2013-2018 key, higher key length) &lt;matthew@toselandcs.co.uk&gt;
+uid                           Matthew Toseland (2013-2018 key, higher key length) &lt;toad@amphibian.dyndns.org&gt;
+sub   rsa4096/F877E62895C42009 2013-09-24 [E] [expired: 2018-09-23]
+pub   rsa4096/B67C19E817A8D846 2016-01-02 [C] [expired: 2018-01-03]
+      Key fingerprint = 5D77 D9A4 2E28 0F5A FF8F  2EBF B67C 19E8 17A8 D846
+uid                           Stephen Oliver &lt;steve@infincia.com&gt;
+sub   rsa4096/9BCDD1614041F59E 2016-01-02 [S] [expired: 2018-01-03]
+sub   rsa4096/1652EBA5AC1BB386 2016-01-02 [E] [expired: 2018-01-03]
+sub   rsa4096/38A62E479684F2F2 2016-01-02 [A] [expired: 2018-01-03]
+pub   rsa2048/EAC5EBF07AA9C2A3 2013-04-29 [SC]
+      Key fingerprint = DBB7 7338 3BC3 49C9 5203  ED91 EAC5 EBF0 7AA9 C2A3
+uid                           Florent Daigniere &lt;florent.daigniere@trustmatta.com&gt;
+uid                           Florent Daigniere (NextGen$) &lt;nextgens+gpg@freenetproject.org&gt;
+uid                           Florent Daigniere (Personal address) &lt;florent-gpg@daigniere.com&gt;
+sub   rsa2048/65B7118375AB23F2 2013-04-29 [E]
+sub   rsa2048/D21621FD7FA16469 2013-04-29 [A]
+pub   rsa4096/B41A6047FD6C57F9 2017-02-23 [SCEA]
+      Key fingerprint = B30C 3D91 069F 81EC FEFE  D0B1 B41A 6047 FD6C 57F9
+uid                           Arne Babenhauserheide (ArneBab) &lt;arne_bab@web.de&gt;
+uid                           Arne Babenhauserheide (freenet releases) &lt;arne_bab@web.de&gt;
+pub   rsa4096/00100D897EDBA5E0 2013-09-21 [SC] [expired: 2016-09-08]
+      Key fingerprint = 0046 195B 2DCA B176 D394  09CD 0010 0D89 7EDB A5E0
+uid                           Steve Dougherty (operhiem1 Release Signing Key) &lt;steve@asksteved.com&gt;
+sub   rsa4096/7BF0F7B36AC8B380 2013-09-21 [E] [expired: 2016-09-15]</code></pre>
+<p><strong>3.</strong> If the output looks sensible, import it with
+GPG.</p>
+<p><span class="code-select" data-code="gpg --import keyring.gpg">gpg
+--import keyring.gpg</span></p>
+<p><strong>4.</strong> Install dependencies.</p>
+<p><span class="code-select" data-code="sudo apt update
+sudo apt install openjdk-17-jre">sudo apt update sudo apt install
+openjdk-17-jre</span></p>
+<p><strong>5.</strong> Create an installation directory.</p>
+<p><span class="code-select" data-code="mkdir Freenet
+cd Freenet">mkdir Freenet cd Freenet</span></p>
+<p><strong>6.</strong> Download the offline installer and signature.</p>
+<p><span class="code-select" data-code="wget https://github.com/freenet/fred/releases/download/build01497/new_installer_offline_1497.jar -O new_installer_offline.jar">wget
+<a href="https://github.com/freenet/fred/releases/download/build01497/new_installer_offline_1497.jar">https://github.com/freenet/fred/releases/download/build01497/new_installer_offline_1497.jar</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/freenet/fred/releases/download/build01497/new_installer_offline_1497.jar" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+-O new_installer_offline.jar</span></p>
+<p><span class="code-select" data-code="wget https://github.com/freenet/fred/releases/download/build01497/new_installer_offline_1497.jar.sig -O new_installer_offline.jar.sig">wget
+<a href="https://github.com/freenet/fred/releases/download/build01497/new_installer_offline_1497.jar.sig">https://github.com/freenet/fred/releases/download/build01497/new_installer_offline_1497.jar.sig</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/freenet/fred/releases/download/build01497/new_installer_offline_1497.jar.sig" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+-O new_installer_offline.jar.sig</span></p>
+<p><strong>7.</strong> Verify the installer.</p>
+<p><span class="code-select" data-code="gpg --verify new_installer_offline.jar.sig">gpg
+--verify new_installer_offline.jar.sig</span></p>
+<p>Check the following message appears before installing anything:
+<blockquote><p>Good signature from "Arne Babenhauserheide (freenet releases)
+&lt;arne_bab@web.de&gt;"</p></blockquote></p>
+<p><strong>8.</strong> Follow the prompts and install it in the current
+folder.</p>
+<p><span class="code-select" data-code="java -jar new_installer_offline.jar -console">java
+-jar new_installer_offline.jar -console</span></p>
+<p>Note that Freenet includes its own secure internal updater that
+downloads new versions from inside the network. It is unnecessary to
+repeat these steps after the initial installation.</p>
+</div>
+<h3 id="Tor_Browser_Configuration_Changes">Tor Browser Configuration
+Changes</h3><span class="share-tooltip" data-anchor="Tor_Browser_Configuration_Changes"><a class="headline-anchor" href="#Tor_Browser_Configuration_Changes" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Tor_Browser_Configuration_Changes">https://www.whonix.org/wiki/Freenet#Tor_Browser_Configuration_Changes</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Tor_Browser_Configuration_Changes&amp;text=Tor%20Browser%20Configuration%0AChanges" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Tor_Browser_Configuration_Changes&amp;text=Tor%20Browser%20Configuration%0AChanges" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Tor_Browser_Configuration_Changes&amp;title=Tor%20Browser%20Configuration%0AChanges" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Tor%20Browser%20Configuration%0AChanges&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Tor_Browser_Configuration_Changes" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Tor_Browser_Configuration_Changes]Tor Browser Configuration
+Changes[/url]">[url=https://www.whonix.org/wiki/Freenet#Tor_Browser_Configuration_Changes]Tor Browser Configuration
+Changes[/url]</span></span></span></span>
+<p>Note: The following steps will no longer be required once Whonix
+releases a custom Tor Browser for connecting to alternative networks.
+<sup id="cite_ref-24" class="reference"><a href="#cite_note-24"><span class="cite-bracket">[</span>24<span class="cite-bracket">]</span></a></sup></p>
+<p>Configure <a href="Tor_Browser">Tor Browser</a> to
+connect to localhost.</p>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong></p>
+<ul>
+<li>This step changes the <a href="Fingerprint#web_fingerprint">web fingerprint</a> of Tor Browser!</li>
+<li>Leave all other settings as is!</li>
+</ul>
+</div>
+<p>In Tor Browser:</p>
+<ol>
+<li>Type <a href="about:config"><code>about:config</code></a> into the
+URL bar.</li>
+<li>Press <code>Enter</code></li>
+<li>Search for <code>network.proxy.no_proxies_on</code></li>
+<li>Set to <code>0</code></li>
+<li>Search for <code>network.proxy.allow_hijacking_localhost</code></li>
+<li>Set to <code>false</code></li>
+</ol>
+<h3 id="Usage">Usage</h3><span class="share-tooltip" data-anchor="Usage"><a class="headline-anchor" href="#Usage" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Usage">https://www.whonix.org/wiki/Freenet#Usage</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Usage&amp;text=Usage" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Usage&amp;text=Usage" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Usage&amp;title=Usage" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Usage&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Usage" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Usage]Usage[/url]">[url=https://www.whonix.org/wiki/Freenet#Usage]Usage[/url]</span></span></span></span>
+<p>To access Freenet, open <a href="http://127.0.0.1:8888"><code>http://127.0.0.1:8888</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://127.0.0.1:8888" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> in
+Tor Browser to utilize the user interface. The UI is also used for
+plugin installation or any further setting changes.</p>
+<p>To start Freenet manually after reboot:</p>
+<p><span class="code-select" data-code="cd Freenet">cd
+Freenet</span></p>
+<p><span class="code-select" data-code="./run.sh start">./run.sh
+start</span></p>
+<h3 id="Plugins">Plugins</h3><span class="share-tooltip" data-anchor="Plugins"><a class="headline-anchor" href="#Plugins" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Plugins">https://www.whonix.org/wiki/Freenet#Plugins</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Plugins&amp;text=Plugins" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Plugins&amp;text=Plugins" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Plugins&amp;title=Plugins" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Plugins&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Plugins" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Plugins]Plugins[/url]">[url=https://www.whonix.org/wiki/Freenet#Plugins]Plugins[/url]</span></span></span></span>
+<p>Plugins provide much of the rich functionality of the Freenet
+experience. They act as an abstraction layer that present text in
+different layouts for different use cases including forums, wikis,
+search engines, mail, blogs, code repositories, social networking, IRC
+and <a href="https://github.com/freenet/wiki/wiki/Projects">more</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/freenet/wiki/wiki/Projects" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.
+The <a href="http://freesocial.draketo.de/index_en.html">Freenet Social
+Networking Guide</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://freesocial.draketo.de/index_en.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> explains how to set up plugins. <sup id="cite_ref-25" class="reference"><a href="#cite_note-25"><span class="cite-bracket">[</span>25<span class="cite-bracket">]</span></a></sup>
+Other relevant guides are also available; see footnote.
+<sup id="cite_ref-26" class="reference"><a href="#cite_note-26"><span class="cite-bracket">[</span>26<span class="cite-bracket">]</span></a></sup></p>
+<h3 id="Tips">Tips</h3><span class="share-tooltip" data-anchor="Tips"><a class="headline-anchor" href="#Tips" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Tips">https://www.whonix.org/wiki/Freenet#Tips</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Tips&amp;text=Tips" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Tips&amp;text=Tips" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Tips&amp;title=Tips" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Tips&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Tips" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Tips]Tips[/url]">[url=https://www.whonix.org/wiki/Freenet#Tips]Tips[/url]</span></span></span></span>
+<p>The following tips will provide a smoother user experience when
+accessing Freenet in Whonix:</p>
+<ul>
+<li>Torbirdy must be disabled for Thunderbird to connect locally to
+Freemail's SMTP server. <sup id="cite_ref-27" class="reference"><a href="#cite_note-27"><span class="cite-bracket">[</span>27<span class="cite-bracket">]</span></a></sup> As a side-effect HTML emails
+are rendered by Thunderbird. To disable, go to: <code>Options</code> &#8594;
+<code>View</code> &#8594; <code>Message Body As</code> &#8594;
+<code>Plain Text</code>. Freemail takes care of privacy concerns by
+scrubbing mail headers. <sup id="cite_ref-28" class="reference"><a href="#cite_note-28"><span class="cite-bracket">[</span>28<span class="cite-bracket">]</span></a></sup></li>
+<li>Freemail encrypts metadata and subject lines by default. However,
+for extra assurance and to future-proof your mail against quantum
+computers you can layer end-to-end encryption on top of Freemail with <a href="https://www.kicksecure.com/wiki/PQCrypto/#Codecrypt">Codecrypt</a>.
+<sup id="cite_ref-29" class="reference"><a href="#cite_note-29"><span class="cite-bracket">[</span>29<span class="cite-bracket">]</span></a></sup></li>
+<li>Technically each plugin's generated data is self-contained under its
+own folder under the Freenet directory. For example, to archive your
+mail spool, copy <code>/freenet/freemail-wot</code> to your
+backups.</li>
+<li>The menu layout in Freenet has changed slightly since the <a href="http://freesocial.draketo.de/index_en.html">Freenet Social
+Networking Guide</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://freesocial.draketo.de/index_en.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> was written. For WoT identities backup the 'Insert
+URI' to a safe place. This is your identity's private key and should
+never be shared. This information is found under <code>Edit</code> of an
+existing identity. To restore it on a new node paste it in:
+<code>Create an identity</code> &#8594;
+<code>Use an existing SSK URI key pair for the identity</code></li>
+</ul>
+<h2 id="Inproxies_inside_Whonix-Workstation">Inproxies inside
+Whonix-Workstation</h2><span class="share-tooltip" data-anchor="Inproxies_inside_Whonix-Workstation"><a class="headline-anchor" href="#Inproxies_inside_Whonix-Workstation" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Inproxies_inside_Whonix-Workstation">https://www.whonix.org/wiki/Freenet#Inproxies_inside_Whonix-Workstation</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Inproxies_inside_Whonix-Workstation&amp;text=Inproxies%20inside%0AWhonix-Workstation" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Inproxies_inside_Whonix-Workstation&amp;text=Inproxies%20inside%0AWhonix-Workstation" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Inproxies_inside_Whonix-Workstation&amp;title=Inproxies%20inside%0AWhonix-Workstation" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Inproxies%20inside%0AWhonix-Workstation&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Inproxies_inside_Whonix-Workstation" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Inproxies_inside_Whonix-Workstation]Inproxies inside
+Whonix-Workstation[/url]">[url=https://www.whonix.org/wiki/Freenet#Inproxies_inside_Whonix-Workstation]Inproxies inside
+Whonix-Workstation[/url]</span></span></span></span>
+<p>In mid-2021 one functional Freenet gateway is accessible. The <a href="https://web.archive.org/web/20210411193616/https://d6.gnutella2.info/freenet/">gnutella2
+Freenet gateway</a> is a restricted inproxy which only allows access to
+a small selection of whitelisted Freesites.</p>
+<p><strong>Figure:</strong> <em>Freenet Inproxy in Whonix</em></p>
+<p><img src="../media/Freenet.png.webp" alt="Freenet.png" /></p>
+<h2 id="Freenet_SSH_Workaround">Freenet SSH Workaround</h2><span class="share-tooltip" data-anchor="Freenet_SSH_Workaround"><a class="headline-anchor" href="#Freenet_SSH_Workaround" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Freenet#Freenet_SSH_Workaround">https://www.whonix.org/wiki/Freenet#Freenet_SSH_Workaround</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_SSH_Workaround&amp;text=Freenet%20SSH%20Workaround" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_SSH_Workaround&amp;text=Freenet%20SSH%20Workaround" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_SSH_Workaround&amp;title=Freenet%20SSH%20Workaround" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Freenet%20SSH%20Workaround&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FFreenet%23Freenet_SSH_Workaround" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Freenet#Freenet_SSH_Workaround]Freenet SSH Workaround[/url]">[url=https://www.whonix.org/wiki/Freenet#Freenet_SSH_Workaround]Freenet SSH Workaround[/url]</span></span></span></span>
+<p>A final possible workaround for Freenet connections is to buy,
+administrate and connect a SSH server anonymously though
+Whonix-Workstation. In this configuration, you must install Freenet on
+the remote location and connect from your Whonix-Workstation (SSL or SSH
+tunnel). Refer to the <a href="SSH">SSH</a> wiki entry
+for further information.</p>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://freenetproject.org/pages/about.html">https://freenetproject.org/pages/about.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://freenetproject.org/pages/about.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://freenetproject.org/">https://freenetproject.org/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://freenetproject.org/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://en.wikipedia.org/wiki/Freenet">https://en.wikipedia.org/wiki/Freenet</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Freenet" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://web.archive.org/web/20160314110509/http://www.planetpeer.de/wiki/index.php/Main_Page">https://web.archive.org/web/20160314110509/http://www.planetpeer.de/wiki/index.php/Main_Page</a></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://daserste.ndr.de/panorama/aktuell/nsa230_page-4.html">https://daserste.ndr.de/panorama/aktuell/nsa230_page-4.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://daserste.ndr.de/panorama/aktuell/nsa230_page-4.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://web.archive.org/web/20191221182453/https://search.edwardsnowden.com/docs/TorOverviewofExistingTechniques2014-12-28nsadocs">https://web.archive.org/web/20191221182453/https://search.edwardsnowden.com/docs/TorOverviewofExistingTechniques2014-12-28nsadocs</a></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><a href="#cite_ref-7" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Encrypted blocks are stored in both the datastore directory and
+Freenet installation directory.</span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><a href="#cite_ref-8" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://freenetproject.org/pages/documentation.html#understand">https://freenetproject.org/pages/documentation.html#understand</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://freenetproject.org/pages/documentation.html#understand" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><a href="#cite_ref-9" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">In simple terms, this is a character string that definitively
+identifies a specific resource.</span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><a href="#cite_ref-10" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://en.wikipedia.org/wiki/Freenet#Freesite">https://en.wikipedia.org/wiki/Freenet#Freesite</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Freenet#Freesite" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-11"><span class="mw-cite-backlink"><a href="#cite_ref-11" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><blockquote><p>The Streisand effect is a phenomenon whereby an attempt to hide,
+remove, or censor a piece of information has the unintended consequence
+of publicizing the information more widely, usually facilitated by the
+Internet.</p></blockquote></span></li>
+<li id="cite_note-12"><span class="mw-cite-backlink"><a href="#cite_ref-12" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">The key or link to the data has the following form: <a href="http://localhost:8888/%5BFreenet"><code>http://localhost:8888/[Freenet</code></a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://localhost:8888/%5BFreenet" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup><code> Key]</code></span></li>
+<li id="cite_note-13"><span class="mw-cite-backlink"><a href="#cite_ref-13" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://mascherari.press/onionscan-report-june-2016/">https://mascherari.press/onionscan-report-june-2016/</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://mascherari.press/onionscan-report-june-2016/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><a href="#cite_ref-14" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">A server is a sitting duck for attackers to probe and test their
+weapons against. It is also a single point of failure that can be DoS'd
+offline. Once rooted, the server can be used to mount <a href="https://www.techopedia.com/definition/31858/watering-hole-attack">watering
+hole attacks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.techopedia.com/definition/31858/watering-hole-attack" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> on site visitors whereby the site is infected with
+malware to target users.</span></li>
+<li id="cite_note-15"><span class="mw-cite-backlink"><a href="#cite_ref-15" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/freenet/wiki/wiki/Plausible-Deniability">1</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/freenet/wiki/wiki/Plausible-Deniability" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-16"><span class="mw-cite-backlink"><a href="#cite_ref-16" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/freenet/wiki/wiki/Security-Levels">https://github.com/freenet/wiki/wiki/Security-Levels</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/freenet/wiki/wiki/Security-Levels" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-17"><span class="mw-cite-backlink"><a href="#cite_ref-17" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://www.reddit.com/r/OpenBazaar/comments/4e2cqx/comment/d1z43af/">Ademan's
+Whitepaper on how to improve OpenBazaar by adding anonymity using
+Freenet</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.reddit.com/r/OpenBazaar/comments/4e2cqx/comment/d1z43af/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>: <blockquote><p>Note that you're not actively storing: The storage is just a
+byproduct of transmission in the network. As an example for a similar
+assessment, the European Court of Justice ruled in 2014 that third
+parties who reproduce a work in an "integral and essential part of a
+technological process and carried out for the sole purpose of enabling
+either efficient transmission in a network between third parties by an
+intermediary" are exempt from copyright concerns (only the uploader is
+liable). See <a href="https://curia.europa.eu/juris/document/document_print.jsf?doclang=EN&amp;text=&amp;pageIndex=0&amp;part=1&amp;mode=DOC&amp;docid=153302&amp;occ=first&amp;dir=&amp;cid=93105">https://curia.europa.eu/juris/document/document_print.jsf?doclang=EN&amp;text=&amp;pageIndex=0&amp;part=1&amp;mode=DOC&amp;docid=153302&amp;occ=first&amp;dir=&amp;cid=93105</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://curia.europa.eu/juris/document/document_print.jsf?doclang=EN&amp;text=&amp;pageIndex=0&amp;part=1&amp;mode=DOC&amp;docid=153302&amp;occ=first&amp;dir=&amp;cid=93105" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p></blockquote></span></li>
+<li id="cite_note-18"><span class="mw-cite-backlink"><a href="#cite_ref-18" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/freenet/wiki/wiki/Threat-Model">https://github.com/freenet/wiki/wiki/Threat-Model</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/freenet/wiki/wiki/Threat-Model" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-19"><span class="mw-cite-backlink"><a href="#cite_ref-19" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/freenet/wiki/wiki/Darknet">https://github.com/freenet/wiki/wiki/Darknet</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/freenet/wiki/wiki/Darknet" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-20"><span class="mw-cite-backlink"><a href="#cite_ref-20" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Only Freenet content is available; normal Internet websites cannot
+be accessed.</span></li>
+<li id="cite_note-21"><span class="mw-cite-backlink"><a href="#cite_ref-21" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">This has been tested. Freenet installs normally, but even with
+lowest security settings a connection is never established. The problem
+is that Tor does not support UDP. (There has been a <a href="https://web.archive.org/web/20160412142711/http://comments.gmane.org/gmane.network.freenet.support/8211">discussion</a>
+about this topic. Although it is from 2008, it does not appear the
+situation has changed.)</span></li>
+<li id="cite_note-22"><span class="mw-cite-backlink"><a href="#cite_ref-22" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://www.mail-archive.com/devl@freenetproject.org/msg26975.html">https://www.mail-archive.com/devl@freenetproject.org/msg26975.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.mail-archive.com/devl@freenetproject.org/msg26975.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-23"><span class="mw-cite-backlink"><a href="#cite_ref-23" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://freenetproject.org/pages/download.html">https://freenetproject.org/pages/download.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://freenetproject.org/pages/download.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-24"><span class="mw-cite-backlink"><a href="#cite_ref-24" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Except in the case of <a href="YaCy">YaCy</a>,
+which needs internet access.</span></li>
+<li id="cite_note-25"><span class="mw-cite-backlink"><a href="#cite_ref-25" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">This resource is also available on GitHub, see: <a href="https://github.com/justusranvier/FreenetSocialNetworkingGuide">here</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/justusranvier/FreenetSocialNetworkingGuide" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</span></li>
+<li id="cite_note-26"><span class="mw-cite-backlink"><a href="#cite_ref-26" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://web.archive.org/web/20160305114203/https://d6.gnutella2.info/freenet/USK@xedmmitRTj9-PXJxoPbD7RY1gf9pKi0OcsRmjNPPIU4,AzFWTYV~9-I~eXis14tIkJ4XkF17gIgZrB294LjFXjc,AQACAAE/fmsguide/6/">The
+Unofficial Guide to FMS</a></span></li>
+<li id="cite_note-27"><span class="mw-cite-backlink"><a href="#cite_ref-27" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">This may no longer apply now that TorBirdy is incompatible with
+Thunderbird v68.</span></li>
+<li id="cite_note-28"><span class="mw-cite-backlink"><a href="#cite_ref-28" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://github.com/freenet/plugin-Freemail/blob/master/src/org/freenetproject/freemail/MailHeaderFilter.java">https://github.com/freenet/plugin-Freemail/blob/master/src/org/freenetproject/freemail/MailHeaderFilter.java</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/freenet/plugin-Freemail/blob/master/src/org/freenetproject/freemail/MailHeaderFilter.java" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-29"><span class="mw-cite-backlink"><a href="#cite_ref-29" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">This is a GnuPG-like Unix program for encryption and signing that
+only uses quantum-resistant algorithms.</span></li>
+</ol>
+
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Other_Anonymizing_Networks" title="Other Anonymizing Networks"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Other
+Anonymizing
+Networks</span></a><a class="index internal" href="Documentation" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="I2P" title="I2P"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">I2P</span></a><span class="info"><span class="prev">Previous
+page: Other Anonymizing Networks</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+I2P</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation">Documentation</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="Terms_of_Service">Terms of Service</a></li><li><a href="Privacy_Policy">Privacy Policy</a></li><li><a href="Cookie_Policy">Cookie Policy</a></li><li><a href="E-Sign_Consent">E-Sign Consent</a></li><li><a href="Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy">Privacy Policy</a>, <a href="Cookie_Policy">Cookie Policy</a>, <a href="Terms_of_Service">Terms of Service</a>, and <a href="E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../search-index.js" defer></script>
+<script src="../page-previews.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>VPN Tunnel Setup Examples</title>
+<meta name="description" content="Instructions on how to combine VPN tunnels with Tor in Whonix">
+<meta property="og:description" content="Instructions on how to combine VPN tunnels with Tor in Whonix">
+<link rel="canonical" href="https://www.whonix.org/wiki/Tunnels/Examples">
+<meta property="og:url" content="https://www.whonix.org/wiki/Tunnels/Examples">
+<meta property="og:title" content="VPN Tunnel Setup Examples">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Dykeroad-41832640.jpg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="../Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="../Download">Download</a><ul class="nav-submenu"><li><a href="../VirtualBox"><span>Windows</span></a></li><li><a href="../Linux"><span>Linux</span></a></li><li><a href="../MacOS"><span>Mac</span></a></li><li><a href="../VirtualBox"><span>VirtualBox</span></a></li><li><a href="../KVM"><span>KVM</span></a></li><li><a href="../Qubes"><span>Qubes</span></a></li><li><a href="../Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="../ARM64"><span>ARM64</span></a></li><li><a href="../USB_Installation"><span>USB</span></a></li><li><a href="../Whonix-Host"><span>ISO</span></a></li><li><a href="../Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../About">About</a><ul class="nav-submenu"><li><a href="../About"><span>Overview</span></a></li><li><a href="../Features"><span>Features</span></a></li><li><a href="../Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="../Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="../What_we_do"><span>Project Activities</span></a></li><li><a href="../Contributors"><span>Contributors</span></a></li><li><a href="../Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Documentation">Docs</a><ul class="nav-submenu"><li><a href="../Documentation"><span>Documentation</span></a></li><li><a href="../FAQ"><span>FAQ</span></a></li><li><a href="../Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="../Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="../Support">Support</a><ul class="nav-submenu"><li><a href="../Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="../Support"><span>Support (Limited)</span></a></li><li><a href="../Plus_Support"><span>Plus</span></a></li><li><a href="../Premium_Support"><span>Premium</span></a></li><li><a href="../Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="../Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/Tunnels/Examples" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[Tunnels/Examples|VPN Tunnel Setup Examples]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[VPN Tunnel Setup Examples](https://www.whonix.org/wiki/Tunnels/Examples)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/Tunnels/Examples]VPN Tunnel Setup Examples[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples&amp;text=VPN%20Tunnel%20Setup%20Examples" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples&amp;text=VPN%20Tunnel%20Setup%20Examples" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples&amp;title=VPN%20Tunnel%20Setup%20Examples" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples&amp;summary=VPN%20Tunnel%20Setup%20Examples" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples&amp;t=VPN%20Tunnel%20Setup%20Examples" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=VPN%20Tunnel%20Setup%20Examples%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=VPN%20Tunnel%20Setup%20Examples&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="../Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="../Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading"><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="Introduction" title="Tunnels/Introduction"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tunnels/Introduction</span></a><a class="index internal" href="../Documentation" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Lantern" title="Lantern"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Lantern</span></a><span class="info"><span class="prev">Previous
+page: Tunnels/Introduction</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Lantern</span></span></span><h1 id="firstHeading">VPN Tunnel Setup Examples</h1></div>
+<p><img src="../../media/Dykeroad-41832640.jpg.webp" alt="Dykeroad-41832640.jpg" /></p>
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li><li class="toc-l1"><a href="#Riseup"><span class="tocnumber">2</span> <span class="toctext">Riseup</span></a></li><li class="toc-l2"><a href="#Riseup_Quick_VPN_Command_Line_Test"><span class="tocnumber">2.1</span> <span class="toctext">Riseup Quick VPN Command Line Test</span></a></li><li class="toc-l2"><a href="#Riseup_riseup.conf"><span class="tocnumber">2.2</span> <span class="toctext">Riseup riseup.conf</span></a></li><li class="toc-l2"><a href="#Riseup_DNS"><span class="tocnumber">2.3</span> <span class="toctext">Riseup DNS</span></a></li><li class="toc-l3"><a href="#Setup"><span class="tocnumber">2.3.1</span> <span class="toctext">Setup</span></a></li><li class="toc-l3"><a href="#Testing"><span class="tocnumber">2.3.2</span> <span class="toctext">Testing</span></a></li><li class="toc-l1"><a href="#USAIP"><span class="tocnumber">3</span> <span class="toctext">USAIP</span></a></li><li class="toc-l1"><a href="#Using_a_Graphical_User_Interface"><span class="tocnumber">4</span> <span class="toctext">Using a Graphical User Interface</span></a></li><li class="toc-l2"><a href="#KDE_Network_Manager"><span class="tocnumber">4.1</span> <span class="toctext">KDE Network Manager</span></a></li><li class="toc-l2"><a href="#GNOME_Network_Manager"><span class="tocnumber">4.2</span> <span class="toctext">GNOME Network Manager</span></a></li><li class="toc-l3"><a href="#Autostart_GNOME_Network_Manager"><span class="tocnumber">4.2.1</span> <span class="toctext">Autostart GNOME Network Manager</span></a></li><li class="toc-l3"><a href="#Visible_nm-applet_Start_Menu_Entries"><span class="tocnumber">4.2.2</span> <span class="toctext">Visible nm-applet Start Menu Entries</span></a></li><li class="toc-l3"><a href="#Visible_nm-connection-editor_Start_Menu_Entries"><span class="tocnumber">4.2.3</span> <span class="toctext">Visible nm-connection-editor Start Menu Entries</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">5</span> <span class="toctext">Footnotes</span></a></li></ul></nav><h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Ambox_warning_pn.svg.png" /></span>
+<b><u>Before combining Tor with other tunnels, <a href="Introduction">be sure to read and
+understand the risks</a>!</u></b></p>
+</div>
+<p><span class="manually-placed-anchor " id="Community_Support"></span></p>
+<div class="info-box community-support-info csi-page has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="80" height="80" alt="Info" /></span>
+<strong>COMMUNITY SUPPORT ONLY</strong> : <strong>THIS WHOLE WIKI
+<u>PAGE</u></strong> is only supported by the community. Whonix
+developers are <strong>very unlikely</strong> to provide free support
+for this content. See <a href="../Community_Support">Community Support</a> for further information,
+including implications and possible alternatives.</p>
+</div>
+<p>This page is intended to demonstrate how easy it is to add a VPN to
+Whonix, whether utilizing a VPN tunnel-link before Tor
+(<code>User</code> &#8594; <code>Tor</code> &#8594; <code>VPN</code> &#8594;
+<code>Internet</code>) or after Tor (<code>User</code> &#8594;
+<code>VPN</code> &#8594; <code>Tor</code> &#8594; <code>Internet</code>).</p>
+<p>The examples below are mainly for testing purposes. It is possible to
+set up accounts for the same reasons, or the information can be used as
+a very rough guide for setting up a VPN with Whonix. To remain
+anonymous:</p>
+<ul>
+<li>In all cases, never enter personal information when signing up for
+an account.</li>
+<li>Use an extra email address solely for registration purposes.</li>
+<li>If planning on the <code>User</code> &#8594; <code>Tor</code> &#8594;
+<code>VPN</code> configuration, then you should obviously sign up
+through Tor.</li>
+<li>If planning on the <code>User</code> &#8594; <code>VPN</code> &#8594;
+<code>Tor</code> configuration, it is unknown whether it is best to sign
+up via Tor or not, but it probably cannot hurt.</li>
+</ul>
+<h1 id="Riseup">Riseup</h1>
+<h2 id="Riseup_Quick_VPN_Command_Line_Test">Riseup Quick VPN Command
+Line Test</h2><span class="share-tooltip" data-anchor="Riseup_Quick_VPN_Command_Line_Test"><a class="headline-anchor" href="#Riseup_Quick_VPN_Command_Line_Test" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#Riseup_Quick_VPN_Command_Line_Test">https://www.whonix.org/wiki/Tunnels/Examples#Riseup_Quick_VPN_Command_Line_Test</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_Quick_VPN_Command_Line_Test&amp;text=Riseup%20Quick%20VPN%20Command%0ALine%20Test" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_Quick_VPN_Command_Line_Test&amp;text=Riseup%20Quick%20VPN%20Command%0ALine%20Test" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_Quick_VPN_Command_Line_Test&amp;title=Riseup%20Quick%20VPN%20Command%0ALine%20Test" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Riseup%20Quick%20VPN%20Command%0ALine%20Test&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_Quick_VPN_Command_Line_Test" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#Riseup_Quick_VPN_Command_Line_Test]Riseup Quick VPN Command
+Line Test[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#Riseup_Quick_VPN_Command_Line_Test]Riseup Quick VPN Command
+Line Test[/url]</span></span></span></span>
+<p><a href="https://riseup.net/">Riseup</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://riseup.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is known to support TCP, UDP
+and <a href="https://www.kicksecure.com/wiki/SSL/">TLS</a>.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Create a <a href="https://account.riseup.net/user/new">new Riseup account</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://account.riseup.net/user/new" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<p>Note an account can only be created with an <a href="https://support.riseup.net/en/topics/10340-invite-code/posts">invite
+code</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://support.riseup.net/en/topics/10340-invite-code/posts" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<p><strong>2.</strong> Obtain your VPN secret (VPN password).</p>
+<ul>
+<li>login to <code>account.riseup.net</code></li>
+<li>click Passwords on the left sidebar</li>
+<li>click the Service Passwords tab</li>
+</ul>
+<p><strong>3.</strong> Download the Riseup CA certificate.</p>
+<p>The "CA certificate" is used by the local program to confirm the
+identity of servers you connect to. Download it from <a href="https://riseup.net/es/security/network-security/riseup-ca">this
+page</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://riseup.net/es/security/network-security/riseup-ca" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> or click this link: <a href="https://riseup.net/es/security/network-security/riseup-ca/RiseupCA.pem">RiseupCA.pem</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://riseup.net/es/security/network-security/riseup-ca/RiseupCA.pem" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<p><strong>4.</strong> Open a terminal.</p>
+<p>Navigate to the folder where <code>RiseupCA.pem</code> was saved.</p>
+<p><strong>5.</strong> Install <a href="https://openvpn.net/">OpenVPN</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://openvpn.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<p><span class="code-select" data-code="sudo apt update &amp;&amp; sudo apt install openvpn">sudo
+apt update &amp;&amp; sudo apt install openvpn</span></p>
+<p><strong>6.</strong> Test the connection from the command line.</p>
+<p>The following line from the Riseup OpenVPN for Linux page
+<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup> will not work for the connection: <code>user</code> &#8594;
+<code>Tor</code> &#8594; <code>VPN</code> &#8594; <code>Internet</code>, because the
+Tor network does not support UDP.</p>
+<p><span class="code-select" data-code="sudo openvpn --client --dev tun --auth-user-pass --remote vpn.riseup.net 1194 --keysize 256 --auth SHA256 --cipher AES-256-CBC --ca RiseupCA.pem">sudo
+openvpn --client --dev tun --auth-user-pass --remote vpn.riseup.net 1194
+--keysize 256 --auth SHA256 --cipher AES-256-CBC --ca
+RiseupCA.pem</span></p>
+<p>Instead, use the following functional command utilizing TCP for the
+connection: <code>user</code> &#8594; <code>Tor</code> &#8594; <code>VPN</code> &#8594;
+<code>Internet</code>.</p>
+<p><span class="code-select" data-code="sudo openvpn --client --dev tun --auth-user-pass --remote vpn.riseup.net 1194 --keysize 256 --auth SHA256 --cipher AES-256-CBC --ca RiseupCA.pem --proto tcp">sudo
+openvpn --client --dev tun --auth-user-pass --remote vpn.riseup.net 1194
+--keysize 256 --auth SHA256 --cipher AES-256-CBC --ca RiseupCA.pem
+--proto tcp</span></p>
+<p><strong>7.</strong> For DNS, see <a href="#Riseup_DNS">Riseup DNS</a> below.</p>
+</div>
+<h2 id="Riseup_riseup.conf">Riseup riseup.conf</h2><span class="share-tooltip" data-anchor="Riseup_riseup.conf"><a class="headline-anchor" href="#Riseup_riseup.conf" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#Riseup_riseup.conf">https://www.whonix.org/wiki/Tunnels/Examples#Riseup_riseup.conf</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_riseup.conf&amp;text=Riseup%20riseup.conf" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_riseup.conf&amp;text=Riseup%20riseup.conf" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_riseup.conf&amp;title=Riseup%20riseup.conf" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Riseup%20riseup.conf&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_riseup.conf" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#Riseup_riseup.conf]Riseup riseup.conf[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#Riseup_riseup.conf]Riseup riseup.conf[/url]</span></span></span></span>
+<p><a href="https://riseup.net/">Riseup</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://riseup.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> is known to support TCP, UDP
+and <a href="https://www.kicksecure.com/wiki/SSL/">TLS</a>.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Utilize the Riseup account and name created in
+the previous section.</p>
+<p><strong>2.</strong> Obtain your VPN secret (VPN password).</p>
+<p>Navigate to the <a href="https://account.riseup.net/">Riseup Red
+Account</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://account.riseup.net/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> page (<a href="http://3xeiol2bnhrsqhcsaifwtnlqkylrerdspzua7bcjrh26qlrrrctfobid.onion/">.onion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/http://3xeiol2bnhrsqhcsaifwtnlqkylrerdspzua7bcjrh26qlrrrctfobid.onion/" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>),
+log in and click on "VPN".</p>
+<p><strong>3.</strong> Download the Riseup CA certificate.</p>
+<p>The "CA certificate" is used by the local program to confirm the
+identity of servers you connect to. Download it from <a href="https://riseup.net/es/security/network-security/riseup-ca">this
+page</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://riseup.net/es/security/network-security/riseup-ca" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> or click this link: <a href="https://riseup.net/es/security/network-security/riseup-ca/RiseupCA.pem">RiseupCA.pem</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://riseup.net/es/security/network-security/riseup-ca/RiseupCA.pem" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+<p><strong>4.</strong> Create a file <code>auth.txt</code> inside the
+same folder.</p>
+<p>Open file <code>auth.txt</code> in a <a href="https://www.kicksecure.com/wiki/Software/#Text_Editor">text editor</a> of your choice as a regular, non-root
+user.</p>
+<div class="info-box ">
+<p><u>If you are using a graphical environment</u>, run.
+<span class="code-select" data-code="featherpad auth.txt">featherpad
+auth.txt</span></p>
+<p><u>If you are using a terminal</u>, run.
+<span class="code-select" data-code="nano auth.txt">nano
+auth.txt</span></p>
+</div>
+<p><strong>5.</strong> Paste the following content.</p>
+<p><u>Notes:</u></p>
+<ul>
+<li>Replace <code>riseupusername</code> with your actual Riseup user
+name.</li>
+<li>Replace <code>vpnsecret</code> with your actual Riseup
+password.</li>
+</ul>
+<pre><code>riseupusername
+vpnsecret</code></pre>
+<p><strong>6.</strong> Create a file <code>riseup.conf</code> inside the
+same folder.</p>
+<pre><code>client
+dev tun
+auth-user-pass auth.txt
+#remote vpn.riseup.net 443
+#remote seattle.vpn.riseup.net 443
+remote nyc.vpn.riseup.net 80
+ca RiseupCA.pem
+remote-cert-tls server
+script-security 1
+#user nobody
+#group nobody
+proto tcp
+#log /var/log/openvpn.log</code></pre>
+<p><strong>7.</strong> Start OpenVPN.</p>
+<p><span class="code-select" data-code="sudo openvpn riseup.conf">sudo
+openvpn riseup.conf</span></p>
+<p><strong>8.</strong> For DNS, see <a href="#Riseup_DNS">Riseup DNS</a> below.</p>
+</div>
+<h2 id="Riseup_DNS">Riseup DNS</h2><span class="share-tooltip" data-anchor="Riseup_DNS"><a class="headline-anchor" href="#Riseup_DNS" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#Riseup_DNS">https://www.whonix.org/wiki/Tunnels/Examples#Riseup_DNS</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_DNS&amp;text=Riseup%20DNS" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_DNS&amp;text=Riseup%20DNS" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_DNS&amp;title=Riseup%20DNS" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Riseup%20DNS&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Riseup_DNS" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#Riseup_DNS]Riseup DNS[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#Riseup_DNS]Riseup DNS[/url]</span></span></span></span>
+<h3 id="Setup">Setup</h3><span class="share-tooltip" data-anchor="Setup"><a class="headline-anchor" href="#Setup" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#Setup">https://www.whonix.org/wiki/Tunnels/Examples#Setup</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Setup&amp;text=Setup" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Setup&amp;text=Setup" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Setup&amp;title=Setup" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Setup&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Setup" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#Setup]Setup[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#Setup]Setup[/url]</span></span></span></span>
+<div class="info-box ">
+<p><strong>1.</strong> Open file <code>/etc/resolv.conf</code> in an
+editor with administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="non-qubes-whonix" role="heading" aria-level="5">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Open File with Root Rights for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" height="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="qubes-whonix" role="heading" aria-level="5">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Open File with Root Rights for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Qubes Persistence</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific">unspecific to
+Qubes-Whonix</a>.</li>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Any12312.png.webp" width="25" height="40" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="others-and-alternatives" role="heading" aria-level="5">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="https://www.kicksecure.com/wiki/Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /etc/resolv.conf">sudoedit
+/etc/resolv.conf</span></p></div></div></p></div></div></p>
+</div>
+<p><strong>2.</strong> Comment out the nameserver.</p>
+<pre><code>#nameserver 10.152.152.10</code></pre>
+<p><strong>3.</strong> Add the Riseup OpenVPN DNS server.</p>
+<pre><code>## Riseup.net OpenVPN DNS server
+nameserver 172.27.100.1</code></pre>
+<p>If Riseup is not being used in your configuration, then replace
+<code>172.27.100.1</code> with the virtual LAN IP address of your VPN
+provider's DNS server. It probably can be obtained directly from the VPN
+provider. Another method of inferring it is running
+<code>sudo route</code> after successfully connecting to the VPN. The
+first destination default gateway should also function as a DNS
+server.</p>
+<p>Save the file.</p>
+<p><strong>4.</strong> <em>Optional:</em> Prevent overwriting of the
+configuration file.</p>
+<p>To ensure that <code>/etc/resolv.conf</code> is not overwritten by
+other packages like DHCP or resolvconf, run.</p>
+<p><span class="code-select" data-code="sudo chattr +i /etc/resolv.conf">sudo
+chattr +i /etc/resolv.conf</span></p>
+<p>If you ever want to remove it, use <code>-i</code>.</p>
+</div>
+<h3 id="Testing">Testing</h3><span class="share-tooltip" data-anchor="Testing"><a class="headline-anchor" href="#Testing" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#Testing">https://www.whonix.org/wiki/Tunnels/Examples#Testing</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Testing&amp;text=Testing" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Testing&amp;text=Testing" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Testing&amp;title=Testing" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Testing&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Testing" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#Testing]Testing[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#Testing]Testing[/url]</span></span></span></span>
+<p>Use nslookup to query the DNS to obtain domain name and IP address
+mapping. <sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup></p>
+<p>When using <code>nameserver 10.152.152.10</code> ...</p>
+<p><span class="code-select" data-code="nslookup vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion">nslookup
+vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion</span></p>
+<p>The command will show.</p>
+<pre><code>Server:         10.152.152.10
+Address:        10.152.152.10#53
+Non-authoritative answer:
+Name:   vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion
+Address: 10.192.0.1</code></pre>
+<p>When using <code>nameserver 172.27.100.1</code> ...</p>
+<p><span class="code-select" data-code="nslookup vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion">nslookup
+vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion</span></p>
+<p>The command will show.</p>
+<pre><code>Server:         172.27.100.1
+Address:        172.27.100.1#53
+** server can&#39;t find vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion: NXDOMAIN</code></pre>
+<p>The reason is <code>.onion</code> domains cannot be accessed when a
+VPN has been chained (<code>user</code> &#8594; <code>Tor</code> &#8594;
+<code>VPN</code> &#8594; <code>Internet</code>).</p>
+<p>Resolving clearnet DNS should work.</p>
+<p><span class="code-select" data-code="nslookup riseup.net">nslookup
+riseup.net</span></p>
+<p>The command should show.</p>
+<pre><code>Server:         172.27.100.1
+Address:        172.27.100.1#53
+Non-authoritative answer:
+Name:   riseup.net
+Address: 198.252.153.35</code></pre>
+<h1 id="USAIP">USAIP</h1>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For testing purposes, <a href="https://www.usaip.eu/en/index.php">usaip.eu (USAIP)</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.usaip.eu/en/index.php" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> was used
+in the past. The primary reason was they were free and did not block the
+tested, outgoing UDP port. The free version of USAIP is only suitable
+for testing purposes, because this version forcibly disconnects every
+seven minutes. For longer and serious/stable use, another VPN account is
+necessary. If you would still like to learn more, please press on expand
+on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../../media/Ambox_notice.png.webp" width="40" height="40" alt="Info" /></span>
+At the time of writing, it appeared that USAIP was probably blocking <a href="https://www.kicksecure.com/wiki/SSL/">TLS</a>, therefore the following command is
+possibly non-functional:
+<span class="code-select" data-code="UWT_DEV_PASSTHROUGH=1 curl --tlsv1.3 https://check.torproject.org">UWT_DEV_PASSTHROUGH=1
+curl --tlsv1.3 <a href="https://check.torproject.org">https://check.torproject.org</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://check.torproject.org" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></p>
+</div>
+<div class="info-box ">
+<p><strong>1.</strong> Install OpenVPN.</p>
+<p><span class="code-select" data-code="sudo apt install openvpn">sudo
+apt install openvpn</span></p>
+<p><strong>2.</strong> Navigate to <a href="https://usaip.eu/en/index.php">USAIP</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://usaip.eu/en/index.php" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> and source the free
+test.</p>
+<ul>
+<li>click on <a href="https://usaip.eu/en/free_vpn.php">Free
+Demo</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://usaip.eu/en/free_vpn.php" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li>download <code>usaip.zip</code> (this contains the OpenVPN
+configuration files)</li>
+<li>unpack the file</li>
+</ul>
+<p><strong>3.</strong> Open a terminal.</p>
+<p>Navigate to the USAIP folder.</p>
+<p><span class="code-select" data-code="cd usaip">cd usaip</span></p>
+<p>List the available files.</p>
+<p><span class="code-select" data-code="dir">dir</span></p>
+<p><strong>4.</strong> Connect to a free VPN.</p>
+<p>For example, run.</p>
+<p><span class="code-select" data-code="sudo openvpn /home/user/usaip/eu-luxemburg.ovpn">sudo
+openvpn /home/user/usaip/eu-luxemburg.ovpn</span></p>
+<p>At the time of writing, the page stated, the password was
+<em>demo</em>, while the password was also <em>demo</em>.</p>
+<p>Wait until it has connected. If it is successful, it will show
+"Initialization Sequence Completed". If the connection does not succeed
+for some unknown reason, then try replacing
+<code>eu-luxemburg.ovpn</code> from the above example with another
+.ovpn from the USAIP folder.</p>
+<p>Note: DNS settings have not been considered in this entry.</p>
+</div>
+</div>
+</div>
+<h1 id="Using_a_Graphical_User_Interface">Using a Graphical User
+Interface</h1>
+<h2 id="KDE_Network_Manager">KDE Network Manager</h2><span class="share-tooltip" data-anchor="KDE_Network_Manager"><a class="headline-anchor" href="#KDE_Network_Manager" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#KDE_Network_Manager">https://www.whonix.org/wiki/Tunnels/Examples#KDE_Network_Manager</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23KDE_Network_Manager&amp;text=KDE%20Network%20Manager" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23KDE_Network_Manager&amp;text=KDE%20Network%20Manager" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23KDE_Network_Manager&amp;title=KDE%20Network%20Manager" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=KDE%20Network%20Manager&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23KDE_Network_Manager" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#KDE_Network_Manager]KDE Network Manager[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#KDE_Network_Manager]KDE Network Manager[/url]</span></span></span></span>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>This entry is useful if you want to install the KDE Network Manager.
+If you would like to see more information, please press on expand on the
+right.</p>
+<div class="mw-collapsible-content">
+<p><span class="code-select" data-code="sudo apt install network-manager-kde">sudo
+apt install network-manager-kde</span></p>
+<p><code>Start menu</code> &#8594; <code>System Settings</code> &#8594;
+<code>Network Settings</code></p>
+<p>At the time of writing the former, there is no OpenVPN instructions
+for KDE on riseup website (removed). Another guide for KDE Network
+Manager might be found via Internet research, or use the command line
+based examples above.</p>
+<p>Also, do not be concerned if you cannot see the
+Whonix-Workstation<sup>&#8482;</sup> (virtual) wired network interface to
+Whonix-Gateway<sup>&#8482;</sup>; see footnote. <sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup></p>
+</div>
+</div>
+<h2 id="GNOME_Network_Manager">GNOME Network Manager</h2><span class="share-tooltip" data-anchor="GNOME_Network_Manager"><a class="headline-anchor" href="#GNOME_Network_Manager" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#GNOME_Network_Manager">https://www.whonix.org/wiki/Tunnels/Examples#GNOME_Network_Manager</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23GNOME_Network_Manager&amp;text=GNOME%20Network%20Manager" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23GNOME_Network_Manager&amp;text=GNOME%20Network%20Manager" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23GNOME_Network_Manager&amp;title=GNOME%20Network%20Manager" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=GNOME%20Network%20Manager&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23GNOME_Network_Manager" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#GNOME_Network_Manager]GNOME Network Manager[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#GNOME_Network_Manager]GNOME Network Manager[/url]</span></span></span></span>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>It is usually possible to integrate GNOME applications. If you would
+like to see more information, please press on expand on the right.</p>
+<div class="mw-collapsible-content">
+<p>In the case of GNOME Network Manager, more fiddling is required
+because upstream developers wanted to make GNOME and KDE as compatible
+as possible. This means that one settings manager will not show up when
+the other desktop has been started in a dual (KDE, GNOME)
+installation.</p>
+<p>If you want to install the GNOME Network Manager, run.</p>
+<p><span class="code-select" data-code="sudo apt install network-manager-gnome network-manager-openvpn-gnome">sudo
+apt install network-manager-gnome
+network-manager-openvpn-gnome</span></p>
+<h3 id="Autostart_GNOME_Network_Manager">Autostart GNOME Network
+Manager</h3><span class="share-tooltip" data-anchor="Autostart_GNOME_Network_Manager"><a class="headline-anchor" href="#Autostart_GNOME_Network_Manager" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#Autostart_GNOME_Network_Manager">https://www.whonix.org/wiki/Tunnels/Examples#Autostart_GNOME_Network_Manager</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Autostart_GNOME_Network_Manager&amp;text=Autostart%20GNOME%20Network%0AManager" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Autostart_GNOME_Network_Manager&amp;text=Autostart%20GNOME%20Network%0AManager" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Autostart_GNOME_Network_Manager&amp;title=Autostart%20GNOME%20Network%0AManager" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Autostart%20GNOME%20Network%0AManager&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Autostart_GNOME_Network_Manager" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#Autostart_GNOME_Network_Manager]Autostart GNOME Network
+Manager[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#Autostart_GNOME_Network_Manager]Autostart GNOME Network
+Manager[/url]</span></span></span></span>
+<p>If you want to autostart GNOME Network Manager, follow these
+steps.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Open
+<code>/etc/xdg/autostart/nm-applet.desktop</code> with root rights.</p>
+<p>Open file <code>/etc/xdg/autostart/nm-applet.desktop</code> in an
+editor with administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="non-qubes-whonix_2" role="heading" aria-level="5">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Open File with Root Rights for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /etc/xdg/autostart/nm-applet.desktop">sudoedit
+/etc/xdg/autostart/nm-applet.desktop</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" height="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="qubes-whonix_2" role="heading" aria-level="5">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Open File with Root Rights for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /etc/xdg/autostart/nm-applet.desktop">sudoedit
+/etc/xdg/autostart/nm-applet.desktop</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Qubes Persistence</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific">unspecific to
+Qubes-Whonix</a>.</li>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Any12312.png.webp" width="25" height="40" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="others-and-alternatives_2" role="heading" aria-level="5">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="https://www.kicksecure.com/wiki/Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /etc/xdg/autostart/nm-applet.desktop">sudoedit
+/etc/xdg/autostart/nm-applet.desktop</span></p></div></div></p></div></div></p>
+</div>
+<p><strong>2.</strong> Comment out.</p>
+<p><span class="code-select" data-code="NotShowIn=KDE;">NotShowIn=KDE;</span></p>
+</div>
+<h3 id="Visible_nm-applet_Start_Menu_Entries">Visible nm-applet Start
+Menu Entries</h3><span class="share-tooltip" data-anchor="Visible_nm-applet_Start_Menu_Entries"><a class="headline-anchor" href="#Visible_nm-applet_Start_Menu_Entries" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#Visible_nm-applet_Start_Menu_Entries">https://www.whonix.org/wiki/Tunnels/Examples#Visible_nm-applet_Start_Menu_Entries</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Visible_nm-applet_Start_Menu_Entries&amp;text=Visible%20nm-applet%20Start%0AMenu%20Entries" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Visible_nm-applet_Start_Menu_Entries&amp;text=Visible%20nm-applet%20Start%0AMenu%20Entries" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Visible_nm-applet_Start_Menu_Entries&amp;title=Visible%20nm-applet%20Start%0AMenu%20Entries" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Visible%20nm-applet%20Start%0AMenu%20Entries&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Visible_nm-applet_Start_Menu_Entries" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#Visible_nm-applet_Start_Menu_Entries]Visible nm-applet Start
+Menu Entries[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#Visible_nm-applet_Start_Menu_Entries]Visible nm-applet Start
+Menu Entries[/url]</span></span></span></span>
+<p>If you want to make the nm-applet start menu entries visible and to
+start it manually, follow these steps.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Open
+<code>/usr/share/applications/nm-applet.desktop</code>.</p>
+<p>Open file <code>/usr/share/applications/nm-applet.desktop</code> in
+an editor with administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="non-qubes-whonix_3" role="heading" aria-level="5">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Open File with Root Rights for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-applet.desktop">sudoedit
+/usr/share/applications/nm-applet.desktop</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" height="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="qubes-whonix_3" role="heading" aria-level="5">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Open File with Root Rights for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-applet.desktop">sudoedit
+/usr/share/applications/nm-applet.desktop</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Qubes Persistence</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific">unspecific to
+Qubes-Whonix</a>.</li>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Any12312.png.webp" width="25" height="40" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="others-and-alternatives_3" role="heading" aria-level="5">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="https://www.kicksecure.com/wiki/Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-applet.desktop">sudoedit
+/usr/share/applications/nm-applet.desktop</span></p></div></div></p></div></div></p>
+</div>
+<p><strong>2.</strong> Comment out.</p>
+<p><span class="code-select" data-code="NotShowIn=KDE;">NotShowIn=KDE;</span></p>
+<p><strong>3.</strong> Add.</p>
+<p><span class="code-select" data-code="Categories=GNOME;GTK;Settings;X-GNOME-NetworkSettings;">Categories=GNOME;GTK;Settings;X-GNOME-NetworkSettings;</span></p>
+</div>
+<h3 id="Visible_nm-connection-editor_Start_Menu_Entries">Visible
+nm-connection-editor Start Menu Entries</h3><span class="share-tooltip" data-anchor="Visible_nm-connection-editor_Start_Menu_Entries"><a class="headline-anchor" href="#Visible_nm-connection-editor_Start_Menu_Entries" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Tunnels/Examples#Visible_nm-connection-editor_Start_Menu_Entries">https://www.whonix.org/wiki/Tunnels/Examples#Visible_nm-connection-editor_Start_Menu_Entries</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Visible_nm-connection-editor_Start_Menu_Entries&amp;text=Visible%0Anm-connection-editor%20Start%20Menu%20Entries" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Visible_nm-connection-editor_Start_Menu_Entries&amp;text=Visible%0Anm-connection-editor%20Start%20Menu%20Entries" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Visible_nm-connection-editor_Start_Menu_Entries&amp;title=Visible%0Anm-connection-editor%20Start%20Menu%20Entries" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Visible%0Anm-connection-editor%20Start%20Menu%20Entries&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FTunnels%2FExamples%23Visible_nm-connection-editor_Start_Menu_Entries" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Tunnels/Examples#Visible_nm-connection-editor_Start_Menu_Entries]Visible
+nm-connection-editor Start Menu Entries[/url]">[url=https://www.whonix.org/wiki/Tunnels/Examples#Visible_nm-connection-editor_Start_Menu_Entries]Visible
+nm-connection-editor Start Menu Entries[/url]</span></span></span></span>
+<p>If you want to make the nm-connection-editor start menu entries
+visible and to start it manually, follow these steps.</p>
+<div class="info-box ">
+<p><strong>1.</strong> Open
+<code>nm-connection-editor.desktop</code>.</p>
+<p>Open file
+<code>/usr/share/applications/nm-connection-editor.desktop</code> in an
+editor with administrative ("<a href="https://www.kicksecure.com/wiki/Root/"><code>root</code></a>") rights.</p>
+<div class="info-box ">
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">1</i>
+Select your platform.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Whonix-logo-icon.svg" width="25" alt="Whonix-logo-icon.svg" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="non-qubes-whonix_4" role="heading" aria-level="5">Non-Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Open File with Root Rights for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-connection-editor.desktop">sudoedit
+/usr/share/applications/nm-connection-editor.desktop</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Qubes-logo-blue.png.webp" width="25" height="25" alt="Qubes-logo-blue.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="qubes-whonix_4" role="heading" aria-level="5">Qubes-Whonix</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Sudoedit guidance:</u> See
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Open File with Root Rights for details on why using
+<code>sudoedit</code> improves security and how to use it.</li>
+<li><u>Editor requirement:</u> Close Featherpad (or the chosen text
+editor) before running the <code>sudoedit</code> command.</li>
+<li><u>Template requirement:</u> When using <a href="../Qubes">Qubes-Whonix</a>, this must be done inside the
+Template.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-connection-editor.desktop">sudoedit
+/usr/share/applications/nm-connection-editor.desktop</span></p>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">4</i>
+Notes.</p>
+<ul>
+<li><u>Shut down Template:</u> After applying this change, shut down the
+Template.</li>
+<li><u>Restart App Qubes:</u> All App Qubes based on the Template need
+to be restarted if they were already running.</li>
+<li><u>Qubes persistence:</u> See also
+<img src="../../media/Kicksecure-wiki-link-icon.png.webp" alt="Whonix is based on Kicksecure&amp;trade;. Therefore see the following instructions in the Kicksecure&amp;trade; wiki." />
+Qubes Persistence</li>
+<li><u>General procedure:</u> This is a general procedure required for
+Qubes and is <a href="../Unspecific">unspecific to
+Qubes-Whonix</a>.</li>
+</ul></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../../media/Any12312.png.webp" width="25" height="40" alt="Any12312.png" /></div><div class="tcc-title"><div class="mw-heading mw-heading5 widget-headline "><h5 id="others-and-alternatives_4" role="heading" aria-level="5">Others and Alternatives</h5></div></div><div class="tcc-content"><p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">2</i>
+Notes.</p>
+<ul>
+<li><u>Example only:</u> This is just an example. Other tools could
+achieve the same goal.</li>
+<li><u>Troubleshooting and alternatives:</u> If this example does not
+work for you, or if you are not using Whonix, please refer to <a href="https://www.kicksecure.com/wiki/Software/#Open_File_with_Root_Rights">Open File
+with Root Rights</a>.</li>
+</ul>
+<p><i class="padded-content-icon    pci-text fa-solid cs-yellow iconset-h3">3</i>
+Open the file with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /usr/share/applications/nm-connection-editor.desktop">sudoedit
+/usr/share/applications/nm-connection-editor.desktop</span></p></div></div></p></div></div></p>
+</div>
+<p><strong>2.</strong> Comment out.</p>
+<p><span class="code-select" data-code="NotShowIn=KDE;">NotShowIn=KDE;</span></p>
+<p><strong>3.</strong> Open the settings.</p>
+<pre><code>Applications &amp;rarr; Settings &amp;rarr; Network Connections</code></pre>
+<p>Alternatively, you could also try the <a href="https://riseup.net/en/vpn/linux#have-the-tray-icon-visible-on-gnome">Riseup
+OpenVPN instructions for GNOME</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://riseup.net/en/vpn/linux#have-the-tray-icon-visible-on-gnome" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>.</p>
+</div>
+</div>
+</div>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://riseup.net/en/vpn/linux">https://riseup.net/en/vpn/linux</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://riseup.net/en/vpn/linux" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://en.wikipedia.org/wiki/Nslookup">https://en.wikipedia.org/wiki/Nslookup</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Nslookup" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">That is still managed by the ordinary ifupdown way. *
+/etc/network/interfaces * /etc/network/interfaces.d/30_non-qubes-whonix
+See <a href="../Dev/Network_Manager">Dev/Network
+Manager</a> for further information on why network-manager is not used
+by default in Whonix.</span></li>
+</ol>
+
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Introduction" title="Tunnels/Introduction"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tunnels/Introduction</span></a><a class="index internal" href="../Documentation" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="../Lantern" title="Lantern"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Lantern</span></a><span class="info"><span class="prev">Previous
+page: Tunnels/Introduction</span><span class="index">Index page:
+Documentation</span><span class="next">Next page:
+Lantern</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="../Category:Documentation">Documentation</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="../Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="../Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="../Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="../Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="../Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="../Terms_of_Service">Terms of Service</a></li><li><a href="../Privacy_Policy">Privacy Policy</a></li><li><a href="../Cookie_Policy">Cookie Policy</a></li><li><a href="../E-Sign_Consent">E-Sign Consent</a></li><li><a href="../Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="../Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="../Privacy_Policy">Privacy Policy</a>, <a href="../Cookie_Policy">Cookie Policy</a>, <a href="../Terms_of_Service">Terms of Service</a>, and <a href="../E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="../Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="../Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../../search-index.js" defer></script>
+<script src="../../page-previews.js" defer></script>
+<script src="../../app.js" defer></script>
+</body>
+</html>

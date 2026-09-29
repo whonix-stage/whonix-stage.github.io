@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Advanced Deanonymization Attacks</title>
+<meta name="description" content="Overview of Advanced Deanonymization Attacks and their development status in Whonix.">
+<meta property="og:description" content="Overview of Advanced Deanonymization Attacks and their development status in Whonix.">
+<link rel="canonical" href="https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks">
+<meta property="og:url" content="https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks">
+<meta property="og:title" content="Advanced Deanonymization Attacks">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Advanced_deanonymization1231.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="Download">Download</a><ul class="nav-submenu"><li><a href="VirtualBox"><span>Windows</span></a></li><li><a href="Linux"><span>Linux</span></a></li><li><a href="MacOS"><span>Mac</span></a></li><li><a href="VirtualBox"><span>VirtualBox</span></a></li><li><a href="KVM"><span>KVM</span></a></li><li><a href="Qubes"><span>Qubes</span></a></li><li><a href="Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="ARM64"><span>ARM64</span></a></li><li><a href="USB_Installation"><span>USB</span></a></li><li><a href="Whonix-Host"><span>ISO</span></a></li><li><a href="Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="About">About</a><ul class="nav-submenu"><li><a href="About"><span>Overview</span></a></li><li><a href="Features"><span>Features</span></a></li><li><a href="Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="What_we_do"><span>Project Activities</span></a></li><li><a href="Contributors"><span>Contributors</span></a></li><li><a href="Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Documentation">Docs</a><ul class="nav-submenu"><li><a href="Documentation"><span>Documentation</span></a></li><li><a href="FAQ"><span>FAQ</span></a></li><li><a href="Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Support">Support</a><ul class="nav-submenu"><li><a href="Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="Support"><span>Support (Limited)</span></a></li><li><a href="Plus_Support"><span>Plus</span></a></li><li><a href="Premium_Support"><span>Premium</span></a></li><li><a href="Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[Advanced Deanonymization Attacks|Advanced Deanonymization Attacks]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[Advanced Deanonymization Attacks](https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks]Advanced Deanonymization Attacks[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks&amp;text=Advanced%20Deanonymization%20Attacks" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks&amp;text=Advanced%20Deanonymization%20Attacks" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks&amp;title=Advanced%20Deanonymization%20Attacks" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks&amp;summary=Advanced%20Deanonymization%20Attacks" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks&amp;t=Advanced%20Deanonymization%20Attacks" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=Advanced%20Deanonymization%20Attacks%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=Advanced%20Deanonymization%20Attacks&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<h1 id="firstHeading" class="first-heading">Advanced Deanonymization Attacks</h1><div class="robots-nocontent" data-nosnippet="">
+</div>
+<p><img src="../media/Advanced_deanonymization1231.jpg.webp" alt="Advanced_deanonymization1231.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>Overview of Advanced Deanonymization Attacks and their development
+status in Whonix.</p>
+<div class="post-intro-p">
+</div>
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li><li class="toc-l1"><a href="#Attack_Definitions"><span class="tocnumber">2</span> <span class="toctext">Attack Definitions</span></a></li><li class="toc-l1"><a href="#Attack_Methodology"><span class="tocnumber">3</span> <span class="toctext">Attack Methodology</span></a></li><li class="toc-l2"><a href="#Advanced_Remote_Deanonymization_Methods"><span class="tocnumber">3.1</span> <span class="toctext">Advanced Remote Deanonymization Methods</span></a></li><li class="toc-l2"><a href="#Advanced_Local_Deanonymization_Methods"><span class="tocnumber">3.2</span> <span class="toctext">Advanced Local Deanonymization Methods</span></a></li><li class="toc-l2"><a href="#Other_Advanced_Deanonymization_Attacks"><span class="tocnumber">3.3</span> <span class="toctext">Other Advanced Deanonymization Attacks</span></a></li><li class="toc-l1"><a href="#Other_Deanonymization_Vectors"><span class="tocnumber">4</span> <span class="toctext">Other Deanonymization Vectors</span></a></li><li class="toc-l1"><a href="#Development"><span class="tocnumber">5</span> <span class="toctext">Development</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">6</span> <span class="toctext">Footnotes</span></a></li></ul></nav><h1 id="Introduction">Introduction</h1>
+<p>This page aims to track and document advanced attacks that also
+affect virtualized and anonymous systems like Whonix. The attacks
+discussed below tend to have a very high accuracy rate and can easily
+have devastating impacts on anonymity. The common thread among these
+attacks is the exploitation of underlying hardware design flaws to
+undermine isolation barriers imposed by the software stack operating
+above it. <sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup> Exploiting buggy software remains the
+lowest-hanging fruit for network adversaries. It is expected that they
+will further expand their toolbox and more regularly utilize these
+vectors, as the chances of discovery are minimal to none.</p>
+<h1 id="Attack_Definitions">Attack Definitions</h1>
+<table>
+<caption><em>Common Attack Vectors Causing Data Leakage</em></caption>
+<thead>
+<tr class="header">
+<th><p><strong>Attack Vector</strong></p></th>
+<th><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Biometric Tracking</p></td>
+<td><p>Behavioral tracking (also called biometric tracking) relies on
+spying on how users interact with their devices, <sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup>
+rather than looking at the unique identifiers at the device, protocol,
+or application levels.</p></td>
+</tr>
+<tr class="even">
+<td><p>Local Covert Channels</p></td>
+<td><p><a href="https://www.techopedia.com/definition/10255/covert-channel">Local
+covert channels</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://www.techopedia.com/definition/10255/covert-channel" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> require collaboration between a malicious VM and an
+infected victim VM to leak confidential data.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Network Covert Channels</p></td>
+<td><p><a href="https://en.wikipedia.org/wiki/Covert_channel#Data_hiding_in_OSI_model">Network</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Covert_channel#Data_hiding_in_OSI_model" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<a href="https://en.wikipedia.org/wiki/Covert_channel#Data_hiding_in_LAN_environment_by_covert_channels">covert</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Covert_channel#Data_hiding_in_LAN_environment_by_covert_channels" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+<a href="https://en.wikipedia.org/wiki/Covert_channel#Data_hiding_in_TCP/IP_Protocol_suite_by_covert_channels">channels</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Covert_channel#Data_hiding_in_TCP/IP_Protocol_suite_by_covert_channels" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+only require that a compromised VM induce identifiable changes in
+network traffic, which are immediately visible to adversaries
+surveilling the network.</p></td>
+</tr>
+<tr class="even">
+<td><p>Side Channels</p></td>
+<td><p><a href="https://en.wikipedia.org/wiki/Side-channel_attack">Side
+channel attacks</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://en.wikipedia.org/wiki/Side-channel_attack" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup> allow a malicious process to spy on events/data
+outside the VM.</p></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Attack_Methodology">Attack Methodology</h1>
+<h2 id="Advanced_Remote_Deanonymization_Methods">Advanced Remote
+Deanonymization Methods</h2><span class="share-tooltip" data-anchor="Advanced_Remote_Deanonymization_Methods"><a class="headline-anchor" href="#Advanced_Remote_Deanonymization_Methods" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Advanced_Remote_Deanonymization_Methods">https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Advanced_Remote_Deanonymization_Methods</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Advanced_Remote_Deanonymization_Methods&amp;text=Advanced%20Remote%0ADeanonymization%20Methods" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Advanced_Remote_Deanonymization_Methods&amp;text=Advanced%20Remote%0ADeanonymization%20Methods" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Advanced_Remote_Deanonymization_Methods&amp;title=Advanced%20Remote%0ADeanonymization%20Methods" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Advanced%20Remote%0ADeanonymization%20Methods&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Advanced_Remote_Deanonymization_Methods" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Advanced_Remote_Deanonymization_Methods]Advanced Remote
+Deanonymization Methods[/url]">[url=https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Advanced_Remote_Deanonymization_Methods]Advanced Remote
+Deanonymization Methods[/url]</span></span></span></span>
+<table>
+<caption><em>Advanced Remote Deanonymization Methods</em></caption>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p><strong>CPU-induced Network Latency</strong>
+<sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span class="cite-bracket">[</span>3<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p><strong>TCP ISNs and Temperature-induced Clock Skews</strong>
+<sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span class="cite-bracket">[</span>4<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p><strong><a href="Keystroke_and_Mouse_Deanonymization">Keystroke and Mouse
+Deanonymization</a></strong></p></td>
+<td><p><strong><a href="Surfing_Posting_Blogging#Mouse_Fingerprinting">Mouse Fingerprinting</a></strong></p></td>
+</tr>
+<tr class="even">
+<td><p><strong>Attack Class</strong></p></td>
+<td><p>Covert Channel (network)</p></td>
+<td><p>Covert Channel (network)</p></td>
+<td><p>Behavioral Tracking</p></td>
+<td><p>Behavioral Tracking</p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>Attack Summary</strong></p></td>
+<td><p>CPU load induces noticeable latency in ICMP network packets.
+<sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span class="cite-bracket">[</span>5<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p>CPU load skews the clock crystal frequency; these changes are
+detectable in the TCP ISN field.</p></td>
+<td><p>Timing of and between keystrokes creates a unique individual
+pattern.</p></td>
+<td><p>Timing of and between mouse movement speed/angles creates a
+unique individual pattern.</p></td>
+</tr>
+<tr class="even">
+<td><p><strong>Mitigation</strong></p></td>
+<td><p>Add random delays per ICMP packet with tc-netem or block the
+protocol on the host. No mitigation needed for Whonix because Tor is
+TCP-only. The attack doesn't work on TCP, and tc-netem causes visible
+latency for streams when traffic is induced, harming anonymity and
+performance. <sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span class="cite-bracket">[</span>6<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p>Rewrite TCP ISNs to conceal timer skews.</p></td>
+<td><p>Abstract keyboard input into a network layer and inject random
+delays. <sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span class="cite-bracket">[</span>7<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p>Abstract mouse input into a network layer and inject random
+delays. <sup id="cite_ref-7-2" class="reference"><a href="#cite_note-7"><span class="cite-bracket">[</span>7<span class="cite-bracket">]</span></a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>Whonix <a href="KVM">KVM</a>
+Mitigation</strong></p></td>
+<td class="cell-blue"><p> Unneeded <sup id="cite_ref-6-2" class="reference"><a href="#cite_note-6"><span class="cite-bracket">[</span>6<span class="cite-bracket">]</span></a></sup></p></td>
+<td class="cell-green"><p> Production <sup id="cite_ref-8" class="reference"><a href="#cite_note-8"><span class="cite-bracket">[</span>8<span class="cite-bracket">]</span></a></sup></p></td>
+<td class="cell-green"><p> Production <sup id="cite_ref-9" class="reference"><a href="#cite_note-9"><span class="cite-bracket">[</span>9<span class="cite-bracket">]</span></a></sup></p></td>
+<td class="cell-green"><p> Production <sup id="cite_ref-9-2" class="reference"><a href="#cite_note-9"><span class="cite-bracket">[</span>9<span class="cite-bracket">]</span></a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p><strong>Whonix <a href="VirtualBox">VirtualBox</a> Mitigation</strong></p></td>
+<td class="cell-blue"><p> Unneeded <sup id="cite_ref-6-3" class="reference"><a href="#cite_note-6"><span class="cite-bracket">[</span>6<span class="cite-bracket">]</span></a></sup></p></td>
+<td class="cell-green"><p> Production <sup id="cite_ref-8-2" class="reference"><a href="#cite_note-8"><span class="cite-bracket">[</span>8<span class="cite-bracket">]</span></a></sup></p></td>
+<td class="cell-green"><p> Production <sup id="cite_ref-9-3" class="reference"><a href="#cite_note-9"><span class="cite-bracket">[</span>9<span class="cite-bracket">]</span></a></sup></p></td>
+<td class="cell-green"><p> Production <sup id="cite_ref-9-4" class="reference"><a href="#cite_note-9"><span class="cite-bracket">[</span>9<span class="cite-bracket">]</span></a></sup></p></td>
+</tr>
+<tr class="odd">
+<td><p><strong><a href="Qubes">Qubes-Whonix<sup>&#8482;</sup></a>
+Mitigation</strong></p></td>
+<td class="cell-blue"><p> Unneeded <sup id="cite_ref-6-4" class="reference"><a href="#cite_note-6"><span class="cite-bracket">[</span>6<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p>No
+<sup id="cite_ref-10" class="reference"><a href="#cite_note-10"><span class="cite-bracket">[</span>10<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p>No
+<sup id="cite_ref-10-2" class="reference"><a href="#cite_note-10"><span class="cite-bracket">[</span>10<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Advanced_Local_Deanonymization_Methods">Advanced Local
+Deanonymization Methods</h2><span class="share-tooltip" data-anchor="Advanced_Local_Deanonymization_Methods"><a class="headline-anchor" href="#Advanced_Local_Deanonymization_Methods" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Advanced_Local_Deanonymization_Methods">https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Advanced_Local_Deanonymization_Methods</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Advanced_Local_Deanonymization_Methods&amp;text=Advanced%20Local%0ADeanonymization%20Methods" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Advanced_Local_Deanonymization_Methods&amp;text=Advanced%20Local%0ADeanonymization%20Methods" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Advanced_Local_Deanonymization_Methods&amp;title=Advanced%20Local%0ADeanonymization%20Methods" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Advanced%20Local%0ADeanonymization%20Methods&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Advanced_Local_Deanonymization_Methods" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Advanced_Local_Deanonymization_Methods]Advanced Local
+Deanonymization Methods[/url]">[url=https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Advanced_Local_Deanonymization_Methods]Advanced Local
+Deanonymization Methods[/url]</span></span></span></span>
+<table>
+<caption><em>Advanced Local Deanonymization Methods</em></caption>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p><strong>DRAMA Cross-CPU Attacks</strong>
+<sup id="cite_ref-11" class="reference"><a href="#cite_note-11"><span class="cite-bracket">[</span>11<span class="cite-bracket">]</span></a></sup></p></td>
+<td><p><strong>Cross-VM CPU Cache Attacks</strong> <sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span class="cite-bracket">[</span>12<span class="cite-bracket">]</span></a></sup>
+<sup id="cite_ref-13" class="reference"><a href="#cite_note-13"><span class="cite-bracket">[</span>13<span class="cite-bracket">]</span></a></sup></p></td>
+</tr>
+<tr class="even">
+<td><p><strong>Attack Class</strong></p></td>
+<td><p>Covert (local) and Side Channel</p></td>
+<td><p>Covert (local) and Side Channel</p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>Attack Summary</strong></p></td>
+<td><p>Timing of access to the shared memory bank permits data leaks, as
+well as snooping on keystrokes.</p></td>
+<td><p>Measurement of shared CPU cache access latency leaks timing data
+concerning cryptographic processes.</p></td>
+</tr>
+<tr class="even">
+<td><p><strong>Mitigation</strong></p></td>
+<td><p>Block <code>clflush</code> and <code>tsc</code> instructions, as
+well as remove all timers. Additionally, avoid multi-threading of VMs,
+or alternatively use non-interleaved NUMA with pinned vCPUs.</p></td>
+<td><p>Pin vCPUs to separate pCPUs. Proper mitigations are added by
+upstream cryptographic library projects when attacks are
+discovered.</p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>Whonix <a href="KVM">KVM</a>
+Mitigation</strong></p></td>
+<td><p>No
+<sup id="cite_ref-14" class="reference"><a href="#cite_note-14"><span class="cite-bracket">[</span>14<span class="cite-bracket">]</span></a></sup></p></td>
+<td class="cell-green"><p> Production</p></td>
+</tr>
+<tr class="even">
+<td><p><strong>Whonix <a href="VirtualBox">VirtualBox</a> Mitigation</strong></p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="odd">
+<td><p><strong><a href="Qubes">Qubes-Whonix</a>
+Mitigation</strong></p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Other_Advanced_Deanonymization_Attacks">Other Advanced
+Deanonymization Attacks</h2><span class="share-tooltip" data-anchor="Other_Advanced_Deanonymization_Attacks"><a class="headline-anchor" href="#Other_Advanced_Deanonymization_Attacks" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Other_Advanced_Deanonymization_Attacks">https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Other_Advanced_Deanonymization_Attacks</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Other_Advanced_Deanonymization_Attacks&amp;text=Other%20Advanced%0ADeanonymization%20Attacks" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Other_Advanced_Deanonymization_Attacks&amp;text=Other%20Advanced%0ADeanonymization%20Attacks" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Other_Advanced_Deanonymization_Attacks&amp;title=Other%20Advanced%0ADeanonymization%20Attacks" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Other%20Advanced%0ADeanonymization%20Attacks&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FAdvanced_Deanonymization_Attacks%23Other_Advanced_Deanonymization_Attacks" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Other_Advanced_Deanonymization_Attacks]Other Advanced
+Deanonymization Attacks[/url]">[url=https://www.whonix.org/wiki/Advanced_Deanonymization_Attacks#Other_Advanced_Deanonymization_Attacks]Other Advanced
+Deanonymization Attacks[/url]</span></span></span></span>
+<p>There are numerous other advanced attacks that have not been included
+in the above table. The reason is that they have easy fixes, such as
+avoiding some <a href="KVM#Unsafe_Features">unsafe
+hypervisor features</a>.</p>
+<h1 id="Other_Deanonymization_Vectors">Other Deanonymization
+Vectors</h1>
+<p>High-risk users should familiarize themselves with other attack
+vectors that can lead to deanonymization or other harmful outcomes.</p>
+<ul>
+<li><a href="Time_Attacks">Time-related Attacks</a>:
+These are in a class of their own. In simple terms, insecure time
+synchronization and the leaking of time data can result in
+deanonymization. Although documented separately, time attacks have some
+overlap with factors outlined here.</li>
+<li><a href="Speculative_Tor_Attacks">Tor Ecosystem
+Attacks</a>: Advanced adversaries are capable of attacking the Tor
+client, server, and/or <a href="Warning#Tor_Network_Attacks">network</a> (sometimes in combination) to identify
+users and/or servers in specific situations.</li>
+</ul>
+<h1 id="Development">Development</h1>
+<ul>
+<li><a href="Dev/Advanced_Deanonymization_Attacks">Dev/Advanced Deanonymization Attacks</a></li>
+<li>Ticket: <a href="https://forums.whonix.org/t/advanced-attacks-meta-ticket/18865">Covert
+Channels Meta Ticket</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/advanced-attacks-meta-ticket/18865" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="https://forums.whonix.org/t/advanced-deanonymization-attacks/2879">Forum
+Discussion</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/advanced-deanonymization-attacks/2879" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">See <a href="https://web.archive.org/web/20220305144901/http://cs.sru.edu/~mullins/cpsc100book/module02_introduction/module02-03_introduction.html">Introduction
+to Computers: Hardware and Software</a> for a basic description of the
+difference between hardware, firmware, and software.</span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://forums.whonix.org/t/biometric-fingerprinting-mass-surveillance-and-you/2236">https://forums.whonix.org/t/biometric-fingerprinting-mass-surveillance-and-you/2236</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/biometric-fingerprinting-mass-surveillance-and-you/2236" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://forums.whonix.org/t/cpu-induced-latency-covert-channel-countermeasures/18875">https://forums.whonix.org/t/cpu-induced-latency-covert-channel-countermeasures/18875</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/cpu-induced-latency-covert-channel-countermeasures/18875" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://forums.whonix.org/t/tcp-isns-and-temperature-induced-clock-skews/18862">https://forums.whonix.org/t/tcp-isns-and-temperature-induced-clock-skews/18862</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tcp-isns-and-temperature-induced-clock-skews/18862" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://lists.torproject.org/pipermail/tor-talk/2016-July/041807.html">https://lists.torproject.org/pipermail/tor-talk/2016-July/041807.html</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://lists.torproject.org/pipermail/tor-talk/2016-July/041807.html" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink">&#8593; <sup><a href="#cite_ref-6">1</a></sup> <sup><a href="#cite_ref-6-2">2</a></sup> <sup><a href="#cite_ref-6-3">3</a></sup> <sup><a href="#cite_ref-6-4">4</a></sup></span> <span class="reference-text"><a href="https://forums.whonix.org/t/cpu-induced-latency-covert-channel-countermeasures/18875">https://forums.whonix.org/t/cpu-induced-latency-covert-channel-countermeasures/18875</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/cpu-induced-latency-covert-channel-countermeasures/18875" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>
+/ <a href="Dev/latency-obfuscator">Dev/latency-obfuscator</a></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink">&#8593; <sup><a href="#cite_ref-7">1</a></sup> <sup><a href="#cite_ref-7-2">2</a></sup></span> <span class="reference-text">Removing fine-grained timers also helps in this situation.</span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink">&#8593; <sup><a href="#cite_ref-8">1</a></sup> <sup><a href="#cite_ref-8-2">2</a></sup></span> <span class="reference-text"><a href="https://forums.whonix.org/t/tcp-isn-cpu-information-leak-protection-tirdad/8552">https://forums.whonix.org/t/tcp-isn-cpu-information-leak-protection-tirdad/8552</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/tcp-isn-cpu-information-leak-protection-tirdad/8552" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink">&#8593; <sup><a href="#cite_ref-9">1</a></sup> <sup><a href="#cite_ref-9-2">2</a></sup> <sup><a href="#cite_ref-9-3">3</a></sup> <sup><a href="#cite_ref-9-4">4</a></sup></span> <span class="reference-text"><a href="Keystroke_and_Mouse_Deanonymization#Kloak">kloak</a></span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink">&#8593; <sup><a href="#cite_ref-10">1</a></sup> <sup><a href="#cite_ref-10-2">2</a></sup></span> <span class="reference-text"><a href="https://forums.whonix.org/t/qubes-whonix-security-disadvantages-help-wanted/8581">Qubes-Whonix
+Security Disadvantages - Help Wanted!</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/qubes-whonix-security-disadvantages-help-wanted/8581" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-11"><span class="mw-cite-backlink"><a href="#cite_ref-11" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://forums.whonix.org/t/advanced-attacks-meta-ticket/18865">https://forums.whonix.org/t/advanced-attacks-meta-ticket/18865</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/advanced-attacks-meta-ticket/18865" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-12"><span class="mw-cite-backlink"><a href="#cite_ref-12" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://forums.whonix.org/t/cross-vm-cache-attacks-countermeasures/18866">https://forums.whonix.org/t/cross-vm-cache-attacks-countermeasures/18866</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/cross-vm-cache-attacks-countermeasures/18866" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></span></li>
+<li id="cite_note-13"><span class="mw-cite-backlink"><a href="#cite_ref-13" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="https://cmaurice.fr/pdf/ndss17_maurice.pdf">Hello from the
+Other Side: SSH over Robust Cache Covert Channels in the Cloud</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://cmaurice.fr/pdf/ndss17_maurice.pdf" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup>: a
+newer covert channel attack that requires the same condition of a shared
+CPU cache.</span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><a href="#cite_ref-14" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">Measure reverted to enable Spectre/Meltdown guest mitigations</span></li>
+</ol>
+
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Advanced_Security_Guide_Introduction" title="Advanced Security Guide Introduction"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Advanced
+Security Guide
+Introduction</span></a><a class="index internal" href="Documentation" title="Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Documentation</span></a><a class="next internal" href="Chaining_Anonymizing_Gateways" title="Chaining Anonymizing Gateways"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Chaining
+Anonymizing
+Gateways</span></a><span class="info"><span class="prev">Previous page:
+Advanced Security Guide Introduction</span><span class="index">Index
+page: Documentation</span><span class="next">Next page: Chaining
+Anonymizing Gateways</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation">Documentation</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="Terms_of_Service">Terms of Service</a></li><li><a href="Privacy_Policy">Privacy Policy</a></li><li><a href="Cookie_Policy">Cookie Policy</a></li><li><a href="E-Sign_Consent">E-Sign Consent</a></li><li><a href="Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy">Privacy Policy</a>, <a href="Cookie_Policy">Cookie Policy</a>, <a href="Terms_of_Service">Terms of Service</a>, and <a href="E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../search-index.js" defer></script>
+<script src="../page-previews.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>

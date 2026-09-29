@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en" data-sn-id="38">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'self' 'sha256-l/fh8ukpYJEEaHdwjhEQN+a5jqWe1+pMZqklbYLqwWM='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; require-trusted-types-for 'script'">
+<meta name="robots" content="noindex,nofollow">
+<title>Opening Ports in Whonix</title>
+<meta name="description" content="How to open a port in Whonix / port forwarding / opening ports">
+<meta property="og:description" content="How to open a port in Whonix / port forwarding / opening ports">
+<link rel="canonical" href="https://www.whonix.org/wiki/Ports">
+<meta property="og:url" content="https://www.whonix.org/wiki/Ports">
+<meta property="og:title" content="Opening Ports in Whonix">
+<meta property="og:image" content="https://www.whonix.org/media/orig/Buttons-1688111640.jpg">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script>(function(){try{var d=document.documentElement,L=localStorage,t=L.getItem('theme');d.classList.add('client-js');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))d.setAttribute('data-theme','dark');if(L.getItem('legal-agreement-banner-dismissed')==='1')d.classList.add('legal-ack-hidden');var s=d.getAttribute('data-sn-id');if(s&&L.getItem('sitenotice-dismissed')===s)d.classList.add('sitenotice-hidden');}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/">Whonix</a><a class="site-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a><input type="checkbox" id="nav-toggle" class="nav-toggle" hidden><label for="nav-toggle" class="nav-toggle-label" aria-label="Menu"><i class="fa-solid fa-bars nav-ico-open" aria-hidden="true"></i><i class="fa-solid fa-xmark nav-ico-close" aria-hidden="true"></i></label><nav class="site-nav"><ul><li class="nav-group"><a class="nav-top" href="Download">Download</a><ul class="nav-submenu"><li><a href="VirtualBox"><span>Windows</span></a></li><li><a href="Linux"><span>Linux</span></a></li><li><a href="MacOS"><span>Mac</span></a></li><li><a href="VirtualBox"><span>VirtualBox</span></a></li><li><a href="KVM"><span>KVM</span></a></li><li><a href="Qubes"><span>Qubes</span></a></li><li><a href="Intel_AMD64"><span>Intel / AMD64</span></a></li><li><a href="ARM64"><span>ARM64</span></a></li><li><a href="USB_Installation"><span>USB</span></a></li><li><a href="Whonix-Host"><span>ISO</span></a></li><li><a href="Download"><span>More options</span></a></li><li><a href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer"><span>Source Code</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="About">About</a><ul class="nav-submenu"><li><a href="About"><span>Overview</span></a></li><li><a href="Features"><span>Features</span></a></li><li><a href="Whonix_versus_VPNs"><span>Whonix vs VPNs</span></a></li><li><a href="Reasons_for_Freedom_Software"><span>Why Open Source?</span></a></li><li><a href="What_we_do"><span>Project Activities</span></a></li><li><a href="Contributors"><span>Contributors</span></a></li><li><a href="Anonymity"><span>Mission &amp; Vision</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Documentation">Docs</a><ul class="nav-submenu"><li><a href="Documentation"><span>Documentation</span></a></li><li><a href="FAQ"><span>FAQ</span></a></li><li><a href="Troubleshooting"><span>Troubleshooting</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Contribute">Community</a><ul class="nav-submenu"><li><a href="https://forums.whonix.org/" target="_blank" rel="noopener noreferrer"><span>Forums</span></a></li><li><a href="https://www.kicksecure.com/wiki/Forum_Best_Practices/"><span>Forum Best Practices</span></a></li><li><a href="Contribute"><span>Contribute</span></a></li></ul></li><li class="nav-group"><a class="nav-top" href="Support">Support</a><ul class="nav-submenu"><li><a href="Self_Support_First_Policy"><span>Self Support First Policy</span></a></li><li><a href="Support"><span>Support (Limited)</span></a></li><li><a href="Plus_Support"><span>Plus</span></a></li><li><a href="Premium_Support"><span>Premium</span></a></li><li><a href="Reporting_Bugs"><span>Reporting Bugs</span></a></li><li><a href="Contact"><span>Contact (Restricted)</span></a></li></ul></li></ul></nav><div class="site-search" role="search"><input type="checkbox" id="search-toggle" class="search-toggle sr-only"><label for="search-toggle" class="search-icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></label><input type="search" id="search-input" class="search-field" aria-label="Search" placeholder="Search" autocomplete="off"></div><div class="tools"><input type="checkbox" id="tools-toggle" class="tools-toggle sr-only"><label for="tools-toggle" class="tools-label" aria-label="Page tools" title="Page tools"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label><div class="tools-menu"><button type="button" class="tools-item" data-action="print"><i class="fa-solid fa-print fa-fw" aria-hidden="true"></i> Print</button><button type="button" class="tools-item" data-copy="https://www.whonix.org/wiki/Ports" data-copied="Copied!"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> Permalink</button><div class="share-panel"><p class="share-head">Copy or share this direct link!</p><div class="share-copies"><button type="button" class="share-copy" data-copy="[[Ports|Opening Ports in Whonix]]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Wikitext</button><button type="button" class="share-copy" data-copy="[Opening Ports in Whonix](https://www.whonix.org/wiki/Ports)" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as Markdown</button><button type="button" class="share-copy" data-copy="[url=https://www.whonix.org/wiki/Ports]Opening Ports in Whonix[/url]" data-copied="Copied!"><i class="fa-solid fa-copy fa-fw" aria-hidden="true"></i> Copy as phpBB</button></div><div class="share-socials"><a class="share-social" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts&amp;text=Opening%20Ports%20in%20Whonix" target="_blank" rel="noopener noreferrer" aria-label="Share on X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-social" href="https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="share-social" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts&amp;text=Opening%20Ports%20in%20Whonix" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-social" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts&amp;title=Opening%20Ports%20in%20Whonix" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-social" href="https://wa.me/?text=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a><a class="share-social" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts&amp;summary=Opening%20Ports%20in%20Whonix" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a class="share-social" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts&amp;t=Opening%20Ports%20in%20Whonix" target="_blank" rel="noopener noreferrer" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a><a class="share-social" href="https://fosstodon.org/share?text=Opening%20Ports%20in%20Whonix%20https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts" target="_blank" rel="noopener noreferrer" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="share-social" href="mailto:?subject=Opening%20Ports%20in%20Whonix&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts" target="_blank" rel="noopener noreferrer" aria-label="Share on Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></div><p class="share-note">We don't use embedded scripts. <a href="https://www.kicksecure.com/wiki/Privacy_Policy_Technical_Details/#Social_Share_Button">Social Share Button</a></p></div></div></div><div class="header-cta"><a class="header-donate" href="Donate"><i class="fa-solid fa-heart" aria-hidden="true"></i> Donate</a></div></div></header>
+<div id="siteNotice"><div class="sitenotice"><button type="button" class="sitenotice-close" data-sitenotice-dismiss title="Hide this notice for me" aria-label="Hide this notice"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><div class="sitenotice-banner" data-banner-id="38"><a href="Donate"><i class="fa-solid fa-arrow-trend-up icon" aria-hidden="true"></i><span>Help keep Whonix strong, independent, and actively maintained.</span></a></div></div></div>
+<main class="wiki-content">
+<div class="robots-nocontent" data-nosnippet="">
+</div>
+<div class="first-heading"><span class="wiki-book-index wbi-for-firstheading"><a class="prev internal" href="Tor_Browser/Manual_Download" title="Tor Browser/Manual Download"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tor
+Browser/Manual
+Download</span></a><a class="index internal" href="Advanced_Documentation" title="Advanced Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Advanced
+Documentation</span></a><a class="next internal" href="Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway" title="Redirect Whonix-Workstation Ports or Unix Domain Socket Files to Whonix-Gateway"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Redirect
+Whonix-Workstation Ports or Unix Domain Socket Files to
+Whonix-Gateway</span></a><span class="info"><span class="prev">Previous
+page: Tor Browser/Manual Download</span><span class="index">Index page:
+Advanced Documentation</span><span class="next">Next page: Redirect
+Whonix-Workstation Ports or Unix Domain Socket Files to
+Whonix-Gateway</span></span></span><h1 id="firstHeading">Opening Ports in Whonix</h1></div>
+<div class="mininav">
+<ul>
+<li><a href="Connections_between_Gateway_and_Workstation">Connections between Whonix-Gateway and
+Whonix-Workstation</a></li>
+<li><a class="mw-selflink selflink" aria-current="page">Opening Ports in Whonix</a></li>
+<li><a href="Access_Gateway_Port_From_Host">Access
+Whonix-Gateway Ports from the Host</a></li>
+<li><a href="Access_Workstation_Port_From_Host">Access
+Whonix-Workstation Ports from the Host</a></li>
+</ul>
+</div>
+<div class="mininav">
+<ul>
+<li><a class="mw-selflink selflink" aria-current="page">Opening Ports in Whonix</a></li>
+<li><a href="Dev/Porting">Porting Whonix to other
+Architectures</a></li>
+<li><a href="Dev/Virtualization_Platform">Porting
+Whonix to other Virtualizers</a></li>
+</ul>
+</div>
+<p><img src="../media/Buttons-1688111640.jpg.webp" alt="Buttons-1688111640.jpg" /></p>
+<div class="pre-intro-p ">
+</div>
+<div class="hidden-thumbnail">
+</div>
+<p>How to open a port in Whonix / port forwarding / opening ports</p>
+<div class="post-intro-p">
+</div>
+<nav class="toc" aria-label="Contents"><input type="checkbox" id="toc-toggle" class="toc-toggle" checked><label for="toc-toggle" class="toc-title">Contents</label><ul><li class="toc-l1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li><li class="toc-l1"><a href="#Opening_Ports:_Clearnet/Tor_Impact_and_Security_Issues"><span class="tocnumber">2</span> <span class="toctext">Opening Ports: Clearnet/Tor Impact and Security Issues</span></a></li><li class="toc-l1"><a href="#How-to"><span class="tocnumber">3</span> <span class="toctext">How-to</span></a></li><li class="toc-l2"><a href="#Open_Whonix-Gateway_Port"><span class="tocnumber">3.1</span> <span class="toctext">Open Whonix-Gateway Port</span></a></li><li class="toc-l3"><a href="#Graphical_Whonix-Gateway"><span class="tocnumber">3.1.1</span> <span class="toctext">Graphical Whonix-Gateway</span></a></li><li class="toc-l3"><a href="#Terminal_Whonix-Gateway"><span class="tocnumber">3.1.2</span> <span class="toctext">Terminal Whonix-Gateway</span></a></li><li class="toc-l3"><a href="#Qubes-Whonix"><span class="tocnumber">3.1.3</span> <span class="toctext">Qubes-Whonix</span></a></li><li class="toc-l3"><a href="#Graphical_Whonix-Gateway_2"><span class="tocnumber">3.1.4</span> <span class="toctext">Graphical Whonix-Gateway</span></a></li><li class="toc-l3"><a href="#Terminal_Whonix-Gateway_2"><span class="tocnumber">3.1.5</span> <span class="toctext">Terminal Whonix-Gateway</span></a></li><li class="toc-l3"><a href="#Qubes-Whonix_2"><span class="tocnumber">3.1.6</span> <span class="toctext">Qubes-Whonix</span></a></li><li class="toc-l2"><a href="#Open_Whonix-Workstation_Port"><span class="tocnumber">3.2</span> <span class="toctext">Open Whonix-Workstation Port</span></a></li><li class="toc-l3"><a href="#Graphical_Whonix-Workstation_USER_Session"><span class="tocnumber">3.2.1</span> <span class="toctext">Graphical Whonix-Workstation USER Session</span></a></li><li class="toc-l3"><a href="#Graphical_Whonix-Workstation_SYSMAINT_Session"><span class="tocnumber">3.2.2</span> <span class="toctext">Graphical Whonix-Workstation SYSMAINT Session</span></a></li><li class="toc-l3"><a href="#Qubes-Whonix-Workstation"><span class="tocnumber">3.2.3</span> <span class="toctext">Qubes-Whonix-Workstation</span></a></li><li class="toc-l3"><a href="#Terminal_Whonix-Workstation"><span class="tocnumber">3.2.4</span> <span class="toctext">Terminal Whonix-Workstation</span></a></li><li class="toc-l3"><a href="#Graphical_Whonix-Workstation_USER_Session_2"><span class="tocnumber">3.2.5</span> <span class="toctext">Graphical Whonix-Workstation USER Session</span></a></li><li class="toc-l3"><a href="#Graphical_Whonix-Workstation_SYSMAINT_Session_2"><span class="tocnumber">3.2.6</span> <span class="toctext">Graphical Whonix-Workstation SYSMAINT Session</span></a></li><li class="toc-l3"><a href="#Terminal_Whonix-Workstation_2"><span class="tocnumber">3.2.7</span> <span class="toctext">Terminal Whonix-Workstation</span></a></li><li class="toc-l3"><a href="#Qubes-Whonix-Workstation_2"><span class="tocnumber">3.2.8</span> <span class="toctext">Qubes-Whonix-Workstation</span></a></li><li class="toc-l1"><a href="#Forum_Discussion"><span class="tocnumber">4</span> <span class="toctext">Forum Discussion</span></a></li><li class="toc-l1"><a href="#See_Also"><span class="tocnumber">5</span> <span class="toctext">See Also</span></a></li><li class="toc-l1"><a href="#Footnotes"><span class="tocnumber">6</span> <span class="toctext">Footnotes</span></a></li></ul></nav><h1 id="Introduction">Introduction</h1>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Ambox_warning_pn.svg.png" /></span>
+There is a lot confusion surrounding this topic and before proceeding
+with opening ports, for your security, you are advised to understand the
+following writeup.</p>
+</div>
+<h1 id="Opening_Ports:_Clearnet/Tor_Impact_and_Security_Issues"><span id="Opening_Ports:_Clearnet.2FTor_Impact_and_Security_Issues"></span>Opening
+Ports: Clearnet/Tor Impact and Security Issues</h1>
+<p>We have to clearly distinguish between opening when referring to
+clearnet versus referring to opening a port when using Tor.</p>
+<p>Most times when talking generally about opening ports (clearnet,
+unrelated to Tor), technically one is referring to allow unsolicited
+incoming connections. Imagine a public web server. The websever is
+supposed to be able to reply to unsolicited incoming connections by
+clients. On the other hand however, clients usually (except when they
+are behind some corporate, national or similar firewall) can use any
+outgoing port. When a client is creating an outgoing connection, the
+operating system picks a random port where it expects the solicited
+incoming answer. Sometimes end users want to open a port such for
+example when they want to install a public webserver on their home
+connection. The end users have mostly unrestricted outgoing access, but
+unsolicited incoming connections are restricted by their home router's
+NAT firewall. Opening a port for them often means that they use their
+router's web interface, configure the port they want to open and forward
+it to a computer in their LAN network. Also when they are using a
+firewall that restricts unsolicited incoming connections, they need to
+open an incoming port in their firewall in order to make their server
+application reachable from the open internet. By doing so, the users
+real public IP address is exposed. You would not want to open a port
+using this method if you wish to stay anonymous.</p>
+<p>When talking about <a href="Tor">Tor</a>, the topic
+of opening ports often causes confusion. By default Tor works only as a
+client, which means it lets the user establish outgoing
+connections<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup> and receives the solicited answers. The
+Tor software by default does not block any outgoing ports. However, some
+Tor exit relays restrict outgoing ports. In theory, if there was no Tor
+exit relay supporting outgoing port 22, then you could not exit the Tor
+network directly through that port. In these cases there would be no way
+to force open that port since that is a Tor relay, not Tor client
+setting.</p>
+<p><a href="Hosting_Location_Hidden_Services">Hosting
+Location Onion Services</a> over Tor is possible. One way to accomplish
+this is using <a href="Onion_Services">Onion
+Services</a>. To oversimplify this, by configuration Tor it instructions
+the Tor network to open an incoming port at Tor relays for Tor onion
+hostname which gets forwarded to a port on the machine where Tor is
+running (called virtport). The users real public IP address remains
+hidden. That onion hostname is only reachable by other Tor clients.</p>
+<p>At the time of writing, it makes limited sense to open a port. There
+are very few exceptions.</p>
+<ul>
+<li><a href="Access_Gateway_Port_From_Host">Access
+Gateway Port From Host</a></li>
+<li><a href="Host_a_Bridge_or_Tor_Relay">Hosting a
+(private) (obfuscated) bridge or (exit) relay</a></li>
+<li>In past, using the now deprecated censorship circumvention Tor
+pluggable transport <a href="Deprecated#flashproxy">flashproxy</a> required opening a clearnet port to
+accept unsolicited clearnet incoming connections.</li>
+</ul>
+<p>If you want to host a Tor onion service, you will need to open a port
+in Whonix-Workstation<sup>&#8482;</sup> firewall so Whonix-Gateway<sup>&#8482;</sup>
+can forward the incoming Tor onion service connection to
+Whonix-Workstation<sup>&#8482;</sup>. This will be covered in <a href="Onion_Services">Onion Services</a>
+instructions.</p>
+<p>When Tor users ask about how to open a port, they often do not need
+to and try to fix the wrong problem. Common issues are:</p>
+<ul>
+<li>Services such as IRC servers ban connections from Tor users. This
+cannot be remedied by opening any ports.</li>
+<li>Sometimes applications such as VPNs do not work. Either because one
+is trying to use UDP, while the Tor network does not support that
+<sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup> or because of VPN configuration issues, see <a href="Tunnels/Introduction">Tunnels/Introduction</a>.</li>
+<li>Sometimes applications such as <a href="OnionShare">OnionShare</a> when run in Whonix-Workstation expect
+Tor to be running on localhost because there are Tor-friendly
+applications, i.e. applications preconfigured to use Tor by the
+developer of the application. Now for OnionShare this is a non-issue
+because Whonix developers preconfigured Whonix using package <a href="Dev/anon-ws-disable-stacked-tor">anon-ws-disable-stacked-tor</a> to make OnionShare work
+inside Whonix without the user having to setup port redirections. See
+our Whonix <a href="OnionShare">OnionShare</a>
+instructions if you specifically care about OnionShare. Otherwise see <a href="Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway">Redirect Whonix-Workstation Ports or Unix Domain Socket
+Files to Whonix-Gateway</a>.</li>
+</ul>
+<p>If you really need an anonymous incoming port your primary option is
+Tor <a href="Onion_Services">Onion Services</a> and
+some methods listed on <a href="Hosting_Location_Hidden_Services">Hosting Location Hidden Services</a>.</p>
+<h1 id="How-to">How-to</h1>
+<p><a href="Unsupported">Undocumented</a>.
+Pointers:</p>
+<ul>
+<li><a href="https://github.com/Whonix/whonix-firewall/blob/95bbe7fd32fef12ee8544a9e9132973532d6a41d/etc/whonix_firewall.d/30_whonix_gateway_default.conf#L75-L84">https://github.com/Whonix/whonix-firewall/blob/95bbe7fd32fef12ee8544a9e9132973532d6a41d/etc/whonix_firewall.d/30_whonix_gateway_default.conf#L75-L84</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://github.com/Whonix/whonix-firewall/blob/95bbe7fd32fef12ee8544a9e9132973532d6a41d/etc/whonix_firewall.d/30_whonix_gateway_default.conf#L75-L84" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></li>
+<li><a href="Access_Gateway_Port_From_Host">Access
+Gateway Port From Host</a></li>
+</ul>
+<h2 id="Open_Whonix-Gateway_Port">Open Whonix-Gateway Port</h2><span class="share-tooltip" data-anchor="Open_Whonix-Gateway_Port"><a class="headline-anchor" href="#Open_Whonix-Gateway_Port" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Ports#Open_Whonix-Gateway_Port">https://www.whonix.org/wiki/Ports#Open_Whonix-Gateway_Port</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts%23Open_Whonix-Gateway_Port&amp;text=Open%20Whonix-Gateway%20Port" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts%23Open_Whonix-Gateway_Port&amp;text=Open%20Whonix-Gateway%20Port" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts%23Open_Whonix-Gateway_Port&amp;title=Open%20Whonix-Gateway%20Port" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Open%20Whonix-Gateway%20Port&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts%23Open_Whonix-Gateway_Port" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Ports#Open_Whonix-Gateway_Port]Open Whonix-Gateway Port[/url]">[url=https://www.whonix.org/wiki/Ports#Open_Whonix-Gateway_Port]Open Whonix-Gateway Port[/url]</span></span></span></span>
+<div class="info-box has-icon">
+<p><span class="info-box-icon"><img src="../media/Ambox_warning_pn.svg.png.webp" width="40" height="34" alt="Ambox_warning_pn.svg.png" /></span>
+<strong>Warning:</strong></p>
+<ul>
+<li>Don't! Unless you know what you are doing.</li>
+<li>This is usually not required!</li>
+<li>This is <a href="Unsupported">Unsupported</a>!
+Always follow <a href="https://www.kicksecure.com/wiki/Dev/Firewall_Refactoring/">Firewall Refactoring</a> steps before and after making
+configuration changes to check if the firewall rules actually
+changed.</li>
+</ul>
+</div>
+<p>Use cases:</p>
+<ul>
+<li><a href="Access_Gateway_Port_From_Host">Access
+Whonix-Gateway Ports from the Host</a></li>
+<li><a href="Sshfs_into_Whonix-Workstation">Sshfs into
+Whonix-Workstation</a></li>
+</ul>
+<p>Otherwise do not use this.</p>
+<p><strong>Modify Whonix-Gateway User Firewall Settings.</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/usr/local/etc/whonix_firewall.d/50_user.conf</code> appears empty
+(because it does not exist). This is expected.</p>
+<p>Select your platform.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Logo_box.png.webp" width="25" height="33" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Gateway">Graphical Whonix-Gateway</h4></div><div class="tcc-content"><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>Settings</code> &#8594; <code>User Firewall Settings</code></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Utilities-terminal.png.webp" alt="25x" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Gateway">Terminal Whonix-Gateway</h4></div><div class="tcc-content"><p>In Whonix-Gateway, open the whonix_firewall configuration file in an
+editor.</p>
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Qubes-logo-icon.png.webp" alt="25x" /></div><div class="tcc-title"><h4 id="Qubes-Whonix"><a href="Qubes">Qubes-Whonix</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Gateway App Qube (commonly called </code><em><span><code>sys-whonix</code></span></em><code>)</code>
+&#8594; <code>User Firewall Settings</code></div></div></p></div></div></p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Expand on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>.</p>
+<p><strong>Note</strong>: The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_gateway_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>See also <a href="https://www.kicksecure.com/wiki/Configuration_Files/">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="Qubes">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template:</code> <code>whonix-gateway-18</code> &#8594;
+<code>Global Firewall Settings</code></p>
+<p><u>If using a graphical Whonix-Gateway</u>, complete these steps.</p>
+<p><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>Settings</code> &#8594; <code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Gateway</u>, complete these steps.</p>
+<p>In Whonix-Gateway, view the global firewall configuration file in an
+editor.
+<span class="code-select" data-code="nano /etc/whonix_firewall.d/30_whonix_gateway_default.conf">nano
+/etc/whonix_firewall.d/30_whonix_gateway_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<p><span class="code-select" data-code="EXTERNAL_OPEN_PORTS+=&quot; 80 &quot;">EXTERNAL_OPEN_PORTS+="
+80 "</span></p>
+<p>Save.</p>
+<p><strong>Reload Whonix-Gateway Firewall.</strong></p>
+<p>Select your platform.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Logo_box.png.webp" width="25" height="33" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Gateway_2">Graphical Whonix-Gateway</h4></div><div class="tcc-content"><code>Start Menu</code> &#8594; <code>Applications</code> &#8594;
+<code>System</code> &#8594; <code>Reload Firewall</code></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Utilities-terminal.png.webp" width="25" height="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Gateway_2">Terminal Whonix-Gateway</h4></div><div class="tcc-content"><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Qubes-logo-icon.png.webp" width="25" height="27" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix_2"><a href="Qubes">Qubes-Whonix</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Gateway ProxyVM (commonly named sys-whonix)</code> &#8594;
+<code>Reload Firewall</code></div></div></p></div></div></p>
+<h2 id="Open_Whonix-Workstation_Port">Open Whonix-Workstation Port</h2><span class="share-tooltip" data-anchor="Open_Whonix-Workstation_Port"><a class="headline-anchor" href="#Open_Whonix-Workstation_Port" aria-label="Copy or share a link to this section"><i class="fa-solid fa-share-nodes"></i></a><span class="menu-wrapper"><span class="menu"><span class="menu-headline"><i class="fa-solid fa-share-nodes"></i> Copy or share this direct link!</span><span class="code-select" data-code="https://www.whonix.org/wiki/Ports#Open_Whonix-Workstation_Port">https://www.whonix.org/wiki/Ports#Open_Whonix-Workstation_Port</span><span class="share-social"><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://t.me/share/url?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts%23Open_Whonix-Workstation_Port&amp;text=Open%20Whonix-Workstation%20Port" aria-label="Share via Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts%23Open_Whonix-Workstation_Port&amp;text=Open%20Whonix-Workstation%20Port" aria-label="Share via X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts%23Open_Whonix-Workstation_Port&amp;title=Open%20Whonix-Workstation%20Port" aria-label="Share via Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="share-icon" rel="noopener noreferrer nofollow" target="_blank" href="mailto:?subject=Open%20Whonix-Workstation%20Port&amp;body=https%3A%2F%2Fwww.whonix.org%2Fwiki%2FPorts%23Open_Whonix-Workstation_Port" aria-label="Share via email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></span><span class="menu-subhead">Forum (BBCode)</span><span class="code-select" data-code="[url=https://www.whonix.org/wiki/Ports#Open_Whonix-Workstation_Port]Open Whonix-Workstation Port[/url]">[url=https://www.whonix.org/wiki/Ports#Open_Whonix-Workstation_Port]Open Whonix-Workstation Port[/url]</span></span></span></span>
+<p>Use case: <a href="Onion_Services">Onion
+Services</a></p>
+<p><strong>Modify Whonix-Workstation User Firewall Settings</strong></p>
+<p><strong>Note</strong>: If no changes have yet been made to Whonix
+Firewall Settings, then the Whonix User Firewall Settings File
+<code>/etc/whonix_firewall.d/50_user.conf</code> appears empty (because
+it does not exist). This is expected.</p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, you must boot into this mode before these steps will work.</p>
+<p>Platform specific. Select your platform.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Logo_box.png.webp" width="25" height="33" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_USER_Session">Graphical
+Whonix-Workstation USER Session</h4></div><div class="tcc-content"><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>User Firewall Settings</code></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Logo_box.png.webp" width="25" height="33" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session">Graphical
+Whonix-Workstation SYSMAINT Session</h4></div><div class="tcc-content"><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
+run <code>/usr/libexec/whonix-firewall/firewall50user</code></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Qubes-logo-icon.png.webp" width="25" height="27" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix-Workstation"><a href="Qubes">Qubes-Whonix-Workstation</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Workstation App Qube (commonly called </code><em><span><code>anon-whonix</code></span></em><code>)</code>
+&#8594; <code>QTerminal</code> &#8594; run
+<code>sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf</code></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Utilities-terminal.png.webp" width="25" height="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><p>Open file <code>/usr/local/etc/whonix_firewall.d/50_user.conf</code>
+with root rights.</p>
+<p><span class="code-select" data-code="sudoedit /usr/local/etc/whonix_firewall.d/50_user.conf">sudoedit
+/usr/local/etc/whonix_firewall.d/50_user.conf</span></p></div></div></p></div></div></p>
+<div class="toccolours mw-collapsible mw-collapsed">
+<p>For more help, press on Learn More on the right.</p>
+<div class="mw-collapsible-content">
+<div class="info-box ">
+<p><strong>Note: This is for informational purposes only!</strong> Do
+not edit
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>.</p>
+<p>The Whonix Global Firewall Settings File
+<code>/etc/whonix_firewall.d/30_whonix_workstation_default.conf</code>
+contains default settings and explanatory comments about their purpose.
+By default, the file is opened read-only and is not meant to be directly
+edited. Below, it is recommended to open the file without root rights.
+The file contains an explanatory comment on how to change firewall
+settings.</p>
+<pre><code>## Please use &quot;/etc/whonix_firewall.d/50_user.conf&quot; for your custom configuration,
+## which will override the defaults found here. When Whonix is updated, this
+## file may be overwritten.</code></pre>
+<p>Also see: <a href="https://www.kicksecure.com/wiki/Configuration_Files/">Whonix
+modular flexible .d style configuration folders</a>.</p>
+<p>To view the file, follow these instructions.</p>
+<div class="info-box ">
+<p><u>If using <a href="Qubes">Qubes-Whonix</a></u>,
+complete these steps.</p>
+<p><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Template</code> &#8594; <code>whonix-workstation-18</code> &#8594;
+<code>QTerminal</code> &#8594; run
+<code>nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf</code></p>
+<p><u>If using a graphical Whonix-Workstation</u>, complete these
+steps.</p>
+<p><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Global Firewall Settings</code></p>
+<p><u>If using a terminal Whonix-Workstation</u>, complete these
+steps.</p>
+<p>In Whonix-Workstation, view the global firewall configuration file in
+an editor.
+<span class="code-select" data-code="nano /etc/whonix_firewall.d/30_whonix_workstation_default.conf">nano
+/etc/whonix_firewall.d/30_whonix_workstation_default.conf</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Add.</p>
+<p><span class="code-select" data-code="EXTERNAL_OPEN_PORTS+=&quot; 80 &quot;">EXTERNAL_OPEN_PORTS+="
+80 "</span></p>
+<p>Save.</p>
+<p><strong>Reload Whonix-Workstation Firewall.</strong></p>
+<p>Ensure the VM has sudo access first. If
+<code>PERSISTENT Mode | SYSMAINT Session</code> is available in some
+form, and you are not booted into it, reboot the VM to reload the
+firewall.</p>
+<p>Platform-specific. Select your platform.</p>
+<p><div class="tab-content-controller "><div class="mininav"></div><div class="tcc-content"><p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Logo_box.png.webp" width="25" height="33" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_USER_Session_2">Graphical
+Whonix-Workstation USER Session</h4></div><div class="tcc-content"><code>Start Menu</code> &#8594; <code>System Tools</code> &#8594;
+<code>Reload Firewall</code></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Logo_box.png.webp" width="25" height="33" alt="Logo_box.png" /></div><div class="tcc-title"><h4 id="Graphical_Whonix-Workstation_SYSMAINT_Session_2">Graphical
+Whonix-Workstation SYSMAINT Session</h4></div><div class="tcc-content"><code>System Maintenance Panel</code> &#8594; <code>Open Terminal</code> &#8594;
+run <code>sudo whonix_firewall</code></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Utilities-terminal.png.webp" width="25" height="25" alt="Utilities-terminal.png" /></div><div class="tcc-title"><h4 id="Terminal_Whonix-Workstation_2">Terminal Whonix-Workstation</h4></div><div class="tcc-content"><span class="code-select" data-code="sudo whonix_firewall">sudo
+whonix_firewall</span></div></div></p>
+<p><div class="tcc-section  info-box"><div class="tcc-image"><img src="../media/Qubes-logo-icon.png.webp" width="25" height="27" alt="Qubes-logo-icon.png" /></div><div class="tcc-title"><h4 id="Qubes-Whonix-Workstation_2"><a href="Qubes">Qubes-Whonix-Workstation</a></h4></div><div class="tcc-content"><code>Qubes App Launcher (blue/grey "Q")</code> &#8594;
+<code>Whonix-Workstation App Qube (commonly named anon-whonix)</code> &#8594;
+<code>QTerminal</code> &#8594; run <code>sudo whonix_firewall</code></div></div></p></div></div></p>
+<h1 id="Forum_Discussion">Forum Discussion</h1>
+<p><a href="https://forums.whonix.org/t/new-wiki-page-to-clear-up-confusion-about-opening-ports">https://forums.whonix.org/t/new-wiki-page-to-clear-up-confusion-about-opening-ports</a><sup class="ext-link-to-archive has-sibling" title="Link to archived version on web.archive.org"><a rel="noreferrer noopener" target="_blank" href="https://web.archive.org/web/https://forums.whonix.org/t/new-wiki-page-to-clear-up-confusion-about-opening-ports" aria-label="Archived version on web.archive.org"><i class="fa-solid fa-box-archive"></i></a></sup></p>
+<h1 id="See_Also">See Also</h1>
+<ul>
+<li><a href="Whonix-Workstation_Firewall">Whonix-Workstation Firewall</a></li>
+<li><a href="Onion_Services">Onion Services</a></li>
+<li><a href="Hosting_Location_Hidden_Services">Hosting
+Location Hidden Services</a></li>
+<li><a href="Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway">Redirect Whonix-Workstation Ports or Unix Domain Socket
+Files to Whonix-Gateway</a></li>
+</ul>
+<h1 id="Footnotes">Footnotes</h1>
+
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text">TCP and some types of DNS</span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">&#8593;</a></span> <span class="reference-text"><a href="Tor#UDP">Tor#UDP</a></span></li>
+</ol>
+
+<p><span class="wiki-book-index wbi-for-footer"><a class="prev internal" href="Tor_Browser/Manual_Download" title="Tor Browser/Manual Download"><i class="fa-solid fa-chevron-left fa-fw"></i><span class="text">Tor
+Browser/Manual
+Download</span></a><a class="index internal" href="Advanced_Documentation" title="Advanced Documentation"><i class="fa-solid fa-list fa-fw"></i><span class="text">Advanced
+Documentation</span></a><a class="next internal" href="Redirect_Whonix-Workstation_Ports_or_Unix_Domain_Socket_Files_to_Whonix-Gateway" title="Redirect Whonix-Workstation Ports or Unix Domain Socket Files to Whonix-Gateway"><i class="fa-solid fa-chevron-right fa-fw"></i><span class="text">Redirect
+Whonix-Workstation Ports or Unix Domain Socket Files to
+Whonix-Gateway</span></a><span class="info"><span class="prev">Previous
+page: Tor Browser/Manual Download</span><span class="index">Index page:
+Advanced Documentation</span><span class="next">Next page: Redirect
+Whonix-Workstation Ports or Unix Domain Socket Files to
+Whonix-Gateway</span></span></span></p>
+<div class="robots-nocontent" data-nosnippet="">
+<div id="custom-footer">
+</div>
+</div>
+
+<div class="catlinks"><span class="catlinks-label">Categories:</span> <a href="Category:Documentation">Documentation</a></div></main>
+<footer class="site-footer"><div class="footer-cols"><div class="footer-col footer-brand"><p class="footer-headline">Whonix <a class="footer-tm" href="Trademark_Policy" aria-label="Trademark Policy">&trade;</a></p><p class="footer-claim">The most watertight privacy operating system in the world.</p><a class="darkmode-toggle" href="#" data-darkmode><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dark mode</a></div><div class="footer-col footer-social"><p class="footer-subhead">Follow us on social media</p><div class="footer-social-icons"><a class="icon-link" href="https://t.me/s/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a><a class="icon-link" href="https://twitter.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a><a class="icon-link" href="https://www.youtube.com/@PrettyGoodSecurity" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a class="icon-link" href="https://inv.nadeko.net/channel/UCAHILHRPwI-6dCBFxSLJjlw" target="_blank" rel="noopener noreferrer" aria-label="Invidious"><i class="fa-solid fa-play" aria-hidden="true"></i></a><a class="icon-link" href="https://www.facebook.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a><a class="icon-link" href="https://www.reddit.com/r/Whonix" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fa-brands fa-reddit" aria-hidden="true"></i></a><a class="icon-link" href="https://github.com/Whonix" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a class="icon-link" href="https://forums.whonix.org/c/news.rss" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a><a class="icon-link" href="https://fosstodon.org/@whonix" target="_blank" rel="noopener noreferrer" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a><a class="icon-link" href="https://bsky.app/profile/whonix.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a></div><p class="footer-sponsor-head">Supported by Power Up Privacy</p></div><div class="footer-col footer-legal"><div class="footer-badges"><a href="Reasons_for_Freedom_Software" aria-label="Freedom Software"><img src="../gnu-logo.png" width="50" height="49" alt="GNU logo"></a><a href="Policy_On_Nonfreedom_Software" aria-label="Open Source Initiative"><img src="../osi-logo.png" width="50" height="60" alt="Open Source Initiative logo"></a></div><nav class="footer-freedom"><ul><li><a href="Reasons_for_Freedom_Software">Freedom Software</a></li><li><a href="Policy_On_Nonfreedom_Software">Policy on Nonfreedom Software</a></li></ul></nav><nav class="footer-links"><ul><li><a href="Terms_of_Service">Terms of Service</a></li><li><a href="Privacy_Policy">Privacy Policy</a></li><li><a href="Cookie_Policy">Cookie Policy</a></li><li><a href="E-Sign_Consent">E-Sign Consent</a></li><li><a href="Terms_of_Service#DMCA_Policy">DMCA</a></li><li><a href="Imprint">Imprint</a></li></ul></nav><p class="copyright">(c) 2012-2026 ENCRYPTED SUPPORT LLC</p></div></div></footer>
+<div class="bottom-stack">
+<div class="stage-banner" role="alert"><strong>Staging server.</strong> This is a preview of Whonix content -- it may be incomplete or unreleased and is not the production website.</div>
+<div class="consent-banner" role="region" aria-label="Legal notice"><span class="consent-text">By using our website, you acknowledge that you have read, understood and agreed to our <a href="Privacy_Policy">Privacy Policy</a>, <a href="Cookie_Policy">Cookie Policy</a>, <a href="Terms_of_Service">Terms of Service</a>, and <a href="E-Sign_Consent">E-Sign Consent</a>.</span><button type="button" class="consent-dismiss" data-consent-dismiss>OK</button></div>
+</div>
+<div id="fly-in-notification-panel" role="region" hidden aria-label="Notification panel"><div class="inner-wrapper"><i class="close-panel fa-solid fa-xmark" role="button" tabindex="0" aria-label="Close this notification"></i><div class="content"><div class="headline"><a href="Donate">Your support makes<br>all the difference!</a></div><p>We believe security software like Whonix needs to remain Open Source and independent. <b>Would you help</b> sustain and grow the project? Learn more about our <a href="Donate">14 year success story and maybe DONATE!</a></p></div></div></div>
+<script src="../search-index.js" defer></script>
+<script src="../page-previews.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>
