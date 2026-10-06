@@ -241,6 +241,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
+/* Whonix production draws a 2px brand-blue rule under the nav; Kicksecure does not. */
+body.site-whonix .site-header { border-bottom: 2px solid #22a7df; }
 /* the bar spans the viewport, but its CONTENT is constrained + centered to the article
    column (prod), so the logo/nav/donate align with the content below instead of the edges. */
 .site-header-inner {
@@ -376,7 +378,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .site-tm {
   color: var(--fg);
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   vertical-align: super;
   margin-left: -0.2rem;
 }
@@ -628,7 +630,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   align-items: flex-start;
   gap: 0.75rem;
 }
-.first-heading > h1, .first-heading .widget-headline h1 {
+/* `.first-heading > #firstHeading` (id specificity) is REQUIRED: on a book page the inner
+   <h1 id="firstHeading"> also matches the `#firstHeading` box rule above and would get a
+   SECOND 25px margin + padding (a ~50px-taller gray box) -- this reset must outrank it. */
+.first-heading > h1, .first-heading > #firstHeading, .first-heading .widget-headline h1 {
   margin: 0;
   border: 0;
   padding: 0;
@@ -1074,7 +1079,12 @@ code {
 /* Open Source / Freedom Software badges (OSI + GNU logos), a row above the text links,
    sized to production's ~50px. */
 .footer-badges { display: flex; align-items: center; gap: 0.75rem; margin: 0 0 0.9rem; }
-.footer-badges img { width: 50px; height: auto; }
+/* each badge sits in a white rounded card like production (not bare on the gray footer) */
+.footer-badges a {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #fff; border-radius: 8px; padding: 8px 10px;
+}
+.footer-badges img { width: 68px; height: auto; display: block; }
 .footer-badges a:hover { opacity: 0.85; }
 .footer-social-icons {
   display: flex; flex-wrap: wrap; gap: 0.55rem;
@@ -1321,7 +1331,7 @@ code {
    layout classes (thumb-gallery-style / gallery-white / justify-*). A See-Also gallery
    is thumb-gallery-style (framed cards); a bare gallery is a simple centered icon row. */
 .gallery {
-  margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
+  margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: flex-start;
 }
 /* pandoc wraps the inline galleryboxes in a <p>; make it transparent so the boxes are
    the gallery's flex items (else the lone <p> is the only flex child -> vertical stack). */
@@ -1654,6 +1664,10 @@ html.stage-notice-hidden .stage-banner { display: none; }
    "works without JavaScript" callout only shows to actual no-JS visitors (no flash). */
 html.client-js .show-for-nojs-only { display: none; }
 #siteNotice { display: block; margin: 1rem 0 1.25rem; text-align: center; }
+/* When a sitenotice is present it already supplies the gap above the content; drop the
+   .wiki-content 28px top margin so the sitenotice->headline gap is not doubled (a page
+   WITHOUT a notice keeps the 28px header->content gap, matching production). */
+#siteNotice + main.wiki-content { margin-top: 0; }
 .sitenotice { position: relative; display: inline-block; max-width: 100%; }
 .sitenotice-close {
   width: 30px; height: 30px; position: absolute; top: 4px; right: 4px; z-index: 10;
