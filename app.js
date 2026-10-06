@@ -20,11 +20,13 @@
   var LS_LEGAL_ACK = "legal-agreement-banner-dismissed";
   var LS_SITENOTICE = "sitenotice-dismissed";
   var LS_FLYIN = "flyin-last-dismissed";
+  var LS_STAGE = "stage-notice-dismissed";
   var STORAGE_KEYS = [
     { key: LS_THEME, label: "Color theme (dark / light)" },
     { key: LS_LEGAL_ACK, label: "Legal agreement banner dismissed" },
     { key: LS_SITENOTICE, label: "Site-notice banner dismissed (stores the banner id)" },
-    { key: LS_FLYIN, label: "Fly-in donate toast last-dismissed timestamp" }
+    { key: LS_FLYIN, label: "Fly-in donate toast last-dismissed timestamp" },
+    { key: LS_STAGE, label: "Staging-server notice dismissed" }
   ];
 
   // Graceful degradation for a drifted CSP: the hashed inline pre-paint script in
@@ -430,6 +432,21 @@
     if (btn) btn.addEventListener("click", function () {
       banner.hidden = true;
       try { localStorage.setItem(LS_LEGAL_ACK, "1"); } catch (err) {}
+    });
+  }
+
+  // Staging-server notice: shown by default on --stage builds; dismiss remembers via
+  // localStorage (no cookies), like the consent banner. TT-safe (hidden attribute only).
+  function initStageBanner() {
+    var banner = document.querySelector(".stage-banner");
+    if (!banner) return;
+    try {
+      if (localStorage.getItem(LS_STAGE) === "1") { banner.hidden = true; return; }
+    } catch (err) {}
+    var btn = banner.querySelector("[data-stage-dismiss]");
+    if (btn) btn.addEventListener("click", function () {
+      banner.hidden = true;
+      try { localStorage.setItem(LS_STAGE, "1"); } catch (err) {}
     });
   }
 
@@ -872,6 +889,7 @@
     initBackToTop();
     initSearch();
     initConsentBanner();
+    initStageBanner();
     initSitenotice();
     initFlyin();
     var modals = initModals();

@@ -298,6 +298,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   border-radius: 0 0 10px 10px; box-shadow: var(--shadow-md);
 }
 .tools-toggle:checked ~ .tools-menu { display: block; }
+/* Production auto-expands the chevron supermenu on hover/focus (like the nav
+   submenus); the click toggle above stays for touch + keyboard. */
+.tools:hover .tools-menu,
+.tools:focus-within .tools-menu { display: block; }
 .tools-item {
   display: flex; align-items: center; gap: 0.6rem; width: 100%;
   padding: 0.5rem 0.7rem; border: 0; background: none; border-radius: var(--radius-sm);
@@ -371,10 +375,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   text-decoration: none;
 }
 .site-tm {
-  color: var(--muted);
-  font-size: 0.7rem;
+  color: var(--fg);
+  font-size: 0.9rem;
   vertical-align: super;
-  margin-left: -0.35rem;
+  margin-left: -0.2rem;
 }
 .site-tm:hover { color: var(--fg); text-decoration: none; }
 /* grouped nav dropdowns (production mega-menu): pure-CSS reveal on hover/focus */
@@ -452,13 +456,17 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .search-field {
   order: -1;                 /* box expands to the LEFT of the magnifier, as in prod */
   width: 0; padding: 0; border: 0; opacity: 0; pointer-events: none;
+  /* visibility:hidden keeps the collapsed zero-width field OUT of the tab order (a
+     keyboard user never lands on an invisible input); it still animates open because
+     visibility is in the transition, so it stays visible through the shrink on close. */
+  visibility: hidden;
   background: var(--bg); color: var(--fg); font: inherit; font-size: 0.9rem;
   border-radius: var(--radius-sm);
-  transition: width 0.18s ease, opacity 0.18s ease, padding 0.18s ease;
+  transition: width 0.18s ease, opacity 0.18s ease, padding 0.18s ease, visibility 0.18s ease;
 }
 .search-toggle:checked ~ .search-field {
   width: 12rem; padding: 0.4rem 0.65rem; border: 1px solid var(--border);
-  opacity: 1; pointer-events: auto;
+  opacity: 1; pointer-events: auto; visibility: visible;
 }
 .search-field:focus-visible {
   outline: 2px solid var(--focus);
@@ -1297,6 +1305,16 @@ code {
 .toc a { color: var(--link); display: inline-block; padding: 3px 0; }
 .toc a:hover { text-decoration: underline; }
 
+/* VideoLink: general icon + text link + a small inline row of platform icons. The
+   source icons are 600px; width/height attrs (set in videolink()) size them, this just
+   lays them out inline like production. */
+.video-link .indicator img { vertical-align: text-bottom; margin-right: 0.3rem; }
+.video-link .icons {
+  display: inline-flex; align-items: center; gap: 0.35rem; margin-left: 0.4rem;
+  vertical-align: middle;
+}
+.video-link .icons img { vertical-align: middle; }
+
 /* --- gallery (native image grid) --- */
 /* Galleries: production card grid (Utility.css). render_galleries emits
    ul.gallery > li.gallerybox > (.thumb + .gallerytext), propagating the gallery-tag
@@ -1305,6 +1323,9 @@ code {
 .gallery {
   margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
 }
+/* pandoc wraps the inline galleryboxes in a <p>; make it transparent so the boxes are
+   the gallery's flex items (else the lone <p> is the only flex child -> vertical stack). */
+.gallery > p { display: contents; }
 .gallery .gallerybox {
   display: flex; flex-direction: column; align-items: center;
   max-width: 12rem; font-size: 0.85rem; color: var(--muted);
@@ -1485,16 +1506,23 @@ code {
 }
 .consent-dismiss:hover { background: rgba(255, 255, 255, 0.25); }
 
-/* Staging notice -- STAGE builds only; loud + non-dismissible so stage is never
-   mistaken for production. Fixed to the viewport BOTTOM so it is out of the header:
-   the header then renders at y=0 exactly like production (no top offset), which keeps
-   stage-vs-prod pixel comparison aligned. Always visible while scrolling. */
+/* Staging notice -- STAGE builds only; loud so stage is never mistaken for production.
+   Fixed to the viewport BOTTOM so it is out of the header: the header then renders at
+   y=0 exactly like production (no top offset), keeping stage-vs-prod comparison aligned.
+   Dismissible (localStorage, like the legal banner) via the OK button. */
 .stage-banner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.4rem 0.9rem;
   padding: 0.5rem 1rem; font-size: 0.9rem; text-align: center;
   color: #3a2500; background: #ffcf33;
   border-top: 2px solid #e0a800;
 }
 .stage-banner strong { color: #7a1f00; }
+.stage-dismiss {
+  border: 1px solid #b07d00; background: rgba(0, 0, 0, 0.06); color: #3a2500;
+  padding: 0.2rem 0.9rem; border-radius: var(--radius-sm, 4px); cursor: pointer;
+  font: inherit; font-weight: 600;
+}
+.stage-dismiss:hover { background: rgba(0, 0, 0, 0.12); }
 /* Reserve space so the fixed bottom stack never hides the last of the footer (stage builds
    only). The staging notice wraps to ~3 lines at phone width, so reserve more there. */
 body:has(.stage-banner) { padding-bottom: 3.5rem; }
@@ -1621,6 +1649,7 @@ body:has(.stage-banner) { padding-bottom: 3.5rem; }
    a previously-dismissed banner should stay hidden, so it never paints then vanishes. */
 html.sitenotice-hidden #siteNotice,
 html.legal-ack-hidden .consent-banner { display: none; }
+html.stage-notice-hidden .stage-banner { display: none; }
 /* No-JS notice: the pre-paint marks <html class="client-js"> when JS is on, so the
    "works without JavaScript" callout only shows to actual no-JS visitors (no flash). */
 html.client-js .show-for-nojs-only { display: none; }
@@ -1633,7 +1662,9 @@ html.client-js .show-for-nojs-only { display: none; }
 }
 .sitenotice-close:hover { transform: scale(1.2); }
 .sitenotice-banner[data-banner-id="38"] > a {
-  display: inline-flex; align-items: center; padding: 7px 30px 7px 12px;
+  /* right padding reserves room for the absolute 30px close button (top/right:4px) so
+     it never overlaps the banner text. */
+  display: inline-flex; align-items: center; padding: 7px 44px 7px 12px;
   background: linear-gradient(#22a7df, #43b3f1); color: #fff; font-size: 20px;
   border-radius: 10px; border: 1px solid #22a7df; text-decoration: none;
 }
@@ -1652,6 +1683,7 @@ html.client-js .show-for-nojs-only { display: none; }
   transform: translateX(100%); transition: transform 0.4s ease;
 }
 #fly-in-notification-panel.flyin-shown { transform: translateX(0); }
+#fly-in-notification-panel .flyin-image { display: block; width: 100%; height: auto; }
 @media (max-width: 550px) { #fly-in-notification-panel { width: 230px; } }
 #fly-in-notification-panel .close-panel {
   color: #fff; font-size: 26px; padding: 10px; cursor: pointer; position: absolute;
