@@ -725,7 +725,11 @@ blockquote p:last-child { margin-bottom: 0; }
    (MediaWiki CSS extension, dropped under strict CSP); reproduced here. Floats right of the
    appeal text as a compact box; each coin row shows its icon, name and copyable address with
    the QR collapsed by default (prod's default view -- the address stays copyable). --- */
-.donate-area { display: flow-root; }
+/* Contain the float at the WRAPPER, not .donate-area: the donation panel floats right and
+   the sibling .content-area learn text must wrap to its LEFT (prod). flow-root on
+   .donate-area would trap the float so the learn text drops below the whole panel. */
+.content-wrapper { display: flow-root; }
+.donate-area { display: block; }
 .donation-panel { float: right; width: 360px; max-width: 100%; margin: 0.2rem 0 1rem 1.5rem; }
 .donation-panel > p { margin: 0; }
 .crypto {
@@ -948,7 +952,10 @@ code {
 /* ---- multi-column list layouts ---- */
 .use-2-columns { columns: 2; column-gap: 2rem; }
 .use-3-columns { columns: 3; column-gap: 2rem; }
-.use-2-columns li, .use-3-columns li { break-inside: avoid; }
+/* Avoid breaking only a LEAF entry across a column; a category item (one with a nested
+   <ul>) MUST be allowed to break so a long list spreads evenly over the columns (prod
+   balances the same way -- a blanket break-inside:avoid traps a big category in column 1). */
+.use-2-columns li:not(:has(> ul)), .use-3-columns li:not(:has(> ul)) { break-inside: avoid; }
 .strict-list-columns { list-style-position: inside; }
 .force-column-break { break-before: column; }
 @media (max-width: 720px) { .use-3-columns { columns: 2; } }
