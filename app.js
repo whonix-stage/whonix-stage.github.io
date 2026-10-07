@@ -922,6 +922,41 @@
     render(null);
   }
 
+  // Wide tables: add a TOP horizontal scrollbar that mirrors the table's own (bottom) one,
+  // so a reader scrolls a wide table from either edge. Built only for tables that actually
+  // overflow. The always-visible classic bars themselves are pure CSS (see style.css); this
+  // only adds + syncs the top rail. No-JS still gets the bottom bar.
+  function initWideTableScroll() {
+    var tables = document.querySelectorAll(
+      ".wiki-content table:not(.toc):not(.storage-table)");
+    tables.forEach(function (table) {
+      if (table.scrollWidth <= table.clientWidth + 1) { return; }
+      var rail = document.createElement("div");
+      rail.className = "table-scroll-top";
+      rail.setAttribute("aria-hidden", "true");
+      var spacer = document.createElement("div");
+      rail.appendChild(spacer);
+      table.parentNode.insertBefore(rail, table);
+      table.style.marginTop = "0";
+      function sizeRail() { spacer.style.width = table.scrollWidth + "px"; }
+      sizeRail();
+      var lock = false;
+      rail.addEventListener("scroll", function () {
+        if (lock) { return; }
+        lock = true; table.scrollLeft = rail.scrollLeft; lock = false;
+      });
+      table.addEventListener("scroll", function () {
+        if (lock) { return; }
+        lock = true; rail.scrollLeft = table.scrollLeft; lock = false;
+      });
+      var raf = 0;
+      window.addEventListener("resize", function () {
+        if (raf) { return; }
+        raf = requestAnimationFrame(function () { raf = 0; sizeRail(); });
+      });
+    });
+  }
+
   ready(function () {
     initDarkMode();
     initCopyButtons();
@@ -943,6 +978,7 @@
     var modals = initModals();
     initDownloadModal(modals);
     initTableExpand(modals);
+    initWideTableScroll();
     initHovercards();
     initStorageViewer();
   });

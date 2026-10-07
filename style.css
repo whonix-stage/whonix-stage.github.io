@@ -897,6 +897,28 @@ code:empty { display: none; }
   background: color-mix(in srgb, var(--surface) 55%, var(--bg));
 }
 .table-wrap { overflow-x: auto; }
+/* Wide tables get a dual (top + bottom) horizontal scrollbar, ALWAYS visible -- even on
+   mobile, where native bars are overlay (hidden until a scroll) so a reader cannot tell a
+   table scrolls sideways. Reproduces the production ScrollAutoWrapper/CustomScrollbar
+   dual-bar affordance without jQuery (CSP-safe). The CLASSIC bar below is forced by opting
+   out of overlay scrollbars (-webkit-appearance:none + scrollbar-width:auto); the bottom
+   bar needs no JS, the top rail is built by initWideTableScroll for overwide tables only. */
+.wiki-content table:not(.toc):not(.storage-table),
+.table-scroll-top {
+  scrollbar-width: auto;
+  scrollbar-color: #888 color-mix(in srgb, var(--surface) 70%, var(--fg) 12%);
+}
+.wiki-content table:not(.toc):not(.storage-table)::-webkit-scrollbar,
+.table-scroll-top::-webkit-scrollbar { height: 12px; -webkit-appearance: none; }
+.wiki-content table:not(.toc):not(.storage-table)::-webkit-scrollbar-track,
+.table-scroll-top::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--surface) 70%, var(--fg) 12%); border-radius: 6px;
+}
+.wiki-content table:not(.toc):not(.storage-table)::-webkit-scrollbar-thumb,
+.table-scroll-top::-webkit-scrollbar-thumb { background: #888; border-radius: 6px; }
+/* JS-built top rail: an empty strip whose own horizontal scrollbar mirrors the table's. */
+.table-scroll-top { overflow-x: scroll; overflow-y: hidden; margin: 1.25rem 0 0; }
+.table-scroll-top > div { height: 1px; }
 /* status/comparison cells: prod colors {{Yes}}/{{No}} (and ad-hoc {{Green}}/{{Red}}/
    {{Yellow}}/{{Blue}}/{{Gray}} cells) via an inline background-color, which our strict
    style-src blocks. The sanitizer maps that palette to these classes; tint via the
@@ -977,6 +999,16 @@ code:empty { display: none; }
    sets (same specificity as the base rule, wins on source order) -- that gave "FAILURE" the
    icon-font's cramped metrics. The extra class outranks `.fa-solid`. */
 .padded-content-icon.pci-text { font-family: inherit; }
+/* A bare-character IconSet (iconset-false, e.g. the warning "!") renders as a FILLED chip
+   tinted by its cs-* --callout with a white glyph -- matching prod, not a loose coloured
+   character. Scoped to iconset-false so the numbered/keycap/circle IconSets (their own rules
+   below) are untouched; the warning bang is cs-red, saturated enough for white. */
+.padded-content-icon.pci-text.iconset-false {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.6em; min-height: 1.6em; padding: 0 0.4em; border-radius: 5px;
+  background: var(--callout, var(--accent)); color: #fff;
+  line-height: 1; vertical-align: middle; margin-right: 0.35rem;
+}
 .padded-content-icon.iconset-h1 { font-size: 1.5rem; }
 .padded-content-icon.iconset-h2 { font-size: 1.1rem; }
 /* IconSet h2/h3/h4 (step/section numbers, e.g. {{IconSet|h2|3}}) render as prod's filled
@@ -1024,6 +1056,17 @@ code:empty { display: none; }
 .cs-orange { --callout: var(--c-orange); }
 .cs-gray, .cs-gray-light, .cs-black, .cs-white { --callout: var(--c-gray); }
 .cs-red-font { color: var(--c-red); }
+/* A cs-* colour class on a NOTICE BOX paints a pale, theme-aware fill + tinted border
+   (production fills these solid -- .cs-yellow-light #fff9a5, .cs-red #ff6e6e, etc.; a pale
+   --callout tint is the dark-mode-safe equivalent and is why the warning box was colourless
+   before). One rule covers warning / note / collapsible boxes of every colour; the per-class
+   --callout above picks the hue. Scoped to box elements so an inline cs-red span stays text. */
+:is(.toccolours, .mw-collapsible, .info-box, .mbox):is(.cs-red, .cs-red-light,
+    .cs-green, .cs-green-light, .cs-blue, .cs-blue-light, .cs-yellow, .cs-yellow-light,
+    .cs-orange, .cs-orange-light, .cs-gray, .cs-gray-light) {
+  background: color-mix(in srgb, var(--callout) 16%, var(--bg));
+  border-color: color-mix(in srgb, var(--callout) 45%, var(--border));
+}
 
 /* ---- icon bullet list ---- */
 /* Each item is a rounded pill CARD; the FontAwesome letter/glyph icon becomes a
@@ -1657,9 +1700,15 @@ code:empty { display: none; }
   width: 25px; height: 25px; object-fit: contain;
 }
 .mininav:not(.mn-switcher) li > img:first-child + a { padding-left: 46px; }
-/* Prod Mininav.css shrinks book-nav chips on narrow screens (<=420px). */
+/* Prod Mininav.css shrinks book-nav chips on narrow screens (<=420px). The desktop
+   white-space:nowrap (packs chips 2-per-row) must RELAX here: a long label (e.g.
+   "Transparency, Sponsors / ...") is wider than the phone viewport and, kept on one
+   line, pushes the whole page into horizontal scroll -- so wrap it instead. */
 @media (max-width: 420px) {
-  .mininav:not(.mn-switcher) li > a { font-size: 15px; padding: 6px 10px; }
+  .mininav:not(.mn-switcher) li > a {
+    font-size: 15px; padding: 6px 10px;
+    white-space: normal; max-width: 100%;
+  }
   .mininav:not(.mn-switcher) > ul > li { min-height: 40px; }
 }
 /* current-page selflink: bold everywhere (used outside the mininav too). */
