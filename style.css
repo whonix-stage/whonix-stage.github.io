@@ -780,6 +780,9 @@ blockquote p:last-child { margin-bottom: 0; }
 .paypal > .headline .account-info {
   display: inline-block; font-weight: 400; font-size: 0.85rem; color: var(--muted);
 }
+/* The note's sub-items are LINKS ("No PayPal account required", "(Tor unsupported.)") and
+   must read as links -- prod distinguishes them by the link colour, not muted plain text. */
+.paypal > .headline a.account-info { color: var(--link); }
 .payitem.line {
   display: flex; align-items: center; gap: 0.5rem 0.75rem; flex-wrap: wrap;
   padding: 0.55rem 0.85rem; border-bottom: 1px solid var(--border-soft); font-size: 0;
@@ -811,6 +814,20 @@ blockquote p:last-child { margin-bottom: 0; }
 .payitem .expand-checkbox ~ .expand { display: none; }
 .payitem .expand-checkbox:checked ~ .expand { display: block; }
 .payitem.line .expand-checkbox:checked ~ .qr-button .name::after { transform: rotate(180deg); }
+/* Uniform label column so every address pill shares one left edge regardless of coin-name
+   length (Ethereum is the widest and otherwise shoves its pill right). */
+.payitem.line .qr-button { flex: 0 0 8.5rem; }
+/* ERC-20 stablecoin row (USDC/USDT/DAI): center the icon cluster and give it the SAME expand
+   caret as the coin rows -- it is an expandable (icon-only) row too, not a loose icon strip. */
+.payitem.symbols {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 0.5rem; padding: 0.55rem 0.85rem; border-bottom: 1px solid var(--border-soft);
+}
+.payitem.symbols .qr-button::after {
+  content: "\25bc" / ""; margin-left: 0.35rem; font-size: 0.7em; color: var(--muted);
+  display: inline-block; transition: transform 0.15s;
+}
+.payitem.symbols .expand-checkbox:checked ~ .qr-button::after { transform: rotate(180deg); }
 .payitem .expand-checkbox:focus-visible ~ .qr-button,
 .more .expand-checkbox:focus-visible ~ .more-button {
   outline: 2px solid var(--link); outline-offset: 2px;
@@ -1014,6 +1031,12 @@ code:empty { display: none; }
   background: var(--callout, var(--accent)); color: #fff;
   line-height: 1; vertical-align: middle; margin-right: 0.35rem;
 }
+/* Yellow is too light for a white glyph -- dark text on a yellow chip (prod uses #444).
+   Higher specificity than the white-text rule above so it wins for a yellow bang. */
+.padded-content-icon.pci-text.iconset-false.cs-yellow,
+.padded-content-icon.pci-text.iconset-false.cs-yellow-light {
+  color: #444;
+}
 .padded-content-icon.iconset-h1 { font-size: 1.5rem; }
 .padded-content-icon.iconset-h2 { font-size: 1.1rem; }
 /* IconSet h2/h3/h4 (step/section numbers, e.g. {{IconSet|h2|3}}) render as prod's filled
@@ -1056,9 +1079,9 @@ code:empty { display: none; }
 /* color-scheme accents: set --callout so box border + tint follow */
 .cs-red, .cs-red-light, .cs-red-font { --callout: var(--c-red); }
 .cs-green, .cs-green-light { --callout: var(--c-green); }
-.cs-blue { --callout: var(--c-blue); }
+.cs-blue, .cs-blue-light { --callout: var(--c-blue); }
 .cs-yellow, .cs-yellow-light { --callout: var(--c-yellow); }
-.cs-orange { --callout: var(--c-orange); }
+.cs-orange, .cs-orange-light { --callout: var(--c-orange); }
 .cs-gray, .cs-gray-light, .cs-black, .cs-white { --callout: var(--c-gray); }
 .cs-red-font { color: var(--c-red); }
 /* A cs-* colour class on a NOTICE BOX paints a pale, theme-aware fill + tinted border
@@ -1419,6 +1442,13 @@ code:empty { display: none; }
 .share-tooltip .share-icon:hover { color: var(--link); text-decoration: none; }
 .share-tooltip .menu-subhead {
   display: block; margin: 0.55rem 0 0.25rem; font-weight: 600; font-size: 0.8rem; color: var(--muted);
+}
+/* Footer share tooltip: the icon inherits the footer's own text colour, and on wider
+   screens the menu opens UPWARD (the footer sits at the page bottom; opening down would run
+   off-page). On phones the <=440px rule above already pins it to a fixed viewport slot. */
+.footer-share .headline-anchor { color: inherit; }
+@media (min-width: 441px) {
+  .footer-share .menu-wrapper { top: auto; bottom: calc(100% + 0.3rem); }
 }
 .image-right { float: right; margin: 0 0 1rem 1.25rem; max-width: 45%; }
 /* float rescued from an inline style by sanitize (strict CSP strips style=):

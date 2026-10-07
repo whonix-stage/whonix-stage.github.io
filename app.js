@@ -930,30 +930,47 @@
     var tables = document.querySelectorAll(
       ".wiki-content table:not(.toc):not(.storage-table)");
     tables.forEach(function (table) {
-      if (table.scrollWidth <= table.clientWidth + 1) { return; }
-      var rail = document.createElement("div");
-      rail.className = "table-scroll-top";
-      rail.setAttribute("aria-hidden", "true");
-      var spacer = document.createElement("div");
-      rail.appendChild(spacer);
-      table.parentNode.insertBefore(rail, table);
-      table.style.marginTop = "0";
-      function sizeRail() { spacer.style.width = table.scrollWidth + "px"; }
-      sizeRail();
-      var lock = false;
-      rail.addEventListener("scroll", function () {
-        if (lock) { return; }
-        lock = true; table.scrollLeft = rail.scrollLeft; lock = false;
-      });
-      table.addEventListener("scroll", function () {
-        if (lock) { return; }
-        lock = true; rail.scrollLeft = table.scrollLeft; lock = false;
-      });
-      var raf = 0;
-      window.addEventListener("resize", function () {
-        if (raf) { return; }
-        raf = requestAnimationFrame(function () { raf = 0; sizeRail(); });
-      });
+      var rail = null, spacer = null, lock = false;
+      function build() {
+        rail = document.createElement("div");
+        rail.className = "table-scroll-top";
+        rail.setAttribute("aria-hidden", "true");
+        spacer = document.createElement("div");
+        rail.appendChild(spacer);
+        table.parentNode.insertBefore(rail, table);
+        rail.addEventListener("scroll", function () {
+          if (lock) { return; }
+          lock = true; table.scrollLeft = rail.scrollLeft; lock = false;
+        });
+        table.addEventListener("scroll", function () {
+          if (lock) { return; }
+          lock = true; rail.scrollLeft = table.scrollLeft; lock = false;
+        });
+      }
+      // Re-evaluate whenever the table's box changes: it may start hidden (a collapsed
+      // mw-collapsible or an inactive tab measures 0), become wide only after an image
+      // loads, or cross the overflow threshold on a window resize -- a one-shot check at
+      // load would skip all three (the reported bug). Build the rail lazily, the first
+      // time the table is actually overwide; hide it again if it later fits.
+      function sync() {
+        var overwide = table.scrollWidth > table.clientWidth + 1;
+        if (overwide && !rail) { build(); }
+        if (rail) {
+          spacer.style.width = table.scrollWidth + "px";
+          rail.style.display = overwide ? "" : "none";
+          table.style.marginTop = overwide ? "0" : "";
+        }
+      }
+      if (typeof ResizeObserver !== "undefined") {
+        new ResizeObserver(sync).observe(table);
+      } else {
+        sync();
+        var raf = 0;
+        window.addEventListener("resize", function () {
+          if (raf) { return; }
+          raf = requestAnimationFrame(function () { raf = 0; sync(); });
+        });
+      }
     });
   }
 
