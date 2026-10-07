@@ -216,57 +216,9 @@
     }
   }
 
-  // Crypto donation panel: reveal a coin's QR/expand block on its .qr-button. Progressive
-  // -- without JS the .expand stays visible (panel still usable); here we mark each .crypto
-  // .qr-ready (CSS then collapses) and toggle .payitem.expanded per row. TT-safe (no HTML
-  // sinks); replaces the sanitizer-stripped content checkbox that never worked.
-  function initCryptoExpanders() {
-    var panels = document.querySelectorAll(".crypto");
-    for (var p = 0; p < panels.length; p++) { panels[p].classList.add("qr-ready"); }
-    var items = document.querySelectorAll(".crypto .payitem");
-    for (var i = 0; i < items.length; i++) {
-      (function (item) {
-        var btn = item.querySelector(".qr-button");
-        if (!btn || !item.querySelector(".expand")) return;
-        btn.setAttribute("role", "button");
-        btn.setAttribute("tabindex", "0");
-        btn.setAttribute("aria-expanded", "false");
-        function toggle() {
-          btn.setAttribute("aria-expanded", item.classList.toggle("expanded") ? "true" : "false");
-        }
-        btn.addEventListener("click", toggle);
-        btn.addEventListener("keydown", function (e) {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
-        });
-      })(items[i]);
-    }
-  }
-
-  // "More Payment Options" reveal (the .more widget on Donate). Progressive like the crypto
-  // panel: no-JS shows every option (CSS hides the button); JS collapses .more-content and
-  // wires .more-button to toggle it. TT-safe: textContent/classList only.
-  function initMoreButton() {
-    var mores = document.querySelectorAll(".more");
-    for (var i = 0; i < mores.length; i++) {
-      (function (more) {
-        var btn = more.querySelector(".more-button");
-        if (!btn || !more.querySelector(".more-content")) return;
-        more.classList.add("more-ready");
-        btn.setAttribute("role", "button");
-        btn.setAttribute("tabindex", "0");
-        btn.setAttribute("aria-expanded", "false");
-        function toggle() {
-          var open = more.classList.toggle("expanded");
-          btn.setAttribute("aria-expanded", open ? "true" : "false");
-          btn.textContent = open ? "show less" : "show more";  // caret added via CSS ::after
-        }
-        btn.addEventListener("click", toggle);
-        btn.addEventListener("keydown", function (e) {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
-        });
-      })(mores[i]);
-    }
-  }
+  // The crypto-panel QR reveal and the "More Payment Options" grid collapse are now pure-CSS
+  // checkbox-hacks (a hidden <input class="expand-checkbox"> + a <label>), so no JS wires
+  // them -- they work (and stay collapsed) with JavaScript disabled, matching production.
 
   // A controller's DIRECT sections (nested controllers are handled by their own pass).
   function tabSections(ctrl) { return ctrl.querySelectorAll(":scope > .tcc-content > .tcc-section"); }
@@ -956,8 +908,6 @@
     initPagePrint();
     initCollapsibles();
     initExpandCollapseAll();
-    initCryptoExpanders();
-    initMoreButton();
     initTabs();
     window.addEventListener("hashchange", syncTabsFromHash);
     initNavToggle();
