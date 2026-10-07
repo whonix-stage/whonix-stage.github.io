@@ -176,13 +176,15 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 /* Touch devices report hover:none and keep the :hover state stuck on the last-tapped
    element, so an underline-on-hover leaves the link underlined after a tap (reported on
    the header Donate link). Drop every hover-underline for pointerless devices; the colour
-   change stays as the affordance, matching prod. */
+   change stays as the affordance, matching prod. !important because the per-element
+   underline rules (.header-donate:hover etc.) come LATER in the file with equal
+   specificity and would otherwise win the cascade over this block. */
 @media (hover: none) {
   a:hover,
   .header-donate:hover,
   .more-button:hover,
   .footer-freedom a:hover, .footer-links a:hover,
-  .toc a:hover { text-decoration: none; }
+  .toc a:hover { text-decoration: none !important; }
 }
 /* Production distinguishes links by COLOUR only (no underline) -- match it for pixel
    parity. (Trades away the link-in-text-block a11y underline; underline-on-hover stays.) */
@@ -369,7 +371,10 @@ body.site-whonix .site-logo-img { width: auto; }
     display: none !important;
   }
   .wiki-content { max-width: 100%; margin: 0; padding: 0; }
-  body { background: #fff; padding: 0; }
+  /* !important: initBottomStackSpacer sets an inline body padding-bottom (reserving the
+     fixed bottom-stack height); without it the print view keeps that gap though the stack
+     is display:none here. */
+  body { background: #fff; padding: 0 !important; }
 }
 /* DIRECT-child ul only: the horizontal top bar. `.site-nav ul` (unscoped) also matched the
    nested .nav-submenu ul and -- at higher specificity than `.nav-submenu {display:none}` --
