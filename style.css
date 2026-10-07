@@ -336,26 +336,15 @@ body.site-whonix .site-logo-img { width: auto; }
 .tools-item.copied::after {
   content: attr(data-copied); margin-left: auto; color: #2e7d32; font-size: 0.85em;
 }
-.share-panel { margin-top: 0.35rem; padding: 0.55rem 0.7rem 0.4rem; border-top: 1px solid var(--border); }
-.share-head { margin: 0 0 0.45rem; font-weight: 600; font-size: 0.9rem; color: var(--fg); }
-.share-copies { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.55rem; }
-.share-copy {
-  display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.55rem;
-  border: 1px solid var(--border); background: var(--bg); border-radius: var(--radius-sm);
-  color: var(--fg-soft); font: inherit; font-size: 0.85rem; cursor: pointer; text-align: left;
-}
-.share-copy:hover { background: var(--surface-2); color: var(--fg); }
-.share-copy.copied::after {
-  content: attr(data-copied); margin-left: auto; color: #2e7d32; font-size: 0.9em;
-}
-.share-socials { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
-.share-social {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 30px; height: 30px; border-radius: 50%;
-  background: var(--surface-2); color: var(--fg-soft);
-}
-.share-social:hover { background: var(--border); color: var(--fg); text-decoration: none; }
-.share-note { margin: 0; font-size: 0.75rem; color: var(--muted); }
+/* Header supermenu share section: holds the SHARED share menu (share_menu_inner, identical
+   markup to the per-heading tooltip + footer). Separator from the tool items above; centre the
+   interior so it reads like the prod share card. Item styling comes from the shared block that
+   also covers .share-tooltip (search `.share-panel .menu-headline`). */
+.share-panel { margin-top: 0.4rem; padding: 10px; border-top: 1px solid var(--border);
+  text-align: center; background: #fff; color: #333; border-radius: 8px;
+  --muted: #6b7177; }   /* white-ground the shared share card (prod is light-only); reground
+                           --muted so subheads/note stay legible on white in dark mode */
+.share-note { display: block; margin: 0; font-size: 0.75rem; color: var(--muted); }
 .share-note a { color: var(--link); }
 @media (max-width: 720px) {
   /* full-width dropped panel on phones so the wide share panel never overflows the viewport */
@@ -508,7 +497,7 @@ body.site-whonix .site-logo-img { width: auto; }
   text-decoration: none;
 }
 .header-donate:hover { text-decoration: underline; }
-.header-donate .fa-heart { color: #f80000; }   /* prod Donate heart red */
+.header-donate .fa-heart { color: #f80000; font-size: 20px; line-height: 1; }   /* prod Donate heart; flex-centered with the label */
 
 /* JS-created search results dropdown */
 .search-results {
@@ -540,7 +529,7 @@ body.site-whonix .site-logo-img { width: auto; }
   .site-header-inner { padding: 5px 1rem; gap: 0.3rem 0.5rem; }
   .site-logo { font-size: 17px; gap: 0.3rem; }
   .site-logo-img { height: 34px; width: 46px; }   /* prod mobile logo box */
-  .site-tm { display: none; }   /* prod omits the trademark mark on mobile */
+  .site-tm { font-size: 0.85rem; margin-left: 0; }   /* keep the trademark mark, compact, on mobile */
   /* hamburger stays top-LEFT like prod (order -1), so it never wraps below the wide CTA */
   .nav-toggle-label { display: inline-flex; align-items: center; margin: 0 0.5rem 0 0; order: -1; }
   /* Open menu: a clean full-width panel with its OWN scroll and sectioned groups (bold
@@ -702,6 +691,29 @@ blockquote p:last-child { margin-bottom: 0; }
   font-size: 0.9rem;
   font-style: normal;
 }
+/* Template:Quotation card (prod blockquote.quotation): a white quote card with an accent left
+   bar + soft shadow, distinct from the generic indented blockquote. Light-grounded (prod is
+   light-only) so it stays legible in dark mode, like the share card. The prod :before quote-mark
+   is an external PNG -- dropped under our no-external-image / monochrome divergence. */
+blockquote.quotation {
+  background: #fff; color: #333;
+  border: none; border-left: 6px solid var(--link);
+  box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.07);
+  padding: 18px 25px; border-radius: 2px;
+}
+blockquote.quotation p:last-child { margin-bottom: 0; }
+blockquote.quotation .blockquote-context {
+  position: relative; display: block; padding-left: 40px;
+  margin: 20px 0 10px; color: #000; font-size: 0.9rem; font-style: normal;
+}
+blockquote.quotation .blockquote-context::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 30px; height: 0; border-top: 2px solid #000;
+}
+blockquote.quotation .blockquote-context img.author-image {
+  height: 40px; width: auto; margin-right: 8px;
+  display: block; float: left; position: relative; top: -9px;
+}
 
 /* ---- code + pre ---- */
 .wiki-content pre {
@@ -823,6 +835,9 @@ blockquote p:last-child { margin-bottom: 0; }
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
   gap: 0.5rem; padding: 0.55rem 0.85rem; border-bottom: 1px solid var(--border-soft);
 }
+/* ERC-20 stablecoin symbols are smaller than the coin-row logos (prod) -- the 1.4rem coin
+   icon is too large for this icon-only row. */
+.payitem.symbols .qr-button .icon { width: 1.1rem; height: 1.1rem; }
 .payitem.symbols .qr-button::after {
   content: "\25bc" / ""; margin-left: 0.35rem; font-size: 0.7em; color: var(--muted);
   display: inline-block; transition: transform 0.15s;
@@ -1101,8 +1116,11 @@ code:empty { display: none; }
    colored circle BADGE (its --callout comes from the item's cs-* class, e.g.
    cs-blue/cs-green), matching production. Targets li > i (the block ul/li variant);
    the inline span= variant is left as flowing text. */
-.icon-bullet-list { list-style: none; padding-left: 0; margin: 1rem 0; }
-.icon-bullet-list li {
+/* Direct-child selectors (> *) so BOTH markup variants render identically: the block ul/li
+   list AND the inline span= variant (the email antispam tooltip uses span=true so it can
+   nest inside a <span>). display:block lets the span items stack like prod's bulleted pills. */
+.icon-bullet-list { list-style: none; padding-left: 0; margin: 1rem 0; display: block; }
+.icon-bullet-list > * {
   display: flex;
   gap: 0.75rem;
   align-items: center;
@@ -1112,7 +1130,7 @@ code:empty { display: none; }
   border: 1px solid var(--border-soft);
   border-radius: 2rem;
 }
-.icon-bullet-list li > i {
+.icon-bullet-list > * > i {
   flex: 0 0 auto;
   width: 1.9em;
   height: 1.9em;
@@ -1124,7 +1142,7 @@ code:empty { display: none; }
   color: #fff;
   font-size: 0.95em;
 }
-.icon-bullet-list li .has-icon, .icon-bullet-list .info-box-icon {
+.icon-bullet-list > * .has-icon, .icon-bullet-list .info-box-icon {
   flex: 0 0 auto;
   color: var(--accent);
 }
@@ -1348,7 +1366,8 @@ code:empty { display: none; }
 .pre-intro-p + .hidden-thumbnail + * {
   padding-top: 1em;
   border-top-left-radius: 9px; border-top-right-radius: 9px;
-  box-shadow: inset 5px 5px 8px -2px rgb(0 0 0 / 9%);
+  /* left-edge inset only (match the other slabs) -- no extra TOP shadow on the first slab. */
+  box-shadow: inset 11px 0 8px -8px rgb(0 0 0 / 9%);
 }
 .intro-like > :last-child,
 .pre-intro-p ~ :has(+ .post-intro-p) {
@@ -1422,12 +1441,15 @@ code:empty { display: none; }
 .share-tooltip .menu-wrapper { display: none; position: absolute; left: 0;
   top: calc(100% + 0.3rem); z-index: 40; }
 .share-tooltip:hover .menu-wrapper, .share-tooltip:focus-within .menu-wrapper { display: block; }
+/* An authored illustration (Figure: Share Button) shows the menu OPEN inline -- a static page
+   has no hover, so flow the menu in place rather than floating it. */
+.share-tooltip.is-open .menu-wrapper { display: block; position: static; margin-top: 0.3rem; }
 /* production ShareTooltip.css: a white, centered menu (not the surface/left-aligned one) */
 .share-tooltip .menu { display: block; width: 315px; max-width: calc(100vw - 10px);
   padding: 10px; font-size: 13px; font-weight: normal; text-align: center;
   background: #fff; color: #333; border: 1px solid #eee;
   border-radius: 10px; box-shadow: 1px 1px 3px rgb(0 0 0 / 20%); }
-.share-tooltip .menu-headline {
+.share-tooltip .menu-headline, .share-panel .menu-headline {
   display: block; margin: 8px 0 12px; font-weight: bold; font-size: 20px; color: #333;
 }
 /* keep the menu on-screen on phones (ShareTooltip.css overflow handling) */
@@ -1437,18 +1459,23 @@ code:empty { display: none; }
 @media (max-width: 440px) {
   .share-tooltip .menu-wrapper { position: fixed; top: 55px; left: auto; right: 5px; }
 }
-.share-tooltip .share-social { display: flex; gap: 0.6rem; margin: 0.55rem 0 0.2rem; }
-.share-tooltip .share-icon { color: var(--muted); font-size: 1.2rem; }
-.share-tooltip .share-icon:hover { color: var(--link); text-decoration: none; }
-.share-tooltip .menu-subhead {
+.share-tooltip .share-social, .share-panel .share-social { display: flex; justify-content: center; gap: 0.6rem; margin: 0.55rem 0 0.2rem; }
+.share-tooltip .share-icon, .share-panel .share-icon { color: var(--muted); font-size: 1.2rem; }
+.share-tooltip .share-icon:hover, .share-panel .share-icon:hover { color: var(--link); text-decoration: none; }
+.share-tooltip .menu-subhead, .share-panel .menu-subhead {
   display: block; margin: 0.55rem 0 0.25rem; font-weight: 600; font-size: 0.8rem; color: var(--muted);
 }
-/* Footer share tooltip: the icon inherits the footer's own text colour, and on wider
-   screens the menu opens UPWARD (the footer sits at the page bottom; opening down would run
-   off-page). On phones the <=440px rule above already pins it to a fixed viewport slot. */
+/* Footer share tooltip: the icon inherits the footer's own text colour. The white menu
+   re-grounds --muted to a mid-grey so the glyph-only share icons + subheads stay legible on
+   white (the footer sets --muted to a near-white #bcbcbc for its DARK column, which on the
+   white menu was ~1.9:1). */
 .footer-share .headline-anchor { color: inherit; }
+.footer-share .menu { --muted: #6b7177; }
 @media (min-width: 441px) {
-  .footer-share .menu-wrapper { top: auto; bottom: calc(100% + 0.3rem); }
+  /* The footer icon sits at the LEFT of the brand line, so anchor the 315px menu to the left
+     edge and open it UPWARD (footer is at the page bottom). The >=800px rule anchors it right,
+     which would run the menu off the left edge. */
+  .footer-share .menu-wrapper { top: auto; bottom: calc(100% + 0.3rem); left: 0; right: auto; }
 }
 .image-right { float: right; margin: 0 0 1rem 1.25rem; max-width: 45%; }
 /* float rescued from an inline style by sanitize (strict CSP strips style=):
@@ -1595,8 +1622,11 @@ code:empty { display: none; }
   background: var(--surface); padding: 0.4rem; max-width: 100%; box-sizing: border-box;
 }
 .gallery .thumb img {
-  display: block; max-width: 100%; max-height: 100%; width: auto; height: auto;
-  object-fit: contain;
+  /* the img reserves the uniform square box (width=height=gallery width, set by the
+     generator) and object-fit:contain centers the real image inside it undistorted, so
+     every cell is the same size and captions share one baseline (prod). height:auto keeps
+     the square proportional when max-width caps it on a narrow screen. */
+  display: block; max-width: 100%; height: auto; object-fit: contain;
 }
 .gallery .gallerytext { display: block; margin-top: 0.3rem; text-align: center; line-height: 1.3; }
 .gallery a:hover img { transform: scale(1.1); }

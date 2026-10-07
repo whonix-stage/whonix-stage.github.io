@@ -141,7 +141,7 @@
 
   // Generic copy button: any [data-copy] element copies its attribute to the clipboard and
   // flashes a `.copied` class for ~2s (the label's data-copied text is shown via CSS ::after).
-  // Used by the header supermenu's Permalink and the share panel's copy-as-X cards.
+  // Used by the header supermenu's Permalink button (share copy fields are .code-select).
   function initDataCopy() {
     var btns = document.querySelectorAll("[data-copy]");
     for (var i = 0; i < btns.length; i++) {
@@ -971,6 +971,14 @@
           raf = requestAnimationFrame(function () { raf = 0; sync(); });
         });
       }
+      // A late image load can grow scrollWidth WITHOUT changing the (max-width:100%-capped)
+      // border box, so ResizeObserver never fires for it -- re-sync on each image load too.
+      table.querySelectorAll("img").forEach(function (img) {
+        if (!img.complete) {
+          img.addEventListener("load", sync);
+          img.addEventListener("error", sync);  // a broken image also changes layout
+        }
+      });
     });
   }
 
