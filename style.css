@@ -593,8 +593,9 @@ body.site-whonix .site-logo-img { width: auto; }
      scrolling page on narrow (mobile) viewports. */
   overflow-wrap: break-word;
 }
-/* Production (Vector + Roboto) headings: NORMAL weight, smaller, NO underline border.
-   Measured on prod: h1 26px, h2 18px, h3 ~17px, all font-weight 400; h4+ bold. */
+/* Production (Vector + Roboto) headings: NORMAL weight, smaller. h1/h2 section headings
+   carry a bottom rule (prod's underline lives on the .mw-heading WRAPPER, so measuring the
+   <hN> element alone reads 0px -- do NOT conclude "no underline" from that). */
 .wiki-content h1, .wiki-content h2, .wiki-content h3,
 .wiki-content h4, .wiki-content h5, .wiki-content h6 {
   color: var(--heading);   /* prod section headings are gray (#777), not near-black */
@@ -607,6 +608,11 @@ body.site-whonix .site-logo-img { width: auto; }
 .wiki-content h1 { font-size: 26px; }
 .wiki-content h2 { font-size: 18px; }
 .wiki-content h3 { font-size: 17px; }
+/* Section-heading underline (prod Vector): h1/h2 get a bottom rule; the page TITLE
+   (#firstHeading / .first-heading box) and h3+ do not. */
+.wiki-content h1:not(#firstHeading):not(.first-heading), .wiki-content h2 {
+  border-bottom: 1px solid var(--border); padding-bottom: 0.2em;
+}
 .wiki-content h4 { font-size: 16px; font-weight: 700; }
 .wiki-content h5 { font-size: 15px; font-weight: 700; }
 .wiki-content h6 { font-size: 13px; font-weight: 700; }
@@ -872,6 +878,28 @@ code {
 .info-box-icon { flex: 0 0 auto; color: var(--callout, var(--accent)); font-size: 1.1rem; }
 .mbox > :first-child, .info-box > :last-child > :first-child { margin-top: 0; }
 .mbox > :last-child { margin-bottom: 0; }
+/* Note/info boxes match prod: a plain white card with a full light-gray border and NO
+   coloured left accent (overrides the shared callout rule above). The box type shows only
+   through the icon badge, whose colour comes from the icon's own cs-blue/cs-green. */
+.info-box {
+  border: 1px solid var(--border); background: var(--bg);
+  padding: 5px 21px 15px;
+}
+.info-box.has-icon {
+  display: block; position: relative; padding-left: 55px;
+}
+.info-box-icon {
+  position: absolute; left: 12px; top: 9px; margin: 0;
+  width: 30px; height: 30px; font-size: 0;   /* kill the inline whitespace gap */
+}
+/* the glyph becomes a filled round badge coloured by its OWN cs-* --callout, white icon
+   (the accent lives on the <i>, not the wrapping span, so target the <i>). */
+.info-box-icon > .fa-solid, .info-box-icon > i {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%; font-size: 0.95rem;
+  background: var(--callout, var(--accent)); color: #fff;
+}
+.info-box-icon > img { width: 40px; height: auto; }   /* Ambox image icon, prod ~40px */
 
 /* Numbered section/step badge (production "padded-content-icon" widget): a bold
    numeral, coloured by the element's cs-* --callout. pci-style-circle makes it a
@@ -992,6 +1020,10 @@ code {
    same blue below); use --link, not the teal --accent, so both tab states match prod. */
 .tcc-section.active .tcc-title { color: var(--link); box-shadow: inset 3px 0 0 var(--link); }
 .tcc-content { padding: 0.8rem; border-top: 1px solid var(--border-soft); }
+/* Per-tab OS/platform logo (the .tcc-image before each .tcc-title): the source pins a
+   50px square, but prod renders it as a ~23px inline tab marker. Cap it so a 500x500
+   logo is not a giant block atop the active section. */
+.tcc-image img { height: 23px; width: auto; vertical-align: middle; }
 /* Once the JS mininav switcher is built, hide the WHOLE inactive section (production);
    no-JS shows every section (progressive enhancement). */
 .tab-content-controller.mininav-ready .tcc-section:not(.active) { display: none; }
@@ -1009,12 +1041,14 @@ code {
    production's .mw-collapsible-toggle (was a plain gray "Toggle" at the top-left). */
 .collapsible-toggle {
   float: right; margin: 0 0 0.5rem 0.5rem;
-  /* prod's collapsible toggle is BLUE, not the teal site accent */
-  background: var(--link); border-color: var(--link); color: #fff; font-weight: 700;
+  /* prod's collapsible toggle is a BORDERLESS blue pill, padded wider on the right for the
+     direction arrow (prod 4px 17px 5px 10px); use --link, not the teal site accent. */
+  background: var(--link); border: none; color: #fff; font-weight: 700;
+  padding: 4px 17px 5px 10px;
 }
 .collapsible-toggle:hover {
   background: var(--link-hover);
-  border-color: var(--link-hover); color: #fff;
+  border: none; color: #fff;
 }
 .collapsible-toggle::before { content: "\25B2"; margin-right: 0.4rem; font-size: 0.8em; }
 .mw-collapsed > .collapsible-toggle::before { content: "\25BC"; }
@@ -1172,6 +1206,33 @@ code {
    give the element after the box that gap (prod ~21px). `.wiki-content` prefix outranks the
    margin:0 the box-paragraph rule sets. */
 .wiki-content .post-intro-p + * { margin-top: 1.5em; }
+/* [[File:...|thumb|left|right|none|caption]] -- MediaWiki's framed caption box, floated so
+   body text wraps beside it. `.thumb` here is the STANDALONE figure (the gallery's own
+   `.gallery .thumb` is separate). Scoped to .wiki-content to outrank the global img rule. */
+.wiki-content .thumb { margin-bottom: 0.8em; max-width: 100%; }
+.wiki-content .thumb.tright { float: right; clear: right; margin: 0.4em 0 0.8em 1.4em; }
+.wiki-content .thumb.tleft { float: left; clear: left; margin: 0.4em 1.4em 0.8em 0; }
+.wiki-content .thumb.tcenter { margin: 0.4em auto 0.8em; }
+.wiki-content .thumb.tnone { float: none; margin: 0.4em 0 0.8em; }
+.wiki-content .thumbinner {
+  border: 1px solid var(--border); background: var(--surface);
+  padding: 4px; text-align: center; overflow: hidden; font-size: 0.94rem;
+}
+.wiki-content .thumbinner p { margin: 0; }   /* pandoc wraps the img AND caption in <p> */
+.wiki-content .thumbimage {
+  border: 1px solid var(--border); background: var(--bg);
+  display: block; margin: 0 auto; max-width: 100%; height: auto;
+}
+.wiki-content .thumbcaption {
+  text-align: left; line-height: 1.4; padding: 4px 2px 2px;
+  font-size: 0.94rem; color: var(--fg-soft);
+}
+/* Phone: a floated thumb on a narrow column crowds the text -- let it span full width. */
+@media (max-width: 560px) {
+  .wiki-content .thumb.tright, .wiki-content .thumb.tleft {
+    float: none; margin: 0.8em auto; max-width: 100%;
+  }
+}
 /* {{LeftRightImageText}} (production Utility.css): image + text side by side, image on
    the left by default, right with .image-right; stacks on a phone. */
 .left-right-image-text {
@@ -1451,6 +1512,18 @@ code {
 .wiki-book-index i { display: inline-block; }   /* SHOW the FA prev/index/next icons */
 .wiki-book-index .text { display: none; }        /* icon-only, like prod */
 .wiki-book-index .info { display: none; }
+/* The FOOTER book-nav (prod .wbi-for-footer) is NOT the compact top-right cluster: prod
+   stacks it as full-width LABELLED rows (icon + page title). Floated+icon-only, it crowds
+   the category box's top border below it; block+labelled matches prod and clears it. */
+.wiki-book-index.wbi-for-footer {
+  float: none; display: block; margin: 2.5rem 0 0; font-size: 1rem;
+}
+.wiki-book-index.wbi-for-footer a {
+  display: flex; width: 100%; gap: 0.6rem; align-items: center;
+  padding: 0.5rem 0.2rem; border-bottom: 1px solid var(--border-soft);
+}
+.wiki-book-index.wbi-for-footer .text { display: inline; }   /* prod shows the page titles */
+.wiki-book-index.wbi-for-footer i { width: 1.2em; text-align: center; }
 
 /* Book / related-links nav box: a .mininav carrying a title + link list (e.g. the
    "Legal Policies" grouping). :has(> ul) scopes this to the list variant, NOT the
@@ -1478,13 +1551,14 @@ code {
   display: inline-block; background: #fafafa; color: #3366bb;   /* prod tab colours */
   padding: 11px 15px; font-size: 17px; text-decoration: none;   /* ~49px tall, matching prod */
   border-bottom: 4px solid var(--bg);
+  white-space: nowrap;   /* prod keeps each chip single-line so they pack 2-per-row */
   transition: background-color 0.3s, border-bottom-color 0.3s;
 }
 .mininav:not(.mn-switcher) li > a:hover,
 .mininav:not(.mn-switcher) li > a.selflink,
 .mininav:not(.mn-switcher) li > a[aria-current="page"] {
-  /* prod marks the current book tab with a BLUE underline; use --link, not teal --accent. */
-  background: var(--bg); border-bottom-color: var(--link);
+  /* prod marks the current book tab with a soft periwinkle underline (#8899DD). */
+  background: var(--bg); border-bottom-color: #8899dd;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05); font-weight: normal;
 }
 /* leading icon forced into a 25x25 gutter (overrides the markup width); label cleared. */
@@ -1578,7 +1652,7 @@ body:has(.stage-banner) { padding-bottom: 3.5rem; }
 .storage-del {
   border: 1px solid var(--border); background: var(--bg); color: var(--fg);
   padding: 0.15rem 0.55rem; border-radius: var(--radius-sm, 4px); cursor: pointer;
-  font: inherit; font-size: 0.82rem;
+  font: inherit; font-size: 0.82rem; margin-left: 0.6rem; white-space: nowrap;
 }
 .storage-del:hover { background: var(--surface); }
 

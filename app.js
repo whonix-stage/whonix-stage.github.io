@@ -856,7 +856,7 @@
       var table = el("table", null, "storage-table");
       var thead = document.createElement("thead");
       var hr = document.createElement("tr");
-      ["Key", "Purpose", "Current value", ""].forEach(function (h) { hr.appendChild(el("th", h)); });
+      ["Key", "Purpose", "Current value"].forEach(function (h) { hr.appendChild(el("th", h)); });
       thead.appendChild(hr);
       table.appendChild(thead);
       var tbody = document.createElement("tbody");
@@ -864,8 +864,10 @@
         var tr = document.createElement("tr");
         tr.appendChild(el("td", r.key));
         tr.appendChild(el("td", r.label));
-        tr.appendChild(el("td", r.set ? r.value : "not set", r.set ? null : "storage-unset"));
-        var action = document.createElement("td");
+        // Value + an inline per-item Delete (only when set) in ONE cell -- no dedicated
+        // action column, which sits empty whenever nothing is stored.
+        var valcell = document.createElement("td");
+        valcell.appendChild(el("span", r.set ? r.value : "not set", r.set ? null : "storage-unset"));
         if (r.set) {
           var del = el("button", "Delete", "storage-del");
           del.type = "button";
@@ -875,9 +877,9 @@
               render("Deleted " + key + ".");
             });
           })(r.key);
-          action.appendChild(del);
+          valcell.appendChild(del);
         }
-        tr.appendChild(action);
+        tr.appendChild(valcell);
         tbody.appendChild(tr);
       });
       table.appendChild(tbody);
