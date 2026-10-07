@@ -758,7 +758,20 @@ blockquote p:last-child { margin-bottom: 0; }
 .payitem.line > * { font-size: 0.9rem; }
 .payitem .qr-button { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; }
 .payitem .qr-button .icon { width: 1.4rem; height: 1.4rem; object-fit: contain; }
-.payitem .code-select { flex: 1 1 7rem; font-size: 0.78rem; }
+/* prod shows a small QR glyph before the coin name and a dropdown caret after it (both are
+   ::before/::after on .name). CSP-safe: the QR uses the self-hosted Font Awesome glyph. */
+.payitem.line .qr-button .name::before {
+  content: "\f029"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+  margin-right: 0.45rem; color: var(--muted); font-size: 1.05em;
+}
+.payitem.line .qr-button .name::after {
+  content: "\25bc"; margin-left: 0.35rem; font-size: 0.7em; color: var(--muted);
+  display: inline-block; transition: transform 0.15s;
+}
+.crypto.qr-ready .payitem.line.expanded .qr-button .name::after { transform: rotate(180deg); }
+/* min-width:0 lets the address pill shrink below the (unbreakable) address width so the row
+   stays on ONE line and the pill scrolls/truncates, instead of wrapping full-width (prod). */
+.payitem .code-select { flex: 1 1 7rem; min-width: 0; font-size: 0.78rem; }
 /* QR reveal is wired by app.js (initCryptoExpanders): it marks each .crypto .qr-ready and
    toggles .payitem.expanded on the coin's .qr-button (click/Enter/Space). Progressive --
    without JS the .expand stays visible so the panel is fully usable; with JS it collapses
@@ -1640,10 +1653,19 @@ code {
   font: inherit; font-weight: 600;
 }
 .stage-dismiss:hover { background: rgba(0, 0, 0, 0.12); }
+/* OK/dismiss placement: a trailing (right-aligned) action with a thumb-friendly
+   >=44px tap target, vertically centered with the message and wrapping to its own
+   right-aligned row when the text needs the full width. Replaces the small centered
+   chip (notice-bar idiom; keeps each stacked banner compact). */
+.consent-dismiss, .stage-dismiss {
+  margin-left: auto; align-self: center;
+  min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.4rem 1.25rem;
+}
 /* Reserve space so the fixed bottom stack never hides the last of the footer (stage builds
-   only). The staging notice wraps to ~3 lines at phone width, so reserve more there. */
-body:has(.stage-banner) { padding-bottom: 3.5rem; }
-@media (max-width: 720px) { body:has(.stage-banner) { padding-bottom: 6rem; } }
+   only). The staging notice wraps to ~3 lines at phone width, plus the 44px action row. */
+body:has(.stage-banner) { padding-bottom: 4.5rem; }
+@media (max-width: 720px) { body:has(.stage-banner) { padding-bottom: 8rem; } }
 
 /* Browser-storage viewer (Special:BrowserStorage) */
 .storage-table {
@@ -1844,6 +1866,13 @@ html.client-js .show-for-nojs-only { display: none; }
 }
 .sitenotice-end-of-year > .eoy-right > .eoy-donate-button:hover { background-color: #fffccf; }
 .sitenotice-end-of-year > .eoy-left > p { font-size: 15px; margin: 10px 0 15px; }
+/* prod puts the promo photo at the top of the left column (full column width). */
+.sitenotice-end-of-year .eoy-image {
+  display: block; width: 100%; height: auto; max-width: 300px; margin: 0 0 12px;
+}
+/* prod keeps the crypto panel's "Donate crypto" sub-heading box display:none INSIDE the EOY
+   banner (the rows sit straight under the red headline); the Donate PAGE still shows it. */
+.sitenotice-end-of-year .crypto > .headline { display: none; }
 
 /* Generic modal (MiniModal) + the download-button donate/countdown modal. */
 .mini-modal { position: fixed; inset: 0; z-index: 2000; display: none; }
