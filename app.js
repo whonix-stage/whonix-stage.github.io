@@ -730,7 +730,10 @@
           closeBtn.appendChild(el("i", "fa-solid fa-xmark"));
           modal.appendChild(closeBtn);
           var content = el("div", "content");
-          var wrap = el("div", "table-wrapper");
+          // wiki-content on the wrapper so the clone inherits the SAME table cascade as the
+          // in-page table (borders, th shading, zebra, status-cell colours); the modal CSS
+          // strips wiki-content's reading-column max-width so it can use the full 95vw.
+          var wrap = el("div", "wiki-content table-wrapper");
           var clone = table.cloneNode(true);
           var withId = clone.querySelectorAll("[id]");
           for (var k = 0; k < withId.length; k++) withId[k].removeAttribute("id");
@@ -982,6 +985,91 @@
     });
   }
 
+  // Gallery lightbox: clicking a gallery thumbnail opens a full-viewport overlay with the
+  // full-resolution image (the house convention ships no separate thumbnails -- the thumb's
+  // own src IS the full image) + caption, and prev/next (< >) buttons plus ArrowLeft/Right
+  // keys paging through that gallery. A thumb carrying an explicit link= target is <a>-wrapped
+  // by the generator; those opt OUT (their own link still navigates, matching prod's
+  // MultimediaViewer). Reuses initModals (Escape / backdrop / X close + focus trap). TT-safe:
+  // createElement + addEventListener only.
+  function initGalleryLightbox(modals) {
+    var galleries = document.querySelectorAll(".gallery");
+    for (var g = 0; g < galleries.length; g++) {
+      (function (gallery) {
+        var boxes = gallery.querySelectorAll(".gallerybox");
+        var items = [];  // {src, alt, cap} per lightbox-eligible thumb
+        for (var b = 0; b < boxes.length; b++) {
+          var img = boxes[b].querySelector(".thumb img");
+          if (!img || img.closest("a")) continue;  // link= opt-out: its own <a> navigates
+          var textEl = boxes[b].querySelector(".gallerytext");
+          var cap = (textEl && textEl.textContent.trim()) || img.getAttribute("alt") || "";
+          (function (idx, imgEl) {
+            imgEl.classList.add("glb-thumb");  // CSS cursor affordance
+            imgEl.addEventListener("click", function (e) { e.preventDefault(); openAt(idx); });
+          })(items.length, img);
+          items.push({
+            src: img.currentSrc || img.getAttribute("src") || "",
+            alt: img.getAttribute("alt") || "", cap: cap
+          });
+        }
+        if (!items.length) return;
+
+        var cur = 0, bigImg = null, capEl = null;
+        function render() {
+          var it = items[cur];
+          bigImg.setAttribute("src", it.src);
+          bigImg.setAttribute("alt", it.alt);
+          capEl.textContent = it.cap;
+        }
+        function step(d) { cur = (cur + d + items.length) % items.length; render(); }
+        function openAt(i) {
+          cur = i;
+          var modal = el("div", "mini-modal gallery-lightbox");
+          modal.setAttribute("role", "dialog");
+          modal.setAttribute("aria-modal", "true");
+          modal.hidden = true;
+          modal.appendChild(el("div", "underlay"));
+          var closeBtn = el("button", "mm-close");
+          closeBtn.type = "button";
+          closeBtn.setAttribute("aria-label", "Close");
+          closeBtn.appendChild(el("i", "fa-solid fa-xmark"));
+          modal.appendChild(closeBtn);
+          var content = el("div", "content");
+          bigImg = el("img", "glb-image");
+          content.appendChild(bigImg);
+          capEl = el("div", "glb-caption");
+          content.appendChild(capEl);
+          if (items.length > 1) {
+            var prev = el("button", "glb-nav glb-prev");
+            prev.type = "button";
+            prev.setAttribute("aria-label", "Previous image");
+            prev.appendChild(el("i", "fa-solid fa-chevron-left"));
+            prev.addEventListener("click", function () { step(-1); });
+            var next = el("button", "glb-nav glb-next");
+            next.type = "button";
+            next.setAttribute("aria-label", "Next image");
+            next.appendChild(el("i", "fa-solid fa-chevron-right"));
+            next.addEventListener("click", function () { step(1); });
+            content.appendChild(prev);
+            content.appendChild(next);
+          }
+          modal.appendChild(content);
+          function onKey(e) {
+            if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+            else if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+          }
+          document.addEventListener("keydown", onKey);
+          document.body.appendChild(modal);
+          render();
+          modals.open(modal, function () {
+            document.removeEventListener("keydown", onKey);
+            modal.remove();
+          });
+        }
+      })(galleries[g]);
+    }
+  }
+
   ready(function () {
     initDarkMode();
     initCopyButtons();
@@ -1003,6 +1091,7 @@
     var modals = initModals();
     initDownloadModal(modals);
     initTableExpand(modals);
+    initGalleryLightbox(modals);
     initWideTableScroll();
     initHovercards();
     initStorageViewer();

@@ -173,6 +173,13 @@ hr {
 }
 a { color: var(--link); text-decoration: none; }
 a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: 2px; }
+/* a11y (Lighthouse link-in-text-block): a link embedded in body PROSE must not rely on colour
+   alone -- its contrast with the surrounding near-black text is < 3:1 -- so underline it. Scoped
+   to prose contexts; nav / cards / pills / buttons (their own classes) are not in a text block
+   and override this where needed. */
+.wiki-content p a, .wiki-content li a, .wiki-content dd a, .info-box a {
+  text-decoration: underline; text-underline-offset: 2px;
+}
 /* Touch devices report hover:none and keep the :hover state stuck on the last-tapped
    element, so an underline-on-hover leaves the link underlined after a tap (reported on
    the header Donate link). Drop every hover-underline for pointerless devices; the colour
@@ -243,6 +250,38 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   border-color: var(--accent);
   color: var(--accent-fg);
 }
+/* prod .mw-ui-button is a rounded PILL that scales slightly on hover -- match it. */
+.mw-ui-button { border-radius: 20px; }
+.mw-ui-button:hover { transform: scale(1.1); }
+
+/* prod download button (MediaWiki Kicksecure ext .download-button-v2 / .dbutton): a rounded
+   gradient-blue pill with a left icon divider + an OS-icon cell. Reproduced from prod CSS. */
+.download-button-v2 {
+  display: inline-block; border-radius: 50px; position: relative; background: #eee;
+  max-width: 100%; font-size: 13px; padding-right: 12px; vertical-align: middle;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.download-button-v2:hover { background: #e4e4e4; text-decoration: none; }
+.download-button-v2 .dbutton {
+  display: table-cell; border-radius: 50px; position: relative;
+  background-image: linear-gradient(#4d8cdd 0%, #0867bb 100%);
+  padding: 6px 16px 6px 50px; color: #eaf1ff; font-weight: 600; white-space: nowrap;
+}
+.download-button-v2:hover .dbutton {
+  background-image: linear-gradient(#4180d1 0%, #005aae 100%); color: #fff;
+}
+.download-button-v2 .dbutton::before {
+  content: ""; position: absolute; top: 0; left: 43px;
+  height: calc(100% - 1px); border-right: 1px solid #7bb1ea;
+}
+.download-button-v2 .dbutton > i { position: absolute; left: 14px; top: calc(50% - 0.55em); }
+.download-button-v2 .dbutton > span { position: relative; top: -1px; }
+.download-button-v2 .op-sys {
+  display: table-cell; text-align: center; position: relative; top: -2px; padding: 0 15px 0 10px;
+}
+.download-button-v2 .op-sys > img { height: 16px; margin-right: 6px; }
+.download-button-v2 .op-sys > img:last-child { margin-right: 0; }
 
 /* ---- chrome: header + nav (pure-CSS toggle) ---- */
 .site-header {
@@ -816,7 +855,9 @@ blockquote.quotation .blockquote-context img.author-image {
 }
 /* min-width:0 lets the address pill shrink below the (unbreakable) address width so the row
    stays on ONE line and the pill scrolls/truncates, instead of wrapping full-width (prod). */
-.payitem .code-select { flex: 1 1 7rem; min-width: 0; font-size: 0.78rem; }
+/* break-all so a long unbreakable crypto address fills each line edge-to-edge (a uniform hash
+   block) instead of dropping a single trailing char to its own line at some box widths. */
+.payitem .code-select { flex: 1 1 7rem; min-width: 0; font-size: 0.78rem; word-break: break-all; }
 /* Pure-CSS collapse toggle (prod parity, NO JS): a visually-hidden-but-focusable checkbox +
    a <label> (the .qr-button / .more-button) as the clickable control. Collapsed by default,
    so a no-JS visitor sees the SAME collapsed panel prod shows -- no overflow, no JS. */
@@ -1327,8 +1368,9 @@ code:empty { display: none; }
 .footer-sponsor a { color: var(--link); }
 .footer-opensource-note { margin: 0 0 0.9rem; font-size: 0.85rem; color: var(--muted); }
 .footer-legal-intro { margin: 0 0 0.6rem; font-size: 0.85rem; color: var(--muted); }
-.copyright a { color: var(--muted); }
-.copyright a:hover { color: var(--fg); }
+/* link-coloured like the other footer links so the copyright reads AS a link (was --muted). */
+.copyright a { color: var(--link); }
+.copyright a:hover { color: var(--link-hover); text-decoration: underline; }
 /* Production flows these inline as a comma-separated disclaimer, NOT one link per line. */
 .footer-freedom ul, .footer-links ul {
   display: flex; flex-wrap: wrap; gap: 0.15rem 0.5rem;
@@ -1649,6 +1691,22 @@ code:empty { display: none; }
   .gallery.thumb-gallery-style .gallerybox { display: block; width: 100%; }
   .gallery.thumb-gallery-style .gallerybox > .thumb { margin: 15px auto 10px; }
 }
+/* {{ThumbGallery}} expands to div.thumb-gallery holding MediaWiki floated .thumb boxes
+   (pandoc wraps them in a <p>). Prod flexes it into a wrapping row; without this rule the
+   inner .thumb.tright float+clear (line ~1428) drops each thumb onto its own line. */
+.wiki-content .thumb-gallery {
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  align-items: flex-start; justify-content: flex-start; margin: 1rem 0;
+}
+.wiki-content .thumb-gallery > p { display: contents; }   /* neutralize the pandoc <p> wrapper */
+.wiki-content .thumb-gallery .thumb,
+.wiki-content .thumb-gallery .thumb.tright,
+.wiki-content .thumb-gallery .thumb.tleft {
+  float: none; clear: none; margin: 0;   /* flex lays them in a row, not floated one-per-line */
+}
+.thumb-gallery.justify-left { justify-content: flex-start; }
+.thumb-gallery.justify-center { justify-content: center; }
+.thumb-gallery.justify-right { justify-content: flex-end; }
 
 /* --- tab mininav SWITCHER (JS builds a pill cloud; the production Mininav.css look:
    a rounded blue bar of pills, inactive #9aabed, active white/#36b) --- */
@@ -1794,6 +1852,14 @@ code:empty { display: none; }
 .antispam-email-tooltip:hover .tooltip,
 .antispam-email-tooltip:focus-within .tooltip { display: block; }
 .antispam-email-tooltip .tooltip .icon-bullet-list { margin-top: 0.4rem; }
+@media (max-width: 480px) {
+  /* The popup is absolutely-positioned from an indented list item (left:0), so width:max-content
+     spills past the right edge on phones. Pin it to the viewport (like the share tooltip) so it
+     fits with no horizontal overflow. */
+  .antispam-email-tooltip .tooltip {
+    position: fixed; left: 8px; right: 8px; top: 60px; width: auto; max-width: none;
+  }
+}
 
 /* --- consent / privacy banner (no-JS shows it; JS dismiss -> localStorage) --- */
 /* Fixed translucent overlay pinned to the viewport bottom that follows on scroll,
@@ -2056,9 +2122,11 @@ html.client-js .show-for-nojs-only { display: none; }
 }
 .sitenotice-end-of-year > .eoy-right > .eoy-donate-button:hover { background-color: #fffccf; }
 .sitenotice-end-of-year > .eoy-left > p { font-size: 15px; margin: 10px 0 15px; }
-/* prod puts the promo photo at the top of the left column (full column width). */
+/* prod puts the promo photo at the top of the left column at FULL column width (prod
+   .eoy-left > img { width:100%; object-fit:cover }). The old max-width:300px capped it well
+   below the column width (misaligned/undersized), especially on mobile where the column is 100%. */
 .sitenotice-end-of-year .eoy-image {
-  display: block; width: 100%; height: auto; max-width: 300px; margin: 0 0 12px;
+  display: block; width: 100%; height: auto; object-fit: cover; margin: 0 0 12px;
 }
 /* prod keeps the crypto panel's "Donate crypto" sub-heading box display:none INSIDE the EOY
    banner (the rows sit straight under the red headline); the Donate PAGE still shows it. */
@@ -2098,14 +2166,47 @@ body.mini-modal-active { overflow: hidden; }
   font-size: 0.9em; color: var(--fg-soft); margin: 0 0 10px; word-break: break-all;
 }
 .download-button-modal .dl-status { font-size: .95em; }
-/* Table-expand: caption button + a wide modal holding the cloned table. */
+/* Table-expand: the button is pinned to the caption's LEFT edge while the headline stays
+   centered over the full caption width (prod layout). Absolute-positioning takes the button
+   out of the caption's UA-default centered flow, so the title centers alone. */
+.wiki-content table caption { position: relative; }
 .wiki-content table caption .expand-table-button {
+  position: absolute; left: 0; top: 0;
   border: 0; border-radius: 7px; background: #dfdfdf; color: #111; cursor: pointer;
-  font: inherit; letter-spacing: 1px; padding: 4px 10px; margin: 0 0 6px;
+  font: inherit; letter-spacing: 1px; padding: 4px 10px; margin: 0;
 }
 .wiki-content table caption .expand-table-button:hover { background: #d8d8d8; color: #000; }
 .table-expand-modal .content { max-width: 95vw; }
-.table-expand-modal .table-wrapper { overflow-x: auto; }
+/* strip wiki-content's reading-column cap so the cloned table uses the full modal width */
+.table-expand-modal .table-wrapper { overflow-x: auto; max-width: none; margin: 0; padding: 0; }
+
+/* Gallery lightbox (#126): a full-viewport image viewer with prev/next chevrons, reusing the
+   .mini-modal base (backdrop + Escape/X close). The card chrome is dropped -- the content box
+   is transparent and sized to the image. */
+.gallery .glb-thumb { cursor: pointer; }
+.gallery-lightbox .content {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  max-width: 96vw; width: auto; max-height: 92vh; margin: 4vh auto; padding: 0;
+  background: transparent; box-shadow: none; overflow: visible; text-align: center;
+}
+.gallery-lightbox .glb-image {
+  max-width: 90vw; max-height: 82vh; object-fit: contain;
+  background: #fff; border-radius: 6px; box-shadow: 0 8px 30px rgb(0 0 0 / 50%);
+}
+.gallery-lightbox .glb-caption {
+  margin-top: 0.6rem; color: #fff; font-size: 0.95rem; max-width: 90vw;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 60%);
+}
+.gallery-lightbox .mm-close { position: fixed; top: 10px; right: 14px; color: #fff; font-size: 26px; }
+.gallery-lightbox .glb-nav {
+  position: fixed; top: 50%; transform: translateY(-50%); z-index: 3;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%;
+  background: rgb(0 0 0 / 45%); color: #fff; font-size: 22px; cursor: pointer;
+}
+.gallery-lightbox .glb-nav:hover { background: rgb(0 0 0 / 70%); }
+.gallery-lightbox .glb-prev { left: 16px; }
+.gallery-lightbox .glb-next { right: 16px; }
 
 /* Hovercards (reference + page previews) -- positioned by app.js via el.style. */
 .hovercard {
