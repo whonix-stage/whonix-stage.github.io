@@ -638,6 +638,9 @@
           closeBtn.appendChild(el("i", "fa-solid fa-xmark"));
           modal.appendChild(closeBtn);
           var content = el("div", "content");
+          var heart = el("div", "dl-heart");
+          heart.appendChild(el("i", "fa-solid fa-heart"));
+          content.appendChild(heart);
           content.appendChild(el("p", "donation-appeal",
             "We provide our software for free. To keep improving it we rely on "
             + "donations -- if you find it valuable, please consider contributing."));
@@ -646,11 +649,33 @@
           donate.setAttribute("target", "_blank");
           donate.setAttribute("rel", "noopener");
           content.appendChild(donate);
+          // Payment-method glyph row (CSP-safe FontAwesome, no images), like prod's icon
+          // strip; each links through to the Donate page.
+          var methods = el("a", "dl-methods");
+          methods.setAttribute("href", "/wiki/Donate");
+          methods.setAttribute("target", "_blank");
+          methods.setAttribute("rel", "noopener");
+          methods.setAttribute("aria-label", "Payment methods: crypto, Monero, PayPal and more");
+          var mIcons = ["fa-brands fa-bitcoin", "fa-brands fa-monero",
+                        "fa-brands fa-paypal", "fa-solid fa-ellipsis"];
+          for (var mi = 0; mi < mIcons.length; mi++) methods.appendChild(el("i", mIcons[mi]));
+          content.appendChild(methods);
+          // Which file is downloading (basename of the href), like prod.
+          var fname = href;
+          try { fname = decodeURIComponent(href.split("?")[0].split("/").pop()) || href; }
+          catch (e2) {}
+          var dlfile = el("p", "dl-filename");
+          dlfile.appendChild(document.createTextNode("You are downloading "));
+          dlfile.appendChild(el("strong", null, fname));
+          dlfile.appendChild(document.createTextNode("."));
+          content.appendChild(dlfile);
           var status = el("p", "dl-status");
           status.appendChild(document.createTextNode("Your download starts in "));
           var count = el("span", "dl-count", "5");
           status.appendChild(count);
-          status.appendChild(document.createTextNode(" seconds, or "));
+          var unit = el("span", "dl-unit", " seconds");
+          status.appendChild(unit);
+          status.appendChild(document.createTextNode(", or "));
           var proceed = el("a", "dl-proceed", "download now");
           proceed.setAttribute("href", href);
           proceed.setAttribute("rel", "noreferrer");
@@ -666,6 +691,7 @@
             if (document.hidden) return;
             seconds -= 1;
             count.textContent = String(seconds);
+            unit.textContent = seconds === 1 ? " second" : " seconds";
             // Navigate by CLICKING the proceed anchor so its rel="noreferrer" is
             // honored (window.location.href would leak the Referer -- an onion origin
             // among them -- which the explicit "download now" link deliberately does not).

@@ -896,7 +896,7 @@ code {
    (the accent lives on the <i>, not the wrapping span, so target the <i>). */
 .info-box-icon > .fa-solid, .info-box-icon > i {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 30px; height: 30px; border-radius: 50%; font-size: 0.95rem;
+  width: 30px; height: 30px; border-radius: 5px; font-size: 0.95rem;  /* prod: rounded square */
   background: var(--callout, var(--accent)); color: #fff;
 }
 .info-box-icon > img { width: 40px; height: auto; }   /* Ambox image icon, prod ~40px */
@@ -1859,8 +1859,24 @@ html.client-js .show-for-nojs-only { display: none; }
 }
 .mini-modal .mm-close:hover { opacity: .7; }
 body.mini-modal-active { overflow: hidden; }
+.download-button-modal .content { text-align: center; }
+.download-button-modal .dl-heart { color: #e0245e; font-size: 1.9rem; margin: 2px 0 10px; }
 .download-button-modal .donation-appeal { font-size: 1.05em; margin: 0 0 16px; }
-.download-button-modal .eoy-donate-button { margin: 0 0 16px; color: #22a7df; }
+/* prod: a prominent filled Donate button (scoped to the modal; the EOY banner one is
+   styled separately above). */
+.download-button-modal .eoy-donate-button {
+  display: inline-block; margin: 0 0 14px; padding: 9px 20px;
+  background: #22a7df; color: #fff; border-radius: 6px; font-weight: 600; text-decoration: none;
+}
+.download-button-modal .eoy-donate-button:hover { background: #1b8fc0; }
+.download-button-modal .dl-methods {
+  display: flex; justify-content: center; gap: 16px; font-size: 1.35rem;
+  color: var(--muted); margin: 0 0 16px; text-decoration: none;
+}
+.download-button-modal .dl-methods:hover { color: var(--link); }
+.download-button-modal .dl-filename {
+  font-size: 0.9em; color: var(--fg-soft); margin: 0 0 10px; word-break: break-all;
+}
 .download-button-modal .dl-status { font-size: .95em; }
 /* Table-expand: caption button + a wide modal holding the cloned table. */
 .wiki-content table caption .expand-table-button {
