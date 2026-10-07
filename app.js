@@ -332,6 +332,26 @@
   // (a CSS-only toggle otherwise stays open until the label is tapped again -- the
   // reported mobile annoyance). Tapping a nav link closes it too (it navigates
   // anyway). TT-safe: only flips checkbox.checked, no DOM/HTML sinks.
+  // Chevron supermenu (.tools): close the checkbox toggle on an outside tap or Escape,
+  // and when a tools-item link is chosen; a tap inside the menu (copy buttons) stays open.
+  function initToolsToggle() {
+    var toggle = document.getElementById("tools-toggle");
+    if (!toggle) return;
+    var tools = toggle.closest(".tools");
+    document.addEventListener("click", function (e) {
+      if (!toggle.checked) return;
+      var t = e.target;
+      if (tools && tools.contains(t)) {
+        if (t.closest && t.closest("a.tools-item")) toggle.checked = false;
+        return;
+      }
+      toggle.checked = false;
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && toggle.checked) toggle.checked = false;
+    });
+  }
+
   function initNavToggle() {
     var toggle = document.getElementById("nav-toggle");
     if (!toggle) return;
@@ -886,6 +906,7 @@
     initTabs();
     window.addEventListener("hashchange", syncTabsFromHash);
     initNavToggle();
+    initToolsToggle();
     initBackToTop();
     initSearch();
     initConsentBanner();

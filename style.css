@@ -51,7 +51,7 @@
 
   /* callout accents (referenced by .cs-* below) */
   --c-red: #d33426;
-  --c-green: #14866d;
+  --c-green: #1a9e3f;
   --c-blue: #2f6fd0;
   --c-yellow: #c98a00;
   --c-orange: #d9730d;
@@ -95,7 +95,7 @@
   --focus: #74b1ff;
 
   --c-red: #ef6b5e;
-  --c-green: #4fd1b0;
+  --c-green: #57cc6a;
   --c-blue: #6ba4f5;
   --c-yellow: #e6b64c;
   --c-orange: #e79448;
@@ -127,7 +127,7 @@
     --focus: #74b1ff;
 
     --c-red: #ef6b5e;
-    --c-green: #4fd1b0;
+    --c-green: #57cc6a;
     --c-blue: #6ba4f5;
     --c-yellow: #e6b64c;
     --c-orange: #e79448;
@@ -735,13 +735,15 @@ blockquote p:last-child { margin-bottom: 0; }
 .donate-area { display: block; }
 .donation-panel { float: right; width: 360px; max-width: 100%; margin: 0.2rem 0 1rem 1.5rem; }
 .donation-panel > p { margin: 0; }
-.crypto {
-  border: 1px solid var(--border); border-radius: var(--radius-md, 6px);
-  overflow: hidden; background: var(--surface);
-}
-.crypto > .headline {
-  font-weight: 700; padding: 0.6rem 0.85rem; border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--surface) 55%, var(--fg) 12%);
+.crypto { background: var(--surface); }
+/* Section sub-headlines double as rounded bordered boxes (prod: 1px #bbb, radius 10px,
+   centered) -- Donate crypto / Other payment options / Help. */
+.crypto > .headline,
+.other > .headline,
+.help > .headline {
+  font-weight: 700; text-align: center;
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 6px 12px; margin: 0 0 0.8rem; background: var(--surface);
 }
 .payitem.line {
   display: flex; align-items: center; gap: 0.5rem 0.75rem; flex-wrap: wrap;
@@ -1094,7 +1096,9 @@ code {
   display: inline-flex; align-items: center; justify-content: center;
   background: #fff; border-radius: 8px; padding: 8px 10px;
 }
-.footer-badges img { width: 68px; height: auto; display: block; }
+/* size by equal HEIGHT (the GNU 100x98 and OSI 100x120 badges differ in aspect, so a fixed
+   WIDTH gave them different heights); width auto keeps each badge's ratio. */
+.footer-badges img { height: 56px; width: auto; display: block; }
 .footer-badges a:hover { opacity: 0.85; }
 .footer-social-icons {
   display: flex; flex-wrap: wrap; gap: 0.55rem;
@@ -1126,8 +1130,10 @@ code {
 }
 .footer-freedom li:not(:last-child)::after,
 .footer-links li:not(:last-child)::after { content: ","; color: var(--muted); }
-.footer-freedom a, .footer-links a { color: var(--muted); }
-.footer-freedom a:hover, .footer-links a:hover { color: var(--link); }
+/* footer legal + freedom links use the normal link color (prod rgb(6,69,173)) so they read
+   as links, not muted body text. */
+.footer-freedom a, .footer-links a { color: var(--link); }
+.footer-freedom a:hover, .footer-links a:hover { color: var(--link-hover); text-decoration: underline; }
 .darkmode-toggle { display: inline-block; margin: 0.9rem 0 0; }
 .copyright { margin: 0.6rem 0 0; }
 
@@ -1161,6 +1167,11 @@ code {
   padding-bottom: 1.1em;
   border-bottom-left-radius: 9px; border-bottom-right-radius: 9px;
 }
+/* The content-intro box (between .pre-intro-p / .post-intro-p) has no wrapper to carry the
+   1.5em below-gap the {{IntroLike}} div gets, so the first normal text sat flush against it;
+   give the element after the box that gap (prod ~21px). `.wiki-content` prefix outranks the
+   margin:0 the box-paragraph rule sets. */
+.wiki-content .post-intro-p + * { margin-top: 1.5em; }
 /* {{LeftRightImageText}} (production Utility.css): image + text side by side, image on
    the left by default, right with .image-right; stacks on a phone. */
 .left-right-image-text {
