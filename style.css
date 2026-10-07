@@ -760,12 +760,14 @@ blockquote p:last-child { margin-bottom: 0; }
 .payitem .qr-button .icon { width: 1.4rem; height: 1.4rem; object-fit: contain; }
 /* prod shows a small QR glyph before the coin name and a dropdown caret after it (both are
    ::before/::after on .name). CSP-safe: the QR uses the self-hosted Font Awesome glyph. */
+/* `/ ""` gives each decorative glyph an EMPTY alternative text, so the QR/caret are not
+   read into the .qr-button's accessible name (the button is role=button via app.js). */
 .payitem.line .qr-button .name::before {
-  content: "\f029"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+  content: "\f029" / ""; font-family: "Font Awesome 6 Free"; font-weight: 900;
   margin-right: 0.45rem; color: var(--muted); font-size: 1.05em;
 }
 .payitem.line .qr-button .name::after {
-  content: "\25bc"; margin-left: 0.35rem; font-size: 0.7em; color: var(--muted);
+  content: "\25bc" / ""; margin-left: 0.35rem; font-size: 0.7em; color: var(--muted);
   display: inline-block; transition: transform 0.15s;
 }
 .crypto.qr-ready .payitem.line.expanded .qr-button .name::after { transform: rotate(180deg); }
@@ -778,7 +780,24 @@ blockquote p:last-child { margin-bottom: 0; }
    to prod's default (address copyable) and the QR opens on demand. */
 .payitem > .expand { flex-basis: 100%; margin-top: 0.4rem; }
 .crypto.qr-ready .payitem:not(.expanded) > .expand { display: none; }
+/* No-JS keeps every .expand OPEN (progressive, no checkbox); constrain its QR image and the
+   long (unbreakable) crypto address so the panel never forces horizontal page scroll on a
+   phone (prod collapses these via a checkbox; we keep them usable + contained instead). */
+.payitem > .expand { max-width: 100%; }
+.payitem > .expand .qr-code-image { max-width: 100%; height: auto; }
+.payitem > .expand code { overflow-wrap: anywhere; word-break: break-all; white-space: pre-wrap; }
 .crypto.qr-ready .qr-button { cursor: pointer; }
+/* "More Payment Options" reveal (the .more widget): no-JS shows every option (the toggle
+   button is hidden); with JS it collapses .more-content and the button toggles it. */
+.more-button { display: none; }
+.more-ready .more-button {
+  display: inline-block; cursor: pointer; color: var(--link); font-weight: 600;
+  margin: 0.5rem 0; user-select: none;
+}
+.more-ready .more-button:hover { text-decoration: underline; }
+.more-ready .more-button::after { content: " \25bc"; font-size: 0.8em; }
+.more-ready.expanded .more-button::after { content: " \25b2"; }
+.more-ready:not(.expanded) .more-content { display: none; }
 .donation-panel .info, .donate-legal-disclaimer {
   font-size: 0.78rem; color: var(--muted); padding: 0.55rem 0.85rem;
 }
