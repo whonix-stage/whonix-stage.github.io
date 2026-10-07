@@ -53,7 +53,7 @@
   --c-red: #d33426;
   --c-green: #1a9e3f;
   --c-blue: #2f6fd0;
-  --c-yellow: #c98a00;
+  --c-yellow: #fff23e;   /* prod's bright yellow (was a dark brown #c98a00) */
   --c-orange: #d9730d;
   --c-gray: #565c64;
 
@@ -173,6 +173,17 @@ hr {
 }
 a { color: var(--link); text-decoration: none; }
 a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: 2px; }
+/* Touch devices report hover:none and keep the :hover state stuck on the last-tapped
+   element, so an underline-on-hover leaves the link underlined after a tap (reported on
+   the header Donate link). Drop every hover-underline for pointerless devices; the colour
+   change stays as the affordance, matching prod. */
+@media (hover: none) {
+  a:hover,
+  .header-donate:hover,
+  .more-button:hover,
+  .footer-freedom a:hover, .footer-links a:hover,
+  .toc a:hover { text-decoration: none; }
+}
 /* Production distinguishes links by COLOUR only (no underline) -- match it for pixel
    parity. (Trades away the link-in-text-block a11y underline; underline-on-hover stays.) */
 /* External links are distinguished by the trailing archive <sup> (see _archive_links /
@@ -303,10 +314,16 @@ body.site-whonix .site-logo-img { width: auto; }
   border-radius: 0 0 10px 10px; box-shadow: var(--shadow-md);
 }
 .tools-toggle:checked ~ .tools-menu { display: block; }
-/* Production auto-expands the chevron supermenu on hover/focus (like the nav
-   submenus); the click toggle above stays for touch + keyboard. */
-.tools:hover .tools-menu,
-.tools:focus-within .tools-menu { display: block; }
+/* Open supermenu swaps the chevron for an X (FA glyph override on the label's
+   icon); the click toggle is the primary open/close on every device. */
+.tools-toggle:checked ~ .tools-label .fa-chevron-down::before { content: "\f00d"; }
+/* Production auto-expands on hover/focus (like the nav submenus) only where a
+   real pointer exists; on touch the hover state sticks and would block
+   tap-to-close, so gate it behind hover-capable devices. */
+@media (hover: hover) {
+  .tools:hover .tools-menu,
+  .tools:focus-within .tools-menu { display: block; }
+}
 .tools-item {
   display: flex; align-items: center; gap: 0.6rem; width: 100%;
   padding: 0.5rem 0.7rem; border: 0; background: none; border-radius: var(--radius-sm);
@@ -743,13 +760,20 @@ blockquote p:last-child { margin-bottom: 0; }
 .donation-panel > p { margin: 0; }
 .crypto { background: var(--surface); }
 /* Section sub-headlines double as rounded bordered boxes (prod: 1px #bbb, radius 10px,
-   centered) -- Donate crypto / Other payment options / Help. */
+   centered) -- Donate crypto / Other payment options / Donate via PayPal / Help. */
 .crypto > .headline,
 .other > .headline,
+.paypal > .headline,
 .help > .headline {
   font-weight: 700; text-align: center;
   border: 1px solid var(--border); border-radius: 10px;
   padding: 6px 12px; margin: 0 0 0.8rem; background: var(--surface);
+}
+/* the title is its own line; the "No PayPal account required. (Tor unsupported.)" notes drop
+   to the next line, in a lighter, smaller weight. */
+.paypal > .headline .pp-title { display: block; }
+.paypal > .headline .account-info {
+  display: inline-block; font-weight: 400; font-size: 0.85rem; color: var(--muted);
 }
 .payitem.line {
   display: flex; align-items: center; gap: 0.5rem 0.75rem; flex-wrap: wrap;
@@ -838,6 +862,9 @@ code {
   font-family: var(--font-mono);
   font-size: 0.88em;
 }
+/* an empty inline <code> (a markup/pandoc artifact prod never emits) must not paint as a
+   stray little box; the generator also strips empty/nbsp-only <code> (see sanitize). */
+code:empty { display: none; }
 
 /* ---- tables (self-scrolling: generator emits no wrapper) ---- */
 /* pandoc drops the `class="wikitable"`, so content tables arrive as bare <table>;
@@ -963,6 +990,8 @@ code {
   background: var(--callout, var(--accent)); color: #fff;
   margin-right: 0.5rem; vertical-align: middle; line-height: 1;
 }
+/* a light-coloured (yellow) badge needs DARK text, not the default white (prod: #444). */
+.padded-content-icon.cs-yellow, .padded-content-icon.cs-yellow-light { color: #444; }
 .padded-content-icon.pci-style-circle {
   display: inline-flex; align-items: center; justify-content: center;
   width: 1.9em; height: 1.9em; border-radius: 50%; line-height: 1;
@@ -977,6 +1006,13 @@ code {
 }
 .padded-content-icon.pci-border-thick {
   border: 2px solid color-mix(in srgb, var(--callout, var(--accent)) 55%, transparent);
+}
+/* keyboard keycap (boot keys F2/F7/ESC/NOVO via {{IconSet|keyboard|X}}): a white cap with a
+   dark 1px frame, like prod. pci-style-rounded gives the padding/radius; this adds the frame
+   + the light cap background + dark text (overriding the cs-white callout tint). */
+.padded-content-icon.pci-border {
+  background: var(--bg); color: var(--fg);
+  border: 1px solid var(--fg-soft); box-shadow: 0 1px 0 var(--border);
 }
 .padded-content-icon.pci-shadow { box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.2)); }
 
@@ -1473,11 +1509,17 @@ code {
 /* Border/padding/background live on the WRAPPER, not the img: uniform padding on a
    non-square img skews its border-box ratio vs the intrinsic one (image-aspect-ratio fail). */
 .gallery .thumb {
-  display: inline-block; line-height: 0;
+  display: flex; align-items: center; justify-content: center; line-height: 0;
+  aspect-ratio: 1;   /* square cell: items share one width (gallery `widths=`), so a square
+                        cell gives them one HEIGHT too -> captions align on one baseline (prod
+                        uses fixed mw-gallery-traditional cells for the same reason). */
   border: 1px solid var(--border); border-radius: var(--radius-sm, 4px);
   background: var(--surface); padding: 0.4rem; max-width: 100%; box-sizing: border-box;
 }
-.gallery .thumb img { display: block; max-width: 100%; height: auto; }
+.gallery .thumb img {
+  display: block; max-width: 100%; max-height: 100%; width: auto; height: auto;
+  object-fit: contain;
+}
 .gallery .gallerytext { display: block; margin-top: 0.3rem; text-align: center; line-height: 1.3; }
 .gallery a:hover img { transform: scale(1.1); }
 .justify-left { justify-content: left; }
@@ -1597,7 +1639,7 @@ code {
 }
 .mininav:not(.mn-switcher) li > a {
   display: inline-block; background: #fafafa; color: #3366bb;   /* prod tab colours */
-  padding: 11px 15px; font-size: 17px; text-decoration: none;   /* ~49px tall, matching prod */
+  padding: 9px 15px; font-size: 17px; text-decoration: none;   /* prod Mininav.css chip metrics */
   border-bottom: 4px solid var(--bg);
   white-space: nowrap;   /* prod keeps each chip single-line so they pack 2-per-row */
   transition: background-color 0.3s, border-bottom-color 0.3s;
@@ -1615,6 +1657,11 @@ code {
   width: 25px; height: 25px; object-fit: contain;
 }
 .mininav:not(.mn-switcher) li > img:first-child + a { padding-left: 46px; }
+/* Prod Mininav.css shrinks book-nav chips on narrow screens (<=420px). */
+@media (max-width: 420px) {
+  .mininav:not(.mn-switcher) li > a { font-size: 15px; padding: 6px 10px; }
+  .mininav:not(.mn-switcher) > ul > li { min-height: 40px; }
+}
 /* current-page selflink: bold everywhere (used outside the mininav too). */
 .mw-selflink, a.selflink { font-weight: 700; color: var(--fg); cursor: default; }
 

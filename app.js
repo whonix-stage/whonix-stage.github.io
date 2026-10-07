@@ -418,6 +418,25 @@
     });
   }
 
+  // Fixed bottom stack (consent + stage banners) overlaps the footer, so reserve its
+  // EXACT rendered height as body padding, recomputed on resize and after any dismiss so
+  // the reservation collapses to 0 once every banner is gone (no leftover gap below the
+  // footer). The CSS body:has(.stage-banner) rule is the no-JS fallback -- without JS the
+  // banners are never dismissable, so a fixed reservation is always correct there.
+  function remeasureBottomStack() {
+    var stack = document.querySelector(".bottom-stack");
+    if (stack) document.body.style.paddingBottom = stack.offsetHeight + "px";
+  }
+  function initBottomStackSpacer() {
+    if (!document.querySelector(".bottom-stack")) return;
+    remeasureBottomStack();
+    var raf = 0;
+    window.addEventListener("resize", function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () { raf = 0; remeasureBottomStack(); });
+    });
+  }
+
   // Consent/privacy banner: shown by default (no-JS friendly); dismiss remembers
   // via localStorage (no cookies). TT-safe: hidden attribute + classList only.
   function initConsentBanner() {
@@ -430,6 +449,7 @@
     if (btn) btn.addEventListener("click", function () {
       banner.hidden = true;
       try { localStorage.setItem(LS_LEGAL_ACK, "1"); } catch (err) {}
+      remeasureBottomStack();
     });
   }
 
@@ -445,6 +465,7 @@
     if (btn) btn.addEventListener("click", function () {
       banner.hidden = true;
       try { localStorage.setItem(LS_STAGE, "1"); } catch (err) {}
+      remeasureBottomStack();
     });
   }
 
@@ -916,6 +937,7 @@
     initSearch();
     initConsentBanner();
     initStageBanner();
+    initBottomStackSpacer();
     initSitenotice();
     initFlyin();
     var modals = initModals();
