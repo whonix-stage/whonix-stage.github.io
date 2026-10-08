@@ -739,6 +739,15 @@
           for (var k = 0; k < withId.length; k++) withId[k].removeAttribute("id");
           var cb = clone.querySelector(".expand-table-button");
           if (cb) cb.remove();
+          // cloneNode drops event listeners, so a cloned gallery thumb would keep the
+          // glb-thumb affordance (pointer cursor + role=button) with no working lightbox.
+          // Strip it: the expanded table is a read view, no lightbox needed.
+          var dead = clone.querySelectorAll(".glb-thumb");
+          for (var d = 0; d < dead.length; d++) {
+            dead[d].classList.remove("glb-thumb");
+            dead[d].removeAttribute("tabindex");
+            dead[d].removeAttribute("role");
+          }
           wrap.appendChild(clone);
           content.appendChild(wrap);
           modal.appendChild(content);
@@ -1005,7 +1014,12 @@
           var cap = (textEl && textEl.textContent.trim()) || img.getAttribute("alt") || "";
           (function (idx, imgEl) {
             imgEl.classList.add("glb-thumb");  // CSS cursor affordance
+            imgEl.setAttribute("tabindex", "0");   // keyboard-reachable
+            imgEl.setAttribute("role", "button");
             imgEl.addEventListener("click", function (e) { e.preventDefault(); openAt(idx); });
+            imgEl.addEventListener("keydown", function (e) {
+              if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openAt(idx); }
+            });
           })(items.length, img);
           items.push({
             src: img.currentSrc || img.getAttribute("src") || "",
