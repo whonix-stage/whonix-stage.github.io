@@ -1796,12 +1796,15 @@ code:empty { display: none; }
   display: inline-block;
 }
 .mininav:not(.mn-switcher) > ul {
+  /* flex-wrap, NOT inline-block: inline-block lis baseline-align (a 2-line chip pushes a 1-line
+     one down) and leave a tall dead line-box below the chips (the "broken spacing" bug). Flex
+     aligns the chips at the top and the ul is exactly the chip-row height. */
   list-style: none; margin: 0; padding: 0;
-  display: inline-block; font-size: 0;              /* kill inline-block whitespace gaps */
+  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 5px 3px;
 }
 .mininav:not(.mn-switcher) > ul > li {
-  display: inline-block; margin: 0 3px 5px 0; padding: 0;
-  position: relative; min-height: 50px;   /* prod tab rows are 50px tall */
+  display: flex; margin: 0; padding: 0;    /* gap handles spacing; flex item aligns to the row top */
+  position: relative; min-height: 50px;    /* prod tab rows are 50px tall */
 }
 .mininav:not(.mn-switcher) li > a {
   display: inline-block; background: #fafafa; color: #3366bb;   /* prod tab colours */
