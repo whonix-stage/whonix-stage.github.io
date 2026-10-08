@@ -825,15 +825,37 @@ blockquote.quotation .blockquote-context img.author-image {
   border: 1px solid var(--border); border-radius: 10px;
   padding: 6px 12px; margin: 0 0 0.8rem; background: var(--surface);
 }
-/* the title is its own line; the "No PayPal account required. (Tor unsupported.)" notes drop
-   to the next line, in a lighter, smaller weight. */
-.paypal > .headline .pp-title { display: block; }
-.paypal > .headline .account-info {
-  display: inline-block; font-weight: 400; font-size: 0.85rem; color: var(--muted);
+/* Headline line 1 is the TITLE "Donate via <logo>" (prod) -- NOT the button; the donate action is
+   the button BELOW the box. The PayPal wordmark rides INLINE in the title, sized to the text line
+   (not the 200px panel logo) and baseline-aligned. */
+.paypal > .headline .pp-logo {
+  height: 1.15em; width: auto; vertical-align: -0.2em; max-width: 100%; display: inline;
 }
-/* The note's sub-items are LINKS ("No PayPal account required", "(Tor unsupported.)") and
-   must read as links -- prod distinguishes them by the link colour, not muted plain text. */
-.paypal > .headline a.account-info { color: var(--link); }
+/* The two notes each drop to their OWN line below the title (3 lines total). */
+.paypal > .headline .account-info {
+  display: block; font-weight: 400; font-size: 0.85rem; color: var(--link);
+}
+/* The DONATE button sits in .content, BELOW the box (outside it), centered, and reads as a real
+   filled button (prod's light-blue "DONATE via PayPal"); prod's Once/Monthly/Yearly interval
+   selector is obsolete, so this is the single donate action. */
+/* Space above AND below the button so it never touches the headline box above or the "Other
+   payment options" box below. */
+.paypal > .content { text-align: center; margin: 0.55rem 0 1rem; }
+.paypal > .content .submit {
+  /* PayPal's official ACCESSIBLE blue (#0070BA): WCAG 2.1 AA with white text on the light
+     panel, on-brand without re-carrying the logo (which sits in the headline). */
+  display: inline-block; background: #0070ba; color: #fff; font-weight: 700;
+  padding: 0.6rem 1.6rem; border-radius: 8px; text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.paypal > .content .submit:hover {
+  background: #005a9c; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+/* Other payment options: center the icon row (prod). The prior fix targeted .payitem.symbols
+   (the crypto ERC-20 row), which does not match this markup -- the icons are inline <a><img> in
+   .other > .content. Keep the "show more" expander left-aligned, as prod does. */
+.other > .content { text-align: center; }
+.other > .content > .more { text-align: left; }
 .payitem.line {
   display: flex; align-items: center; gap: 0.5rem 0.75rem; flex-wrap: wrap;
   padding: 0.55rem 0.85rem; border-bottom: 1px solid var(--border-soft); font-size: 0;
@@ -1343,9 +1365,11 @@ code:empty { display: none; }
   display: inline-flex; align-items: center; justify-content: center;
   background: #fff; border-radius: 8px; padding: 8px 10px;
 }
-/* size by equal HEIGHT (the GNU 100x98 and OSI 100x120 badges differ in aspect, so a fixed
-   WIDTH gave them different heights); width auto keeps each badge's ratio. */
-.footer-badges img { height: 56px; width: auto; display: block; }
+/* Equal 56x56 BOX for both badges so they read as the same size. The GNU (100x98, ~square)
+   and OSI (100x120, tall) logos differ in aspect, so constraining a single axis makes the other
+   unequal (fixed width -> unequal height; fixed height -> GNU wider than OSI). object-fit:contain
+   fits each logo inside the shared box, aspect preserved, no distortion. */
+.footer-badges img { width: 56px; height: 56px; object-fit: contain; display: block; }
 .footer-badges a:hover { opacity: 0.85; }
 .footer-social-icons {
   display: flex; flex-wrap: wrap; gap: 0.55rem;
@@ -1806,19 +1830,30 @@ code:empty { display: none; }
   display: flex; margin: 0; padding: 0;    /* gap handles spacing; flex item aligns to the row top */
   position: relative; min-height: 50px;    /* prod tab rows are 50px tall */
 }
-.mininav:not(.mn-switcher) li > a {
+/* Descendant `li a` (not `li > a`): one book-nav template ({{tech_intro_mininav}}) wraps an
+   anchor in a <p>, so a direct-child selector left it unstyled (misaligned box). */
+.mininav:not(.mn-switcher) li a {
   display: inline-block; background: #fafafa; color: #3366bb;   /* prod tab colours */
   padding: 9px 15px; font-size: 17px; text-decoration: none;   /* prod Mininav.css chip metrics */
   border-bottom: 4px solid var(--bg);
   white-space: nowrap;   /* prod keeps each chip single-line so they pack 2-per-row */
   transition: background-color 0.3s, border-bottom-color 0.3s;
 }
-.mininav:not(.mn-switcher) li > a:hover,
-.mininav:not(.mn-switcher) li > a.selflink,
-.mininav:not(.mn-switcher) li > a[aria-current="page"] {
+.mininav:not(.mn-switcher) li a:hover,
+.mininav:not(.mn-switcher) li a.selflink,
+.mininav:not(.mn-switcher) li a[aria-current="page"] {
   /* prod marks the current book tab with a soft periwinkle underline (#8899DD). */
   background: var(--bg); border-bottom-color: #8899dd;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05); font-weight: normal;
+}
+/* Same template emits a stray <hr> and a <p> wrapper around one anchor, and a cross-wiki item
+   renders as bare text (no anchor) on this build. Normalize so EVERY item is a clean chip like
+   prod, instead of the misaligned boxes + stray rule the raw markup produced. */
+.mininav:not(.mn-switcher) li > p { margin: 0; display: contents; }
+.mininav:not(.mn-switcher) li hr { display: none; }
+.mininav:not(.mn-switcher) li:not(:has(a)) {
+  align-items: center; background: #fafafa; color: #3366bb;
+  padding: 9px 15px; font-size: 17px; border-bottom: 4px solid var(--bg); white-space: nowrap;
 }
 /* leading icon forced into a 25x25 gutter (overrides the markup width); label cleared. */
 .mininav:not(.mn-switcher) li > img:first-child {
@@ -1831,7 +1866,11 @@ code:empty { display: none; }
    "Transparency, Sponsors / ...") is wider than the phone viewport and, kept on one
    line, pushes the whole page into horizontal scroll -- so wrap it instead. */
 @media (max-width: 420px) {
-  .mininav:not(.mn-switcher) li > a {
+  /* Descendant `li a` + the bare-text chip, matching the desktop rules above: a <p>-wrapped
+     anchor and an anchor-less item must ALSO relax white-space here, or a long label stays on
+     one line and scrolls the page horizontally on a phone (the bug this override prevents). */
+  .mininav:not(.mn-switcher) li a,
+  .mininav:not(.mn-switcher) li:not(:has(a)) {
     font-size: 15px; padding: 6px 10px;
     white-space: normal; max-width: 100%;
   }
