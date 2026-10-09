@@ -673,11 +673,11 @@ body.site-whonix .site-logo-img { width: auto; }
    a subtle near-white panel, borderless, 28px. The generator synthesizes an
    <h1 id="firstHeading" class="first-heading"> for a normal page (see page.py). */
 #firstHeading, .first-heading {
-  background: #fafafa;
+  background: var(--surface);
   max-width: 100%;
   padding: 10px 17px 11px;
   margin: 25px 0 25px -2px;
-  color: #444;
+  color: var(--heading);
   border: none;
   position: relative;
   font-size: 28px;
@@ -730,12 +730,12 @@ blockquote p:last-child { margin-bottom: 0; }
   font-size: 0.9rem;
   font-style: normal;
 }
-/* Template:Quotation card (prod blockquote.quotation): a white quote card with an accent left
-   bar + soft shadow, distinct from the generic indented blockquote. Light-grounded (prod is
-   light-only) so it stays legible in dark mode, like the share card. The prod :before quote-mark
-   is an external PNG -- dropped under our no-external-image / monochrome divergence. */
+/* Template:Quotation card (prod blockquote.quotation): a quote card with an accent left bar +
+   soft shadow, distinct from the generic indented blockquote. Themed surface/fg so it reads as a
+   content card in BOTH themes (dark mode too), not a jarring white box. The prod :before
+   quote-mark is an external PNG -- dropped under our no-external-image / monochrome divergence. */
 blockquote.quotation {
-  background: #fff; color: #333;
+  background: var(--surface); color: var(--fg);
   border: none; border-left: 6px solid var(--link);
   box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.07);
   padding: 18px 25px; border-radius: 2px;
@@ -743,11 +743,11 @@ blockquote.quotation {
 blockquote.quotation p:last-child { margin-bottom: 0; }
 blockquote.quotation .blockquote-context {
   position: relative; display: block; padding-left: 40px;
-  margin: 20px 0 10px; color: #000; font-size: 0.9rem; font-style: normal;
+  margin: 20px 0 10px; color: var(--fg); font-size: 0.9rem; font-style: normal;
 }
 blockquote.quotation .blockquote-context::before {
   content: ""; position: absolute; left: 0; top: 50%;
-  width: 30px; height: 0; border-top: 2px solid #000;
+  width: 30px; height: 0; border-top: 2px solid var(--fg-soft);
 }
 blockquote.quotation .blockquote-context img.author-image {
   height: 40px; width: auto; margin-right: 8px;
@@ -775,25 +775,25 @@ blockquote.quotation .blockquote-context img.author-image {
    data-code attribute; app.js enriches it into the .cbutton/.tooltip2/.viewport/.code
    structure these rules target. ---- */
 .code-select {
-  display: inline-block; background: #f6f6f6; border-radius: 7px;
-  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.05); border: 1px solid #e3e3e3;
+  display: inline-block; background: var(--surface); border-radius: 7px;
+  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.05); border: 1px solid var(--border);
   padding: 5px 13px 0 40px; position: relative; max-width: 100%; vertical-align: middle;
   min-height: 31px; overflow: auto;
-  font-family: var(--font-mono); font-size: 13px; color: #0054a8; line-height: 1.6em;
+  font-family: var(--font-mono); font-size: 13px; color: var(--link); line-height: 1.6em;
   white-space: pre;
 }
 .code-select, .code-select > *:not(.cbutton) { cursor: copy; }
-.code-select:hover { border-color: #d8d8d8; background: #f0f0f0; }
+.code-select:hover { border-color: var(--border-soft); background: var(--surface-2); }
 .code-select.js-fully-loaded { overflow: visible; padding-left: 38px; white-space: unset; }
 .code-select .tooltip2 {
-  position: absolute; top: -39px; left: 6px; background: white; color: #337cd9;
-  border: 1px solid #337cd9; padding: 6px 10px; border-radius: 6px; z-index: 1010;
+  position: absolute; top: -39px; left: 6px; background: var(--surface); color: var(--link);
+  border: 1px solid var(--link); padding: 6px 10px; border-radius: 6px; z-index: 1010;
   font-weight: bold; font-size: 14px; display: none; white-space: nowrap;
   font-family: Courier, monospace;
 }
 .code-select .tooltip2::after {
   content: " "; position: absolute; top: 100%; left: 7px; border-width: 7px;
-  border-style: solid; border-color: #337cd9 transparent transparent transparent;
+  border-style: solid; border-color: var(--link) transparent transparent transparent;
 }
 .code-select .tooltip2 .copied { display: none; }
 .code-select .tooltip2 .hover { display: inline-block; }
@@ -856,6 +856,10 @@ blockquote.quotation .blockquote-context img.author-image {
    .other > .content. Keep the "show more" expander left-aligned, as prod does. */
 .other > .content { text-align: center; }
 .other > .content > .more { text-align: left; }
+/* #161: the "show more" label stays left (above), but its EXPANDED icon row must center like
+   the always-visible icons above it (.content). More specific than the .more rule, so it wins
+   for .more-content without disturbing the toggle label. */
+.other > .content > .more > .more-content { text-align: center; }
 .payitem.line {
   display: flex; align-items: center; gap: 0.5rem 0.75rem; flex-wrap: wrap;
   padding: 0.55rem 0.85rem; border-bottom: 1px solid var(--border-soft); font-size: 0;
@@ -1500,6 +1504,15 @@ code:empty { display: none; }
 /* section-heading permalink + share menu (production ShareTooltip): a small share
    icon linking to the section #id, with a hover menu holding the copyable direct URL
    (app.js adds a Copy button to the inner .code-select). CSP-safe: pure-CSS hover. */
+/* #163 per-section [edit] source link (prod mw-editsection): a small, muted, CSP-safe plain
+   <a> at the end of the heading line, beside the share icon. Themed -> dark-mode safe. */
+.mw-editsection {
+  font-size: 0.62em; font-weight: normal; margin-left: 0.5rem;
+  vertical-align: middle; white-space: nowrap; user-select: none;
+}
+.mw-editsection, .mw-editsection-bracket { color: var(--muted); }
+.mw-editsection a { color: var(--muted); text-decoration: none; padding: 0 0.15em; }
+.mw-editsection a:hover { color: var(--link); text-decoration: underline; }
 .share-tooltip { position: relative; display: inline-block; margin-left: 0.45rem;
   font-size: 0.72em; vertical-align: middle; }
 .share-tooltip .headline-anchor { color: var(--muted); }
@@ -1561,11 +1574,11 @@ code:empty { display: none; }
 .wiki-content .float-right table:not(.toc):not(.storage-table) td {
   border: none; padding: 10px 15px; vertical-align: middle;
 }
-.wiki-content .float-right table:not(.toc):not(.storage-table) td { background: #ebebeb; }
+.wiki-content .float-right table:not(.toc):not(.storage-table) td { background: var(--surface); }
 /* header row + label column: shaded, CENTERED and BOLD (prod), value cells stay left/regular */
 .wiki-content .float-right table:not(.toc):not(.storage-table) th,
 .wiki-content .float-right table:not(.toc):not(.storage-table) td:first-child {
-  background: #dfdfdf; text-align: center; font-weight: 700;
+  background: var(--surface-2); text-align: center; font-weight: 700;
 }
 [hidden] { display: none !important; }
 
@@ -1702,14 +1715,14 @@ code:empty { display: none; }
 /* thumb-gallery-style: the framed "See Also" cards */
 .gallery.thumb-gallery-style { margin: 20px 0; gap: 10px; }
 .gallery.thumb-gallery-style .gallerybox {
-  justify-content: space-between; border: 1px solid #c8ccd1; background-color: #f8f9fa;
+  justify-content: space-between; border: 1px solid var(--border); background-color: var(--surface);
   border-radius: 8px; box-shadow: 3px 3px 5px rgb(0 0 0 / 0.1); padding: 0;
 }
 .gallery.thumb-gallery-style.gallery-white .gallerybox { background-color: white; }
 .gallery.thumb-gallery-style .gallerybox > .thumb { margin-left: -2px; }
 .gallery.thumb-gallery-style .gallerybox > .thumb img { border: none; }
 .gallery.thumb-gallery-style .gallerytext {
-  padding: 0 6px 5px; text-align: center; color: #707070; font-style: italic;
+  padding: 0 6px 5px; text-align: center; color: var(--muted); font-style: italic;
 }
 @media (max-width: 500px) {
   .gallery.thumb-gallery-style .gallerybox { display: block; width: 100%; }
@@ -1833,7 +1846,7 @@ code:empty { display: none; }
 /* Descendant `li a` (not `li > a`): one book-nav template ({{tech_intro_mininav}}) wraps an
    anchor in a <p>, so a direct-child selector left it unstyled (misaligned box). */
 .mininav:not(.mn-switcher) li a {
-  display: inline-block; background: #fafafa; color: #3366bb;   /* prod tab colours */
+  display: inline-block; background: var(--surface); color: var(--link);   /* themed prod tab colours */
   padding: 9px 15px; font-size: 17px; text-decoration: none;   /* prod Mininav.css chip metrics */
   border-bottom: 4px solid var(--bg);
   white-space: nowrap;   /* prod keeps each chip single-line so they pack 2-per-row */
@@ -1852,7 +1865,7 @@ code:empty { display: none; }
 .mininav:not(.mn-switcher) li > p { margin: 0; display: contents; }
 .mininav:not(.mn-switcher) li hr { display: none; }
 .mininav:not(.mn-switcher) li:not(:has(a)) {
-  align-items: center; background: #fafafa; color: #3366bb;
+  align-items: center; background: var(--surface); color: var(--link);
   padding: 9px 15px; font-size: 17px; border-bottom: 4px solid var(--bg); white-space: nowrap;
 }
 /* leading icon forced into a 25x25 gutter (overrides the markup width); label cleared. */
@@ -2218,7 +2231,7 @@ body.mini-modal-active { overflow: hidden; }
 }
 .wiki-content table caption .expand-table-button {
   position: absolute; left: 0.3em; top: 0.3em;
-  border: 0; border-radius: 7px; background: #dfdfdf; color: #111; cursor: pointer;
+  border: 0; border-radius: 7px; background: var(--surface-2); color: var(--fg); cursor: pointer;
   font: inherit; letter-spacing: 1px; padding: 4px 10px; margin: 0;
 }
 @media (max-width: 560px) {
@@ -2226,7 +2239,7 @@ body.mini-modal-active { overflow: hidden; }
   .wiki-content table caption { padding: 2.4em 0.5em 0.35em; }
   .wiki-content table caption .expand-table-button { left: 50%; transform: translateX(-50%); }
 }
-.wiki-content table caption .expand-table-button:hover { background: #d8d8d8; color: #000; }
+.wiki-content table caption .expand-table-button:hover { background: var(--border); color: var(--fg); }
 .table-expand-modal .content { max-width: 95vw; }
 /* strip wiki-content's reading-column cap so the cloned table uses the full modal width */
 .table-expand-modal .table-wrapper { overflow-x: auto; max-width: none; margin: 0; padding: 0; }

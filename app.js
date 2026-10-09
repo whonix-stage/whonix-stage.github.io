@@ -253,12 +253,13 @@
           a.href = hid ? ("#" + hid) : "#";
           var img = sec.querySelector(".tcc-image img");
           if (img) a.appendChild(img);
-          // Label from the title text ONLY -- a section title is also a real heading, so
-          // it carries an injected .share-tooltip (permalink menu); strip it first.
+          // Label from the title text ONLY -- a section title is also a real heading, so it
+          // carries BOTH injected affordances (.share-tooltip permalink menu + .mw-editsection
+          // [edit] link); strip both, else textContent yields "Windows[edit]".
           var label = "Tab " + (j + 1);
           if (title) {
             var tclone = title.cloneNode(true);
-            var strip = tclone.querySelectorAll(".share-tooltip");
+            var strip = tclone.querySelectorAll(".share-tooltip, .mw-editsection");
             for (var s = 0; s < strip.length; s++) strip[s].parentNode.removeChild(strip[s]);
             var t = tclone.textContent.trim();
             if (t) label = t;
